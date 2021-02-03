@@ -32,7 +32,7 @@ export class NavService implements OnDestroy {
 
 	// Language
 	public language: boolean = false;
-	
+
 	// Mega Menu
 	public megaMenu: boolean = false;
 	public levelMenu: boolean = false;
@@ -61,7 +61,7 @@ export class NavService implements OnDestroy {
 			}
 		});
 		if(window.innerWidth < 991) { // Detect Route change sidebar close
-			this.router.events.subscribe(event => { 
+			this.router.events.subscribe(event => {
 				this.collapseSidebar = true;
 				this.megaMenu = false;
 				this.levelMenu = false;
@@ -87,7 +87,10 @@ export class NavService implements OnDestroy {
 				{ path: '/sample-page', title: 'Sample 1', type: 'link' },
 				{ path: 'javascript:void(0);', title: 'Sample 2', type: 'extLink' }
 			]
-		},
+    },
+    {
+			title: 'tetapan', path: '/main/menu-setting', icon: 'settings', type: 'link'
+    }
 	];
 
 	MEGAMENUITEMS: Menu[] = [
