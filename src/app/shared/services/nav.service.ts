@@ -82,11 +82,8 @@ export class NavService implements OnDestroy {
 		{
 			headTitle1: 'Sample', headTitle2: 'Ready Sample Page.',
 		},
-		{
-			title: 'Sample Page', icon: 'home', type: 'sub', badgeType: 'success', badgeValue: '2', active: true, children: [
-				{ path: '/sample-page', title: 'Sample 1', type: 'link' },
-				{ path: 'javascript:void(0);', title: 'Sample 2', type: 'extLink' }
-			]
+    {
+			title: 'Muka Halaman', path: '/main/dashboard', icon: 'home', type: 'link'
     },
     {
 			title: 'tetapan', path: '/main/menu-setting', icon: 'settings', type: 'link'
