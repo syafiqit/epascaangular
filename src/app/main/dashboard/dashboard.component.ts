@@ -5,6 +5,7 @@ import am4geodata_data_countries2 from "@amcharts/amcharts4-geodata/data/countri
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import * as am4charts from "@amcharts/amcharts4/charts";
 am4core.useTheme(am4themes_animated);
+import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,9 +24,13 @@ export class DashboardComponent implements OnInit {
     { "title": "Jumlah Lain-Lain Bantuan", "total": "3,116 bantuan", "title2": "Kos Bantuan", "total_kos": "31,000,000.00" },
 
   ]
+
+  modelFooter: NgbDateStruct;
+  today = this.calendar.getToday();
+
   public isCollapsed = false;
 
-  constructor() { }
+  constructor(private calendar: NgbCalendar) { }
 
   ngOnInit(): void {
   }
