@@ -4,22 +4,28 @@ import { ContentComponent } from "./shared/components/layout/content/content.com
 import { FullComponent } from "./shared/components/layout/full/full.component";
 import { full } from "./shared/routes/full.routes";
 import { content } from "./shared/routes/routes";
+import { LoginPageComponent } from './auth/login-page/login-page.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { RegisterPageComponent } from './auth/register-page/register-page.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'sample-page',
-    pathMatch: 'full'
-  },
   {
     path: '',
     component: ContentComponent,
     children: content
   },
   {
-    path: '**',
-    redirectTo: ''
-  }
+    path: 'auth/login-page',
+    component: LoginPageComponent
+  },
+  {
+    path: 'auth/forgot-password',
+    component: ForgotPasswordComponent
+  },
+  {
+    path: 'auth/register-page',
+    component: RegisterPageComponent
+  },
 ];
 
 @NgModule({
