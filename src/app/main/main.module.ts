@@ -10,12 +10,12 @@ import { AddUserComponent } from './user-management/add-user/add-user.component'
 
 @NgModule({
   declarations: [
-    
-    MenuSettingComponent, 
+
+    MenuSettingComponent,
     DashboardComponent,
     ListUserComponent,
     AddUserComponent
-  
+
   ],
   imports: [
     CommonModule,

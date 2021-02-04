@@ -1,0 +1,114 @@
+<app-breadcrumb [title]="'Pengguna'"  [items]="['Akaun']" [active_item]="'Pengguna'"></app-breadcrumb>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <form class="form theme-form">
+          <div class="row">
+            <div class="col-lg-3">
+              <div class="row">
+                <img class="img-fluid for-light" src="assets/images/dashboard/bg.jpg" alt="looginpage">
+              </div>
+              <div class="row">
+                <div class="form-group">
+                  <input class="form-control" type="file">
+                </div>
+              </div>
+
+            </div>
+            <div class="col-lg-9">
+              <div class="row mb-3">
+                <div class="col-lg-6">
+                  <label><b>Status :</b> Aktif</label>
+                </div>
+
+                <div class="col-lg-6">
+                  <label><b>Peranan Pengguna : </b>Administrator</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">Nama</label>
+                    <input class="form-control" id="nama_penuh" type="text" placeholder="Nama">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">No. K/P</label>
+                    <input class="form-control" id="email" type="email" placeholder="No. K/P">
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">Jawatan</label>
+                    <input class="form-control" id="no_tel" type="text" placeholder="Jawatan">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">Kementerian</label>
+                    <input class="form-control" id="no_tel2" type="text" placeholder="Kementerian">
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">Agensi</label>
+                    <input class="form-control" id="no_tel2" type="text" placeholder="Agensi">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">Telefon Pejabat</label>
+                    <input class="form-control" id="no_tel2" type="text" placeholder="Telefon Pejabat">
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">Telefon Bimbit</label>
+                    <input class="form-control" id="no_tel2" type="text" placeholder="Telefon Bimbit">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">Fax</label>
+                    <input class="form-control" id="no_tel2" type="text" placeholder="Fax">
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">Email</label>
+                    <input class="form-control" id="no_tel2" type="text" placeholder="Email">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row justify-content-end">
+                  <button class="btn btn-light mr-2" type="button" [routerLink]="['/menu/account-information']">Kembali</button>
+                  <button class="btn btn-primary" type="button">Simpan</button>
+              </div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
