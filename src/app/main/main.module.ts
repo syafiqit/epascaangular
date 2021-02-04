@@ -9,6 +9,7 @@ import { ListUserComponent } from './user-management/list-user/list-user.compone
 import { AddUserComponent } from './user-management/add-user/add-user.component';
 import { ChangePasswordComponent } from './account/change-password/change-password.component';
 import { UserComponent } from './account/user/user.component';
+import { ReferenceComponent } from './account/reference/reference.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { UserComponent } from './account/user/user.component';
     ListUserComponent,
     AddUserComponent,
     ChangePasswordComponent,
-    UserComponent
+    UserComponent,
+    ReferenceComponent
   
   ],
   imports: [

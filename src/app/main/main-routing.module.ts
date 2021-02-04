@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ListUserComponent } from './user-management/list-user/list-user.component';
 import { AddUserComponent } from './user-management/add-user/add-user.component';
 import { UserComponent } from './account/user/user.component';
+import { ReferenceComponent } from './account/reference/reference.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,10 @@ const routes: Routes = [
       {
         path: 'account-user',
         component: UserComponent
+      },
+      {
+        path: 'reference',
+        component: ReferenceComponent
       },
     ]
   }
