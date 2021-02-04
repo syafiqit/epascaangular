@@ -23,8 +23,8 @@ import { EditHelpDonationComponent } from './menu-setting/help-donation/edit-hel
 
 @NgModule({
   declarations: [
-    
-    MenuSettingComponent, 
+
+    MenuSettingComponent,
     DashboardComponent,
     ListUserComponent,
     AddUserComponent,
@@ -40,8 +40,9 @@ import { EditHelpDonationComponent } from './menu-setting/help-donation/edit-hel
     AddHouseProjectOwnerComponent,
     EditHouseProjectOwnerComponent,
     HelpDonationComponent,
-    EditHelpDonationComponent
-  
+    EditHelpDonationComponent,
+    AddUserComponent
+
   ],
   imports: [
     CommonModule,
