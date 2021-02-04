@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ListUserComponent } from './user-management/list-user/list-user.component';
 import { AddUserComponent } from './user-management/add-user/add-user.component';
 import { ListDisasterComponent } from './menu-setting/disaster/list-disaster/list-disaster.component';
+import { ListMinistryComponent } from './menu-setting/ministry/list-ministry/list-ministry.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,10 @@ const routes: Routes = [
       {
         path: 'list-disaster',
         component: ListDisasterComponent
+      },
+      {
+        path: 'list-ministry',
+        component: ListMinistryComponent
       },
     ]
   }

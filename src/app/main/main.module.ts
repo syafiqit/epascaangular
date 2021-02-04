@@ -9,6 +9,8 @@ import { ListUserComponent } from './user-management/list-user/list-user.compone
 import { AddUserComponent } from './user-management/add-user/add-user.component';
 import { ListDisasterComponent } from './menu-setting/disaster/list-disaster/list-disaster.component';
 import { AddDisasterComponent } from './menu-setting/disaster/add-disaster/add-disaster.component';
+import { ListMinistryComponent } from './menu-setting/ministry/list-ministry/list-ministry.component';
+import { AddMinistryComponent } from './menu-setting/ministry/add-ministry/add-ministry.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { AddDisasterComponent } from './menu-setting/disaster/add-disaster/add-d
     ListUserComponent,
     AddUserComponent,
     ListDisasterComponent,
-    AddDisasterComponent
+    AddDisasterComponent,
+    ListMinistryComponent,
+    AddMinistryComponent
   
   ],
   imports: [
