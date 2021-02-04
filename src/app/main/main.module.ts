@@ -21,8 +21,8 @@ import { EditVictimComponent } from './menu-setting/setting-victim/edit-victim/e
 
 @NgModule({
   declarations: [
-    
-    MenuSettingComponent, 
+
+    MenuSettingComponent,
     DashboardComponent,
     ListUserComponent,
     AddUserComponent,
@@ -36,7 +36,7 @@ import { EditVictimComponent } from './menu-setting/setting-victim/edit-victim/e
     EditFundsComponent,
     ListVictimComponent,
     EditVictimComponent
-  
+
   ],
   imports: [
     CommonModule,
