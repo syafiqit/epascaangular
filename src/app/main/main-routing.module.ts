@@ -9,6 +9,11 @@ import { ExecutorComponent } from './menu-setting/executor/executor.component';
 import { EntrepreneurLoanComponent } from './menu-setting/entrepreneur-loan/entrepreneur-loan.component';
 import { HouseProjectOwnerComponent } from './menu-setting/house-project-owner/house-project-owner.component';
 import { HelpDonationComponent } from './menu-setting/help-donation/help-donation.component';
+import { ListProjectOwnerComponent } from './menu-setting/setting-project-owner/list-project-owner/list-project-owner.component';
+import { ListDistrictComponent } from './menu-setting/setting-district/list-district/list-district.component';
+import { ListDamageComponent } from './menu-setting/setting-damage/list-damage/list-damage.component';
+import { ListFundsComponent } from './menu-setting/setting-funds/list-funds/list-funds.component';
+import { ListVictimComponent } from './menu-setting/setting-victim/list-victim/list-victim.component';
 
 const routes: Routes = [
   {
@@ -49,6 +54,26 @@ const routes: Routes = [
       {
         path: 'add-user',
         component: AddUserComponent
+      },
+      {
+        path: 'list-project-owner',
+        component: ListProjectOwnerComponent
+      },
+      {
+        path: 'list-district',
+        component: ListDistrictComponent
+      },
+      {
+        path: 'list-damage',
+        component: ListDamageComponent
+      },
+      {
+        path: 'list-funds',
+        component: ListFundsComponent
+      },
+      {
+        path: 'list-victim',
+        component: ListVictimComponent
       },
     ]
   }
