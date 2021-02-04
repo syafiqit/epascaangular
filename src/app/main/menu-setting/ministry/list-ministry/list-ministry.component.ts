@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-
+import { AddMinistryComponent } from '../add-ministry/add-ministry.component';
 @Component({
   selector: 'app-list-ministry',
   templateUrl: './list-ministry.component.html',
@@ -26,6 +26,10 @@ export class ListMinistryComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  addMinistryModal() {
+    this.modalService.open(AddMinistryComponent, { size: 'lg' });
   }
 
 }
