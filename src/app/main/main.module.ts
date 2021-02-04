@@ -8,6 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ListUserComponent } from './user-management/list-user/list-user.component';
 import { AddUserComponent } from './user-management/add-user/add-user.component';
 import { ChangePasswordComponent } from './account/change-password/change-password.component';
+import { UserComponent } from './account/user/user.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ChangePasswordComponent } from './account/change-password/change-passwo
     DashboardComponent,
     ListUserComponent,
     AddUserComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    UserComponent
   
   ],
   imports: [
