@@ -7,6 +7,14 @@ import { MenuSettingComponent } from './menu-setting/menu-setting.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ListUserComponent } from './user-management/list-user/list-user.component';
 import { AddUserComponent } from './user-management/add-user/add-user.component';
+import { ListDisasterComponent } from './menu-setting/disaster/list-disaster/list-disaster.component';
+import { AddDisasterComponent } from './menu-setting/disaster/add-disaster/add-disaster.component';
+import { ListMinistryComponent } from './menu-setting/ministry/list-ministry/list-ministry.component';
+import { AddMinistryComponent } from './menu-setting/ministry/add-ministry/add-ministry.component';
+import { ChangePasswordComponent } from './account/change-password/change-password.component';
+import { UserComponent } from './account/user/user.component';
+import { ReferenceComponent } from './account/reference/reference.component';
+import { AddSampleHouseComponent } from './account/reference/add-sample-house/add-sample-house.component';
 import { AgencyComponent } from './menu-setting/agency/agency.component';
 import { AddAgencyComponent } from './menu-setting/agency/add-agency/add-agency.component';
 import { EditAgencyComponent } from './menu-setting/agency/edit-agency/edit-agency.component';
@@ -39,6 +47,14 @@ import { EditVictimComponent } from './menu-setting/setting-victim/edit-victim/e
     DashboardComponent,
     ListUserComponent,
     AddUserComponent,
+    ListDisasterComponent,
+    AddDisasterComponent,
+    ListMinistryComponent,
+    AddMinistryComponent,
+    ChangePasswordComponent,
+    UserComponent,
+    ReferenceComponent,
+    AddSampleHouseComponent,
     AgencyComponent,
     AddAgencyComponent,
     EditAgencyComponent,

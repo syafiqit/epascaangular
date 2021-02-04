@@ -4,6 +4,11 @@ import { MenuSettingComponent } from './menu-setting/menu-setting.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ListUserComponent } from './user-management/list-user/list-user.component';
 import { AddUserComponent } from './user-management/add-user/add-user.component';
+import { ListDisasterComponent } from './menu-setting/disaster/list-disaster/list-disaster.component';
+import { ListMinistryComponent } from './menu-setting/ministry/list-ministry/list-ministry.component';
+import { UserComponent } from './account/user/user.component';
+import { ReferenceComponent } from './account/reference/reference.component';
+import { AddSampleHouseComponent } from './account/reference/add-sample-house/add-sample-house.component';
 import { AgencyComponent } from './menu-setting/agency/agency.component';
 import { ExecutorComponent } from './menu-setting/executor/executor.component';
 import { EntrepreneurLoanComponent } from './menu-setting/entrepreneur-loan/entrepreneur-loan.component';
@@ -54,6 +59,26 @@ const routes: Routes = [
       {
         path: 'add-user',
         component: AddUserComponent
+      },
+      {
+        path: 'list-disaster',
+        component: ListDisasterComponent
+      },
+      {
+        path: 'list-ministry',
+        component: ListMinistryComponent
+      },
+      {
+        path: 'account-user',
+        component: UserComponent
+      },
+      {
+        path: 'reference',
+        component: ReferenceComponent
+      },
+      {
+        path: 'sample-house',
+        component: AddSampleHouseComponent
       },
       {
         path: 'list-project-owner',
