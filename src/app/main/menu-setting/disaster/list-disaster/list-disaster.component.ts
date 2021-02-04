@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { AddDisasterComponent } from '../add-disaster/add-disaster.component';
 
 @Component({
   selector: 'app-list-disaster',
@@ -26,6 +27,10 @@ export class ListDisasterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  addDisasterModal() {
+    this.modalService.open(AddDisasterComponent, { size: 'lg' });
   }
 
 }

@@ -1,1 +1,50 @@
-<p>add-disaster works!</p>
+<div class="modal-header">
+  <h5 class="modal-title">Tambah Maklumat Bencana Di Alami Mangsa</h5>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form class="form theme-form">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Kejadian Bencana</label>
+          <input class="form-control" id="alamat_1" type="text" placeholder="Kejadian Bencana">
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <form class="form-inline custom-datepicker custom-datepicker-dropdown">
+          <div class="form-group mb-0">
+            <label for="exampleFormControlInput1">Tarikh Bencana</label>
+            <div class="input-group mt-2">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelFooter" ngbDatepicker
+                [footerTemplate]="footerTemplate" #f="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="btn calendar" (click)="f.toggle()" type="button"><i class="fa fa-calendar"></i></button>
+              </div>
+            </div>
+          </div>
+        </form>
+        <ng-template #footerTemplate>
+          <hr class="my-0">
+          <button class="btn btn-primary btn-sm m-2 float-left" (click)="model = today; f.close()">Today</button>
+          <button class="btn btn-secondary btn-sm m-2 float-right" (click)="f.close()">Close</button>
+        </ng-template>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <label for="exampleFormControlInput1">Catatan</label>
+        <textarea class="form-control" id="reason" required="" placeholder="Catatan..."></textarea>
+      </div>
+    </div>
+
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
+  <button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Simpan</button>
+</div>
