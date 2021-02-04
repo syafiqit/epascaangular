@@ -7,7 +7,7 @@
           <div class="card-body file-manager">
             <ul class="files">
               <a (click)="test()">
-              <li class="file-box">
+              <li class="file-box mr-2">
                 <div class="file-top"> <i class="fa fa-file-text-o txt-info"></i><i
                     class="fa fa-ellipsis-v f-14 ellips"></i></div>
                 <div class="file-bottom">
@@ -15,13 +15,15 @@
                 </div>
               </li>
               </a>
+              <a [routerLink]="['/main/sample-house']">
               <li class="file-box">
                 <div class="file-top"> <i class="fa fa-file-image-o txt-primary"></i><i
                     class="fa fa-ellipsis-v f-14 ellips"></i></div>
                 <div class="file-bottom">
-                  <h6>Sample Rumah</h6>
+                  <h6 style="color: black;">Contoh Rumah</h6>
                 </div>
               </li>
+              </a>
             </ul>
 
           </div>

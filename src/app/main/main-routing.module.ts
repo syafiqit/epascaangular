@@ -6,6 +6,7 @@ import { ListUserComponent } from './user-management/list-user/list-user.compone
 import { AddUserComponent } from './user-management/add-user/add-user.component';
 import { UserComponent } from './account/user/user.component';
 import { ReferenceComponent } from './account/reference/reference.component';
+import { AddSampleHouseComponent } from './account/reference/add-sample-house/add-sample-house.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,10 @@ const routes: Routes = [
       {
         path: 'reference',
         component: ReferenceComponent
+      },
+      {
+        path: 'sample-house',
+        component: AddSampleHouseComponent
       },
     ]
   }
