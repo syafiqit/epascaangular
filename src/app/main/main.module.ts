@@ -30,8 +30,7 @@ import { AddSampleHouseComponent } from './account/reference/add-sample-house/ad
     ChangePasswordComponent,
     UserComponent,
     ReferenceComponent,
-    AddSampleHouseComponent
-
+    AddSampleHouseComponent,
   ],
   imports: [
     CommonModule,
