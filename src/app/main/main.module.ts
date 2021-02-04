@@ -7,23 +7,15 @@ import { MenuSettingComponent } from './menu-setting/menu-setting.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ListUserComponent } from './user-management/list-user/list-user.component';
 import { AddUserComponent } from './user-management/add-user/add-user.component';
-import { ChangePasswordComponent } from './account/change-password/change-password.component';
-import { UserComponent } from './account/user/user.component';
-import { ReferenceComponent } from './account/reference/reference.component';
-import { AddSampleHouseComponent } from './account/reference/add-sample-house/add-sample-house.component';
 
 @NgModule({
   declarations: [
-    
-    MenuSettingComponent, 
+
+    MenuSettingComponent,
     DashboardComponent,
     ListUserComponent,
     AddUserComponent,
-    ChangePasswordComponent,
-    UserComponent,
-    ReferenceComponent,
-    AddSampleHouseComponent
-  
+
   ],
   imports: [
     CommonModule,

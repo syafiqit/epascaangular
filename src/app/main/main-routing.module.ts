@@ -4,9 +4,6 @@ import { MenuSettingComponent } from './menu-setting/menu-setting.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ListUserComponent } from './user-management/list-user/list-user.component';
 import { AddUserComponent } from './user-management/add-user/add-user.component';
-import { UserComponent } from './account/user/user.component';
-import { ReferenceComponent } from './account/reference/reference.component';
-import { AddSampleHouseComponent } from './account/reference/add-sample-house/add-sample-house.component';
 
 const routes: Routes = [
   {
@@ -27,18 +24,6 @@ const routes: Routes = [
       {
         path: 'add-user',
         component: AddUserComponent
-      },
-      {
-        path: 'account-user',
-        component: UserComponent
-      },
-      {
-        path: 'reference',
-        component: ReferenceComponent
-      },
-      {
-        path: 'sample-house',
-        component: AddSampleHouseComponent
       },
     ]
   }
