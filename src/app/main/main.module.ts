@@ -11,19 +11,27 @@ import { ListDisasterComponent } from './menu-setting/disaster/list-disaster/lis
 import { AddDisasterComponent } from './menu-setting/disaster/add-disaster/add-disaster.component';
 import { ListMinistryComponent } from './menu-setting/ministry/list-ministry/list-ministry.component';
 import { AddMinistryComponent } from './menu-setting/ministry/add-ministry/add-ministry.component';
+import { ChangePasswordComponent } from './account/change-password/change-password.component';
+import { UserComponent } from './account/user/user.component';
+import { ReferenceComponent } from './account/reference/reference.component';
+import { AddSampleHouseComponent } from './account/reference/add-sample-house/add-sample-house.component';
 
 @NgModule({
   declarations: [
-    
-    MenuSettingComponent, 
+
+    MenuSettingComponent,
     DashboardComponent,
     ListUserComponent,
     AddUserComponent,
     ListDisasterComponent,
     AddDisasterComponent,
     ListMinistryComponent,
-    AddMinistryComponent
-  
+    AddMinistryComponent,
+    ChangePasswordComponent,
+    UserComponent,
+    ReferenceComponent,
+    AddSampleHouseComponent
+
   ],
   imports: [
     CommonModule,
