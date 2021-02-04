@@ -7,6 +7,7 @@ import { content } from "./shared/routes/routes";
 import { LoginPageComponent } from './auth/login-page/login-page.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { RegisterPageComponent } from './auth/register-page/register-page.component';
+import { LoginFirstTimeComponent } from './auth/login-page/login-first-time/login-first-time.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'auth/login-page',
     component: LoginPageComponent
+  },
+  {
+    path: 'auth/login-first-time',
+    component: LoginFirstTimeComponent
   },
   {
     path: 'auth/forgot-password',
