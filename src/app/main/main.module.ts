@@ -14,7 +14,7 @@ import { AddUserComponent } from './user-management/add-user/add-user.component'
     MenuSettingComponent,
     DashboardComponent,
     ListUserComponent,
-    AddUserComponent,
+    AddUserComponent
 
   ],
   imports: [
