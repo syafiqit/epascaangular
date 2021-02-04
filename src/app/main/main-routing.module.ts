@@ -9,6 +9,16 @@ import { ListMinistryComponent } from './menu-setting/ministry/list-ministry/lis
 import { UserComponent } from './account/user/user.component';
 import { ReferenceComponent } from './account/reference/reference.component';
 import { AddSampleHouseComponent } from './account/reference/add-sample-house/add-sample-house.component';
+import { AgencyComponent } from './menu-setting/agency/agency.component';
+import { ExecutorComponent } from './menu-setting/executor/executor.component';
+import { EntrepreneurLoanComponent } from './menu-setting/entrepreneur-loan/entrepreneur-loan.component';
+import { HouseProjectOwnerComponent } from './menu-setting/house-project-owner/house-project-owner.component';
+import { HelpDonationComponent } from './menu-setting/help-donation/help-donation.component';
+import { ListProjectOwnerComponent } from './menu-setting/setting-project-owner/list-project-owner/list-project-owner.component';
+import { ListDistrictComponent } from './menu-setting/setting-district/list-district/list-district.component';
+import { ListDamageComponent } from './menu-setting/setting-damage/list-damage/list-damage.component';
+import { ListFundsComponent } from './menu-setting/setting-funds/list-funds/list-funds.component';
+import { ListVictimComponent } from './menu-setting/setting-victim/list-victim/list-victim.component';
 
 const routes: Routes = [
   {
@@ -17,6 +27,26 @@ const routes: Routes = [
       {
         path: 'menu-setting',
         component: MenuSettingComponent
+      },
+      {
+        path: 'menu-setting/agency',
+        component: AgencyComponent
+      },
+      {
+        path: 'menu-setting/executor',
+        component: ExecutorComponent
+      },
+      {
+        path: 'menu-setting/entrepreneur-loan',
+        component: EntrepreneurLoanComponent
+      },
+      {
+        path: 'menu-setting/house-project-owner',
+        component: HouseProjectOwnerComponent
+      },
+      {
+        path: 'menu-setting/help-donation',
+        component: HelpDonationComponent
       },
       {
         path: 'dashboard',
@@ -49,6 +79,26 @@ const routes: Routes = [
       {
         path: 'sample-house',
         component: AddSampleHouseComponent
+      },
+      {
+        path: 'list-project-owner',
+        component: ListProjectOwnerComponent
+      },
+      {
+        path: 'list-district',
+        component: ListDistrictComponent
+      },
+      {
+        path: 'list-damage',
+        component: ListDamageComponent
+      },
+      {
+        path: 'list-funds',
+        component: ListFundsComponent
+      },
+      {
+        path: 'list-victim',
+        component: ListVictimComponent
       },
     ]
   }

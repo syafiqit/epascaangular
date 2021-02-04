@@ -1,0 +1,31 @@
+<app-breadcrumb [title]="'Medan Jenis Kerosakan Rumah'" [items]="['Medan']" [active_item]="['Medan Jenis Kerosakan Rumah']"></app-breadcrumb>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="col-12 custom-datatable">
+              <ngx-datatable class="bootstrap" [rows]="rows" [sortType]="SortType.multi" 
+                      [columnMode]="ColumnMode.flex" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [limit]="">
+
+                  <ngx-datatable-column name="Tindakan" prop="action" [flexGrow]="2">
+                      <ng-template let-value="value" ngx-datatable-cell-template>
+                          <span>
+                            <a class="col-sm-6 col-md-4 col-xl-3" (click)="editDamageModal()"><i class="fa fa-edit"></i></a>
+                          </span>
+                      </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Jenis Kerosakan" prop="damage" [flexGrow]="2">
+                      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>{{ value }}</ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Status" prop="status" [flexGrow]="2">
+                      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>{{ value }}</ng-template>
+                  </ngx-datatable-column>
+              </ngx-datatable>
+          </div>
+          <button class="btn btn-primary pull-right" type="submit" [routerLink]="['/main/menu-setting']">Kembali</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
