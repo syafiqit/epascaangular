@@ -38,6 +38,8 @@ import { ListFundsComponent } from './menu-setting/setting-funds/list-funds/list
 import { EditFundsComponent } from './menu-setting/setting-funds/edit-funds/edit-funds.component';
 import { ListVictimComponent } from './menu-setting/setting-victim/list-victim/list-victim.component';
 import { EditVictimComponent } from './menu-setting/setting-victim/edit-victim/edit-victim.component';
+import { ParliamentComponent } from './menu-setting/parliament/parliament.component';
+import { AddParliamentComponent } from './menu-setting/parliament/add-parliament/add-parliament.component';
 
 
 @NgModule({
@@ -78,7 +80,9 @@ import { EditVictimComponent } from './menu-setting/setting-victim/edit-victim/e
     ListFundsComponent,
     EditFundsComponent,
     ListVictimComponent,
-    EditVictimComponent
+    EditVictimComponent,
+    ParliamentComponent,
+    AddParliamentComponent
 
   ],
   imports: [

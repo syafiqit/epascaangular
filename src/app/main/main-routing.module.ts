@@ -19,6 +19,7 @@ import { ListDistrictComponent } from './menu-setting/setting-district/list-dist
 import { ListDamageComponent } from './menu-setting/setting-damage/list-damage/list-damage.component';
 import { ListFundsComponent } from './menu-setting/setting-funds/list-funds/list-funds.component';
 import { ListVictimComponent } from './menu-setting/setting-victim/list-victim/list-victim.component';
+import {ParliamentComponent} from './menu-setting/parliament/parliament.component';
 
 const routes: Routes = [
   {
@@ -99,6 +100,10 @@ const routes: Routes = [
       {
         path: 'list-victim',
         component: ListVictimComponent
+      },
+      {
+        path: 'list-parliament',
+        component: ParliamentComponent
       },
     ]
   }
