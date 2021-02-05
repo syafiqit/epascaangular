@@ -53,6 +53,12 @@ import { InternationalAidComponent } from './admin/victim-profile/edit-victim/vi
 import { OtherAidComponent } from './admin/victim-profile/edit-victim/victim-aid/other-aid/other-aid.component';
 import { AddHouseholdComponent } from './admin/victim-profile/edit-victim/victim-household/add-household.component';
 import { AddVictimDisasterComponent } from './admin/victim-profile/edit-victim/victim-disaster/add-victim-disaster.component';
+import { ParliamentComponent } from './menu-setting/parliament/parliament.component';
+import { AddParliamentComponent } from './menu-setting/parliament/add-parliament/add-parliament.component';
+import { StateComponent } from './menu-setting/state/state.component';
+import { AddStateComponent } from './menu-setting/state/add-state/add-state.component';
+import { DunComponent } from './menu-setting/dun/dun.component';
+import { AddDunComponent } from './menu-setting/dun/add-dun/add-dun.component';
 
 
 @NgModule({
@@ -108,7 +114,14 @@ import { AddVictimDisasterComponent } from './admin/victim-profile/edit-victim/v
     InternationalAidComponent,
     OtherAidComponent,
     AddHouseholdComponent,
-    AddVictimDisasterComponent
+    AddVictimDisasterComponent,
+    EditVictimComponent,
+    ParliamentComponent,
+    AddParliamentComponent,
+    StateComponent,
+    AddStateComponent,
+    DunComponent,
+    AddDunComponent
 
   ],
   imports: [

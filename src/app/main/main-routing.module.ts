@@ -23,6 +23,9 @@ import {VictimListComponent} from './admin/victim-profile/victim-list/victim-lis
 import {AddVictimComponent} from './admin/victim-profile/add-victim/add-victim.component';
 import { EditVictimDataComponent } from './admin/victim-profile/edit-victim/edit-victim-data.component';
 import {HouseAidComponent} from './admin/victim-profile/edit-victim/victim-aid/house-aid/house-aid.component';
+import {ParliamentComponent} from './menu-setting/parliament/parliament.component';
+import {StateComponent} from './menu-setting/state/state.component';
+import {DunComponent} from './menu-setting/dun/dun.component';
 
 const routes: Routes = [
   {
@@ -119,6 +122,18 @@ const routes: Routes = [
       {
         path: 'victim-aid/house-aid',
         component: HouseAidComponent
+      },
+      {
+        path: 'list-parliament',
+        component: ParliamentComponent
+      },
+      {
+        path: 'list-state',
+        component: StateComponent
+      },
+      {
+        path: 'list-dun',
+        component: DunComponent
       },
     ]
   }
