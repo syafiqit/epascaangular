@@ -42,6 +42,8 @@ import { ParliamentComponent } from './menu-setting/parliament/parliament.compon
 import { AddParliamentComponent } from './menu-setting/parliament/add-parliament/add-parliament.component';
 import { StateComponent } from './menu-setting/state/state.component';
 import { AddStateComponent } from './menu-setting/state/add-state/add-state.component';
+import { DunComponent } from './menu-setting/dun/dun.component';
+import { AddDunComponent } from './menu-setting/dun/add-dun/add-dun.component';
 
 
 @NgModule({
@@ -86,7 +88,9 @@ import { AddStateComponent } from './menu-setting/state/add-state/add-state.comp
     ParliamentComponent,
     AddParliamentComponent,
     StateComponent,
-    AddStateComponent
+    AddStateComponent,
+    DunComponent,
+    AddDunComponent
 
   ],
   imports: [

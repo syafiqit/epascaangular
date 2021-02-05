@@ -21,6 +21,7 @@ import { ListFundsComponent } from './menu-setting/setting-funds/list-funds/list
 import { ListVictimComponent } from './menu-setting/setting-victim/list-victim/list-victim.component';
 import {ParliamentComponent} from './menu-setting/parliament/parliament.component';
 import {StateComponent} from './menu-setting/state/state.component';
+import {DunComponent} from './menu-setting/dun/dun.component';
 
 const routes: Routes = [
   {
@@ -109,6 +110,10 @@ const routes: Routes = [
       {
         path: 'list-state',
         component: StateComponent
+      },
+      {
+        path: 'list-dun',
+        component: DunComponent
       },
     ]
   }
