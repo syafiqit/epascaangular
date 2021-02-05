@@ -23,6 +23,11 @@ import { ListVictimComponent } from './menu-setting/setting-victim/list-victim/l
 const routes: Routes = [
   {
     path: '',
+    component: DashboardComponent
+  },
+
+  {
+    path: '',
     children: [
       {
         path: 'menu-setting',

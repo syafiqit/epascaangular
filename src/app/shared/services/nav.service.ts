@@ -79,9 +79,7 @@ export class NavService implements OnDestroy {
 	}
 
 	MENUITEMS: Menu[] = [
-		{
-			headTitle1: 'Sample', headTitle2: 'Ready Sample Page.',
-		},
+
     {
 			title: 'Muka Halaman', path: '/main/dashboard', icon: 'home', type: 'link'
 	},
