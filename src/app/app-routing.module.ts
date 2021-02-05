@@ -12,6 +12,11 @@ import { LoginFirstTimeComponent } from './auth/login-page/login-first-time/logi
 const routes: Routes = [
   {
     path: '',
+    redirectTo: 'main',
+    pathMatch: 'full'
+  },
+  {
+    path: '',
     component: ContentComponent,
     children: content
   },

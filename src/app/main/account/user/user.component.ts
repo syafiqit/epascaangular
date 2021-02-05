@@ -14,15 +14,15 @@ export class UserComponent implements OnInit {
   }
 
   account = {
-    "organization_name" : "Ngo Ebit",
-    "chairman_name" : "Halim Hamzah",
-    "officer" : "Ramzan Ali",
-    "email" : "yayasanHalimEbit@gmail.com",
-    "web" : "http://www.yayasanhalimebit.com",
-    "no_registration" : "T-26718",
-    "year" : "2016",
-    "tel_1" : "010-4339294",
-    "tel_2" : "013-2232590"
+    "name" : "Halim Bin Hamzah",
+    "No_kp" : "940306106025",
+    "position" : "Pegawai Maklumat",
+    "ministry" : "Jabatan Perdana Menteri",
+    "agency" : "Nadma",
+    "fax" : "03-64339395",
+    "tel_1" : "03-64339294",
+    "tel_2" : "013-2232590",
+    "email" : "Halim@jpm.edu.my"
   }
 
   constructor() { }

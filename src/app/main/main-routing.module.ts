@@ -30,6 +30,11 @@ import {DunComponent} from './menu-setting/dun/dun.component';
 const routes: Routes = [
   {
     path: '',
+    component: DashboardComponent
+  },
+
+  {
+    path: '',
     children: [
       {
         path: 'menu-setting',

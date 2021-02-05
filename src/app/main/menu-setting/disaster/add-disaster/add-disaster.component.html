@@ -10,16 +10,16 @@
       <div class="col-lg-6">
         <div class="form-group">
           <label for="exampleFormControlInput1">Kejadian Bencana</label>
-          <input class="form-control" id="alamat_1" type="text" placeholder="Kejadian Bencana">
+          <input class="form-control" name="alamat_1" type="text" placeholder="Kejadian Bencana">
         </div>
       </div>
 
       <div class="col-lg-6">
-        <form class="form-inline custom-datepicker custom-datepicker-dropdown">
-          <div class="form-group mb-0">
+        <form class="form custom-datepicker custom-datepicker-dropdown">
+          <div class="form-group">
             <label for="exampleFormControlInput1">Tarikh Bencana</label>
-            <div class="input-group mt-2">
-              <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelFooter" ngbDatepicker
+            <div class="input-group">
+              <input class="form-control" type="text" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelFooter" ngbDatepicker
                 [footerTemplate]="footerTemplate" #f="ngbDatepicker">
               <div class="input-group-append">
                 <button class="btn calendar" (click)="f.toggle()" type="button"><i class="fa fa-calendar"></i></button>

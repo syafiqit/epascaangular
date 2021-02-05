@@ -42,6 +42,16 @@
                 </ng-template>
               </ngx-datatable-column>
 
+              <ngx-datatable-footer>
+                <ng-template
+                  ngx-datatable-footer-template
+                  let-rowCount="rowCount">
+                  <div style="padding: 5px 5px">
+                      Jumlah: {{ rowCount }}
+                  </div>
+                </ng-template>
+              </ngx-datatable-footer>
+
             </ngx-datatable>
           </div>
         </div>
