@@ -88,6 +88,9 @@ export class NavService implements OnDestroy {
 	},
     {
 			title: 'tetapan', path: '/main/menu-setting', icon: 'settings', type: 'link'
+    },
+    {
+			title: 'Pengurusan Mangsa', path: '/main/victim-list', icon: 'users', type: 'link'
     }
 	];
 

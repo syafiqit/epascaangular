@@ -1,0 +1,51 @@
+<app-breadcrumb [title]="'Parlimen'" [items]="['Medan']" [active_item]="'Parlimen'"></app-breadcrumb>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row justify-content-end">
+            <button class="btn btn-primary mr-3" type="button" (click)="addParliamentModal()"><i
+              class="fa fa-plus mr-2"></i>Tambah</button>
+          </div>
+          &nbsp;
+          <div class="row">
+            <div class="col-lg-12">
+              <input type="text" class="filter-ngx form-control" placeholder='Carian...' />
+            </div>
+          </div>
+          &nbsp;
+          <div class="col-12 custom-datatable">
+            <ngx-datatable class="bootstrap" [rows]="rows" [sortType]="SortType.multi" [columnMode]="ColumnMode.flex"
+                           [headerHeight]="50" [footerHeight]="50" [rowHeight]="50">
+              <ngx-datatable-column name="Tindakan" prop="action" [flexGrow]="1">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  <span>
+                    <a class="col-sm-6 col-md-4 col-xl-3" (click)="addParliamentModal()"><i class="fa fa-edit"></i></a>
+                    <a class="col-sm-6 col-md-4 col-xl-3"><i class="fa fa-trash"></i></a>
+                  </span>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Parlimen" prop="parliament" [flexGrow]="3">
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Negeri" prop="state" [flexGrow]="3">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Status" prop="status" [flexGrow]="3">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+
+            </ngx-datatable>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="modal-header">
+  <h5 class="modal-title">Tambah Kementerian</h5>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form class="form theme-form">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="parlimen">Parlimen</label>
+          <input class="form-control" id="parlimen" type="text" placeholder="Parlimen">
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="negeri">Negeri</label>
+          <select class="form-control digits" id="negeri">
+            <option>Sila Pilih</option>
+            <option>Terengganu</option>
+            <option>Kuala Lumpur</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select class="form-control digits" id="status">
+            <option>Sila Pilih</option>
+            <option>Aktif</option>
+            <option>Tidak Aktif</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
+  <button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Simpan</button>
+</div>
