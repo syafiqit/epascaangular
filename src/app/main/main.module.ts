@@ -40,6 +40,8 @@ import { ListVictimComponent } from './menu-setting/setting-victim/list-victim/l
 import { EditVictimComponent } from './menu-setting/setting-victim/edit-victim/edit-victim.component';
 import { ParliamentComponent } from './menu-setting/parliament/parliament.component';
 import { AddParliamentComponent } from './menu-setting/parliament/add-parliament/add-parliament.component';
+import { StateComponent } from './menu-setting/state/state.component';
+import { AddStateComponent } from './menu-setting/state/add-state/add-state.component';
 
 
 @NgModule({
@@ -82,7 +84,9 @@ import { AddParliamentComponent } from './menu-setting/parliament/add-parliament
     ListVictimComponent,
     EditVictimComponent,
     ParliamentComponent,
-    AddParliamentComponent
+    AddParliamentComponent,
+    StateComponent,
+    AddStateComponent
 
   ],
   imports: [
