@@ -1,0 +1,65 @@
+<div class="modal-header">
+  <h4 class="modal-title">Mangsa Bencana</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+  <form class="form theme-form">
+    <div class="row">
+      <div class="col-xl-6 col-xs-12">
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Kejadian Bencana</label>
+          <select class="form-control digits" id="exampleFormControlSelect9">
+            <option>Covid-19</option>
+            <option>Banjir</option>
+            <option>Ribut</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-xl-6 col-xs-12">
+        <div class="form-group">
+          <label for="exampleFormControlSelect9">Tahun Bencana</label>
+          <select class="form-control digits" id="exampleFormControlSelect9">
+            <option>Pilih</option>
+            <option>2020</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xl-6 col-xs-12">
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Status Berpindah</label>
+          <select class="form-control digits" id="exampleFormControlSelect9">
+            <option>Tidak berpindah</option>
+            <option>Pindah ke pusat pemindahan</option>
+            <option>Lain-lain</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-xl-6 col-xs-12">
+        <div class="form-group">
+          <label for="exampleFormControlSelect9">Nama Pusat</label>
+          <input class="form-control" id="sss" type="text" placeholder="Nama Pusat">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="exampleFormControlTextarea4">Masalah Dihadapi</label>
+          <textarea class="form-control" id="exampleFormControlTextarea4" rows="3"></textarea>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Kembali</button>
+  <button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Simpan</button>
+</div>

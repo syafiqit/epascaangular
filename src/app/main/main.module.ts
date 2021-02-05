@@ -38,6 +38,21 @@ import { ListFundsComponent } from './menu-setting/setting-funds/list-funds/list
 import { EditFundsComponent } from './menu-setting/setting-funds/edit-funds/edit-funds.component';
 import { ListVictimComponent } from './menu-setting/setting-victim/list-victim/list-victim.component';
 import { EditVictimComponent } from './menu-setting/setting-victim/edit-victim/edit-victim.component';
+import { VictimListComponent } from './admin/victim-profile/victim-list/victim-list.component';
+import { AddVictimComponent } from './admin/victim-profile/add-victim/add-victim.component';
+import { EditVictimDataComponent } from './admin/victim-profile/edit-victim/edit-victim-data.component';
+import { VictimProfileComponent } from './admin/victim-profile/edit-victim/victim-profile/victim-profile.component';
+import { VictimHouseholdComponent } from './admin/victim-profile/edit-victim/victim-household/victim-household.component';
+import { VictimDisasterComponent } from './admin/victim-profile/edit-victim/victim-disaster/victim-disaster.component';
+import { VictimAidComponent } from './admin/victim-profile/edit-victim/victim-aid/victim-aid.component';
+import { IhsanDonationComponent } from './admin/victim-profile/edit-victim/victim-aid/ihsan-donation/ihsan-donation.component';
+import { HouseAidComponent } from './admin/victim-profile/edit-victim/victim-aid/house-aid/house-aid.component';
+import { SpecialLoanComponent } from './admin/victim-profile/edit-victim/victim-aid/special-loan/special-loan.component';
+import { AgricultureAidComponent } from './admin/victim-profile/edit-victim/victim-aid/agriculture-aid/agriculture-aid.component';
+import { InternationalAidComponent } from './admin/victim-profile/edit-victim/victim-aid/international-aid/international-aid.component';
+import { OtherAidComponent } from './admin/victim-profile/edit-victim/victim-aid/other-aid/other-aid.component';
+import { AddHouseholdComponent } from './admin/victim-profile/edit-victim/victim-household/add-household.component';
+import { AddVictimDisasterComponent } from './admin/victim-profile/edit-victim/victim-disaster/add-victim-disaster.component';
 import { ParliamentComponent } from './menu-setting/parliament/parliament.component';
 import { AddParliamentComponent } from './menu-setting/parliament/add-parliament/add-parliament.component';
 import { StateComponent } from './menu-setting/state/state.component';
@@ -84,6 +99,22 @@ import { AddDunComponent } from './menu-setting/dun/add-dun/add-dun.component';
     ListFundsComponent,
     EditFundsComponent,
     ListVictimComponent,
+    EditVictimComponent,
+    VictimListComponent,
+    AddVictimComponent,
+    EditVictimDataComponent,
+    VictimProfileComponent,
+    VictimHouseholdComponent,
+    VictimDisasterComponent,
+    VictimAidComponent,
+    IhsanDonationComponent,
+    HouseAidComponent,
+    SpecialLoanComponent,
+    AgricultureAidComponent,
+    InternationalAidComponent,
+    OtherAidComponent,
+    AddHouseholdComponent,
+    AddVictimDisasterComponent,
     EditVictimComponent,
     ParliamentComponent,
     AddParliamentComponent,

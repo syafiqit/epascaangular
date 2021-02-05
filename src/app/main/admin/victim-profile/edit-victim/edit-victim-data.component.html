@@ -1,0 +1,40 @@
+<app-breadcrumb [title]="'Edit Maklumat Mangsa'" [items]="['Mangsa', 'Profil Mangsa']" [active_item]="'Edit Mangsa'"></app-breadcrumb>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <form class="form theme-form">
+          <div class="card-body">
+            <ngb-tabset>
+              <ngb-tab title="Profile Mangsa">
+                <ng-template ngbTabContent>
+                  <app-victim-profile></app-victim-profile>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab>
+                <ng-template ngbTabTitle>Ahli Isi Rumah</ng-template>
+                <ng-template ngbTabContent>
+                  <app-victim-household></app-victim-household>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="Bencana">
+                <ng-template ngbTabContent>
+                  <app-victim-disaster></app-victim-disaster>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="Bantuan">
+                <ng-template ngbTabContent>
+                  <app-victim-aid></app-victim-aid>
+                </ng-template>
+              </ngb-tab>
+            </ngb-tabset>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-primary" type="submit">Submit</button>
+            <input class="btn btn-light ml-1" type="reset" value="Cancel">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
