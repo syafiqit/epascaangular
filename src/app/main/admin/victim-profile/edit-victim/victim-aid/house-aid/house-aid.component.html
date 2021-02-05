@@ -1,0 +1,219 @@
+<app-breadcrumb [title]="'Tambah Bantuan Rumah'" [items]="['Mangsa', 'Bantuan']" [active_item]="'Bantuan Rumah'"></app-breadcrumb>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+<!--        <div class="card-header">-->
+<!--          <h5>Basic form control</h5>-->
+<!--        </div>-->
+        <form class="form theme-form">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-xl-6 col-xs-12">
+                <div class="form-group">
+                  <label for="exampleFormControlSelect9">Tahun & Tarikh Bencana*</label>
+                  <select class="form-control digits" id="exampleFormControlSelect9">
+                    <option disabled>Please Choose</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-xl-6 col-xs-12">
+                <div class="form-group">
+                  <label for="exampleFormControlSelect9">Nama Bencana*</label>
+                  <input class="form-control" id="exampleFormControlInput1" type="text">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="exampleFormControlTextarea4">Jenis Bantuan</label>
+                <div class="form-group m-checkbox-inline custom-radio-ml mb-3 ml-1">
+                  <div class="radio radio-dark mr-3">
+                    <input id="radio1" type="radio" name="radio1">
+                    <label for="radio1">Baik Pulih Rumah</label>
+                  </div>
+                  <div class="radio radio-dark mr-3">
+                    <input id="radio2" type="radio" name="radio1">
+                    <label for="radio2">Bina Rumah Kekal</label>
+                  </div>
+                  <div class="radio radio-dark">
+                    <input id="radio3" type="radio" name="radio1">
+                    <label for="radio3">Bina Rumah Transit</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="exampleFormControlTextarea4">Jenis Kerosakan Rumah</label>
+                <div class="form-group m-checkbox-inline mb-3 ml-1">
+                  <div class="checkbox checkbox-dark mr-3">
+                    <input id="inline-4" type="checkbox">
+                    <label for="inline-4">Lantai</label>
+                  </div>
+                  <div class="checkbox checkbox-dark mr-3">
+                    <input id="inline-5" type="checkbox">
+                    <label for="inline-5">Dinding</label>
+                  </div>
+                  <div class="checkbox checkbox-dark mr-3">
+                    <input id="inline-5" type="checkbox">
+                    <label for="inline-5">Atap</label>
+                  </div>
+                  <div class="checkbox checkbox-dark mr-3">
+                    <input id="inline-5" type="checkbox">
+                    <label for="inline-5">Tiang Rumah</label>
+                  </div>
+                  <div class="checkbox checkbox-dark mr-3">
+                    <input id="inline-5" type="checkbox">
+                    <label for="inline-5">Pintu</label>
+                  </div>
+                  <div class="checkbox checkbox-dark mr-3">
+                    <input id="inline-5" type="checkbox">
+                    <label for="inline-5">Pendawaian</label>
+                  </div>
+                  <div class="checkbox checkbox-dark mr-3">
+                    <input id="inline-5" type="checkbox">
+                    <label for="inline-5">Tingkap</label>
+                  </div>
+                  <div class="checkbox checkbox-dark">
+                    <input id="inline-5" type="checkbox">
+                    <label for="inline-5">Lain-lain</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-6 col-xs-12">
+                <div class="form-group">
+                  <label for="tapakAsal">Status Tapak Asal</label>
+                  <select class="form-control digits" id="tapakAsal">
+                    <option disabled>Please Choose</option>
+                    <option>Test Data</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-xl-6 col-xs-12">
+                <div class="form-group">
+                  <label for="exampleFormControlSelect9">Agensi Pemilik</label>
+                  <select class="form-control digits" id="exampleFormControlSelect9">
+                    <option disabled>Please Choose</option>
+                    <option>Test Data</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <hr/>
+            <div class="row">
+              <div class="col-xl-6 col-xs-12">
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Sumber Dana</label>
+                  <select class="form-control digits" id="exampleFormControlSelect9">
+                    <option disabled>Please Choose</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-xl-6 col-xs-12">
+                <div class="form-group">
+                  <label for="exampleFormControlSelect9">Nyatakan Jika NGO/Lain-lain</label>
+                  <input class="form-control" id="exampleFormControlInput1" type="text">
+                </div>
+              </div>
+            </div>
+            <hr/>
+            <div class="row">
+              <div class="col-xl-6 col-xs-12">
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Pelaksana</label>
+                  <select class="form-control digits" id="exampleFormControlSelect9">
+                    <option disabled>Please Choose</option>
+                    <option>Test Data</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-xl-6 col-xs-12">
+                <div class="form-group">
+                  <label for="exampleFormControlSelect9">Nyatakan Jika NGO/Lain-lain</label>
+                  <input class="form-control" id="exampleFormControlInput1" type="text">
+                </div>
+              </div>
+            </div>
+            <hr/>
+            <div class="row">
+              <div class="col-xl-6 col-xs-12">
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Kontraktor</label>
+                  <input class="form-control" id="exampleFormControlInput1" type="text">
+                </div>
+              </div>
+              <div class="col-xl-6 col-xs-12">
+                <div class="form-group">
+                  <label for="exampleFormControlSelect9">No. PKK</label>
+                  <input class="form-control" id="exampleFormControlInput1" type="text">
+                </div>
+              </div>
+            </div>
+            <hr/>
+            <div class="row">
+              <div class="col-xl-6 col-xs-12">
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Kos Anggaran</label>
+                  <input class="form-control" id="exampleFormControlInput1" type="text">
+                </div>
+              </div>
+              <div class="col-xl-6 col-xs-12">
+                <div class="form-group">
+                  <label for="exampleFormControlSelect9">Kos Sebenar</label>
+                  <input class="form-control" id="exampleFormControlInput1" type="text">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-6 col-xs-12">
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Tarikh Mula</label>
+                  <input class="form-control" id="exampleFormControlInput1" type="date">
+                </div>
+              </div>
+              <div class="col-xl-6 col-xs-12">
+                <div class="form-group">
+                  <label for="exampleFormControlSelect9">Tarikh Siap</label>
+                  <input class="form-control" id="exampleFormControlInput1" type="date">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-6 col-xs-12">
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Peratus Kemajuan</label>
+                  <input class="form-control" id="exampleFormControlInput1" type="text"
+                         placeholder="in %">
+                </div>
+              </div>
+              <div class="col-xl-6 col-xs-12">
+                <div class="form-group">
+                  <label for="exampleFormControlSelect9">Status Kemajuan</label>
+                  <select class="form-control digits" id="exampleFormControlSelect9">
+                    <option disabled>Please Choose</option>
+                    <option>Test Data</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea4">Catatan</label>
+                  <textarea class="form-control" id="exampleFormControlTextarea4" rows="3"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-primary" type="submit">Submit</button>
+            <input class="btn btn-light ml-1" type="reset" value="Cancel">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
