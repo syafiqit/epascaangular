@@ -1,0 +1,61 @@
+<form class="form theme-form">
+  <div class="col">
+    <div class="row">
+      <div class="col-xl-6 col-xs-12">
+        <div class="form-group">
+          <label for="nama">Nama</label>
+          <input class="form-control" id="nama" type="text" value="Asmah Binti Haji Ameran" disabled>
+        </div>
+      </div>
+      <div class="col-xl-6 col-xs-12">
+        <div class="form-group">
+          <label for="kp">No KP</label>
+          <input class="form-control" id="kp" type="text" value="xxxxxx-xx-xxxx" disabled>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-6 col-xs-12">
+        <div class="form-group">
+          <button (click)="addHouseholdModal()" class="btn btn-primary mb-1"><i class="fa fa-plus mr-2"></i> Tambah </button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 custom-datatable">
+        <ngx-datatable class="bootstrap"
+                       [rows]="rows" [sortType]="SortType.multi"
+                       [columnMode]="ColumnMode.flex" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [limit]="10">
+          <ngx-datatable-column name="Tindakan" prop="action" [flexGrow]="1">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+                  <span>
+                    <a class="col-sm-6 col-md-4 col-xl-3" (click)="addHouseholdModal()"><i class="fa fa-edit"></i></a>
+                    <a class="col-sm-6 col-md-4 col-xl-3" (click)="delete()"><i class="fa fa-trash"></i></a>
+                  </span>
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="No KP" prop="kp" [flexGrow]="1">
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+              {{ value }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Nama Ahli Isi Rumah" prop="name" [flexGrow]="2">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              {{ value }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Umur" prop="age" [flexGrow]="1">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              {{ value }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Hubungan" prop="relationship" [flexGrow]="1">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              {{ value }}
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+      </div>
+    </div>
+  </div>
+</form>

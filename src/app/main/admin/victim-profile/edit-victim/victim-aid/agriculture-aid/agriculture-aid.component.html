@@ -1,0 +1,105 @@
+<div class="modal-header">
+  <h4 class="modal-title">Bantuan Pertanian</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+  <form class="form theme-form">
+    <div class="row">
+      <div class="col-xl-6 col-xs-12">
+        <div class="form-group">
+          <label for="tahun">Tahun & Tarikh Bencana*</label>
+          <select class="form-control digits" id="tahun">
+            <option>Covid-19</option>
+            <option>Banjir</option>
+            <option>Ribut</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-xl-6 col-xs-12">
+        <div class="form-group">
+          <label for="exampleFormControlSelect9">Nama Bencana</label>
+          <input class="form-control" id="sss" type="text" placeholder="Nama Bencana">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xl-12 col-xs-12">
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Agensi Pemberi Bantuan</label>
+          <select class="form-control digits" id="exampleFormControlSelect9">
+            <option>Agensi A</option>
+            <option>Agensi B</option>
+            <option>Lain-lain</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group mb-3">
+          <label for="exampleFormControlTextarea4">Masalah Dihadapi</label>
+          <textarea class="form-control" id="exampleFormControlTextarea4" rows="3"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xl-6 col-xs-12">
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Jenis Pertanian</label>
+          <select class="form-control digits" id="exampleFormControlSelect9">
+            <option>Sila Pilih</option>
+            <option>Fertigasi</option>
+            <option>Tanah</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-xl-6 col-xs-12">
+        <div class="form-group">
+          <label for="exampleFormControlSelect9">Tarikh Bantuan</label>
+          <input class="form-control" id="sss" type="date" >
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xl-6 col-xs-12">
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Luas (Hektar)</label>
+          <input class="form-control" id="sss" type="text" >
+        </div>
+      </div>
+      <div class="col-xl-6 col-xs-12">
+        <div class="form-group">
+          <label for="exampleFormControlSelect9">Luas Musnah (Hektar)</label>
+          <input class="form-control" id="sss" type="text" >
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xl-6 col-xs-12">
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Bilangan Asal</label>
+          <input class="form-control" id="sss" type="text" >
+        </div>
+      </div>
+      <div class="col-xl-6 col-xs-12">
+        <div class="form-group">
+          <label for="exampleFormControlSelect9">Bilangan Rosak/Mati</label>
+          <input class="form-control" id="sss" type="text" >
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Kembali</button>
+  <button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Simpan</button>
+</div>
