@@ -1,0 +1,93 @@
+<app-breadcrumb [title]="'Pengurusan Pengguna'"></app-breadcrumb>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <div class="select2-drpdwn-product select-options d-inline-block">
+                      <select class="form-control btn-square btn-light" name="select">
+                        <option value="userName">Nama</option>
+                        <option value="userID">No Kad Pengenalan</option>
+                      </select>
+                    </div>
+                    <input class="form-control" id="inputSelect" type="text" placeholder="Nama/No Kad Pengenalan">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">Agensi</label>
+                    <input class="form-control" id="agency" type="text" placeholder="Nama Agensi">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">Peranan</label>
+                    <select class="form-control digits" id="exampleFormControlSelect9">
+                        <option>Pilih</option>
+                        <option>Admin</option>
+                        <option>Penyelia</option>
+                        <option>Pengguna Biasa</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <button class="btn btn-light pull-right" type="submit">Cari</button>
+
+            </div>
+          </div>
+
+          <div class="row justify-content-end">
+            <div class="col-lg-2">
+                <button class="btn btn-primary" type="button" [routerLink]="['/main/add-user']"><i class="fa fa-plus mr-2"></i>Tambah</button>
+            </div>
+          </div>
+          &nbsp;
+          <div class="col-12 custom-datatable">
+              <ngx-datatable class="bootstrap" [rows]="rows" [sortType]="SortType.multi" 
+                      [columnMode]="ColumnMode.flex" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [limit]="">
+
+                  <ngx-datatable-column name="Tindakan" prop="action" [flexGrow]="0.5">
+                      <ng-template let-value="value" ngx-datatable-cell-template>
+                          <span>
+                            <a class="col-sm-6 col-md-4 col-xl-3" [routerLink]="['/main/add-user']"><i class="fa fa-edit"></i></a>
+                          </span>
+                      </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="ID Pengguna" prop="userID" [flexGrow]="1">
+                      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>{{ value }}</ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Nama Pengguna" prop="userName" [flexGrow]="1.5">
+                      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>{{ value }}</ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Agensi" prop="agency" [flexGrow]="2">
+                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>{{ value }}</ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Peranan" prop="userRole" [flexGrow]="1">
+                      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>{{ value }}</ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Login Terakhir" prop="lastLog" [flexGrow]="1.5">
+                      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>{{ value }}</ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Jumlah Login" prop="totalLog" [flexGrow]="1">
+                      <ng-template let-value="value" ngx-datatable-cell-template>{{ value }}</ng-template>
+                  </ngx-datatable-column>
+              </ngx-datatable>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

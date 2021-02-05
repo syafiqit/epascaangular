@@ -1,0 +1,43 @@
+<div class="modal-header">
+  <h5 class="modal-title">Tambah Kementerian</h5>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form class="form theme-form">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Nama Kementerian</label>
+          <input class="form-control" id="alamat_1" type="text" placeholder="Nama Kementerian">
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Kod Kementerian</label>
+          <input class="form-control" id="alamat_1" type="text" placeholder="Kod Kementerian">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Status</label>
+          <select class="form-control digits" id="exampleFormControlSelect9">
+            <option>Sila Pilih</option>
+            <option>Aktif</option>
+            <option>Tidak Aktif</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
+  <button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Simpan</button>
+</div>

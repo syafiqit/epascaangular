@@ -18,6 +18,10 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
+import { LoginPageComponent } from './auth/login-page/login-page.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { RegisterPageComponent } from './auth/register-page/register-page.component';
+import { LoginFirstTimeComponent } from './auth/login-page/login-first-time/login-first-time.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -26,7 +30,11 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginPageComponent,
+    ForgotPasswordComponent,
+    RegisterPageComponent,
+    LoginFirstTimeComponent
   ],
   imports: [
     BrowserModule,

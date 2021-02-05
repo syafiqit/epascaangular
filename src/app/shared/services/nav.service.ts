@@ -84,7 +84,10 @@ export class NavService implements OnDestroy {
 		},
     {
 			title: 'Muka Halaman', path: '/main/dashboard', icon: 'home', type: 'link'
-    },
+	},
+	{
+			title: 'Pengurusan Pengguna', path: '/main/list-user', icon: 'airplay', type: 'link'
+	},
     {
 			title: 'tetapan', path: '/main/menu-setting', icon: 'settings', type: 'link'
     },
