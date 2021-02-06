@@ -26,6 +26,7 @@ import {HouseAidComponent} from './admin/victim-profile/edit-victim/victim-aid/h
 import {ParliamentComponent} from './menu-setting/parliament/parliament.component';
 import {StateComponent} from './menu-setting/state/state.component';
 import {DunComponent} from './menu-setting/dun/dun.component';
+import { AnnouncementComponent } from './menu-setting/announcement/announcement.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,10 @@ const routes: Routes = [
       {
         path: 'menu-setting/house-project-owner',
         component: HouseProjectOwnerComponent
+      },
+      {
+        path: 'menu-setting/announcement',
+        component: AnnouncementComponent
       },
       {
         path: 'menu-setting/help-donation',

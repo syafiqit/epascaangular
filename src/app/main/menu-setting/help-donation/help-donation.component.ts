@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
 import { EditHelpDonationComponent } from '../help-donation/edit-help-donation/edit-help-donation.component';
+import { AddHelpDonationComponent } from '../help-donation/add-help-donation/add-help-donation.component';
 
 @Component({
   selector: 'app-help-donation',
@@ -26,6 +27,10 @@ export class HelpDonationComponent implements OnInit {
   constructor(config: NgbModalConfig, private modalService: NgbModal) {
     config.backdrop = 'static';
     config.keyboard = false;
+  }
+
+  addHelpDonationModal() {
+    this.modalService.open(AddHelpDonationComponent, { size: 'lg' });
   }
 
   editHelpDonationModal() {

@@ -59,6 +59,11 @@ import { StateComponent } from './menu-setting/state/state.component';
 import { AddStateComponent } from './menu-setting/state/add-state/add-state.component';
 import { DunComponent } from './menu-setting/dun/dun.component';
 import { AddDunComponent } from './menu-setting/dun/add-dun/add-dun.component';
+import { AnnouncementComponent } from './menu-setting/announcement/announcement.component';
+import { AddAnnouncementComponent } from './menu-setting/announcement/add-announcement/add-announcement.component';
+import { EditAnnouncementComponent } from './menu-setting/announcement/edit-announcement/edit-announcement.component';
+import { AddEntrepreneurLoanComponent } from './menu-setting/entrepreneur-loan/add-entrepreneur-loan/add-entrepreneur-loan.component';
+import { AddHelpDonationComponent } from './menu-setting/help-donation/add-help-donation/add-help-donation.component';
 
 
 @NgModule({
@@ -121,7 +126,12 @@ import { AddDunComponent } from './menu-setting/dun/add-dun/add-dun.component';
     StateComponent,
     AddStateComponent,
     DunComponent,
-    AddDunComponent
+    AddDunComponent,
+    AnnouncementComponent,
+    AddAnnouncementComponent,
+    EditAnnouncementComponent,
+    AddEntrepreneurLoanComponent,
+    AddHelpDonationComponent
 
   ],
   imports: [

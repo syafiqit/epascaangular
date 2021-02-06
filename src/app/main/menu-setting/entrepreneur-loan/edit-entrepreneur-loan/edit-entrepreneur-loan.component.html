@@ -7,16 +7,22 @@
 <div class="modal-body">
   <form class="form theme-form">
 
-    <div class="form-group">
-      <label class="col-form-label">Nama Sektor</label>
-      <input class="form-control" id="name" type="text" placeholder="Pembuatan">
-   </div>
-   <div class="form-group">
-      <label class="col-form-label">Status</label>
-      <div>
-        <select class="form-control" id="status">
-            <option *ngFor="let status of status" value="{{status['status']}}">{{status['status']}}</option>
-        </select>
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label class="col-form-label">Nama Sektor</label>
+          <input class="form-control" name="name" type="text" placeholder="Pembuatan">
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label class="col-form-label">Status</label>
+          <div>
+            <select class="form-control" name="status">
+                <option *ngFor="let status of status" value="{{status['status']}}">{{status['status']}}</option>
+            </select>
+          </div>
+        </div>
       </div>
     </div>
 

@@ -1,11 +1,11 @@
-<app-breadcrumb [title]="'Medan Pelaksana'" [items]="['Pentadbiran','Medan']" [active_item]="'Medan Pelaksana'"></app-breadcrumb>
+<app-breadcrumb [title]="'Medan Senarai Pengumuman'" [items]="['Pentadbiran','Medan']" [active_item]="'Medan Senarai Pengumuman'"></app-breadcrumb>
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-12">
       <div class="card">
         <div class="card-body">
           <div class="row justify-content-end">
-            <button class="btn btn-primary mr-3" type="button" (click)="addExecutorModal()"><i
+            <button class="btn btn-primary mr-3" type="button" (click)="addAnnouncementModal()"><i
               class="fa fa-plus mr-2"></i>Tambah</button>
           </div>
           &nbsp;
@@ -23,18 +23,23 @@
               <ngx-datatable-column name="Tindakan" prop="action" [flexGrow]="1">
                 <ng-template let-value="value" ngx-datatable-cell-template>
                   <span>
-                    <a class="col-sm-6 col-md-4 col-xl-3" [queryParams]="{id: 1}" (click)="editExecutorModal()"><i class="fa fa-edit"></i></a>
+                    <a class="col-sm-6 col-md-4 col-xl-3" [queryParams]="{id: 1}" (click)="editAnnouncementModal()"><i class="fa fa-edit"></i></a>
                     <a class="col-sm-6 col-md-4 col-xl-3"><i class="fa fa-trash"></i></a>
                   </span>
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="Nama Pelaksana" prop="name" [flexGrow]="2">
+              <ngx-datatable-column name="Tarikh" prop="date" [flexGrow]="1">
                 <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                   {{ value }}
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="Status" prop="status" [flexGrow]="2">
-                <ng-template let-value="value" ngx-datatable-cell-template>
+              <ngx-datatable-column name="Nama" prop="name" [flexGrow]="2">
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Pengumuman" prop="announcement" [flexGrow]="7">
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                   {{ value }}
                 </ng-template>
               </ngx-datatable-column>
