@@ -11,4 +11,21 @@ export class RegisterPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  state = [
+    { "state": "Johor", },
+    { "state": "Kedah", },
+    { "state": "Kelantan", },
+    { "state": "Melaka", },
+    { "state": "Negeri Sembilan", },
+    { "state": "Pahang", },
+    { "state": "Perak", },
+    { "state": "Perlis", },
+    { "state": "Pulau Pinang", },
+    { "state": "Sabah", },
+    { "state": "Sarawak", },
+    { "state": "Selangor", },
+    { "state": "Terengganu", },
+    { "state": "Wilayah Persekutuan K.L", },
+  ];
+
 }

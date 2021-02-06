@@ -21,19 +21,19 @@ const routes: Routes = [
     children: content
   },
   {
-    path: 'auth/login-page',
+    path: 'login',
     component: LoginPageComponent
   },
   {
-    path: 'auth/login-first-time',
+    path: 'login-first-time',
     component: LoginFirstTimeComponent
   },
   {
-    path: 'auth/forgot-password',
+    path: 'forgot-password',
     component: ForgotPasswordComponent
   },
   {
-    path: 'auth/register-page',
+    path: 'register-page',
     component: RegisterPageComponent
   },
 ];
