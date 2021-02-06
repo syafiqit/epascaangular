@@ -6,25 +6,33 @@
 </div>
 <div class="modal-body">
   <form class="form theme-form">
-
-    <div class="form-group">
-      <label class="col-form-label">Nama Agensi</label>
-      <input class="form-control" id="name" type="text" placeholder="Agensi Pengurusan Bencana Negara">
-    </div>
-    <div class="form-group">
-      <label class="col-form-label">Kod</label>
-      <input class="form-control" id="code" type="text" placeholder="APBN">
-    </div>
-    <div class="form-group">
-      <label class="col-form-label">Kementerian</label>
-      <div>
-        <select class="form-control" id="ministry">
-            <option *ngFor="let ministry of ministry" value="{{ministry['name']}}">{{ministry['name']}}</option>
-        </select>
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label class="col-form-label">Kementerian</label>
+          <div>
+            <select class="form-control" name="ministry">
+                <option *ngFor="let ministry of ministry" value="{{ministry['name']}}">{{ministry['name']}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label class="col-form-label">Nama Agensi</label>
+          <input class="form-control" name="name" type="text" placeholder="Agensi Pengurusan Bencana Negara">
+        </div>
       </div>
     </div>
-
-    </form>
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label class="col-form-label">Kod Agensi</label>
+          <input class="form-control" name="code" type="text" placeholder="APBN">
+        </div>
+      </div>
+    </div>
+  </form>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>

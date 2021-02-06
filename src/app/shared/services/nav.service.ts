@@ -104,7 +104,7 @@ export class NavService implements OnDestroy {
         { path: '/main/list-funds', title: 'Sumber Dana', type: 'link' },
         { path: '/main/list-victim', title: 'Status Berpindah', type: 'link' },
         { path: '/main/menu-setting/entrepreneur-loan', title: 'Pinjaman Usahawan', type: 'link' },
-        { path: '/main/list', title: 'Status Kemajuan Rumah', type: 'link' },
+        { path: '/main/menu-setting/announcement', title: 'Senarai Pengumuman', type: 'link' },
         { path: '/main/menu-setting/house-project-owner', title: 'Pemilik Projek Rumah', type: 'link' },
         { path: '/main/menu-setting/help-donation', title: 'Jenis Bantuan', type: 'link' },
 

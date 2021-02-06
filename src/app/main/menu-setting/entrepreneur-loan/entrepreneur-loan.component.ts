@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
 import { EditEntrepreneurLoanComponent } from '../entrepreneur-loan/edit-entrepreneur-loan/edit-entrepreneur-loan.component';
+import { AddEntrepreneurLoanComponent } from '../entrepreneur-loan/add-entrepreneur-loan/add-entrepreneur-loan.component';
 
 @Component({
   selector: 'app-entrepreneur-loan',
@@ -27,9 +28,14 @@ export class EntrepreneurLoanComponent implements OnInit {
     config.keyboard = false;
   }
 
+  addEntrepreneurModal() {
+    this.modalService.open(AddEntrepreneurLoanComponent, { size: 'lg' });
+  }
+
   editEntrepreneurModal() {
     this.modalService.open(EditEntrepreneurLoanComponent, { size: 'lg' });
   }
+
 
   ngOnInit(): void {
   }

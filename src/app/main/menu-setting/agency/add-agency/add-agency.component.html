@@ -6,24 +6,32 @@
 </div>
 <div class="modal-body">
   <form class="form theme-form">
-
-    <div class="form-group">
-      <label class="col-form-label">Nama Agensi</label>
-      <input class="form-control" id="name" type="text">
-   </div>
-   <div class="form-group">
-    <label class="col-form-label">Kod</label>
-    <input class="form-control" id="code" type="text">
- </div>
-   <div class="form-group">
-    <label class="col-form-label">Kementerian</label>
-    <div>
-       <select class="form-control" id="ministry">
-          <option *ngFor="let ministry of ministry" value="{{ministry['name']}}">{{ministry['name']}}</option>
-       </select>
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label class="col-form-label">Kementerian</label>
+          <div>
+            <select class="form-control" name="ministry">
+                <option *ngFor="let ministry of ministry" value="{{ministry['name']}}">{{ministry['name']}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label class="col-form-label">Nama Agensi</label>
+          <input class="form-control" name="name" type="text">
+        </div>
+      </div>
     </div>
- </div>
-
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label class="col-form-label">Kod Agensi</label>
+          <input class="form-control" name="code" type="text">
+        </div>
+      </div>
+    </div>
     </form>
 </div>
 <div class="modal-footer">
