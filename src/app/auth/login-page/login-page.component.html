@@ -10,8 +10,9 @@
       <div class="login-card">
         <div>
           <div class="login-main">
-            <div class="col-md-12 text-center"><span><h4>Log Masuk</h4></span></div> <hr>
             <form class="theme-form">
+              <h4>Log Masuk</h4>
+              <p>Sila isi alamat e-mel dan katalaluan anda.</p>
               <div class="form-group">
                 <label class="col-form-label">Email:</label>
                 <input class="form-control" type="email" required="">
@@ -21,20 +22,19 @@
                 <input class="form-control" [type]="show ? 'text' : 'password'" name="login[password]" required="">
                 <div class="show-hide" (click)="showPassword()" *ngIf="!show"><span class="show"></span></div>
                 <div class="show-hide" (click)="showPassword()" *ngIf="show"><span class="Hide"></span></div>
-              </div><br>
-              <div class="form-group">
-                <button class="btn btn-primary btn-block" type="submit" [routerLink]="['/main/dashboard']">Log Masuk</button>
-              </div><br>
 
-              <div class="row">
-                <div class="col-lg-6">
-                  <button class="btn btn-light btn-block" [routerLink]="['/auth/register-page']">Pendaftaran Baru</button>
-                </div>
-                <div class="col-lg-6">
-                  <button class="btn btn-light btn-block" [routerLink]="['/auth/forgot-password']">Terlupa Kata Laluan</button>
+                <div class="form-group mb-0">
+                  <div class="checkbox p-0">
+                    <input id="checkbox1" type="checkbox">
+                    <label class="text-muted" for="checkbox1">Ingat katalaluan</label>
+                  </div>
+                  <a [routerLink]="['/forgot-password']" class="link">Terlupa katalaluan?</a>
+                  <button class="btn btn-primary btn-block" type="submit" [routerLink]="'/main'">Log Masuk</button>
                 </div>
               </div>
-
+              <p class="mt-4 mb-0">Tiada akaun?
+                <a [routerLink]="'/register-page'" class="ml-2">Pendaftaran baru</a>
+              </p>
             </form>
           </div>
         </div>
