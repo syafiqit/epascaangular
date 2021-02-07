@@ -18,7 +18,7 @@ import { ListProjectOwnerComponent } from './menu-setting/setting-project-owner/
 import { ListDistrictComponent } from './menu-setting/setting-district/list-district/list-district.component';
 import { ListDamageComponent } from './menu-setting/setting-damage/list-damage/list-damage.component';
 import { ListFundsComponent } from './menu-setting/setting-funds/list-funds/list-funds.component';
-import { ListVictimComponent } from './menu-setting/setting-victim/list-victim/list-victim.component';
+import { ListEvacuateComponent } from './menu-setting/setting-evacuate/list-evacuate/list-evacuate.component';
 import {VictimListComponent} from './admin/victim-profile/victim-list/victim-list.component';
 import {AddVictimComponent} from './admin/victim-profile/add-victim/add-victim.component';
 import { EditVictimDataComponent } from './admin/victim-profile/edit-victim/edit-victim-data.component';
@@ -114,8 +114,8 @@ const routes: Routes = [
         component: ListFundsComponent
       },
       {
-        path: 'list-victim',
-        component: ListVictimComponent
+        path: 'list-evacuate',
+        component: ListEvacuateComponent
       },
       {
         path: 'victim-list',

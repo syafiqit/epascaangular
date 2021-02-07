@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title">Edit Status Pindah (Maklumat Mangsa)</h4>
+  <h4 class="modal-title">Kemaskini Status Pindah (Maklumat Mangsa)</h4>
   <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -8,26 +8,23 @@
 <div class="modal-body">
   <form class="form theme-form">
     <div class="row">
-      <div class="col-lg-12">
+      <div class="col-lg-8">
         <div class="form-group">
-          <label for="exampleFormControlInput1">Maklumat Berpindah</label>
-          <input class="form-control" id="info" type="text" placeholder="Maklumat Berpindah">
+          <label>Maklumat Perpindahan</label>
+          <input class="form-control" id="info" type="text" placeholder="Maklumat Perpindahan">
         </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col-lg-12">
+      <div class="col-lg-4">
         <div class="form-group">
-          <label for="exampleFormControlInput1">Status</label>
-          <select class="form-control digits" id="exampleFormControlSelect9">
+          <label>Status</label>
+          <select class="form-control digits">
               <option>Aktif</option>
               <option>Tidak Aktif</option>
           </select>
         </div>
       </div>
     </div>
-    
   </form>
 </div>
 

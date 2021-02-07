@@ -1,97 +1,105 @@
-<app-breadcrumb [title]="'Maklumat Pengguna'"></app-breadcrumb>
+<app-breadcrumb [title]="'Maklumat Pengguna'" [items]="['Pengurusan Pengguna']" [active_item]="['Tambah Pengguna']"></app-breadcrumb>
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-12">
       <div class="card">
         <div class="card-body">
           <form>
+            <h6>Maklumat Pengguna</h6>
             <div class="row">
-              <div class="col">
+              <div class="col-lg-6">
                 <div class="form-group">
-                  <label for="exampleFormControlInput1">Nama Pengguna</label>
-                  <input class="form-control" id="userName" type="text" placeholder="Nama Pengguna">
+                  <label>Nama Pengguna</label>
+                  <input class="form-control" type="text" placeholder="Nama Pengguna">
                 </div>
               </div>
 
-              <div class="col">
+              <div class="col-lg-6">
                 <div class="form-group">
-                  <label for="exampleFormControlInput1">Telefon Pejabat</label>
-                  <input class="form-control" id="office" type="number" placeholder="Telefon Pejabat">
+                  <label>No Kad Pengenalan</label>
+                  <input class="form-control" type="number" placeholder="No Kad Pengenalan">
                 </div>
               </div>
             </div>
 
             <div class="row">
-              <div class="col">
+              <div class="col-lg-6">
                 <div class="form-group">
-                  <label for="exampleFormControlInput1">No Kad Pengenalan</label>
-                  <input class="form-control" id="userID" type="number" placeholder="No Kad Pengenalan">
+                  <label>Jawatan</label>
+                  <input class="form-control" type="text" placeholder="Jawatan">
                 </div>
               </div>
 
-              <div class="col">
+              <div class="col-lg-6">
                 <div class="form-group">
-                  <label for="exampleFormControlInput1">Telefon Bimbit</label>
-                  <input class="form-control" id="mobile" type="number" placeholder="Telefon Bimbit">
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label for="exampleFormControlInput1">Jawatan</label>
-                  <input class="form-control" id="position" type="text" placeholder="Jawatan">
-                </div>
-              </div>
-
-              <div class="col">
-                <div class="form-group">
-                  <label for="exampleFormControlInput1">Fax</label>
-                  <input class="form-control" id="fax" type="number" placeholder="Fax">
+                  <label>Kementerian</label>
+                  <input class="form-control" type="text" placeholder="Kementerian">
                 </div>
               </div>
             </div>
 
             <div class="row">
-              <div class="col">
+              <div class="col-lg-6">
                 <div class="form-group">
-                  <label for="exampleFormControlInput1">Kementerian</label>
-                  <input class="form-control" id="ministry" type="text" placeholder="Kementerian">
+                  <label for="exampleFormControlInput1">Kata Laluan Baru</label>
+                  <input class="form-control" id="newPassword" type="password" placeholder="Kata Laluan Baru">
+                </div>
+              </div>
+  
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Ulang Kata Laluan Baru</label>
+                  <input class="form-control" id="repeat" type="password" placeholder="Ulang Kata Laluan Baru">
+                </div>
+              </div>
+            </div>
+            <hr>
+            <h6>Maklumat Berhubung</h6>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Telefon Pejabat</label>
+                  <input class="form-control" type="number" placeholder="Telefon Pejabat">
                 </div>
               </div>
 
-              <div class="col">
+              <div class="col-lg-6">
                 <div class="form-group">
-                  <label for="exampleFormControlInput1">Email</label>
-                  <input class="form-control" id="email" type="text" placeholder="Email">
+                  <label>Telefon Bimbit</label>
+                  <input class="form-control" type="number" placeholder="Telefon Bimbit">
                 </div>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-lg-12">
+              <div class="col-lg-6">
                 <div class="form-group">
-                  <label for="exampleFormControlInput1">Nama Agensi</label>
-                  <input class="form-control" id="agency" type="text" placeholder="Nama Agensi">
+                  <label>Fax</label>
+                  <input class="form-control" type="number" placeholder="Fax">
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Email</label>
+                  <input class="form-control" type="text" placeholder="Email">
                 </div>
               </div>
             </div>
-
+            <hr>
+            <h6>Maklumat Agensi</h6>
             <div class="row">
-              <div class="col-lg-12">
+              <div class="col-lg-6">
                 <div class="form-group">
-                  <label for="exampleFormControlInput1">Alamat</label>
-                  <textarea class="form-control" id="exampleFormControlTextarea4" rows="3"></textarea>
+                  <label>Nama Agensi</label>
+                  <input class="form-control" type="text" placeholder="Nama Agensi">
                 </div>
               </div>
-            </div>
 
-            <div class="row">
-              <div class="col-lg-12">
+              <div class="col-lg-6">
                 <div class="form-group">
-                  <label for="exampleFormControlInput1">Peranan</label>
-                  <select class="form-control digits" id="exampleFormControlSelect9">
+                  <label>Peranan</label>
+                  <select class="form-control digits">
                       <option>Pilih</option>
                       <option>Admin</option>
                       <option>Penyelia</option>
@@ -102,60 +110,97 @@
             </div>
 
             <div class="row">
-              <div class="col-lg-12">
+              <div class="col-lg-6">
                 <div class="form-group">
-                  <label for="exampleFormControlInput1">Status Pengguna</label>
-                  <select class="form-control digits" id="exampleFormControlSelect9">
-                      <option>Baru</option>
-                  </select>
+                  <label>Alamat 1</label>
+                  <input class="form-control" type="text" placeholder="Alamat 1">
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Alamat 2</label>
+                  <input class="form-control" type="text" placeholder="Alamat 2">
                 </div>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-lg-12">
+              <div class="col-lg-6">
                 <div class="form-group">
-                  <label for="exampleFormControlInput1">Capaian</label>
-                  <div class="col-12 custom-datatable">
-                    <ngx-datatable class="bootstrap" [rows]="rows" [sortType]="SortType.multi" 
-                            [columnMode]="ColumnMode.flex" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [limit]="">
-      
-                        <ngx-datatable-column name="" prop="access" [flexGrow]="1">
-                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>{{ value }}</ng-template>
-                        </ngx-datatable-column>
-                        
-                        <ngx-datatable-column name="Lihat" prop="view" [sortable]="false" [canAutoResize]="false"
-                            [draggable]="false" [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true">
-                        </ngx-datatable-column>
-                        
-                        <ngx-datatable-column name="Tambah" prop="add" [sortable]="false" [canAutoResize]="false"
-                            [draggable]="false" [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true">
-                        </ngx-datatable-column>
+                  <label>Poskod</label>
+                  <input class="form-control" type="number" placeholder="Poskod">
+                </div>
+              </div>
 
-                        <ngx-datatable-column name="Kemaskini" prop="update" [sortable]="false" [canAutoResize]="false"
-                            [draggable]="false" [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true">
-                        </ngx-datatable-column>
-
-                        <ngx-datatable-column name="Hapus" prop="delete" [sortable]="false" [canAutoResize]="false"
-                            [draggable]="false" [resizeable]="false" [headerCheckboxable]="true" [checkboxable]="true">
-                        </ngx-datatable-column>
-                    </ngx-datatable>
-                  </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Daerah</label>
+                  <input class="form-control" type="text" placeholder="Daerah">
                 </div>
               </div>
             </div>
 
-            <div class="col">
-              <div class="form-group">
-                <label for="exampleFormControlInput1">Kata Laluan Baru</label>
-                <input class="form-control" id="newPassword" type="password" placeholder="Kata Laluan Baru">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Negeri</label>
+                  <input class="form-control" type="text" placeholder="Negeri">
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Status Pengguna</label>
+                  <select class="form-control digits">
+                      <option>Pilih</option>
+                      <option>Aktif</option>
+                      <option>Tidak Aktif</option>
+                  </select>
+                </div>
               </div>
             </div>
+            <hr>
+            <h6>Capaian</h6>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <div class="custom-datatable">
+                    <ngx-datatable class="bootstrap" [rows]="rows" 
+                            [columnMode]="ColumnMode.flex" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [limit]="">
+      
+                        <ngx-datatable-column name="" prop="access" [flexGrow]="1.5" [sortable]="false">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>{{ value }}</ng-template>
+                        </ngx-datatable-column>
+                        
+                        <ngx-datatable-column name="Lihat" prop="view" [flexGrow]="0.5" [sortable]="false" [canAutoResize]="true"
+                            [draggable]="false" [resizeable]="true" [headerCheckboxable]="true" [checkboxable]="true">
+                        </ngx-datatable-column>
+                        
+                        <ngx-datatable-column name="Tambah" prop="add" [flexGrow]="0.5" [sortable]="false" [canAutoResize]="true"
+                            [draggable]="false" [resizeable]="true" [headerCheckboxable]="true" [checkboxable]="true">
+                        </ngx-datatable-column>
 
-            <div class="col">
-              <div class="form-group">
-                <label for="exampleFormControlInput1">Ulang Kata Laluan Baru</label>
-                <input class="form-control" id="repeat" type="password" placeholder="Ulang Kata Laluan Baru">
+                        <ngx-datatable-column name="Kemaskini" prop="update" [flexGrow]="0.5" [sortable]="false" [canAutoResize]="true"
+                            [draggable]="false" [resizeable]="true" [headerCheckboxable]="true" [checkboxable]="true">
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-column name="Hapus" prop="delete" [flexGrow]="1" [sortable]="false" [canAutoResize]="true"
+                            [draggable]="false" [resizeable]="true" [headerCheckboxable]="true" [checkboxable]="true">
+                        </ngx-datatable-column>
+
+                        <ngx-datatable-footer>
+                          <ng-template
+                            ngx-datatable-footer-template
+                            let-rowCount="rowCount">
+                            <div style="padding: 5px 5px">
+                                Jumlah: {{ rowCount }}
+                            </div>
+                          </ng-template>
+                        </ngx-datatable-footer>
+                    </ngx-datatable>
+                  </div>
+                </div>
               </div>
             </div>
 

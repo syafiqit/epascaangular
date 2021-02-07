@@ -26,6 +26,8 @@ export class ListUserComponent implements OnInit {
   ColumnMode = ColumnMode;
   SortType = SortType;
 
+  public isCollapsed = false;
+
   constructor(config: NgbModalConfig, private modalService: NgbModal) {
     config.backdrop = 'static';
     config.keyboard = false;

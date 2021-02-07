@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AddDistrictComponent } from '../add-district/add-district.component';
+import { EditDistrictComponent } from '../edit-district/edit-district.component';
 
 @Component({
 
@@ -35,6 +36,10 @@ export class ListDistrictComponent implements OnInit {
 
   addDistrictModal() {
     this.modalService.open(AddDistrictComponent, { size: 'lg' });
+  }
+
+  editDistrictModal() {
+    this.modalService.open(EditDistrictComponent, { size: 'lg' });
   }
 
 }

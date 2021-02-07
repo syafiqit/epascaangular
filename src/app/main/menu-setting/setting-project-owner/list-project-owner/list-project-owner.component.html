@@ -5,31 +5,52 @@
       <div class="card">
         <div class="card-body">
           <div class="row justify-content-end">
-            <div class="col-lg-2">
-                <button class="btn btn-primary" type="button" (click)="addProjectOwnerModal()"><i class="fa fa-plus mr-2"></i>Tambah</button>
+            <button class="btn btn-primary mr-3" type="button" (click)="addProjectOwnerModal()"><i
+              class="fa fa-plus mr-2"></i>Tambah</button>
+          </div>
+          &nbsp;
+          <div class="row">
+            <div class="col-lg-12">
+              <input type="text" class="filter-ngx form-control" placeholder='Carian...' />
             </div>
           </div>
           &nbsp;
-          <div class="col-12 custom-datatable">
-              <ngx-datatable class="bootstrap" [rows]="rows" [sortType]="SortType.multi" 
-                      [columnMode]="ColumnMode.flex" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [limit]="">
+          <div class="custom-datatable">
+            <ngx-datatable class="bootstrap"
+                           [rows]="rows" [sortType]="SortType.multi"
+                           [columnMode]="ColumnMode.flex" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [limit]="10">
 
-                  <ngx-datatable-column name="Tindakan" prop="action" [flexGrow]="2">
-                      <ng-template let-value="value" ngx-datatable-cell-template>
-                          <span>
-                            <a class="col-sm-6 col-md-4 col-xl-3" (click)="addProjectOwnerModal()"><i class="fa fa-edit"></i></a>
-                          </span>
-                      </ng-template>
-                  </ngx-datatable-column>
-                  <ngx-datatable-column name="Nama Pelaksana" prop="execName" [flexGrow]="2">
-                      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>{{ value }}</ng-template>
-                  </ngx-datatable-column>
-                  <ngx-datatable-column name="Status" prop="status" [flexGrow]="2">
-                      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>{{ value }}</ng-template>
-                  </ngx-datatable-column>
-              </ngx-datatable>
+              <ngx-datatable-column name="Tindakan" prop="action" [flexGrow]="2">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  <span>
+                    <a class="col-sm-6 col-md-4 col-xl-3" [queryParams]="{id: 1}" (click)="editProjectOwnerModal()"><i class="fa fa-edit"></i></a>
+                    <a class="col-sm-6 col-md-4 col-xl-3"><i class="fa fa-trash"></i></a>
+                  </span>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Nama Pelaksana" prop="execName" [flexGrow]="3">
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Status" prop="status" [flexGrow]="2">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-footer>
+                <ng-template
+                  ngx-datatable-footer-template
+                  let-rowCount="rowCount">
+                  <div style="padding: 5px 5px">
+                      Jumlah: {{ rowCount }}
+                  </div>
+                </ng-template>
+              </ngx-datatable-footer>
+
+            </ngx-datatable>
           </div>
-          <button class="btn btn-primary pull-right" type="submit" [routerLink]="['/main/menu-setting']">Kembali</button>
         </div>
       </div>
     </div>
