@@ -1,11 +1,11 @@
-<app-breadcrumb [title]="'Medan Sumber Dana'" [items]="['Medan']" [active_item]="['Medan Sumber Dana']"></app-breadcrumb>
+<app-breadcrumb [title]="'Medan Status Pindah (Maklumat Mangsa)'" [items]="['Medan']" [active_item]="['Medan Status Berpindah']"></app-breadcrumb>
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-12">
       <div class="card">
         <div class="card-body">
           <div class="row justify-content-end">
-            <button class="btn btn-primary mr-3" type="button" (click)="addFundsModal()"><i
+            <button class="btn btn-primary mr-3" type="button" (click)="addEvacuateModal()"><i
               class="fa fa-plus mr-2"></i>Tambah</button>
           </div>
           &nbsp;
@@ -23,12 +23,12 @@
               <ngx-datatable-column name="Tindakan" prop="action" [flexGrow]="2">
                 <ng-template let-value="value" ngx-datatable-cell-template>
                   <span>
-                    <a class="col-sm-6 col-md-4 col-xl-3" [queryParams]="{id: 1}" (click)="editFundsModal()"><i class="fa fa-edit"></i></a>
+                    <a class="col-sm-6 col-md-4 col-xl-3" [queryParams]="{id: 1}" (click)="editEvacuateModal()"><i class="fa fa-edit"></i></a>
                     <a class="col-sm-6 col-md-4 col-xl-3"><i class="fa fa-trash"></i></a>
                   </span>
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="Sumber" prop="source" [flexGrow]="3">
+              <ngx-datatable-column name="Maklumat Perpindahan" prop="info" [flexGrow]="3">
                 <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                   {{ value }}
                 </ng-template>

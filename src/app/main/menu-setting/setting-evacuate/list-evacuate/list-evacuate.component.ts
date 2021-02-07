@@ -1,18 +1,19 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { EditVictimComponent } from '../edit-victim/edit-victim.component';
+import { EditEvacuateComponent } from '../edit-evacuate/edit-evacuate.component';
+import { AddEvacuateComponent } from '../add-evacuate/add-evacuate.component';
 
 @Component({
 
-  selector: 'app-list-victim',
-  templateUrl: './list-victim.component.html',
+  selector: 'app-list-evacuate',
+  templateUrl: './list-evacuate.component.html',
   encapsulation: ViewEncapsulation.None,
   providers: [NgbModalConfig, NgbModal]
 
 })
 
-export class ListVictimComponent implements OnInit {
+export class ListEvacuateComponent implements OnInit {
 
   rows = [
     {"info":"Pusat Pemindahan", "status":"Aktif"},
@@ -33,8 +34,12 @@ export class ListVictimComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  editVictimModal() {
-    this.modalService.open(EditVictimComponent, { size: 'lg' });
+  addEvacuateModal() {
+    this.modalService.open(AddEvacuateComponent, { size: 'lg' });
+  }
+
+  editEvacuateModal() {
+    this.modalService.open(EditEvacuateComponent, { size: 'lg' });
   }
 
 }

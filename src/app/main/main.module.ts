@@ -30,14 +30,19 @@ import { HelpDonationComponent } from './menu-setting/help-donation/help-donatio
 import { EditHelpDonationComponent } from './menu-setting/help-donation/edit-help-donation/edit-help-donation.component';
 import { ListProjectOwnerComponent } from './menu-setting/setting-project-owner/list-project-owner/list-project-owner.component';
 import { AddProjectOwnerComponent } from './menu-setting/setting-project-owner/add-project-owner/add-project-owner.component';
+import { EditProjectOwnerComponent } from './menu-setting/setting-project-owner/edit-project-owner/edit-project-owner.component';
 import { ListDistrictComponent } from './menu-setting/setting-district/list-district/list-district.component';
 import { AddDistrictComponent } from './menu-setting/setting-district/add-district/add-district.component';
+import { EditDistrictComponent } from './menu-setting/setting-district/edit-district/edit-district.component';
 import { ListDamageComponent } from './menu-setting/setting-damage/list-damage/list-damage.component';
 import { EditDamageComponent } from './menu-setting/setting-damage/edit-damage/edit-damage.component';
+import { AddDamageComponent } from './menu-setting/setting-damage/add-damage/add-damage.component';
 import { ListFundsComponent } from './menu-setting/setting-funds/list-funds/list-funds.component';
 import { EditFundsComponent } from './menu-setting/setting-funds/edit-funds/edit-funds.component';
-import { ListVictimComponent } from './menu-setting/setting-victim/list-victim/list-victim.component';
-import { EditVictimComponent } from './menu-setting/setting-victim/edit-victim/edit-victim.component';
+import { AddFundsComponent } from './menu-setting/setting-funds/add-funds/add-funds.component';
+import { ListEvacuateComponent } from './menu-setting/setting-evacuate/list-evacuate/list-evacuate.component';
+import { EditEvacuateComponent } from './menu-setting/setting-evacuate/edit-evacuate/edit-evacuate.component';
+import { AddEvacuateComponent } from './menu-setting/setting-evacuate/add-evacuate/add-evacuate.component';
 import { VictimListComponent } from './admin/victim-profile/victim-list/victim-list.component';
 import { AddVictimComponent } from './admin/victim-profile/add-victim/add-victim.component';
 import { EditVictimDataComponent } from './admin/victim-profile/edit-victim/edit-victim-data.component';
@@ -97,14 +102,19 @@ import { AddHelpDonationComponent } from './menu-setting/help-donation/add-help-
     AddUserComponent,
     ListProjectOwnerComponent,
     AddProjectOwnerComponent,
+    EditProjectOwnerComponent,
     ListDistrictComponent,
     AddDistrictComponent,
+    EditDistrictComponent,
     ListDamageComponent,
     EditDamageComponent,
+    AddDamageComponent,
     ListFundsComponent,
     EditFundsComponent,
-    ListVictimComponent,
-    EditVictimComponent,
+    AddFundsComponent,
+    ListEvacuateComponent,
+    EditEvacuateComponent,
+    AddEvacuateComponent,
     VictimListComponent,
     AddVictimComponent,
     EditVictimDataComponent,
@@ -120,7 +130,6 @@ import { AddHelpDonationComponent } from './menu-setting/help-donation/add-help-
     OtherAidComponent,
     AddHouseholdComponent,
     AddVictimDisasterComponent,
-    EditVictimComponent,
     ParliamentComponent,
     AddParliamentComponent,
     StateComponent,
