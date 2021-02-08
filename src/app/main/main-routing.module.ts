@@ -27,6 +27,7 @@ import {ParliamentComponent} from './menu-setting/parliament/parliament.componen
 import {StateComponent} from './menu-setting/state/state.component';
 import {DunComponent} from './menu-setting/dun/dun.component';
 import { AnnouncementComponent } from './menu-setting/announcement/announcement.component';
+import { DashboardFundComponent } from './dashboard/dashboard-fund/dashboard-fund.component';
 
 const routes: Routes = [
   {
@@ -144,6 +145,10 @@ const routes: Routes = [
       {
         path: 'list-dun',
         component: DunComponent
+      },
+      {
+        path: 'dashboard-fund-management',
+        component: DashboardFundComponent
       },
     ]
   }

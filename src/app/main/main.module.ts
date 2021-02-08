@@ -69,6 +69,7 @@ import { AddAnnouncementComponent } from './menu-setting/announcement/add-announ
 import { EditAnnouncementComponent } from './menu-setting/announcement/edit-announcement/edit-announcement.component';
 import { AddEntrepreneurLoanComponent } from './menu-setting/entrepreneur-loan/add-entrepreneur-loan/add-entrepreneur-loan.component';
 import { AddHelpDonationComponent } from './menu-setting/help-donation/add-help-donation/add-help-donation.component';
+import { DashboardFundComponent } from './dashboard/dashboard-fund/dashboard-fund.component';
 
 
 @NgModule({
@@ -140,7 +141,8 @@ import { AddHelpDonationComponent } from './menu-setting/help-donation/add-help-
     AddAnnouncementComponent,
     EditAnnouncementComponent,
     AddEntrepreneurLoanComponent,
-    AddHelpDonationComponent
+    AddHelpDonationComponent,
+    DashboardFundComponent
 
   ],
   imports: [
