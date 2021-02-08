@@ -32,6 +32,9 @@ import { ApprovalEditComponent } from './funds-approval/approval-edit/approval-e
 import { ApprovalAddComponent } from './funds-approval/approval-add/approval-add.component';
 import { EditSKBComponent } from './funds-approval/approval-list/edit-skb/edit-skb.component';
 import { DirectPaymentComponent } from './funds-approval/approval-list/direct-payment/direct-payment.component';
+import { SKBComponent } from './fund-management/payment/skb/skb.component';
+import { ProcurementComponent } from './fund-management/payment/procurement/procurement.component';
+import { CharityMoneyComponent } from './fund-management/charity-money/charity-money.component';
 
 const routes: Routes = [
   {
@@ -169,6 +172,18 @@ const routes: Routes = [
       {
         path: 'direct-payment',
         component: DirectPaymentComponent
+      },
+      {
+        path: 'skb',
+        component: SKBComponent
+      },
+      {
+        path: 'procurement',
+        component: ProcurementComponent
+      },
+      {
+        path: 'charity-money',
+        component: CharityMoneyComponent
       },
     ]
   }

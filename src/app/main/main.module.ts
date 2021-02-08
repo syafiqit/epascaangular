@@ -75,6 +75,11 @@ import { ApprovalAddComponent } from './funds-approval/approval-add/approval-add
 import { AddModalComponent } from './funds-approval/approval-add/add-modal.component';
 import { EditSKBComponent } from './funds-approval/approval-list/edit-skb/edit-skb.component';
 import { DirectPaymentComponent } from './funds-approval/approval-list/direct-payment/direct-payment.component';
+import { SKBComponent } from './fund-management/payment/skb/skb.component';
+import { ProcurementComponent } from './fund-management/payment/procurement/procurement.component';
+import { CharityMoneyComponent } from './fund-management/charity-money/charity-money.component';
+import { AddCharityMoneyComponent } from './fund-management/charity-money/add-charity-money/add-charity-money.component';
+import { EditCharityMoneyComponent } from './fund-management/charity-money/edit-charity-money/edit-charity-money.component';
 
 
 @NgModule({
@@ -152,7 +157,12 @@ import { DirectPaymentComponent } from './funds-approval/approval-list/direct-pa
     ApprovalAddComponent,
     AddModalComponent,
     EditSKBComponent,
-    DirectPaymentComponent
+    DirectPaymentComponent,
+    SKBComponent,
+    ProcurementComponent,
+    CharityMoneyComponent,
+    AddCharityMoneyComponent,
+    EditCharityMoneyComponent
 
   ],
   imports: [
