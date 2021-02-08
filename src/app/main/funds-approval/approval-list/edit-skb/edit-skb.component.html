@@ -1,0 +1,220 @@
+<app-breadcrumb [title]="'Tambah Belanja Secara Kuasa Kebenaran Berbelanja KWABBN'" 
+    [items]="['Pengurusan Tabung']" [active_item]="'Kelulusan'"></app-breadcrumb>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <form>
+                        <h6>Maklumat Kelulusan</h6>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>No Rujukan Kelulusan</label>
+                                    <input class="form-control" type="text" placeholder="No Rujukan Kelulusan">
+                                </div>
+                            </div>
+      
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Tabung</label>
+                                    <select class="form-control digits">
+                                        <option>Pilih</option>
+                                        <option>KWABBN</option>
+                                        <option>Covid-19</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+      
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Kategori</label>
+                                    <select class="form-control digits">
+                                        <option>Pilih</option>
+                                        <option>Banjir</option>
+                                        <option>Ribut</option>
+                                        <option>Tanah Runtuh</option>
+                                        <option>Covid-19</option>
+                                        <option>Pelbagai</option>
+                                    </select>
+                                </div>
+                            </div>
+            
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Agensi</label>
+                                    <input class="form-control" type="text" placeholder="Nama Agensi">
+                                </div>
+                            </div>
+                        </div>
+      
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Rujukan Surat</label>
+                                    <input class="form-control" type="text" placeholder="JPM.APBN(S).600-3/8/2 (1)">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Perihal Surat</label>
+                                    <textarea class="form-control input-air-primary" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <h6>Maklumat Diberi Kuasa</h6>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Pegawai</label>
+                                    <select class="form-control digits">
+                                        <option>Pilih</option>
+                                        <option>Setiausaha Kerajaan</option>
+                                        <option>Pengarah</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Agensi Diberi Kuasa</label>
+                                    <select class="form-control digits">
+                                        <option>Pilih</option>
+                                        <option>SUK Negeri Kedah</option>
+                                        <option>APM Negeri Johor</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Kategori</label>
+                                    <select class="form-control digits">
+                                        <option>Pilih</option>
+                                        <option>Covid</option>
+                                        <option>Bukan Covid</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    <select class="form-control digits">
+                                        <option>Aktif</option>
+                                        <option>Tidak Aktif</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Perihal</label>
+                                    <textarea class="form-control input-air-primary" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Tarikh Tempoh (Mula)</label>
+                                    <div class="input-group">
+                                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp1" [displayMonths]="displayMonths"
+                                            [navigation]="navigation" [outsideDays]="outsideDays" [showWeekNumbers]="showWeekNumbers"
+                                            ngbDatepicker #k1="ngbDatepicker">
+                                        <div class="input-group-append">
+                                            <button class="btn calendar" (click)="k1.toggle()" type="button"><i class="fa fa-calendar"></i></button> 
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Tarikh Tempoh (Tamat)</label>
+                                    <div class="input-group">
+                                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp2" [displayMonths]="displayMonths"
+                                            [navigation]="navigation" [outsideDays]="outsideDays" [showWeekNumbers]="showWeekNumbers"
+                                            ngbDatepicker #k2="ngbDatepicker">
+                                        <div class="input-group-append">
+                                            <button class="btn calendar" (click)="k2.toggle()" type="button"><i class="fa fa-calendar"></i></button>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Siling Peruntukan</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend"><span class="input-group-text">RM</span></div>
+                                        <input class="form-control" type="number">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Baki Peruntukan</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend"><span class="input-group-text">RM</span></div>
+                                        <input class="form-control" type="number">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="custom-datatable">
+                            <ngx-datatable class="bootstrap" [rows]="rows" [sortType]="SortType.multi"
+                                [columnMode]="ColumnMode.flex" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [limit]="">
+                
+                                <ngx-datatable-column name="Tindakan" prop="action" [flexGrow]="2" [sortable]="false">
+                                    <ng-template let-value="value" ngx-datatable-cell-template>
+                                        <span>
+                                            <a class="col-sm-6 col-md-4 col-xl-3" [queryParams]="{id: 1}"><i class="fa fa-edit"></i></a>
+                                        </span>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Bulan" prop="month" [flexGrow]="2" [sortable]="false">
+                                    <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                    {{ value }}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Jumlah (RM)" prop="total" [flexGrow]="2" [sortable]="false">
+                                    <ng-template let-value="value" ngx-datatable-cell-template>
+                                    {{ value }}
+                                    </ng-template>
+                                </ngx-datatable-column>
+                    
+                                <ngx-datatable-footer>
+                                    <ng-template
+                                    ngx-datatable-footer-template
+                                    let-rowCount="rowCount">
+                                    <div style="padding: 5px 5px">
+                                        Jumlah: {{ rowCount }}
+                                    </div>
+                                    </ng-template>
+                                </ngx-datatable-footer>
+                    
+                            </ngx-datatable>
+                        </div>
+
+                        <button class="btn btn-primary pull-right" [routerLink]="['/main/approval-list']" type="button">Simpan</button>
+                        <button class="btn btn-light pull-right mr-1" [routerLink]="['/main/approval-list']" type="button">Kembali</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
