@@ -3,21 +3,19 @@
     <div class="row">
       <div class="col-xl-6 col-xs-12">
         <div class="form-group">
-          <label for="nama">Nama</label>
-          <input class="form-control" id="nama" type="text" value="Asmah Binti Haji Ameran" disabled>
+          <label>Nama: Asmah  Binti Haji Ameran</label>
         </div>
       </div>
       <div class="col-xl-6 col-xs-12">
         <div class="form-group">
-          <label for="kp">No KP</label>
-          <input class="form-control" id="kp" type="text" value="xxxxxx-xx-xxxx" disabled>
+          <label>No KP: xxxxxx-xx-xxxx</label>
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row justify-content-end">
       <div class="col-xl-6 col-xs-12">
         <div class="form-group">
-          <button (click)="addVictimDisasterModal()" class="btn btn-primary mb-1"><i class="fa fa-plus mr-2"></i> Tambah </button>
+          <button (click)="addVictimDisasterModal()" class="btn btn-primary pull-right mb-4"><i class="fa fa-plus mr-2"></i> Tambah </button>
         </div>
       </div>
     </div>
@@ -54,6 +52,15 @@
               {{ value }}
             </ng-template>
           </ngx-datatable-column>
+          <ngx-datatable-footer>
+            <ng-template
+              ngx-datatable-footer-template
+              let-rowCount="rowCount">
+              <div style="padding: 5px 5px">
+                Jumlah: {{ rowCount }}
+              </div>
+            </ng-template>
+          </ngx-datatable-footer>
         </ngx-datatable>
       </div>
     </div>

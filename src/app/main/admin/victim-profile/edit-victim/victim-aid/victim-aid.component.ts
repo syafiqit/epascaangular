@@ -6,6 +6,7 @@ import {SpecialLoanComponent} from './special-loan/special-loan.component';
 import {AgricultureAidComponent} from './agriculture-aid/agriculture-aid.component';
 import {InternationalAidComponent} from './international-aid/international-aid.component';
 import {OtherAidComponent} from './other-aid/other-aid.component';
+import {HouseAidComponent} from './house-aid/house-aid.component';
 declare var require;
 const Swal = require('sweetalert2');
 
@@ -17,13 +18,28 @@ const Swal = require('sweetalert2');
 })
 export class VictimAidComponent implements OnInit {
 
-  rows = [
-    { "aid": "Wang Ihsan", "type": "Banjir", "date": "12-12-2020", "total": "500"},
+  ihsanDonation = [
+    { "disaster": "Banjir", "agency": "Agency A", "date": "12-12-2020", "total": "500"},
   ];
 
-  categories = [
-    { "data": "barangan kebersihan", },
-    { "data": "barangan perubatan", },
+  houseAid = [
+    { "disaster": "Banjir", "help": "Bina Pulih Rumah", "date": "12-12-2020", "totalPredict": "500", "totalReal": "500"},
+  ];
+
+  specialLoan = [
+    { "disaster": "Banjir", "agency": "Agency A", "date": "12-12-2020", "total": "500"},
+  ];
+
+  agricultureAid = [
+    { "disaster": "Banjir", "agency": "Agency A", "agriculture": "Sawit", "date": "12-12-2020", "total": "500"},
+  ];
+
+  internationalAid = [
+    { "disaster": "Banjir", "agency": "United Kingdom", "date": "12-12-2020", "total": "500"},
+  ];
+
+  otherAid = [
+    { "disaster": "Banjir", "help": "Bantuan Kaunseling", "date": "12-12-2020", "total": "500"},
   ];
 
   items = [
@@ -48,6 +64,10 @@ export class VictimAidComponent implements OnInit {
 
   specialLoanModal() {
     this.modalService.open(SpecialLoanComponent, { size: 'lg' });
+  }
+
+  houseAidModal() {
+    this.modalService.open(HouseAidComponent, { size: 'lg' });
   }
 
   agricultureAidModal() {

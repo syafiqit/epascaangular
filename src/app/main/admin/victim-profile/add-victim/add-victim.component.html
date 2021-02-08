@@ -12,27 +12,13 @@
               <div class="col-xl-6 col-xs-12">
                 <div class="form-group">
                   <label for="exampleFormControlInput1">No KP</label>
-                  <input class="form-control" id="exampleFormControlInput1" type="text">
+                  <input class="form-control" id="exampleFormControlInput1" type="text" placeholder="Kad Pengenalan">
                 </div>
               </div>
-              <div class="col-xl-6 col-xs-12">
-                <div class="form-group">
-                  <label for="exampleFormControlSelect9">Negeri</label>
-                  <input class="form-control" id="exampleFormControlInput1" type="text">
-                </div>
-              </div>
-            </div>
-            <div class="row">
               <div class="col-xl-6 col-xs-12">
                 <div class="form-group">
                   <label for="exampleFormControlInput1">Nama</label>
-                  <input class="form-control" id="exampleFormControlInput1" type="text">
-                </div>
-              </div>
-              <div class="col-xl-6 col-xs-12">
-                <div class="form-group">
-                  <label for="exampleFormControlSelect9">Daerah</label>
-                  <input class="form-control" id="exampleFormControlInput1" type="text">
+                  <input class="form-control" id="exampleFormControlInput1" type="text" placeholder="Nama">
                 </div>
               </div>
             </div>
@@ -40,18 +26,31 @@
               <div class="col-xl-6 col-xs-12">
                 <div class="form-group">
                   <label for="exampleFormControlInput1">Alamat 1</label>
-                  <input class="form-control" id="exampleFormControlInput1" type="text">
+                  <input class="form-control" id="exampleFormControlInput1" type="text" placeholder="Alamat 1">
+                </div>
+
+              </div>
+              <div class="col-xl-6 col-xs-12">
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Alamat 2</label>
+                  <input class="form-control" id="exampleFormControlInput1" type="text" placeholder="Alamat 2">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-6 col-xs-12">
+                <div class="form-group">
+                  <label for="exampleFormControlSelect9">DUN</label>
+                  <select class="form-control digits" id="exampleFormControlSelect9">
+                    <option *ngFor="let adun of dun">{{adun.data}}</option>
+                  </select>
                 </div>
               </div>
               <div class="col-xl-6 col-xs-12">
                 <div class="form-group">
-                  <label for="exampleFormControlSelect9">Parlimen1</label>
+                  <label for="exampleFormControlSelect9">Parlimen</label>
                   <select class="form-control digits" id="exampleFormControlSelect9">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    <option *ngFor="let p of parliaments">{{p.data}}</option>
                   </select>
                 </div>
               </div>
@@ -59,19 +58,17 @@
             <div class="row">
               <div class="col-xl-6 col-xs-12">
                 <div class="form-group">
-                  <label for="exampleFormControlInput1">Alamat 2</label>
-                  <input class="form-control" id="exampleFormControlInput1" type="text">
+                  <label for="exampleFormControlSelect9">Daerah</label>
+                  <select class="form-control digits" id="exampleFormControlSelect9">
+                    <option *ngFor="let district of districts">{{district.data}}</option>
+                  </select>
                 </div>
               </div>
               <div class="col-xl-6 col-xs-12">
                 <div class="form-group">
-                  <label for="exampleFormControlSelect9">DUN</label>
-                  <select class="form-control digits" id="exampleFormControlSelect9">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                  <label for="exampleFormControlSelect9">Negeri</label>
+                  <select class="form-control digits" >
+                    <option *ngFor="let s of states">{{s.data}}</option>
                   </select>
                 </div>
               </div>
@@ -80,13 +77,13 @@
               <div class="col-xl-6 col-xs-12">
                 <div class="form-group">
                   <label for="exampleFormControlInput1">Poskod</label>
-                  <input class="form-control" id="exampleFormControlInput1" type="text">
+                  <input class="form-control" id="exampleFormControlInput1" type="text" placeholder="Poskod">
                 </div>
               </div>
               <div class="col-xl-6 col-xs-12">
                 <div class="form-group">
                   <label for="exampleFormControlSelect9">Telefon</label>
-                  <input class="form-control" id="exampleFormControlInput1" type="text">
+                  <input class="form-control" id="exampleFormControlInput1" type="text" placeholder="Telefon">
                 </div>
               </div>
             </div>
@@ -124,18 +121,15 @@
               <div class="col-xl-6 col-xs-12">
                 <div class="form-group">
                   <label for="exampleFormControlInput1">Tahun</label>
-                  <input class="form-control" id="exampleFormControlInput1" type="text">
+                  <input class="form-control" id="exampleFormControlInput1" type="text" placeholder="Tahun">
                 </div>
               </div>
               <div class="col-xl-6 col-xs-12">
                 <div class="form-group">
                   <label for="exampleFormControlSelect9">Nama Bencana</label>
                   <select class="form-control digits" id="exampleFormControlSelect9">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    <option>Banjir</option>
+                    <option>Covid-19</option>
                   </select>
                 </div>
               </div>
@@ -145,18 +139,15 @@
                 <div class="form-group">
                   <label for="exampleFormControlInput1">Status Berpindah</label>
                   <select class="form-control digits" id="exampleFormControlSelect9">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    <option>Sudah indah</option>
+                    <option>Belum Berpindah</option>
                   </select>
                 </div>
               </div>
               <div class="col-xl-6 col-xs-12">
                 <div class="form-group">
                   <label for="exampleFormControlSelect9">Nama Pusat</label>
-                  <input class="form-control" id="exampleFormControlInput1" type="text">
+                  <input class="form-control" id="exampleFormControlInput1" type="text" placeholder="Nama Pusat">
                 </div>
               </div>
             </div>
@@ -186,7 +177,7 @@
           </div>
           <div class="card-footer">
             <button class="btn btn-primary" type="submit">Submit</button>
-            <input class="btn btn-light ml-1" type="reset" value="Cancel">
+            <button class="btn btn-light ml-1" type="reset" value="Cancel"></button>
           </div>
         </form>
       </div>

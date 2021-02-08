@@ -21,9 +21,7 @@
         <div class="form-group">
           <label for="exampleFormControlSelect9">Hubungan</label>
           <select class="form-control digits" id="exampleFormControlSelect9">
-            <option>Pilih</option>
-            <option>Aktif</option>
-            <option>Tidak Aktif</option>
+            <option *ngFor="let r of relationships">{{r.data}}</option>
           </select>
         </div>
       </div>
