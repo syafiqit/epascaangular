@@ -27,45 +27,48 @@
                   <div class="card mb-0">
                     <div class="card-body">
                       <form>
-                        <div class="form-group m-form__group">
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                                <select class="form-control digits">
-                                  <option>Nama</option>
-                                  <option>No Kad Pengenalan</option>
-                                </select>
+                        <div class="row">
+                          <div class="col-xl-3 col-xs-2">
+                            <label>Jenis Pilihan</label>
+                            <select class="form-control digits">
+                              <option>Nama</option>
+                              <option>No Kad Pengenalan</option>
+                            </select>
+                          </div>
+                          <div class="col-xl-9 col-xs-3">
+                            <label>Data Pilihan</label>
+                            <div class="form-group">
+                              <input class="form-control" id="text" type="text">
                             </div>
-                            <input class="form-control" type="text" placeholder="Nama/No Kad Pengenalan">
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col-lg-6">
-                              <div class="form-group">
-                                  <label>Agensi</label>
-                                  <select class="form-control digits">
-                                    <option>Pilih</option>
-                                    <option>Jabatan Kebajikan Masyarakat</option>
-                                    <option>Jabatan Pertahanan Awam Malaysia</option>
-                                    <option>Agensi Pengurusan Bencana Malaysia</option>
-                                </select>
-                              </div>
+                          <div class="col-xl-3 col-xs-6">
+                            <div class="form-group">
+                              <label>Agensi</label>
+                              <select class="form-control digits">
+                                <option>Pilih</option>
+                                <option>Jabatan Kebajikan Masyarakat</option>
+                                <option>Jabatan Pertahanan Awam Malaysia</option>
+                                <option>Agensi Pengurusan Bencana Malaysia</option>
+                              </select>
+                            </div>
                           </div>
-              
-                          <div class="col-lg-6">
-                              <div class="form-group">
-                                  <label>Peranan</label>
-                                  <select class="form-control digits">
-                                      <option>Pilih</option>
-                                      <option>Pengguna Biasa</option>
-                                      <option>Penyelia</option>
-                                      <option>Admin</option>
-                                  </select>
-                              </div>
+                          <div class="col-xl-3 col-xs-6">
+                            <div class="form-group">
+                              <label>Peranan</label>
+                              <select class="form-control digits">
+                                <option>Pilih</option>
+                                <option>Pengguna Biasa</option>
+                                <option>Penyelia</option>
+                                <option>Admin</option>
+                              </select>
+                            </div>
                           </div>
                         </div>
                         <div class="row justify-content-end">
                           <button class="btn btn-outline-primary mr-3" type="button" (click)="isCollapsed = !isCollapsed"
-                          [attr.aria-expanded]="!isCollapsed">Cari</button>
+                                  [attr.aria-expanded]="!isCollapsed">Cari</button>
                         </div>
                       </form>
                     </div>
@@ -76,7 +79,7 @@
           </div>
           &nbsp;
           <div class="custom-datatable">
-              <ngx-datatable class="bootstrap" [rows]="rows" [sortType]="SortType.multi" 
+              <ngx-datatable class="bootstrap" [rows]="rows" [sortType]="SortType.multi"
                       [columnMode]="ColumnMode.flex" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [limit]="">
 
                   <ngx-datatable-column name="Tindakan" prop="action" [flexGrow]="1">
