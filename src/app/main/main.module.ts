@@ -70,7 +70,7 @@ import { EditAnnouncementComponent } from './menu-setting/announcement/edit-anno
 import { AddEntrepreneurLoanComponent } from './menu-setting/entrepreneur-loan/add-entrepreneur-loan/add-entrepreneur-loan.component';
 import { AddHelpDonationComponent } from './menu-setting/help-donation/add-help-donation/add-help-donation.component';
 import { SKBComponent } from './fund-management/payment/skb/skb.component';
-import { AcquisitionComponent } from './fund-management/payment/acquisition/acquisition.component';
+import { ProcurementComponent } from './fund-management/payment/procurement/procurement.component';
 import { CharityMoneyComponent } from './fund-management/charity-money/charity-money.component';
 import { AddCharityMoneyComponent } from './fund-management/charity-money/add-charity-money/add-charity-money.component';
 import { EditCharityMoneyComponent } from './fund-management/charity-money/edit-charity-money/edit-charity-money.component';
@@ -147,7 +147,7 @@ import { EditCharityMoneyComponent } from './fund-management/charity-money/edit-
     AddEntrepreneurLoanComponent,
     AddHelpDonationComponent,
     SKBComponent,
-    AcquisitionComponent,
+    ProcurementComponent,
     CharityMoneyComponent,
     AddCharityMoneyComponent,
     EditCharityMoneyComponent

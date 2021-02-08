@@ -97,7 +97,7 @@ export class NavService implements OnDestroy {
 					title: 'Pembayaran', type: 'sub', children: [
 						{ path: '/main/skb', title: 'Skb', type: 'link' },
 						{ path: '', title: 'Bayaran Secara Terus', type: 'link' },
-						{ path: '/main/acquisition', title: 'Perolehan', type: 'link' },
+						{ path: '/main/procurement', title: 'Perolehan', type: 'link' },
 					]
 				},
         { path: '/main/charity-money', title: 'Bantuan Wang Ihsan', type: 'link' },

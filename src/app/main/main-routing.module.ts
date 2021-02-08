@@ -28,7 +28,7 @@ import {StateComponent} from './menu-setting/state/state.component';
 import {DunComponent} from './menu-setting/dun/dun.component';
 import { AnnouncementComponent } from './menu-setting/announcement/announcement.component';
 import { SKBComponent } from './fund-management/payment/skb/skb.component';
-import { AcquisitionComponent } from './fund-management/payment/acquisition/acquisition.component';
+import { ProcurementComponent } from './fund-management/payment/procurement/procurement.component';
 import { CharityMoneyComponent } from './fund-management/charity-money/charity-money.component';
 
 const routes: Routes = [
@@ -153,8 +153,8 @@ const routes: Routes = [
         component: SKBComponent
       },
       {
-        path: 'acquisition',
-        component: AcquisitionComponent
+        path: 'procurement',
+        component: ProcurementComponent
       },
       {
         path: 'charity-money',
