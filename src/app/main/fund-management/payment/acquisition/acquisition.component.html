@@ -1,0 +1,86 @@
+<app-breadcrumb [title]="'Komitmen Perolehan Kumpulan Wang Amanah Bantuan Bencana Negara (KWABBN)'" [items]="['Pengurusan Tabung','Pembayaran']" [active_item]="['Perolehan']"></app-breadcrumb>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row justify-content-end">
+            <button class="btn btn-primary mr-3" type="button"><i
+              class="fa fa-plus mr-2"></i>Tambah</button>
+          </div>
+          &nbsp;
+          <div class="row">
+            <div class="col-lg-12">
+              <input type="text" class="filter-ngx form-control" placeholder='Carian...' />
+            </div>
+          </div>
+          &nbsp;
+          <div class="custom-datatable">
+            <ngx-datatable class="bootstrap"
+                           [rows]="rows" [sortType]="SortType.multi"
+                           [columnMode]="ColumnMode.flex" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [limit]="10">
+
+              <ngx-datatable-column name="Tindakan" prop="action" [flexGrow]="1">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  <span>
+                    <a class="col-sm-6 col-md-4 col-xl-3" [queryParams]="{id: 1}"><i class="fa fa-edit"></i></a>
+                    <a class="col-sm-6 col-md-4 col-xl-3"><i class="fa fa-trash"></i></a>
+                  </span>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="No Rujukan Bayaran" prop="paymentRefNo" [flexGrow]="1">
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Tarikh" prop="date" [flexGrow]="1">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="No Baucer" prop="voucherNo" [flexGrow]="1">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="No Rujukan Kelulusan" prop="approvalRefNo" [flexGrow]="1">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Jenis Komitmen Perolehan" prop="acquisitionType" [flexGrow]="1">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Kepada" prop="to" [flexGrow]="1">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Kategori" prop="category" [flexGrow]="1">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-footer>
+                <ng-template
+                  ngx-datatable-footer-template
+                  let-rowCount="rowCount">
+                  <div style="padding: 5px 5px">
+                      Jumlah: {{ rowCount }}
+                  </div>
+                </ng-template>
+              </ngx-datatable-footer>
+
+            </ngx-datatable>
+            <div class="row justify-content-end">
+              <ngb-pagination [collectionSize]="70" [(page)]="page" aria-label="Default pagination"></ngb-pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -27,6 +27,9 @@ import {ParliamentComponent} from './menu-setting/parliament/parliament.componen
 import {StateComponent} from './menu-setting/state/state.component';
 import {DunComponent} from './menu-setting/dun/dun.component';
 import { AnnouncementComponent } from './menu-setting/announcement/announcement.component';
+import { SKBComponent } from './fund-management/payment/skb/skb.component';
+import { AcquisitionComponent } from './fund-management/payment/acquisition/acquisition.component';
+import { CharityMoneyComponent } from './fund-management/charity-money/charity-money.component';
 
 const routes: Routes = [
   {
@@ -144,6 +147,18 @@ const routes: Routes = [
       {
         path: 'list-dun',
         component: DunComponent
+      },
+      {
+        path: 'skb',
+        component: SKBComponent
+      },
+      {
+        path: 'acquisition',
+        component: AcquisitionComponent
+      },
+      {
+        path: 'charity-money',
+        component: CharityMoneyComponent
       },
     ]
   }
