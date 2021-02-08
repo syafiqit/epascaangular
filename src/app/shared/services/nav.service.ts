@@ -92,7 +92,7 @@ export class NavService implements OnDestroy {
     {
       title: 'Pengurusan Tabung', icon: 'folder-plus', type: 'sub', active: false, children: [
         { path: '/main/dashboard-fund-management', title: 'Muka Halaman Tabung', type: 'link' },
-        { path: '', title: 'Tabung', type: 'link' },
+        { path: '/main/list-fund', title: 'Tabung', type: 'link' },
         { path: '', title: 'Kelulusan', type: 'link' },
         {
 					title: 'Pembayaran', type: 'sub', children: [
