@@ -34,7 +34,13 @@ export class ListFundComponent implements OnInit {
   }
 
   addFundModal() {
-    this.modalService.open(AddEditFundComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(AddEditFundComponent , { size: 'lg' });
+    modalRef.componentInstance.name = 'add';
+  }
+
+  editFundModal() {
+    const modalRef = this.modalService.open(AddEditFundComponent , { size: 'lg' });
+    modalRef.componentInstance.name = 'edit';
   }
 
 }
