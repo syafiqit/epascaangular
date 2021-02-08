@@ -1,0 +1,101 @@
+<app-breadcrumb [title]="'Maklumat Lanjut Bantuan wang Ihsan'" [items]="['Pengurusan Tabung']" [active_item]="['Bantuan Wang Ihsan']"></app-breadcrumb>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row justify-content-end">
+            <button class="btn btn-primary mr-3" type="button" (click)="addCharityMoneyModal()"><i
+              class="fa fa-plus mr-2"></i>Tambah</button>
+          </div>
+          &nbsp;
+          <div class="row">
+            <div class="col-lg-12">
+              <input type="text" class="filter-ngx form-control" placeholder='Carian...' />
+            </div>
+          </div>
+          &nbsp;
+          <div class="custom-datatable">
+            <ngx-datatable class="bootstrap"
+                           [rows]="rows" [sortType]="SortType.multi"
+                           [columnMode]="ColumnMode.flex" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [limit]="10">
+
+              <ngx-datatable-column name="Tindakan" prop="action" [flexGrow]="1">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  <span>
+                    <a class="col-sm-6 col-md-4 col-xl-3" [queryParams]="{id: 1}" (click)="editCharityMoneyModal()"><i class="fa fa-edit"></i></a>
+                    <a class="col-sm-6 col-md-4 col-xl-3"><i class="fa fa-trash"></i></a>
+                  </span>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Negeri" prop="state" [flexGrow]="1">
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Daerah" prop="district" [flexGrow]="1">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Jenis Bencana" prop="disasterType" [flexGrow]="1">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Status maklumat Rujukan" prop="statusRef" [flexGrow]="1">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Tahun" prop="year" [flexGrow]="1">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="W/KIR" prop="w/kir" [flexGrow]="1">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Jumlah KIR" prop="kirTotal" [flexGrow]="1">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Jumlah (RM)" prop="totalRM" [flexGrow]="1">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Tarikh EFT" prop="eftDate" [flexGrow]="1">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Jumlah Baki Dipulangkan" prop="balReturn" [flexGrow]="1">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-footer>
+                <ng-template
+                  ngx-datatable-footer-template
+                  let-rowCount="rowCount">
+                  <div style="padding: 5px 5px">
+                      Jumlah: {{ rowCount }}
+                  </div>
+                </ng-template>
+              </ngx-datatable-footer>
+
+            </ngx-datatable>
+            <div class="row justify-content-end">
+              <ngb-pagination [collectionSize]="70" [(page)]="page" aria-label="Default pagination"></ngb-pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
