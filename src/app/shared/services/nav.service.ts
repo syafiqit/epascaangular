@@ -90,6 +90,20 @@ export class NavService implements OnDestroy {
       title: 'Pengurusan Mangsa', path: '/main/victim-list', icon: 'users', type: 'link'
     },
     {
+      title: 'Pengurusan Tabung', icon: 'folder-plus', type: 'sub', active: false, children: [
+        { path: '', title: 'Muka Halaman Tabung', type: 'link' },
+        { path: '', title: 'Kelulusan', type: 'link' },
+        {
+					title: 'Pembayaran', type: 'sub', children: [
+						{ path: '', title: 'Skb', type: 'link' },
+						{ path: '', title: 'Bayaran Secara Terus', type: 'link' },
+						{ path: '', title: 'Perolehan', type: 'link' },
+					]
+				},
+        { path: '', title: 'Bantuan Wang Ihsan', type: 'link' },
+      ]
+    },
+    {
       title: 'Tetapan', icon: 'settings', type: 'sub', active: false, children: [
         { path: '/main/list-disaster', title: 'Bencana', type: 'link' },
         { path: '/main/list-ministry', title: 'Kementerian', type: 'link' },
