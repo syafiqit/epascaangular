@@ -3,41 +3,38 @@
   <div class="row">
     <div class="col-sm-12">
       <div class="card">
-        <form class="form theme-form">
-          <div class="card-body">
-            <ngb-tabset>
-              <ngb-tab title="Profile Mangsa">
-                <ng-template ngbTabContent>
-                  <app-victim-profile></app-victim-profile>
-                </ng-template>
-              </ngb-tab>
-              <ngb-tab>
-                <ng-template ngbTabTitle>Ahli Isi Rumah</ng-template>
-                <ng-template ngbTabContent>
-                  <app-victim-household></app-victim-household>
-                </ng-template>
-              </ngb-tab>
-              <ngb-tab title="Bencana">
-                <ng-template ngbTabContent>
-                  <app-victim-disaster></app-victim-disaster>
-                </ng-template>
-              </ngb-tab>
-              <ngb-tab title="Bantuan">
-                <ng-template ngbTabContent>
-                  <app-victim-aid></app-victim-aid>
-                </ng-template>
-              </ngb-tab>
-            </ngb-tabset>
-          </div>
-          <div class="card-footer">
-            <div class="row justify-content-end">
-              <div class="col-lg-12">
-                <button class="btn btn-light ml-1 pull-right" type="reset" value="Cancel">Cancel</button>
-                <button class="btn btn-primary pull-right" type="submit">Submit</button>
-              </div>
+        <div class="card-body">
+          <ngb-tabset>
+            <ngb-tab title="Profile Mangsa">
+              <ng-template ngbTabContent>
+                <app-victim-profile></app-victim-profile>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>Ahli Isi Rumah</ng-template>
+              <ng-template ngbTabContent>
+                <app-victim-household></app-victim-household>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Bencana">
+              <ng-template ngbTabContent>
+                <app-victim-disaster></app-victim-disaster>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Bantuan">
+              <ng-template ngbTabContent>
+                <app-victim-aid></app-victim-aid>
+              </ng-template>
+            </ngb-tab>
+          </ngb-tabset>
+        </div>
+        <div class="card-footer">
+          <div class="row justify-content-end">
+            <div class="col-lg-12">
+              <button class="btn btn-light pull-right" [routerLink]="['/main/victim-list']">Kembali</button>
             </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>

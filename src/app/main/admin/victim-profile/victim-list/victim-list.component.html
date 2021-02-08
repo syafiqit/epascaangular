@@ -28,67 +28,67 @@
                     <div class="card-body">
                       <form>
                         <div class="row">
-                          <div class="col-xl-6 col-xs-6">
+                          <div class="col-xl-3 col-xs-2">
+                            <label for="year">Jenis Pilihan</label>
                             <select class="form-control digits">
                               <option>Sila Pilih</option>
                               <option *ngFor="let item of items">{{item.data}}</option>
                             </select>
                           </div>
-                          <div class="col-xl-6 col-xs-6">
+                          <div class="col-xl-9 col-xs-3">
+                            <label for="year">Data Pilihan</label>
                             <div class="form-group">
                               <input class="form-control" id="text" type="text">
                             </div>
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col-xl-6 col-xs-12">
+                          <div class="col-xl-3 col-xs-6">
                             <div class="form-group">
                               <label for="year">Tahun Bencana</label>
                               <input class="form-control" id="year" type="text">
                             </div>
                           </div>
-                          <div class="col-xl-6 col-xs-12">
+                          <div class="col-xl-3 col-xs-6">
                             <div class="form-group">
                               <label for="state">Negeri</label>
                               <input class="form-control" id="state" type="text">
                             </div>
                           </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-xl-6 col-xs-12">
+                          <div class="col-xl-3 col-xs-6">
                             <div class="form-group">
                               <label for="year">Bencana</label>
                               <input class="form-control" id="year" type="text">
                             </div>
                           </div>
-                          <div class="col-xl-6 col-xs-12">
+                          <div class="col-xl-3 col-xs-6">
                             <div class="form-group">
                               <label for="district">Daerah</label>
                               <input class="form-control" id="district" type="text">
                             </div>
                           </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-xl-6 col-xs-12">
+                          <div class="col-xl-3 col-xs-6">
                             <div class="form-group">
                               <label for="year">Agensi</label>
                               <input class="form-control" id="year" type="text">
                             </div>
                           </div>
-                          <div class="col-xl-6 col-xs-12">
+                          <div class="col-xl-3 col-xs-6">
                             <div class="form-group">
                               <label for="district">Parlimen</label>
                               <input class="form-control" id="district" type="text">
                             </div>
                           </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-xl-6 col-xs-12">
+                          <div class="col-xl-3 col-xs-6">
                             <div class="form-group">
                               <label for="year">DUN</label>
                               <input class="form-control" id="year" type="text">
                             </div>
                           </div>
+                        </div>
+                        <div class="row justify-content-end">
+                          <button class="btn btn-outline-primary mr-3" type="button" (click)="isCollapsed = !isCollapsed"
+                                  [attr.aria-expanded]="!isCollapsed">Cari</button>
                         </div>
                       </form>
                     </div>
@@ -98,14 +98,14 @@
             </div>
           </div>
           &nbsp;
-          <div class="col-12 custom-datatable">
+          <div class="custom-datatable">
             <ngx-datatable class="bootstrap"
-                           [rows]="rows" [sortType]="SortType.multi"
+                           [rows]="rows" [sortType]="SortType.multi" [messages]="localization"
                            [columnMode]="ColumnMode.flex" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [limit]="10">
               <ngx-datatable-column name="Tindakan" prop="action" [flexGrow]="1">
                 <ng-template let-value="value" ngx-datatable-cell-template>
                   <span>
-                    <a class="col-sm-6 col-md-4 col-xl-3" [routerLink]="['/main/victim-edit']" [queryParams]="{id: 1}"><i class="fa fa-edit"></i></a>
+                    <a class="col-sm-6 col-md-4 col-xl-3" [routerLink]="['/main/victim-edit']"><i class="fa fa-edit"></i></a>
                     <a class="col-sm-6 col-md-4 col-xl-3" (click)="delete()"><i class="fa fa-trash"></i></a>
                   </span>
                 </ng-template>

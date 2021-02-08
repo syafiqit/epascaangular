@@ -11,6 +11,11 @@ export class VictimListComponent implements OnInit {
 
   public isCollapsed = false;
 
+  localization = {
+    'emptyMessage': 'Tiada Data',
+    'totalMessage': 'Jumlah'
+  };
+
   rows = [
     { "kp": "999999-11-2222", "nameKir": "Asmah Binti Haji Ameran", "waterBill": "1", "total": "500", "state": "Sarawak", "source": "JPAM", "verification": "Sudah"},
     { "kp": "999999-11-2222", "nameKir": "Asmah Binti Haji Ameran", "waterBill": "1", "total": "500", "state": "Sarawak", "source": "JPAM", "verification": "Sudah"},
@@ -32,8 +37,8 @@ export class VictimListComponent implements OnInit {
   ];
 
   items = [
-    { "data": "Makanan Tin",},
-    { "data": "Makanan Kering",},
+    { "data": "Nama",},
+    { "data": "No KP",},
   ];
 
   ColumnMode = ColumnMode;
