@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
+import { AddEditFundComponent } from '../add-edit-fund/add-edit-fund.component';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-list-fund',
-  templateUrl: './list-fund.component.html'
+  templateUrl: './list-fund.component.html',
+  encapsulation: ViewEncapsulation.None,
+  providers: [NgbModalConfig, NgbModal]
 })
 export class ListFundComponent implements OnInit {
 
@@ -21,9 +25,16 @@ export class ListFundComponent implements OnInit {
   ColumnMode = ColumnMode;
   SortType = SortType;
 
-  constructor() { }
+  constructor(config: NgbModalConfig, private modalService: NgbModal) {
+    config.backdrop = 'static';
+    config.keyboard = false;
+  }
 
   ngOnInit(): void {
+  }
+
+  addFundModal() {
+    this.modalService.open(AddEditFundComponent, { size: 'lg' });
   }
 
 }
