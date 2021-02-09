@@ -88,8 +88,20 @@
 
   <div class="row">
     <div class="col-lg-3" *ngFor="let report of report">
-      <div class="card b-t-danger">
+      <div class="card bg-primary">
         <div class="card-body">
+          <div class="media static-top-widget">
+            <div class="media-body">
+              <i class="icon-bg" data-feather="user" *ngIf="report.title === 'Jumlah Keseluruhan Mangsa'"></i>
+              <i class="icon-bg" data-feather="send" *ngIf="report.title === 'Jumlah Bantuan Antarabangsa'"></i>
+              <i class="icon-bg" data-feather="home" *ngIf="report.title === 'Jumlah Bina Rumah Kekal'"></i>
+              <i class="icon-bg" data-feather="triangle" *ngIf="report.title === 'Jumlah Rumah Dibaik Pulih'"></i>
+              <i class="icon-bg" data-feather="box" *ngIf="report.title === 'Jumlah Pinjaman Khas'"></i>
+              <i class="icon-bg" data-feather="dollar-sign" *ngIf="report.title === 'Jumlah Penerima Wang Ihsan'"></i>
+              <i class="icon-bg" data-feather="droplet" *ngIf="report.title === 'Jumlah Bantuan Pertanian'"></i>
+              <i class="icon-bg" data-feather="file-text" *ngIf="report.title === 'Jumlah Lain-Lain Bantuan'"></i>
+            </div>
+          </div>
           <div class="row justify-content-center">
             <label>{{report.title}}</label>
           </div>
