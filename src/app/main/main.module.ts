@@ -69,6 +69,12 @@ import { AddAnnouncementComponent } from './menu-setting/announcement/add-announ
 import { EditAnnouncementComponent } from './menu-setting/announcement/edit-announcement/edit-announcement.component';
 import { AddEntrepreneurLoanComponent } from './menu-setting/entrepreneur-loan/add-entrepreneur-loan/add-entrepreneur-loan.component';
 import { AddHelpDonationComponent } from './menu-setting/help-donation/add-help-donation/add-help-donation.component';
+import { ApprovalListComponent } from './funds-approval/approval-list/approval-list.component';
+import { ApprovalEditComponent } from './funds-approval/approval-edit/approval-edit.component';
+import { ApprovalAddComponent } from './funds-approval/approval-add/approval-add.component';
+import { AddModalComponent } from './funds-approval/approval-add/add-modal.component';
+import { EditSKBComponent } from './funds-approval/approval-list/edit-skb/edit-skb.component';
+import { DirectPaymentComponent } from './funds-approval/approval-list/direct-payment/direct-payment.component';
 import { DashboardFundComponent } from './dashboard/dashboard-fund/dashboard-fund.component';
 import { ListFundComponent } from './fund/list-fund/list-fund.component';
 import { AddEditFundComponent } from './fund/add-edit-fund/add-edit-fund.component';
@@ -149,6 +155,12 @@ import { EditCharityMoneyComponent } from './fund-management/charity-money/edit-
     EditAnnouncementComponent,
     AddEntrepreneurLoanComponent,
     AddHelpDonationComponent,
+    ApprovalListComponent,
+    ApprovalEditComponent,
+    ApprovalAddComponent,
+    AddModalComponent,
+    EditSKBComponent,
+    DirectPaymentComponent,
     DashboardFundComponent,
     ListFundComponent,
     AddEditFundComponent,

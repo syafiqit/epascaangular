@@ -27,6 +27,11 @@ import {ParliamentComponent} from './menu-setting/parliament/parliament.componen
 import {StateComponent} from './menu-setting/state/state.component';
 import {DunComponent} from './menu-setting/dun/dun.component';
 import { AnnouncementComponent } from './menu-setting/announcement/announcement.component';
+import { ApprovalListComponent } from './funds-approval/approval-list/approval-list.component';
+import { ApprovalEditComponent } from './funds-approval/approval-edit/approval-edit.component';
+import { ApprovalAddComponent } from './funds-approval/approval-add/approval-add.component';
+import { EditSKBComponent } from './funds-approval/approval-list/edit-skb/edit-skb.component';
+import { DirectPaymentComponent } from './funds-approval/approval-list/direct-payment/direct-payment.component';
 import { DashboardFundComponent } from './dashboard/dashboard-fund/dashboard-fund.component';
 import { ListFundComponent } from './fund/list-fund/list-fund.component';
 import { SKBComponent } from './fund-management/payment/skb/skb.component';
@@ -149,6 +154,26 @@ const routes: Routes = [
       {
         path: 'list-dun',
         component: DunComponent
+      },
+      {
+        path: 'approval-list',
+        component: ApprovalListComponent
+      },
+      {
+        path: 'approval-edit',
+        component: ApprovalEditComponent
+      },
+      {
+        path: 'approval-add',
+        component: ApprovalAddComponent
+      },
+      {
+        path: 'edit-skb',
+        component: EditSKBComponent
+      },
+      {
+        path: 'direct-payment',
+        component: DirectPaymentComponent
       },
       {
         path: 'dashboard-fund-management',
