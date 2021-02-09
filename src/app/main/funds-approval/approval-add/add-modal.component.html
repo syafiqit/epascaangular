@@ -10,8 +10,8 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label>No Rujukan</label>
-                    <input class="form-control" id="damage" type="text" placeholder="No Rujukan">
+                    <label>No. Rujukan</label>
+                    <input class="form-control" id="damage" type="text" placeholder="No. Rujukan">
                 </div>
             </div>
     
@@ -63,7 +63,7 @@
                 <ngx-datatable-column name="Tindakan" prop="action" [flexGrow]="0.5" [sortable]="false" [canAutoResize]="true"
                            [draggable]="false" [resizeable]="true" [headerCheckboxable]="true" [checkboxable]="true">
                 </ngx-datatable-column>
-                <ngx-datatable-column name="No Rujukan Bencana" prop="refNo" [flexGrow]="1">
+                <ngx-datatable-column name="No. Rujukan Bencana" prop="refNo" [flexGrow]="1">
                     <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                     {{ value }}
                     </ng-template>
