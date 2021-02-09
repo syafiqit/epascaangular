@@ -1,17 +1,11 @@
 <app-breadcrumb [title]="'Pengurusan Tabung'" [items]="['Muka Halaman']" [active_item]="'Pengurusan Tabung'">
 </app-breadcrumb>
 <div class="container-fluid">
-  <div class="row ml-2 mb-2">
-    <button type="button" class="btn btn-xs btn-outline-primary" (click)="isCollapsed = !isCollapsed"
-      [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
-      Carian Lanjut
-    </button>
-  </div>
-  <div class="card" id="collapseExample" [ngbCollapse]="!isCollapsed">
-    <div class="card-body">
+  <div class="card">
+    <div class="card-body pl-2 pr-2 pt-4 pb-4">
       <form>
         <div class="row">
-          <div class="col-lg-4">
+          <div class="col-lg-3 m-auto">
             <div class="form-group">
               <label for="exampleFormControlInput1">Tahun</label>
               <select class="form-control digits" id="exampleFormControlSelect9">
@@ -23,7 +17,7 @@
             </div>
           </div>
 
-          <div class="col-lg-4">
+          <div class="col-lg-3 ">
             <form class="form custom-datepicker custom-datepicker-dropdown">
               <div class="form-group mb-0">
                 <label for="exampleFormControlInput1">Tarikh</label>
@@ -44,7 +38,7 @@
             </ng-template>
           </div>
 
-          <div class="col-lg-4">
+          <div class="col-lg-3 m-auto">
             <div class="form-group">
               <label for="exampleFormControlInput1">Tabung</label>
               <select class="form-control digits" id="exampleFormControlSelect9">
@@ -55,9 +49,10 @@
             </div>
           </div>
 
-        </div>
-        <div class="row justify-content-end">
-          <button class="btn btn-primary justify-content-end mr-3" type="button">Cari</button>
+          <div class="col-lg-1 mt-4 mr-5">
+            <button class="btn btn-primary justify-content-end mr-3" type="button">Cari</button>
+          </div>
+
         </div>
       </form>
     </div>
@@ -65,7 +60,20 @@
 
   <div class="row">
     <div class="col-lg-4" *ngFor="let report of report">
-      <div class="card b-t-danger">
+      <div class="card bg-primary">
+        <div class="media static-top-widget">
+          <div class="media-body">
+            <i class="icon-bg" data-feather="dollar-sign" *ngIf="report.title === 'Jumlah Keseluruhan Baki Tabung'"></i>
+            <i class="icon-bg" data-feather="box" *ngIf="report.title === 'Jumlah Baki Tabung KWABBN'"></i>
+            <i class="icon-bg" data-feather="inbox" *ngIf="report.title === 'Jumlah Baki Tabung Covid'"></i>
+            <i class="icon-bg" data-feather="shopping-bag" *ngIf="report.title === 'Jumlah Pembelanjaan'"></i>
+            <i class="icon-bg" data-feather="users" *ngIf="report.title === 'Jumlah Tanggungan'"></i>
+            <i class="icon-bg" data-feather="list" *ngIf="report.title === 'Jumlah Komitmen SKB'"></i>
+            <i class="icon-bg" data-feather="layers" *ngIf="report.title === 'Jumlah Komitmen Pukal'"></i>
+            <i class="icon-bg" data-feather="check-square" *ngIf="report.title === 'Komitmen Perolehan Secara Terus'"></i>
+            <i class="icon-bg" data-feather="file-text" *ngIf="report.title === 'Komitmen Perolehan Secara Darurat'"></i>
+          </div>
+        </div>
         <div class="card-body">
           <div class="row justify-content-center">
             <label>{{report.title}}</label>

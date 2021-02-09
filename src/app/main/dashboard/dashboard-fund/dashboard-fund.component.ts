@@ -24,8 +24,8 @@ export class DashboardFundComponent implements OnInit {
     { "title": "Jumlah Tanggungan", "total_kos": "50,000.00" },
     { "title": "Jumlah Komitmen SKB", "total_kos": "70,000.00" },
     { "title": "Jumlah Komitmen Pukal", "total_kos": "90,000.00" },
-    { "title": "Komitmen Perolehan Secara Terus ", "total_kos": "10,000.00" },
-    { "title": "Komitmen Perolehan Secara Darurat ", "total_kos": "20,000.00" },
+    { "title": "Komitmen Perolehan Secara Terus", "total_kos": "10,000.00" },
+    { "title": "Komitmen Perolehan Secara Darurat", "total_kos": "20,000.00" },
 
   ]
 
