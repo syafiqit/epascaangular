@@ -29,7 +29,13 @@ export class ListMinistryComponent implements OnInit {
   }
 
   addMinistryModal() {
-    this.modalService.open(AddMinistryComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(AddMinistryComponent , { size: 'lg' });
+    modalRef.componentInstance.name = 'add';
+  }
+
+  editMinistryModal() {
+    const modalRef = this.modalService.open(AddMinistryComponent , { size: 'lg' });
+    modalRef.componentInstance.name = 'edit';
   }
 
 }

@@ -69,6 +69,9 @@ import { AddAnnouncementComponent } from './menu-setting/announcement/add-announ
 import { EditAnnouncementComponent } from './menu-setting/announcement/edit-announcement/edit-announcement.component';
 import { AddEntrepreneurLoanComponent } from './menu-setting/entrepreneur-loan/add-entrepreneur-loan/add-entrepreneur-loan.component';
 import { AddHelpDonationComponent } from './menu-setting/help-donation/add-help-donation/add-help-donation.component';
+import { DashboardFundComponent } from './dashboard/dashboard-fund/dashboard-fund.component';
+import { ListFundComponent } from './fund/list-fund/list-fund.component';
+import { AddEditFundComponent } from './fund/add-edit-fund/add-edit-fund.component';
 import { SKBComponent } from './fund-management/payment/skb/skb.component';
 import { ProcurementComponent } from './fund-management/payment/procurement/procurement.component';
 import { CharityMoneyComponent } from './fund-management/charity-money/charity-money.component';
@@ -146,6 +149,9 @@ import { EditCharityMoneyComponent } from './fund-management/charity-money/edit-
     EditAnnouncementComponent,
     AddEntrepreneurLoanComponent,
     AddHelpDonationComponent,
+    DashboardFundComponent,
+    ListFundComponent,
+    AddEditFundComponent,
     SKBComponent,
     ProcurementComponent,
     CharityMoneyComponent,

@@ -30,7 +30,13 @@ export class ListDisasterComponent implements OnInit {
   }
 
   addDisasterModal() {
-    this.modalService.open(AddDisasterComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(AddDisasterComponent , { size: 'lg' });
+    modalRef.componentInstance.name = 'add';
+  }
+
+  editDisasterModal() {
+    const modalRef = this.modalService.open(AddDisasterComponent , { size: 'lg' });
+    modalRef.componentInstance.name = 'edit';
   }
 
 }
