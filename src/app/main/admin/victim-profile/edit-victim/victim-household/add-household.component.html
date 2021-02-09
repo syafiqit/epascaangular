@@ -8,7 +8,13 @@
 <div class="modal-body">
   <form class="form theme-form">
     <div class="row">
-      <div class="col-lg-12">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="exampleFormControlSelect9">No. KP</label>
+          <input class="form-control" id="ss" type="text" placeholder="xxxx-xx-xxxx">
+        </div>
+      </div>
+      <div class="col-lg-6">
         <div class="form-group">
           <label for="itemLabel">Nama</label>
           <input class="form-control" id="itemLabel" type="text" placeholder="Nama">
@@ -17,7 +23,7 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-12">
+      <div class="col-lg-6">
         <div class="form-group">
           <label for="exampleFormControlSelect9">Hubungan</label>
           <select class="form-control digits" id="exampleFormControlSelect9">
@@ -25,19 +31,7 @@
           </select>
         </div>
       </div>
-    </div>
-
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="form-group">
-          <label for="exampleFormControlSelect9">No. KP</label>
-          <input class="form-control" id="ss" type="text" placeholder="xxxx-xx-xxxx">
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-lg-12">
+      <div class="col-lg-6">
         <div class="form-group">
           <label for="exampleFormControlSelect9">Umur</label>
           <input class="form-control" id="sss" type="text" placeholder="umur">
@@ -49,6 +43,6 @@
 </div>
 
 <div class="modal-footer">
-  <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Kembali</button>
+  <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
   <button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Simpan</button>
 </div>
