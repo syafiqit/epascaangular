@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
-import { AddCharityMoneyComponent } from '../charity-money/add-charity-money/add-charity-money.component';
-import { EditCharityMoneyComponent } from '../charity-money/edit-charity-money/edit-charity-money.component';
 
 @Component({
   selector: 'app-charity-money',
@@ -30,14 +28,6 @@ export class CharityMoneyComponent implements OnInit {
 
 
   ngOnInit(): void {
-  }
-
-  addCharityMoneyModal() {
-    this.modalService.open(AddCharityMoneyComponent, { size: 'lg' });
-  }
-
-  editCharityMoneyModal() {
-    this.modalService.open(EditCharityMoneyComponent, { size: 'lg' });
   }
 
 }

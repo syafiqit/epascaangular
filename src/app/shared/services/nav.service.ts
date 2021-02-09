@@ -96,12 +96,11 @@ export class NavService implements OnDestroy {
         { path: '/main/approval-list', title: 'Kelulusan', type: 'link' },
         {
 					title: 'Pembayaran', type: 'sub', children: [
-						{ path: '/main/skb', title: 'Skb', type: 'link' },
-						{ path: '', title: 'Bayaran Secara Terus', type: 'link' },
-						{ path: '/main/procurement', title: 'Perolehan', type: 'link' },
+						{ path: '/main/skb', title: 'Secara Kuasa Berbelanja', type: 'link' },
+						{ path: '/main/direct-pay', title: 'Bayaran Secara Terus', type: 'link' },
 					]
 				},
-        { path: '/main/charity-money', title: 'Bantuan Wang Ihsan', type: 'link' },
+        { path: '/main/bwi', title: 'Bantuan Wang Ihsan', type: 'link' },
       ]
     },
     {

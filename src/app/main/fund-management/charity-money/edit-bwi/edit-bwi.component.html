@@ -1,0 +1,236 @@
+<app-breadcrumb [title]="'Kemaskini Maklumat Bantuan Wang Ihsan'" [items]="['Pengurusan Tabung']"
+    [active_item]="'Bantuan Wang Ihsan'"></app-breadcrumb>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                  <form class="form theme-form">
+                    <h6>Maklumat Kelulusan</h6>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">No Rujukan Kelulusan</label>
+                          <input class="form-control" name="approvalRefNo" type="text">
+                        </div>
+                      </div>
+
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Agensi</label>
+                          <input class="form-control" name="agency" type="text">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Tabung</label>
+                          <input class="form-control" name="fund" type="text">
+                        </div>
+                      </div>
+
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Kategori</label>
+                          <input class="form-control" name="category" type="text">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Rujukan Surat</label>
+                          <input class="form-control" name="letterRef" type="text" placeholder="JPM.APBN(S).600-3/8/2 (1)">
+                        </div>
+                      </div>
+
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Perihal Surat</label>
+                          <textarea class="form-control" name="letterDetail" type="textarea" placeholder="Kelulusan Permohonan Tambahan Bina Baru Rumah dan Baikpulih Rumah Bagi Mangsa Banjir Tahun 2014"></textarea>
+                        </div>
+                      </div>
+                    </div><hr>
+
+                    <h6>Maklumat Bencana</h6>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Negeri</label>
+                          <div>
+                            <select class="form-control" name="state">
+                               <option *ngFor="let state of state" value="{{state['state']}}">{{state['state']}}</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Daerah</label>
+                          <input class="form-control" name="district" type="text" placeholder="Kuantan">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Jenis Bencana</label>
+                          <input class="form-control" name="disasterType" type="text" placeholder="Ribut">
+                        </div>
+                      </div>
+
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Tahun</label>
+                          <input class="form-control" name="year" type="text" placeholder="2020">
+                        </div>
+                      </div>
+                    </div><hr>
+
+                    <h6>Maklumat Isi Rumah</h6>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">WI/KIR</label>
+                          <input class="form-control" name="wiKir" type="text">
+                        </div>
+                      </div>
+
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Jumlah KIR</label>
+                          <input class="form-control" name="totalKir" type="text">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Jumlah Bayaran</label>
+                          <input class="form-control" name="totalPayment" type="text">
+                        </div>
+                      </div>
+
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Tarikh EFT/Pengeluaran</label>
+                          <input class="form-control" name="year" type="date" placeholder="28/8/2020">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Tempoh Akhir laporan (21 Jam)</label>
+                          <input class="form-control" name="dueReport" type="text">
+                        </div>
+                      </div>
+
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Catatan</label>
+                          <textarea class="form-control" name="year" type="textarea"></textarea>
+                        </div>
+                      </div>
+                    </div><hr>
+
+                    <h6>Memo Perakuan KP</h6>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">No Rujukan</label>
+                          <input class="form-control" name="certRefNo" type="text" placeholder="JPM.APBN.600-3/8/4/16 JLD 8 (9)">
+                        </div>
+                      </div>
+
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Tarikh Perakuan</label>
+                          <input class="form-control" name="certDate" type="date">
+                        </div>
+                      </div>
+                    </div><hr>
+
+                    <h6>Memo Penyaluran KPD BKP</h6>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">No Rujukan</label>
+                          <input class="form-control" name="distRefNo" type="text" placeholder="JPM.APBN.600-3/8/4/16 JLD 8 (9)">
+                        </div>
+                      </div>
+
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Tarikh Penyaluran</label>
+                          <input class="form-control" name="distDate" type="date">
+                        </div>
+                      </div>
+                    </div><hr>
+
+                    <h6>Surat Makluman Tarikh Majlis</h6>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">No Rujukan</label>
+                          <input class="form-control" name="councilRefNo" type="text" placeholder="PA.Q.900 JILID 15 (09)">
+                        </div>
+                      </div>
+
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Tarikh Majlis</label>
+                          <input class="form-control" name="councilDate" type="date">
+                        </div>
+                      </div>
+                    </div><hr>
+
+                    <h6>Surat Laporan Majlis DRP APM</h6>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">No Rujukan</label>
+                          <input class="form-control" name="councilRefNo" type="text" placeholder="PA.Q.900-1/1 JILID 16 (24)">
+                        </div>
+                      </div>
+
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Tarikh Laporan</label>
+                          <input class="form-control" name="drpReportDate" type="date">
+                        </div>
+                      </div>
+                    </div><hr>
+
+                    <h6>Memo Laporan KPD BKP</h6>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">No Rujukan</label>
+                          <input class="form-control" name="kpdRefNo" type="text" placeholder="JPM.APBN.600-3/8/4/16 JLD 9 (5)">
+                        </div>
+                      </div>
+
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="exampleFormControlInput1">Tarikh Laporan</label>
+                          <input class="form-control" name="kpdReportDate" type="date">
+                        </div>
+                      </div>
+                    </div>
+                    <button class="btn btn-primary pull-right" [routerLink]="['/main/bwi']" type="button">Simpan</button>
+                    <button class="btn btn-light pull-right mr-1" [routerLink]="['/main/bwi']" type="button">Kembali</button>
+                  </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
