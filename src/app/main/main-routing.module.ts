@@ -35,8 +35,10 @@ import { DirectPaymentComponent } from './funds-approval/approval-list/direct-pa
 import { DashboardFundComponent } from './dashboard/dashboard-fund/dashboard-fund.component';
 import { ListFundComponent } from './fund/list-fund/list-fund.component';
 import { SKBComponent } from './fund-management/payment/skb/skb.component';
-import { ProcurementComponent } from './fund-management/payment/procurement/procurement.component';
+import { DirectPayComponent } from './fund-management/payment/direct-pay/direct-pay.component';
 import { CharityMoneyComponent } from './fund-management/charity-money/charity-money.component';
+import { AddBwiComponent } from './fund-management/charity-money/add-bwi/add-bwi.component';
+import { EditBwiComponent } from './fund-management/charity-money/edit-bwi/edit-bwi.component';
 
 const routes: Routes = [
   {
@@ -188,12 +190,20 @@ const routes: Routes = [
         component: SKBComponent
       },
       {
-        path: 'procurement',
-        component: ProcurementComponent
+        path: 'direct-pay',
+        component: DirectPayComponent
       },
       {
-        path: 'charity-money',
+        path: 'bwi',
         component: CharityMoneyComponent
+      },
+      {
+        path: 'bwi/add-bwi',
+        component: AddBwiComponent
+      },
+      {
+        path: 'bwi/edit-bwi',
+        component: EditBwiComponent
       },
     ]
   }

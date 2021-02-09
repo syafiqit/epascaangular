@@ -3,12 +3,12 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
 
 @Component({
-  selector: 'app-procurement',
-  templateUrl: './procurement.component.html',
+  selector: 'app-direct-pay',
+  templateUrl: './direct-pay.component.html',
   encapsulation: ViewEncapsulation.None,
   providers: [NgbModalConfig, NgbModal]
 })
-export class ProcurementComponent implements OnInit {
+export class DirectPayComponent implements OnInit {
 
   rows = [
     { "paymentRefNo": "BYRXXX", "date": "25/02/2020", "voucherNo": "120224", "approvalRefNo": "19", "procurementType": "Secara Darurat", "to": "K.L AIRPORT HOTEL SDN BHD", "category": "COVID"},
