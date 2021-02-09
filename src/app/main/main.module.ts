@@ -72,6 +72,11 @@ import { AddHelpDonationComponent } from './menu-setting/help-donation/add-help-
 import { DashboardFundComponent } from './dashboard/dashboard-fund/dashboard-fund.component';
 import { ListFundComponent } from './fund/list-fund/list-fund.component';
 import { AddEditFundComponent } from './fund/add-edit-fund/add-edit-fund.component';
+import { SKBComponent } from './fund-management/payment/skb/skb.component';
+import { ProcurementComponent } from './fund-management/payment/procurement/procurement.component';
+import { CharityMoneyComponent } from './fund-management/charity-money/charity-money.component';
+import { AddCharityMoneyComponent } from './fund-management/charity-money/add-charity-money/add-charity-money.component';
+import { EditCharityMoneyComponent } from './fund-management/charity-money/edit-charity-money/edit-charity-money.component';
 
 
 @NgModule({
@@ -146,7 +151,12 @@ import { AddEditFundComponent } from './fund/add-edit-fund/add-edit-fund.compone
     AddHelpDonationComponent,
     DashboardFundComponent,
     ListFundComponent,
-    AddEditFundComponent
+    AddEditFundComponent,
+    SKBComponent,
+    ProcurementComponent,
+    CharityMoneyComponent,
+    AddCharityMoneyComponent,
+    EditCharityMoneyComponent
 
   ],
   imports: [
