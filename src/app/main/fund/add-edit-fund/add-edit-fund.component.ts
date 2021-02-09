@@ -3,12 +3,12 @@ import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-boots
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-add-disaster',
-  templateUrl: './add-disaster.component.html',
+  selector: 'app-add-edit-fund',
+  templateUrl: './add-edit-fund.component.html',
   encapsulation: ViewEncapsulation.None,
   providers: [NgbModalConfig, NgbModal]
 })
-export class AddDisasterComponent implements OnInit {
+export class AddEditFundComponent implements OnInit {
   @Input() name;
 
   modelFooter: NgbDateStruct;
