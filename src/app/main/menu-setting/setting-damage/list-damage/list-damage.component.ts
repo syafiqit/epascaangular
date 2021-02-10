@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { EditDamageComponent } from '../edit-damage/edit-damage.component';
 import { AddDamageComponent } from '../add-damage/add-damage.component';
 
 @Component({
@@ -30,10 +29,6 @@ export class ListDamageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
-
-  editDamageModal() {
-    this.modalService.open(EditDamageComponent, { size: 'lg' });
   }
 
   addDamageModal() {
