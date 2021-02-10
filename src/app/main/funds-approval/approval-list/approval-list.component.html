@@ -1,4 +1,4 @@
-<app-breadcrumb [title]="'Kelulusan Berbelanja Kumpulan Wang Amanah Bantuan Bencana Negara (KWABBN)'" 
+<app-breadcrumb [title]="'Kelulusan Berbelanja Kumpulan Wang Amanah Bantuan Bencana Negara (KWABBN)'"
         [items]="['Pengurusan Tabung']" [active_item]="['Kelulusan']"></app-breadcrumb>
 <div class="container-fluid">
     <div class="row">
@@ -48,7 +48,7 @@
                                                             <input class="form-control" type="text" placeholder="Katakunci">
                                                         </div>
                                                     </div>
-    
+
                                                     <div class="col-lg-6">
                                                         <div class="form-group">
                                                             <label>Kategori Carian</label>
@@ -73,10 +73,10 @@
                                                                     [navigation]="navigation" [outsideDays]="outsideDays" [showWeekNumbers]="showWeekNumbers"
                                                                     ngbDatepicker #k1="ngbDatepicker">
                                                                 <div class="input-group-append">
-                                                                    <button class="btn calendar" (click)="k1.toggle()" type="button"><i class="fa fa-calendar"></i></button> 
+                                                                    <button class="btn calendar" (click)="k1.toggle()" type="button"><i class="fa fa-calendar"></i></button>
                                                                 </div>
                                                             </div>
-                                                        </div> 
+                                                        </div>
                                                     </div>
 
                                                     <div class="col-lg-6">
@@ -90,7 +90,7 @@
                                                                     <button class="btn calendar" (click)="k2.toggle()" type="button"><i class="fa fa-calendar"></i></button>
                                                                 </div>
                                                             </div>
-                                                        </div> 
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="row justify-content-end">
@@ -106,7 +106,7 @@
                     </div>
                     &nbsp;
                     <div class="custom-datatable">
-                        <ngx-datatable class="bootstrap" [rows]="rows" [sortType]="SortType.multi" 
+                        <ngx-datatable class="bootstrap" [rows]="rows" [sortType]="SortType.multi"
                             [columnMode]="ColumnMode.flex" [headerHeight]="50" [footerHeight]="50" [rowHeight]="100" [limit]="">
 
                             <ngx-datatable-column name="Tindakan" prop="action" [flexGrow]="0.5">
@@ -119,10 +119,10 @@
                                             <a class="col-sm-6 col-md-4 col-xl-3"><i class="fa fa-trash"></i>Buang</a>
                                         </div>
                                         <div class="row">
-                                            <a class="col-sm-6 col-md-4 col-xl-3" [routerLink]="['/main/edit-skb']"><i class="fa fa-archive"></i>SKB</a>
+                                            <a class="col-sm-6 col-md-4 col-xl-3" [routerLink]="['/main/skb']"><i class="fa fa-archive"></i>SKB</a>
                                         </div>
                                         <div class="row">
-                                            <a class="col-sm-6 col-md-4 col-xl-3" [routerLink]="['/main/direct-payment']"><i class="fa fa-money"></i>Bayaran Terus</a>
+                                            <a class="col-sm-6 col-md-4 col-xl-3" [routerLink]="['/main/direct-pay']"><i class="fa fa-money"></i>Bayaran Terus</a>
                                         </div>
                                     </span>
                                 </ng-template>

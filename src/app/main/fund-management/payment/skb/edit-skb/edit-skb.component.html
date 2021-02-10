@@ -1,4 +1,4 @@
-<app-breadcrumb [title]="'Tambah Belanja Secara Kuasa Kebenaran Berbelanja KWABBN'" 
+<app-breadcrumb [title]="'Kemaskini Belanja Secara Kuasa Kebenaran Berbelanja KWABBN'"
     [items]="['Pengurusan Tabung']" [active_item]="'Kelulusan'"></app-breadcrumb>
 <div class="container-fluid">
     <div class="row">
@@ -14,7 +14,7 @@
                                     <input class="form-control" type="text" placeholder="No. Rujukan Kelulusan">
                                 </div>
                             </div>
-      
+
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Tabung</label>
@@ -26,7 +26,7 @@
                                 </div>
                             </div>
                         </div>
-      
+
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
@@ -41,7 +41,7 @@
                                     </select>
                                 </div>
                             </div>
-            
+
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Agensi</label>
@@ -49,7 +49,7 @@
                                 </div>
                             </div>
                         </div>
-      
+
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
@@ -132,10 +132,10 @@
                                             [navigation]="navigation" [outsideDays]="outsideDays" [showWeekNumbers]="showWeekNumbers"
                                             ngbDatepicker #k1="ngbDatepicker">
                                         <div class="input-group-append">
-                                            <button class="btn calendar" (click)="k1.toggle()" type="button"><i class="fa fa-calendar"></i></button> 
+                                            <button class="btn calendar" (click)="k1.toggle()" type="button"><i class="fa fa-calendar"></i></button>
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
 
                             <div class="col-lg-6">
@@ -149,7 +149,7 @@
                                             <button class="btn calendar" (click)="k2.toggle()" type="button"><i class="fa fa-calendar"></i></button>
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
                         </div>
 
@@ -178,7 +178,7 @@
                         <div class="custom-datatable">
                             <ngx-datatable class="bootstrap" [rows]="rows" [sortType]="SortType.multi"
                                 [columnMode]="ColumnMode.flex" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [limit]="">
-                
+
                                 <ngx-datatable-column name="Tindakan" prop="action" [flexGrow]="2" [sortable]="false">
                                     <ng-template let-value="value" ngx-datatable-cell-template>
                                         <span>
@@ -196,7 +196,7 @@
                                     {{ value }}
                                     </ng-template>
                                 </ngx-datatable-column>
-                    
+
                                 <ngx-datatable-footer>
                                     <ng-template
                                     ngx-datatable-footer-template
@@ -206,12 +206,12 @@
                                     </div>
                                     </ng-template>
                                 </ngx-datatable-footer>
-                    
+
                             </ngx-datatable>
                         </div>
 
-                        <button class="btn btn-primary pull-right" [routerLink]="['/main/approval-list']" type="button">Simpan</button>
-                        <button class="btn btn-light pull-right mr-1" [routerLink]="['/main/approval-list']" type="button">Kembali</button>
+                        <button class="btn btn-primary pull-right" [routerLink]="['/main/skb']" type="button">Simpan</button>
+                        <button class="btn btn-light pull-right mr-1" [routerLink]="['/main/skb']" type="button">Kembali</button>
                     </form>
                 </div>
             </div>
