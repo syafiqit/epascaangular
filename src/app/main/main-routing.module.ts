@@ -30,8 +30,10 @@ import { AnnouncementComponent } from './menu-setting/announcement/announcement.
 import { ApprovalListComponent } from './funds-approval/approval-list/approval-list.component';
 import { ApprovalEditComponent } from './funds-approval/approval-edit/approval-edit.component';
 import { ApprovalAddComponent } from './funds-approval/approval-add/approval-add.component';
-import { EditSKBComponent } from './funds-approval/approval-list/edit-skb/edit-skb.component';
-import { DirectPaymentComponent } from './funds-approval/approval-list/direct-payment/direct-payment.component';
+import { AddSkbComponent } from './fund-management/payment/skb/add-skb/add-skb.component';
+import { EditSkbComponent } from './fund-management/payment/skb/edit-skb/edit-skb.component';
+import { AddDirectPaymentComponent } from './fund-management/payment/direct-pay/add-direct-payment/add-direct-payment.component';
+import { EditDirectPaymentComponent } from './fund-management/payment/direct-pay/edit-direct-payment/edit-direct-payment.component';
 import { DashboardFundComponent } from './dashboard/dashboard-fund/dashboard-fund.component';
 import { ListFundComponent } from './fund/list-fund/list-fund.component';
 import { SKBComponent } from './fund-management/payment/skb/skb.component';
@@ -170,12 +172,20 @@ const routes: Routes = [
         component: ApprovalAddComponent
       },
       {
-        path: 'edit-skb',
-        component: EditSKBComponent
+        path: 'add-skb',
+        component: AddSkbComponent
       },
       {
-        path: 'direct-payment',
-        component: DirectPaymentComponent
+        path: 'edit-skb',
+        component: EditSkbComponent
+      },
+      {
+        path: 'add-direct-payment',
+        component: AddDirectPaymentComponent
+      },
+      {
+        path: 'edit-direct-payment',
+        component: EditDirectPaymentComponent
       },
       {
         path: 'dashboard-fund-management',

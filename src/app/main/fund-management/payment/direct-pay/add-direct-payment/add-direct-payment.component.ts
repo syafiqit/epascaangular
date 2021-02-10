@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-direct-payment',
-  templateUrl: './direct-payment.component.html',
+  selector: 'app-add-direct-payment',
+  templateUrl: './add-direct-payment.component.html',
   encapsulation: ViewEncapsulation.None
 })
-export class DirectPaymentComponent implements OnInit {
+export class AddDirectPaymentComponent implements OnInit {
 
   displayMonths = 1;
   navigation = 'select';

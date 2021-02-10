@@ -68,8 +68,6 @@ import { ApprovalListComponent } from './funds-approval/approval-list/approval-l
 import { ApprovalEditComponent } from './funds-approval/approval-edit/approval-edit.component';
 import { ApprovalAddComponent } from './funds-approval/approval-add/approval-add.component';
 import { AddModalComponent } from './funds-approval/approval-add/add-modal.component';
-import { EditSKBComponent } from './funds-approval/approval-list/edit-skb/edit-skb.component';
-import { DirectPaymentComponent } from './funds-approval/approval-list/direct-payment/direct-payment.component';
 import { DashboardFundComponent } from './dashboard/dashboard-fund/dashboard-fund.component';
 import { ListFundComponent } from './fund/list-fund/list-fund.component';
 import { AddEditFundComponent } from './fund/add-edit-fund/add-edit-fund.component';
@@ -78,6 +76,10 @@ import { DirectPayComponent } from './fund-management/payment/direct-pay/direct-
 import { CharityMoneyComponent } from './fund-management/charity-money/charity-money.component';
 import { AddBwiComponent } from './fund-management/charity-money/add-bwi/add-bwi.component';
 import { EditBwiComponent } from './fund-management/charity-money/edit-bwi/edit-bwi.component';
+import { AddSkbComponent } from './fund-management/payment/skb/add-skb/add-skb.component';
+import { EditSkbComponent } from './fund-management/payment/skb/edit-skb/edit-skb.component';
+import { AddDirectPaymentComponent } from './fund-management/payment/direct-pay/add-direct-payment/add-direct-payment.component';
+import { EditDirectPaymentComponent } from './fund-management/payment/direct-pay/edit-direct-payment/edit-direct-payment.component';
 
 
 @NgModule({
@@ -149,8 +151,6 @@ import { EditBwiComponent } from './fund-management/charity-money/edit-bwi/edit-
     ApprovalEditComponent,
     ApprovalAddComponent,
     AddModalComponent,
-    EditSKBComponent,
-    DirectPaymentComponent,
     DashboardFundComponent,
     ListFundComponent,
     AddEditFundComponent,
@@ -158,7 +158,11 @@ import { EditBwiComponent } from './fund-management/charity-money/edit-bwi/edit-
     DirectPayComponent,
     CharityMoneyComponent,
     AddBwiComponent,
-    EditBwiComponent
+    EditBwiComponent,
+    AddSkbComponent,
+    EditSkbComponent,
+    AddDirectPaymentComponent,
+    EditDirectPaymentComponent
 
   ],
   imports: [
