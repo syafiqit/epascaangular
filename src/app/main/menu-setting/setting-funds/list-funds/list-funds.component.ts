@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { EditFundsComponent } from '../edit-funds/edit-funds.component';
 import { AddFundsComponent } from '../add-funds/add-funds.component';
 
 @Component({
@@ -30,10 +29,6 @@ export class ListFundsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
-
-  editFundsModal() {
-    this.modalService.open(EditFundsComponent, { size: 'lg' });
   }
 
   addFundsModal() {

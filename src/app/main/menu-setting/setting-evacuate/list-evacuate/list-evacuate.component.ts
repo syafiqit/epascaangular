@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { EditEvacuateComponent } from '../edit-evacuate/edit-evacuate.component';
 import { AddEvacuateComponent } from '../add-evacuate/add-evacuate.component';
 
 @Component({
@@ -37,9 +36,4 @@ export class ListEvacuateComponent implements OnInit {
   addEvacuateModal() {
     this.modalService.open(AddEvacuateComponent, { size: 'lg' });
   }
-
-  editEvacuateModal() {
-    this.modalService.open(EditEvacuateComponent, { size: 'lg' });
-  }
-
 }

@@ -2,7 +2,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AddProjectOwnerComponent } from '../add-project-owner/add-project-owner.component';
-import { EditProjectOwnerComponent } from '../edit-project-owner/edit-project-owner.component';
 
 @Component({
 
@@ -34,10 +33,6 @@ export class ListProjectOwnerComponent implements OnInit {
 
   addProjectOwnerModal() {
     this.modalService.open(AddProjectOwnerComponent, { size: 'lg' });
-  }
-
-  editProjectOwnerModal() {
-    this.modalService.open(EditProjectOwnerComponent, { size: 'lg' });
   }
 
 }
