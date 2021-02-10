@@ -11,6 +11,8 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 })
 export class MyAccountComponent implements OnInit {
 
+  public openMessageBox: boolean = false;
+
   constructor(config: NgbModalConfig, private modalService: NgbModal) {
   	// customize default values of modals used by this component tree
     config.backdrop = 'static';
@@ -22,6 +24,10 @@ export class MyAccountComponent implements OnInit {
 
   openChangePasswordModal (){
     this.modalService.open(ChangePasswordComponent)
+  }
+
+  toggleMessageBox() {
+    this.openMessageBox = !this.openMessageBox;
   }
 
 }
