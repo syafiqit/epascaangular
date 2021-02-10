@@ -1,17 +1,12 @@
-<app-breadcrumb [title]="'Mangsa Bencana Mengikut Negeri'" [items]="['Muka Halaman']" [active_item]="''"></app-breadcrumb>
+<app-breadcrumb [title]="'Mangsa Bencana Mengikut Negeri'" [items]="['Muka Halaman']" [active_item]="''">
+</app-breadcrumb>
 <div class="container-fluid">
 
-  <div class="row ml-2 mb-2">
-    <button type="button" class="btn btn-xs btn-outline-primary" (click)="isCollapsed = !isCollapsed"
-      [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
-      Carian Lanjut
-    </button>
-  </div>
-  <div class="card" id="collapseExample" [ngbCollapse]="!isCollapsed">
-    <div class="card-body">
+  <div class="card">
+    <div class="card-body pl-2 pr-2 pt-4 pb-4">
       <form>
         <div class="row">
-          <div class="col-lg-3">
+          <div class="col-lg-3 m-auto">
             <div class="form-group">
               <label for="exampleFormControlInput1">Tahun</label>
               <select class="form-control digits" id="exampleFormControlSelect9">
@@ -44,7 +39,7 @@
             </ng-template>
           </div>
 
-          <div class="col-lg-3">
+          <div class="col-lg-3 m-auto">
             <div class="form-group">
               <label for="exampleFormControlInput1">Bencana</label>
               <select class="form-control digits" id="exampleFormControlSelect9">
@@ -55,21 +50,12 @@
             </div>
           </div>
 
-          <div class="col-lg-3">
-            <div class="form-group">
-              <label for="exampleFormControlInput1">Negeri</label>
-              <select class="form-control digits" id="exampleFormControlSelect9">
-                <option>Sila Pilih</option>
-                <option>Kelantan</option>
-                <option>Melaka</option>
-              </select>
-            </div>
+          <div class="col-lg-1 mt-4 mr-5">
+            <button class="btn btn-primary justify-content-end mr-3" type="button">Cari</button>
           </div>
 
         </div>
-        <div class="row justify-content-end">
-          <button class="btn btn-primary justify-content-end mr-3" type="button">Cari</button>
-        </div>
+
       </form>
     </div>
   </div>
