@@ -107,22 +107,19 @@
                     &nbsp;
                     <div class="custom-datatable">
                         <ngx-datatable class="bootstrap" [rows]="rows" [sortType]="SortType.multi"
-                            [columnMode]="ColumnMode.flex" [headerHeight]="50" [footerHeight]="50" [rowHeight]="100" [limit]="">
+                            [columnMode]="ColumnMode.flex" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [limit]="">
 
                             <ngx-datatable-column name="Tindakan" prop="action" [flexGrow]="0.5">
                                 <ng-template let-value="value" ngx-datatable-cell-template>
                                     <span>
-                                        <div class="row">
-                                            <a class="col-sm-6 col-md-4 col-xl-3" [routerLink]="['/main/approval-edit']"><i class="fa fa-edit">Kemaskini</i></a>
-                                        </div>
-                                        <div class="row">
-                                            <a class="col-sm-6 col-md-4 col-xl-3"><i class="fa fa-trash"></i>Buang</a>
-                                        </div>
-                                        <div class="row">
-                                            <a class="col-sm-6 col-md-4 col-xl-3" [routerLink]="['/main/skb']"><i class="fa fa-archive"></i>SKB</a>
-                                        </div>
-                                        <div class="row">
-                                            <a class="col-sm-6 col-md-4 col-xl-3" [routerLink]="['/main/direct-pay']"><i class="fa fa-money"></i>Bayaran Terus</a>
+                                        <div ngbDropdown container="body">
+                                            <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>Pilih</button>
+                                            <div ngbDropdownMenu>
+                                              <button ngbDropdownItem [routerLink]="['/main/approval-edit']">Kemaskini</button>
+                                              <button ngbDropdownItem>Buang</button>
+                                              <button ngbDropdownItem [routerLink]="['/main/skb']">Bayaran SKB</button>
+                                              <button ngbDropdownItem [routerLink]="['/main/direct-pay']">Bayaran Terus</button>
+                                            </div>
                                         </div>
                                     </span>
                                 </ng-template>
