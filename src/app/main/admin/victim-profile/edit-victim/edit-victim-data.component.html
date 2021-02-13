@@ -4,29 +4,13 @@
     <div class="col-sm-12">
       <div class="card">
         <div class="card-body">
-          <ngb-tabset>
-            <ngb-tab title="Profile Mangsa">
-              <ng-template ngbTabContent>
-                <app-victim-profile></app-victim-profile>
-              </ng-template>
-            </ngb-tab>
-            <ngb-tab>
-              <ng-template ngbTabTitle>Ahli Isi Rumah</ng-template>
-              <ng-template ngbTabContent>
-                <app-victim-household></app-victim-household>
-              </ng-template>
-            </ngb-tab>
-            <ngb-tab title="Bencana">
-              <ng-template ngbTabContent>
-                <app-victim-disaster></app-victim-disaster>
-              </ng-template>
-            </ngb-tab>
-            <ngb-tab title="Bantuan">
-              <ng-template ngbTabContent>
-                <app-victim-aid></app-victim-aid>
-              </ng-template>
-            </ngb-tab>
-          </ngb-tabset>
+          <app-victim-profile></app-victim-profile>
+          <hr/>
+          <app-victim-household></app-victim-household>
+          <hr/>
+          <app-victim-disaster></app-victim-disaster>
+          <hr/>
+          <app-victim-aid></app-victim-aid>
         </div>
         <div class="card-footer">
           <div class="row justify-content-end">
