@@ -1,104 +1,153 @@
-<app-breadcrumb [title]="'Belanja Secara Kuasa Kebenaran Berbelanja Kumpulan Wang Amanah Bantuan Bencana Negara (KWABBN)'" [items]="['Pengurusan Tabung','Pembayaran']" [active_item]="['SKB']"></app-breadcrumb>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="card">
-        <div class="card-body">
-          <div class="row justify-content-end">
-            <button class="btn btn-primary mr-3" type="button" [routerLink]="['/main/add-skb']"><i
+<app-breadcrumb
+  [title]="'Belanja Secara Kuasa Kebenaran Berbelanja Kumpulan Wang Amanah Bantuan Bencana Negara (KWABBN)'"
+  [items]="['Pengurusan Tabung','Pembayaran']" [active_item]="['SKB']"></app-breadcrumb>
+<div class="content d-flex flex-column flex-column-fluid">
+  <div class="container-fluid">
+    <div class="card card-custom gutter-b">
+      <div class="card-body">
+        <div class="row justify-content-end mb-2">
+          <button class="btn btn-primary" type="button" [routerLink]="['/main/add-skb']"><i
               class="fa fa-plus mr-2"></i>Tambah</button>
-          </div>
-          &nbsp;
-          <div class="row">
-            <div class="col-lg-12">
-              <input type="text" class="filter-ngx form-control" placeholder='Carian...' />
+        </div>
+        <div class="row mb-2">
+          <input type="text" class="form-control" placeholder='Carian...' />
+        </div>
+        <div class="row align-items-center">
+          <!--<Primeng-TurboTable-Start>-->
+          <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+            <p-table #dataTable styleClass="p-datatable-striped" sortMode="multiple" [resizableColumns]="true"
+              (onLazyLoad)="getSKB($event)" [value]="primengTableHelper.records"
+              rows="{{primengTableHelper.defaultRecordsCountPerPage}}" [paginator]="false" [lazy]="true"
+              [scrollable]="true" ScrollWidth="100%" [responsive]="primengTableHelper.isResponsive"
+              [resizableColumns]="primengTableHelper.resizableColumns">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th style="width: 150px">
+                    Tindakan
+                  </th>
+                  <th style="width: 150px" pSortableColumn="ruj_lulus">
+                    No. Rujukan Kelulusan
+                    <p-sortIcon field="ruj_lulus"></p-sortIcon>
+                  </th>
+                  <th style="width: 130px" pSortableColumn="ruj_skb">
+                    No. Rujukan SKB
+                    <p-sortIcon field="ruj_skb"></p-sortIcon>
+                  </th>
+                  <th style="width: 130px" pSortableColumn="pegawai">
+                    Pegawai
+                    <p-sortIcon field="pegawai"></p-sortIcon>
+                  </th>
+                  <th style="width: 130px" pSortableColumn="agensi">
+                    Agensi
+                    <p-sortIcon field="agensi"></p-sortIcon>
+                  </th>
+                  <th style="width: 120px" pSortableColumn="kategori_tabung">
+                    Kategori Tabung
+                    <p-sortIcon field="kategori_tabung"></p-sortIcon>
+                  </th>
+                  <th style="width: 130px" pSortableColumn="tarikh_mula">
+                    Tarikh Mula
+                    <p-sortIcon field="tarikh_mula"></p-sortIcon>
+                  </th>
+                  <th style="width: 100px" pSortableColumn="tarikh_tamat">
+                    Tarikh Tamat
+                    <p-sortIcon field="tarikh_tamat"></p-sortIcon>
+                  </th>
+                  <th style="width: 130px" pSortableColumn="siling_peruntukan">
+                    Siling Peruntukan
+                    <p-sortIcon field="siling_peruntukan"></p-sortIcon>
+                  </th>
+                  <th style="width: 160px" pSortableColumn="baki_peruntukan">
+                    Baki Peruntukan
+                    <p-sortIcon field="baki_peruntukan"></p-sortIcon>
+                  </th>
+                  <th style="width: 160px" pSortableColumn="jumlah_belanja">
+                    Jumlah Belanja
+                    <p-sortIcon field="jumlah_belanja"></p-sortIcon>
+                  </th>
+                  <th style="width: 130px" pSortableColumn="status">
+                    Status
+                    <p-sortIcon field="status"></p-sortIcon>
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-record="$implicit">
+                <tr>
+                  <td style="width: 150px;">
+                    <div ngbDropdown class="btn-group" role="group" container="body">
+                      <button type="button" class="btn btn-primary btn-primeng dropdown-toggle" id="action"
+                        ngbDropdownToggle>
+                        <i class="fa fa-cog"></i><span class="caret"></span>
+                        Tindakan
+                      </button>
+                      <div ngbDropdownMenu aria-labelledby="action">
+                        <button class="dropdown-item" [routerLink]="['/main/edit-skb']">Lihat</button>
+                        <button class="dropdown-item">Padam</button>
+                      </div>
+                    </div>
+                  </td>
+                  <td style="width: 150px">
+                    <span class="p-column-title"> No. Rujukan Kelulusan </span>
+                    {{record.approvalRef}}
+                  </td>
+                  <td style="width: 130px">
+                    <span class="p-column-title"> No. Rujukan SKB</span>
+                    {{record.skbRef}}
+                  </td>
+                  <td style="width: 130px">
+                    <span class="p-column-title"> Pegawai</span>
+                    {{record.officer}}
+                  </td>
+                  <td style="width: 130px">
+                    <span class="p-column-title"> Agensi</span>
+                    {{record.agency}}
+                  </td>
+                  <td style="width: 120px">
+                    <span class="p-column-title"> Kategori Tabung</span>
+                    {{record.fundCategory}}
+                  </td>
+                  <td style="width: 130px">
+                    <span class="p-column-title"> Tarikh Mula</span>
+                    {{record.startDate}}
+                  </td>
+                  <td style="width: 100px">
+                    <span class="p-column-title"> Tarikh Tamat</span>
+                    {{record.endDate}}
+                  </td>
+                  <td style="width: 130px">
+                    <span class="p-column-title"> Siling Peruntukan</span>
+                    {{record.ceilingAllocate}}
+                  </td>
+                  <td style="width: 160px">
+                    <span class="p-column-title"> Baki Peruntukan</span>
+                    {{record.balAllocate}}
+                  </td>
+                  <td style="width: 160px">
+                    <span class="p-column-title"> Jumlah Belanja</span>
+                    {{record.totalExp}}
+                  </td>
+                  <td style="width: 130px">
+                    <span class="p-column-title"> Status</span>
+                    {{record.status}}
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+            <div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">
+              No Data
+            </div>
+            <div class="primeng-paging-container justify-content-between">
+              <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
+                (onPageChange)="getSKB($event)" [totalRecords]="primengTableHelper.totalRecordsCount"
+                [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+
+              </p-paginator>
+              <span class="total-records-count">
+                Jumlah: {{ primengTableHelper.totalRecordsCount}}
+              </span>
             </div>
           </div>
-          &nbsp;
-          <div class="custom-datatable">
-            <ngx-datatable class="bootstrap"
-                           [rows]="rows" [sortType]="SortType.multi"
-                           [columnMode]="ColumnMode.flex" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [limit]="10">
-
-              <ngx-datatable-column name="Tindakan" prop="action" [flexGrow]="1">
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                  <span>
-                    <a class="col-sm-6 col-md-4 col-xl-3" [queryParams]="{id: 1}" [routerLink]="['/main/edit-skb']"><i class="fa fa-edit"></i></a>
-                    <a class="col-sm-6 col-md-4 col-xl-3"><i class="fa fa-trash"></i></a>
-                  </span>
-                </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="No Rujukan Kelulusan" prop="approvalRef" [flexGrow]="1">
-                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                  {{ value }}
-                </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="No Rujukan SKB" prop="skbRef" [flexGrow]="1">
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                  {{ value }}
-                </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Pegawai" prop="officer" [flexGrow]="1">
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                  {{ value }}
-                </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Agensi" prop="agency" [flexGrow]="1">
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                  {{ value }}
-                </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Kategori Tabung" prop="fundCategory" [flexGrow]="1">
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                  {{ value }}
-                </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Tarikh Mula" prop="startDate" [flexGrow]="1">
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                  {{ value }}
-                </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Tarikh Tamat" prop="endDate" [flexGrow]="1">
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                  {{ value }}
-                </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Siling Peruntukan" prop="ceilingAllocate" [flexGrow]="1">
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                  {{ value }}
-                </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Baki Peruntukan" prop="balAllocate" [flexGrow]="1">
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                  {{ value }}
-                </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Jumlah Belanja" prop="totalExp" [flexGrow]="1">
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                  {{ value }}
-                </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Status" prop="status" [flexGrow]="1">
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                  {{ value }}
-                </ng-template>
-              </ngx-datatable-column>
-
-              <ngx-datatable-footer>
-                <ng-template
-                  ngx-datatable-footer-template
-                  let-rowCount="rowCount">
-                  <div style="padding: 5px 5px">
-                      Jumlah: {{ rowCount }}
-                  </div>
-                </ng-template>
-              </ngx-datatable-footer>
-
-            </ngx-datatable>
-            <div class="row justify-content-end">
-              <ngb-pagination [collectionSize]="70" [(page)]="page" aria-label="Default pagination"></ngb-pagination>
-            </div>
-          </div>
+          <!--<Primeng-TurboTable-End>-->
         </div>
       </div>
     </div>

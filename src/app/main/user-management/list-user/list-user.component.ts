@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AddUserComponent } from '../add-user/add-user.component';
+import { LazyLoadEvent } from 'primeng/api';
+import { Paginator } from 'primeng/paginator';
+import { Table } from 'primeng/table';
+import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 
 @Component({
-
   selector: 'app-list-user',
   templateUrl: './list-user.component.html',
   encapsulation: ViewEncapsulation.None,
@@ -13,6 +15,12 @@ import { AddUserComponent } from '../add-user/add-user.component';
 })
 
 export class ListUserComponent implements OnInit {
+
+  @ViewChild('dataTable', { static: true }) dataTable: Table;
+  @ViewChild('paginator', { static: true }) paginator: Paginator;
+
+  primengTableHelper: PrimengTableHelper;
+  public isCollapsed = false;
 
   rows = [
     {"userID":"860410xxxxx9", "userName":"Khairul Azwin B Mohd Nor", "agency":"Jabatan Kebajikan Masyarakat", "userRole":"Pengguna Biasa", "lastLog":"", "totalLog":"0"},
@@ -23,17 +31,29 @@ export class ListUserComponent implements OnInit {
     {"userID":"790930xxxxx7", "userName":"Mohamad Faizal B Mohamad", "agency":"Agensi Pengurusan Bencana Malaysia", "userRole":"Admin", "lastLog":"16-04-2018  09:16:34 AM", "totalLog":"207"}
   ]
 
-  ColumnMode = ColumnMode;
-  SortType = SortType;
-
-  public isCollapsed = false;
-
   constructor(config: NgbModalConfig, private modalService: NgbModal) {
+    this.primengTableHelper = new PrimengTableHelper();
     config.backdrop = 'static';
     config.keyboard = false;
   }
 
   ngOnInit(): void {
+  }
+
+  getUser(event?: LazyLoadEvent) {
+    if (this.primengTableHelper.shouldResetPaging(event)) {
+      this.paginator.changePage(0);
+      return;
+    }
+
+    this.primengTableHelper.showLoadingIndicator();
+    this.primengTableHelper.totalRecordsCount = this.rows.length;
+    this.primengTableHelper.records = this.rows;
+    this.primengTableHelper.hideLoadingIndicator();
+  }
+
+  reloadPage(): void {
+    this.paginator.changePage(this.paginator.getPage());
   }
 
   addUserModal() {
