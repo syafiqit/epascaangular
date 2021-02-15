@@ -22,7 +22,8 @@ import { LoginPageComponent } from './auth/login-page/login-page.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { RegisterPageComponent } from './auth/register-page/register-page.component';
 import { LoginFirstTimeComponent } from './auth/login-page/login-first-time/login-first-time.component';
-
+import { TableModule } from 'primeng/table';
+import { PaginatorModule } from 'primeng/paginator';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -53,6 +54,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       },
     }),
+    TableModule,
+    PaginatorModule,
     // for HttpClient use:
     LoadingBarHttpClientModule,
     // for Router use:
