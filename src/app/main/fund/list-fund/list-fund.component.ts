@@ -1,8 +1,11 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
 import { AddEditFundComponent } from '../add-edit-fund/add-edit-fund.component';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-
+import { LazyLoadEvent } from 'primeng/api';
+import { Paginator } from 'primeng/paginator';
+import { Table } from 'primeng/table';
+import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 @Component({
   selector: 'app-list-fund',
   templateUrl: './list-fund.component.html',
@@ -10,6 +13,11 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
   providers: [NgbModalConfig, NgbModal]
 })
 export class ListFundComponent implements OnInit {
+
+  @ViewChild('dataTable', { static: true }) dataTable: Table;
+  @ViewChild('paginator', { static: true }) paginator: Paginator;
+
+  primengTableHelper: PrimengTableHelper;
 
   rows = [
     {"name":"KWABBN", "date" : "1/01/2020",  "total": "235,882,775.21", "date2":"31/12/2020", "total2": "255,199,152.00", "total_overal":"491,081,927,21", "balance":"282,925,285.85"},
@@ -26,11 +34,28 @@ export class ListFundComponent implements OnInit {
   SortType = SortType;
 
   constructor(config: NgbModalConfig, private modalService: NgbModal) {
+    this.primengTableHelper = new PrimengTableHelper();
     config.backdrop = 'static';
     config.keyboard = false;
   }
 
   ngOnInit(): void {
+  }
+
+  getFund(event?: LazyLoadEvent) {
+    if (this.primengTableHelper.shouldResetPaging(event)) {
+      this.paginator.changePage(0);
+      return;
+    }
+
+    this.primengTableHelper.showLoadingIndicator();
+    this.primengTableHelper.totalRecordsCount = this.rows.length;
+    this.primengTableHelper.records = this.rows;
+    this.primengTableHelper.hideLoadingIndicator();
+  }
+
+  reloadPage(): void {
+    this.paginator.changePage(this.paginator.getPage());
   }
 
   addFundModal() {

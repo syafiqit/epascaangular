@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
-import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AddUserComponent } from '../add-user/add-user.component';
 import { LazyLoadEvent } from 'primeng/api';
@@ -21,6 +20,7 @@ export class ListUserComponent implements OnInit {
   @ViewChild('paginator', { static: true }) paginator: Paginator;
 
   primengTableHelper: PrimengTableHelper;
+  public isCollapsed = false;
 
   rows = [
     {"userID":"860410xxxxx9", "userName":"Khairul Azwin B Mohd Nor", "agency":"Jabatan Kebajikan Masyarakat", "userRole":"Pengguna Biasa", "lastLog":"", "totalLog":"0"},
@@ -30,11 +30,6 @@ export class ListUserComponent implements OnInit {
     {"userID":"770120xxxxx7", "userName":"Adila Sabri B Muhammad", "agency":"Agensi Pengurusan Bencana Malaysia", "userRole":"Penyelia", "lastLog":"23-01-2021  10:11:39 PM", "totalLog":"235"},
     {"userID":"790930xxxxx7", "userName":"Mohamad Faizal B Mohamad", "agency":"Agensi Pengurusan Bencana Malaysia", "userRole":"Admin", "lastLog":"16-04-2018  09:16:34 AM", "totalLog":"207"}
   ]
-
-  ColumnMode = ColumnMode;
-  SortType = SortType;
-
-  public isCollapsed = false;
 
   constructor(config: NgbModalConfig, private modalService: NgbModal) {
     this.primengTableHelper = new PrimengTableHelper();
