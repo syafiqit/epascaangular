@@ -1,7 +1,10 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
+import { AfterViewInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AddEvacuateComponent } from '../add-evacuate/add-evacuate.component';
+import { LazyLoadEvent } from 'primeng/api';
+import { Paginator } from 'primeng/paginator';
+import { Table } from 'primeng/table';
+import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 
 @Component({
 
@@ -12,7 +15,11 @@ import { AddEvacuateComponent } from '../add-evacuate/add-evacuate.component';
 
 })
 
-export class ListEvacuateComponent implements OnInit {
+export class ListEvacuateComponent implements AfterViewInit {
+  @ViewChild('dataTable', { static: true }) dataTable: Table;
+  @ViewChild('paginator', { static: true }) paginator: Paginator;
+
+  primengTableHelper: PrimengTableHelper;
 
   rows = [
     {"info":"Pusat Pemindahan", "status":"Aktif"},
@@ -22,18 +29,39 @@ export class ListEvacuateComponent implements OnInit {
     {"info":"Lain-lain", "status":"Aktif"},
   ]
 
-  ColumnMode = ColumnMode;
-  SortType = SortType;
-
   constructor(config: NgbModalConfig, private modalService: NgbModal) {
     config.backdrop = 'static';
     config.keyboard = false;
+    this.primengTableHelper = new PrimengTableHelper();
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
+    //this.primengTableHelper.adjustScroll(this.dataTable);
+  }
+
+  getApplication(event?: LazyLoadEvent) {
+    if (this.primengTableHelper.shouldResetPaging(event)) {
+      this.paginator.changePage(0);
+      return;
+    }
+
+    this.primengTableHelper.showLoadingIndicator();
+    this.primengTableHelper.totalRecordsCount = this.rows.length;
+    this.primengTableHelper.records = this.rows;
+    this.primengTableHelper.hideLoadingIndicator();
+  }
+
+  reloadPage(): void {
+    this.paginator.changePage(this.paginator.getPage());
   }
 
   addEvacuateModal() {
-    this.modalService.open(AddEvacuateComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(AddEvacuateComponent , { size: 'lg' });
+    modalRef.componentInstance.name = 'add';
+  }
+
+  editEvacuateModal() {
+    const modalRef = this.modalService.open(AddEvacuateComponent , { size: 'lg' });
+    modalRef.componentInstance.name = 'edit';
   }
 }

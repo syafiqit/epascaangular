@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 
@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
   providers: [NgbModalConfig, NgbModal]
 })
 export class AddHouseProjectOwnerComponent implements OnInit {
+  @Input() name;
 
   constructor(
     private modalService: NgbModal,

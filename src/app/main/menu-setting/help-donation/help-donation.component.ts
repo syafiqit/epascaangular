@@ -1,8 +1,10 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
-import { EditHelpDonationComponent } from '../help-donation/edit-help-donation/edit-help-donation.component';
 import { AddHelpDonationComponent } from '../help-donation/add-help-donation/add-help-donation.component';
+import { LazyLoadEvent } from 'primeng/api';
+import { Paginator } from 'primeng/paginator';
+import { Table } from 'primeng/table';
+import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 
 @Component({
   selector: 'app-help-donation',
@@ -10,7 +12,11 @@ import { AddHelpDonationComponent } from '../help-donation/add-help-donation/add
   encapsulation: ViewEncapsulation.None,
   providers: [NgbModalConfig, NgbModal]
 })
-export class HelpDonationComponent implements OnInit {
+export class HelpDonationComponent implements AfterViewInit {
+  @ViewChild('dataTable', { static: true }) dataTable: Table;
+  @ViewChild('paginator', { static: true }) paginator: Paginator;
+
+  primengTableHelper: PrimengTableHelper;
 
   rows = [
     { "name": "Baik Pulih Rumah", "status": "Aktif",},
@@ -20,24 +26,40 @@ export class HelpDonationComponent implements OnInit {
     { "name": "Wang Ehsan", "status": "Aktif",},
   ];
 
-  ColumnMode = ColumnMode;
-  SortType = SortType;
-  page = 4;
-
   constructor(config: NgbModalConfig, private modalService: NgbModal) {
     config.backdrop = 'static';
     config.keyboard = false;
+    this.primengTableHelper = new PrimengTableHelper();
   }
 
   addHelpDonationModal() {
-    this.modalService.open(AddHelpDonationComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(AddHelpDonationComponent , { size: 'lg' });
+    modalRef.componentInstance.name = 'add';
   }
 
   editHelpDonationModal() {
-    this.modalService.open(EditHelpDonationComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(AddHelpDonationComponent , { size: 'lg' });
+    modalRef.componentInstance.name = 'edit';
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
+    //this.primengTableHelper.adjustScroll(this.dataTable);
+  }
+
+  getApplication(event?: LazyLoadEvent) {
+    if (this.primengTableHelper.shouldResetPaging(event)) {
+      this.paginator.changePage(0);
+      return;
+    }
+
+    this.primengTableHelper.showLoadingIndicator();
+    this.primengTableHelper.totalRecordsCount = this.rows.length;
+    this.primengTableHelper.records = this.rows;
+    this.primengTableHelper.hideLoadingIndicator();
+  }
+
+  reloadPage(): void {
+    this.paginator.changePage(this.paginator.getPage());
   }
 
 }
