@@ -29,6 +29,7 @@ import { DisableKeyPressDirective } from './directives/disable-key-press.directi
 import { OnlyAlphabetsDirective } from './directives/only-alphabets.directive';
 import { OnlyNumbersDirective } from './directives/only-numbers.directive';
 import { ShowOptionsDirective } from './directives/show-options.directive';
+import { BusyIfDirective } from './directives/busy-if.directive';
 // Services
 import { LayoutService } from './services/layout.service';
 import { NavService } from './services/nav.service';
@@ -46,6 +47,7 @@ import { NavService } from './services/nav.service';
     DisableKeyPressDirective,
     OnlyAlphabetsDirective,
     OnlyNumbersDirective,
+    BusyIfDirective,
     LoaderComponent,
     TapToTopComponent,
     SearchComponent,
@@ -81,7 +83,8 @@ import { NavService } from './services/nav.service';
     TapToTopComponent,
     DisableKeyPressDirective,
     OnlyAlphabetsDirective,
-    OnlyNumbersDirective
+    OnlyNumbersDirective,
+    BusyIfDirective
   ],
 })
 export class SharedModule { }

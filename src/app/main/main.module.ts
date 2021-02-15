@@ -80,7 +80,8 @@ import { AddSkbComponent } from './fund-management/payment/skb/add-skb/add-skb.c
 import { EditSkbComponent } from './fund-management/payment/skb/edit-skb/edit-skb.component';
 import { AddDirectPaymentComponent } from './fund-management/payment/direct-pay/add-direct-payment/add-direct-payment.component';
 import { EditDirectPaymentComponent } from './fund-management/payment/direct-pay/edit-direct-payment/edit-direct-payment.component';
-
+import { TableModule } from 'primeng/table';
+import { PaginatorModule } from 'primeng/paginator';
 
 @NgModule({
   declarations: [
@@ -169,7 +170,9 @@ import { EditDirectPaymentComponent } from './fund-management/payment/direct-pay
     CommonModule,
     SharedModule,
     MainRoutingModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    TableModule,
+    PaginatorModule
   ]
 })
 export class MainModule { }

@@ -2,8 +2,15 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
+    "experimentalDecorators": true,
     "outDir": "./out-tsc/app",
-    "types": []
+    "types": [],
+    "paths": {
+      "@app/*": ["./src/app/*"],
+      "@shared/*": ["./src/app/shared/*"],
+      "@node_modules/*": ["./node_modules/*"],
+      "@angular/*": ["./node_modules/@angular/*"]
+    }
   },
   "files": [
     "src/main.ts",
