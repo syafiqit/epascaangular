@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
-import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
 import { AddEditFundComponent } from '../add-edit-fund/add-edit-fund.component';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
@@ -29,9 +28,6 @@ export class ListFundComponent implements OnInit {
     { "title": "Jumlah Bayaran Semasa (RM)", "total_kos": "312,123,121.00" },
     { "title": "Jumlah Tanggung Semasa (RM)", "total_kos": "22,323,321.00" },
   ]
-
-  ColumnMode = ColumnMode;
-  SortType = SortType;
 
   constructor(config: NgbModalConfig, private modalService: NgbModal) {
     this.primengTableHelper = new PrimengTableHelper();
