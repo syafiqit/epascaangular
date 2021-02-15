@@ -40,6 +40,10 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
+              "core-js",
+              "raf",
+              "xlsx",
+              "@babel/runtime",
               "lodash",
               "rxjs-compat",
               "@ks89/angular-modal-gallery",
