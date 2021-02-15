@@ -45,7 +45,7 @@
                   <input class="form-control" id="newPassword" type="password" placeholder="Kata Laluan Baru">
                 </div>
               </div>
-  
+
               <div class="col-lg-6">
                 <div class="form-group">
                   <label for="exampleFormControlInput1">Ulang Kata Laluan Baru</label>
@@ -162,47 +162,82 @@
             </div>
             <hr>
             <h6>Capaian</h6>
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="form-group">
-                  <div class="custom-datatable">
-                    <ngx-datatable class="bootstrap" [rows]="rows" 
-                            [columnMode]="ColumnMode.flex" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [limit]="">
-      
-                        <ngx-datatable-column name="" prop="access" [flexGrow]="1.5" [sortable]="false">
-                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>{{ value }}</ng-template>
-                        </ngx-datatable-column>
-                        
-                        <ngx-datatable-column name="Lihat" prop="view" [flexGrow]="0.5" [sortable]="false" [canAutoResize]="true"
-                            [draggable]="false" [resizeable]="true" [headerCheckboxable]="true" [checkboxable]="true">
-                        </ngx-datatable-column>
-                        
-                        <ngx-datatable-column name="Tambah" prop="add" [flexGrow]="0.5" [sortable]="false" [canAutoResize]="true"
-                            [draggable]="false" [resizeable]="true" [headerCheckboxable]="true" [checkboxable]="true">
-                        </ngx-datatable-column>
-
-                        <ngx-datatable-column name="Kemaskini" prop="update" [flexGrow]="0.5" [sortable]="false" [canAutoResize]="true"
-                            [draggable]="false" [resizeable]="true" [headerCheckboxable]="true" [checkboxable]="true">
-                        </ngx-datatable-column>
-
-                        <ngx-datatable-column name="Hapus" prop="delete" [flexGrow]="1" [sortable]="false" [canAutoResize]="true"
-                            [draggable]="false" [resizeable]="true" [headerCheckboxable]="true" [checkboxable]="true">
-                        </ngx-datatable-column>
-
-                        <ngx-datatable-footer>
-                          <ng-template
-                            ngx-datatable-footer-template
-                            let-rowCount="rowCount">
-                            <div style="padding: 5px 5px">
-                                Jumlah: {{ rowCount }}
-                            </div>
-                          </ng-template>
-                        </ngx-datatable-footer>
-                    </ngx-datatable>
+            <div class="row align-items-center">
+              <!--<Primeng-TurboTable-Start>-->
+              <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                  <p-table #dataTable
+                      styleClass="p-datatable-striped"
+                      sortMode="multiple"
+                      [resizableColumns]="true"
+                      (onLazyLoad)="getApplication($event)"
+                      [value]="primengTableHelper.records"
+                      rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
+                      [paginator]="false"
+                      [lazy]="true"
+                      [scrollable]="true"
+                      ScrollWidth="100%"
+                      [responsive]="primengTableHelper.isResponsive"
+                      [resizableColumns]="primengTableHelper.resizableColumns">
+                      <ng-template pTemplate="header">
+                          <tr>
+                              <th style="width: 120px">
+                              </th>
+                              <th style="width: 100px">
+                                Lihat
+                              </th>
+                              <th style="width: 100px">
+                                Tambah
+                              </th>
+                              <th style="width: 100px">
+                                Kemaskini
+                              </th>
+                              <th style="width: 100px">
+                                Hapus
+                              </th>
+                          </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-record="$implicit">
+                          <tr>
+                              <td style="width: 130px;">
+                                <span class="p-column-title"> Kategori</span>
+                                {{record.category}}
+                              </td>
+                              <td style="width: 100px">
+                                <span class="p-column-title"> Lihat</span>
+                                <input class="checkbox_animated" type="checkbox">
+                              </td>
+                              <td style="width: 100px">
+                                <span class="p-column-title"> Tambah</span>
+                                <input class="checkbox_animated" type="checkbox">
+                              </td>
+                              <td style="width: 100px">
+                                <span class="p-column-title"> Kemaskini</span>
+                                <input class="checkbox_animated" type="checkbox">
+                              </td>
+                              <td style="width: 100px">
+                                <span class="p-column-title"> Hapus</span>
+                                <input class="checkbox_animated" type="checkbox">
+                              </td>
+                          </tr>
+                      </ng-template>
+                  </p-table>
+                  <div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">
+                    No Data
                   </div>
-                </div>
+                  <div class="primeng-paging-container justify-content-between">
+                      <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
+                          (onPageChange)="getApplication($event)"
+                          [totalRecords]="primengTableHelper.totalRecordsCount"
+                          [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+
+                      </p-paginator>
+                      <span class="total-records-count">
+                        Jumlah: {{ primengTableHelper.totalRecordsCount}}
+                      </span>
+                  </div>
               </div>
-            </div>
+              <!--<Primeng-TurboTable-End>-->
+          </div>
 
             <button class="btn btn-primary pull-right" [routerLink]="['/main/list-user']" type="button">Simpan</button>
             <button class="btn btn-light pull-right mr-1" [routerLink]="['/main/list-user']" type="button">Kembali</button>
