@@ -1,5 +1,6 @@
 <div class="modal-header">
-  <h5 class="modal-title">Tambah Pemilik Projek Rumah</h5>
+  <h5 class="modal-title" *ngIf="name === 'add'">Tambah Pemilik Projek Rumah</h5>
+  <h5 class="modal-title" *ngIf="name === 'edit'">Kemaskini Pemilik Projek Rumah</h5>
   <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -11,7 +12,7 @@
       <div class="col-6">
         <div class="form-group">
           <label class="col-form-label">Nama Pelaksana</label>
-          <input class="form-control" name="name" type="text">
+          <input class="form-control" name="name" type="text" placeholder="Nama Pelaksana">
         </div>
       </div>
       <div class="col-6">

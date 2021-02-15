@@ -1,8 +1,10 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
-import { EditEntrepreneurLoanComponent } from '../entrepreneur-loan/edit-entrepreneur-loan/edit-entrepreneur-loan.component';
 import { AddEntrepreneurLoanComponent } from '../entrepreneur-loan/add-entrepreneur-loan/add-entrepreneur-loan.component';
+import { LazyLoadEvent } from 'primeng/api';
+import { Paginator } from 'primeng/paginator';
+import { Table } from 'primeng/table';
+import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 
 @Component({
   selector: 'app-entrepreneur-loan',
@@ -10,7 +12,11 @@ import { AddEntrepreneurLoanComponent } from '../entrepreneur-loan/add-entrepren
   encapsulation: ViewEncapsulation.None,
   providers: [NgbModalConfig, NgbModal]
 })
-export class EntrepreneurLoanComponent implements OnInit {
+export class EntrepreneurLoanComponent implements AfterViewInit {
+  @ViewChild('dataTable', { static: true }) dataTable: Table;
+  @ViewChild('paginator', { static: true }) paginator: Paginator;
+
+  primengTableHelper: PrimengTableHelper;
 
   rows = [
     { "name": "Pembuatan", "status": "Aktif",},
@@ -19,25 +25,40 @@ export class EntrepreneurLoanComponent implements OnInit {
     { "name": "Peruncitan", "status": "Aktif",},
   ];
 
-  ColumnMode = ColumnMode;
-  SortType = SortType;
-  page = 4;
-
   constructor(config: NgbModalConfig, private modalService: NgbModal) {
     config.backdrop = 'static';
     config.keyboard = false;
+    this.primengTableHelper = new PrimengTableHelper();
   }
 
   addEntrepreneurModal() {
-    this.modalService.open(AddEntrepreneurLoanComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(AddEntrepreneurLoanComponent , { size: 'lg' });
+    modalRef.componentInstance.name = 'add';
   }
 
   editEntrepreneurModal() {
-    this.modalService.open(EditEntrepreneurLoanComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(AddEntrepreneurLoanComponent , { size: 'lg' });
+    modalRef.componentInstance.name = 'edit';
   }
 
+  ngAfterViewInit(): void {
+    //this.primengTableHelper.adjustScroll(this.dataTable);
+  }
 
-  ngOnInit(): void {
+  getApplication(event?: LazyLoadEvent) {
+    if (this.primengTableHelper.shouldResetPaging(event)) {
+      this.paginator.changePage(0);
+      return;
+    }
+
+    this.primengTableHelper.showLoadingIndicator();
+    this.primengTableHelper.totalRecordsCount = this.rows.length;
+    this.primengTableHelper.records = this.rows;
+    this.primengTableHelper.hideLoadingIndicator();
+  }
+
+  reloadPage(): void {
+    this.paginator.changePage(this.paginator.getPage());
   }
 
 }

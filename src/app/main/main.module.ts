@@ -22,12 +22,11 @@ import { ExecutorComponent } from './menu-setting/executor/executor.component';
 import { AddExecutorComponent } from './menu-setting/executor/add-executor/add-executor.component';
 import { EditExecutorComponent } from './menu-setting/executor/edit-executor/edit-executor.component';
 import { EntrepreneurLoanComponent } from './menu-setting/entrepreneur-loan/entrepreneur-loan.component';
-import { EditEntrepreneurLoanComponent } from './menu-setting/entrepreneur-loan/edit-entrepreneur-loan/edit-entrepreneur-loan.component';
+import { AddEntrepreneurLoanComponent } from './menu-setting/entrepreneur-loan/add-entrepreneur-loan/add-entrepreneur-loan.component';
 import { HouseProjectOwnerComponent } from './menu-setting/house-project-owner/house-project-owner.component';
 import { AddHouseProjectOwnerComponent } from './menu-setting/house-project-owner/add-house-project-owner/add-house-project-owner.component';
-import { EditHouseProjectOwnerComponent } from './menu-setting/house-project-owner/edit-house-project-owner/edit-house-project-owner.component';
 import { HelpDonationComponent } from './menu-setting/help-donation/help-donation.component';
-import { EditHelpDonationComponent } from './menu-setting/help-donation/edit-help-donation/edit-help-donation.component';
+import { AddHelpDonationComponent } from './menu-setting/help-donation/add-help-donation/add-help-donation.component';
 import { ListProjectOwnerComponent } from './menu-setting/setting-project-owner/list-project-owner/list-project-owner.component';
 import { AddProjectOwnerComponent } from './menu-setting/setting-project-owner/add-project-owner/add-project-owner.component';
 import { ListDistrictComponent } from './menu-setting/setting-district/list-district/list-district.component';
@@ -61,9 +60,6 @@ import { DunComponent } from './menu-setting/dun/dun.component';
 import { AddDunComponent } from './menu-setting/dun/add-dun/add-dun.component';
 import { AnnouncementComponent } from './menu-setting/announcement/announcement.component';
 import { AddAnnouncementComponent } from './menu-setting/announcement/add-announcement/add-announcement.component';
-import { EditAnnouncementComponent } from './menu-setting/announcement/edit-announcement/edit-announcement.component';
-import { AddEntrepreneurLoanComponent } from './menu-setting/entrepreneur-loan/add-entrepreneur-loan/add-entrepreneur-loan.component';
-import { AddHelpDonationComponent } from './menu-setting/help-donation/add-help-donation/add-help-donation.component';
 import { ApprovalListComponent } from './funds-approval/approval-list/approval-list.component';
 import { ApprovalEditComponent } from './funds-approval/approval-edit/approval-edit.component';
 import { ApprovalAddComponent } from './funds-approval/approval-add/approval-add.component';
@@ -105,12 +101,11 @@ import { PaginatorModule } from 'primeng/paginator';
     AddExecutorComponent,
     EditExecutorComponent,
     EntrepreneurLoanComponent,
-    EditEntrepreneurLoanComponent,
+    AddEntrepreneurLoanComponent,
     HouseProjectOwnerComponent,
     AddHouseProjectOwnerComponent,
-    EditHouseProjectOwnerComponent,
     HelpDonationComponent,
-    EditHelpDonationComponent,
+    AddHelpDonationComponent,
     AddUserComponent,
     ListProjectOwnerComponent,
     AddProjectOwnerComponent,
@@ -145,9 +140,6 @@ import { PaginatorModule } from 'primeng/paginator';
     AddDunComponent,
     AnnouncementComponent,
     AddAnnouncementComponent,
-    EditAnnouncementComponent,
-    AddEntrepreneurLoanComponent,
-    AddHelpDonationComponent,
     ApprovalListComponent,
     ApprovalEditComponent,
     ApprovalAddComponent,
