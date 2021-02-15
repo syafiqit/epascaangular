@@ -1,61 +1,89 @@
-<app-breadcrumb [title]="'Medan Pelaksana'" [items]="['Pentadbiran','Medan']" [active_item]="'Medan Pelaksana'"></app-breadcrumb>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="card">
+<app-breadcrumb [title]="'Medan Pelaksana'" [items]="['Medan']" [active_item]="'Pelaksana'">
+</app-breadcrumb>
+<div class="content d-flex flex-column flex-column-fluid">
+  <div class="container-fluid">
+    <div class="card card-custom gutter-b">
         <div class="card-body">
-          <div class="row justify-content-end">
-            <button class="btn btn-primary mr-3" type="button" (click)="addExecutorModal()"><i
-              class="fa fa-plus mr-2"></i>Tambah</button>
+          <div class="row justify-content-end pb-2">
+                <button class="btn btn-primary" type="button" (click)="addExecutorModal()"><i class="fa fa-plus mr-2"></i>Tambah</button>
           </div>
-          &nbsp;
-          <div class="row">
-            <div class="col-lg-12">
-              <input type="text" class="filter-ngx form-control" placeholder='Carian...' />
-            </div>
+          <div class="row mb-2">
+            <input type="text" class="form-control" placeholder='Carian...' />
           </div>
-          &nbsp;
-          <div class="col-12 custom-datatable">
-            <ngx-datatable class="bootstrap"
-                           [rows]="rows" [sortType]="SortType.multi"
-                           [columnMode]="ColumnMode.flex" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [limit]="10">
-
-              <ngx-datatable-column name="Tindakan" prop="action" [flexGrow]="1">
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                  <span>
-                    <a class="col-sm-6 col-md-4 col-xl-3" [queryParams]="{id: 1}" (click)="editExecutorModal()"><i class="fa fa-edit"></i></a>
-                    <a class="col-sm-6 col-md-4 col-xl-3"><i class="fa fa-trash"></i></a>
-                  </span>
-                </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Nama Pelaksana" prop="name" [flexGrow]="2">
-                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                  {{ value }}
-                </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Status" prop="status" [flexGrow]="2">
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                  {{ value }}
-                </ng-template>
-              </ngx-datatable-column>
-
-              <ngx-datatable-footer>
-                <ng-template
-                  ngx-datatable-footer-template
-                  let-rowCount="rowCount">
-                  <div style="padding: 5px 5px">
-                      Jumlah: {{ rowCount }}
+          <div class="row align-items-center">
+              <!--<Primeng-TurboTable-Start>-->
+              <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                  <p-table #dataTable
+                      styleClass="p-datatable-striped"
+                      sortMode="multiple"
+                      [resizableColumns]="true"
+                      (onLazyLoad)="getApplication($event)"
+                      [value]="primengTableHelper.records"
+                      rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
+                      [paginator]="false"
+                      [lazy]="true"
+                      [scrollable]="true"
+                      ScrollWidth="100%"
+                      [responsive]="primengTableHelper.isResponsive"
+                      [resizableColumns]="primengTableHelper.resizableColumns">
+                      <ng-template pTemplate="header">
+                          <tr>
+                              <th style="width: 80px">
+                                Tindakan
+                              </th>
+                              <th style="width: 130px" pSortableColumn="name">
+                                Nama Pelaksana
+                                <p-sortIcon field="category"></p-sortIcon>
+                              </th>
+                              <th style="width: 130px" pSortableColumn="status">
+                                Status
+                                  <p-sortIcon field="status"></p-sortIcon>
+                              </th>
+                          </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-record="$implicit">
+                          <tr>
+                              <td style="width: 70px;">
+                                <div ngbDropdown class="btn-group" role="group" container="body">
+                                  <button type="button" class="btn btn-primary btn-primeng dropdown-toggle" id="action" ngbDropdownToggle>
+                                    <i class="fa fa-cog"></i><span class="caret"></span>
+                                      Tindakan
+                                  </button>
+                                  <div ngbDropdownMenu aria-labelledby="action">
+                                    <button class="dropdown-item" (click)="editExecutorModal()">Kemaskini</button>
+                                    <button class="dropdown-item">Padam</button>
+                                  </div>
+                                </div>
+                              </td>
+                              <td style="width: 100px">
+                                  <span class="p-column-title"> Nama Pelaksana </span>
+                                  {{record.name}}
+                              </td>
+                              <td style="width: 100px">
+                                  <span class="p-column-title"> Status</span>
+                                  {{record.status}}
+                              </td>
+                          </tr>
+                      </ng-template>
+                  </p-table>
+                  <div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">
+                    No Data
                   </div>
-                </ng-template>
-              </ngx-datatable-footer>
+                  <div class="primeng-paging-container justify-content-between">
+                      <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
+                          (onPageChange)="getApplication($event)"
+                          [totalRecords]="primengTableHelper.totalRecordsCount"
+                          [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
 
-            </ngx-datatable>
-            <div class="row justify-content-end">
-              <ngb-pagination [collectionSize]="70" [(page)]="page" aria-label="Default pagination"></ngb-pagination>
-            </div>
+                      </p-paginator>
+                      <span class="total-records-count">
+                        Jumlah: {{ primengTableHelper.totalRecordsCount}}
+                      </span>
+                  </div>
+              </div>
+              <!--<Primeng-TurboTable-End>-->
           </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
 </div>
