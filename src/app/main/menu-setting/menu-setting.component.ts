@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-menu-setting',
-  templateUrl: './menu-setting.component.html'
+	selector: 'app-menu-setting',
+	templateUrl: './menu-setting.component.html'
 })
 export class MenuSettingComponent implements OnInit {
+	constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+	ngOnInit(): void {}
 }

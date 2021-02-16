@@ -6,11 +6,7 @@ import { SampleRoutingModule } from './sample-routing.module';
 import { SampleComponent } from './sample.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    SampleRoutingModule
-  ],
-  declarations: [SampleComponent]
+	imports: [CommonModule, SharedModule, SampleRoutingModule],
+	declarations: [SampleComponent]
 })
-export class SampleModule { }
+export class SampleModule {}

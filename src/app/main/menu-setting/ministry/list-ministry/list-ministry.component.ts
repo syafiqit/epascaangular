@@ -6,58 +6,54 @@ import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 @Component({
-  selector: 'app-list-ministry',
-  templateUrl: './list-ministry.component.html',
-  encapsulation: ViewEncapsulation.None,
-  providers: [NgbModalConfig, NgbModal]
+	selector: 'app-list-ministry',
+	templateUrl: './list-ministry.component.html',
+	encapsulation: ViewEncapsulation.None,
+	providers: [NgbModalConfig, NgbModal]
 })
 export class ListMinistryComponent implements OnInit {
+	@ViewChild('dataTable', { static: true }) dataTable: Table;
+	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
-  @ViewChild('dataTable', { static: true }) dataTable: Table;
-  @ViewChild('paginator', { static: true }) paginator: Paginator;
+	primengTableHelper: PrimengTableHelper;
 
-  primengTableHelper: PrimengTableHelper;
+	rows = [
+		{ name: 'Jabatan Perdana Menteri', code: 'JPM', status: 'Aktif' },
+		{ name: 'Kementerian Dalam Negeri', code: 'KDN', status: 'Aktif' },
+		{ name: 'Kementerian Kerja Raya', code: 'KKR', status: 'Aktif' }
+	];
 
-  rows = [
-    {"name" : "Jabatan Perdana Menteri",  "code": "JPM", "status": "Aktif"},
-    {"name" : "Kementerian Dalam Negeri",  "code": "KDN", "status": "Aktif"},
-    {"name" : "Kementerian Kerja Raya", "code": "KKR", "status": "Aktif"}
+	constructor(config: NgbModalConfig, private modalService: NgbModal) {
+		this.primengTableHelper = new PrimengTableHelper();
+		config.backdrop = 'static';
+		config.keyboard = false;
+	}
 
-  ]
+	ngOnInit(): void {}
 
-   constructor(config: NgbModalConfig, private modalService: NgbModal) {
-    this.primengTableHelper = new PrimengTableHelper();
-    config.backdrop = 'static';
-    config.keyboard = false;
-  }
+	getMinistry(event?: LazyLoadEvent) {
+		if (this.primengTableHelper.shouldResetPaging(event)) {
+			this.paginator.changePage(0);
+			return;
+		}
 
-  ngOnInit(): void {
-  }
+		this.primengTableHelper.showLoadingIndicator();
+		this.primengTableHelper.totalRecordsCount = this.rows.length;
+		this.primengTableHelper.records = this.rows;
+		this.primengTableHelper.hideLoadingIndicator();
+	}
 
-  getMinistry(event?: LazyLoadEvent) {
-    if (this.primengTableHelper.shouldResetPaging(event)) {
-      this.paginator.changePage(0);
-      return;
-    }
+	reloadPage(): void {
+		this.paginator.changePage(this.paginator.getPage());
+	}
 
-    this.primengTableHelper.showLoadingIndicator();
-    this.primengTableHelper.totalRecordsCount = this.rows.length;
-    this.primengTableHelper.records = this.rows;
-    this.primengTableHelper.hideLoadingIndicator();
-  }
+	addMinistryModal() {
+		const modalRef = this.modalService.open(AddMinistryComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'add';
+	}
 
-  reloadPage(): void {
-    this.paginator.changePage(this.paginator.getPage());
-  }
-
-  addMinistryModal() {
-    const modalRef = this.modalService.open(AddMinistryComponent , { size: 'lg' });
-    modalRef.componentInstance.name = 'add';
-  }
-
-  editMinistryModal() {
-    const modalRef = this.modalService.open(AddMinistryComponent , { size: 'lg' });
-    modalRef.componentInstance.name = 'edit';
-  }
-
+	editMinistryModal() {
+		const modalRef = this.modalService.open(AddMinistryComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'edit';
+	}
 }

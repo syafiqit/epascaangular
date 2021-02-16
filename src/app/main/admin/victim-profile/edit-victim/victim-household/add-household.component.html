@@ -1,48 +1,47 @@
 <div class="modal-header">
-  <h4 class="modal-title">Ahli Isi Rumah</h4>
-  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-    <span aria-hidden="true">&times;</span>
-  </button>
+	<h4 class="modal-title">Ahli Isi Rumah</h4>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	</button>
 </div>
 
 <div class="modal-body">
-  <form class="form theme-form">
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="form-group">
-          <label for="exampleFormControlSelect9">No. KP</label>
-          <input class="form-control" id="ss" type="text" placeholder="xxxx-xx-xxxx">
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="form-group">
-          <label for="itemLabel">Nama</label>
-          <input class="form-control" id="itemLabel" type="text" placeholder="Nama">
-        </div>
-      </div>
-    </div>
+	<form class="form theme-form">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label for="exampleFormControlSelect9">No. KP</label>
+					<input class="form-control" id="ss" type="text" placeholder="xxxx-xx-xxxx" />
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label for="itemLabel">Nama</label>
+					<input class="form-control" id="itemLabel" type="text" placeholder="Nama" />
+				</div>
+			</div>
+		</div>
 
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="form-group">
-          <label for="exampleFormControlSelect9">Hubungan</label>
-          <select class="form-control digits" id="exampleFormControlSelect9">
-            <option *ngFor="let r of relationships">{{r.data}}</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="form-group">
-          <label for="exampleFormControlSelect9">Umur</label>
-          <input class="form-control" id="sss" type="text" placeholder="umur">
-        </div>
-      </div>
-    </div>
-
-  </form>
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label for="exampleFormControlSelect9">Hubungan</label>
+					<select class="form-control digits" id="exampleFormControlSelect9">
+						<option *ngFor="let r of relationships">{{r.data}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label for="exampleFormControlSelect9">Umur</label>
+					<input class="form-control" id="sss" type="text" placeholder="umur" />
+				</div>
+			</div>
+		</div>
+	</form>
 </div>
 
 <div class="modal-footer">
-  <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
-  <button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Simpan</button>
+	<button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
+	<button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Simpan</button>
 </div>

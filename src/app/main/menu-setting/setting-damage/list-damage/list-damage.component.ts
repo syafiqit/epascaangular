@@ -7,60 +7,59 @@ import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 
 @Component({
-
-  selector: 'app-list-damage',
-  templateUrl: './list-damage.component.html',
-  encapsulation: ViewEncapsulation.None,
-  providers: [NgbModalConfig, NgbModal]
-
+	selector: 'app-list-damage',
+	templateUrl: './list-damage.component.html',
+	encapsulation: ViewEncapsulation.None,
+	providers: [NgbModalConfig, NgbModal]
 })
-
 export class ListDamageComponent implements AfterViewInit {
-  @ViewChild('dataTable', { static: true }) dataTable: Table;
-  @ViewChild('paginator', { static: true }) paginator: Paginator;
+	@ViewChild('dataTable', { static: true }) dataTable: Table;
+	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
-  primengTableHelper: PrimengTableHelper;
+	primengTableHelper: PrimengTableHelper;
 
-  rows = [
-    {"damage":"Atap", "status":"Aktif"},{"damage":"Dinding", "status":"Aktif"},
-    {"damage":"Lantai", "status":"Aktif"},{"damage":"Pendawaian", "status":"Aktif"},
-    {"damage":"Lain-lain", "status":"Aktif"},{"damage":"Pintu", "status":"Aktif"},
-  ]
+	rows = [
+		{ damage: 'Atap', status: 'Aktif' },
+		{ damage: 'Dinding', status: 'Aktif' },
+		{ damage: 'Lantai', status: 'Aktif' },
+		{ damage: 'Pendawaian', status: 'Aktif' },
+		{ damage: 'Lain-lain', status: 'Aktif' },
+		{ damage: 'Pintu', status: 'Aktif' }
+	];
 
-  constructor(config: NgbModalConfig, private modalService: NgbModal) {
-    config.backdrop = 'static';
-    config.keyboard = false;
-    this.primengTableHelper = new PrimengTableHelper();
-  }
+	constructor(config: NgbModalConfig, private modalService: NgbModal) {
+		config.backdrop = 'static';
+		config.keyboard = false;
+		this.primengTableHelper = new PrimengTableHelper();
+	}
 
-  ngAfterViewInit(): void {
-    //this.primengTableHelper.adjustScroll(this.dataTable);
-  }
+	ngAfterViewInit(): void {
+		//this.primengTableHelper.adjustScroll(this.dataTable);
+	}
 
-  getApplication(event?: LazyLoadEvent) {
-    if (this.primengTableHelper.shouldResetPaging(event)) {
-      this.paginator.changePage(0);
-      return;
-    }
+	getApplication(event?: LazyLoadEvent) {
+		if (this.primengTableHelper.shouldResetPaging(event)) {
+			this.paginator.changePage(0);
+			return;
+		}
 
-    this.primengTableHelper.showLoadingIndicator();
-    this.primengTableHelper.totalRecordsCount = this.rows.length;
-    this.primengTableHelper.records = this.rows;
-    this.primengTableHelper.hideLoadingIndicator();
-  }
+		this.primengTableHelper.showLoadingIndicator();
+		this.primengTableHelper.totalRecordsCount = this.rows.length;
+		this.primengTableHelper.records = this.rows;
+		this.primengTableHelper.hideLoadingIndicator();
+	}
 
-  reloadPage(): void {
-    this.paginator.changePage(this.paginator.getPage());
-  }
+	reloadPage(): void {
+		this.paginator.changePage(this.paginator.getPage());
+	}
 
-  addDamageModal() {
-    const modalRef = this.modalService.open(AddDamageComponent , { size: 'lg' });
-    modalRef.componentInstance.name = 'add';
-  }
+	addDamageModal() {
+		const modalRef = this.modalService.open(AddDamageComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'add';
+	}
 
-  editDamageModal() {
-    const modalRef = this.modalService.open(AddDamageComponent , { size: 'lg' });
-    modalRef.componentInstance.name = 'edit';
-  }
-
+	editDamageModal() {
+		const modalRef = this.modalService.open(AddDamageComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'edit';
+	}
 }

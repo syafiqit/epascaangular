@@ -7,58 +7,52 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AddDistrictComponent } from '../add-district/add-district.component';
 
 @Component({
-
-  selector: 'app-list-district',
-  templateUrl: './list-district.component.html',
-  encapsulation: ViewEncapsulation.None,
-  providers: [NgbModalConfig, NgbModal]
-
+	selector: 'app-list-district',
+	templateUrl: './list-district.component.html',
+	encapsulation: ViewEncapsulation.None,
+	providers: [NgbModalConfig, NgbModal]
 })
-
 export class ListDistrictComponent implements AfterViewInit {
+	@ViewChild('dataTable', { static: true }) dataTable: Table;
+	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
-  @ViewChild('dataTable', { static: true }) dataTable: Table;
-  @ViewChild('paginator', { static: true }) paginator: Paginator;
+	primengTableHelper: PrimengTableHelper;
 
-  primengTableHelper: PrimengTableHelper;
+	rows = [
+		{ district: 'Bentong', state: 'Pahang', status: 'Aktif' },
+		{ district: 'Bera', state: 'Pahang', status: 'Aktif' },
+		{ district: 'Jerantut', state: 'Pahang', status: 'Aktif' },
+		{ district: 'Lipis', state: 'Pahang', status: 'Aktif' },
+		{ district: 'Raub', state: 'Pahang', status: 'Aktif' }
+	];
 
+	constructor(config: NgbModalConfig, private modalService: NgbModal) {
+		this.primengTableHelper = new PrimengTableHelper();
+		config.backdrop = 'static';
+		config.keyboard = false;
+	}
 
-  rows = [
-    {"district":"Bentong", "state":"Pahang", "status":"Aktif"},
-    {"district":"Bera", "state":"Pahang", "status":"Aktif"},
-    {"district":"Jerantut", "state":"Pahang", "status":"Aktif"},
-    {"district":"Lipis", "state":"Pahang", "status":"Aktif"},
-    {"district":"Raub", "state":"Pahang", "status":"Aktif"},
-  ]
+	ngAfterViewInit(): void {
+		//this.primengTableHelper.adjustScroll(this.dataTable);
+	}
 
-  constructor(config: NgbModalConfig, private modalService: NgbModal) {
-    this.primengTableHelper = new PrimengTableHelper();
-    config.backdrop = 'static';
-    config.keyboard = false;
-  }
+	getApplication(event?: LazyLoadEvent) {
+		if (this.primengTableHelper.shouldResetPaging(event)) {
+			this.paginator.changePage(0);
+			return;
+		}
 
-  ngAfterViewInit(): void {
-    //this.primengTableHelper.adjustScroll(this.dataTable);
-  }
+		this.primengTableHelper.showLoadingIndicator();
+		this.primengTableHelper.totalRecordsCount = this.rows.length;
+		this.primengTableHelper.records = this.rows;
+		this.primengTableHelper.hideLoadingIndicator();
+	}
 
-  getApplication(event?: LazyLoadEvent) {
-    if (this.primengTableHelper.shouldResetPaging(event)) {
-      this.paginator.changePage(0);
-      return;
-    }
+	reloadPage(): void {
+		this.paginator.changePage(this.paginator.getPage());
+	}
 
-    this.primengTableHelper.showLoadingIndicator();
-    this.primengTableHelper.totalRecordsCount = this.rows.length;
-    this.primengTableHelper.records = this.rows;
-    this.primengTableHelper.hideLoadingIndicator();
-  }
-
-  reloadPage(): void {
-    this.paginator.changePage(this.paginator.getPage());
-  }
-
-  addDistrictModal() {
-    this.modalService.open(AddDistrictComponent, { size: 'lg' });
-  }
-
+	addDistrictModal() {
+		this.modalService.open(AddDistrictComponent, { size: 'lg' });
+	}
 }

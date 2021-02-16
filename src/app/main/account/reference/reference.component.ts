@@ -1,17 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-reference',
-  templateUrl: './reference.component.html'
+	selector: 'app-reference',
+	templateUrl: './reference.component.html'
 })
 export class ReferenceComponent implements OnInit {
+	constructor() {}
 
-  constructor() { }
+	ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
-
-  test(){
-    window.open("assets/images/ManualPengguna.pdf");
-  }
+	test() {
+		window.open('assets/images/ManualPengguna.pdf');
+	}
 }

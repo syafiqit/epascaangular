@@ -7,59 +7,58 @@ import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 
 @Component({
-  selector: 'app-help-donation',
-  templateUrl: './help-donation.component.html',
-  encapsulation: ViewEncapsulation.None,
-  providers: [NgbModalConfig, NgbModal]
+	selector: 'app-help-donation',
+	templateUrl: './help-donation.component.html',
+	encapsulation: ViewEncapsulation.None,
+	providers: [NgbModalConfig, NgbModal]
 })
 export class HelpDonationComponent implements AfterViewInit {
-  @ViewChild('dataTable', { static: true }) dataTable: Table;
-  @ViewChild('paginator', { static: true }) paginator: Paginator;
+	@ViewChild('dataTable', { static: true }) dataTable: Table;
+	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
-  primengTableHelper: PrimengTableHelper;
+	primengTableHelper: PrimengTableHelper;
 
-  rows = [
-    { "name": "Baik Pulih Rumah", "status": "Aktif",},
-    { "name": "Bina Rumah Kekal", "status": "Aktif ",},
-    { "name": "Bina Rumah Transit", "status": "Aktif",},
-    { "name": "Pinjaman Usahawan", "status": "Aktif",},
-    { "name": "Wang Ehsan", "status": "Aktif",},
-  ];
+	rows = [
+		{ name: 'Baik Pulih Rumah', status: 'Aktif' },
+		{ name: 'Bina Rumah Kekal', status: 'Aktif ' },
+		{ name: 'Bina Rumah Transit', status: 'Aktif' },
+		{ name: 'Pinjaman Usahawan', status: 'Aktif' },
+		{ name: 'Wang Ehsan', status: 'Aktif' }
+	];
 
-  constructor(config: NgbModalConfig, private modalService: NgbModal) {
-    config.backdrop = 'static';
-    config.keyboard = false;
-    this.primengTableHelper = new PrimengTableHelper();
-  }
+	constructor(config: NgbModalConfig, private modalService: NgbModal) {
+		config.backdrop = 'static';
+		config.keyboard = false;
+		this.primengTableHelper = new PrimengTableHelper();
+	}
 
-  addHelpDonationModal() {
-    const modalRef = this.modalService.open(AddHelpDonationComponent , { size: 'lg' });
-    modalRef.componentInstance.name = 'add';
-  }
+	addHelpDonationModal() {
+		const modalRef = this.modalService.open(AddHelpDonationComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'add';
+	}
 
-  editHelpDonationModal() {
-    const modalRef = this.modalService.open(AddHelpDonationComponent , { size: 'lg' });
-    modalRef.componentInstance.name = 'edit';
-  }
+	editHelpDonationModal() {
+		const modalRef = this.modalService.open(AddHelpDonationComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'edit';
+	}
 
-  ngAfterViewInit(): void {
-    //this.primengTableHelper.adjustScroll(this.dataTable);
-  }
+	ngAfterViewInit(): void {
+		//this.primengTableHelper.adjustScroll(this.dataTable);
+	}
 
-  getApplication(event?: LazyLoadEvent) {
-    if (this.primengTableHelper.shouldResetPaging(event)) {
-      this.paginator.changePage(0);
-      return;
-    }
+	getApplication(event?: LazyLoadEvent) {
+		if (this.primengTableHelper.shouldResetPaging(event)) {
+			this.paginator.changePage(0);
+			return;
+		}
 
-    this.primengTableHelper.showLoadingIndicator();
-    this.primengTableHelper.totalRecordsCount = this.rows.length;
-    this.primengTableHelper.records = this.rows;
-    this.primengTableHelper.hideLoadingIndicator();
-  }
+		this.primengTableHelper.showLoadingIndicator();
+		this.primengTableHelper.totalRecordsCount = this.rows.length;
+		this.primengTableHelper.records = this.rows;
+		this.primengTableHelper.hideLoadingIndicator();
+	}
 
-  reloadPage(): void {
-    this.paginator.changePage(this.paginator.getPage());
-  }
-
+	reloadPage(): void {
+		this.paginator.changePage(this.paginator.getPage());
+	}
 }

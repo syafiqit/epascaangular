@@ -1,91 +1,104 @@
-<app-breadcrumb [title]="'Medan Sumber Dana'" [items]="['Medan']" [active_item]="['Medan Sumber Dana']"></app-breadcrumb>
+<app-breadcrumb
+	[title]="'Medan Sumber Dana'"
+	[items]="['Medan']"
+	[active_item]="['Medan Sumber Dana']"
+></app-breadcrumb>
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="card">
-        <div class="card-body">
-          <div class="row mb-2 justify-content-end">
-            <button class="btn btn-primary" type="button" (click)="addFundsModal()"><i
-              class="fa fa-plus mr-2"></i>Tambah</button>
-          </div>
-          <div class="row mb-2">
-            <input type="text" class="form-control" placeholder='Carian...' />
-          </div>
-          <div class="row align-items-center">
-              <!--<Primeng-TurboTable-Start>-->
-              <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
-                  <p-table #dataTable
-                      styleClass="p-datatable-striped"
-                      sortMode="multiple"
-                      [resizableColumns]="true"
-                      (onLazyLoad)="getApplication($event)"
-                      [value]="primengTableHelper.records"
-                      rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
-                      [paginator]="false"
-                      [lazy]="true"
-                      [scrollable]="true"
-                      ScrollWidth="100%"
-                      [responsive]="primengTableHelper.isResponsive"
-                      [resizableColumns]="primengTableHelper.resizableColumns">
-                      <ng-template pTemplate="header">
-                          <tr>
-                              <th style="width: 150px">
-                                Tindakan
-                              </th>
-                              <th style="width: 160px" pSortableColumn="source">
-                                Sumber
-                                <p-sortIcon field="source"></p-sortIcon>
-                              </th>
-                              <th style="width: 150px" pSortableColumn="status">
-                                Status
-                                  <p-sortIcon field="status"></p-sortIcon>
-                              </th>
-                          </tr>
-                      </ng-template>
-                      <ng-template pTemplate="body" let-record="$implicit">
-                          <tr>
-                              <td style="width: 150px;">
-                                <div ngbDropdown class="btn-group" role="group" container="body">
-                                  <button type="button" class="btn btn-primary btn-primeng dropdown-toggle" id="action" ngbDropdownToggle>
-                                    <i class="fa fa-cog"></i><span class="caret"></span>
-                                      Tindakan
-                                  </button>
-                                  <div ngbDropdownMenu aria-labelledby="action">
-                                    <button class="dropdown-item" (click)="editFundsModal()">Lihat</button>
-                                    <button class="dropdown-item">Padam</button>
-                                  </div>
-                                </div>
-                              </td>
-                              <td style="width: 160px">
-                                  <span class="p-column-title"> Sumber </span>
-                                  {{record.source}}
-                              </td>
-                              <td style="width: 150px">
-                                  <span class="p-column-title"> Status </span>
-                                  {{record.status}}
-                              </td>
-                          </tr>
-                      </ng-template>
-                  </p-table>
-                  <div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">
-                    No Data
-                  </div>
-                  <div class="primeng-paging-container justify-content-between">
-                      <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
-                          (onPageChange)="getApplication($event)"
-                          [totalRecords]="primengTableHelper.totalRecordsCount"
-                          [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
-
-                      </p-paginator>
-                      <span class="total-records-count">
-                        Jumlah: {{ primengTableHelper.totalRecordsCount}}
-                      </span>
-                  </div>
-              </div>
-              <!--<Primeng-TurboTable-End>-->
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="card">
+				<div class="card-body">
+					<div class="row mb-2 justify-content-end">
+						<button class="btn btn-primary" type="button" (click)="addFundsModal()">
+							<i class="fa fa-plus mr-2"></i>
+							Tambah
+						</button>
+					</div>
+					<div class="row mb-2">
+						<input type="text" class="form-control" placeholder="Carian..." />
+					</div>
+					<div class="row align-items-center">
+						<!--<Primeng-TurboTable-Start>-->
+						<div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+							<p-table
+								#dataTable
+								styleClass="p-datatable-striped"
+								sortMode="multiple"
+								[resizableColumns]="true"
+								(onLazyLoad)="getApplication($event)"
+								[value]="primengTableHelper.records"
+								rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
+								[paginator]="false"
+								[lazy]="true"
+								[scrollable]="true"
+								ScrollWidth="100%"
+								[responsive]="primengTableHelper.isResponsive"
+								[resizableColumns]="primengTableHelper.resizableColumns"
+							>
+								<ng-template pTemplate="header">
+									<tr>
+										<th style="width: 150px">Tindakan</th>
+										<th style="width: 160px" pSortableColumn="source">
+											Sumber
+											<p-sortIcon field="source"></p-sortIcon>
+										</th>
+										<th style="width: 150px" pSortableColumn="status">
+											Status
+											<p-sortIcon field="status"></p-sortIcon>
+										</th>
+									</tr>
+								</ng-template>
+								<ng-template pTemplate="body" let-record="$implicit">
+									<tr>
+										<td style="width: 150px">
+											<div ngbDropdown class="btn-group" role="group" container="body">
+												<button
+													type="button"
+													class="btn btn-primary btn-primeng dropdown-toggle"
+													id="action"
+													ngbDropdownToggle
+												>
+													<i class="fa fa-cog"></i>
+													<span class="caret"></span>
+													Tindakan
+												</button>
+												<div ngbDropdownMenu aria-labelledby="action">
+													<button class="dropdown-item" (click)="editFundsModal()">
+														Lihat
+													</button>
+													<button class="dropdown-item">Padam</button>
+												</div>
+											</div>
+										</td>
+										<td style="width: 160px">
+											<span class="p-column-title">Sumber</span>
+											{{record.source}}
+										</td>
+										<td style="width: 150px">
+											<span class="p-column-title">Status</span>
+											{{record.status}}
+										</td>
+									</tr>
+								</ng-template>
+							</p-table>
+							<div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">No Data</div>
+							<div class="primeng-paging-container justify-content-between">
+								<p-paginator
+									[rows]="primengTableHelper.defaultRecordsCountPerPage"
+									#paginator
+									(onPageChange)="getApplication($event)"
+									[totalRecords]="primengTableHelper.totalRecordsCount"
+									[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
+								></p-paginator>
+								<span class="total-records-count">
+									Jumlah: {{ primengTableHelper.totalRecordsCount}}
+								</span>
+							</div>
+						</div>
+						<!--<Primeng-TurboTable-End>-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

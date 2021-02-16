@@ -1,145 +1,164 @@
-<app-breadcrumb [title]="'Maklumat Lanjut Bantuan wang Ihsan'" [items]="['Pengurusan Tabung']" [active_item]="['Bantuan Wang Ihsan']"></app-breadcrumb>
+<app-breadcrumb
+	[title]="'Maklumat Lanjut Bantuan wang Ihsan'"
+	[items]="['Pengurusan Tabung']"
+	[active_item]="['Bantuan Wang Ihsan']"
+></app-breadcrumb>
 <div class="content d-flex flex-column flex-column-fluid">
-  <div class="container-fluid">
-    <div class="card card-custom gutter-b">
-      <div class="card-body">
-        <div class="row justify-content-end mb-2">
-          <button class="btn btn-primary" type="button" [routerLink]="['/main/bwi/add-bwi']"><i
-              class="fa fa-plus mr-2"></i>Tambah</button>
-        </div>
-        <div class="row mb-2">
-          <input type="text" class="form-control" placeholder='Carian...' />
-        </div>
-        <div class="row align-items-center">
-          <!--<Primeng-TurboTable-Start>-->
-          <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
-            <p-table #dataTable styleClass="p-datatable-striped" sortMode="multiple" [resizableColumns]="true"
-              (onLazyLoad)="getCharityMoney($event)" [value]="primengTableHelper.records"
-              rows="{{primengTableHelper.defaultRecordsCountPerPage}}" [paginator]="false" [lazy]="true"
-              [scrollable]="true" ScrollWidth="100%" [responsive]="primengTableHelper.isResponsive"
-              [resizableColumns]="primengTableHelper.resizableColumns">
-              <ng-template pTemplate="header">
-                <tr>
-                  <th style="width: 150px">
-                    Tindakan
-                  </th>
-                  <th style="width: 150px" pSortableColumn="negeri">
-                    Negeri
-                    <p-sortIcon field="negeri"></p-sortIcon>
-                  </th>
-                  <th style="width: 130px" pSortableColumn="daerah">
-                    Daerah
-                    <p-sortIcon field="daerah"></p-sortIcon>
-                  </th>
-                  <th style="width: 140px" pSortableColumn="bencana">
-                    Jenis Bencana
-                    <p-sortIcon field="bencana"></p-sortIcon>
-                  </th>
-                  <th style="width: 130px" pSortableColumn="status">
-                    Status maklumat Rujukan
-                    <p-sortIcon field="status"></p-sortIcon>
-                  </th>
-                  <th style="width: 120px" pSortableColumn="tahun">
-                    Tahun
-                    <p-sortIcon field="tahun"></p-sortIcon>
-                  </th>
-                  <th style="width: 130px" pSortableColumn="wkir">
-                    W/KIR
-                    <p-sortIcon field="wkir"></p-sortIcon>
-                  </th>
-                  <th style="width: 130px" pSortableColumn="jumlah_kir">
-                    Jumlah KIR
-                    <p-sortIcon field="jumlah_kir"></p-sortIcon>
-                  </th>
-                  <th style="width: 140px" pSortableColumn="jumlah">
-                    Jumlah(RM)
-                    <p-sortIcon field="jumlah"></p-sortIcon>
-                  </th>
-                  <th style="width: 120px" pSortableColumn="tarikh_eft">
-                   Tarikh EFT
-                    <p-sortIcon field="tarikh_eft"></p-sortIcon>
-                  </th>
-                  <th style="width: 150px" pSortableColumn="baki_pulang">
-                    Jumlah Baki Dipulangkan
-                    <p-sortIcon field="baki_pulang"></p-sortIcon>
-                   </th>
-                </tr>
-              </ng-template>
-              <ng-template pTemplate="body" let-record="$implicit">
-                <tr>
-                  <td style="width: 150px;">
-                    <div ngbDropdown class="btn-group" role="group" container="body">
-                      <button type="button" class="btn btn-primary btn-primeng dropdown-toggle" id="action"
-                        ngbDropdownToggle>
-                        <i class="fa fa-cog"></i><span class="caret"></span>
-                        Tindakan
-                      </button>
-                      <div ngbDropdownMenu aria-labelledby="action">
-                        <button class="dropdown-item" [routerLink]="['/main/bwi/edit-bwi']">Lihat</button>
-                        <button class="dropdown-item">Padam</button>
-                      </div>
-                    </div>
-                  </td>
-                  <td style="width: 150px">
-                    <span class="p-column-title">Negeri </span>
-                    {{record.state}}
-                  </td>
-                  <td style="width: 130px">
-                    <span class="p-column-title"> Daerah</span>
-                    {{record.district}}
-                  </td>
-                  <td style="width: 140px">
-                    <span class="p-column-title"> Jenis Bencana</span>
-                    {{record.disasterType}}
-                  </td>
-                  <td style="width: 130px">
-                    <span class="p-column-title"> Status Maklumat Rujukan</span>
-                    {{record.statusRef}}
-                  </td>
-                  <td style="width: 120px">
-                    <span class="p-column-title"> Tahun</span>
-                    {{record.year}}
-                  </td>
-                  <td style="width: 130px">
-                    <span class="p-column-title">  W/KIR</span>
-                    {{record.wkir}}
-                  </td>
-                  <td style="width: 130px">
-                    <span class="p-column-title"> Jumlah KIR</span>
-                    {{record.kirTotal}}
-                  </td>
-                  <td style="width: 140px">
-                    <span class="p-column-title"> Jumlah(RM)</span>
-                    {{record.totalRM}}
-                  </td>
-                  <td style="width: 120px">
-                    <span class="p-column-title"> Tarikh EFT</span>
-                    {{record.eftDate}}
-                  </td>
-                  <td style="width: 150px">
-                    <span class="p-column-title"> Jumlah Baki Dipulangkan</span>
-                    {{record.balReturn}}
-                  </td>
-                </tr>
-              </ng-template>
-            </p-table>
-            <div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">
-              No Data
-            </div>
-            <div class="primeng-paging-container justify-content-between">
-              <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
-                (onPageChange)="getCharityMoney($event)" [totalRecords]="primengTableHelper.totalRecordsCount"
-                [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
-
-              </p-paginator>
-              <span class="total-records-count">
-                Jumlah: {{ primengTableHelper.totalRecordsCount}}
-              </span>
-            </div>
-          </div>
-          <!--<Primeng-TurboTable-End>-->
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class="container-fluid">
+		<div class="card card-custom gutter-b">
+			<div class="card-body">
+				<div class="row justify-content-end mb-2">
+					<button class="btn btn-primary" type="button" [routerLink]="['/main/bwi/add-bwi']">
+						<i class="fa fa-plus mr-2"></i>
+						Tambah
+					</button>
+				</div>
+				<div class="row mb-2">
+					<input type="text" class="form-control" placeholder="Carian..." />
+				</div>
+				<div class="row align-items-center">
+					<!--<Primeng-TurboTable-Start>-->
+					<div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+						<p-table
+							#dataTable
+							styleClass="p-datatable-striped"
+							sortMode="multiple"
+							[resizableColumns]="true"
+							(onLazyLoad)="getCharityMoney($event)"
+							[value]="primengTableHelper.records"
+							rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
+							[paginator]="false"
+							[lazy]="true"
+							[scrollable]="true"
+							ScrollWidth="100%"
+							[responsive]="primengTableHelper.isResponsive"
+							[resizableColumns]="primengTableHelper.resizableColumns"
+						>
+							<ng-template pTemplate="header">
+								<tr>
+									<th style="width: 150px">Tindakan</th>
+									<th style="width: 150px" pSortableColumn="negeri">
+										Negeri
+										<p-sortIcon field="negeri"></p-sortIcon>
+									</th>
+									<th style="width: 130px" pSortableColumn="daerah">
+										Daerah
+										<p-sortIcon field="daerah"></p-sortIcon>
+									</th>
+									<th style="width: 140px" pSortableColumn="bencana">
+										Jenis Bencana
+										<p-sortIcon field="bencana"></p-sortIcon>
+									</th>
+									<th style="width: 130px" pSortableColumn="status">
+										Status maklumat Rujukan
+										<p-sortIcon field="status"></p-sortIcon>
+									</th>
+									<th style="width: 120px" pSortableColumn="tahun">
+										Tahun
+										<p-sortIcon field="tahun"></p-sortIcon>
+									</th>
+									<th style="width: 130px" pSortableColumn="wkir">
+										W/KIR
+										<p-sortIcon field="wkir"></p-sortIcon>
+									</th>
+									<th style="width: 130px" pSortableColumn="jumlah_kir">
+										Jumlah KIR
+										<p-sortIcon field="jumlah_kir"></p-sortIcon>
+									</th>
+									<th style="width: 140px" pSortableColumn="jumlah">
+										Jumlah(RM)
+										<p-sortIcon field="jumlah"></p-sortIcon>
+									</th>
+									<th style="width: 120px" pSortableColumn="tarikh_eft">
+										Tarikh EFT
+										<p-sortIcon field="tarikh_eft"></p-sortIcon>
+									</th>
+									<th style="width: 150px" pSortableColumn="baki_pulang">
+										Jumlah Baki Dipulangkan
+										<p-sortIcon field="baki_pulang"></p-sortIcon>
+									</th>
+								</tr>
+							</ng-template>
+							<ng-template pTemplate="body" let-record="$implicit">
+								<tr>
+									<td style="width: 150px">
+										<div ngbDropdown class="btn-group" role="group" container="body">
+											<button
+												type="button"
+												class="btn btn-primary btn-primeng dropdown-toggle"
+												id="action"
+												ngbDropdownToggle
+											>
+												<i class="fa fa-cog"></i>
+												<span class="caret"></span>
+												Tindakan
+											</button>
+											<div ngbDropdownMenu aria-labelledby="action">
+												<button class="dropdown-item" [routerLink]="['/main/bwi/edit-bwi']">
+													Lihat
+												</button>
+												<button class="dropdown-item">Padam</button>
+											</div>
+										</div>
+									</td>
+									<td style="width: 150px">
+										<span class="p-column-title">Negeri</span>
+										{{record.state}}
+									</td>
+									<td style="width: 130px">
+										<span class="p-column-title">Daerah</span>
+										{{record.district}}
+									</td>
+									<td style="width: 140px">
+										<span class="p-column-title">Jenis Bencana</span>
+										{{record.disasterType}}
+									</td>
+									<td style="width: 130px">
+										<span class="p-column-title">Status Maklumat Rujukan</span>
+										{{record.statusRef}}
+									</td>
+									<td style="width: 120px">
+										<span class="p-column-title">Tahun</span>
+										{{record.year}}
+									</td>
+									<td style="width: 130px">
+										<span class="p-column-title">W/KIR</span>
+										{{record.wkir}}
+									</td>
+									<td style="width: 130px">
+										<span class="p-column-title">Jumlah KIR</span>
+										{{record.kirTotal}}
+									</td>
+									<td style="width: 140px">
+										<span class="p-column-title">Jumlah(RM)</span>
+										{{record.totalRM}}
+									</td>
+									<td style="width: 120px">
+										<span class="p-column-title">Tarikh EFT</span>
+										{{record.eftDate}}
+									</td>
+									<td style="width: 150px">
+										<span class="p-column-title">Jumlah Baki Dipulangkan</span>
+										{{record.balReturn}}
+									</td>
+								</tr>
+							</ng-template>
+						</p-table>
+						<div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">No Data</div>
+						<div class="primeng-paging-container justify-content-between">
+							<p-paginator
+								[rows]="primengTableHelper.defaultRecordsCountPerPage"
+								#paginator
+								(onPageChange)="getCharityMoney($event)"
+								[totalRecords]="primengTableHelper.totalRecordsCount"
+								[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
+							></p-paginator>
+							<span class="total-records-count">Jumlah: {{ primengTableHelper.totalRecordsCount}}</span>
+						</div>
+					</div>
+					<!--<Primeng-TurboTable-End>-->
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

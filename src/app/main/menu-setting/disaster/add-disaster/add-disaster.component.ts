@@ -3,20 +3,18 @@ import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-boots
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-add-disaster',
-  templateUrl: './add-disaster.component.html',
-  encapsulation: ViewEncapsulation.None,
-  providers: [NgbModalConfig, NgbModal]
+	selector: 'app-add-disaster',
+	templateUrl: './add-disaster.component.html',
+	encapsulation: ViewEncapsulation.None,
+	providers: [NgbModalConfig, NgbModal]
 })
 export class AddDisasterComponent implements OnInit {
-  @Input() name;
+	@Input() name;
 
-  modelFooter: NgbDateStruct;
-  today = this.calendar.getToday();
+	modelFooter: NgbDateStruct;
+	today = this.calendar.getToday();
 
-  constructor(private modalService: NgbModal, public activeModal: NgbActiveModal, private calendar: NgbCalendar) {}
+	constructor(private modalService: NgbModal, public activeModal: NgbActiveModal, private calendar: NgbCalendar) {}
 
-  ngOnInit(): void {
-  }
-
+	ngOnInit(): void {}
 }

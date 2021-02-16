@@ -3,26 +3,15 @@ import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-boots
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-edit-agency',
-  templateUrl: './edit-agency.component.html',
-  encapsulation: ViewEncapsulation.None,
-  providers: [NgbModalConfig, NgbModal]
+	selector: 'app-edit-agency',
+	templateUrl: './edit-agency.component.html',
+	encapsulation: ViewEncapsulation.None,
+	providers: [NgbModalConfig, NgbModal]
 })
 export class EditAgencyComponent implements OnInit {
+	constructor(private modalService: NgbModal, public activeModal: NgbActiveModal, private toaster: ToastrService) {}
 
-  constructor(
-    private modalService: NgbModal,
-    public activeModal: NgbActiveModal,
-    private toaster: ToastrService
-    ) {}
+	ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
-
-  ministry = [
-    { "name": "JPM", },
-    { "name": "LAIN", },
-    { "name": "KKLW", },
-  ];
-
+	ministry = [{ name: 'JPM' }, { name: 'LAIN' }, { name: 'KKLW' }];
 }

@@ -1,250 +1,292 @@
-<app-breadcrumb [title]="'Tambah Belanja Secara Kuasa Kebenaran Berbelanja KWABBN'"
-    [items]="['Pengurusan Tabung']" [active_item]="'Kelulusan'"></app-breadcrumb>
+<app-breadcrumb
+	[title]="'Tambah Belanja Secara Kuasa Kebenaran Berbelanja KWABBN'"
+	[items]="['Pengurusan Tabung']"
+	[active_item]="'Kelulusan'"
+></app-breadcrumb>
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-body">
-                    <form>
-                        <h6>Maklumat Kelulusan</h6>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>No. Rujukan Kelulusan</label>
-                                    <input class="form-control" type="text" placeholder="No. Rujukan Kelulusan">
-                                </div>
-                            </div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="card">
+				<div class="card-body">
+					<form>
+						<h6>Maklumat Kelulusan</h6>
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>No. Rujukan Kelulusan</label>
+									<input class="form-control" type="text" placeholder="No. Rujukan Kelulusan" />
+								</div>
+							</div>
 
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Tabung</label>
-                                    <select class="form-control digits">
-                                        <option>Pilih</option>
-                                        <option>KWABBN</option>
-                                        <option>Covid-19</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Tabung</label>
+									<select class="form-control digits">
+										<option>Pilih</option>
+										<option>KWABBN</option>
+										<option>Covid-19</option>
+									</select>
+								</div>
+							</div>
+						</div>
 
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Kategori</label>
-                                    <select class="form-control digits">
-                                        <option>Pilih</option>
-                                        <option>Banjir</option>
-                                        <option>Ribut</option>
-                                        <option>Tanah Runtuh</option>
-                                        <option>Covid-19</option>
-                                        <option>Pelbagai</option>
-                                    </select>
-                                </div>
-                            </div>
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Kategori</label>
+									<select class="form-control digits">
+										<option>Pilih</option>
+										<option>Banjir</option>
+										<option>Ribut</option>
+										<option>Tanah Runtuh</option>
+										<option>Covid-19</option>
+										<option>Pelbagai</option>
+									</select>
+								</div>
+							</div>
 
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Agensi</label>
-                                    <input class="form-control" type="text" placeholder="Nama Agensi">
-                                </div>
-                            </div>
-                        </div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Agensi</label>
+									<input class="form-control" type="text" placeholder="Nama Agensi" />
+								</div>
+							</div>
+						</div>
 
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Rujukan Surat</label>
-                                    <input class="form-control" type="text" placeholder="JPM.APBN(S).600-3/8/2 (1)">
-                                </div>
-                            </div>
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Rujukan Surat</label>
+									<input class="form-control" type="text" placeholder="JPM.APBN(S).600-3/8/2 (1)" />
+								</div>
+							</div>
 
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Perihal Surat</label>
-                                    <textarea class="form-control input-air-primary" rows="3"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <h6>Maklumat Diberi Kuasa</h6>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Pegawai</label>
-                                    <select class="form-control digits">
-                                        <option>Pilih</option>
-                                        <option>Setiausaha Kerajaan</option>
-                                        <option>Pengarah</option>
-                                    </select>
-                                </div>
-                            </div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Perihal Surat</label>
+									<textarea class="form-control input-air-primary" rows="3"></textarea>
+								</div>
+							</div>
+						</div>
+						<hr />
+						<h6>Maklumat Diberi Kuasa</h6>
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Pegawai</label>
+									<select class="form-control digits">
+										<option>Pilih</option>
+										<option>Setiausaha Kerajaan</option>
+										<option>Pengarah</option>
+									</select>
+								</div>
+							</div>
 
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Agensi Diberi Kuasa</label>
-                                    <select class="form-control digits">
-                                        <option>Pilih</option>
-                                        <option>SUK Negeri Kedah</option>
-                                        <option>APM Negeri Johor</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Agensi Diberi Kuasa</label>
+									<select class="form-control digits">
+										<option>Pilih</option>
+										<option>SUK Negeri Kedah</option>
+										<option>APM Negeri Johor</option>
+									</select>
+								</div>
+							</div>
+						</div>
 
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Kategori</label>
-                                    <select class="form-control digits">
-                                        <option>Pilih</option>
-                                        <option>Covid</option>
-                                        <option>Bukan Covid</option>
-                                    </select>
-                                </div>
-                            </div>
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Kategori</label>
+									<select class="form-control digits">
+										<option>Pilih</option>
+										<option>Covid</option>
+										<option>Bukan Covid</option>
+									</select>
+								</div>
+							</div>
 
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Status</label>
-                                    <select class="form-control digits">
-                                        <option>Aktif</option>
-                                        <option>Tidak Aktif</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Status</label>
+									<select class="form-control digits">
+										<option>Aktif</option>
+										<option>Tidak Aktif</option>
+									</select>
+								</div>
+							</div>
+						</div>
 
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <label>Perihal</label>
-                                    <textarea class="form-control input-air-primary" rows="3"></textarea>
-                                </div>
-                            </div>
-                        </div>
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="form-group">
+									<label>Perihal</label>
+									<textarea class="form-control input-air-primary" rows="3"></textarea>
+								</div>
+							</div>
+						</div>
 
-                        <div class="row custom-datepicker custom-datepicker-dropdown">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Tarikh Tempoh (Mula)</label>
-                                    <div class="input-group">
-                                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp1" [displayMonths]="displayMonths"
-                                            [navigation]="navigation" [outsideDays]="outsideDays" [showWeekNumbers]="showWeekNumbers"
-                                            ngbDatepicker #k1="ngbDatepicker">
-                                        <div class="input-group-append">
-                                            <button class="btn calendar" (click)="k1.toggle()" type="button"><i class="fa fa-calendar"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+						<div class="row custom-datepicker custom-datepicker-dropdown">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Tarikh Tempoh (Mula)</label>
+									<div class="input-group">
+										<input
+											class="form-control"
+											placeholder="yyyy-mm-dd"
+											name="dp1"
+											[displayMonths]="displayMonths"
+											[navigation]="navigation"
+											[outsideDays]="outsideDays"
+											[showWeekNumbers]="showWeekNumbers"
+											ngbDatepicker
+											#k1="ngbDatepicker"
+										/>
+										<div class="input-group-append">
+											<button class="btn calendar" (click)="k1.toggle()" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
 
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Tarikh Tempoh (Tamat)</label>
-                                    <div class="input-group">
-                                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp2" [displayMonths]="displayMonths"
-                                            [navigation]="navigation" [outsideDays]="outsideDays" [showWeekNumbers]="showWeekNumbers"
-                                            ngbDatepicker #k2="ngbDatepicker">
-                                        <div class="input-group-append">
-                                            <button class="btn calendar" (click)="k2.toggle()" type="button"><i class="fa fa-calendar"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Tarikh Tempoh (Tamat)</label>
+									<div class="input-group">
+										<input
+											class="form-control"
+											placeholder="yyyy-mm-dd"
+											name="dp2"
+											[displayMonths]="displayMonths"
+											[navigation]="navigation"
+											[outsideDays]="outsideDays"
+											[showWeekNumbers]="showWeekNumbers"
+											ngbDatepicker
+											#k2="ngbDatepicker"
+										/>
+										<div class="input-group-append">
+											<button class="btn calendar" (click)="k2.toggle()" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Siling Peruntukan</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend"><span class="input-group-text">RM</span></div>
-                                        <input class="form-control" type="number">
-                                    </div>
-                                </div>
-                            </div>
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Siling Peruntukan</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><span class="input-group-text">RM</span></div>
+										<input class="form-control" type="number" />
+									</div>
+								</div>
+							</div>
 
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label>Baki Peruntukan</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend"><span class="input-group-text">RM</span></div>
-                                        <input class="form-control" type="number">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Baki Peruntukan</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><span class="input-group-text">RM</span></div>
+										<input class="form-control" type="number" />
+									</div>
+								</div>
+							</div>
+						</div>
 
-                        <div class="row align-items-center">
-                          <!--<Primeng-TurboTable-Start>-->
-                          <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
-                            <p-table #dataTable styleClass="p-datatable-striped" sortMode="multiple" [resizableColumns]="true"
-                              (onLazyLoad)="getAddSKB($event)" [value]="primengTableHelper.records"
-                              rows="{{primengTableHelper.defaultRecordsCountPerPage}}" [paginator]="false" [lazy]="true"
-                              [scrollable]="true" ScrollWidth="100%" [responsive]="primengTableHelper.isResponsive"
-                              [resizableColumns]="primengTableHelper.resizableColumns">
-                              <ng-template pTemplate="header">
-                                <tr>
-                                  <th style="width: 130px">
-                                    Tindakan
-                                  </th>
-                                  <th style="width: 150px" pSortableColumn="tarih_bencana">
-                                    Bulan
-                                    <p-sortIcon field="tarih_bencana"></p-sortIcon>
-                                  </th>
-                                  <th style="width: 130px" pSortableColumn="jenis_bencana">
-                                    Jumlah
-                                    <p-sortIcon field="jenis_bencana"></p-sortIcon>
-                                  </th>
-                                </tr>
-                              </ng-template>
-                              <ng-template pTemplate="body" let-record="$implicit">
-                                <tr>
-                                  <td style="width: 130px;">
-                                    <div ngbDropdown class="btn-group" role="group" container="body">
-                                      <button type="button" class="btn btn-primary btn-primeng dropdown-toggle" id="action"
-                                        ngbDropdownToggle>
-                                        <i class="fa fa-cog"></i><span class="caret"></span>
-                                        Tindakan
-                                      </button>
-                                      <div ngbDropdownMenu aria-labelledby="action">
-                                        <button class="dropdown-item">Lihat</button>
-                                      </div>
-                                    </div>
-                                  </td>
-                                  <td style="width: 150px">
-                                    <span class="p-column-title"> Bulan </span>
-                                    {{record.month}}
-                                  </td>
-                                  <td style="width: 130px">
-                                    <span class="p-column-title"> Jumlah</span>
-                                    {{record.total}}
-                                  </td>
-                                </tr>
-                              </ng-template>
-                            </p-table>
-                            <div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">
-                              No Data
-                            </div>
-                            <div class="primeng-paging-container justify-content-between">
-                              <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
-                                (onPageChange)="getAddSKB($event)" [totalRecords]="primengTableHelper.totalRecordsCount"
-                                [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+						<div class="row align-items-center">
+							<!--<Primeng-TurboTable-Start>-->
+							<div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+								<p-table
+									#dataTable
+									styleClass="p-datatable-striped"
+									sortMode="multiple"
+									[resizableColumns]="true"
+									(onLazyLoad)="getAddSKB($event)"
+									[value]="primengTableHelper.records"
+									rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
+									[paginator]="false"
+									[lazy]="true"
+									[scrollable]="true"
+									ScrollWidth="100%"
+									[responsive]="primengTableHelper.isResponsive"
+									[resizableColumns]="primengTableHelper.resizableColumns"
+								>
+									<ng-template pTemplate="header">
+										<tr>
+											<th style="width: 130px">Tindakan</th>
+											<th style="width: 150px" pSortableColumn="tarih_bencana">
+												Bulan
+												<p-sortIcon field="tarih_bencana"></p-sortIcon>
+											</th>
+											<th style="width: 130px" pSortableColumn="jenis_bencana">
+												Jumlah
+												<p-sortIcon field="jenis_bencana"></p-sortIcon>
+											</th>
+										</tr>
+									</ng-template>
+									<ng-template pTemplate="body" let-record="$implicit">
+										<tr>
+											<td style="width: 130px">
+												<div ngbDropdown class="btn-group" role="group" container="body">
+													<button
+														type="button"
+														class="btn btn-primary btn-primeng dropdown-toggle"
+														id="action"
+														ngbDropdownToggle
+													>
+														<i class="fa fa-cog"></i>
+														<span class="caret"></span>
+														Tindakan
+													</button>
+													<div ngbDropdownMenu aria-labelledby="action">
+														<button class="dropdown-item">Lihat</button>
+													</div>
+												</div>
+											</td>
+											<td style="width: 150px">
+												<span class="p-column-title">Bulan</span>
+												{{record.month}}
+											</td>
+											<td style="width: 130px">
+												<span class="p-column-title">Jumlah</span>
+												{{record.total}}
+											</td>
+										</tr>
+									</ng-template>
+								</p-table>
+								<div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">
+									No Data
+								</div>
+								<div class="primeng-paging-container justify-content-between">
+									<p-paginator
+										[rows]="primengTableHelper.defaultRecordsCountPerPage"
+										#paginator
+										(onPageChange)="getAddSKB($event)"
+										[totalRecords]="primengTableHelper.totalRecordsCount"
+										[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
+									></p-paginator>
+									<span class="total-records-count">
+										Jumlah: {{ primengTableHelper.totalRecordsCount}}
+									</span>
+								</div>
+							</div>
+							<!--<Primeng-TurboTable-End>-->
+						</div>
 
-                              </p-paginator>
-                              <span class="total-records-count">
-                                Jumlah: {{ primengTableHelper.totalRecordsCount}}
-                              </span>
-                            </div>
-                          </div>
-                          <!--<Primeng-TurboTable-End>-->
-                        </div>
-
-                        <button class="btn btn-primary pull-right" [routerLink]="['/main/skb']" type="button">Simpan</button>
-                        <button class="btn btn-light pull-right mr-1" [routerLink]="['/main/skb']" type="button">Kembali</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+						<button class="btn btn-primary pull-right" [routerLink]="['/main/skb']" type="button">
+							Simpan
+						</button>
+						<button class="btn btn-light pull-right mr-1" [routerLink]="['/main/skb']" type="button">
+							Kembali
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

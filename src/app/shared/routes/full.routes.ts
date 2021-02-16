@@ -1,4 +1,3 @@
 import { Routes } from '@angular/router';
 
-export const full: Routes = [
-];
+export const full: Routes = [];
