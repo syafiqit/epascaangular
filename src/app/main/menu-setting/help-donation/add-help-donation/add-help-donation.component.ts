@@ -3,26 +3,17 @@ import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-boots
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-add-help-donation',
-  templateUrl: './add-help-donation.component.html',
-  encapsulation: ViewEncapsulation.None,
-  providers: [NgbModalConfig, NgbModal]
+	selector: 'app-add-help-donation',
+	templateUrl: './add-help-donation.component.html',
+	encapsulation: ViewEncapsulation.None,
+	providers: [NgbModalConfig, NgbModal]
 })
 export class AddHelpDonationComponent implements OnInit {
-  @Input() name;
+	@Input() name;
 
-  constructor(
-    private modalService: NgbModal,
-    public activeModal: NgbActiveModal,
-    private toaster: ToastrService
-    ) {}
+	constructor(private modalService: NgbModal, public activeModal: NgbActiveModal, private toaster: ToastrService) {}
 
-  ngOnInit(): void {
-  }
+	ngOnInit(): void {}
 
-  status = [
-    { "status": "Aktif", },
-    { "status": "Tidak Aktif", },
-  ];
-
+	status = [{ status: 'Aktif' }, { status: 'Tidak Aktif' }];
 }

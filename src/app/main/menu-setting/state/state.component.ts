@@ -4,53 +4,50 @@ import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import {AddStateComponent} from './add-state/add-state.component';
+import { AddStateComponent } from './add-state/add-state.component';
 
 @Component({
-  selector: 'app-state',
-  templateUrl: './state.component.html',
+	selector: 'app-state',
+	templateUrl: './state.component.html'
 })
 export class StateComponent implements AfterViewInit {
+	@ViewChild('dataTable', { static: true }) dataTable: Table;
+	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
-  @ViewChild('dataTable', { static: true }) dataTable: Table;
-  @ViewChild('paginator', { static: true }) paginator: Paginator;
+	primengTableHelper: PrimengTableHelper;
 
-  primengTableHelper: PrimengTableHelper;
+	rows = [
+		{ state: 'Terengganu', status: 'Aktif' },
+		{ state: 'Kuala Lumpur', status: 'Aktif' }
+	];
 
-  rows = [
-    {"state" : "Terengganu", "status": "Aktif"},
-    {"state" : "Kuala Lumpur", "status": "Aktif"},
+	constructor(config: NgbModalConfig, private modalService: NgbModal) {
+		this.primengTableHelper = new PrimengTableHelper();
+		config.backdrop = 'static';
+		config.keyboard = false;
+	}
 
-  ];
+	ngAfterViewInit(): void {
+		//this.primengTableHelper.adjustScroll(this.dataTable);
+	}
 
-  constructor(config: NgbModalConfig, private modalService: NgbModal) {
-    this.primengTableHelper = new PrimengTableHelper();
-    config.backdrop = 'static';
-    config.keyboard = false;
-  }
+	getApplication(event?: LazyLoadEvent) {
+		if (this.primengTableHelper.shouldResetPaging(event)) {
+			this.paginator.changePage(0);
+			return;
+		}
 
-  ngAfterViewInit(): void {
-    //this.primengTableHelper.adjustScroll(this.dataTable);
-  }
+		this.primengTableHelper.showLoadingIndicator();
+		this.primengTableHelper.totalRecordsCount = this.rows.length;
+		this.primengTableHelper.records = this.rows;
+		this.primengTableHelper.hideLoadingIndicator();
+	}
 
-  getApplication(event?: LazyLoadEvent) {
-    if (this.primengTableHelper.shouldResetPaging(event)) {
-      this.paginator.changePage(0);
-      return;
-    }
+	reloadPage(): void {
+		this.paginator.changePage(this.paginator.getPage());
+	}
 
-    this.primengTableHelper.showLoadingIndicator();
-    this.primengTableHelper.totalRecordsCount = this.rows.length;
-    this.primengTableHelper.records = this.rows;
-    this.primengTableHelper.hideLoadingIndicator();
-  }
-
-  reloadPage(): void {
-    this.paginator.changePage(this.paginator.getPage());
-  }
-
-  addStateModal() {
-    this.modalService.open(AddStateComponent, { size: 'lg' });
-  }
-
+	addStateModal() {
+		this.modalService.open(AddStateComponent, { size: 'lg' });
+	}
 }

@@ -1,110 +1,147 @@
-<app-breadcrumb [title]="'Mangsa Bencana Mengikut Negeri'" [items]="['Muka Halaman']" [active_item]="''">
-</app-breadcrumb>
+<app-breadcrumb
+	[title]="'Mangsa Bencana Mengikut Negeri'"
+	[items]="['Muka Halaman']"
+	[active_item]="''"
+></app-breadcrumb>
 <div class="container-fluid">
+	<div class="card">
+		<div class="card-body pl-2 pr-2 pt-4 pb-4">
+			<form>
+				<div class="row">
+					<div class="col-lg-3 m-auto">
+						<div class="form-group">
+							<label for="exampleFormControlInput1">Tahun</label>
+							<select class="form-control digits" id="exampleFormControlSelect9">
+								<option>Sila Pilih</option>
+								<option>2021</option>
+								<option>2020</option>
+								<option>2019</option>
+							</select>
+						</div>
+					</div>
 
-  <div class="card">
-    <div class="card-body pl-2 pr-2 pt-4 pb-4">
-      <form>
-        <div class="row">
-          <div class="col-lg-3 m-auto">
-            <div class="form-group">
-              <label for="exampleFormControlInput1">Tahun</label>
-              <select class="form-control digits" id="exampleFormControlSelect9">
-                <option>Sila Pilih</option>
-                <option>2021</option>
-                <option>2020</option>
-                <option>2019</option>
-              </select>
-            </div>
-          </div>
+					<div class="col-lg-3">
+						<form class="form custom-datepicker custom-datepicker-dropdown">
+							<div class="form-group mb-0">
+								<label for="exampleFormControlInput1">Tarikh</label>
+								<div class="input-group">
+									<input
+										class="form-control"
+										placeholder="yyyy-mm-dd"
+										name="dp"
+										[(ngModel)]="modelFooter"
+										ngbDatepicker
+										[footerTemplate]="footerTemplate"
+										#f="ngbDatepicker"
+									/>
+									<div class="input-group-append">
+										<button class="btn calendar" (click)="f.toggle()" type="button">
+											<i class="fa fa-calendar"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+						</form>
+						<ng-template #footerTemplate>
+							<hr class="my-0" />
+							<button class="btn btn-primary btn-sm m-2 float-left" (click)="model = today; f.close()">
+								Today
+							</button>
+							<button class="btn btn-secondary btn-sm m-2 float-right" (click)="f.close()">Close</button>
+						</ng-template>
+					</div>
 
-          <div class="col-lg-3">
-            <form class="form custom-datepicker custom-datepicker-dropdown">
-              <div class="form-group mb-0">
-                <label for="exampleFormControlInput1">Tarikh</label>
-                <div class="input-group">
-                  <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelFooter" ngbDatepicker
-                    [footerTemplate]="footerTemplate" #f="ngbDatepicker">
-                  <div class="input-group-append">
-                    <button class="btn calendar" (click)="f.toggle()" type="button"><i
-                        class="fa fa-calendar"></i></button>
-                  </div>
-                </div>
-              </div>
-            </form>
-            <ng-template #footerTemplate>
-              <hr class="my-0">
-              <button class="btn btn-primary btn-sm m-2 float-left" (click)="model = today; f.close()">Today</button>
-              <button class="btn btn-secondary btn-sm m-2 float-right" (click)="f.close()">Close</button>
-            </ng-template>
-          </div>
+					<div class="col-lg-3 m-auto">
+						<div class="form-group">
+							<label for="exampleFormControlInput1">Bencana</label>
+							<select class="form-control digits" id="exampleFormControlSelect9">
+								<option>Sila Pilih</option>
+								<option>Banjir</option>
+								<option>Covid-19</option>
+							</select>
+						</div>
+					</div>
 
-          <div class="col-lg-3 m-auto">
-            <div class="form-group">
-              <label for="exampleFormControlInput1">Bencana</label>
-              <select class="form-control digits" id="exampleFormControlSelect9">
-                <option>Sila Pilih</option>
-                <option>Banjir</option>
-                <option>Covid-19</option>
-              </select>
-            </div>
-          </div>
+					<div class="col-lg-1 mt-4 mr-5">
+						<button class="btn btn-primary justify-content-end mr-3" type="button">Cari</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-body">
+			<div id="chartdiv" style="width: 100%; height: 500px"></div>
+		</div>
+	</div>
 
-          <div class="col-lg-1 mt-4 mr-5">
-            <button class="btn btn-primary justify-content-end mr-3" type="button">Cari</button>
-          </div>
+	<div class="card">
+		<div class="card-body">
+			<div id="chartdiv2" style="width: 100%; height: 400px"></div>
+		</div>
+	</div>
 
-        </div>
+	<div class="row">
+		<div class="col-lg-3" *ngFor="let report of report">
+			<div class="card bg-primary">
+				<div class="card-body">
+					<div class="media static-top-widget">
+						<div class="media-body">
+							<i
+								class="icon-bg"
+								data-feather="user"
+								*ngIf="report.title === 'Jumlah Keseluruhan Mangsa'"
+							></i>
+							<i
+								class="icon-bg"
+								data-feather="send"
+								*ngIf="report.title === 'Jumlah Bantuan Antarabangsa'"
+							></i>
+							<i
+								class="icon-bg"
+								data-feather="home"
+								*ngIf="report.title === 'Jumlah Bina Rumah Kekal'"
+							></i>
+							<i
+								class="icon-bg"
+								data-feather="triangle"
+								*ngIf="report.title === 'Jumlah Rumah Dibaik Pulih'"
+							></i>
+							<i class="icon-bg" data-feather="box" *ngIf="report.title === 'Jumlah Pinjaman Khas'"></i>
+							<i
+								class="icon-bg"
+								data-feather="dollar-sign"
+								*ngIf="report.title === 'Jumlah Penerima Wang Ihsan'"
+							></i>
+							<i
+								class="icon-bg"
+								data-feather="droplet"
+								*ngIf="report.title === 'Jumlah Bantuan Pertanian'"
+							></i>
+							<i
+								class="icon-bg"
+								data-feather="file-text"
+								*ngIf="report.title === 'Jumlah Lain-Lain Bantuan'"
+							></i>
+						</div>
+					</div>
+					<div class="row justify-content-center">
+						<label>{{report.title}}</label>
+					</div>
 
-      </form>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <div id="chartdiv" style="width:100%; height:500px"></div>
-    </div>
-  </div>
+					<div class="row justify-content-center">
+						<h4>{{report.total}}</h4>
+					</div>
 
-  <div class="card">
-    <div class="card-body">
-      <div id="chartdiv2" style="width:100%; height:400px"></div>
+					<div class="row justify-content-center mt-2">
+						<label>{{report.title2}}</label>
+					</div>
 
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-lg-3" *ngFor="let report of report">
-      <div class="card bg-primary">
-        <div class="card-body">
-          <div class="media static-top-widget">
-            <div class="media-body">
-              <i class="icon-bg" data-feather="user" *ngIf="report.title === 'Jumlah Keseluruhan Mangsa'"></i>
-              <i class="icon-bg" data-feather="send" *ngIf="report.title === 'Jumlah Bantuan Antarabangsa'"></i>
-              <i class="icon-bg" data-feather="home" *ngIf="report.title === 'Jumlah Bina Rumah Kekal'"></i>
-              <i class="icon-bg" data-feather="triangle" *ngIf="report.title === 'Jumlah Rumah Dibaik Pulih'"></i>
-              <i class="icon-bg" data-feather="box" *ngIf="report.title === 'Jumlah Pinjaman Khas'"></i>
-              <i class="icon-bg" data-feather="dollar-sign" *ngIf="report.title === 'Jumlah Penerima Wang Ihsan'"></i>
-              <i class="icon-bg" data-feather="droplet" *ngIf="report.title === 'Jumlah Bantuan Pertanian'"></i>
-              <i class="icon-bg" data-feather="file-text" *ngIf="report.title === 'Jumlah Lain-Lain Bantuan'"></i>
-            </div>
-          </div>
-          <div class="row justify-content-center">
-            <label>{{report.title}}</label>
-          </div>
-
-          <div class="row justify-content-center">
-            <h4>{{report.total}}</h4>
-          </div>
-
-          <div class="row justify-content-center mt-2">
-            <label>{{report.title2}}</label>
-          </div>
-
-          <div class="row justify-content-center">
-            <h4>RM{{report.total_kos}}</h4>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+					<div class="row justify-content-center">
+						<h4>RM{{report.total_kos}}</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

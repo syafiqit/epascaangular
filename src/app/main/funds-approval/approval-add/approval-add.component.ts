@@ -3,28 +3,25 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AddModalComponent } from '../approval-add/add-modal.component';
 
 @Component({
-  selector: 'app-approval-add',
-  templateUrl: './approval-add.component.html',
-  encapsulation: ViewEncapsulation.None,
-  providers: [NgbModalConfig, NgbModal]
+	selector: 'app-approval-add',
+	templateUrl: './approval-add.component.html',
+	encapsulation: ViewEncapsulation.None,
+	providers: [NgbModalConfig, NgbModal]
 })
 export class ApprovalAddComponent implements OnInit {
+	displayMonths = 1;
+	navigation = 'select';
+	showWeekNumbers = false;
+	outsideDays = 'visible';
 
-  displayMonths = 1;
-  navigation = 'select';
-  showWeekNumbers = false;
-  outsideDays = 'visible';
+	constructor(config: NgbModalConfig, private modalService: NgbModal) {
+		config.backdrop = 'static';
+		config.keyboard = false;
+	}
 
-  constructor(config: NgbModalConfig, private modalService: NgbModal) {
-    config.backdrop = 'static';
-    config.keyboard = false;
-  }
+	ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
-
-  approvalAddModal() {
-    this.modalService.open(AddModalComponent, { size: 'lg' });
-  }
-
+	approvalAddModal() {
+		this.modalService.open(AddModalComponent, { size: 'lg' });
+	}
 }

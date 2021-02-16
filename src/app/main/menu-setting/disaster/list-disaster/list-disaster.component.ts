@@ -6,58 +6,54 @@ import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 @Component({
-  selector: 'app-list-disaster',
-  templateUrl: './list-disaster.component.html',
-  encapsulation: ViewEncapsulation.None,
-  providers: [NgbModalConfig, NgbModal]
+	selector: 'app-list-disaster',
+	templateUrl: './list-disaster.component.html',
+	encapsulation: ViewEncapsulation.None,
+	providers: [NgbModalConfig, NgbModal]
 })
 export class ListDisasterComponent implements OnInit {
+	@ViewChild('dataTable', { static: true }) dataTable: Table;
+	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
-  @ViewChild('dataTable', { static: true }) dataTable: Table;
-  @ViewChild('paginator', { static: true }) paginator: Paginator;
+	primengTableHelper: PrimengTableHelper;
 
-  primengTableHelper: PrimengTableHelper;
+	rows = [
+		{ date: '12/12/2020', disaster: 'Banjir', notes: 'Gelombang 1' },
+		{ date: '20/12/2020', disaster: 'Covid-19', notes: 'Kluster 1 & 2' },
+		{ date: '3/1/2021', disaster: 'Covid-19', notes: 'Kluster 3' }
+	];
 
-  rows = [
-    {"date" : "12/12/2020",  "disaster": "Banjir", "notes": "Gelombang 1"},
-    {"date" : "20/12/2020",  "disaster": "Covid-19", "notes": "Kluster 1 & 2"},
-    {"date" : "3/1/2021", "disaster": "Covid-19", "notes": "Kluster 3"}
+	constructor(config: NgbModalConfig, private modalService: NgbModal) {
+		this.primengTableHelper = new PrimengTableHelper();
+		config.backdrop = 'static';
+		config.keyboard = false;
+	}
 
-  ]
+	ngOnInit(): void {}
 
-  constructor(config: NgbModalConfig, private modalService: NgbModal) {
-    this.primengTableHelper = new PrimengTableHelper();
-    config.backdrop = 'static';
-    config.keyboard = false;
-  }
+	getDisaster(event?: LazyLoadEvent) {
+		if (this.primengTableHelper.shouldResetPaging(event)) {
+			this.paginator.changePage(0);
+			return;
+		}
 
-  ngOnInit(): void {
-  }
+		this.primengTableHelper.showLoadingIndicator();
+		this.primengTableHelper.totalRecordsCount = this.rows.length;
+		this.primengTableHelper.records = this.rows;
+		this.primengTableHelper.hideLoadingIndicator();
+	}
 
-  getDisaster(event?: LazyLoadEvent) {
-    if (this.primengTableHelper.shouldResetPaging(event)) {
-      this.paginator.changePage(0);
-      return;
-    }
+	reloadPage(): void {
+		this.paginator.changePage(this.paginator.getPage());
+	}
 
-    this.primengTableHelper.showLoadingIndicator();
-    this.primengTableHelper.totalRecordsCount = this.rows.length;
-    this.primengTableHelper.records = this.rows;
-    this.primengTableHelper.hideLoadingIndicator();
-  }
+	addDisasterModal() {
+		const modalRef = this.modalService.open(AddDisasterComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'add';
+	}
 
-  reloadPage(): void {
-    this.paginator.changePage(this.paginator.getPage());
-  }
-
-  addDisasterModal() {
-    const modalRef = this.modalService.open(AddDisasterComponent , { size: 'lg' });
-    modalRef.componentInstance.name = 'add';
-  }
-
-  editDisasterModal() {
-    const modalRef = this.modalService.open(AddDisasterComponent , { size: 'lg' });
-    modalRef.componentInstance.name = 'edit';
-  }
-
+	editDisasterModal() {
+		const modalRef = this.modalService.open(AddDisasterComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'edit';
+	}
 }

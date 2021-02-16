@@ -1,20 +1,17 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-approval-edit',
-  templateUrl: './approval-edit.component.html',
-  encapsulation: ViewEncapsulation.None
+	selector: 'app-approval-edit',
+	templateUrl: './approval-edit.component.html',
+	encapsulation: ViewEncapsulation.None
 })
 export class ApprovalEditComponent implements OnInit {
+	displayMonths = 1;
+	navigation = 'select';
+	showWeekNumbers = false;
+	outsideDays = 'visible';
 
-  displayMonths = 1;
-  navigation = 'select';
-  showWeekNumbers = false;
-  outsideDays = 'visible';
+	constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+	ngOnInit(): void {}
 }

@@ -5,7 +5,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SharedModule } from "./shared/shared.module";
+import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
@@ -26,44 +26,44 @@ import { TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
+	return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginPageComponent,
-    ForgotPasswordComponent,
-    RegisterPageComponent,
-    LoginFirstTimeComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    SharedModule,
-    AppRoutingModule,
-    HttpClientModule,
-    NgbModule,
-    ToastrModule.forRoot(),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      },
-    }),
-    TableModule,
-    PaginatorModule,
-    // for HttpClient use:
-    LoadingBarHttpClientModule,
-    // for Router use:
-    LoadingBarRouterModule,
-    // for Core use:
-    LoadingBarModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		LoginPageComponent,
+		ForgotPasswordComponent,
+		RegisterPageComponent,
+		LoginFirstTimeComponent
+	],
+	imports: [
+		BrowserModule,
+		FormsModule,
+		ReactiveFormsModule,
+		BrowserAnimationsModule,
+		SharedModule,
+		AppRoutingModule,
+		HttpClientModule,
+		NgbModule,
+		ToastrModule.forRoot(),
+		TranslateModule.forRoot({
+			loader: {
+				provide: TranslateLoader,
+				useFactory: HttpLoaderFactory,
+				deps: [HttpClient]
+			}
+		}),
+		TableModule,
+		PaginatorModule,
+		// for HttpClient use:
+		LoadingBarHttpClientModule,
+		// for Router use:
+		LoadingBarRouterModule,
+		// for Core use:
+		LoadingBarModule
+	],
+	providers: [],
+	bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

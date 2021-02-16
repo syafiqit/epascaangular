@@ -6,62 +6,75 @@ import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 @Component({
-  selector: 'app-list-fund',
-  templateUrl: './list-fund.component.html',
-  encapsulation: ViewEncapsulation.None,
-  providers: [NgbModalConfig, NgbModal]
+	selector: 'app-list-fund',
+	templateUrl: './list-fund.component.html',
+	encapsulation: ViewEncapsulation.None,
+	providers: [NgbModalConfig, NgbModal]
 })
 export class ListFundComponent implements OnInit {
+	@ViewChild('dataTable', { static: true }) dataTable: Table;
+	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
-  @ViewChild('dataTable', { static: true }) dataTable: Table;
-  @ViewChild('paginator', { static: true }) paginator: Paginator;
+	primengTableHelper: PrimengTableHelper;
 
-  primengTableHelper: PrimengTableHelper;
+	rows = [
+		{
+			name: 'KWABBN',
+			date: '1/01/2020',
+			total: '235,882,775.21',
+			date2: '31/12/2020',
+			total2: '255,199,152.00',
+			total_overal: '491,081,927,21',
+			balance: '282,925,285.85'
+		},
+		{
+			name: 'Covid-19',
+			date: '1/01/2020',
+			total: '235,882,775.21',
+			date2: '31/12/2020',
+			total2: '255,199,152.00',
+			total_overal: '491,081,927,21',
+			balance: '282,925,285.85'
+		}
+	];
 
-  rows = [
-    {"name":"KWABBN", "date" : "1/01/2020",  "total": "235,882,775.21", "date2":"31/12/2020", "total2": "255,199,152.00", "total_overal":"491,081,927,21", "balance":"282,925,285.85"},
-    {"name":"Covid-19", "date" : "1/01/2020",  "total": "235,882,775.21", "date2":"31/12/2020", "total2": "255,199,152.00", "total_overal":"491,081,927,21", "balance":"282,925,285.85"},
-  ]
+	report = [
+		{ title: 'Jumlah Keseluruhan Semasa (RM)', total_kos: '491,081,927.21' },
+		{ title: 'Jumlah Bayaran Semasa (RM)', total_kos: '312,123,121.00' },
+		{ title: 'Jumlah Tanggung Semasa (RM)', total_kos: '22,323,321.00' }
+	];
 
-  report = [
-    { "title": "Jumlah Keseluruhan Semasa (RM)", "total_kos": "491,081,927.21" },
-    { "title": "Jumlah Bayaran Semasa (RM)", "total_kos": "312,123,121.00" },
-    { "title": "Jumlah Tanggung Semasa (RM)", "total_kos": "22,323,321.00" },
-  ]
+	constructor(config: NgbModalConfig, private modalService: NgbModal) {
+		this.primengTableHelper = new PrimengTableHelper();
+		config.backdrop = 'static';
+		config.keyboard = false;
+	}
 
-  constructor(config: NgbModalConfig, private modalService: NgbModal) {
-    this.primengTableHelper = new PrimengTableHelper();
-    config.backdrop = 'static';
-    config.keyboard = false;
-  }
+	ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
+	getFund(event?: LazyLoadEvent) {
+		if (this.primengTableHelper.shouldResetPaging(event)) {
+			this.paginator.changePage(0);
+			return;
+		}
 
-  getFund(event?: LazyLoadEvent) {
-    if (this.primengTableHelper.shouldResetPaging(event)) {
-      this.paginator.changePage(0);
-      return;
-    }
+		this.primengTableHelper.showLoadingIndicator();
+		this.primengTableHelper.totalRecordsCount = this.rows.length;
+		this.primengTableHelper.records = this.rows;
+		this.primengTableHelper.hideLoadingIndicator();
+	}
 
-    this.primengTableHelper.showLoadingIndicator();
-    this.primengTableHelper.totalRecordsCount = this.rows.length;
-    this.primengTableHelper.records = this.rows;
-    this.primengTableHelper.hideLoadingIndicator();
-  }
+	reloadPage(): void {
+		this.paginator.changePage(this.paginator.getPage());
+	}
 
-  reloadPage(): void {
-    this.paginator.changePage(this.paginator.getPage());
-  }
+	addFundModal() {
+		const modalRef = this.modalService.open(AddEditFundComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'add';
+	}
 
-  addFundModal() {
-    const modalRef = this.modalService.open(AddEditFundComponent , { size: 'lg' });
-    modalRef.componentInstance.name = 'add';
-  }
-
-  editFundModal() {
-    const modalRef = this.modalService.open(AddEditFundComponent , { size: 'lg' });
-    modalRef.componentInstance.name = 'edit';
-  }
-
+	editFundModal() {
+		const modalRef = this.modalService.open(AddEditFundComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'edit';
+	}
 }

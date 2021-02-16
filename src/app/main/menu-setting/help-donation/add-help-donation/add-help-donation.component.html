@@ -1,33 +1,35 @@
 <div class="modal-header">
-  <h5 class="modal-title" *ngIf="name === 'add'">Tambah Jenis Bantuan</h5>
-  <h5 class="modal-title" *ngIf="name === 'edit'">Kemaskini Jenis Bantuan</h5>
-  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-    <span aria-hidden="true">&times;</span>
-  </button>
+	<h5 class="modal-title" *ngIf="name === 'add'">Tambah Jenis Bantuan</h5>
+	<h5 class="modal-title" *ngIf="name === 'edit'">Kemaskini Jenis Bantuan</h5>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	</button>
 </div>
 <div class="modal-body">
-  <form class="form theme-form">
-    <div class="row">
-      <div class="col-6">
-        <div class="form-group">
-          <label class="col-form-label">Nama Bantuan</label>
-          <input class="form-control" name="name" type="text" placeholder="Nama Bantuan">
-        </div>
-      </div>
-      <div class="col-6">
-        <div class="form-group">
-          <label class="col-form-label">Status</label>
-          <div>
-            <select class="form-control" name="status">
-                <option *ngFor="let status of status" value="{{status['status']}}">{{status['status']}}</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
+	<form class="form theme-form">
+		<div class="row">
+			<div class="col-6">
+				<div class="form-group">
+					<label class="col-form-label">Nama Bantuan</label>
+					<input class="form-control" name="name" type="text" placeholder="Nama Bantuan" />
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="form-group">
+					<label class="col-form-label">Status</label>
+					<div>
+						<select class="form-control" name="status">
+							<option *ngFor="let status of status" value="{{status['status']}}">
+								{{status['status']}}
+							</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
-  <button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Simpan</button>
+	<button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
+	<button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Simpan</button>
 </div>

@@ -1,117 +1,181 @@
-<app-breadcrumb [title]="'Pengguna'"  [items]="['Akaun']" [active_item]="'Pengguna'"></app-breadcrumb>
+<app-breadcrumb [title]="'Pengguna'" [items]="['Akaun']" [active_item]="'Pengguna'"></app-breadcrumb>
 
 <div class="row">
-  <div class="col-lg-12">
-    <div class="card">
-      <div class="card-body">
-        <form class="form theme-form">
-          <div class="row">
-            <div class="col-lg-3">
-              <div class="row">
-                <img class="img-fluid for-light" src="assets/images/dashboard/bg.jpg" alt="looginpage">
-              </div>
-              <div class="row mt-3">
-                <div class="form-group">
-                  <input class="form-control" type="file">
-                </div>
-              </div>
+	<div class="col-lg-12">
+		<div class="card">
+			<div class="card-body">
+				<form class="form theme-form">
+					<div class="row">
+						<div class="col-lg-3">
+							<div class="row">
+								<img
+									class="img-fluid for-light"
+									src="assets/images/dashboard/bg.jpg"
+									alt="looginpage"
+								/>
+							</div>
+							<div class="row mt-3">
+								<div class="form-group">
+									<input class="form-control" type="file" />
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-9">
+							<div class="row mb-3">
+								<div class="col-lg-6">
+									<label>
+										<b>Status :</b>
+										Aktif
+									</label>
+								</div>
 
-            </div>
-            <div class="col-lg-9">
-              <div class="row mb-3">
-                <div class="col-lg-6">
-                  <label><b>Status :</b> Aktif</label>
-                </div>
+								<div class="col-lg-6">
+									<label>
+										<b>Peranan Pengguna :</b>
+										Administrator
+									</label>
+								</div>
+							</div>
+							<h5>Maklumat Pengguna</h5>
+							<hr />
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="exampleFormControlInput1">Nama</label>
+										<input
+											class="form-control"
+											name="name"
+											type="text"
+											placeholder="Nama"
+											[(ngModel)]="account.name"
+										/>
+									</div>
+								</div>
 
-                <div class="col-lg-6">
-                  <label><b>Peranan Pengguna : </b>Administrator</label>
-                </div>
-              </div>
-              <h5>Maklumat Pengguna</h5>
-              <hr>
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="exampleFormControlInput1">Nama</label>
-                    <input class="form-control" name="name" type="text" placeholder="Nama" [(ngModel)]="account.name">
-                  </div>
-                </div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="exampleFormControlInput1">No. K/P</label>
+										<input
+											class="form-control"
+											name="kp"
+											type="email"
+											placeholder="No. K/P"
+											[(ngModel)]="account.No_kp"
+										/>
+									</div>
+								</div>
+							</div>
 
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="exampleFormControlInput1">No. K/P</label>
-                    <input class="form-control" name="kp" type="email" placeholder="No. K/P" [(ngModel)]="account.No_kp">
-                  </div>
-                </div>
-              </div>
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="exampleFormControlInput1">Telefon Bimbit</label>
+										<input
+											class="form-control"
+											name="no_tel2"
+											type="text"
+											placeholder="Telefon Bimbit"
+											[(ngModel)]="account.tel_2"
+										/>
+									</div>
+								</div>
 
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="exampleFormControlInput1">Telefon Bimbit</label>
-                    <input class="form-control" name="no_tel2" type="text" placeholder="Telefon Bimbit" [(ngModel)]="account.tel_2">
-                  </div>
-                </div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="exampleFormControlInput1">Email</label>
+										<input
+											class="form-control"
+											name="email"
+											type="text"
+											placeholder="Email"
+											[(ngModel)]="account.email"
+										/>
+									</div>
+								</div>
+							</div>
 
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="exampleFormControlInput1">Email</label>
-                    <input class="form-control" name="email" type="text" placeholder="Email" [(ngModel)]="account.email">
-                  </div>
-                </div>
-              </div>
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="exampleFormControlInput1">Jawatan</label>
+										<input
+											class="form-control"
+											name="position"
+											type="text"
+											placeholder="Jawatan"
+											[(ngModel)]="account.position"
+										/>
+									</div>
+								</div>
+							</div>
+							<h5 class="mt-2">Maklumat Bekerja</h5>
+							<hr />
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="exampleFormControlInput1">Kementerian</label>
+										<input
+											class="form-control"
+											name="minisry"
+											type="text"
+											placeholder="Kementerian"
+											[(ngModel)]="account.ministry"
+										/>
+									</div>
+								</div>
 
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="exampleFormControlInput1">Jawatan</label>
-                    <input class="form-control" name="position" type="text" placeholder="Jawatan" [(ngModel)]="account.position">
-                  </div>
-                </div>
-              </div>
-              <h5 class="mt-2">Maklumat Bekerja</h5>
-              <hr>
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="exampleFormControlInput1">Kementerian</label>
-                    <input class="form-control" name="minisry" type="text" placeholder="Kementerian" [(ngModel)]="account.ministry">
-                  </div>
-                </div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="exampleFormControlInput1">Agensi</label>
+										<input
+											class="form-control"
+											name="agency"
+											type="text"
+											placeholder="Agensi"
+											[(ngModel)]="account.agency"
+										/>
+									</div>
+								</div>
+							</div>
 
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="exampleFormControlInput1">Agensi</label>
-                    <input class="form-control" name="agency" type="text" placeholder="Agensi" [(ngModel)]="account.agency">
-                  </div>
-                </div>
-              </div>
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="exampleFormControlInput1">Telefon Pejabat</label>
+										<input
+											class="form-control"
+											name="no_tel1"
+											type="text"
+											placeholder="Telefon Pejabat"
+											[(ngModel)]="account.tel_1"
+										/>
+									</div>
+								</div>
 
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="exampleFormControlInput1">Telefon Pejabat</label>
-                    <input class="form-control" name="no_tel1" type="text" placeholder="Telefon Pejabat" [(ngModel)]="account.tel_1">
-                  </div>
-                </div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="exampleFormControlInput1">Fax</label>
+										<input
+											class="form-control"
+											name="fax"
+											type="text"
+											placeholder="Fax"
+											[(ngModel)]="account.fax"
+										/>
+									</div>
+								</div>
+							</div>
 
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label for="exampleFormControlInput1">Fax</label>
-                    <input class="form-control" name="fax" type="text" placeholder="Fax" [(ngModel)]="account.fax">
-                  </div>
-                </div>
-              </div>
-
-              <div class="row justify-content-end">
-                  <button class="btn btn-light mr-2" type="button" [routerLink]="['/main/dashboard']">Kembali</button>
-                  <button class="btn btn-primary" type="button">Simpan</button>
-              </div>
-            </div>
-          </div>
-
-        </form>
-      </div>
-    </div>
-  </div>
+							<div class="row justify-content-end">
+								<button class="btn btn-light mr-2" type="button" [routerLink]="['/main/dashboard']">
+									Kembali
+								</button>
+								<button class="btn btn-primary" type="button">Simpan</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>

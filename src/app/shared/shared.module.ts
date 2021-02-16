@@ -35,56 +35,53 @@ import { LayoutService } from './services/layout.service';
 import { NavService } from './services/nav.service';
 
 @NgModule({
-  declarations: [
-    HeaderComponent,
-    FooterComponent,
-    SidebarComponent,
-    ContentComponent,
-    BreadcrumbComponent,
-    FeatherIconsComponent,
-    FullComponent,
-    ShowOptionsDirective,
-    DisableKeyPressDirective,
-    OnlyAlphabetsDirective,
-    OnlyNumbersDirective,
-    BusyIfDirective,
-    LoaderComponent,
-    TapToTopComponent,
-    SearchComponent,
-    MegaMenuComponent,
-    LanguagesComponent,
-    NotificationComponent,
-    BookmarkComponent,
-    CartComponent,
-    MessageBoxComponent,
-    MyAccountComponent
-  ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgbModule,
-    DragulaModule.forRoot(),
-    TranslateModule
-  ],
-  providers: [
-    NavService,
-    LayoutService
-  ],
-  exports: [
-    NgbModule,
-    FormsModule,
-    ReactiveFormsModule,
-    TranslateModule,
-    LoaderComponent,
-    BreadcrumbComponent,
-    FeatherIconsComponent,
-    TapToTopComponent,
-    DisableKeyPressDirective,
-    OnlyAlphabetsDirective,
-    OnlyNumbersDirective,
-    BusyIfDirective
-  ],
+	declarations: [
+		HeaderComponent,
+		FooterComponent,
+		SidebarComponent,
+		ContentComponent,
+		BreadcrumbComponent,
+		FeatherIconsComponent,
+		FullComponent,
+		ShowOptionsDirective,
+		DisableKeyPressDirective,
+		OnlyAlphabetsDirective,
+		OnlyNumbersDirective,
+		BusyIfDirective,
+		LoaderComponent,
+		TapToTopComponent,
+		SearchComponent,
+		MegaMenuComponent,
+		LanguagesComponent,
+		NotificationComponent,
+		BookmarkComponent,
+		CartComponent,
+		MessageBoxComponent,
+		MyAccountComponent
+	],
+	imports: [
+		CommonModule,
+		RouterModule,
+		FormsModule,
+		ReactiveFormsModule,
+		NgbModule,
+		DragulaModule.forRoot(),
+		TranslateModule
+	],
+	providers: [NavService, LayoutService],
+	exports: [
+		NgbModule,
+		FormsModule,
+		ReactiveFormsModule,
+		TranslateModule,
+		LoaderComponent,
+		BreadcrumbComponent,
+		FeatherIconsComponent,
+		TapToTopComponent,
+		DisableKeyPressDirective,
+		OnlyAlphabetsDirective,
+		OnlyNumbersDirective,
+		BusyIfDirective
+	]
 })
-export class SharedModule { }
+export class SharedModule {}

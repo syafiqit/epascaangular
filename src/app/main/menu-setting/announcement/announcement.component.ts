@@ -7,56 +7,63 @@ import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 
 @Component({
-  selector: 'app-announcement',
-  templateUrl: './announcement.component.html',
-  encapsulation: ViewEncapsulation.None,
-  providers: [NgbModalConfig, NgbModal]
+	selector: 'app-announcement',
+	templateUrl: './announcement.component.html',
+	encapsulation: ViewEncapsulation.None,
+	providers: [NgbModalConfig, NgbModal]
 })
 export class AnnouncementComponent implements AfterViewInit {
-  @ViewChild('dataTable', { static: true }) dataTable: Table;
-  @ViewChild('paginator', { static: true }) paginator: Paginator;
+	@ViewChild('dataTable', { static: true }) dataTable: Table;
+	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
-  primengTableHelper: PrimengTableHelper;
+	primengTableHelper: PrimengTableHelper;
 
-  rows = [
-    { "announcement": "Perhatian: Sila pastikan kata kunci anda tidak diketahui oleh orang lain.","name":"Wahadi Bin Mohamed","date":"02-06-2019"},
-    { "announcement": "Perhatian: Sila kemaskini maklumat bantuan sebelum tarikh akhir pemberian","name":"Ismail Bin Yaakob","date":"23-08-2019"},
-  ];
+	rows = [
+		{
+			announcement: 'Perhatian: Sila pastikan kata kunci anda tidak diketahui oleh orang lain.',
+			name: 'Wahadi Bin Mohamed',
+			date: '02-06-2019'
+		},
+		{
+			announcement: 'Perhatian: Sila kemaskini maklumat bantuan sebelum tarikh akhir pemberian',
+			name: 'Ismail Bin Yaakob',
+			date: '23-08-2019'
+		}
+	];
 
-  constructor(config: NgbModalConfig, private modalService: NgbModal) {
-    config.backdrop = 'static';
-    config.keyboard = false;
-    this.primengTableHelper = new PrimengTableHelper();
-  }
+	constructor(config: NgbModalConfig, private modalService: NgbModal) {
+		config.backdrop = 'static';
+		config.keyboard = false;
+		this.primengTableHelper = new PrimengTableHelper();
+	}
 
-  addAnnouncementModal() {
-    const modalRef = this.modalService.open(AddAnnouncementComponent , { size: 'lg' });
-    modalRef.componentInstance.name = 'add';
-  }
+	addAnnouncementModal() {
+		const modalRef = this.modalService.open(AddAnnouncementComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'add';
+	}
 
-  editAnnouncementModal() {
-    const modalRef = this.modalService.open(AddAnnouncementComponent , { size: 'lg' });
-    modalRef.componentInstance.name = 'edit';
-  }
+	editAnnouncementModal() {
+		const modalRef = this.modalService.open(AddAnnouncementComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'edit';
+	}
 
-  ngAfterViewInit(): void {
-    //this.primengTableHelper.adjustScroll(this.dataTable);
-  }
+	ngAfterViewInit(): void {
+		//this.primengTableHelper.adjustScroll(this.dataTable);
+	}
 
-  getApplication(event?: LazyLoadEvent) {
-    if (this.primengTableHelper.shouldResetPaging(event)) {
-      this.paginator.changePage(0);
-      return;
-    }
+	getApplication(event?: LazyLoadEvent) {
+		if (this.primengTableHelper.shouldResetPaging(event)) {
+			this.paginator.changePage(0);
+			return;
+		}
 
-    this.primengTableHelper.showLoadingIndicator();
-    this.primengTableHelper.totalRecordsCount = this.rows.length;
-    this.primengTableHelper.records = this.rows;
-    this.primengTableHelper.hideLoadingIndicator();
-  }
+		this.primengTableHelper.showLoadingIndicator();
+		this.primengTableHelper.totalRecordsCount = this.rows.length;
+		this.primengTableHelper.records = this.rows;
+		this.primengTableHelper.hideLoadingIndicator();
+	}
 
-  reloadPage(): void {
-    this.paginator.changePage(this.paginator.getPage());
-  }
-
+	reloadPage(): void {
+		this.paginator.changePage(this.paginator.getPage());
+	}
 }

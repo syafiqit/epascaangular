@@ -1,59 +1,59 @@
 <div class="modal-header">
-  <h4 class="modal-title">Tambah Daerah</h4>
-  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-    <span aria-hidden="true">&times;</span>
-  </button>
+	<h4 class="modal-title">Tambah Daerah</h4>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	</button>
 </div>
 
 <div class="modal-body">
-  <form class="form theme-form">
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="form-group">
-          <label>Daerah</label>
-          <input class="form-control" id="district" type="text" placeholder="Daerah">
-        </div>
-      </div>
+	<form class="form theme-form">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label>Daerah</label>
+					<input class="form-control" id="district" type="text" placeholder="Daerah" />
+				</div>
+			</div>
 
-      <div class="col-lg-6">
-        <div class="form-group">
-          <label>Negeri</label>
-          <select class="form-control digits">
-            <option>Pilih</option>
-            <option>Johor</option>
-            <option>Kedah</option>
-            <option>Kelantan</option>
-            <option>Melaka</option>
-            <option>Negeri Sembilan</option>
-            <option>Pahang</option>
-            <option>Perak</option>
-            <option>Perlis</option>
-            <option>Pulau Pinang</option>
-            <option>Sabah</option>
-            <option>Sarawak</option>
-            <option>Selangor</option>
-            <option>Terengganu</option>
-            <option>Wilayah Persekutuan</option>
-          </select>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="form-group">
-          <label>Status</label>
-          <select class="form-control digits">
-            <option>Pilih</option>
-            <option>Aktif</option>
-            <option>Tidak Aktif</option>
-          </select>
-        </div>
-      </div>
-    </div>
-  </form>
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label>Negeri</label>
+					<select class="form-control digits">
+						<option>Pilih</option>
+						<option>Johor</option>
+						<option>Kedah</option>
+						<option>Kelantan</option>
+						<option>Melaka</option>
+						<option>Negeri Sembilan</option>
+						<option>Pahang</option>
+						<option>Perak</option>
+						<option>Perlis</option>
+						<option>Pulau Pinang</option>
+						<option>Sabah</option>
+						<option>Sarawak</option>
+						<option>Selangor</option>
+						<option>Terengganu</option>
+						<option>Wilayah Persekutuan</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label>Status</label>
+					<select class="form-control digits">
+						<option>Pilih</option>
+						<option>Aktif</option>
+						<option>Tidak Aktif</option>
+					</select>
+				</div>
+			</div>
+		</div>
+	</form>
 </div>
 
 <div class="modal-footer">
-  <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
-  <button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Simpan</button>
+	<button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
+	<button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Simpan</button>
 </div>

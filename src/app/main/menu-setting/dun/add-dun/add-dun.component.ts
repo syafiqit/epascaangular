@@ -1,16 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-add-dun',
-  templateUrl: './add-dun.component.html'
+	selector: 'app-add-dun',
+	templateUrl: './add-dun.component.html'
 })
 export class AddDunComponent implements OnInit {
-  @Input() name;
+	@Input() name;
 
-  constructor(private modalService: NgbModal, public activeModal: NgbActiveModal) {}
+	constructor(private modalService: NgbModal, public activeModal: NgbActiveModal) {}
 
-  ngOnInit(): void {
-  }
-
+	ngOnInit(): void {}
 }

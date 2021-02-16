@@ -1,59 +1,57 @@
 <div class="modal-header">
-  <h4 class="modal-title">Bantuan Wang Ihsan</h4>
-  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-    <span aria-hidden="true">&times;</span>
-  </button>
+	<h4 class="modal-title">Bantuan Wang Ihsan</h4>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	</button>
 </div>
 
 <div class="modal-body">
-  <form class="form theme-form">
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="form-group">
-          <label for="itemLabel">Tahun & Tarikh Bencana</label>
-          <select class="form-control digits" id="exampleFormControlSelect9">
-            <option>(2020-01-01) Covid-19</option>
-            <option>(2019-03-12) Banjir</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="form-group">
-          <label for="exampleFormControlSelect9">Nama Bencana</label>
-          <input class="form-control" id="itemLabel" type="text" placeholder="Nama Bencana">
-        </div>
-      </div>
-    </div>
+	<form class="form theme-form">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label for="itemLabel">Tahun & Tarikh Bencana</label>
+					<select class="form-control digits" id="exampleFormControlSelect9">
+						<option>(2020-01-01) Covid-19</option>
+						<option>(2019-03-12) Banjir</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label for="exampleFormControlSelect9">Nama Bencana</label>
+					<input class="form-control" id="itemLabel" type="text" placeholder="Nama Bencana" />
+				</div>
+			</div>
+		</div>
 
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="form-group">
-          <label for="itemLabel">Agensi Pemberi Bantuan</label>
-          <input class="form-control" id="itemLabel" type="text" placeholder="Agensi Pemberi Bantuan">
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="form-group">
-          <label for="itemLabel">Tarikh Serahan</label>
-          <input class="form-control" id="itemLabel" type="date" >
-        </div>
-      </div>
-    </div>
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label for="itemLabel">Agensi Pemberi Bantuan</label>
+					<input class="form-control" id="itemLabel" type="text" placeholder="Agensi Pemberi Bantuan" />
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label for="itemLabel">Tarikh Serahan</label>
+					<input class="form-control" id="itemLabel" type="date" />
+				</div>
+			</div>
+		</div>
 
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="form-group">
-          <label for="itemLabel">Jumlah</label>
-          <input class="form-control" id="itemLabel" type="text" placeholder="Jumlah">
-        </div>
-      </div>
-    </div>
-
-
-  </form>
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label for="itemLabel">Jumlah</label>
+					<input class="form-control" id="itemLabel" type="text" placeholder="Jumlah" />
+				</div>
+			</div>
+		</div>
+	</form>
 </div>
 
 <div class="modal-footer">
-  <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
-  <button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Simpan</button>
+	<button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
+	<button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Simpan</button>
 </div>

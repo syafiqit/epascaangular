@@ -3,31 +3,27 @@ import { ChangePasswordComponent } from '../../../../../main/account/change-pass
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-my-account',
-  templateUrl: './my-account.component.html',
-  styleUrls: ['./my-account.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  providers: [NgbModalConfig, NgbModal]
+	selector: 'app-my-account',
+	templateUrl: './my-account.component.html',
+	styleUrls: ['./my-account.component.scss'],
+	encapsulation: ViewEncapsulation.None,
+	providers: [NgbModalConfig, NgbModal]
 })
 export class MyAccountComponent implements OnInit {
+	public openMessageBox = false;
 
-  public openMessageBox: boolean = false;
+	constructor(config: NgbModalConfig, private modalService: NgbModal) {
+		// customize default values of modals used by this component tree
+		config.backdrop = 'static';
+		config.keyboard = false;
+	}
+	ngOnInit() {}
 
-  constructor(config: NgbModalConfig, private modalService: NgbModal) {
-  	// customize default values of modals used by this component tree
-    config.backdrop = 'static';
-    config.keyboard = false;
+	openChangePasswordModal() {
+		this.modalService.open(ChangePasswordComponent);
+	}
 
-  }
-  ngOnInit() {
-  }
-
-  openChangePasswordModal (){
-    this.modalService.open(ChangePasswordComponent)
-  }
-
-  toggleMessageBox() {
-    this.openMessageBox = !this.openMessageBox;
-  }
-
+	toggleMessageBox() {
+		this.openMessageBox = !this.openMessageBox;
+	}
 }

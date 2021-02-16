@@ -1,22 +1,20 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
-  selector: 'app-loader',
-  templateUrl: './loader.component.html',
-  styleUrls: ['./loader.component.scss']
+	selector: 'app-loader',
+	templateUrl: './loader.component.html',
+	styleUrls: ['./loader.component.scss']
 })
 export class LoaderComponent implements OnInit {
+	public show = true;
 
-  public show: boolean = true;
+	constructor() {
+		setTimeout(() => {
+			this.show = false;
+		}, 3000);
+	}
 
-  constructor() {
-    setTimeout(() => {
-      this.show = false;
-    }, 3000);
-  }
+	ngOnInit() {}
 
-  ngOnInit() { }
-
-  ngOnDestroy() { }
-
+	ngOnDestroy() {}
 }
