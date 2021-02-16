@@ -20,48 +20,85 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12 custom-datatable">
-        <ngx-datatable class="bootstrap"
-                       [rows]="rows" [sortType]="SortType.multi"
-                       [columnMode]="ColumnMode.flex" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [limit]="10">
-          <ngx-datatable-column name="Tindakan" prop="action" [flexGrow]="1">
-            <ng-template let-value="value" ngx-datatable-cell-template>
-                  <span>
-                    <a class="col-sm-6 col-md-4 col-xl-3" (click)="addVictimDisasterModal()" [queryParams]="{id: 1}"><i class="fa fa-edit"></i></a>
-                    <a class="col-sm-6 col-md-4 col-xl-3" (click)="delete()"><i class="fa fa-trash"></i></a>
-                  </span>
+      <div class="row align-items-center">
+        <!--<Primeng-TurboTable-Start>-->
+        <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+          <p-table #dataTable styleClass="p-datatable-striped" sortMode="multiple" [resizableColumns]="true"
+                   (onLazyLoad)="getDisaster($event)" [value]="primengTableHelper.records"
+                   rows="{{primengTableHelper.defaultRecordsCountPerPage}}" [paginator]="false" [lazy]="true"
+                   [scrollable]="true" ScrollWidth="100%" [responsive]="primengTableHelper.isResponsive">
+            <ng-template pTemplate="header">
+              <tr>
+                <th style="width: 130px">
+                  Tindakan
+                </th>
+                <th style="width: 100px" pSortableColumn="year">
+                  Tahun Bencana
+                  <p-sortIcon field="year"></p-sortIcon>
+                </th>
+                <th style="width: 130px" pSortableColumn="type">
+                  Jenis Bencana
+                  <p-sortIcon field="type"></p-sortIcon>
+                </th>
+                <th style="width: 130px" pSortableColumn="status">
+                  Status Pindah
+                  <p-sortIcon field="status"></p-sortIcon>
+                </th>
+                <th style="width: 130px" pSortableColumn="centre">
+                  Nama Pusat
+                  <p-sortIcon field="centre"></p-sortIcon>
+                </th>
+              </tr>
             </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="Tahun Bencana" prop="year" [flexGrow]="1">
-            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-              {{ value }}
+            <ng-template pTemplate="body" let-record="$implicit">
+              <tr>
+                <td style="width: 130px;">
+                  <div ngbDropdown class="btn-group" role="group" container="body">
+                    <button type="button" class="btn btn-primary btn-primeng dropdown-toggle" id="action"
+                            ngbDropdownToggle>
+                      <i class="fa fa-cog"></i><span class="caret"></span>
+                      Tindakan
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="action">
+                      <button class="dropdown-item" (click)="addVictimDisasterModal()">Ubah</button>
+                      <button class="dropdown-item" (click)="delete()">Padam</button>
+                    </div>
+                  </div>
+                </td>
+                <td style="width: 100px">
+                  <span class="p-column-title"> year</span>
+                  {{record.year}}
+                </td>
+                <td style="width: 130px">
+                  <span class="p-column-title"> Jenis Bencana</span>
+                  {{record.type}}
+                </td>
+                <td style="width: 130px">
+                  <span class="p-column-title"> status</span>
+                  {{record.status}}
+                </td>
+                <td style="width: 130px">
+                  <span class="p-column-title"> centre</span>
+                  {{record.centre}}
+                </td>
+              </tr>
             </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="Jenis Bencana" prop="type" [flexGrow]="1">
-            <ng-template let-value="value" ngx-datatable-cell-template>
-              {{ value }}
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="Status Pindah" prop="status" [flexGrow]="1">
-            <ng-template let-value="value" ngx-datatable-cell-template>
-              {{ value }}
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="Nama Pusat" prop="centre" [flexGrow]="1">
-            <ng-template let-value="value" ngx-datatable-cell-template>
-              {{ value }}
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-footer>
-            <ng-template
-              ngx-datatable-footer-template
-              let-rowCount="rowCount">
-              <div style="padding: 5px 5px">
-                Jumlah: {{ rowCount }}
-              </div>
-            </ng-template>
-          </ngx-datatable-footer>
-        </ngx-datatable>
+          </p-table>
+          <div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">
+            No Data
+          </div>
+          <div class="primeng-paging-container justify-content-between">
+            <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage" #paginator
+                         (onPageChange)="getDisaster($event)" [totalRecords]="primengTableHelper.totalRecordsCount"
+                         [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+
+            </p-paginator>
+            <span class="total-records-count">
+                Jumlah: {{ primengTableHelper.totalRecordsCount}}
+              </span>
+          </div>
+        </div>
+        <!--<Primeng-TurboTable-End>-->
       </div>
     </div>
   </div>
