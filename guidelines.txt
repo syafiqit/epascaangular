@@ -1,0 +1,42 @@
+1. Tambah Edit → create-or-edit-*.component.ts: tambah-edit-*.component.ts TambahEditBaranganComponent
+2. Tambah sahaja (jika perlu) → ∙∙create.component.ts: tambah-*.component.ts TambahBaranganComponent
+3. Edit sahaja (jika perlu) → ∙∙edit.component.ts: edit-*.component.ts EditBaranganComponent
+4. Papar → view-*.component.ts: papar-*.component.ts PaparBaranganComponent
+5. Senarai → *.component.ts: *.component.ts BaranganComponent
+
+(*)asterik must no more than 2 words!
+
+Module
+└barangan
+	├tambah-edit-barangan
+	│	├tambah-edit-barangan.component.ts
+	│	└tambah-edit.barangan.component.html
+	├papar-barangan
+	│	├papar-barangan.component.ts
+	│	└papar-barangan.component.html
+	├barangan.component.ts
+	└barangan.component.html
+
+
+app
+├akaun
+│	├log-masuk
+│	├tetap-semula
+│	├akaun.component.ts
+│	├akaun.component.html
+│	├akaun-routing.module.ts
+│	└akaun.module.ts
+├main
+│	├barangan
+│	│	├daftar-barangan
+│	│	├senarai-barangan
+│	│	├barangan.component.ts
+│	│	├barangan.component.html
+│	│	├barangan-routing.module.ts
+│	│	└barangan.module.ts
+│	├tetapan
+│	├main.component.ts
+│	├main.component.html
+│	├main-routing.module.ts
+│	└main.module.ts
+└shared
