@@ -79,19 +79,19 @@ export class NavService implements OnDestroy {
 	MENUITEMS: Menu[] = [
 		{
 			title: 'Muka Halaman',
-			path: '/main/dashboard',
+			path: '/muka-halaman',
 			icon: 'home',
 			type: 'link'
 		},
 		{
 			title: 'Pengurusan Pengguna',
-			path: '/main/list-user',
+			path: '/pengurusan/senarai-pengurusan-pengguna',
 			icon: 'airplay',
 			type: 'link'
 		},
 		{
 			title: 'Pengurusan Mangsa',
-			path: '/main/victim-list',
+			path: '/pengurusan-mangsa/senarai-pengurusan-mangsa',
 			icon: 'users',
 			type: 'link'
 		},
@@ -101,18 +101,22 @@ export class NavService implements OnDestroy {
 			type: 'sub',
 			active: false,
 			children: [
-				{ path: '/main/dashboard-fund-management', title: 'Muka Halaman Tabung', type: 'link' },
-				{ path: '/main/list-fund', title: 'Tabung', type: 'link' },
-				{ path: '/main/approval-list', title: 'Kelulusan', type: 'link' },
+				{ path: '/pengurusan-tabung/muka-halaman-tabung', title: 'Muka Halaman Tabung', type: 'link' },
+				{ path: '/pengurusan-tabung/senarai-tabung', title: 'Tabung', type: 'link' },
+				{ path: '/pengurusan-tabung/senarai-kelulusan', title: 'Kelulusan', type: 'link' },
 				{
 					title: 'Pembayaran',
 					type: 'sub',
 					children: [
-						{ path: '/main/skb', title: 'Secara Kuasa Berbelanja', type: 'link' },
-						{ path: '/main/direct-pay', title: 'Bayaran Secara Terus', type: 'link' }
+						{ path: '/pengurusan-tabung/senarai-skb', title: 'Surat Kuasa Belanja', type: 'link' },
+						{
+							path: '/pengurusan-tabung/senarai-bayaran-secara-terus',
+							title: 'Bayaran Secara Terus',
+							type: 'link'
+						}
 					]
 				},
-				{ path: '/main/bwi', title: 'Bantuan Wang Ihsan', type: 'link' }
+				{ path: '/pengurusan-tabung/senarai-wang-ihsan', title: 'Bantuan Wang Ihsan', type: 'link' }
 			]
 		},
 		{
@@ -121,22 +125,22 @@ export class NavService implements OnDestroy {
 			type: 'sub',
 			active: false,
 			children: [
-				{ path: '/main/list-disaster', title: 'Bencana', type: 'link' },
-				{ path: '/main/list-ministry', title: 'Kementerian', type: 'link' },
-				{ path: '/main/menu-setting/agency', title: 'Agensi', type: 'link' },
-				{ path: '/main/menu-setting/executor', title: 'Pelaksana', type: 'link' },
-				{ path: '/main/list-project-owner', title: 'Pemilik Projek', type: 'link' },
-				{ path: '/main/list-state', title: 'Negeri', type: 'link' },
-				{ path: '/main/list-parliament', title: 'Parlimen', type: 'link' },
-				{ path: '/main/list-district', title: 'Daerah', type: 'link' },
-				{ path: '/main/list-dun', title: 'Dun', type: 'link' },
-				{ path: '/main/list-damage', title: 'Kerosakan Rumah', type: 'link' },
-				{ path: '/main/list-funds', title: 'Sumber Dana', type: 'link' },
-				{ path: '/main/list-evacuate', title: 'Status Berpindah', type: 'link' },
-				{ path: '/main/menu-setting/entrepreneur-loan', title: 'Pinjaman Usahawan', type: 'link' },
-				{ path: '/main/menu-setting/announcement', title: 'Senarai Pengumuman', type: 'link' },
-				{ path: '/main/menu-setting/house-project-owner', title: 'Pemilik Projek Rumah', type: 'link' },
-				{ path: '/main/menu-setting/help-donation', title: 'Jenis Bantuan', type: 'link' }
+				{ path: '/tetapan/senarai-bencana', title: 'Bencana', type: 'link' },
+				{ path: '/tetapan/senarai-kementerian', title: 'Kementerian', type: 'link' },
+				{ path: '/tetapan/senarai-agensi', title: 'Agensi', type: 'link' },
+				{ path: '/tetapan/senarai-pelaksana', title: 'Pelaksana', type: 'link' },
+				{ path: '/tetapan/senarai-pemilik-projek', title: 'Pemilik Projek', type: 'link' },
+				{ path: '/tetapan/senarai-negeri', title: 'Negeri', type: 'link' },
+				{ path: '/tetapan/senarai-parlimen', title: 'Parlimen', type: 'link' },
+				{ path: '/tetapan/senarai-daerah', title: 'Daerah', type: 'link' },
+				{ path: '/tetapan/senarai-dun', title: 'Dun', type: 'link' },
+				{ path: '/tetapan/senarai-kerosakan-rumah', title: 'Kerosakan Rumah', type: 'link' },
+				{ path: '/tetapan/senarai-sumber-dana', title: 'Sumber Dana', type: 'link' },
+				{ path: '/tetapan/senarai-status-berpindah', title: 'Status Berpindah', type: 'link' },
+				{ path: '/tetapan/senarai-pinjaman-usahawan', title: 'Pinjaman Usahawan', type: 'link' },
+				{ path: '/tetapan/senarai-pengumuman', title: 'Senarai Pengumuman', type: 'link' },
+				{ path: '/tetapan/senarai-pemilik-projek-rumah', title: 'Pemilik Projek Rumah', type: 'link' },
+				{ path: '/tetapan/senarai-jenis-bantuan', title: 'Jenis Bantuan', type: 'link' }
 			]
 		}
 	];

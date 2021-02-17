@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ChangePasswordComponent } from '../../../../../main/account/change-password/change-password.component';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { TukarKataLaluanComponent } from '../../../../../main/maklumat-akaun/tukar-kata-laluan/tukar-kata-laluan.component';
 
 @Component({
 	selector: 'app-my-account',
@@ -20,7 +20,7 @@ export class MyAccountComponent implements OnInit {
 	ngOnInit() {}
 
 	openChangePasswordModal() {
-		this.modalService.open(ChangePasswordComponent);
+		this.modalService.open(TukarKataLaluanComponent);
 	}
 
 	toggleMessageBox() {

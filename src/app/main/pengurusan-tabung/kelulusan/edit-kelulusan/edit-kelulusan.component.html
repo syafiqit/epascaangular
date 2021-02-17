@@ -1,0 +1,307 @@
+<app-breadcrumb
+	[title]="'Kemaskini Kelulusan (KWABBN)'"
+	[items]="['Pengurusan Tabung']"
+	[active_item]="'Kelulusan'"
+></app-breadcrumb>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="card">
+				<div class="card-body">
+					<form>
+						<h6>Maklumat Kelulusan</h6>
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>No. Rujukan Kelulusan</label>
+									<input class="form-control" type="text" placeholder="No. Rujukan Kelulusan" />
+								</div>
+							</div>
+
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Tabung</label>
+									<select class="form-control digits">
+										<option>Pilih</option>
+										<option>KWABBN</option>
+										<option>Covid-19</option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Kategori</label>
+									<select class="form-control digits">
+										<option>Pilih</option>
+										<option>Banjir</option>
+										<option>Ribut</option>
+										<option>Tanah Runtuh</option>
+										<option>Covid-19</option>
+										<option>Pelbagai</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Agensi</label>
+									<input class="form-control" type="text" placeholder="Nama Agensi" />
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Jenis Bantuan</label>
+									<input class="form-control" type="text" placeholder="Jenis Bantuan" />
+								</div>
+							</div>
+
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Rujukan Bencana</label>
+									<input class="form-control" type="text" placeholder="Rujukan Bencana" />
+								</div>
+							</div>
+						</div>
+						<hr />
+						<h6>Rujukan</h6>
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="form-group">
+									<label>Rujukan Surat</label>
+									<input class="form-control" type="text" placeholder="JPM.APBN(S).600-3/8/2 (1)" />
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Perihal Surat</label>
+									<textarea class="form-control input-air-primary" rows="3"></textarea>
+								</div>
+							</div>
+
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Rujukan</label>
+									<textarea class="form-control input-air-primary" rows="3"></textarea>
+								</div>
+							</div>
+						</div>
+
+						<div class="row custom-datepicker custom-datepicker-dropdown">
+							<div class="col-lg-4">
+								<div class="form-group">
+									<label>Tarikh Surat</label>
+									<div class="input-group">
+										<input
+											class="form-control"
+											placeholder="yyyy-mm-dd"
+											name="dp1"
+											[displayMonths]="displayMonths"
+											[navigation]="navigation"
+											[outsideDays]="outsideDays"
+											[showWeekNumbers]="showWeekNumbers"
+											ngbDatepicker
+											#k1="ngbDatepicker"
+										/>
+										<div class="input-group-append">
+											<button class="btn calendar" (click)="k1.toggle()" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-lg-4">
+								<div class="form-group">
+									<label>Tarikh Kelulusan (Mula)</label>
+									<div class="input-group">
+										<input
+											class="form-control"
+											placeholder="yyyy-mm-dd"
+											name="dp2"
+											[displayMonths]="displayMonths"
+											[navigation]="navigation"
+											[outsideDays]="outsideDays"
+											[showWeekNumbers]="showWeekNumbers"
+											ngbDatepicker
+											#k2="ngbDatepicker"
+										/>
+										<div class="input-group-append">
+											<button class="btn calendar" (click)="k2.toggle()" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-lg-4">
+								<div class="form-group">
+									<label>Tarikh Kelulusan (Tamat)</label>
+									<div class="input-group">
+										<input
+											class="form-control"
+											placeholder="yyyy-mm-dd"
+											name="dp2"
+											[displayMonths]="displayMonths"
+											[navigation]="navigation"
+											[outsideDays]="outsideDays"
+											[showWeekNumbers]="showWeekNumbers"
+											ngbDatepicker
+											#k3="ngbDatepicker"
+										/>
+										<div class="input-group-append">
+											<button class="btn calendar" (click)="k3.toggle()" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Jumlah Siling Peruntukan</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><span class="input-group-text">RM</span></div>
+										<input class="form-control" type="number" />
+									</div>
+								</div>
+							</div>
+
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Peruntukan Diambil</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><span class="input-group-text">RM</span></div>
+										<input class="form-control" type="number" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Tahun Terdahulu</label>
+									<input class="form-control" type="text" value="2019" />
+								</div>
+							</div>
+
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Siling Dipinda</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><span class="input-group-text">RM</span></div>
+										<input class="form-control" type="number" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Jumlah Belanja Tahun Terdahulu</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><span class="input-group-text">RM</span></div>
+										<input class="form-control" type="number" />
+									</div>
+								</div>
+							</div>
+
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Baki Peruntukan</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><span class="input-group-text">RM</span></div>
+										<input class="form-control" type="number" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Tahun Terbaru</label>
+									<input class="form-control" type="text" value="2020" />
+								</div>
+							</div>
+
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Jumlah Belanja</label>
+									<div class="input-group">
+										<div class="input-group-prepend"><span class="input-group-text">RM</span></div>
+										<input class="form-control" type="number" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<hr />
+						<h6>Perbelanjaan SKB Semasa</h6>
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Covid</label>
+									<input class="form-control" type="text" placeholder="" />
+								</div>
+							</div>
+
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Bukan Covid</label>
+									<input class="form-control" type="text" placeholder="" />
+								</div>
+							</div>
+						</div>
+
+						<h6>Perbelanjaan Secara Terus Semasa</h6>
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Covid</label>
+									<input class="form-control" type="text" placeholder="" />
+								</div>
+							</div>
+
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Bukan Covid</label>
+									<input class="form-control" type="text" placeholder="" />
+								</div>
+							</div>
+						</div>
+
+						<button
+							class="btn btn-primary pull-right"
+							[routerLink]="['/pengurusan-tabung/senarai-kelulusan']"
+							type="button"
+						>
+							Simpan
+						</button>
+						<button
+							class="btn btn-light pull-right mr-1"
+							[routerLink]="['/pengurusan-tabung/senarai-kelulusan']"
+							type="button"
+						>
+							Kembali
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

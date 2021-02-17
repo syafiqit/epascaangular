@@ -12,7 +12,7 @@ import { LoginFirstTimeComponent } from './auth/login-page/login-first-time/logi
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'main',
+    redirectTo: 'muka-halaman',
     pathMatch: 'full'
   },
   {
