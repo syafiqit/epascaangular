@@ -1,0 +1,56 @@
+<div class="login-main">
+	<form class="theme-form">
+		<h4>Tukar Kata Laluan</h4>
+		<div class="form-group">
+			<label class="col-form-label">Kata Laluan</label>
+			<input
+				class="form-control"
+				autocomplete="current-password"
+				[type]="show ? 'text' : 'password'"
+				name="login[password]"
+				required=""
+				placeholder="*********"
+			/>
+			<div class="show-hide" (click)="showPassword()" *ngIf="!show">
+				<span class="show"></span>
+			</div>
+			<div class="show-hide" (click)="showPassword()" *ngIf="show">
+				<span class="Hide"></span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-form-label">Kata Laluan Baharu</label>
+			<input
+				class="form-control"
+				autocomplete="new-password"
+				[type]="showNew ? 'text' : 'password'"
+				name="login[password]"
+				required=""
+				placeholder="*********"
+			/>
+			<div class="show-hide" (click)="showNewPassword()" *ngIf="!showNew">
+				<span class="show"></span>
+			</div>
+			<div class="show-hide" (click)="showNewPassword()" *ngIf="showNew">
+				<span class="Hide"></span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-form-label">Taip Semula Kata Laluan</label>
+			<input
+				class="form-control"
+				autocomplete="new-password"
+				type="password"
+				name="login[password]"
+				required=""
+				placeholder="*********"
+			/>
+		</div>
+		<div class="form-group mb-0">
+			<button class="btn btn-primary btn-block" type="submit">Tukar</button>
+		</div>
+		<p class="mt-4 mb-0">
+			<a [routerLink]="'/akaun/log-masuk'" class="ml-2">Kembali ke Log Masuk</a>
+		</p>
+	</form>
+</div>
