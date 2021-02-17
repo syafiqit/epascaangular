@@ -1,0 +1,244 @@
+<app-breadcrumb [title]="'Senarai Mangsa'" [items]="['Mangsa']" [active_item]="'Senarai Mangsa'"></app-breadcrumb>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="card">
+				<div class="card-body">
+					<div class="row justify-content-end">
+						<div class="col-lg-12">
+							<button
+								[routerLink]="['/pengurusan-mangsa/tambah-pengurusan-mangsa']"
+								class="btn btn-primary pull-right"
+							>
+								<i class="fa fa-plus mr-2"></i>
+								Tambah
+							</button>
+						</div>
+					</div>
+					<div class="row mt-3">
+						<div class="col-lg-12">
+							<input type="text" class="form-control" placeholder="Carian..." />
+						</div>
+					</div>
+					<div class="row mt-2 ml-1">
+						<div class="col-lg-12">
+							<div class="row mb-1">
+								<button
+									type="button"
+									class="btn btn-xs btn-outline-primary"
+									(click)="isCollapsed = !isCollapsed"
+									[attr.aria-expanded]="!isCollapsed"
+									aria-controls="collapseExample"
+								>
+									Carian Lanjut
+								</button>
+							</div>
+							<div class="row" id="collapseExample" [ngbCollapse]="!isCollapsed">
+								<div class="col-lg-12">
+									<div class="card mb-0">
+										<div class="card-body">
+											<form>
+												<div class="row">
+													<div class="col-xl-3 col-xs-2">
+														<label for="year">Jenis Pilihan</label>
+														<select class="form-control digits">
+															<option>Sila Pilih</option>
+															<option *ngFor="let item of items">{{item.data}}</option>
+														</select>
+													</div>
+													<div class="col-xl-9 col-xs-3">
+														<label for="year">Data Pilihan</label>
+														<div class="form-group">
+															<input class="form-control" id="text" type="text" />
+														</div>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-xl-3 col-xs-6">
+														<div class="form-group">
+															<label for="year">Tahun Bencana</label>
+															<input class="form-control" id="year" type="text" />
+														</div>
+													</div>
+													<div class="col-xl-3 col-xs-6">
+														<div class="form-group">
+															<label for="state">Negeri</label>
+															<input class="form-control" id="state" type="text" />
+														</div>
+													</div>
+													<div class="col-xl-3 col-xs-6">
+														<div class="form-group">
+															<label for="year">Bencana</label>
+															<input class="form-control" id="year" type="text" />
+														</div>
+													</div>
+													<div class="col-xl-3 col-xs-6">
+														<div class="form-group">
+															<label for="district">Daerah</label>
+															<input class="form-control" id="district" type="text" />
+														</div>
+													</div>
+													<div class="col-xl-3 col-xs-6">
+														<div class="form-group">
+															<label for="year">Agensi</label>
+															<input class="form-control" id="year" type="text" />
+														</div>
+													</div>
+													<div class="col-xl-3 col-xs-6">
+														<div class="form-group">
+															<label for="district">Parlimen</label>
+															<input class="form-control" id="district" type="text" />
+														</div>
+													</div>
+													<div class="col-xl-3 col-xs-6">
+														<div class="form-group">
+															<label for="year">DUN</label>
+															<input class="form-control" id="year" type="text" />
+														</div>
+													</div>
+												</div>
+												<div class="row justify-content-end">
+													<button
+														class="btn btn-outline-primary mr-3"
+														type="button"
+														(click)="isCollapsed = !isCollapsed"
+														[attr.aria-expanded]="!isCollapsed"
+													>
+														Cari
+													</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					&nbsp;
+					<div class="row align-items-center">
+						<!--<Primeng-TurboTable-Start>-->
+						<div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+							<p-table
+								#dataTable
+								styleClass="p-datatable-striped"
+								sortMode="multiple"
+								[resizableColumns]="true"
+								(onLazyLoad)="getVictim($event)"
+								[value]="primengTableHelper.records"
+								rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
+								[paginator]="false"
+								[lazy]="true"
+								[scrollable]="true"
+								ScrollWidth="100%"
+								[responsive]="primengTableHelper.isResponsive"
+							>
+								<ng-template pTemplate="header">
+									<tr>
+										<th style="width: 130px">Tindakan</th>
+										<th style="width: 100px" pSortableColumn="kp">
+											No KP
+											<p-sortIcon field="kp"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="nameKir">
+											Nama KIR
+											<p-sortIcon field="baki"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="waterBill">
+											Bil Air
+											<p-sortIcon field="waterBill"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="total">
+											Jumlah Bantuan(RM)
+											<p-sortIcon field="total"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="state">
+											Negeri
+											<p-sortIcon field="state"></p-sortIcon>
+										</th>
+										<th style="width: 120px" pSortableColumn="source">
+											Sumber
+											<p-sortIcon field="source"></p-sortIcon>
+										</th>
+										<th style="width: 100px" pSortableColumn="verification">
+											Varifikasi
+											<p-sortIcon field="verification"></p-sortIcon>
+										</th>
+									</tr>
+								</ng-template>
+								<ng-template pTemplate="body" let-record="$implicit">
+									<tr>
+										<td style="width: 130px">
+											<div ngbDropdown class="btn-group" role="group" container="body">
+												<button
+													type="button"
+													class="btn btn-primary btn-primeng dropdown-toggle"
+													id="action"
+													ngbDropdownToggle
+												>
+													<i class="fa fa-cog"></i>
+													<span class="caret"></span>
+													Tindakan
+												</button>
+												<div ngbDropdownMenu aria-labelledby="action">
+													<button
+														class="dropdown-item"
+														[routerLink]="['/pengurusan-mangsa/edit-pengurusan-mangsa']"
+													>
+														Ubah
+													</button>
+													<button class="dropdown-item" (click)="delete()">Padam</button>
+												</div>
+											</div>
+										</td>
+										<td style="width: 100px">
+											<span class="p-column-title">No KP</span>
+											{{record.kp}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Nama KIR</span>
+											{{record.nameKir}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Bil Air</span>
+											{{record.waterBill}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Jumlah Bantuan(RM)</span>
+											{{record.total}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Negeri</span>
+											{{record.state}}
+										</td>
+										<td style="width: 120px">
+											<span class="p-column-title">Sumber</span>
+											{{record.source}}
+										</td>
+										<td style="width: 100px">
+											<span class="p-column-title">Varifikasi</span>
+											{{record.verification}}
+										</td>
+									</tr>
+								</ng-template>
+							</p-table>
+							<div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">No Data</div>
+							<div class="primeng-paging-container justify-content-between">
+								<p-paginator
+									[rows]="primengTableHelper.defaultRecordsCountPerPage"
+									#paginator
+									(onPageChange)="getVictim($event)"
+									[totalRecords]="primengTableHelper.totalRecordsCount"
+									[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
+								></p-paginator>
+								<span class="total-records-count">
+									Jumlah: {{ primengTableHelper.totalRecordsCount}}
+								</span>
+							</div>
+						</div>
+						<!--<Primeng-TurboTable-End>-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
