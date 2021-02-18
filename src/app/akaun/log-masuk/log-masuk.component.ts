@@ -27,7 +27,7 @@ export class LogMasukComponent implements OnInit {
 		switch (this.nokp) {
 			case '750504030201': {
 				this._cookieService.set('token', token, expireDate, '/');
-				this._cookieService.set('role', 'admininistrator', expireDate, '/');
+				this._cookieService.set('role', 'administrator', expireDate, '/');
 				location.href = '/app/muka-halaman';
 				break;
 			}
