@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, Injector, NgModule } from '@angular/core';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -20,9 +20,35 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
+import { CookieService } from 'ngx-cookie-service';
+import { AppSessionService } from './shared/services/app-session.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
 	return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
+export function appInitializerFactory(injector: Injector) {
+	return (): Promise<boolean> => {
+		return new Promise<boolean>((resolve, reject) => {
+			const appSessionService: AppSessionService = injector.get(AppSessionService);
+			const cookieService: CookieService = injector.get(CookieService);
+			if (cookieService.get('token')) {
+				appSessionService.init().then(
+					(result) => {
+						console.log(result);
+						if (result) {
+							resolve(true);
+						}
+					},
+					(err) => {
+						reject(err);
+					}
+				);
+			} else {
+				resolve(true);
+			}
+		});
+	};
 }
 
 @NgModule({
@@ -53,7 +79,16 @@ export function HttpLoaderFactory(http: HttpClient) {
 		// for Core use:
 		LoadingBarModule
 	],
-	providers: [],
+	providers: [
+		AppSessionService,
+		CookieService,
+		{
+			provide: APP_INITIALIZER,
+			useFactory: appInitializerFactory,
+			deps: [Injector],
+			multi: true
+		}
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -7,6 +7,7 @@ import { LupaKataLaluanComponent } from '../akaun/lupa-kata-laluan/lupa-kata-lal
 import { DaftarAkaunComponent } from '../akaun/daftar-akaun/daftar-akaun.component';
 import { TukarKataLaluanComponent } from '../akaun/tukar-kata-laluan/tukar-kata-laluan.component';
 import { SharedModule } from '../shared/shared.module';
+import { AccountRouteGuard } from './guard/account-route-guard';
 
 @NgModule({
 	declarations: [
@@ -16,6 +17,7 @@ import { SharedModule } from '../shared/shared.module';
 		DaftarAkaunComponent,
 		TukarKataLaluanComponent
 	],
-	imports: [CommonModule, SharedModule, AkaunRoutingModule]
+	imports: [CommonModule, SharedModule, AkaunRoutingModule],
+	providers: [AccountRouteGuard]
 })
 export class AkaunModule {}
