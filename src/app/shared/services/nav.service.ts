@@ -72,19 +72,19 @@ export class NavService implements OnDestroy {
 		const menu: Menu[] = [
 			{
 				title: 'Muka Halaman',
-				path: '/muka-halaman',
+				path: '/app/muka-halaman',
 				icon: 'home',
 				type: 'link'
 			},
 			{
 				title: 'Pengurusan Pengguna',
-				path: '/pengurusan/senarai-pengurusan-pengguna',
+				path: '/app/pengguna/senarai-pengurusan-pengguna',
 				icon: 'airplay',
 				type: 'link'
 			},
 			{
 				title: 'Pengurusan Mangsa',
-				path: '/pengurusan-mangsa/senarai-pengurusan-mangsa',
+				path: '/app/mangsa/senarai-pengurusan-mangsa',
 				icon: 'users',
 				type: 'link'
 			}
@@ -93,7 +93,7 @@ export class NavService implements OnDestroy {
 		const role = this._appSessionService.role;
 		switch (role) {
 			case 'administrator': {
-				menu.push(this.getTabungMenu(), this.getTabungMenu());
+				menu.push(this.getTabungMenu(), this.getTetapanMenu());
 				break;
 			}
 			case 'kewangan': {
@@ -115,22 +115,22 @@ export class NavService implements OnDestroy {
 			type: 'sub',
 			active: false,
 			children: [
-				{ path: '/tetapan/senarai-bencana', title: 'Bencana', type: 'link' },
-				{ path: '/tetapan/senarai-kementerian', title: 'Kementerian', type: 'link' },
-				{ path: '/tetapan/senarai-agensi', title: 'Agensi', type: 'link' },
-				{ path: '/tetapan/senarai-pelaksana', title: 'Pelaksana', type: 'link' },
-				{ path: '/tetapan/senarai-pemilik-projek', title: 'Pemilik Projek', type: 'link' },
-				{ path: '/tetapan/senarai-negeri', title: 'Negeri', type: 'link' },
-				{ path: '/tetapan/senarai-parlimen', title: 'Parlimen', type: 'link' },
-				{ path: '/tetapan/senarai-daerah', title: 'Daerah', type: 'link' },
-				{ path: '/tetapan/senarai-dun', title: 'Dun', type: 'link' },
-				{ path: '/tetapan/senarai-kerosakan-rumah', title: 'Kerosakan Rumah', type: 'link' },
-				{ path: '/tetapan/senarai-sumber-dana', title: 'Sumber Dana', type: 'link' },
-				{ path: '/tetapan/senarai-status-berpindah', title: 'Status Berpindah', type: 'link' },
-				{ path: '/tetapan/senarai-pinjaman-usahawan', title: 'Pinjaman Usahawan', type: 'link' },
-				{ path: '/tetapan/senarai-pengumuman', title: 'Senarai Pengumuman', type: 'link' },
-				{ path: '/tetapan/senarai-pemilik-projek-rumah', title: 'Pemilik Projek Rumah', type: 'link' },
-				{ path: '/tetapan/senarai-jenis-bantuan', title: 'Jenis Bantuan', type: 'link' }
+				{ path: '/app/tetapan/senarai-bencana', title: 'Bencana', type: 'link' },
+				{ path: '/app/tetapan/senarai-kementerian', title: 'Kementerian', type: 'link' },
+				{ path: '/app/tetapan/senarai-agensi', title: 'Agensi', type: 'link' },
+				{ path: '/app/tetapan/senarai-pelaksana', title: 'Pelaksana', type: 'link' },
+				{ path: '/app/tetapan/senarai-pemilik-projek', title: 'Pemilik Projek', type: 'link' },
+				{ path: '/app/tetapan/senarai-negeri', title: 'Negeri', type: 'link' },
+				{ path: '/app/tetapan/senarai-parlimen', title: 'Parlimen', type: 'link' },
+				{ path: '/app/tetapan/senarai-daerah', title: 'Daerah', type: 'link' },
+				{ path: '/app/tetapan/senarai-dun', title: 'Dun', type: 'link' },
+				{ path: '/app/tetapan/senarai-kerosakan-rumah', title: 'Kerosakan Rumah', type: 'link' },
+				{ path: '/app/tetapan/senarai-sumber-dana', title: 'Sumber Dana', type: 'link' },
+				{ path: '/app/tetapan/senarai-status-berpindah', title: 'Status Berpindah', type: 'link' },
+				{ path: '/app/tetapan/senarai-pinjaman-usahawan', title: 'Pinjaman Usahawan', type: 'link' },
+				{ path: '/app/tetapan/senarai-pengumuman', title: 'Senarai Pengumuman', type: 'link' },
+				{ path: '/app/tetapan/senarai-pemilik-projek-rumah', title: 'Pemilik Projek Rumah', type: 'link' },
+				{ path: '/app/tetapan/senarai-jenis-bantuan', title: 'Jenis Bantuan', type: 'link' }
 			]
 		};
 
@@ -144,22 +144,22 @@ export class NavService implements OnDestroy {
 			type: 'sub',
 			active: false,
 			children: [
-				{ path: '/pengurusan-tabung/muka-halaman-tabung', title: 'Muka Halaman Tabung', type: 'link' },
-				{ path: '/pengurusan-tabung/senarai-tabung', title: 'Tabung', type: 'link' },
-				{ path: '/pengurusan-tabung/senarai-kelulusan', title: 'Kelulusan', type: 'link' },
+				{ path: '/app/tabung/muka-halaman-tabung', title: 'Muka Halaman Tabung', type: 'link' },
+				{ path: '/app/tabung/senarai-tabung', title: 'Tabung', type: 'link' },
+				{ path: '/app/tabung/senarai-kelulusan', title: 'Kelulusan', type: 'link' },
 				{
 					title: 'Pembayaran',
 					type: 'sub',
 					children: [
-						{ path: '/pengurusan-tabung/senarai-skb', title: 'Surat Kuasa Belanja', type: 'link' },
+						{ path: '/app/tabung/senarai-skb', title: 'Surat Kuasa Belanja', type: 'link' },
 						{
-							path: '/pengurusan-tabung/senarai-bayaran-secara-terus',
+							path: '/app/tabung/senarai-bayaran-secara-terus',
 							title: 'Bayaran Secara Terus',
 							type: 'link'
 						}
 					]
 				},
-				{ path: '/pengurusan-tabung/senarai-wang-ihsan', title: 'Bantuan Wang Ihsan', type: 'link' }
+				{ path: '/app/tabung/senarai-wang-ihsan', title: 'Bantuan Wang Ihsan', type: 'link' }
 			]
 		};
 

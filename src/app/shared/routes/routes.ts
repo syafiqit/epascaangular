@@ -23,7 +23,7 @@ export const content: Routes = [
 				data: { preload: true }
 			},
 			{
-				path: 'pengurusan/mangsa',
+				path: 'mangsa',
 				loadChildren: () =>
 					import('../../main/pengurusan-mangsa/pengurusan-mangsa.module').then(
 						(m) => m.PengurusanMangsaModule
@@ -31,7 +31,7 @@ export const content: Routes = [
 				data: { preload: true }
 			},
 			{
-				path: 'pengurusan/pengguna',
+				path: 'pengguna',
 				loadChildren: () =>
 					import('../../main/pengurusan-pengguna/pengurusan-pengguna.module').then(
 						(m) => m.PengurusanPenggunaModule
@@ -39,7 +39,7 @@ export const content: Routes = [
 				data: { preload: true }
 			},
 			{
-				path: 'pengurusan/tabung',
+				path: 'tabung',
 				loadChildren: () =>
 					import('../../main/pengurusan-tabung/pengurusan-tabung.module').then(
 						(m) => m.PengurusanTabungModule
