@@ -1,0 +1,105 @@
+<div class="login-main">
+	<form class="theme-form">
+		<h4>Pendaftaran Baharu</h4>
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label class="col-form-label">Nama Pemohon</label>
+					<input class="form-control" type="text" required="" />
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label class="col-form-label">No Kad Pengenalan</label>
+					<input class="form-control" type="text" required="" />
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label class="col-form-label">E-mel</label>
+					<input class="form-control" type="text" required="" />
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label class="col-form-label">Telefon Bimbit</label>
+					<input class="form-control" type="text" required="" />
+				</div>
+			</div>
+		</div>
+		<hr />
+		<h6>Maklumat Agensi</h6>
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label class="col-form-label">Nama Agensi</label>
+					<input class="form-control" type="text" required="" />
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label class="col-form-label">Jawatan</label>
+					<input class="form-control" type="text" required="" />
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label class="col-form-label">No Telefon Pejabat</label>
+					<input class="form-control" type="text" required="" />
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label class="col-form-label">Fax</label>
+					<input class="form-control" type="text" required="" />
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label class="col-form-label">Alamat 1</label>
+					<input class="form-control" type="text" required="" />
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label class="col-form-label">Alamat 2</label>
+					<input class="form-control" type="text" required="" />
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label class="col-form-label">Negeri</label>
+					<div>
+						<select class="form-control" name="state">
+							<option *ngFor="let state of state" value="{{state['state']}}">{{state['state']}}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label class="col-form-label">Poskod</label>
+					<input class="form-control" type="text" required="" />
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 justify-content-between mt-4">
+				<button class="btn btn-light pull-left" type="button" [routerLink]="['/akaun/log-masuk']">
+					Kembali
+				</button>
+				<button class="btn btn-primary pull-right" type="button" [routerLink]="['/akaun/log-masuk']">
+					Hantar
+				</button>
+			</div>
+		</div>
+	</form>
+</div>
