@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -9,10 +8,10 @@ import { CookieService } from 'ngx-cookie-service';
 export class LogMasukComponent implements OnInit {
 	public show = false;
 
-	email = '';
+	nokp = '';
 	password = '';
 
-	constructor(private _cookieService: CookieService, private _router: Router) {}
+	constructor(private _cookieService: CookieService) {}
 
 	ngOnInit(): void {}
 
@@ -25,33 +24,33 @@ export class LogMasukComponent implements OnInit {
 		const expireInSeconds = 604800;
 		const expireDate = new Date(new Date().getTime() + 1000 * expireInSeconds);
 
-		switch (this.email) {
-			case 'admininistrator@test.com': {
+		switch (this.nokp) {
+			case '750504030201': {
 				this._cookieService.set('token', token, expireDate, '/');
 				this._cookieService.set('role', 'admininistrator', expireDate, '/');
-				this._router.navigateByUrl('/dashboard');
+				location.href = '/app/muka-halaman';
 				break;
 			}
-			case 'penyelia@test.com': {
+			case '750504030202': {
 				this._cookieService.set('token', token, expireDate, '/');
 				this._cookieService.set('role', 'penyelia', expireDate, '/');
-				this._router.navigateByUrl('/dashboard');
+				location.href = '/app/muka-halaman';
 				break;
 			}
-			case 'kewangan@test.com': {
+			case '750504030203': {
 				this._cookieService.set('token', token, expireDate, '/');
 				this._cookieService.set('role', 'kewangan', expireDate, '/');
-				this._router.navigateByUrl('/dashboard');
+				location.href = '/app/muka-halaman';
 				break;
 			}
-			case 'pengguna@test.com': {
+			case '750504030204': {
 				this._cookieService.set('token', token, expireDate, '/');
 				this._cookieService.set('role', 'pengguna', expireDate, '/');
-				this._router.navigateByUrl('/dashboard');
+				location.href = '/app/muka-halaman';
 				break;
 			}
 			default: {
-				this._router.navigateByUrl('/akaun/log-masuk');
+				location.href = '/akaun/log-masuk';
 				break;
 			}
 		}

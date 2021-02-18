@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AkaunComponent } from './akaun.component';
 import { DaftarAkaunComponent } from './daftar-akaun/daftar-akaun.component';
-import { AccountRouteGuard } from './guard/account-route-guard';
+import { AccountRouteGuard } from '../shared/guards/account-route-guard';
 import { LogMasukComponent } from './log-masuk/log-masuk.component';
 import { LupaKataLaluanComponent } from './lupa-kata-laluan/lupa-kata-laluan.component';
 import { TukarKataLaluanComponent } from './tukar-kata-laluan/tukar-kata-laluan.component';

@@ -22,6 +22,7 @@ import { TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
 import { CookieService } from 'ngx-cookie-service';
 import { AppSessionService } from './shared/services/app-session.service';
+import { AppRouteGuard } from './shared/guards/app-route-guard';
 
 export function HttpLoaderFactory(http: HttpClient) {
 	return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -82,6 +83,7 @@ export function appInitializerFactory(injector: Injector) {
 	providers: [
 		AppSessionService,
 		CookieService,
+		AppRouteGuard,
 		{
 			provide: APP_INITIALIZER,
 			useFactory: appInitializerFactory,

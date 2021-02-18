@@ -2,13 +2,13 @@
 	<form class="theme-form">
 		<h4>Log Masuk</h4>
 		<div class="form-group">
-			<label class="col-form-label">Email Pengguna</label>
+			<label class="col-form-label">K/P Pengguna</label>
 			<input
 				class="form-control"
-				autocomplete="email"
-				[(ngModel)]="email"
-				name="email"
-				type="email"
+				autocomplete="username"
+				[(ngModel)]="nokp"
+				name="nokp"
+				type="text"
 				required=""
 			/>
 		</div>
@@ -36,7 +36,7 @@
 				<label class="text-muted" for="checkbox1">Ingatkan Kata Laluan?</label>
 			</div>
 			<a class="link" [routerLink]="'/akaun/lupa-katalaluan'">Lupa Kata Laluan?</a>
-			<button class="btn btn-primary btn-block" type="submit">Log Masuk</button>
+			<button class="btn btn-primary btn-block" type="submit" (click)="login()">Log Masuk</button>
 		</div>
 
 		<p class="mt-4 mb-0">
