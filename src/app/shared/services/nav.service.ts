@@ -2,6 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Subject, BehaviorSubject, fromEvent } from 'rxjs';
 import { takeUntil, debounceTime } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { AppSessionService } from './app-session.service';
 
 // Menu
 export interface Menu {
@@ -42,7 +43,7 @@ export class NavService implements OnDestroy {
 	// Full screen
 	public fullScreen = false;
 
-	constructor(private router: Router) {
+	constructor(private router: Router, private _appSessionService: AppSessionService) {
 		this.setScreenWidth(window.innerWidth);
 		fromEvent(window, 'resize')
 			.pipe(debounceTime(1000), takeUntil(this.unsubscriber))
@@ -67,59 +68,48 @@ export class NavService implements OnDestroy {
 		}
 	}
 
-	ngOnDestroy() {
-		this.unsubscriber.next();
-		this.unsubscriber.complete();
+	getMenu(): Menu[] {
+		const menu: Menu[] = [
+			{
+				title: 'Muka Halaman',
+				path: '/muka-halaman',
+				icon: 'home',
+				type: 'link'
+			},
+			{
+				title: 'Pengurusan Pengguna',
+				path: '/pengurusan/senarai-pengurusan-pengguna',
+				icon: 'airplay',
+				type: 'link'
+			},
+			{
+				title: 'Pengurusan Mangsa',
+				path: '/pengurusan-mangsa/senarai-pengurusan-mangsa',
+				icon: 'users',
+				type: 'link'
+			}
+		];
+
+		const role = this._appSessionService.role;
+		switch (role) {
+			case 'administrator': {
+				menu.push(this.getTabungMenu(), this.getTabungMenu());
+				break;
+			}
+			case 'kewangan': {
+				menu.push(this.getTabungMenu());
+				break;
+			}
+			default: {
+				break;
+			}
+		}
+
+		return menu;
 	}
 
-	private setScreenWidth(width: number): void {
-		this.screenWidth.next(width);
-	}
-
-	MENUITEMS: Menu[] = [
-		{
-			title: 'Muka Halaman',
-			path: '/muka-halaman',
-			icon: 'home',
-			type: 'link'
-		},
-		{
-			title: 'Pengurusan Pengguna',
-			path: '/pengurusan/senarai-pengurusan-pengguna',
-			icon: 'airplay',
-			type: 'link'
-		},
-		{
-			title: 'Pengurusan Mangsa',
-			path: '/pengurusan-mangsa/senarai-pengurusan-mangsa',
-			icon: 'users',
-			type: 'link'
-		},
-		{
-			title: 'Pengurusan Tabung',
-			icon: 'folder-plus',
-			type: 'sub',
-			active: false,
-			children: [
-				{ path: '/pengurusan-tabung/muka-halaman-tabung', title: 'Muka Halaman Tabung', type: 'link' },
-				{ path: '/pengurusan-tabung/senarai-tabung', title: 'Tabung', type: 'link' },
-				{ path: '/pengurusan-tabung/senarai-kelulusan', title: 'Kelulusan', type: 'link' },
-				{
-					title: 'Pembayaran',
-					type: 'sub',
-					children: [
-						{ path: '/pengurusan-tabung/senarai-skb', title: 'Surat Kuasa Belanja', type: 'link' },
-						{
-							path: '/pengurusan-tabung/senarai-bayaran-secara-terus',
-							title: 'Bayaran Secara Terus',
-							type: 'link'
-						}
-					]
-				},
-				{ path: '/pengurusan-tabung/senarai-wang-ihsan', title: 'Bantuan Wang Ihsan', type: 'link' }
-			]
-		},
-		{
+	getTetapanMenu(): Menu {
+		const menu: Menu = {
 			title: 'Tetapan',
 			icon: 'settings',
 			type: 'sub',
@@ -142,8 +132,50 @@ export class NavService implements OnDestroy {
 				{ path: '/tetapan/senarai-pemilik-projek-rumah', title: 'Pemilik Projek Rumah', type: 'link' },
 				{ path: '/tetapan/senarai-jenis-bantuan', title: 'Jenis Bantuan', type: 'link' }
 			]
-		}
-	];
+		};
+
+		return menu;
+	}
+
+	getTabungMenu(): Menu {
+		const menu: Menu = {
+			title: 'Pengurusan Tabung',
+			icon: 'folder-plus',
+			type: 'sub',
+			active: false,
+			children: [
+				{ path: '/pengurusan-tabung/muka-halaman-tabung', title: 'Muka Halaman Tabung', type: 'link' },
+				{ path: '/pengurusan-tabung/senarai-tabung', title: 'Tabung', type: 'link' },
+				{ path: '/pengurusan-tabung/senarai-kelulusan', title: 'Kelulusan', type: 'link' },
+				{
+					title: 'Pembayaran',
+					type: 'sub',
+					children: [
+						{ path: '/pengurusan-tabung/senarai-skb', title: 'Surat Kuasa Belanja', type: 'link' },
+						{
+							path: '/pengurusan-tabung/senarai-bayaran-secara-terus',
+							title: 'Bayaran Secara Terus',
+							type: 'link'
+						}
+					]
+				},
+				{ path: '/pengurusan-tabung/senarai-wang-ihsan', title: 'Bantuan Wang Ihsan', type: 'link' }
+			]
+		};
+
+		return menu;
+	}
+
+	ngOnDestroy() {
+		this.unsubscriber.next();
+		this.unsubscriber.complete();
+	}
+
+	private setScreenWidth(width: number): void {
+		this.screenWidth.next(width);
+	}
+
+	MENUITEMS: Menu[] = [];
 
 	MEGAMENUITEMS: Menu[] = [
 		{
@@ -257,7 +289,7 @@ export class NavService implements OnDestroy {
 	];
 
 	// Array
-	items = new BehaviorSubject<Menu[]>(this.MENUITEMS);
+	items = new BehaviorSubject<Menu[]>(this.getMenu());
 	megaItems = new BehaviorSubject<Menu[]>(this.MEGAMENUITEMS);
 	levelmenuitems = new BehaviorSubject<Menu[]>(this.LEVELMENUITEMS);
 }

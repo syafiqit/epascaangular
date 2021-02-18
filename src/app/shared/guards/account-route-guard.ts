@@ -21,14 +21,7 @@ export class AccountRouteGuard implements CanActivate {
 	}
 
 	selectBestRoute(): string {
-		if (this._sessionService.role === 'nadma') {
-			return '/dashboard';
-		}
-
-		if (this._sessionService.role === 'ngo') {
-			return '/dashboard';
-		}
-
-		return '/dashboard';
+		//add extra conditions here
+		return '/app/muka-halaman';
 	}
 }

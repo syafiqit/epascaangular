@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { AppAuthService } from 'src/app/shared/services/app-auth-service';
 import { TukarKataLaluanComponent } from '../../../../../main/maklumat-akaun/tukar-kata-laluan/tukar-kata-laluan.component';
 
 @Component({
@@ -12,7 +13,7 @@ import { TukarKataLaluanComponent } from '../../../../../main/maklumat-akaun/tuk
 export class MyAccountComponent implements OnInit {
 	public openMessageBox = false;
 
-	constructor(config: NgbModalConfig, private modalService: NgbModal) {
+	constructor(config: NgbModalConfig, private modalService: NgbModal, private _appAuthService: AppAuthService) {
 		// customize default values of modals used by this component tree
 		config.backdrop = 'static';
 		config.keyboard = false;
@@ -25,5 +26,9 @@ export class MyAccountComponent implements OnInit {
 
 	toggleMessageBox() {
 		this.openMessageBox = !this.openMessageBox;
+	}
+
+	logout() {
+		this._appAuthService.logout();
 	}
 }
