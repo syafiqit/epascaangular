@@ -52,11 +52,11 @@ export class AgensiComponent implements AfterViewInit {
 
 	addAgencyModal() {
 		const modalRef = this.modalService.open(TambahEditAgensiComponent, { size: 'lg' });
-    modalRef.componentInstance.name = 'add';
+		modalRef.componentInstance.name = 'add';
 	}
 
 	editAgencyModal() {
 		const modalRef = this.modalService.open(TambahEditAgensiComponent, { size: 'lg' });
-    modalRef.componentInstance.name = 'edit';
+		modalRef.componentInstance.name = 'edit';
 	}
 }
