@@ -52,11 +52,11 @@ export class PelaksanaComponent implements AfterViewInit {
 
 	addExecutorModal() {
 		const modalRef = this.modalService.open(TambahEditPelaksanaComponent, { size: 'lg' });
-    modalRef.componentInstance.name = 'add';
+		modalRef.componentInstance.name = 'add';
 	}
 
 	editExecutorModal() {
 		const modalRef = this.modalService.open(TambahEditPelaksanaComponent, { size: 'lg' });
-    modalRef.componentInstance.name = 'edit';
+		modalRef.componentInstance.name = 'edit';
 	}
 }

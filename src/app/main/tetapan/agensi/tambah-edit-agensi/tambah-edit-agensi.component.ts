@@ -9,8 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 	providers: [NgbModalConfig, NgbModal]
 })
 export class TambahEditAgensiComponent implements OnInit {
-
-  @Input() name;
+	@Input() name;
 	constructor(private modalService: NgbModal, public activeModal: NgbActiveModal, private toaster: ToastrService) {}
 
 	ngOnInit(): void {}
