@@ -26,7 +26,6 @@ export class PengurusanPenggunaComponent implements OnInit {
 			agency: 'Jabatan Kebajikan Masyarakat',
 			userRole: 'Pengguna Biasa',
 			lastLog: '',
-			totalLog: '0'
 		},
 		{
 			userID: '800103xxxxx5',
@@ -34,7 +33,6 @@ export class PengurusanPenggunaComponent implements OnInit {
 			agency: 'Jabatan Kebajikan Masyarakat',
 			userRole: 'Pengguna Biasa',
 			lastLog: '',
-			totalLog: '0'
 		},
 		{
 			userID: '850414xxxxx7',
@@ -42,7 +40,6 @@ export class PengurusanPenggunaComponent implements OnInit {
 			agency: 'Jabatan Kebajikan Masyarakat',
 			userRole: 'Pengguna Biasa',
 			lastLog: '',
-			totalLog: '0'
 		},
 		{
 			userID: '850122xxxxx3',
@@ -50,7 +47,6 @@ export class PengurusanPenggunaComponent implements OnInit {
 			agency: 'Jabatan Pertahanan Awam Malaysia',
 			userRole: 'Pengguna Biasa',
 			lastLog: '23-02-2016  12:08:12 PM',
-			totalLog: '10'
 		},
 		{
 			userID: '770120xxxxx7',
@@ -58,7 +54,6 @@ export class PengurusanPenggunaComponent implements OnInit {
 			agency: 'Agensi Pengurusan Bencana Malaysia',
 			userRole: 'Penyelia',
 			lastLog: '23-01-2021  10:11:39 PM',
-			totalLog: '235'
 		},
 		{
 			userID: '790930xxxxx7',
@@ -66,7 +61,6 @@ export class PengurusanPenggunaComponent implements OnInit {
 			agency: 'Agensi Pengurusan Bencana Malaysia',
 			userRole: 'Admin',
 			lastLog: '16-04-2018  09:16:34 AM',
-			totalLog: '207'
 		}
 	];
 

@@ -131,10 +131,6 @@
 										Login Terakhir
 										<p-sortIcon field="login_terakhir"></p-sortIcon>
 									</th>
-									<th style="width: 100px" pSortableColumn="jumlah_login">
-										Jumlah Login
-										<p-sortIcon field="jumlah_login"></p-sortIcon>
-									</th>
 								</tr>
 							</ng-template>
 							<ng-template pTemplate="body" let-record="$implicit">
@@ -181,10 +177,6 @@
 									<td style="width: 130px">
 										<span class="p-column-title">Login Terakhir</span>
 										{{record.lastLog}}
-									</td>
-									<td style="width: 100px">
-										<span class="p-column-title">Jumlah Login</span>
-										{{record.totalLog}}
 									</td>
 								</tr>
 							</ng-template>
