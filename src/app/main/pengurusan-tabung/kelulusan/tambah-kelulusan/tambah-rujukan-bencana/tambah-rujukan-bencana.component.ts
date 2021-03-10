@@ -19,9 +19,9 @@ export class TambahRujukanBencanaComponent implements AfterViewInit {
 	primengTableHelper: PrimengTableHelper;
 
 	rows = [
-		{ refNo: 'BEN1XXXX', year: '2020', date: '20/1/2020', disaster: 'Banjir' },
-		{ refNo: 'BEN2XXXX', year: '2020', date: '1/4/2020', disaster: 'Covid-19' },
-		{ refNo: 'BEN2XXXX', year: '2019', date: '24/3/2019', disaster: 'Ribut' }
+		{ refNo: 'BEN1XXXX', year: '2020', date: '20/1/2020', disaster: 'Banjir', name: 'Banjir Malaysia', notes: 'Kejadian Banjir Seluruh Negara' },
+		{ refNo: 'BEN2XXXX', year: '2020', date: '1/4/2020', disaster: 'Covid-19', name: 'Covid-19 Malaysia',notes: 'Kejadian Covid-19 Seluruh Negara' },
+		{ refNo: 'BEN2XXXX', year: '2019', date: '24/3/2019', disaster: 'Ribut', name: 'Ribut Taufan Kelantan', notes: 'Taufan Kelantan-Kota Bahru' }
 	];
 
 	ColumnMode = ColumnMode;
