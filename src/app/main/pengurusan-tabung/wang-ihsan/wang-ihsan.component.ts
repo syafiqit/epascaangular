@@ -4,7 +4,6 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
-
 @Component({
 	selector: 'app-wang-ihsan',
 	templateUrl: './wang-ihsan.component.html',

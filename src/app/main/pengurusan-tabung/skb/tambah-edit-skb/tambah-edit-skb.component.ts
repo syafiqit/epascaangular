@@ -3,11 +3,13 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
-
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { TambahNoRujukanComponent } from '../../wang-ihsan/tambah-no-rujukan/tambah-no-rujukan.component';
 @Component({
 	selector: 'app-tambah-edit-skb',
 	templateUrl: './tambah-edit-skb.component.html',
-	encapsulation: ViewEncapsulation.None
+	encapsulation: ViewEncapsulation.None,
+  providers: [NgbModalConfig, NgbModal]
 })
 export class TambahEditSkbComponent implements OnInit {
 	@ViewChild('dataTable', { static: true }) dataTable: Table;
@@ -36,8 +38,10 @@ export class TambahEditSkbComponent implements OnInit {
 	showWeekNumbers = false;
 	outsideDays = 'visible';
 
-	constructor() {
+	constructor(config: NgbModalConfig, private modalService: NgbModal) {
 		this.primengTableHelper = new PrimengTableHelper();
+    config.backdrop = 'static';
+		config.keyboard = false;
 	}
 
 	ngOnInit(): void {}
@@ -56,5 +60,10 @@ export class TambahEditSkbComponent implements OnInit {
 
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
+	}
+
+  addNoReference() {
+		const modalRef = this.modalService.open(TambahNoRujukanComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'add';
 	}
 }
