@@ -11,6 +11,7 @@ import { TambahEditBayaranSecaraTerusComponent } from './bayaran-secara-terus/ta
 import { KelulusanComponent } from './kelulusan/kelulusan.component';
 import { TambahKelulusanComponent } from './kelulusan/tambah-kelulusan/tambah-kelulusan.component';
 import { EditKelulusanComponent } from './kelulusan/edit-kelulusan/edit-kelulusan.component';
+import { EditTabungComponent } from './tabung/edit-tabung/edit-tabung.component';
 
 const routes: Routes = [
 	{
@@ -59,6 +60,10 @@ const routes: Routes = [
 			{
 				path: 'edit-kelulusan',
 				component: EditKelulusanComponent
+			},
+      {
+				path: 'edit-tabung',
+				component: EditTabungComponent
 			}
 		]
 	}

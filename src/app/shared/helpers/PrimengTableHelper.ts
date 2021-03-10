@@ -15,6 +15,8 @@ export class PrimengTableHelper {
 
 	records: any[];
 
+  records2: any[];
+
 	isLoading = false;
 
 	showLoadingIndicator(): void {
