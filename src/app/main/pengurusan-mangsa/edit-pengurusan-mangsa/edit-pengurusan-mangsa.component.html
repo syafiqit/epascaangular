@@ -8,25 +8,34 @@
 		<div class="col-sm-12">
 			<div class="card">
 				<div class="card-body">
-					<app-maklumat-mangsa></app-maklumat-mangsa>
-					<hr />
-					<app-ahli-rumah-mangsa></app-ahli-rumah-mangsa>
-					<hr />
-					<app-mangsa-bencana></app-mangsa-bencana>
-					<hr />
-					<app-bantuan-mangsa></app-bantuan-mangsa>
-				</div>
-				<div class="card-footer">
-					<div class="row justify-content-end">
-						<div class="col-lg-12">
-							<button
-								class="btn btn-light pull-right"
-								[routerLink]="['/app/mangsa/senarai-pengurusan-mangsa']"
-							>
-								Kembali
-							</button>
-						</div>
-					</div>
+          <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+            <li [ngbNavItem]="1">
+              <a ngbNavLink>Maklumat Mangsa</a>
+              <ng-template ngbNavContent>
+                <app-maklumat-mangsa></app-maklumat-mangsa>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="2">
+              <a ngbNavLink>Isi Rumah</a>
+              <ng-template ngbNavContent>
+                <app-ahli-rumah-mangsa></app-ahli-rumah-mangsa>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="3">
+              <a ngbNavLink>Mangsa Bencana</a>
+              <ng-template ngbNavContent>
+                <app-mangsa-bencana></app-mangsa-bencana>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="4">
+              <a ngbNavLink>Bantuan Mangsa</a>
+              <ng-template ngbNavContent>
+                <app-bantuan-mangsa></app-bantuan-mangsa>
+              </ng-template>
+            </li>
+          </ul>
+          <div [ngbNavOutlet]="nav" class="mt-2"></div>
+
 				</div>
 			</div>
 		</div>

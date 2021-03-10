@@ -1,615 +1,541 @@
 <form class="form theme-form">
-	<div class="col">
-		<div class="row">
-			<div class="col-xl-6 col-xs-12">
-				<div class="form-group">
-					<label>Nama: Asmah Binti Haji Ameran</label>
-				</div>
-			</div>
-			<div class="col-xl-6 col-xs-12">
-				<div class="form-group">
-					<label>No KP: xxxxxx-xx-xxxx</label>
-				</div>
-			</div>
-		</div>
-		<div class="row justify-content-end">
-			<div class="col-lg-12">
-				<div ngbDropdown class="btn-group pull-right mb-1" role="group">
-					<button type="button" class="btn btn-primary dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle>
-						<i class="fa fa-plus mr-2"></i>
-						Tambah
-					</button>
-					<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-						<button class="dropdown-item" (click)="ihsanDonationModal()">Bantuan Wang Ihsan</button>
-						<button class="dropdown-item" (click)="houseAidModal()">Bantuan Rumah</button>
-						<button class="dropdown-item" (click)="specialLoanModal()">Pinjaman Khas</button>
-						<button class="dropdown-item" (click)="agricultureAidModal()">Bantuan Pertanian</button>
-						<button class="dropdown-item" (click)="internationalAidModal()">Bantuan Antarabangsa</button>
-						<button class="dropdown-item" (click)="otherAidModal()">Bantuan Lain</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row mt-3">
-			<div class="row align-items-center">
-				<!--<Primeng-TurboTable-Start>-->
-				<div class="primeng-datatable-container" [busyIf]="ihsanPrimengTableHelper.isLoading">
-					<p-table
-						#ihsanDataTable
-						styleClass="p-datatable-striped"
-						sortMode="multiple"
-						[resizableColumns]="true"
-						(onLazyLoad)="getIhsan($event)"
-						[value]="ihsanPrimengTableHelper.records"
-						rows="{{ihsanPrimengTableHelper.defaultRecordsCountPerPage}}"
-						[paginator]="false"
-						[lazy]="true"
-						[scrollable]="true"
-						ScrollWidth="100%"
-						[responsive]="ihsanPrimengTableHelper.isResponsive"
-					>
-						<ng-template pTemplate="header">
-							<tr>
-								<th style="width: 130px">Tindakan</th>
-								<th style="width: 100px" pSortableColumn="disaster">
-									Nama Bencana
-									<p-sortIcon field="year"></p-sortIcon>
-								</th>
-								<th style="width: 130px" pSortableColumn="agency">
-									Agensi Pemberi Bantuan
-									<p-sortIcon field="type"></p-sortIcon>
-								</th>
-								<th style="width: 130px" pSortableColumn="date">
-									Tarikh Bencana
-									<p-sortIcon field="status"></p-sortIcon>
-								</th>
-								<th style="width: 130px" pSortableColumn="total">
-									Jumlah
-									<p-sortIcon field="centre"></p-sortIcon>
-								</th>
-							</tr>
-						</ng-template>
-						<ng-template pTemplate="body" let-record="$implicit">
-							<tr>
-								<td style="width: 130px">
-									<div ngbDropdown class="btn-group" role="group" container="body">
-										<button
-											type="button"
-											class="btn btn-primary btn-primeng dropdown-toggle"
-											id="action"
-											ngbDropdownToggle
-										>
-											<i class="fa fa-cog"></i>
-											<span class="caret"></span>
-											Tindakan
-										</button>
-										<div ngbDropdownMenu aria-labelledby="action">
-											<button class="dropdown-item" (click)="ihsanDonationModal()">Ubah</button>
-											<button class="dropdown-item" (click)="delete()">Padam</button>
-										</div>
-									</div>
-								</td>
-								<td style="width: 100px">
-									<span class="p-column-title">disaster</span>
-									{{record.disaster}}
-								</td>
-								<td style="width: 130px">
-									<span class="p-column-title">agency</span>
-									{{record.agency}}
-								</td>
-								<td style="width: 130px">
-									<span class="p-column-title">date</span>
-									{{record.date}}
-								</td>
-								<td style="width: 130px">
-									<span class="p-column-title">total</span>
-									{{record.total}}
-								</td>
-							</tr>
-						</ng-template>
-					</p-table>
-					<div class="primeng-no-data" *ngIf="ihsanPrimengTableHelper.totalRecordsCount == 0">No Data</div>
-					<div class="primeng-paging-container justify-content-between">
-						<p-paginator
-							[rows]="ihsanPrimengTableHelper.defaultRecordsCountPerPage"
-							#ihsanPaginator
-							(onPageChange)="getIhsan($event)"
-							[totalRecords]="ihsanPrimengTableHelper.totalRecordsCount"
-							[rowsPerPageOptions]="ihsanPrimengTableHelper.predefinedRecordsCountPerPage"
-						></p-paginator>
-						<span class="total-records-count">Jumlah: {{ ihsanPrimengTableHelper.totalRecordsCount}}</span>
-					</div>
-				</div>
-				<!--<Primeng-TurboTable-End>-->
-			</div>
-			<hr />
-			<div class="row align-items-center">
-				<!--<Primeng-TurboTable-Start>-->
-				<div class="primeng-datatable-container" [busyIf]="housePrimengTableHelper.isLoading">
-					<p-table
-						#houseDataTable
-						styleClass="p-datatable-striped"
-						sortMode="multiple"
-						[resizableColumns]="true"
-						(onLazyLoad)="getHouse($event)"
-						[value]="housePrimengTableHelper.records"
-						rows="{{housePrimengTableHelper.defaultRecordsCountPerPage}}"
-						[paginator]="false"
-						[lazy]="true"
-						[scrollable]="true"
-						ScrollWidth="100%"
-						[responsive]="housePrimengTableHelper.isResponsive"
-					>
-						<ng-template pTemplate="header">
-							<tr>
-								<th style="width: 130px">Tindakan</th>
-								<th style="width: 100px" pSortableColumn="disaster">
-									Nama Bencana
-									<p-sortIcon field="year"></p-sortIcon>
-								</th>
-								<th style="width: 130px" pSortableColumn="agency">
-									Jenis Bantuan
-									<p-sortIcon field="type"></p-sortIcon>
-								</th>
-								<th style="width: 130px" pSortableColumn="date">
-									Tarikh Bencana
-									<p-sortIcon field="status"></p-sortIcon>
-								</th>
-								<th style="width: 130px" pSortableColumn="total">
-									Jumlah Anggaran
-									<p-sortIcon field="centre"></p-sortIcon>
-								</th>
-								<th style="width: 130px" pSortableColumn="total">
-									Jumlah Sebenar
-									<p-sortIcon field="centre"></p-sortIcon>
-								</th>
-							</tr>
-						</ng-template>
-						<ng-template pTemplate="body" let-record="$implicit">
-							<tr>
-								<td style="width: 130px">
-									<div ngbDropdown class="btn-group" role="group" container="body">
-										<button
-											type="button"
-											class="btn btn-primary btn-primeng dropdown-toggle"
-											id="action"
-											ngbDropdownToggle
-										>
-											<i class="fa fa-cog"></i>
-											<span class="caret"></span>
-											Tindakan
-										</button>
-										<div ngbDropdownMenu aria-labelledby="action">
-											<button class="dropdown-item" (click)="houseAidModal()">Ubah</button>
-											<button class="dropdown-item" (click)="delete()">Padam</button>
-										</div>
-									</div>
-								</td>
-								<td style="width: 100px">
-									<span class="p-column-title">disaster</span>
-									{{record.disaster}}
-								</td>
-								<td style="width: 130px">
-									<span class="p-column-title">agency</span>
-									{{record.help}}
-								</td>
-								<td style="width: 130px">
-									<span class="p-column-title">date</span>
-									{{record.date}}
-								</td>
-								<td style="width: 130px">
-									<span class="p-column-title">totalPredict</span>
-									{{record.totalPredict}}
-								</td>
-								<td style="width: 130px">
-									<span class="p-column-title">totalReal</span>
-									{{record.totalReal}}
-								</td>
-							</tr>
-						</ng-template>
-					</p-table>
-					<div class="primeng-no-data" *ngIf="housePrimengTableHelper.totalRecordsCount == 0">No Data</div>
-					<div class="primeng-paging-container justify-content-between">
-						<p-paginator
-							[rows]="housePrimengTableHelper.defaultRecordsCountPerPage"
-							#housePaginator
-							(onPageChange)="getHouse($event)"
-							[totalRecords]="housePrimengTableHelper.totalRecordsCount"
-							[rowsPerPageOptions]="housePrimengTableHelper.predefinedRecordsCountPerPage"
-						></p-paginator>
-						<span class="total-records-count">Jumlah: {{ housePrimengTableHelper.totalRecordsCount}}</span>
-					</div>
-				</div>
-				<!--<Primeng-TurboTable-End>-->
-			</div>
-			<hr />
-			<div class="row align-items-center">
-				<!--<Primeng-TurboTable-Start>-->
-				<div class="primeng-datatable-container" [busyIf]="specialPrimengTableHelper.isLoading">
-					<p-table
-						#specialDataTable
-						styleClass="p-datatable-striped"
-						sortMode="multiple"
-						[resizableColumns]="true"
-						(onLazyLoad)="getSpecial($event)"
-						[value]="specialPrimengTableHelper.records"
-						rows="{{specialPrimengTableHelper.defaultRecordsCountPerPage}}"
-						[paginator]="false"
-						[lazy]="true"
-						[scrollable]="true"
-						ScrollWidth="100%"
-						[responsive]="specialPrimengTableHelper.isResponsive"
-					>
-						<ng-template pTemplate="header">
-							<tr>
-								<th style="width: 130px">Tindakan</th>
-								<th style="width: 100px" pSortableColumn="disaster">
-									Nama Bencana
-									<p-sortIcon field="year"></p-sortIcon>
-								</th>
-								<th style="width: 130px" pSortableColumn="agency">
-									Agensi Pemberi Bantuan
-									<p-sortIcon field="type"></p-sortIcon>
-								</th>
-								<th style="width: 130px" pSortableColumn="date">
-									Tarikh Bencana
-									<p-sortIcon field="status"></p-sortIcon>
-								</th>
-								<th style="width: 130px" pSortableColumn="total">
-									Jumlah
-									<p-sortIcon field="centre"></p-sortIcon>
-								</th>
-							</tr>
-						</ng-template>
-						<ng-template pTemplate="body" let-record="$implicit">
-							<tr>
-								<td style="width: 130px">
-									<div ngbDropdown class="btn-group" role="group" container="body">
-										<button
-											type="button"
-											class="btn btn-primary btn-primeng dropdown-toggle"
-											id="action"
-											ngbDropdownToggle
-										>
-											<i class="fa fa-cog"></i>
-											<span class="caret"></span>
-											Tindakan
-										</button>
-										<div ngbDropdownMenu aria-labelledby="action">
-											<button class="dropdown-item" (click)="specialLoanModal()">Ubah</button>
-											<button class="dropdown-item" (click)="delete()">Padam</button>
-										</div>
-									</div>
-								</td>
-								<td style="width: 100px">
-									<span class="p-column-title">disaster</span>
-									{{record.disaster}}
-								</td>
-								<td style="width: 130px">
-									<span class="p-column-title">agency</span>
-									{{record.agency}}
-								</td>
-								<td style="width: 130px">
-									<span class="p-column-title">date</span>
-									{{record.date}}
-								</td>
-								<td style="width: 130px">
-									<span class="p-column-title">total</span>
-									{{record.total}}
-								</td>
-							</tr>
-						</ng-template>
-					</p-table>
-					<div class="primeng-no-data" *ngIf="specialPrimengTableHelper.totalRecordsCount == 0">No Data</div>
-					<div class="primeng-paging-container justify-content-between">
-						<p-paginator
-							[rows]="specialPrimengTableHelper.defaultRecordsCountPerPage"
-							#specialPaginator
-							(onPageChange)="getSpecial($event)"
-							[totalRecords]="specialPrimengTableHelper.totalRecordsCount"
-							[rowsPerPageOptions]="specialPrimengTableHelper.predefinedRecordsCountPerPage"
-						></p-paginator>
-						<span class="total-records-count">
-							Jumlah: {{ specialPrimengTableHelper.totalRecordsCount}}
-						</span>
-					</div>
-				</div>
-				<!--<Primeng-TurboTable-End>-->
-			</div>
-			<hr />
-			<div class="row align-items-center">
-				<!--<Primeng-TurboTable-Start>-->
-				<div class="primeng-datatable-container" [busyIf]="agriculturePrimengTableHelper.isLoading">
-					<p-table
-						#specialDataTable
-						styleClass="p-datatable-striped"
-						sortMode="multiple"
-						[resizableColumns]="true"
-						(onLazyLoad)="getAgriculture($event)"
-						[value]="agriculturePrimengTableHelper.records"
-						rows="{{agriculturePrimengTableHelper.defaultRecordsCountPerPage}}"
-						[paginator]="false"
-						[lazy]="true"
-						[scrollable]="true"
-						ScrollWidth="100%"
-						[responsive]="agriculturePrimengTableHelper.isResponsive"
-					>
-						<ng-template pTemplate="header">
-							<tr>
-								<th style="width: 130px">Tindakan</th>
-								<th style="width: 100px" pSortableColumn="disaster">
-									Nama Bencana
-									<p-sortIcon field="year"></p-sortIcon>
-								</th>
-								<th style="width: 130px" pSortableColumn="agency">
-									Agensi Pemberi Bantuan
-									<p-sortIcon field="type"></p-sortIcon>
-								</th>
-								<th style="width: 130px" pSortableColumn="type">
-									Jenis Pertanian
-									<p-sortIcon field="type"></p-sortIcon>
-								</th>
-								<th style="width: 130px" pSortableColumn="date">
-									Tarikh Bencana
-									<p-sortIcon field="status"></p-sortIcon>
-								</th>
-								<th style="width: 130px" pSortableColumn="total">
-									Jumlah
-									<p-sortIcon field="centre"></p-sortIcon>
-								</th>
-							</tr>
-						</ng-template>
-						<ng-template pTemplate="body" let-record="$implicit">
-							<tr>
-								<td style="width: 130px">
-									<div ngbDropdown class="btn-group" role="group" container="body">
-										<button
-											type="button"
-											class="btn btn-primary btn-primeng dropdown-toggle"
-											id="action"
-											ngbDropdownToggle
-										>
-											<i class="fa fa-cog"></i>
-											<span class="caret"></span>
-											Tindakan
-										</button>
-										<div ngbDropdownMenu aria-labelledby="action">
-											<button class="dropdown-item" (click)="agricultureAidModal()">Ubah</button>
-											<button class="dropdown-item" (click)="delete()">Padam</button>
-										</div>
-									</div>
-								</td>
-								<td style="width: 100px">
-									<span class="p-column-title">disaster</span>
-									{{record.disaster}}
-								</td>
-								<td style="width: 130px">
-									<span class="p-column-title">agency</span>
-									{{record.agency}}
-								</td>
-								<td style="width: 130px">
-									<span class="p-column-title">agriculture</span>
-									{{record.agriculture}}
-								</td>
-								<td style="width: 130px">
-									<span class="p-column-title">date</span>
-									{{record.date}}
-								</td>
-								<td style="width: 130px">
-									<span class="p-column-title">total</span>
-									{{record.total}}
-								</td>
-							</tr>
-						</ng-template>
-					</p-table>
-					<div class="primeng-no-data" *ngIf="agriculturePrimengTableHelper.totalRecordsCount == 0">
-						No Data
-					</div>
-					<div class="primeng-paging-container justify-content-between">
-						<p-paginator
-							[rows]="agriculturePrimengTableHelper.defaultRecordsCountPerPage"
-							#agriculturePaginator
-							(onPageChange)="getAgriculture($event)"
-							[totalRecords]="agriculturePrimengTableHelper.totalRecordsCount"
-							[rowsPerPageOptions]="agriculturePrimengTableHelper.predefinedRecordsCountPerPage"
-						></p-paginator>
-						<span class="total-records-count">
-							Jumlah: {{ agriculturePrimengTableHelper.totalRecordsCount}}
-						</span>
-					</div>
-				</div>
-				<!--<Primeng-TurboTable-End>-->
-			</div>
-			<hr />
-			<div class="row align-items-center">
-				<!--<Primeng-TurboTable-Start>-->
-				<div class="primeng-datatable-container" [busyIf]="internationalPrimengTableHelper.isLoading">
-					<p-table
-						#internationalDataTable
-						styleClass="p-datatable-striped"
-						sortMode="multiple"
-						[resizableColumns]="true"
-						(onLazyLoad)="getInternational($event)"
-						[value]="internationalPrimengTableHelper.records"
-						rows="{{internationalPrimengTableHelper.defaultRecordsCountPerPage}}"
-						[paginator]="false"
-						[lazy]="true"
-						[scrollable]="true"
-						ScrollWidth="100%"
-						[responsive]="internationalPrimengTableHelper.isResponsive"
-					>
-						<ng-template pTemplate="header">
-							<tr>
-								<th style="width: 130px">Tindakan</th>
-								<th style="width: 100px" pSortableColumn="disaster">
-									Nama Bencana
-									<p-sortIcon field="year"></p-sortIcon>
-								</th>
-								<th style="width: 130px" pSortableColumn="agency">
-									Negara Penyumbang
-									<p-sortIcon field="type"></p-sortIcon>
-								</th>
-								<th style="width: 130px" pSortableColumn="date">
-									Tarikh Bencana
-									<p-sortIcon field="status"></p-sortIcon>
-								</th>
-								<th style="width: 130px" pSortableColumn="total">
-									Jumlah
-									<p-sortIcon field="centre"></p-sortIcon>
-								</th>
-							</tr>
-						</ng-template>
-						<ng-template pTemplate="body" let-record="$implicit">
-							<tr>
-								<td style="width: 130px">
-									<div ngbDropdown class="btn-group" role="group" container="body">
-										<button
-											type="button"
-											class="btn btn-primary btn-primeng dropdown-toggle"
-											id="action"
-											ngbDropdownToggle
-										>
-											<i class="fa fa-cog"></i>
-											<span class="caret"></span>
-											Tindakan
-										</button>
-										<div ngbDropdownMenu aria-labelledby="action">
-											<button class="dropdown-item" (click)="internationalAidModal()">
-												Ubah
-											</button>
-											<button class="dropdown-item" (click)="delete()">Padam</button>
-										</div>
-									</div>
-								</td>
-								<td style="width: 100px">
-									<span class="p-column-title">disaster</span>
-									{{record.disaster}}
-								</td>
-								<td style="width: 130px">
-									<span class="p-column-title">agency</span>
-									{{record.agency}}
-								</td>
-								<td style="width: 130px">
-									<span class="p-column-title">date</span>
-									{{record.date}}
-								</td>
-								<td style="width: 130px">
-									<span class="p-column-title">total</span>
-									{{record.total}}
-								</td>
-							</tr>
-						</ng-template>
-					</p-table>
-					<div class="primeng-no-data" *ngIf="internationalPrimengTableHelper.totalRecordsCount == 0">
-						No Data
-					</div>
-					<div class="primeng-paging-container justify-content-between">
-						<p-paginator
-							[rows]="internationalPrimengTableHelper.defaultRecordsCountPerPage"
-							#internationalPaginator
-							(onPageChange)="getInternational($event)"
-							[totalRecords]="internationalPrimengTableHelper.totalRecordsCount"
-							[rowsPerPageOptions]="internationalPrimengTableHelper.predefinedRecordsCountPerPage"
-						></p-paginator>
-						<span class="total-records-count">
-							Jumlah: {{ internationalPrimengTableHelper.totalRecordsCount}}
-						</span>
-					</div>
-				</div>
-				<!--<Primeng-TurboTable-End>-->
-			</div>
-			<hr />
-			<div class="row align-items-center">
-				<!--<Primeng-TurboTable-Start>-->
-				<div class="primeng-datatable-container" [busyIf]="otherPrimengTableHelper.isLoading">
-					<p-table
-						#otherDataTable
-						styleClass="p-datatable-striped"
-						sortMode="multiple"
-						[resizableColumns]="true"
-						(onLazyLoad)="getOther($event)"
-						[value]="otherPrimengTableHelper.records"
-						rows="{{otherPrimengTableHelper.defaultRecordsCountPerPage}}"
-						[paginator]="false"
-						[lazy]="true"
-						[scrollable]="true"
-						ScrollWidth="100%"
-						[responsive]="otherPrimengTableHelper.isResponsive"
-					>
-						<ng-template pTemplate="header">
-							<tr>
-								<th style="width: 130px">Tindakan</th>
-								<th style="width: 100px" pSortableColumn="disaster">
-									Nama Bencana
-									<p-sortIcon field="year"></p-sortIcon>
-								</th>
-								<th style="width: 130px" pSortableColumn="agency">
-									Nama Bantuan
-									<p-sortIcon field="type"></p-sortIcon>
-								</th>
-								<th style="width: 130px" pSortableColumn="date">
-									Tarikh Bencana
-									<p-sortIcon field="status"></p-sortIcon>
-								</th>
-								<th style="width: 130px" pSortableColumn="total">
-									Jumlah
-									<p-sortIcon field="centre"></p-sortIcon>
-								</th>
-							</tr>
-						</ng-template>
-						<ng-template pTemplate="body" let-record="$implicit">
-							<tr>
-								<td style="width: 130px">
-									<div ngbDropdown class="btn-group" role="group" container="body">
-										<button
-											type="button"
-											class="btn btn-primary btn-primeng dropdown-toggle"
-											id="action"
-											ngbDropdownToggle
-										>
-											<i class="fa fa-cog"></i>
-											<span class="caret"></span>
-											Tindakan
-										</button>
-										<div ngbDropdownMenu aria-labelledby="action">
-											<button class="dropdown-item" (click)="otherAidModal()">Ubah</button>
-											<button class="dropdown-item" (click)="delete()">Padam</button>
-										</div>
-									</div>
-								</td>
-								<td style="width: 100px">
-									<span class="p-column-title">disaster</span>
-									{{record.disaster}}
-								</td>
-								<td style="width: 130px">
-									<span class="p-column-title">help</span>
-									{{record.help}}
-								</td>
-								<td style="width: 130px">
-									<span class="p-column-title">date</span>
-									{{record.date}}
-								</td>
-								<td style="width: 130px">
-									<span class="p-column-title">total</span>
-									{{record.total}}
-								</td>
-							</tr>
-						</ng-template>
-					</p-table>
-					<div class="primeng-no-data" *ngIf="otherPrimengTableHelper.totalRecordsCount == 0">No Data</div>
-					<div class="primeng-paging-container justify-content-between">
-						<p-paginator
-							[rows]="otherPrimengTableHelper.defaultRecordsCountPerPage"
-							#otherPaginator
-							(onPageChange)="getOther($event)"
-							[totalRecords]="otherPrimengTableHelper.totalRecordsCount"
-							[rowsPerPageOptions]="otherPrimengTableHelper.predefinedRecordsCountPerPage"
-						></p-paginator>
-						<span class="total-records-count">Jumlah: {{ otherPrimengTableHelper.totalRecordsCount}}</span>
-					</div>
-				</div>
-				<!--<Primeng-TurboTable-End>-->
-			</div>
-		</div>
-	</div>
+  <div class="col">
+    <div class="row">
+      <div class="col-xl-6 col-xs-12">
+        <div class="form-group">
+          <label>Nama: Asmah Binti Haji Ameran</label>
+        </div>
+      </div>
+      <div class="col-xl-6 col-xs-12">
+        <div class="form-group">
+          <label>No KP: xxxxxx-xx-xxxx</label>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-end">
+      <div class="col-lg-12">
+        <div ngbDropdown class="btn-group pull-right mb-1" role="group">
+          <button type="button" class="btn btn-primary dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle>
+            <i class="fa fa-plus mr-2"></i>
+            Tambah
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button class="dropdown-item" (click)="ihsanDonationModal()">Bantuan Wang Ihsan</button>
+            <button class="dropdown-item" (click)="houseAidModal()">Bantuan Rumah</button>
+            <button class="dropdown-item" (click)="specialLoanModal()">Pinjaman Khas</button>
+            <button class="dropdown-item" (click)="agricultureAidModal()">Bantuan Pertanian</button>
+            <button class="dropdown-item" (click)="internationalAidModal()">Bantuan Antarabangsa</button>
+            <button class="dropdown-item" (click)="otherAidModal()">Bantuan Lain</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+        <li [ngbNavItem]="1">
+          <a ngbNavLink>Bantuan Wang Ihsan</a>
+          <ng-template ngbNavContent>
+            <div class="row align-items-center">
+              <!--<Primeng-TurboTable-Start>-->
+              <div class="primeng-datatable-container" [busyIf]="ihsanPrimengTableHelper.isLoading">
+                <p-table #ihsanDataTable styleClass="p-datatable-striped" sortMode="multiple" [resizableColumns]="true"
+                  (onLazyLoad)="getIhsan($event)" [value]="ihsanPrimengTableHelper.records"
+                  rows="{{ihsanPrimengTableHelper.defaultRecordsCountPerPage}}" [paginator]="false" [lazy]="true"
+                  [scrollable]="true" ScrollWidth="100%" [responsive]="ihsanPrimengTableHelper.isResponsive">
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th style="width: 130px">Tindakan</th>
+                      <th style="width: 100px" pSortableColumn="disaster">
+                        Nama Bencana
+                        <p-sortIcon field="year"></p-sortIcon>
+                      </th>
+                      <th style="width: 130px" pSortableColumn="agency">
+                        Agensi Pemberi Bantuan
+                        <p-sortIcon field="type"></p-sortIcon>
+                      </th>
+                      <th style="width: 130px" pSortableColumn="date">
+                        Tarikh Bencana
+                        <p-sortIcon field="status"></p-sortIcon>
+                      </th>
+                      <th style="width: 130px" pSortableColumn="total">
+                        Jumlah
+                        <p-sortIcon field="centre"></p-sortIcon>
+                      </th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-record="$implicit">
+                    <tr>
+                      <td style="width: 130px">
+                        <div ngbDropdown class="btn-group" role="group" container="body">
+                          <button type="button" class="btn btn-primary btn-primeng dropdown-toggle" id="action"
+                            ngbDropdownToggle>
+                            <i class="fa fa-cog"></i>
+                            <span class="caret"></span>
+                            Tindakan
+                          </button>
+                          <div ngbDropdownMenu aria-labelledby="action">
+                            <button class="dropdown-item" (click)="ihsanDonationModal()">Ubah</button>
+                            <button class="dropdown-item" (click)="delete()">Padam</button>
+                          </div>
+                        </div>
+                      </td>
+                      <td style="width: 100px">
+                        <span class="p-column-title">disaster</span>
+                        {{record.disaster}}
+                      </td>
+                      <td style="width: 130px">
+                        <span class="p-column-title">agency</span>
+                        {{record.agency}}
+                      </td>
+                      <td style="width: 130px">
+                        <span class="p-column-title">date</span>
+                        {{record.date}}
+                      </td>
+                      <td style="width: 130px">
+                        <span class="p-column-title">total</span>
+                        {{record.total}}
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+                <div class="primeng-no-data" *ngIf="ihsanPrimengTableHelper.totalRecordsCount == 0">No Data</div>
+                <div class="primeng-paging-container justify-content-between">
+                  <p-paginator [rows]="ihsanPrimengTableHelper.defaultRecordsCountPerPage" #ihsanPaginator
+                    (onPageChange)="getIhsan($event)" [totalRecords]="ihsanPrimengTableHelper.totalRecordsCount"
+                    [rowsPerPageOptions]="ihsanPrimengTableHelper.predefinedRecordsCountPerPage"></p-paginator>
+                  <span class="total-records-count">Jumlah: {{ ihsanPrimengTableHelper.totalRecordsCount}}</span>
+                </div>
+              </div>
+              <!--<Primeng-TurboTable-End>-->
+            </div>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="2">
+          <a ngbNavLink>Bantuan Rumah</a>
+          <ng-template ngbNavContent>
+            <div class="row align-items-center">
+              <!--<Primeng-TurboTable-Start>-->
+              <div class="primeng-datatable-container" [busyIf]="housePrimengTableHelper.isLoading">
+                <p-table #houseDataTable styleClass="p-datatable-striped" sortMode="multiple" [resizableColumns]="true"
+                  (onLazyLoad)="getHouse($event)" [value]="housePrimengTableHelper.records"
+                  rows="{{housePrimengTableHelper.defaultRecordsCountPerPage}}" [paginator]="false" [lazy]="true"
+                  [scrollable]="true" ScrollWidth="100%" [responsive]="housePrimengTableHelper.isResponsive">
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th style="width: 130px">Tindakan</th>
+                      <th style="width: 100px" pSortableColumn="disaster">
+                        Nama Bencana
+                        <p-sortIcon field="year"></p-sortIcon>
+                      </th>
+                      <th style="width: 130px" pSortableColumn="agency">
+                        Jenis Bantuan
+                        <p-sortIcon field="type"></p-sortIcon>
+                      </th>
+                      <th style="width: 130px" pSortableColumn="date">
+                        Tarikh Bencana
+                        <p-sortIcon field="status"></p-sortIcon>
+                      </th>
+                      <th style="width: 130px" pSortableColumn="total">
+                        Jumlah Anggaran
+                        <p-sortIcon field="centre"></p-sortIcon>
+                      </th>
+                      <th style="width: 130px" pSortableColumn="total">
+                        Jumlah Sebenar
+                        <p-sortIcon field="centre"></p-sortIcon>
+                      </th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-record="$implicit">
+                    <tr>
+                      <td style="width: 130px">
+                        <div ngbDropdown class="btn-group" role="group" container="body">
+                          <button type="button" class="btn btn-primary btn-primeng dropdown-toggle" id="action"
+                            ngbDropdownToggle>
+                            <i class="fa fa-cog"></i>
+                            <span class="caret"></span>
+                            Tindakan
+                          </button>
+                          <div ngbDropdownMenu aria-labelledby="action">
+                            <button class="dropdown-item" (click)="houseAidModal()">Ubah</button>
+                            <button class="dropdown-item" (click)="delete()">Padam</button>
+                          </div>
+                        </div>
+                      </td>
+                      <td style="width: 100px">
+                        <span class="p-column-title">disaster</span>
+                        {{record.disaster}}
+                      </td>
+                      <td style="width: 130px">
+                        <span class="p-column-title">agency</span>
+                        {{record.help}}
+                      </td>
+                      <td style="width: 130px">
+                        <span class="p-column-title">date</span>
+                        {{record.date}}
+                      </td>
+                      <td style="width: 130px">
+                        <span class="p-column-title">totalPredict</span>
+                        {{record.totalPredict}}
+                      </td>
+                      <td style="width: 130px">
+                        <span class="p-column-title">totalReal</span>
+                        {{record.totalReal}}
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+                <div class="primeng-no-data" *ngIf="housePrimengTableHelper.totalRecordsCount == 0">No Data</div>
+                <div class="primeng-paging-container justify-content-between">
+                  <p-paginator [rows]="housePrimengTableHelper.defaultRecordsCountPerPage" #housePaginator
+                    (onPageChange)="getHouse($event)" [totalRecords]="housePrimengTableHelper.totalRecordsCount"
+                    [rowsPerPageOptions]="housePrimengTableHelper.predefinedRecordsCountPerPage"></p-paginator>
+                  <span class="total-records-count">Jumlah: {{ housePrimengTableHelper.totalRecordsCount}}</span>
+                </div>
+              </div>
+              <!--<Primeng-TurboTable-End>-->
+            </div>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="3">
+          <a ngbNavLink>Pinjaman Khas</a>
+          <ng-template ngbNavContent>
+            <div class="row align-items-center">
+              <!--<Primeng-TurboTable-Start>-->
+              <div class="primeng-datatable-container" [busyIf]="specialPrimengTableHelper.isLoading">
+                <p-table #specialDataTable styleClass="p-datatable-striped" sortMode="multiple"
+                  [resizableColumns]="true" (onLazyLoad)="getSpecial($event)"
+                  [value]="specialPrimengTableHelper.records"
+                  rows="{{specialPrimengTableHelper.defaultRecordsCountPerPage}}" [paginator]="false" [lazy]="true"
+                  [scrollable]="true" ScrollWidth="100%" [responsive]="specialPrimengTableHelper.isResponsive">
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th style="width: 130px">Tindakan</th>
+                      <th style="width: 100px" pSortableColumn="disaster">
+                        Nama Bencana
+                        <p-sortIcon field="year"></p-sortIcon>
+                      </th>
+                      <th style="width: 130px" pSortableColumn="agency">
+                        Agensi Pemberi Bantuan
+                        <p-sortIcon field="type"></p-sortIcon>
+                      </th>
+                      <th style="width: 130px" pSortableColumn="date">
+                        Tarikh Bencana
+                        <p-sortIcon field="status"></p-sortIcon>
+                      </th>
+                      <th style="width: 130px" pSortableColumn="total">
+                        Jumlah
+                        <p-sortIcon field="centre"></p-sortIcon>
+                      </th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-record="$implicit">
+                    <tr>
+                      <td style="width: 130px">
+                        <div ngbDropdown class="btn-group" role="group" container="body">
+                          <button type="button" class="btn btn-primary btn-primeng dropdown-toggle" id="action"
+                            ngbDropdownToggle>
+                            <i class="fa fa-cog"></i>
+                            <span class="caret"></span>
+                            Tindakan
+                          </button>
+                          <div ngbDropdownMenu aria-labelledby="action">
+                            <button class="dropdown-item" (click)="specialLoanModal()">Ubah</button>
+                            <button class="dropdown-item" (click)="delete()">Padam</button>
+                          </div>
+                        </div>
+                      </td>
+                      <td style="width: 100px">
+                        <span class="p-column-title">disaster</span>
+                        {{record.disaster}}
+                      </td>
+                      <td style="width: 130px">
+                        <span class="p-column-title">agency</span>
+                        {{record.agency}}
+                      </td>
+                      <td style="width: 130px">
+                        <span class="p-column-title">date</span>
+                        {{record.date}}
+                      </td>
+                      <td style="width: 130px">
+                        <span class="p-column-title">total</span>
+                        {{record.total}}
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+                <div class="primeng-no-data" *ngIf="specialPrimengTableHelper.totalRecordsCount == 0">No Data</div>
+                <div class="primeng-paging-container justify-content-between">
+                  <p-paginator [rows]="specialPrimengTableHelper.defaultRecordsCountPerPage" #specialPaginator
+                    (onPageChange)="getSpecial($event)" [totalRecords]="specialPrimengTableHelper.totalRecordsCount"
+                    [rowsPerPageOptions]="specialPrimengTableHelper.predefinedRecordsCountPerPage"></p-paginator>
+                  <span class="total-records-count">
+                    Jumlah: {{ specialPrimengTableHelper.totalRecordsCount}}
+                  </span>
+                </div>
+              </div>
+              <!--<Primeng-TurboTable-End>-->
+            </div>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="4">
+          <a ngbNavLink>Bantuan Pertanian</a>
+          <ng-template ngbNavContent>
+            <div class="row align-items-center">
+              <!--<Primeng-TurboTable-Start>-->
+              <div class="primeng-datatable-container" [busyIf]="agriculturePrimengTableHelper.isLoading">
+                <p-table #specialDataTable styleClass="p-datatable-striped" sortMode="multiple"
+                  [resizableColumns]="true" (onLazyLoad)="getAgriculture($event)"
+                  [value]="agriculturePrimengTableHelper.records"
+                  rows="{{agriculturePrimengTableHelper.defaultRecordsCountPerPage}}" [paginator]="false" [lazy]="true"
+                  [scrollable]="true" ScrollWidth="100%" [responsive]="agriculturePrimengTableHelper.isResponsive">
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th style="width: 130px">Tindakan</th>
+                      <th style="width: 100px" pSortableColumn="disaster">
+                        Nama Bencana
+                        <p-sortIcon field="year"></p-sortIcon>
+                      </th>
+                      <th style="width: 130px" pSortableColumn="agency">
+                        Agensi Pemberi Bantuan
+                        <p-sortIcon field="type"></p-sortIcon>
+                      </th>
+                      <th style="width: 130px" pSortableColumn="type">
+                        Jenis Pertanian
+                        <p-sortIcon field="type"></p-sortIcon>
+                      </th>
+                      <th style="width: 130px" pSortableColumn="date">
+                        Tarikh Bencana
+                        <p-sortIcon field="status"></p-sortIcon>
+                      </th>
+                      <th style="width: 130px" pSortableColumn="total">
+                        Jumlah
+                        <p-sortIcon field="centre"></p-sortIcon>
+                      </th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-record="$implicit">
+                    <tr>
+                      <td style="width: 130px">
+                        <div ngbDropdown class="btn-group" role="group" container="body">
+                          <button type="button" class="btn btn-primary btn-primeng dropdown-toggle" id="action"
+                            ngbDropdownToggle>
+                            <i class="fa fa-cog"></i>
+                            <span class="caret"></span>
+                            Tindakan
+                          </button>
+                          <div ngbDropdownMenu aria-labelledby="action">
+                            <button class="dropdown-item" (click)="agricultureAidModal()">Ubah</button>
+                            <button class="dropdown-item" (click)="delete()">Padam</button>
+                          </div>
+                        </div>
+                      </td>
+                      <td style="width: 100px">
+                        <span class="p-column-title">disaster</span>
+                        {{record.disaster}}
+                      </td>
+                      <td style="width: 130px">
+                        <span class="p-column-title">agency</span>
+                        {{record.agency}}
+                      </td>
+                      <td style="width: 130px">
+                        <span class="p-column-title">agriculture</span>
+                        {{record.agriculture}}
+                      </td>
+                      <td style="width: 130px">
+                        <span class="p-column-title">date</span>
+                        {{record.date}}
+                      </td>
+                      <td style="width: 130px">
+                        <span class="p-column-title">total</span>
+                        {{record.total}}
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+                <div class="primeng-no-data" *ngIf="agriculturePrimengTableHelper.totalRecordsCount == 0">
+                  No Data
+                </div>
+                <div class="primeng-paging-container justify-content-between">
+                  <p-paginator [rows]="agriculturePrimengTableHelper.defaultRecordsCountPerPage" #agriculturePaginator
+                    (onPageChange)="getAgriculture($event)"
+                    [totalRecords]="agriculturePrimengTableHelper.totalRecordsCount"
+                    [rowsPerPageOptions]="agriculturePrimengTableHelper.predefinedRecordsCountPerPage"></p-paginator>
+                  <span class="total-records-count">
+                    Jumlah: {{ agriculturePrimengTableHelper.totalRecordsCount}}
+                  </span>
+                </div>
+              </div>
+              <!--<Primeng-TurboTable-End>-->
+            </div>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="5">
+          <a ngbNavLink>Bantuan Antarabangsa</a>
+          <ng-template ngbNavContent>
+            <div class="row align-items-center">
+              <!--<Primeng-TurboTable-Start>-->
+              <div class="primeng-datatable-container" [busyIf]="internationalPrimengTableHelper.isLoading">
+                <p-table #internationalDataTable styleClass="p-datatable-striped" sortMode="multiple"
+                  [resizableColumns]="true" (onLazyLoad)="getInternational($event)"
+                  [value]="internationalPrimengTableHelper.records"
+                  rows="{{internationalPrimengTableHelper.defaultRecordsCountPerPage}}" [paginator]="false"
+                  [lazy]="true" [scrollable]="true" ScrollWidth="100%"
+                  [responsive]="internationalPrimengTableHelper.isResponsive">
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th style="width: 130px">Tindakan</th>
+                      <th style="width: 100px" pSortableColumn="disaster">
+                        Nama Bencana
+                        <p-sortIcon field="year"></p-sortIcon>
+                      </th>
+                      <th style="width: 130px" pSortableColumn="agency">
+                        Negara Penyumbang
+                        <p-sortIcon field="type"></p-sortIcon>
+                      </th>
+                      <th style="width: 130px" pSortableColumn="date">
+                        Tarikh Bencana
+                        <p-sortIcon field="status"></p-sortIcon>
+                      </th>
+                      <th style="width: 130px" pSortableColumn="total">
+                        Jumlah
+                        <p-sortIcon field="centre"></p-sortIcon>
+                      </th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-record="$implicit">
+                    <tr>
+                      <td style="width: 130px">
+                        <div ngbDropdown class="btn-group" role="group" container="body">
+                          <button type="button" class="btn btn-primary btn-primeng dropdown-toggle" id="action"
+                            ngbDropdownToggle>
+                            <i class="fa fa-cog"></i>
+                            <span class="caret"></span>
+                            Tindakan
+                          </button>
+                          <div ngbDropdownMenu aria-labelledby="action">
+                            <button class="dropdown-item" (click)="internationalAidModal()">
+                              Ubah
+                            </button>
+                            <button class="dropdown-item" (click)="delete()">Padam</button>
+                          </div>
+                        </div>
+                      </td>
+                      <td style="width: 100px">
+                        <span class="p-column-title">disaster</span>
+                        {{record.disaster}}
+                      </td>
+                      <td style="width: 130px">
+                        <span class="p-column-title">agency</span>
+                        {{record.agency}}
+                      </td>
+                      <td style="width: 130px">
+                        <span class="p-column-title">date</span>
+                        {{record.date}}
+                      </td>
+                      <td style="width: 130px">
+                        <span class="p-column-title">total</span>
+                        {{record.total}}
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+                <div class="primeng-no-data" *ngIf="internationalPrimengTableHelper.totalRecordsCount == 0">
+                  No Data
+                </div>
+                <div class="primeng-paging-container justify-content-between">
+                  <p-paginator [rows]="internationalPrimengTableHelper.defaultRecordsCountPerPage"
+                    #internationalPaginator (onPageChange)="getInternational($event)"
+                    [totalRecords]="internationalPrimengTableHelper.totalRecordsCount"
+                    [rowsPerPageOptions]="internationalPrimengTableHelper.predefinedRecordsCountPerPage"></p-paginator>
+                  <span class="total-records-count">
+                    Jumlah: {{ internationalPrimengTableHelper.totalRecordsCount}}
+                  </span>
+                </div>
+              </div>
+              <!--<Primeng-TurboTable-End>-->
+            </div>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="6">
+          <a ngbNavLink>Bantuan Lain</a>
+          <ng-template ngbNavContent>
+            <div class="row align-items-center">
+              <!--<Primeng-TurboTable-Start>-->
+              <div class="primeng-datatable-container" [busyIf]="otherPrimengTableHelper.isLoading">
+                <p-table #otherDataTable styleClass="p-datatable-striped" sortMode="multiple" [resizableColumns]="true"
+                  (onLazyLoad)="getOther($event)" [value]="otherPrimengTableHelper.records"
+                  rows="{{otherPrimengTableHelper.defaultRecordsCountPerPage}}" [paginator]="false" [lazy]="true"
+                  [scrollable]="true" ScrollWidth="100%" [responsive]="otherPrimengTableHelper.isResponsive">
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th style="width: 130px">Tindakan</th>
+                      <th style="width: 100px" pSortableColumn="disaster">
+                        Nama Bencana
+                        <p-sortIcon field="year"></p-sortIcon>
+                      </th>
+                      <th style="width: 130px" pSortableColumn="agency">
+                        Nama Bantuan
+                        <p-sortIcon field="type"></p-sortIcon>
+                      </th>
+                      <th style="width: 130px" pSortableColumn="date">
+                        Tarikh Bencana
+                        <p-sortIcon field="status"></p-sortIcon>
+                      </th>
+                      <th style="width: 130px" pSortableColumn="total">
+                        Jumlah
+                        <p-sortIcon field="centre"></p-sortIcon>
+                      </th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-record="$implicit">
+                    <tr>
+                      <td style="width: 130px">
+                        <div ngbDropdown class="btn-group" role="group" container="body">
+                          <button type="button" class="btn btn-primary btn-primeng dropdown-toggle" id="action"
+                            ngbDropdownToggle>
+                            <i class="fa fa-cog"></i>
+                            <span class="caret"></span>
+                            Tindakan
+                          </button>
+                          <div ngbDropdownMenu aria-labelledby="action">
+                            <button class="dropdown-item" (click)="otherAidModal()">Ubah</button>
+                            <button class="dropdown-item" (click)="delete()">Padam</button>
+                          </div>
+                        </div>
+                      </td>
+                      <td style="width: 100px">
+                        <span class="p-column-title">disaster</span>
+                        {{record.disaster}}
+                      </td>
+                      <td style="width: 130px">
+                        <span class="p-column-title">help</span>
+                        {{record.help}}
+                      </td>
+                      <td style="width: 130px">
+                        <span class="p-column-title">date</span>
+                        {{record.date}}
+                      </td>
+                      <td style="width: 130px">
+                        <span class="p-column-title">total</span>
+                        {{record.total}}
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+                <div class="primeng-no-data" *ngIf="otherPrimengTableHelper.totalRecordsCount == 0">No Data</div>
+                <div class="primeng-paging-container justify-content-between">
+                  <p-paginator [rows]="otherPrimengTableHelper.defaultRecordsCountPerPage" #otherPaginator
+                    (onPageChange)="getOther($event)" [totalRecords]="otherPrimengTableHelper.totalRecordsCount"
+                    [rowsPerPageOptions]="otherPrimengTableHelper.predefinedRecordsCountPerPage"></p-paginator>
+                  <span class="total-records-count">Jumlah: {{ otherPrimengTableHelper.totalRecordsCount}}</span>
+                </div>
+              </div>
+              <!--<Primeng-TurboTable-End>-->
+            </div>
+          </ng-template>
+        </li>
+      </ul>
+      <div [ngbNavOutlet]="nav" class="mt-2"></div>
+    </div>
+  </div>
 </form>
