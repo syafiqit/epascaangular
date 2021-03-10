@@ -37,6 +37,12 @@ import { AgensiComponent } from './agensi/agensi.component';
 import { TambahEditAgensiComponent } from './agensi/tambah-edit-agensi/tambah-edit-agensi.component';
 import { PelaksanaComponent } from './pelaksana/pelaksana.component';
 import { TambahEditPelaksanaComponent } from './pelaksana/tambah-edit-pelaksana/tambah-edit-pelaksana.component';
+import { HubunganComponent } from './hubungan/hubungan.component';
+import { TambahEditHubunganComponent } from './hubungan/tambah-edit-hubungan/tambah-edit-hubungan.component';
+import { PerananComponent } from './peranan/peranan.component';
+import { TambahEditPerananComponent } from './peranan/tambah-edit-peranan/tambah-edit-peranan.component';
+import { RujukanComponent } from './rujukan/rujukan.component';
+import { TambahEditRujukanComponent } from './rujukan/tambah-edit-rujukan/tambah-edit-rujukan.component';
 
 @NgModule({
 	imports: [CommonModule, SharedModule, TetapanRoutingModule, NgxDatatableModule, TableModule, PaginatorModule],
@@ -72,7 +78,13 @@ import { TambahEditPelaksanaComponent } from './pelaksana/tambah-edit-pelaksana/
 		AgensiComponent,
 		TambahEditAgensiComponent,
 		PelaksanaComponent,
-		TambahEditPelaksanaComponent
+		TambahEditPelaksanaComponent,
+		HubunganComponent,
+		TambahEditHubunganComponent,
+		PerananComponent,
+		TambahEditPerananComponent,
+		RujukanComponent,
+		TambahEditRujukanComponent
 	]
 })
 export class TetapanModule {}

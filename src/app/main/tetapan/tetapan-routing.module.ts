@@ -16,6 +16,9 @@ import { PemilikProjekComponent } from './pemilik-projek/pemilik-projek.componen
 import { NegeriComponent } from './negeri/negeri.component';
 import { AgensiComponent } from './agensi/agensi.component';
 import { PelaksanaComponent } from './pelaksana/pelaksana.component';
+import { HubunganComponent } from './hubungan/hubungan.component';
+import { PerananComponent } from './peranan/peranan.component';
+import { RujukanComponent } from './rujukan/rujukan.component';
 
 const routes: Routes = [
 	{
@@ -84,6 +87,18 @@ const routes: Routes = [
 			{
 				path: 'senarai-pelaksana',
 				component: PelaksanaComponent
+			},
+      {
+				path: 'hubungan',
+				component: HubunganComponent
+			},
+      {
+				path: 'peranan',
+				component: PerananComponent
+			},
+      {
+				path: 'rujukan',
+				component: RujukanComponent
 			}
 		]
 	}
