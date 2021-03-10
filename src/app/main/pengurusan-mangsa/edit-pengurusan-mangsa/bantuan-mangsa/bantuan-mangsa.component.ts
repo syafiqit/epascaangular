@@ -50,6 +50,7 @@ export class BantuanMangsaComponent implements OnInit {
 	@ViewChild('otherPaginator', { static: true }) otherPaginator: Paginator;
 
 	otherPrimengTableHelper: PrimengTableHelper;
+  active = 1;
 
 	ihsanDonation = [{ disaster: 'Banjir', agency: 'Agency A', date: '12-12-2020', total: '500' }];
 
