@@ -1,173 +1,181 @@
 <app-breadcrumb
-	[title]="'Pengurusan Tabung Bencana'"
-	[items]="['Pengurusan']"
-	[active_item]="'Tabung'"
+  [title]="'Pengurusan Tabung Bencana'"
+  [items]="['Pengurusan']"
+  [active_item]="'Tabung'"
 ></app-breadcrumb>
 
 <div class="content d-flex flex-column flex-column-fluid">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-lg-4" *ngFor="let report of report">
-				<div class="card bg-primary shadow-sm shadow-showcase">
-					<div class="card-body">
-						<div class="media static-top-widget">
-							<div class="media-body">
-								<i
-									class="icon-bg"
-									data-feather="dollar-sign"
-									*ngIf="report.title === 'Jumlah Keseluruhan Semasa (RM)'"
-								></i>
-								<i
-									class="icon-bg"
-									data-feather="credit-card"
-									*ngIf="report.title === 'Jumlah Bayaran Semasa (RM)'"
-								></i>
-								<i
-									class="icon-bg"
-									data-feather="inbox"
-									*ngIf="report.title === 'Jumlah Tanggung Semasa (RM)'"
-								></i>
-							</div>
-						</div>
-						<div class="row justify-content-center">
-							<label>{{report.title}}</label>
-						</div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-4" *ngFor="let report of report">
+        <div class="card bg-primary shadow-sm shadow-showcase">
+          <div class="card-body">
+            <div class="media static-top-widget">
+              <div class="media-body">
+                <i
+                  class="icon-bg"
+                  data-feather="dollar-sign"
+                  *ngIf="report.title === 'Jumlah Keseluruhan Semasa (RM)'"
+                ></i>
+                <i
+                  class="icon-bg"
+                  data-feather="credit-card"
+                  *ngIf="report.title === 'Jumlah Bayaran Semasa (RM)'"
+                ></i>
+                <i
+                  class="icon-bg"
+                  data-feather="inbox"
+                  *ngIf="report.title === 'Jumlah Tanggung Semasa (RM)'"
+                ></i>
+              </div>
+            </div>
+            <div class="row justify-content-center">
+              <label>{{report.title}}</label>
+            </div>
 
-						<div class="row justify-content-center">
-							<h4>RM{{report.total_kos}}</h4>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="card card-custom gutter-b">
-			<div class="card-body">
-				<div class="row justify-content-end mb-2">
-					<button class="btn btn-primary" type="button" (click)="addFundModal()">
-						<i class="fa fa-plus mr-2"></i>
-						Tambah
-					</button>
-				</div>
-				<div class="row mb-2">
-					<input type="text" class="form-control" placeholder="Carian..." />
-				</div>
-				<div class="row align-items-center">
-					<!--<Primeng-TurboTable-Start>-->
-					<div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
-						<p-table
-							#dataTable
-							styleClass="p-datatable-striped"
-							sortMode="multiple"
-							[resizableColumns]="true"
-							(onLazyLoad)="getFund($event)"
-							[value]="primengTableHelper.records"
-							rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
-							[paginator]="false"
-							[lazy]="true"
-							[scrollable]="true"
-							ScrollWidth="100%"
-							[responsive]="primengTableHelper.isResponsive"
-							[resizableColumns]="primengTableHelper.resizableColumns"
-						>
-							<ng-template pTemplate="header">
-								<tr>
-									<th style="width: 130px">Tindakan</th>
-									<th style="width: 100px" pSortableColumn="nama">
-										Nama
-										<p-sortIcon field="nama"></p-sortIcon>
-									</th>
-									<th style="width: 130px" pSortableColumn="baki">
-										Baki Pada
-										<p-sortIcon field="baki"></p-sortIcon>
-									</th>
-									<th style="width: 130px" pSortableColumn="jumlah">
-										Jumlah
-										<p-sortIcon field="jumlah"></p-sortIcon>
-									</th>
-									<th style="width: 130px" pSortableColumn="sehingga">
-										Sehingga Pada
-										<p-sortIcon field="sehingga"></p-sortIcon>
-									</th>
-									<th style="width: 130px" pSortableColumn="jumlah_rm">
-										Jumlah
-										<p-sortIcon field="jumlah_rm"></p-sortIcon>
-									</th>
-									<th style="width: 120px" pSortableColumn="jumlah_keseluruhan">
-										Jumlah Keseluruhan
-										<p-sortIcon field="jumlah_keseluruhan"></p-sortIcon>
-									</th>
-									<th style="width: 100px" pSortableColumn="jumlah_baki">
-										Jumlah Baki Akhir
-										<p-sortIcon field="jumlah_baki"></p-sortIcon>
-									</th>
-								</tr>
-							</ng-template>
-							<ng-template pTemplate="body" let-record="$implicit">
-								<tr>
-									<td style="width: 130px">
-										<div ngbDropdown class="btn-group" role="group" container="body">
-											<button
-												type="button"
-												class="btn btn-primary btn-primeng dropdown-toggle"
-												id="action"
-												ngbDropdownToggle
-											>
-												<i class="fa fa-cog"></i>
-												<span class="caret"></span>
-												Tindakan
-											</button>
-											<div ngbDropdownMenu aria-labelledby="action">
-												<button class="dropdown-item" [routerLink]="['/app/tabung/edit-tabung']">Lihat</button>
-												<button class="dropdown-item">Padam</button>
-											</div>
-										</div>
-									</td>
-									<td style="width: 100px">
-										<span class="p-column-title">Nama</span>
-										{{record.name}}
-									</td>
-									<td style="width: 130px">
-										<span class="p-column-title">Baki Pada</span>
-										{{record.date}}
-									</td>
-									<td style="width: 130px">
-										<span class="p-column-title">Jumlah</span>
-										{{record.total}}
-									</td>
-									<td style="width: 130px">
-										<span class="p-column-title">Sehingga Pada</span>
-										{{record.date2}}
-									</td>
-									<td style="width: 130px">
-										<span class="p-column-title">Jumlah</span>
-										{{record.total2}}
-									</td>
-									<td style="width: 120px">
-										<span class="p-column-title">Jumlah Keseluruhan</span>
-										{{record.total_overal}}
-									</td>
-									<td style="width: 100px">
-										<span class="p-column-title">Jumlah Baki Akhir</span>
-										{{record.balance}}
-									</td>
-								</tr>
-							</ng-template>
-						</p-table>
-						<div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">No Data</div>
-						<div class="primeng-paging-container justify-content-between">
-							<p-paginator
-								[rows]="primengTableHelper.defaultRecordsCountPerPage"
-								#paginator
-								(onPageChange)="getFund($event)"
-								[totalRecords]="primengTableHelper.totalRecordsCount"
-								[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
-							></p-paginator>
-							<span class="total-records-count">Jumlah: {{ primengTableHelper.totalRecordsCount}}</span>
-						</div>
-					</div>
-					<!--<Primeng-TurboTable-End>-->
-				</div>
-			</div>
-		</div>
-	</div>
+            <div class="row justify-content-center">
+              <h4>RM{{report.total_kos}}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-custom gutter-b">
+      <div class="card-body">
+        <div class="row justify-content-end mb-2">
+          <button class="btn btn-primary" type="button" (click)="addFundModal()">
+            <i class="fa fa-plus mr-2"></i>
+            Tambah
+          </button>
+        </div>
+        <div class="row mb-2">
+          <input type="text" class="form-control" placeholder="Carian..." />
+        </div>
+        <div class="row align-items-center">
+          <!--<Primeng-TurboTable-Start>-->
+          <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+            <p-table
+                #dataTable
+                styleClass="p-datatable-striped"
+                sortMode="multiple"
+                [resizableColumns]="true"
+                (onLazyLoad)="getFund($event)"
+                [value]="primengTableHelper.records"
+                rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
+                [paginator]="false"
+                [lazy]="true"
+                [scrollable]="true"
+                ScrollWidth="100%"
+                [responsive]="primengTableHelper.isResponsive"
+                [resizableColumns]="primengTableHelper.resizableColumns"
+            >
+              <ng-template pTemplate="header">
+                <tr>
+                  <th style="width: 130px">Tindakan</th>
+                  <th style="width: 100px" pSortableColumn="nama">
+                    Nama
+                    <p-sortIcon field="nama"></p-sortIcon>
+                  </th>
+                  <th style="width: 130px" pSortableColumn="baki">
+                    Tarikh Baki
+                    <p-sortIcon field="baki"></p-sortIcon>
+                  </th>
+                  <th style="width: 130px" pSortableColumn="jumlah">
+                    Jumlah Baki Bawaan (RM)
+                    <p-sortIcon field="jumlah"></p-sortIcon>
+                  </th>
+                  <th style="width: 130px" pSortableColumn="sehingga">
+                    Tarikh Terimaan Sehingga
+                    <p-sortIcon field="sehingga"></p-sortIcon>
+                  </th>
+                  <th style="width: 130px" pSortableColumn="jumlah_rm">
+                    Jumlah Peruntukan (RM)
+                    <p-sortIcon field="jumlah_rm"></p-sortIcon>
+                  </th>
+                  <th style="width: 120px" pSortableColumn="jumlah_keseluruhan">
+                    Jumlah Keseluruhan (RM)
+                    <p-sortIcon field="jumlah_keseluruhan"></p-sortIcon>
+                  </th>
+                  <th style="width: 100px" pSortableColumn="jumlah_baki">
+                    Jumlah Perbelanjaan Sehingga (RM)
+                    <p-sortIcon field="jumlah_baki"></p-sortIcon>
+                  </th>
+                  <th style="width: 100px" pSortableColumn="jumlah_baki_semasa">
+                    Jumlah Baki Semasa (RM)
+                    <p-sortIcon field="jumlah_baki"></p-sortIcon>
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-record="$implicit">
+                <tr>
+                  <td style="width: 130px">
+                    <div ngbDropdown class="btn-group" role="group" container="body">
+                      <button
+                        type="button"
+                        class="btn btn-primary btn-primeng dropdown-toggle"
+                        id="action"
+                        ngbDropdownToggle
+                      >
+                        <i class="fa fa-cog"></i>
+                        <span class="caret"></span>
+                        Tindakan
+                      </button>
+                      <div ngbDropdownMenu aria-labelledby="action">
+                        <button class="dropdown-item" [routerLink]="['/app/tabung/edit-tabung']">Lihat</button>
+                        <button class="dropdown-item">Padam</button>
+                      </div>
+                    </div>
+                  </td>
+                  <td style="width: 100px">
+                    <span class="p-column-title">Nama</span>
+                    {{record.name}}
+                  </td>
+                  <td style="width: 130px">
+                    <span class="p-column-title">Baki Pada</span>
+                    {{record.date}}
+                  </td>
+                  <td style="width: 130px">
+                    <span class="p-column-title">Jumlah</span>
+                    {{record.total}}
+                  </td>
+                  <td style="width: 130px">
+                    <span class="p-column-title">Sehingga Pada</span>
+                    {{record.date2}}
+                  </td>
+                  <td style="width: 130px">
+                    <span class="p-column-title">Jumlah</span>
+                    {{record.total2}}
+                  </td>
+                  <td style="width: 120px">
+                    <span class="p-column-title">Jumlah Keseluruhan</span>
+                    {{record.total_overal}}
+                  </td>
+                  <td style="width: 100px">
+                    <span class="p-column-title">Jumlah Perbelanjaan Sehingga</span>
+                    {{record.balance}}
+                  </td>
+                  <td style="width: 100px">
+                    <span class="p-column-title">Jumlah Baki Semasa</span>
+                    {{record.balance_until}}
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+            <div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">No Data</div>
+            <div class="primeng-paging-container justify-content-between">
+              <p-paginator
+                [rows]="primengTableHelper.defaultRecordsCountPerPage"
+                #paginator
+                (onPageChange)="getFund($event)"
+                [totalRecords]="primengTableHelper.totalRecordsCount"
+                [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
+              ></p-paginator>
+              <span class="total-records-count">Jumlah: {{ primengTableHelper.totalRecordsCount}}</span>
+            </div>
+          </div>
+          <!--<Primeng-TurboTable-End>-->
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
