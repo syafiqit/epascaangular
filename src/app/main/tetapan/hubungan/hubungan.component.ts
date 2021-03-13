@@ -7,9 +7,9 @@ import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { TambahEditHubunganComponent } from './tambah-edit-hubungan/tambah-edit-hubungan.component';
 
 @Component({
-  selector: 'app-hubungan',
-  templateUrl: './hubungan.component.html',
-  encapsulation: ViewEncapsulation.None,
+	selector: 'app-hubungan',
+	templateUrl: './hubungan.component.html',
+	encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig, NgbModal]
 })
 export class HubunganComponent implements OnInit {
@@ -19,7 +19,7 @@ export class HubunganComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
 
 	rows = [
-		{ relationship: 'Ayah', status: 'Aktif'},
+		{ relationship: 'Ayah', status: 'Aktif' },
 		{ relationship: 'Mak', status: 'Aktif' },
 		{ relationship: 'Pakcik', status: 'Aktif' }
 	];

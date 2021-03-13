@@ -88,15 +88,15 @@ const routes: Routes = [
 				path: 'senarai-pelaksana',
 				component: PelaksanaComponent
 			},
-      {
+			{
 				path: 'hubungan',
 				component: HubunganComponent
 			},
-      {
+			{
 				path: 'peranan',
 				component: PerananComponent
 			},
-      {
+			{
 				path: 'rujukan',
 				component: RujukanComponent
 			}

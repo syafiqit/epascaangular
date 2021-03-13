@@ -5,7 +5,7 @@ import { TambahNoRujukanComponent } from '../../wang-ihsan/tambah-no-rujukan/tam
 	selector: 'app-tambah-edit-bayaran-secara-terus',
 	templateUrl: './tambah-edit-bayaran-secara-terus.component.html',
 	encapsulation: ViewEncapsulation.None,
-  providers: [NgbModalConfig, NgbModal]
+	providers: [NgbModalConfig, NgbModal]
 })
 export class TambahEditBayaranSecaraTerusComponent implements OnInit {
 	displayMonths = 1;
@@ -14,12 +14,12 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
 	outsideDays = 'visible';
 
 	constructor(config: NgbModalConfig, private modalService: NgbModal) {
-    config.backdrop = 'static';
+		config.backdrop = 'static';
 		config.keyboard = false;
 	}
 	ngOnInit(): void {}
 
-  addNoReference() {
+	addNoReference() {
 		const modalRef = this.modalService.open(TambahNoRujukanComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
 	}

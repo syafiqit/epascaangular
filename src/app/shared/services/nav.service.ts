@@ -131,9 +131,9 @@ export class NavService implements OnDestroy {
 				{ path: '/app/tetapan/senarai-pengumuman', title: 'Senarai Pengumuman', type: 'link' },
 				{ path: '/app/tetapan/senarai-pemilik-projek-rumah', title: 'Pemilik Projek Rumah', type: 'link' },
 				{ path: '/app/tetapan/senarai-jenis-bantuan', title: 'Jenis Bantuan', type: 'link' },
-        { path: '/app/tetapan/hubungan', title: 'Hubungan', type: 'link' },
-        { path: '/app/tetapan/peranan', title: 'Peranan', type: 'link' },
-        { path: '/app/tetapan/rujukan', title: 'Rujukan', type: 'link' }
+				{ path: '/app/tetapan/hubungan', title: 'Hubungan', type: 'link' },
+				{ path: '/app/tetapan/peranan', title: 'Peranan', type: 'link' },
+				{ path: '/app/tetapan/rujukan', title: 'Rujukan', type: 'link' }
 			]
 		};
 

@@ -3,9 +3,9 @@ import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-boots
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-tambah-edit-peranan',
-  templateUrl: './tambah-edit-peranan.component.html',
-  encapsulation: ViewEncapsulation.None,
+	selector: 'app-tambah-edit-peranan',
+	templateUrl: './tambah-edit-peranan.component.html',
+	encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig, NgbModal]
 })
 export class TambahEditPerananComponent implements OnInit {

@@ -7,9 +7,9 @@ import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { TambahEditPerananComponent } from './tambah-edit-peranan/tambah-edit-peranan.component';
 
 @Component({
-  selector: 'app-peranan',
-  templateUrl: './peranan.component.html',
-  encapsulation: ViewEncapsulation.None,
+	selector: 'app-peranan',
+	templateUrl: './peranan.component.html',
+	encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig, NgbModal]
 })
 export class PerananComponent implements OnInit {
@@ -19,10 +19,10 @@ export class PerananComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
 
 	rows = [
-		{ role: 'Pengguna Biasa', status: 'Aktif'},
+		{ role: 'Pengguna Biasa', status: 'Aktif' },
 		{ role: 'Penyelia', status: 'Aktif' },
 		{ role: 'Admin Sekretariat', status: 'Aktif' },
-    { role: 'Kewangan', status: 'Aktif' },
+		{ role: 'Kewangan', status: 'Aktif' }
 	];
 
 	constructor(config: NgbModalConfig, private modalService: NgbModal) {

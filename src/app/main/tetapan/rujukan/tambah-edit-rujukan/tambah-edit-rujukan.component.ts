@@ -3,9 +3,9 @@ import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-boots
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-tambah-edit-rujukan',
-  templateUrl: './tambah-edit-rujukan.component.html',
-  encapsulation: ViewEncapsulation.None,
+	selector: 'app-tambah-edit-rujukan',
+	templateUrl: './tambah-edit-rujukan.component.html',
+	encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig, NgbModal]
 })
 export class TambahEditRujukanComponent implements OnInit {

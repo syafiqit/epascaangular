@@ -10,18 +10,18 @@ import { TambahNoRujukanComponent } from '../tambah-no-rujukan/tambah-no-rujukan
 @Component({
 	selector: 'app-tambah-edit-wang-ihsan',
 	templateUrl: './tambah-edit-wang-ihsan.component.html',
-  encapsulation: ViewEncapsulation.None,
-  providers: [NgbModalConfig, NgbModal]
+	encapsulation: ViewEncapsulation.None,
+	providers: [NgbModalConfig, NgbModal]
 })
 export class TambahEditWangIhsanComponent implements OnInit {
-  @ViewChild('dataTable', { static: true }) dataTable: Table;
+	@ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
 	primengTableHelper: PrimengTableHelper;
 
-  rows = [
+	rows = [
 		{ name: 'Abu Bin Ali', total: '500', state: 'Johor', area: 'Segamat' },
-		{ name: 'Ramzan Bin Arifin', total: '500', state: 'Johor', area: 'Segamat' },
+		{ name: 'Ramzan Bin Arifin', total: '500', state: 'Johor', area: 'Segamat' }
 	];
 
 	state = [
@@ -40,21 +40,17 @@ export class TambahEditWangIhsanComponent implements OnInit {
 		{ state: 'Terengganu' },
 		{ state: 'Wilayah Persekutuan K.L' }
 	];
-  area = [
+	area = [
 		{ area: 'Segamat' },
 		{ area: 'Labis' },
 		{ area: 'Larkin' },
 		{ area: 'Kluang' },
 		{ area: 'Mersing' },
 		{ area: 'Muar' },
-		{ area: 'Ledang' },
+		{ area: 'Ledang' }
 	];
-  disaster = [
-		{ disaster: 'Banjir' },
-		{ disaster: 'Gempa Bumi' },
-		{ disaster: 'Covid-19' },
-	];
-  active = 1;
+	disaster = [{ disaster: 'Banjir' }, { disaster: 'Gempa Bumi' }, { disaster: 'Covid-19' }];
+	active = 1;
 
 	constructor(config: NgbModalConfig, private modalService: NgbModal) {
 		this.primengTableHelper = new PrimengTableHelper();
@@ -62,7 +58,7 @@ export class TambahEditWangIhsanComponent implements OnInit {
 		config.keyboard = false;
 	}
 
-  getDisaster(event?: LazyLoadEvent) {
+	getDisaster(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
@@ -78,12 +74,12 @@ export class TambahEditWangIhsanComponent implements OnInit {
 		this.paginator.changePage(this.paginator.getPage());
 	}
 
-  addDisasterModal() {
+	addDisasterModal() {
 		const modalRef = this.modalService.open(TambahKetuaIsiRumahComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
 	}
 
-  addNoReference() {
+	addNoReference() {
 		const modalRef = this.modalService.open(TambahNoRujukanComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
 	}
