@@ -7,9 +7,9 @@ import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { TambahEditRujukanComponent } from './tambah-edit-rujukan/tambah-edit-rujukan.component';
 
 @Component({
-  selector: 'app-rujukan',
-  templateUrl: './rujukan.component.html',
-  encapsulation: ViewEncapsulation.None,
+	selector: 'app-rujukan',
+	templateUrl: './rujukan.component.html',
+	encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig, NgbModal]
 })
 export class RujukanComponent implements OnInit {
@@ -19,8 +19,8 @@ export class RujukanComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
 
 	rows = [
-		{ name: 'Manual Penggunaan Sistem', fail: 'Sistem.pdf'},
-    { name: 'Manual Pengurusan Tabung', fail: 'Sistem_Tabung.pdf'},
+		{ name: 'Manual Penggunaan Sistem', fail: 'Sistem.pdf' },
+		{ name: 'Manual Pengurusan Tabung', fail: 'Sistem_Tabung.pdf' }
 	];
 
 	constructor(config: NgbModalConfig, private modalService: NgbModal) {

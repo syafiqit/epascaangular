@@ -61,7 +61,7 @@ const routes: Routes = [
 				path: 'edit-kelulusan',
 				component: EditKelulusanComponent
 			},
-      {
+			{
 				path: 'edit-tabung',
 				component: EditTabungComponent
 			}

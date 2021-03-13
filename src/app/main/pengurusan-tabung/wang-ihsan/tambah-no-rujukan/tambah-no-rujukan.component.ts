@@ -7,35 +7,42 @@ import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 
 @Component({
-  selector: 'app-tambah-no-rujukan',
-  templateUrl: './tambah-no-rujukan.component.html',
-  encapsulation: ViewEncapsulation.None,
+	selector: 'app-tambah-no-rujukan',
+	templateUrl: './tambah-no-rujukan.component.html',
+	encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig, NgbModal]
 })
 export class TambahNoRujukanComponent implements OnInit {
-  @ViewChild('dataTable', { static: true }) dataTable: Table;
+	@ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
 	primengTableHelper: PrimengTableHelper;
 
-  @Input() name;
+	@Input() name;
 
 	modelFooter: NgbDateStruct;
 	today = this.calendar.getToday();
 
-  rows = [
-		{ reference: 'JPM.APBN(S).600-3/8/2 (1)', description: 'Kelulusan Permohonan Tambahan Bina Rumah Baru Dan Baik Pulih Rumah Bagi Mangsa Banjir Tahun 2014' },
-		{ reference: 'JPM.APBN(S).600-3/8/2 (2)', description: 'Kelulusan Permohonan Tambahan Bina Rumah Baru Dan Baik Pulih Rumah Bagi Mangsa Banjir Tahun 2015' },
+	rows = [
+		{
+			reference: 'JPM.APBN(S).600-3/8/2 (1)',
+			description:
+				'Kelulusan Permohonan Tambahan Bina Rumah Baru Dan Baik Pulih Rumah Bagi Mangsa Banjir Tahun 2014'
+		},
+		{
+			reference: 'JPM.APBN(S).600-3/8/2 (2)',
+			description:
+				'Kelulusan Permohonan Tambahan Bina Rumah Baru Dan Baik Pulih Rumah Bagi Mangsa Banjir Tahun 2015'
+		}
 	];
 
 	constructor(private modalService: NgbModal, public activeModal: NgbActiveModal, private calendar: NgbCalendar) {
-    this.primengTableHelper = new PrimengTableHelper();
-
-  }
+		this.primengTableHelper = new PrimengTableHelper();
+	}
 
 	ngOnInit(): void {}
 
-  getDisaster(event?: LazyLoadEvent) {
+	getDisaster(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;

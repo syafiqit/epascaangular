@@ -9,7 +9,7 @@ import { TambahNoRujukanComponent } from '../../wang-ihsan/tambah-no-rujukan/tam
 	selector: 'app-tambah-edit-skb',
 	templateUrl: './tambah-edit-skb.component.html',
 	encapsulation: ViewEncapsulation.None,
-  providers: [NgbModalConfig, NgbModal]
+	providers: [NgbModalConfig, NgbModal]
 })
 export class TambahEditSkbComponent implements OnInit {
 	@ViewChild('dataTable', { static: true }) dataTable: Table;
@@ -40,7 +40,7 @@ export class TambahEditSkbComponent implements OnInit {
 
 	constructor(config: NgbModalConfig, private modalService: NgbModal) {
 		this.primengTableHelper = new PrimengTableHelper();
-    config.backdrop = 'static';
+		config.backdrop = 'static';
 		config.keyboard = false;
 	}
 
@@ -62,7 +62,7 @@ export class TambahEditSkbComponent implements OnInit {
 		this.paginator.changePage(this.paginator.getPage());
 	}
 
-  addNoReference() {
+	addNoReference() {
 		const modalRef = this.modalService.open(TambahNoRujukanComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
 	}

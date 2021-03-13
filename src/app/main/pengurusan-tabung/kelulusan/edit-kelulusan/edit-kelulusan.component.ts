@@ -12,14 +12,14 @@ import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 	providers: [NgbModalConfig, NgbModal]
 })
 export class EditKelulusanComponent implements OnInit {
-  @ViewChild('dataTable', { static: true }) dataTable: Table;
+	@ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
 	primengTableHelper: PrimengTableHelper;
 
 	rows = [
 		{ saving: 'Covid', total: 'RM20,000' },
-		{ saving: 'Bukan Covid', total: 'RM50,000'},
+		{ saving: 'Bukan Covid', total: 'RM50,000' },
 		{ saving: 'Jumlah', total: 'RM70,000' }
 	];
 	displayMonths = 1;
@@ -28,17 +28,17 @@ export class EditKelulusanComponent implements OnInit {
 	outsideDays = 'visible';
 
 	constructor(config: NgbModalConfig, private modalService: NgbModal) {
-    this.primengTableHelper = new PrimengTableHelper();
+		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
 	}
 	ngOnInit(): void {}
 
-  approvalAddModal() {
+	approvalAddModal() {
 		this.modalService.open(TambahRujukanBencanaComponent, { size: 'lg' });
 	}
 
-  getApplication(event?: LazyLoadEvent) {
+	getApplication(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;

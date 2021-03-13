@@ -25,42 +25,42 @@ export class PengurusanPenggunaComponent implements OnInit {
 			userName: 'Khairul Azwin B Mohd Nor',
 			agency: 'Jabatan Kebajikan Masyarakat',
 			userRole: 'Pengguna Biasa',
-			lastLog: '',
+			lastLog: ''
 		},
 		{
 			userID: '800103xxxxx5',
 			userName: 'Mohamad Noor B Yusoh',
 			agency: 'Jabatan Kebajikan Masyarakat',
 			userRole: 'Pengguna Biasa',
-			lastLog: '',
+			lastLog: ''
 		},
 		{
 			userID: '850414xxxxx7',
 			userName: 'Mohd Naufal B Yusoff',
 			agency: 'Jabatan Kebajikan Masyarakat',
 			userRole: 'Pengguna Biasa',
-			lastLog: '',
+			lastLog: ''
 		},
 		{
 			userID: '850122xxxxx3',
 			userName: 'Abdul Hadi B Baharom',
 			agency: 'Jabatan Pertahanan Awam Malaysia',
 			userRole: 'Pengguna Biasa',
-			lastLog: '23-02-2016  12:08:12 PM',
+			lastLog: '23-02-2016  12:08:12 PM'
 		},
 		{
 			userID: '770120xxxxx7',
 			userName: 'Adila Sabri B Muhammad',
 			agency: 'Agensi Pengurusan Bencana Malaysia',
 			userRole: 'Penyelia',
-			lastLog: '23-01-2021  10:11:39 PM',
+			lastLog: '23-01-2021  10:11:39 PM'
 		},
 		{
 			userID: '790930xxxxx7',
 			userName: 'Mohamad Faizal B Mohamad',
 			agency: 'Agensi Pengurusan Bencana Malaysia',
 			userRole: 'Admin',
-			lastLog: '16-04-2018  09:16:34 AM',
+			lastLog: '16-04-2018  09:16:34 AM'
 		}
 	];
 

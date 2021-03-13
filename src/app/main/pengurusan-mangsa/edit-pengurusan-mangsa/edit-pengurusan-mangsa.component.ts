@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 	templateUrl: './edit-pengurusan-mangsa.component.html'
 })
 export class EditPengurusanMangsaComponent implements OnInit {
-  active = 1;
+	active = 1;
 
 	constructor() {}
 

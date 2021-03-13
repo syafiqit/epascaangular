@@ -13,7 +13,7 @@ import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
 export class TambahEditPengurusanPenggunaComponent implements AfterViewInit {
 	@ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
-  active = 1;
+	active = 1;
 
 	primengTableHelper: PrimengTableHelper;
 
