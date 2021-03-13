@@ -14,82 +14,82 @@ import { TambahPeruntukanComponent } from '../edit-tabung/tambah-peruntukan/tamb
   providers: [NgbModalConfig, NgbModal]
 })
 export class EditTabungComponent implements AfterViewInit {
-	@ViewChild('dataTable', { static: true }) dataTable: Table;
-	@ViewChild('paginator', { static: true }) paginator: Paginator;
+  @ViewChild('dataTable', { static: true }) dataTable: Table;
+  @ViewChild('paginator', { static: true }) paginator: Paginator;
   active = 1;
 
   primengTableHelper: PrimengTableHelper;
 
   rows = [
-		{
-			bil: '1',
-			date: '1/3/2020',
-			ref_number: 'AXXXX',
-			source: '-',
-			name: 'Sumbangan Tabung Takaful',
-			total: '100,000.00',
-			notes: '-'
-		}
-	];
+    {
+      bil: '1',
+      date: '1/3/2020',
+      ref_number: 'AXXXX',
+      source: '-',
+      name: 'Sumbangan Tabung Takaful',
+      total: '100,000.00',
+      notes: '-'
+    }
+  ];
 
   rows2 = [
-		{
-			bil: '1',
-			date_modified: '1/3/2020',
-			total_bal: 'RM 400,000.00',
-			modified_by: 'Mohd Ramzan'
-		},
     {
-			bil: '2',
-			date_modified: '20/2/2020',
-			total_bal: 'RM 200,000.00',
-			modified_by: 'Mohd Ramzan'
-		}
-	];
+      bil: '1',
+      date_modified: '1/3/2020',
+      total_bal: 'RM 400,000.00',
+      modified_by: 'Mohd Ramzan'
+    },
+    {
+      bil: '2',
+      date_modified: '20/2/2020',
+      total_bal: 'RM 200,000.00',
+      modified_by: 'Mohd Ramzan'
+    }
+  ];
 
-	ColumnMode = ColumnMode;
-	SortType = SortType;
+  ColumnMode = ColumnMode;
+  SortType = SortType;
 
-	constructor(config: NgbModalConfig, private modalService: NgbModal) {
-		this.primengTableHelper = new PrimengTableHelper();
+  constructor(config: NgbModalConfig, private modalService: NgbModal) {
+    this.primengTableHelper = new PrimengTableHelper();
     config.backdrop = 'static';
-		config.keyboard = false;
-	}
+    config.keyboard = false;
+  }
 
-	ngAfterViewInit(): void {
-		//this.primengTableHelper.adjustScroll(this.dataTable);
-	}
+  ngAfterViewInit(): void {
+    //this.primengTableHelper.adjustScroll(this.dataTable);
+  }
 
-	getApplication(event?: LazyLoadEvent) {
-		if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
+  getApplication(event?: LazyLoadEvent) {
+    if (this.primengTableHelper.shouldResetPaging(event)) {
+      this.paginator.changePage(0);
+      return;
+    }
 
-		this.primengTableHelper.showLoadingIndicator();
-		this.primengTableHelper.totalRecordsCount = this.rows.length;
-		this.primengTableHelper.records = this.rows;
-		this.primengTableHelper.hideLoadingIndicator();
-	}
+    this.primengTableHelper.showLoadingIndicator();
+    this.primengTableHelper.totalRecordsCount = this.rows.length;
+    this.primengTableHelper.records = this.rows;
+    this.primengTableHelper.hideLoadingIndicator();
+  }
 
   getApplication2(event?: LazyLoadEvent) {
-		if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
+    if (this.primengTableHelper.shouldResetPaging(event)) {
+      this.paginator.changePage(0);
+      return;
+    }
 
-		this.primengTableHelper.showLoadingIndicator();
-		this.primengTableHelper.totalRecordsCount = this.rows.length;
-		this.primengTableHelper.records2 = this.rows2;
-		this.primengTableHelper.hideLoadingIndicator();
-	}
+    this.primengTableHelper.showLoadingIndicator();
+    this.primengTableHelper.totalRecordsCount = this.rows.length;
+    this.primengTableHelper.records2 = this.rows2;
+    this.primengTableHelper.hideLoadingIndicator();
+  }
 
   addFundModal() {
-		const modalRef = this.modalService.open(TambahPeruntukanComponent, { size: 'lg' });
-		modalRef.componentInstance.name = 'add';
-	}
+    const modalRef = this.modalService.open(TambahPeruntukanComponent, { size: 'lg' });
+    modalRef.componentInstance.name = 'add';
+  }
 
-	reloadPage(): void {
-		this.paginator.changePage(this.paginator.getPage());
-	}
+  reloadPage(): void {
+    this.paginator.changePage(this.paginator.getPage());
+  }
 }

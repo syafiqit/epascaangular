@@ -19,14 +19,14 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label>Baki Pada (Tarikh)</label>
+                  <label>Tarikh Baki Pada (Tarikh)</label>
                   <input class="form-control" name="baki" type="date" />
                 </div>
               </div>
 
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label>Jumlah(RM)</label>
+                  <label>Jumlah Baki Bawaan(RM)</label>
                   <input class="form-control" name="jumlahBaki" type="text"/>
                 </div>
               </div>
@@ -35,14 +35,14 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label>Sehingga Pada (Tarikh)</label>
+                  <label>Tarikh Terimaan Sehingga</label>
                   <input class="form-control" name="sehingga" type="date" />
                 </div>
               </div>
 
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label>Jumlah(RM)</label>
+                  <label>Jumlah Peruntukan(RM)</label>
                   <input class="form-control" name="jumlahSehingga" type="text"/>
                 </div>
               </div>
@@ -50,46 +50,40 @@
 
             <hr />
             <div class="row">
-              <div class="col-lg-4">
+              <div class="col-lg-6">
                 <div class="form-group">
                   <label>Jumlah Keseluruhan(RM):</label>
                 </div>
               </div>
 
-              <div class="col-lg-4">
+              <div class="col-lg-6">
                 <div class="form-group">
-                  <label>Jumlah Perbelanjaan Sehingga(RM):</label>
-                </div>
-              </div>
-
-              <div class="col-lg-4">
-                <div class="form-group">
-                  <label>Jumlah Baki Akhir(RM):</label>
+                  <label>Jumlah Baki Semasa(RM):</label>
                 </div>
               </div>
             </div>
 
             <div class="row">
-							<div class="col">
-								<div class="form-group mb-3">
-									<label for="exampleFormControlTextarea4">Catatan</label>
-									<textarea class="form-control" id="exampleFormControlTextarea4" rows="3"></textarea>
-								</div>
-							</div>
-						</div>
-          <hr />
-          <h6>Terimaan Tambahan</h6>
-              <div class="card-body">
-                <div class="row justify-content-end mb-2">
-                  <button class="btn btn-primary" type="button" (click)="addFundModal()">
-                    <i class="fa fa-plus mr-2"></i>
-                    Tambah
-                  </button>
+              <div class="col">
+                <div class="form-group mb-3">
+                  <label for="exampleFormControlTextarea4">Catatan</label>
+                  <textarea class="form-control" id="exampleFormControlTextarea4" rows="3"></textarea>
                 </div>
-                <div class="row align-items-center">
-                  <!--<Primeng-TurboTable-Start>-->
-                  <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
-                    <p-table
+              </div>
+            </div>
+            <hr />
+            <h6>Terimaan Tambahan</h6>
+            <div class="card-body">
+              <div class="row justify-content-end mb-2">
+                <button class="btn btn-primary" type="button" (click)="addFundModal()">
+                  <i class="fa fa-plus mr-2"></i>
+                  Tambah
+                </button>
+              </div>
+              <div class="row align-items-center">
+                <!--<Primeng-TurboTable-Start>-->
+                <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                  <p-table
                       #dataTable
                       styleClass="p-datatable-striped"
                       sortMode="multiple"
@@ -103,83 +97,83 @@
                       ScrollWidth="100%"
                       [responsive]="primengTableHelper.isResponsive"
                       [resizableColumns]="primengTableHelper.resizableColumns"
-                    >
-                      <ng-template pTemplate="header">
-                        <tr>
-                          <th style="width: 70px" pSortableColumn="bil">
-                            Bil
-                            <p-sortIcon field="nama"></p-sortIcon>
-                          </th>
-                          <th style="width: 130px" pSortableColumn="tarikh">
-                            Tarikh
-                            <p-sortIcon field="baki"></p-sortIcon>
-                          </th>
-                          <th style="width: 130px" pSortableColumn="no_rujukan">
-                            No Rujukan
-                            <p-sortIcon field="jumlah"></p-sortIcon>
-                          </th>
-                          <th style="width: 130px" pSortableColumn="sumber_peruntukan">
-                            Sumber Peruntukan
-                            <p-sortIcon field="sehingga"></p-sortIcon>
-                          </th>
-                          <th style="width: 130px" pSortableColumn="nama_peruntukan">
-                            Nama Peruntukan
-                            <p-sortIcon field="jumlah_rm"></p-sortIcon>
-                          </th>
-                          <th style="width: 120px" pSortableColumn="jumlah_peruntukan">
-                            Jumlah Peruntukan(RM)
-                            <p-sortIcon field="jumlah_keseluruhan"></p-sortIcon>
-                          </th>
-                          <th style="width: 100px" pSortableColumn="catatan">
-                            Catatan
-                            <p-sortIcon field="jumlah_baki"></p-sortIcon>
-                          </th>
-                        </tr>
-                      </ng-template>
-                      <ng-template pTemplate="body" let-record="$implicit">
-                        <tr>
-                          <td style="width: 70px">
-                            <span class="p-column-title">Bil</span>
-                            {{record.bil}}
-                          </td>
-                          <td style="width: 130px">
-                            <span class="p-column-title">Tarikh</span>
-                            {{record.date}}
-                          </td>
-                          <td style="width: 130px">
-                            <span class="p-column-title">No Rujukan</span>
-                            {{record.ref_number}}
-                          </td>
-                          <td style="width: 130px">
-                            <span class="p-column-title">Sumber Peruntukan</span>
-                            {{record.source}}
-                          </td>
-                          <td style="width: 130px">
-                            <span class="p-column-title">Nama Peruntukan</span>
-                            {{record.name}}
-                          </td>
-                          <td style="width: 120px">
-                            <span class="p-column-title">Jumlah Peruntukan</span>
-                            {{record.total}}
-                          </td>
-                          <td style="width: 100px">
-                            <span class="p-column-title">Catatan</span>
-                            {{record.note}}
-                          </td>
-                        </tr>
-                      </ng-template>
-                    </p-table>
-                  </div>
-                  <!--<Primeng-TurboTable-End>-->
+                  >
+                    <ng-template pTemplate="header">
+                      <tr>
+                        <th style="width: 70px" pSortableColumn="bil">
+                          Bil
+                          <p-sortIcon field="nama"></p-sortIcon>
+                        </th>
+                        <th style="width: 130px" pSortableColumn="tarikh">
+                          Tarikh
+                          <p-sortIcon field="baki"></p-sortIcon>
+                        </th>
+                        <th style="width: 130px" pSortableColumn="no_rujukan">
+                          No Rujukan
+                          <p-sortIcon field="jumlah"></p-sortIcon>
+                        </th>
+                        <th style="width: 130px" pSortableColumn="sumber_peruntukan">
+                          Sumber Peruntukan
+                          <p-sortIcon field="sehingga"></p-sortIcon>
+                        </th>
+                        <th style="width: 130px" pSortableColumn="nama_peruntukan">
+                          Nama Peruntukan
+                          <p-sortIcon field="jumlah_rm"></p-sortIcon>
+                        </th>
+                        <th style="width: 120px" pSortableColumn="jumlah_peruntukan">
+                          Jumlah Peruntukan(RM)
+                          <p-sortIcon field="jumlah_keseluruhan"></p-sortIcon>
+                        </th>
+                        <th style="width: 100px" pSortableColumn="catatan">
+                          Catatan
+                          <p-sortIcon field="jumlah_baki"></p-sortIcon>
+                        </th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-record="$implicit">
+                      <tr>
+                        <td style="width: 70px">
+                          <span class="p-column-title">Bil</span>
+                          {{record.bil}}
+                        </td>
+                        <td style="width: 130px">
+                          <span class="p-column-title">Tarikh</span>
+                          {{record.date}}
+                        </td>
+                        <td style="width: 130px">
+                          <span class="p-column-title">No Rujukan</span>
+                          {{record.ref_number}}
+                        </td>
+                        <td style="width: 130px">
+                          <span class="p-column-title">Sumber Peruntukan</span>
+                          {{record.source}}
+                        </td>
+                        <td style="width: 130px">
+                          <span class="p-column-title">Nama Peruntukan</span>
+                          {{record.name}}
+                        </td>
+                        <td style="width: 120px">
+                          <span class="p-column-title">Jumlah Peruntukan</span>
+                          {{record.total}}
+                        </td>
+                        <td style="width: 100px">
+                          <span class="p-column-title">Catatan</span>
+                          {{record.note}}
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
                 </div>
-              </div><br>
+                <!--<Primeng-TurboTable-End>-->
+              </div>
+            </div><br>
 
-              <h6>Sejarah Kemaskini</h6>
-              <div class="card-body">
-                <div class="row align-items-center">
-                  <!--<Primeng-TurboTable-Start>-->
-                  <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
-                    <p-table
+            <h6>Sejarah Kemaskini</h6>
+            <div class="card-body">
+              <div class="row align-items-center">
+                <!--<Primeng-TurboTable-Start>-->
+                <div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+                  <p-table
                       #dataTable
                       styleClass="p-datatable-striped"
                       sortMode="multiple"
@@ -193,59 +187,59 @@
                       ScrollWidth="100%"
                       [responsive]="primengTableHelper.isResponsive"
                       [resizableColumns]="primengTableHelper.resizableColumns"
-                    >
-                      <ng-template pTemplate="header">
-                        <tr>
-                          <th style="width: 70px" pSortableColumn="bil">
-                            Bil
-                            <p-sortIcon field="bil"></p-sortIcon>
-                          </th>
-                          <th style="width: 130px" pSortableColumn="tarikh_kemaskini">
-                            Tarikh Kemaskini
-                            <p-sortIcon field="tarikh_kemaskini"></p-sortIcon>
-                          </th>
-                          <th style="width: 130px" pSortableColumn="jumlah_baki">
-                            Jumlah Baki Akhir(RM)
-                            <p-sortIcon field="jumlah_baki"></p-sortIcon>
-                          </th>
-                          <th style="width: 130px" pSortableColumn="dikemaskini_oleh">
-                            Dikemaskini Oleh
-                            <p-sortIcon field="dikemaskini_oleh"></p-sortIcon>
-                          </th>
-                        </tr>
-                      </ng-template>
-                      <ng-template pTemplate="body" let-records="$implicit">
-                        <tr>
-                          <td style="width: 70px">
-                            <span class="p-column-title">Bil</span>
-                            {{records.bil}}
-                          </td>
-                          <td style="width: 130px">
-                            <span class="p-column-title">Tarikh Kemaskini</span>
-                            {{records.date_modified}}
-                          </td>
-                          <td style="width: 130px">
-                            <span class="p-column-title">Jumlah Baki Akhir(RM)</span>
-                            {{records.total_bal}}
-                          </td>
-                          <td style="width: 130px">
-                            <span class="p-column-title">Dikemaskini Oleh</span>
-                            {{records.modified_by}}
-                          </td>
-                        </tr>
-                      </ng-template>
-                    </p-table>
-                  </div>
-                  <!--<Primeng-TurboTable-End>-->
+                  >
+                    <ng-template pTemplate="header">
+                      <tr>
+                        <th style="width: 70px" pSortableColumn="bil">
+                          Bil
+                          <p-sortIcon field="bil"></p-sortIcon>
+                        </th>
+                        <th style="width: 130px" pSortableColumn="tarikh_kemaskini">
+                          Tarikh Kemaskini
+                          <p-sortIcon field="tarikh_kemaskini"></p-sortIcon>
+                        </th>
+                        <th style="width: 130px" pSortableColumn="jumlah_baki">
+                          Jumlah Baki Akhir(RM)
+                          <p-sortIcon field="jumlah_baki"></p-sortIcon>
+                        </th>
+                        <th style="width: 130px" pSortableColumn="dikemaskini_oleh">
+                          Dikemaskini Oleh
+                          <p-sortIcon field="dikemaskini_oleh"></p-sortIcon>
+                        </th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-records="$implicit">
+                      <tr>
+                        <td style="width: 70px">
+                          <span class="p-column-title">Bil</span>
+                          {{records.bil}}
+                        </td>
+                        <td style="width: 130px">
+                          <span class="p-column-title">Tarikh Kemaskini</span>
+                          {{records.date_modified}}
+                        </td>
+                        <td style="width: 130px">
+                          <span class="p-column-title">Jumlah Baki Akhir(RM)</span>
+                          {{records.total_bal}}
+                        </td>
+                        <td style="width: 130px">
+                          <span class="p-column-title">Dikemaskini Oleh</span>
+                          {{records.modified_by}}
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
                 </div>
+                <!--<Primeng-TurboTable-End>-->
               </div>
+            </div>
 
             <button class="btn btn-primary pull-right" [routerLink]="['/app/tabung/senarai-tabung']"
-              type="button">
+                    type="button">
               Simpan
             </button>
             <button class="btn btn-light pull-right mr-1" [routerLink]="['/app/tabung/senarai-tabung']"
-              type="button">
+                    type="button">
               Kembali
             </button>
 
