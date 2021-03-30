@@ -24,6 +24,11 @@ import { CookieService } from 'ngx-cookie-service';
 import { AppSessionService } from './shared/services/app-session.service';
 import { AppRouteGuard } from './shared/guards/app-route-guard';
 import { AppAuthService } from './shared/services/app-auth-service';
+import { API_BASE_URL } from './shared/proxy/service-proxies';
+
+export function getRemoteServiceBaseUrl(): string {
+  return environment.apiUrl;
+}
 
 export function HttpLoaderFactory(http: HttpClient) {
 	return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -86,6 +91,7 @@ export function appInitializerFactory(injector: Injector) {
 		AppAuthService,
 		CookieService,
 		AppRouteGuard,
+    { provide: API_BASE_URL, useFactory: getRemoteServiceBaseUrl },
 		{
 			provide: APP_INITIALIZER,
 			useFactory: appInitializerFactory,

@@ -33,6 +33,35 @@ import { BusyIfDirective } from './directives/busy-if.directive';
 // Services
 import { LayoutService } from './services/layout.service';
 import { NavService } from './services/nav.service';
+import * as ApiServiceProxies from './proxy/service-proxies';
+
+const NSWAG = [
+  ApiServiceProxies.RefAgamaServiceProxy,
+  ApiServiceProxies.RefAgensiServiceProxy,
+  ApiServiceProxies.RefBantuanServiceProxy,
+  ApiServiceProxies.RefBencanaServiceProxy,
+  ApiServiceProxies.RefDaerahServiceProxy,
+  ApiServiceProxies.RefDunServiceProxy,
+  ApiServiceProxies.RefJenisBencanaServiceProxy,
+  ApiServiceProxies.RefJenisPertanianServiceProxy,
+  ApiServiceProxies.RefKementerianServiceProxy,
+  ApiServiceProxies.RefKerosakanServiceProxy,
+  ApiServiceProxies.RefMukimServiceProxy,
+  ApiServiceProxies.RefNegeriServiceProxy,
+  ApiServiceProxies.RefParlimenServiceProxy,
+  ApiServiceProxies.RefPelaksanaServiceProxy,
+  ApiServiceProxies.RefPemilikServiceProxy,
+  ApiServiceProxies.RefPerananServiceProxy,
+  ApiServiceProxies.RefPindahServiceProxy,
+  ApiServiceProxies.RefPinjamanPerniagaanServiceProxy,
+  ApiServiceProxies.RefSektorServiceProxy,
+  ApiServiceProxies.RefStatusKemajuanServiceProxy,
+  ApiServiceProxies.RefStatusKerosakanServiceProxy,
+  ApiServiceProxies.RefSumberDanaServiceProxy,
+  ApiServiceProxies.RefSumberPeruntukanServiceProxy,
+  ApiServiceProxies.RefTapakRumahServiceProxy,
+  ApiServiceProxies.RefWarganegaraServiceProxy
+];
 
 @NgModule({
 	declarations: [
@@ -68,7 +97,10 @@ import { NavService } from './services/nav.service';
 		DragulaModule.forRoot(),
 		TranslateModule
 	],
-	providers: [NavService, LayoutService],
+	providers: [
+    NavService,
+    LayoutService,
+    ...NSWAG],
 	exports: [
 		NgbModule,
 		FormsModule,

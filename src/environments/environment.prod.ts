@@ -7,5 +7,6 @@ export const environment = {
 		projectId: 'Your Project Id',
 		storageBucket: 'Your StorageBucket url',
 		messagingSenderId: 'Your Sender Id'
-	}
+	},
+  apiUrl: 'http://10.1.1.98:8200',
 };
