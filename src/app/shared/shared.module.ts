@@ -36,7 +36,31 @@ import { NavService } from './services/nav.service';
 import * as ApiServiceProxies from './proxy/service-proxies';
 
 const NSWAG = [
-  ApiServiceProxies.BantuanServiceProxy
+  ApiServiceProxies.RefAgamaServiceProxy,
+  ApiServiceProxies.RefAgensiServiceProxy,
+  ApiServiceProxies.RefBantuanServiceProxy,
+  ApiServiceProxies.RefBencanaServiceProxy,
+  ApiServiceProxies.RefDaerahServiceProxy,
+  ApiServiceProxies.RefDunServiceProxy,
+  ApiServiceProxies.RefJenisBencanaServiceProxy,
+  ApiServiceProxies.RefJenisPertanianServiceProxy,
+  ApiServiceProxies.RefKementerianServiceProxy,
+  ApiServiceProxies.RefKerosakanServiceProxy,
+  ApiServiceProxies.RefMukimServiceProxy,
+  ApiServiceProxies.RefNegeriServiceProxy,
+  ApiServiceProxies.RefParlimenServiceProxy,
+  ApiServiceProxies.RefPelaksanaServiceProxy,
+  ApiServiceProxies.RefPemilikServiceProxy,
+  ApiServiceProxies.RefPerananServiceProxy,
+  ApiServiceProxies.RefPindahServiceProxy,
+  ApiServiceProxies.RefPinjamanPerniagaanServiceProxy,
+  ApiServiceProxies.RefSektorServiceProxy,
+  ApiServiceProxies.RefStatusKemajuanServiceProxy,
+  ApiServiceProxies.RefStatusKerosakanServiceProxy,
+  ApiServiceProxies.RefSumberDanaServiceProxy,
+  ApiServiceProxies.RefSumberPeruntukanServiceProxy,
+  ApiServiceProxies.RefTapakRumahServiceProxy,
+  ApiServiceProxies.RefWarganegaraServiceProxy
 ];
 
 @NgModule({

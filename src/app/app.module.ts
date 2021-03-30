@@ -91,6 +91,7 @@ export function appInitializerFactory(injector: Injector) {
 		AppAuthService,
 		CookieService,
 		AppRouteGuard,
+    { provide: API_BASE_URL, useFactory: getRemoteServiceBaseUrl },
 		{
 			provide: APP_INITIALIZER,
 			useFactory: appInitializerFactory,
