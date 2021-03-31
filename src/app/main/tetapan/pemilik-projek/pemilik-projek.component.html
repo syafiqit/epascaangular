@@ -33,7 +33,7 @@
 							<ng-template pTemplate="header">
 								<tr>
 									<th style="width: 130px">Tindakan</th>
-									<th style="width: 150px" pSortableColumn="execName">
+									<th style="width: 150px" pSortableColumn="projectOwner">
 										Nama Pelaksana
 										<p-sortIcon field="category"></p-sortIcon>
 									</th>
@@ -58,7 +58,7 @@
 												Tindakan
 											</button>
 											<div ngbDropdownMenu aria-labelledby="action">
-												<button class="dropdown-item" (click)="addProjectOwnerModal()">
+												<button class="dropdown-item" (click)="editProjectOwnerModal(record.id)">
 													Lihat
 												</button>
 												<button class="dropdown-item">Padam</button>
@@ -67,11 +67,11 @@
 									</td>
 									<td style="width: 150px">
 										<span class="p-column-title">Nama Pelaksana</span>
-										{{record.execName}}
+										{{record.nama_pemilik}}
 									</td>
 									<td style="width: 100px">
 										<span class="p-column-title">Status</span>
-										{{record.status}}
+										{{record.status_pemilik == 1? "Aktif":"Tidak Aktif"}}
 									</td>
 								</tr>
 							</ng-template>
