@@ -63,7 +63,7 @@
 													Tindakan
 												</button>
 												<div ngbDropdownMenu aria-labelledby="action">
-													<button class="dropdown-item" (click)="editProjectOwnerModal()">
+													<button class="dropdown-item" (click)="editProjectOwnerModal(record.id)">
 														Lihat
 													</button>
 													<button class="dropdown-item">Padam</button>
@@ -72,11 +72,11 @@
 										</td>
 										<td style="width: 150px">
 											<span class="p-column-title">Nama Pelaksana</span>
-											{{record.name}}
+											{{record.nama_tapak_rumah}}
 										</td>
 										<td style="width: 150px">
 											<span class="p-column-title">Status</span>
-											{{record.status}}
+											{{record.status_tapak_rumah == 1? "Aktif":"Tidak Aktif"}}
 										</td>
 									</tr>
 								</ng-template>

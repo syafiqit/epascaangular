@@ -1,10 +1,11 @@
-import { AfterViewInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TambahEditPemilikProjekRumahComponent } from './tambah-edit-pemilik-projek-rumah/tambah-edit-pemilik-projek-rumah.component';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
+import { RefTapakRumahServiceProxy } from 'src/app/shared/proxy/service-proxies';
 
 @Component({
 	selector: 'app-pemilik-projek-rumah',
@@ -12,37 +13,25 @@ import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 	encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig, NgbModal]
 })
-export class PemilikProjekRumahComponent implements AfterViewInit {
+export class PemilikProjekRumahComponent implements OnInit {
 	@ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
 	primengTableHelper: PrimengTableHelper;
 
-	rows = [
-		{ name: 'Kerajaan Negeri', status: 'Aktif' },
-		{ name: 'Kerajaan Persekutuan', status: 'Aktif ' },
-		{ name: 'NGO', status: 'Aktif' }
-	];
+	filter = '';
 
-	constructor(config: NgbModalConfig, private modalService: NgbModal) {
+	constructor(
+		config: NgbModalConfig, 
+		private modalService: NgbModal,
+		private _refTapakRumahServiceProxy: RefTapakRumahServiceProxy
+		) {
 		config.backdrop = 'static';
 		config.keyboard = false;
 		this.primengTableHelper = new PrimengTableHelper();
 	}
 
-	addProjectOwnerModal() {
-		const modalRef = this.modalService.open(TambahEditPemilikProjekRumahComponent, { size: 'lg' });
-		modalRef.componentInstance.name = 'add';
-	}
-
-	editProjectOwnerModal() {
-		const modalRef = this.modalService.open(TambahEditPemilikProjekRumahComponent, { size: 'lg' });
-		modalRef.componentInstance.name = 'edit';
-	}
-
-	ngAfterViewInit(): void {
-		//this.primengTableHelper.adjustScroll(this.dataTable);
-	}
+	ngOnInit(): void {}
 
 	getApplication(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
@@ -51,12 +40,42 @@ export class PemilikProjekRumahComponent implements AfterViewInit {
 		}
 
 		this.primengTableHelper.showLoadingIndicator();
-		this.primengTableHelper.totalRecordsCount = this.rows.length;
-		this.primengTableHelper.records = this.rows;
-		this.primengTableHelper.hideLoadingIndicator();
+		this._refTapakRumahServiceProxy
+			.getAll(
+				this.filter,
+				this.primengTableHelper.getSorting(this.dataTable),
+				this.primengTableHelper.getSkipCount(this.paginator, event),
+				this.primengTableHelper.getMaxResultCount(this.paginator, event)
+			)
+			.subscribe((result) => {
+				this.primengTableHelper.totalRecordsCount = result.total_count;
+				this.primengTableHelper.records = result.items;
+				this.primengTableHelper.hideLoadingIndicator();
+			});
 	}
 
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
+	}
+
+	addProjectOwnerModal() {
+		const modalRef = this.modalService.open(TambahEditPemilikProjekRumahComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'add';
+		modalRef.result.then((response) => {
+			if (response) {
+				this.getApplication();
+			}
+		});
+	}
+
+	editProjectOwnerModal(id) {
+		const modalRef = this.modalService.open(TambahEditPemilikProjekRumahComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'edit';
+		modalRef.componentInstance.id = id;
+		modalRef.result.then((response) => {
+			if (response) {
+				this.getApplication();
+			}
+		});
 	}
 }
