@@ -5,6 +5,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
+import { RefJenisBencanaServiceProxy } from 'src/app/shared/proxy/service-proxies';
 
 @Component({
 	selector: 'app-bencana',
@@ -12,19 +13,20 @@ import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 	encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig, NgbModal]
 })
+
 export class BencanaComponent implements OnInit {
 	@ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
 	primengTableHelper: PrimengTableHelper;
+	
+	filter = '';
 
-	rows = [
-		{ date: '12/12/2020', disaster: 'Banjir', notes: 'Gelombang 1' },
-		{ date: '20/12/2020', disaster: 'Covid-19', notes: 'Kluster 1 & 2' },
-		{ date: '3/1/2021', disaster: 'Covid-19', notes: 'Kluster 3' }
-	];
-
-	constructor(config: NgbModalConfig, private modalService: NgbModal) {
+	constructor(
+		config: NgbModalConfig, 
+		private modalService: NgbModal,
+		private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy
+	) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
@@ -39,9 +41,18 @@ export class BencanaComponent implements OnInit {
 		}
 
 		this.primengTableHelper.showLoadingIndicator();
-		this.primengTableHelper.totalRecordsCount = this.rows.length;
-		this.primengTableHelper.records = this.rows;
-		this.primengTableHelper.hideLoadingIndicator();
+		this._refJenisBencanaServiceProxy
+			.getAll(
+				this.filter,
+				this.primengTableHelper.getSorting(this.dataTable),
+				this.primengTableHelper.getSkipCount(this.paginator, event),
+				this.primengTableHelper.getMaxResultCount(this.paginator, event)
+			)
+			.subscribe((result) => {
+				this.primengTableHelper.totalRecordsCount = result.total_count;
+				this.primengTableHelper.records = result.items;
+				this.primengTableHelper.hideLoadingIndicator();
+			});
 	}
 
 	reloadPage(): void {
@@ -51,10 +62,21 @@ export class BencanaComponent implements OnInit {
 	addDisasterModal() {
 		const modalRef = this.modalService.open(TambahEditBencanaComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
+		modalRef.result.then((response) => {
+			if (response) {
+				this.getDisaster();
+			}
+		});
 	}
 
-	editDisasterModal() {
+	editDisasterModal(id) {
 		const modalRef = this.modalService.open(TambahEditBencanaComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'edit';
+		modalRef.componentInstance.id = id;
+		modalRef.result.then((response) => {
+			if (response) {
+				this.getDisaster();
+			}
+		});
 	}
 }

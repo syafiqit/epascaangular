@@ -1,4 +1,4 @@
-<app-breadcrumb [title]="'Kejadian Bencana'" [items]="['Medan']" [active_item]="'Bencana'"></app-breadcrumb>
+<app-breadcrumb [title]="'Kategori Bencana'" [items]="['Medan']" [active_item]="'Kategori Bencana'"></app-breadcrumb>
 <div class="content d-flex flex-column flex-column-fluid">
 	<div class="container-fluid">
 		<div class="card card-custom gutter-b">
@@ -33,17 +33,17 @@
 							<ng-template pTemplate="header">
 								<tr>
 									<th style="width: 130px">Tindakan</th>
-									<th style="width: 150px" pSortableColumn="tarih_bencana">
-										Tarikh Bencana
+									<th style="width: 150px" pSortableColumn="nama_bencana">
+										Nama Bencana
 										<p-sortIcon field="tarih_bencana"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="jenis_bencana">
-										Jenis Bencana
-										<p-sortIcon field="jenis_bencana"></p-sortIcon>
-									</th>
-									<th style="width: 130px" pSortableColumn="catatan">
+									<th style="width: 150px" pSortableColumn="catatan">
 										Catatan
 										<p-sortIcon field="catatan"></p-sortIcon>
+									</th>
+									<th style="width: 150px" pSortableColumn="status">
+										Status
+										<p-sortIcon field="jenis_bencana"></p-sortIcon>
 									</th>
 								</tr>
 							</ng-template>
@@ -62,7 +62,7 @@
 												Tindakan
 											</button>
 											<div ngbDropdownMenu aria-labelledby="action">
-												<button class="dropdown-item" (click)="editDisasterModal()">
+												<button class="dropdown-item" (click)="editDisasterModal(record.id)">
 													Lihat
 												</button>
 												<button class="dropdown-item">Padam</button>
@@ -70,16 +70,16 @@
 										</div>
 									</td>
 									<td style="width: 150px">
-										<span class="p-column-title">Tarikh Bencana</span>
-										{{record.date}}
+										<span class="p-column-title">Nama Bencana</span>
+										{{record.nama_bencana}}
 									</td>
-									<td style="width: 130px">
-										<span class="p-column-title">Jenis Bencana</span>
-										{{record.disaster}}
-									</td>
-									<td style="width: 130px">
+									<td style="width: 150px">
 										<span class="p-column-title">Catatan</span>
-										{{record.notes}}
+										{{record.catatan}}
+									</td>
+									<td style="width: 150px">
+										<span class="p-column-title">Status</span>
+										{{record.status_bencana == 1? "Aktif":"Tidak Aktif"}}
 									</td>
 								</tr>
 							</ng-template>
