@@ -5,39 +5,76 @@
 		<span aria-hidden="true">&times;</span>
 	</button>
 </div>
-<div class="modal-body">
-	<form class="form theme-form">
+<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
+	<div class="modal-body">
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label for="exampleFormControlInput1">Nama Kementerian</label>
-					<input class="form-control" id="alamat_1" type="text" placeholder="Nama Kementerian" />
+					<label>Nama Kementerian</label>
+					<input
+						class="form-control"
+						id="ministry"
+						type="text"
+						placeholder="Nama Kementerian"
+						[(ngModel)]="kementerian.nama_kementerian"
+						#namaKementerian="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && namaKementerian.invalid }"
+						name="nama_kementerian"
+						required
+					/>
+					<div *ngIf="f.submitted && namaKementerian.invalid" class="invalid-feedback">
+						<div *ngIf="namaKementerian.errors.required">Nama Kementerian Wajib Di Isi</div>
+					</div>
 				</div>
 			</div>
-
+	
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label for="exampleFormControlInput1">Kod Kementerian</label>
-					<input class="form-control" id="alamat_1" type="text" placeholder="Kod Kementerian" />
+					<label>Kod Kementerian</label>
+					<input
+						class="form-control"
+						id="ministry_code"
+						type="text"
+						placeholder="Kod Kementerian"
+						[(ngModel)]="kementerian.kod_kementerian"
+						#kodKementerian="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && kodKementerian.invalid }"
+						name="kod_kementerian"
+						required
+					/>
+					<div *ngIf="f.submitted && kodKementerian.invalid" class="invalid-feedback">
+						<div *ngIf="kodKementerian.errors.required">Kod Kementerian Wajib Di Isi</div>
+					</div>
 				</div>
 			</div>
 		</div>
-
+	
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label for="exampleFormControlInput1">Status</label>
-					<select class="form-control digits" id="exampleFormControlSelect9">
-						<option>Sila Pilih</option>
-						<option>Aktif</option>
-						<option>Tidak Aktif</option>
+					<label>Status</label>
+					<select
+						class="form-control digits"
+						name="status_kementerian"
+						[(ngModel)]="kementerian.status_kementerian"
+						#status="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
+						required
+					>
+						<option [ngValue]="undefined" disabled>Sila Pilih</option>
+						<option [value]="1">Aktif</option>
+						<option [value]="0">Tidak Aktif</option>
 					</select>
+					<div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
+						<div *ngIf="status.errors.required">Status Wajib Di Isi</div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</form>
-</div>
-<div class="modal-footer">
-	<button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
-	<button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Simpan</button>
-</div>
+	</div>
+	
+	<div class="modal-footer">
+		<button type="button" class="btn btn-light" (click)="activeModal.close(false)">Tutup</button>
+		<button type="submit" class="btn btn-primary">Simpan</button>
+	</div>
+</form>
