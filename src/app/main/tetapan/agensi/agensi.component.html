@@ -66,7 +66,7 @@
 												Tindakan
 											</button>
 											<div ngbDropdownMenu aria-labelledby="action">
-												<button class="dropdown-item" (click)="editAgencyModal()">
+												<button class="dropdown-item" (click)="editAgencyModal(record.id)">
 													Kemaskini
 												</button>
 												<button class="dropdown-item">Padam</button>
@@ -75,19 +75,19 @@
 									</td>
 									<td style="width: 150px">
 										<span class="p-column-title">Nama Agensi</span>
-										{{record.name}}
+										{{record.nama_agensi}}
 									</td>
 									<td style="width: 150px">
 										<span class="p-column-title">Kod</span>
-										{{record.code}}
+										{{record.kod_agensi}}
 									</td>
 									<td style="width: 100px">
 										<span class="p-column-title">Kementerian</span>
-										{{record.ministry}}
+										{{getKementerian(record.id_kementerian)}}
 									</td>
 									<td style="width: 100px">
 										<span class="p-column-title">Status</span>
-										{{record.status}}
+										{{record.status_agensi == 1? "Aktif":"Tidak Aktif"}}
 									</td>
 								</tr>
 							</ng-template>
