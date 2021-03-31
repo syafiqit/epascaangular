@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrService } from 'ngx-toastr';
+import { finalize } from 'rxjs/operators';
+import { CreateOrEditRefTapakRumahDto, RefTapakRumahServiceProxy } from 'src/app/shared/proxy/service-proxies';
+declare let require;
+const Swal = require('sweetalert2');
 
 @Component({
 	selector: 'app-tambah-edit-pemilik-projek-rumah',
@@ -10,10 +13,48 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class TambahEditPemilikProjekRumahComponent implements OnInit {
 	@Input() name;
+	@Input() id;
 
-	constructor(private modalService: NgbModal, public activeModal: NgbActiveModal, private toaster: ToastrService) {}
+	tapak_rumah: CreateOrEditRefTapakRumahDto = new CreateOrEditRefTapakRumahDto();
+	saving = true;
 
-	ngOnInit(): void {}
+	constructor(
+		private modalService: NgbModal, 
+		public activeModal: NgbActiveModal,
+		private _refTapakRumahServiceProxy: RefTapakRumahServiceProxy
+	) {}
 
-	status = [{ status: 'Aktif' }, { status: 'Tidak Aktif' }];
+	ngOnInit(): void {
+		this.show();
+	}
+	
+	show() {
+		if (!this.id) {
+			this.tapak_rumah = new CreateOrEditRefTapakRumahDto();
+		} else {
+			this._refTapakRumahServiceProxy.getRefTapakRumahForEdit(this.id).subscribe((result) => {
+				this.tapak_rumah = result.ref_tapak_rumah;
+			});
+		}
+	}
+	
+	save(): void {
+		this.saving = true;
+
+		this._refTapakRumahServiceProxy
+			.createOrEdit(this.tapak_rumah)
+			.pipe(
+				finalize(() => {
+					this.saving = false;
+				})
+			)
+			.subscribe(() => {
+				if (this.name == 'add') {
+					Swal.fire('Berjaya!', 'Maklumat Pemilik Projek Rumah Berjaya Di Tambah.', 'success');
+				} else if (this.name == 'edit') {
+					Swal.fire('Berjaya!', 'Maklumat Pemilik Projek Rumah Berjaya Di Ubah.', 'success');
+				}
+				this.activeModal.close(true);
+			});
+	}
 }

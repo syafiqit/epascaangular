@@ -58,7 +58,7 @@
 												Tindakan
 											</button>
 											<div ngbDropdownMenu aria-labelledby="action">
-												<button class="dropdown-item" (click)="editExecutorModal()">
+												<button class="dropdown-item" (click)="editExecutorModal(record.id)">
 													Kemaskini
 												</button>
 												<button class="dropdown-item">Padam</button>
@@ -67,11 +67,11 @@
 									</td>
 									<td style="width: 100px">
 										<span class="p-column-title">Nama Pelaksana</span>
-										{{record.name}}
+										{{record.nama_pelaksana}}
 									</td>
 									<td style="width: 100px">
 										<span class="p-column-title">Status</span>
-										{{record.status}}
+										{{record.status_pelaksana == 1? "Aktif":"Tidak Aktif"}}
 									</td>
 								</tr>
 							</ng-template>

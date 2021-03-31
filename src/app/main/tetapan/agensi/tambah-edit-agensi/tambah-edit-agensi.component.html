@@ -5,39 +5,98 @@
 		<span aria-hidden="true">&times;</span>
 	</button>
 </div>
-<div class="modal-body">
-	<form class="form theme-form">
+<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-6">
+				<div class="form-group">
+					<label class="col-form-label">Nama Agensi</label>
+					<input
+						class="form-control"
+						id="agency"
+						type="text"
+						placeholder="Nama Agensi"
+						[(ngModel)]="agensi.nama_agensi"
+						#namaAgensi="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && namaAgensi.invalid }"
+						name="nama_agensi"
+						required
+					/>
+					<div *ngIf="f.submitted && namaAgensi.invalid" class="invalid-feedback">
+						<div *ngIf="namaAgensi.errors.required">Nama Agensi Wajib Di Isi</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-6">
+				<div class="form-group">
+					<label class="col-form-label">Kod Agensi</label>
+					<input
+						class="form-control"
+						id="agency_code"
+						type="text"
+						placeholder="Kod Agensi"
+						[(ngModel)]="agensi.kod_agensi"
+						#kodAgensi="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && kodAgensi.invalid }"
+						name="kod_agensi"
+						required
+					/>
+					<div *ngIf="f.submitted && kodAgensi.invalid" class="invalid-feedback">
+						<div *ngIf="kodAgensi.errors.required">Kod Agensi Wajib Di Isi</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div class="row">
 			<div class="col-6">
 				<div class="form-group">
 					<label class="col-form-label">Kementerian</label>
 					<div>
-						<select class="form-control" name="ministry">
-							<option *ngFor="let ministry of ministry" value="{{ministry['name']}}">
-								{{ministry['name']}}
-							</option>
+						<select
+							class="form-control"
+							name="id_kementerian"
+							[(ngModel)]="agensi.id_kementerian"
+							#kementerian="ngModel"
+							[ngClass]="{ 'is-invalid': f.submitted && kementerian.invalid }"
+							required
+						>
+							<option [ngValue]="undefined" disabled>Sila Pilih</option>
+							<option *ngFor="let ministry of ministries" value="{{ministry.id}}">{{ministry.nama_kementerian}}</option>
 						</select>
+						<div *ngIf="f.submitted && kementerian.invalid" class="invalid-feedback">
+							<div *ngIf="kementerian.errors.required">Kementerian Wajib Di Isi</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-6">
+
+			<div class="col-lg-6">
 				<div class="form-group">
-					<label class="col-form-label">Nama Agensi</label>
-					<input class="form-control" name="name" type="text" />
+					<label>Status</label>
+					<select
+						class="form-control digits"
+						name="status_agensi"
+						[(ngModel)]="agensi.status_agensi"
+						#status="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
+						required
+					>
+						<option [ngValue]="undefined" disabled>Sila Pilih</option>
+						<option [value]="1">Aktif</option>
+						<option [value]="0">Tidak Aktif</option>
+					</select>
+					<div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
+						<div *ngIf="status.errors.required">Status Wajib Di Isi</div>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-6">
-				<div class="form-group">
-					<label class="col-form-label">Kod Agensi</label>
-					<input class="form-control" name="code" type="text" />
-				</div>
-			</div>
-		</div>
-	</form>
-</div>
-<div class="modal-footer">
-	<button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
-	<button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Simpan</button>
-</div>
+		</div>	
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-light" (click)="activeModal.close(false)">Tutup</button>
+		<button type="submit" class="btn btn-primary">Simpan</button>
+	</div>
+</form>

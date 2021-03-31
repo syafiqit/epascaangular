@@ -5,6 +5,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
+import { RefKementerianServiceProxy } from 'src/app/shared/proxy/service-proxies';
 
 @Component({
 	selector: 'app-kementerian',
@@ -18,13 +19,13 @@ export class KementerianComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 
-	rows = [
-		{ name: 'Jabatan Perdana Menteri', code: 'JPM', status: 'Aktif' },
-		{ name: 'Kementerian Dalam Negeri', code: 'KDN', status: 'Aktif' },
-		{ name: 'Kementerian Kerja Raya', code: 'KKR', status: 'Aktif' }
-	];
+	filter = '';
 
-	constructor(config: NgbModalConfig, private modalService: NgbModal) {
+	constructor(
+		config: NgbModalConfig, 
+		private modalService: NgbModal,
+		private _refKementerianServiceProxy: RefKementerianServiceProxy
+		) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
@@ -39,9 +40,18 @@ export class KementerianComponent implements OnInit {
 		}
 
 		this.primengTableHelper.showLoadingIndicator();
-		this.primengTableHelper.totalRecordsCount = this.rows.length;
-		this.primengTableHelper.records = this.rows;
-		this.primengTableHelper.hideLoadingIndicator();
+		this._refKementerianServiceProxy
+			.getAll(
+				this.filter,
+				this.primengTableHelper.getSorting(this.dataTable),
+				this.primengTableHelper.getSkipCount(this.paginator, event),
+				this.primengTableHelper.getMaxResultCount(this.paginator, event)
+			)
+			.subscribe((result) => {
+				this.primengTableHelper.totalRecordsCount = result.total_count;
+				this.primengTableHelper.records = result.items;
+				this.primengTableHelper.hideLoadingIndicator();
+			});
 	}
 
 	reloadPage(): void {
@@ -51,10 +61,21 @@ export class KementerianComponent implements OnInit {
 	addMinistryModal() {
 		const modalRef = this.modalService.open(TambahEditKementerianComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
+		modalRef.result.then((response) => {
+			if (response) {
+				this.getMinistry();
+			}
+		});
 	}
 
-	editMinistryModal() {
+	editMinistryModal(id) {
 		const modalRef = this.modalService.open(TambahEditKementerianComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'edit';
+		modalRef.componentInstance.id = id;
+		modalRef.result.then((response) => {
+			if (response) {
+				this.getMinistry();
+			}
+		});
 	}
 }

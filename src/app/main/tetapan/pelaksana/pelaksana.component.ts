@@ -1,10 +1,11 @@
-import { AfterViewInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TambahEditPelaksanaComponent } from './tambah-edit-pelaksana/tambah-edit-pelaksana.component';
+import { RefPelaksanaServiceProxy } from 'src/app/shared/proxy/service-proxies';
 
 @Component({
 	selector: 'app-pelaksana',
@@ -12,27 +13,25 @@ import { TambahEditPelaksanaComponent } from './tambah-edit-pelaksana/tambah-edi
 	encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig, NgbModal]
 })
-export class PelaksanaComponent implements AfterViewInit {
+export class PelaksanaComponent implements OnInit {
 	@ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
 	primengTableHelper: PrimengTableHelper;
 
-	rows = [
-		{ name: 'APBM (NADMA)', status: 'Aktif' },
-		{ name: 'CIDB', status: 'Aktif ' },
-		{ name: 'GIATMARA', status: 'Aktif' }
-	];
+	filter = '';
 
-	constructor(config: NgbModalConfig, private modalService: NgbModal) {
+	constructor(
+		config: NgbModalConfig, 
+		private modalService: NgbModal,
+		private _refPelaksanaServiceProxy: RefPelaksanaServiceProxy
+		) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
 	}
 
-	ngAfterViewInit(): void {
-		//this.primengTableHelper.adjustScroll(this.dataTable);
-	}
+	ngOnInit(): void {}
 
 	getApplication(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
@@ -41,9 +40,18 @@ export class PelaksanaComponent implements AfterViewInit {
 		}
 
 		this.primengTableHelper.showLoadingIndicator();
-		this.primengTableHelper.totalRecordsCount = this.rows.length;
-		this.primengTableHelper.records = this.rows;
-		this.primengTableHelper.hideLoadingIndicator();
+		this._refPelaksanaServiceProxy
+			.getAll(
+				this.filter,
+				this.primengTableHelper.getSorting(this.dataTable),
+				this.primengTableHelper.getSkipCount(this.paginator, event),
+				this.primengTableHelper.getMaxResultCount(this.paginator, event)
+			)
+			.subscribe((result) => {
+				this.primengTableHelper.totalRecordsCount = result.total_count;
+				this.primengTableHelper.records = result.items;
+				this.primengTableHelper.hideLoadingIndicator();
+			});
 	}
 
 	reloadPage(): void {
@@ -53,10 +61,21 @@ export class PelaksanaComponent implements AfterViewInit {
 	addExecutorModal() {
 		const modalRef = this.modalService.open(TambahEditPelaksanaComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
+		modalRef.result.then((response) => {
+			if (response) {
+				this.getApplication();
+			}
+		});
 	}
 
-	editExecutorModal() {
+	editExecutorModal(id) {
 		const modalRef = this.modalService.open(TambahEditPelaksanaComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'edit';
+		modalRef.componentInstance.id = id;
+		modalRef.result.then((response) => {
+			if (response) {
+				this.getApplication();
+			}
+		});
 	}
 }
