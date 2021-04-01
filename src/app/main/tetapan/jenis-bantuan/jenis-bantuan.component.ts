@@ -22,7 +22,7 @@ export class JenisBantuanComponent implements OnInit {
 	filter = '';
 
 	constructor(
-		config: NgbModalConfig, 
+		config: NgbModalConfig,
 		private modalService: NgbModal,
 		private _refBantuanServiceProxy: RefBantuanServiceProxy
 	) {

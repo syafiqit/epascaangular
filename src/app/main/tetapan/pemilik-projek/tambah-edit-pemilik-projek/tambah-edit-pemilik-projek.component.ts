@@ -11,7 +11,6 @@ const Swal = require('sweetalert2');
 	encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig, NgbModal]
 })
-
 export class TambahEditPemilikProjekComponent implements OnInit {
 	@Input() name;
 	@Input() id;
@@ -20,7 +19,7 @@ export class TambahEditPemilikProjekComponent implements OnInit {
 	saving = true;
 
 	constructor(
-		private modalService: NgbModal, 
+		private modalService: NgbModal,
 		public activeModal: NgbActiveModal,
 		private _refPemilikServiceProxy: RefPemilikServiceProxy
 	) {}
@@ -28,7 +27,7 @@ export class TambahEditPemilikProjekComponent implements OnInit {
 	ngOnInit(): void {
 		this.show();
 	}
-	
+
 	show() {
 		if (!this.id) {
 			this.pemilik = new CreateOrEditRefPemilikDto();
@@ -38,7 +37,7 @@ export class TambahEditPemilikProjekComponent implements OnInit {
 			});
 		}
 	}
-	
+
 	save(): void {
 		this.saving = true;
 

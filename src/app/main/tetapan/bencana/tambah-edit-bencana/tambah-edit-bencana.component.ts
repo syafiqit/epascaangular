@@ -11,7 +11,6 @@ const Swal = require('sweetalert2');
 	encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig, NgbModal]
 })
-
 export class TambahEditBencanaComponent implements OnInit {
 	@Input() name;
 	@Input() id;
@@ -28,7 +27,7 @@ export class TambahEditBencanaComponent implements OnInit {
 	ngOnInit(): void {
 		this.show();
 	}
-	
+
 	show() {
 		if (!this.id) {
 			this.bencana = new CreateOrEditRefJenisBencanaDto();
@@ -38,7 +37,7 @@ export class TambahEditBencanaComponent implements OnInit {
 			});
 		}
 	}
-	
+
 	save(): void {
 		this.saving = true;
 

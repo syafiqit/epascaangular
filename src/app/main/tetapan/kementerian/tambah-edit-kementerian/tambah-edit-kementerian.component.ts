@@ -19,10 +19,10 @@ export class TambahEditKementerianComponent implements OnInit {
 	saving = true;
 
 	constructor(
-		private modalService: NgbModal, 
+		private modalService: NgbModal,
 		public activeModal: NgbActiveModal,
 		private _refKementerianServiceProxy: RefKementerianServiceProxy
-		) {}
+	) {}
 
 	ngOnInit(): void {
 		this.show();

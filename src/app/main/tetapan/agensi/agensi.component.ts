@@ -26,11 +26,11 @@ export class AgensiComponent implements OnInit {
 	ministry: any[];
 
 	constructor(
-		config: NgbModalConfig, 
+		config: NgbModalConfig,
 		private modalService: NgbModal,
 		private _refAgensiServiceProxy: RefAgensiServiceProxy,
 		private _refKementerianServiceProxy: RefKementerianServiceProxy
-		) {
+	) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;

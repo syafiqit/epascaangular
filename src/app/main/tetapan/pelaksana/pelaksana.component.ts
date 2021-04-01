@@ -22,10 +22,10 @@ export class PelaksanaComponent implements OnInit {
 	filter = '';
 
 	constructor(
-		config: NgbModalConfig, 
+		config: NgbModalConfig,
 		private modalService: NgbModal,
 		private _refPelaksanaServiceProxy: RefPelaksanaServiceProxy
-		) {
+	) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;

@@ -63,7 +63,9 @@
 							required
 						>
 							<option [ngValue]="undefined" disabled>Sila Pilih</option>
-							<option *ngFor="let ministry of ministries" value="{{ministry.id}}">{{ministry.nama_kementerian}}</option>
+							<option *ngFor="let ministry of ministries" value="{{ministry.id}}">
+								{{ministry.nama_kementerian}}
+							</option>
 						</select>
 						<div *ngIf="f.submitted && kementerian.invalid" class="invalid-feedback">
 							<div *ngIf="kementerian.errors.required">Kementerian Wajib Di Isi</div>
@@ -92,7 +94,7 @@
 					</div>
 				</div>
 			</div>
-		</div>	
+		</div>
 	</div>
 
 	<div class="modal-footer">

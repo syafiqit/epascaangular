@@ -11,7 +11,6 @@ const Swal = require('sweetalert2');
 	encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig, NgbModal]
 })
-
 export class TambahEditPelaksanaComponent implements OnInit {
 	@Input() name;
 	@Input() id;
@@ -20,42 +19,42 @@ export class TambahEditPelaksanaComponent implements OnInit {
 	saving = true;
 
 	constructor(
-		private modalService: NgbModal, 
+		private modalService: NgbModal,
 		public activeModal: NgbActiveModal,
 		private _refPelaksanaServiceProxy: RefPelaksanaServiceProxy
-		) {}
+	) {}
 
-		ngOnInit(): void {
-			this.show();
+	ngOnInit(): void {
+		this.show();
+	}
+
+	show() {
+		if (!this.id) {
+			this.pelaksana = new CreateOrEditRefPelaksanaDto();
+		} else {
+			this._refPelaksanaServiceProxy.getRefPelaksanaForEdit(this.id).subscribe((result) => {
+				this.pelaksana = result.ref_pelaksana;
+			});
 		}
-	
-		show() {
-			if (!this.id) {
-				this.pelaksana = new CreateOrEditRefPelaksanaDto();
-			} else {
-				this._refPelaksanaServiceProxy.getRefPelaksanaForEdit(this.id).subscribe((result) => {
-					this.pelaksana = result.ref_pelaksana;
-				});
-			}
-		}
-	
-		save(): void {
-			this.saving = true;
-	
-			this._refPelaksanaServiceProxy
-				.createOrEdit(this.pelaksana)
-				.pipe(
-					finalize(() => {
-						this.saving = false;
-					})
-				)
-				.subscribe(() => {
-					if (this.name == 'add') {
-						Swal.fire('Berjaya!', 'Maklumat Kementerian Berjaya Di Tambah.', 'success');
-					} else if (this.name == 'edit') {
-						Swal.fire('Berjaya!', 'Maklumat Kementerian Berjaya Di Ubah.', 'success');
-					}
-					this.activeModal.close(true);
-				});
-		}
+	}
+
+	save(): void {
+		this.saving = true;
+
+		this._refPelaksanaServiceProxy
+			.createOrEdit(this.pelaksana)
+			.pipe(
+				finalize(() => {
+					this.saving = false;
+				})
+			)
+			.subscribe(() => {
+				if (this.name == 'add') {
+					Swal.fire('Berjaya!', 'Maklumat Kementerian Berjaya Di Tambah.', 'success');
+				} else if (this.name == 'edit') {
+					Swal.fire('Berjaya!', 'Maklumat Kementerian Berjaya Di Ubah.', 'success');
+				}
+				this.activeModal.close(true);
+			});
+	}
 }
