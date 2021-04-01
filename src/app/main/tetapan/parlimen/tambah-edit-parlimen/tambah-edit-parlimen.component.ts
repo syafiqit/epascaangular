@@ -63,9 +63,9 @@ export class TambahEditParlimenComponent implements OnInit {
       .pipe()
       .subscribe(() => {
         if (this.name == 'add') {
-          Swal.fire('Berjaya!', 'Maklumat Dun Berjaya Di Tambah.', 'success');
+          Swal.fire('Berjaya!', 'Maklumat Parlimen Berjaya Di Tambah.', 'success');
         } else if (this.name == 'edit') {
-          Swal.fire('Berjaya!', 'Maklumat Dun Berjaya Di Ubah.', 'success');
+          Swal.fire('Berjaya!', 'Maklumat Parlimen Berjaya Di Ubah.', 'success');
         }
         this.activeModal.close(true);
       });
