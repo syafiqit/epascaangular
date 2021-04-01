@@ -10,7 +10,13 @@
 					</button>
 				</div>
 				<div class="row mb-2">
-					<input type="text" class="form-control" placeholder="Carian..." />
+					<input
+						type="text"
+						class="form-control"
+						placeholder="Carian..."
+						[(ngModel)]="filterText"
+						(keyup.enter)="getParlimen()"
+					/>
 				</div>
 				<div class="row align-items-center">
 					<!--<Primeng-TurboTable-Start>-->
@@ -33,15 +39,15 @@
 							<ng-template pTemplate="header">
 								<tr>
 									<th style="width: 130px">Tindakan</th>
-									<th style="width: 150px" pSortableColumn="parliament">
+									<th style="width: 150px" pSortableColumn="nama_parlimen">
 										Parlimen
 										<p-sortIcon field="category"></p-sortIcon>
 									</th>
-									<th style="width: 150px" pSortableColumn="state">
+									<th style="width: 150px" pSortableColumn="id_negeri">
 										Negeri
 										<p-sortIcon field="type"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="status">
+									<th style="width: 130px" pSortableColumn="status_parlimen">
 										Status
 										<p-sortIcon field="status"></p-sortIcon>
 									</th>

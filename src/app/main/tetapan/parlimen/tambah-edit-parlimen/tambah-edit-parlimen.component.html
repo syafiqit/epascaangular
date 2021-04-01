@@ -31,21 +31,21 @@
 
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label for="negeri">Negeri</label>
-					<select
-						class="form-control digits"
-						id="negeri"
-						name="dun.id_negeri"
+					<label>Negeri</label>
+					<ng-select
+						[items]="states"
+						bindLabel="nama_negeri"
+						bindValue="id"
+						placeholder="Sila Pilih"
+						class="js-example-placeholder-multiple"
 						[(ngModel)]="parlimen.id_negeri"
+						name="parlimen.id_negeri"
 						#negeri="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && negeri.invalid }"
 						minlength="0"
 						maxlength="250"
 						required
-					>
-						<option selected disabled>Sila Pilih</option>
-						<option *ngFor="let state of states" value="{{state.id}}">{{state.nama_negeri}}</option>
-					</select>
+					></ng-select>
 					<div *ngIf="f.submitted && negeri.invalid" class="invalid-feedback">
 						<div *ngIf="negeri.errors.required">Negeri Wajib Di Isi</div>
 					</div>

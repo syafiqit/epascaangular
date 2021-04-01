@@ -15,7 +15,13 @@
 						</button>
 					</div>
 					<div class="row mb-2">
-						<input type="text" class="form-control" placeholder="Carian..." />
+						<input
+							type="text"
+							class="form-control"
+							placeholder="Carian..."
+							[(ngModel)]="filterText"
+							(keyup.enter)="getStatusKerosakan()"
+						/>
 					</div>
 					<div class="row align-items-center">
 						<!--<Primeng-TurboTable-Start>-->
@@ -38,11 +44,11 @@
 								<ng-template pTemplate="header">
 									<tr>
 										<th style="width: 150px">Tindakan</th>
-										<th style="width: 160px" pSortableColumn="damage">
+										<th style="width: 160px" pSortableColumn="nama_kerosakan">
 											Jenis Kerosakan
 											<p-sortIcon field="damage"></p-sortIcon>
 										</th>
-										<th style="width: 150px" pSortableColumn="status">
+										<th style="width: 150px" pSortableColumn="nama_status_kerosakan">
 											Status
 											<p-sortIcon field="status"></p-sortIcon>
 										</th>

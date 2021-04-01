@@ -11,20 +11,13 @@
 						</button>
 					</div>
 					<div class="row mb-2">
-						<div class="input-group">
-							<input
-								class="form-control"
-								type="text"
-								[(ngModel)]="filterDun"
-								name="filterText"
-								placeholder="Carian..."
-							/>
-							<div class="input-group-append">
-								<button (click)="getDun()" class="btn btn-primary" type="submit">
-									<i class="icon-magnifier"></i>
-								</button>
-							</div>
-						</div>
+						<input
+							type="text"
+							class="form-control"
+							placeholder="Carian..."
+							[(ngModel)]="filterDun"
+							(keyup.enter)="getDun()"
+						/>
 					</div>
 					<div class="row align-items-center">
 						<!--<Primeng-TurboTable-Start>-->
