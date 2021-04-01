@@ -95,6 +95,7 @@
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": [
+              "src/web.config",
               "src/assets/images/favicon.png",
               "src/assets"
             ],
