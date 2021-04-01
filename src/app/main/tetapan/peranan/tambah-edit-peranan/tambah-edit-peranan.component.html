@@ -7,43 +7,43 @@
 </div>
 
 <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()">
-<div class="modal-body">
-  <div class="row">
-    <div class="col-lg-6">
-      <div class="form-group">
-        <label>Nama Peranan</label>
-        <input
-          class="form-control"
-          id="peranan"
-          type="text"
-          placeholder="Sumber Dana"
-          [(ngModel)]="peranan.peranan"
-          #nama_peranan="ngModel"
-          [ngClass]="{ 'is-invalid': f.submitted && nama_peranan.invalid }"
-          name="peranan.peranan"
-          minlength="0"
-          maxlength="250"
-          required
-        />
-        <div *ngIf="f.submitted && nama_peranan.invalid" class="invalid-feedback">
-          <div *ngIf="nama_peranan.errors.required">Peranan Wajib Di Isi</div>
-        </div>
-      </div>
-    </div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label>Nama Peranan</label>
+					<input
+						class="form-control"
+						id="peranan"
+						type="text"
+						placeholder="Sumber Dana"
+						[(ngModel)]="peranan.peranan"
+						#nama_peranan="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && nama_peranan.invalid }"
+						name="peranan.peranan"
+						minlength="0"
+						maxlength="250"
+						required
+					/>
+					<div *ngIf="f.submitted && nama_peranan.invalid" class="invalid-feedback">
+						<div *ngIf="nama_peranan.errors.required">Peranan Wajib Di Isi</div>
+					</div>
+				</div>
+			</div>
 
-    <div class="col-lg-6">
-      <div class="form-group">
-        <label for="exampleFormControlSelect9">Status</label>
-        <select class="form-control digits" id="exampleFormControlSelect9">
-          <option>Aktif</option>
-          <option>Tidak Aktif</option>
-        </select>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="modal-footer">
-	<button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
-	<button type="submit" class="btn btn-primary">Simpan</button>
-</div>
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label for="exampleFormControlSelect9">Status</label>
+					<select class="form-control digits" id="exampleFormControlSelect9">
+						<option>Aktif</option>
+						<option>Tidak Aktif</option>
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
+		<button type="submit" class="btn btn-primary">Simpan</button>
+	</div>
 </form>

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import {CreateOrEditRefPindahDto, RefPindahServiceProxy} from "../../../../shared/proxy/service-proxies";
+import { CreateOrEditRefPindahDto, RefPindahServiceProxy } from '../../../../shared/proxy/service-proxies';
 declare let require;
 const Swal = require('sweetalert2');
 
@@ -11,47 +11,47 @@ const Swal = require('sweetalert2');
 	providers: [NgbModalConfig, NgbModal]
 })
 export class TambahEditStatusBerpindahComponent implements OnInit {
-  @Input() name;
-  @Input() id;
+	@Input() name;
+	@Input() id;
 
-  pindah: CreateOrEditRefPindahDto = new CreateOrEditRefPindahDto();
-  saving = false;
+	pindah: CreateOrEditRefPindahDto = new CreateOrEditRefPindahDto();
+	saving = false;
 
-  states: any[];
+	states: any[];
 
-  constructor(
-    private modalService: NgbModal,
-    public activeModal: NgbActiveModal,
-    private _refPindahServiceProxy: RefPindahServiceProxy
-  ) {}
+	constructor(
+		private modalService: NgbModal,
+		public activeModal: NgbActiveModal,
+		private _refPindahServiceProxy: RefPindahServiceProxy
+	) {}
 
-  ngOnInit(): void {
-    this.show();
-  }
+	ngOnInit(): void {
+		this.show();
+	}
 
-  show() {
-    if (!this.id) {
-      this.pindah = new CreateOrEditRefPindahDto();
-    } else {
-      this._refPindahServiceProxy.getRefPindahForEdit(this.id).subscribe((result) => {
-        this.pindah = result.ref_pindah;
-      });
-    }
-  }
+	show() {
+		if (!this.id) {
+			this.pindah = new CreateOrEditRefPindahDto();
+		} else {
+			this._refPindahServiceProxy.getRefPindahForEdit(this.id).subscribe((result) => {
+				this.pindah = result.ref_pindah;
+			});
+		}
+	}
 
-  save(): void {
-    this.saving = true;
+	save(): void {
+		this.saving = true;
 
-    this._refPindahServiceProxy
-      .createOrEdit(this.pindah)
-      .pipe()
-      .subscribe(() => {
-        if (this.name == 'add') {
-          Swal.fire('Berjaya!', 'Maklumat Status Berpindah Berjaya Di Tambah.', 'success');
-        } else if (this.name == 'edit') {
-          Swal.fire('Berjaya!', 'Maklumat Status Berpindah Berjaya Di Ubah.', 'success');
-        }
-        this.activeModal.close(true);
-      });
-  }
+		this._refPindahServiceProxy
+			.createOrEdit(this.pindah)
+			.pipe()
+			.subscribe(() => {
+				if (this.name == 'add') {
+					Swal.fire('Berjaya!', 'Maklumat Status Berpindah Berjaya Di Tambah.', 'success');
+				} else if (this.name == 'edit') {
+					Swal.fire('Berjaya!', 'Maklumat Status Berpindah Berjaya Di Ubah.', 'success');
+				}
+				this.activeModal.close(true);
+			});
+	}
 }

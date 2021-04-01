@@ -1,10 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
-import {
-  CreateOrEditRefPerananDto,
-  RefPerananServiceProxy
-} from "../../../../shared/proxy/service-proxies";
+import { CreateOrEditRefPerananDto, RefPerananServiceProxy } from '../../../../shared/proxy/service-proxies';
 declare let require;
 const Swal = require('sweetalert2');
 
@@ -15,47 +12,47 @@ const Swal = require('sweetalert2');
 	providers: [NgbModalConfig, NgbModal]
 })
 export class TambahEditPerananComponent implements OnInit {
-  @Input() name;
-  @Input() id;
+	@Input() name;
+	@Input() id;
 
-  peranan: CreateOrEditRefPerananDto = new CreateOrEditRefPerananDto();
-  saving = false;
+	peranan: CreateOrEditRefPerananDto = new CreateOrEditRefPerananDto();
+	saving = false;
 
-  states: any[];
+	states: any[];
 
-  constructor(
-    private modalService: NgbModal,
-    public activeModal: NgbActiveModal,
-    private _refPerananServiceProxy: RefPerananServiceProxy
-  ) {}
+	constructor(
+		private modalService: NgbModal,
+		public activeModal: NgbActiveModal,
+		private _refPerananServiceProxy: RefPerananServiceProxy
+	) {}
 
-  ngOnInit(): void {
-    this.show();
-  }
+	ngOnInit(): void {
+		this.show();
+	}
 
-  show() {
-    if (!this.id) {
-      this.peranan = new CreateOrEditRefPerananDto();
-    } else {
-      this._refPerananServiceProxy.getRefPerananForEdit(this.id).subscribe((result) => {
-        this.peranan = result.ref_peranan;
-      });
-    }
-  }
+	show() {
+		if (!this.id) {
+			this.peranan = new CreateOrEditRefPerananDto();
+		} else {
+			this._refPerananServiceProxy.getRefPerananForEdit(this.id).subscribe((result) => {
+				this.peranan = result.ref_peranan;
+			});
+		}
+	}
 
-  save(): void {
-    this.saving = true;
+	save(): void {
+		this.saving = true;
 
-    this._refPerananServiceProxy
-      .createOrEdit(this.peranan)
-      .pipe()
-      .subscribe(() => {
-        if (this.name == 'add') {
-          Swal.fire('Berjaya!', 'Maklumat Peranan Berjaya Di Tambah.', 'success');
-        } else if (this.name == 'edit') {
-          Swal.fire('Berjaya!', 'Maklumat Peranan Berjaya Di Ubah.', 'success');
-        }
-        this.activeModal.close(true);
-      });
-  }
+		this._refPerananServiceProxy
+			.createOrEdit(this.peranan)
+			.pipe()
+			.subscribe(() => {
+				if (this.name == 'add') {
+					Swal.fire('Berjaya!', 'Maklumat Peranan Berjaya Di Tambah.', 'success');
+				} else if (this.name == 'edit') {
+					Swal.fire('Berjaya!', 'Maklumat Peranan Berjaya Di Ubah.', 'success');
+				}
+				this.activeModal.close(true);
+			});
+	}
 }

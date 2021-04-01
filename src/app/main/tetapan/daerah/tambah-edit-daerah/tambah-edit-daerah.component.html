@@ -1,87 +1,87 @@
 <div class="modal-header">
-  <h5 class="modal-title" *ngIf="name === 'add'">Tambah Daerah</h5>
-  <h5 class="modal-title" *ngIf="name === 'edit'">Kemaskini Daerah</h5>
-  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-    <span aria-hidden="true">&times;</span>
-  </button>
+	<h5 class="modal-title" *ngIf="name === 'add'">Tambah Daerah</h5>
+	<h5 class="modal-title" *ngIf="name === 'edit'">Kemaskini Daerah</h5>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	</button>
 </div>
 <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
-  <div class="modal-body">
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="form-group">
-          <label>Daerah</label>
-          <input
-            class="form-control"
-            id="district"
-            type="text"
-            placeholder="Daerah"
-            [(ngModel)]="daerah.nama_daerah"
-            #namaDaerah="ngModel"
-            [ngClass]="{ 'is-invalid': f.submitted && namaDaerah.invalid }"
-            name="daerah.nama_daerah"
-            minlength="0"
-            maxlength="250"
-            required
-          />
-          <div *ngIf="f.submitted && namaDaerah.invalid" class="invalid-feedback">
-            <div *ngIf="namaDaerah.errors.required">DUN Wajib Di Isi</div>
-          </div>
-        </div>
-      </div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label>Daerah</label>
+					<input
+						class="form-control"
+						id="district"
+						type="text"
+						placeholder="Daerah"
+						[(ngModel)]="daerah.nama_daerah"
+						#namaDaerah="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && namaDaerah.invalid }"
+						name="daerah.nama_daerah"
+						minlength="0"
+						maxlength="250"
+						required
+					/>
+					<div *ngIf="f.submitted && namaDaerah.invalid" class="invalid-feedback">
+						<div *ngIf="namaDaerah.errors.required">DUN Wajib Di Isi</div>
+					</div>
+				</div>
+			</div>
 
-      <div class="col-lg-6">
-        <div class="form-group">
-          <label>Negeri</label>
-          <div>
-            <select
-              class="form-control"
-              name="daerah.id_negeri"
-              [(ngModel)]="daerah.id_negeri"
-              #negeri="ngModel"
-              [ngClass]="{ 'is-invalid': f.submitted && negeri.invalid }"
-              minlength="0"
-              maxlength="250"
-              required
-            >
-              <option selected disabled>Sila Pilih</option>
-              <option *ngFor="let state of states" value="{{state.id}}">{{state.nama_negeri}}</option>
-            </select>
-            <div *ngIf="f.submitted && negeri.invalid" class="invalid-feedback">
-              <div *ngIf="negeri.errors.required">Negeri Wajib Di Isi</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="form-group">
-          <label>Status</label>
-          <select
-            class="form-control digits"
-            name="daerah.status_daerah"
-            [(ngModel)]="daerah.status_daerah"
-            #status="ngModel"
-            [ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
-            minlength="0"
-            maxlength="250"
-            required
-          >
-            <option selected disabled>Sila Pilih</option>
-            <option [value]="1">Aktif</option>
-            <option [value]="0">Tidak Aktif</option>
-          </select>
-          <div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
-            <div *ngIf="status.errors.required">Status Wajib Di Isi</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label>Negeri</label>
+					<div>
+						<select
+							class="form-control"
+							name="daerah.id_negeri"
+							[(ngModel)]="daerah.id_negeri"
+							#negeri="ngModel"
+							[ngClass]="{ 'is-invalid': f.submitted && negeri.invalid }"
+							minlength="0"
+							maxlength="250"
+							required
+						>
+							<option selected disabled>Sila Pilih</option>
+							<option *ngFor="let state of states" value="{{state.id}}">{{state.nama_negeri}}</option>
+						</select>
+						<div *ngIf="f.submitted && negeri.invalid" class="invalid-feedback">
+							<div *ngIf="negeri.errors.required">Negeri Wajib Di Isi</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label>Status</label>
+					<select
+						class="form-control digits"
+						name="daerah.status_daerah"
+						[(ngModel)]="daerah.status_daerah"
+						#status="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
+						minlength="0"
+						maxlength="250"
+						required
+					>
+						<option selected disabled>Sila Pilih</option>
+						<option [value]="1">Aktif</option>
+						<option [value]="0">Tidak Aktif</option>
+					</select>
+					<div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
+						<div *ngIf="status.errors.required">Status Wajib Di Isi</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-  <div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="activeModal.close(false)">Tutup</button>
-    <button type="submit" class="btn btn-primary">Simpan</button>
-  </div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-light" (click)="activeModal.close(false)">Tutup</button>
+		<button type="submit" class="btn btn-primary">Simpan</button>
+	</div>
 </form>

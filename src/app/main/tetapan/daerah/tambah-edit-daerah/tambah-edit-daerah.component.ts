@@ -1,10 +1,10 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import {
-  CreateOrEditRefDaerahDto,
-  RefDaerahServiceProxy,
-  RefNegeriServiceProxy
-} from "../../../../shared/proxy/service-proxies";
+	CreateOrEditRefDaerahDto,
+	RefDaerahServiceProxy,
+	RefNegeriServiceProxy
+} from '../../../../shared/proxy/service-proxies';
 import { finalize } from 'rxjs/operators';
 declare let require;
 const Swal = require('sweetalert2');
@@ -16,62 +16,62 @@ const Swal = require('sweetalert2');
 	providers: [NgbModalConfig, NgbModal]
 })
 export class TambahEditDaerahComponent implements OnInit {
-  @Input() name;
-  @Input() id;
+	@Input() name;
+	@Input() id;
 
-  daerah: CreateOrEditRefDaerahDto = new CreateOrEditRefDaerahDto();
-  saving = false;
+	daerah: CreateOrEditRefDaerahDto = new CreateOrEditRefDaerahDto();
+	saving = false;
 
-  filter: any;
-  dropdownFilter: any;
-  states: any;
+	filter: any;
+	dropdownFilter: any;
+	states: any;
 
-  constructor(
-    private modalService: NgbModal,
-    public activeModal: NgbActiveModal,
-    private _refDaerahServiceProxy: RefDaerahServiceProxy,
-    private _refNegeriServiceProxy: RefNegeriServiceProxy
-  ) {}
+	constructor(
+		private modalService: NgbModal,
+		public activeModal: NgbActiveModal,
+		private _refDaerahServiceProxy: RefDaerahServiceProxy,
+		private _refNegeriServiceProxy: RefNegeriServiceProxy
+	) {}
 
-  ngOnInit(): void {
-    this.show();
-    this.getNegeri();
-  }
+	ngOnInit(): void {
+		this.show();
+		this.getNegeri();
+	}
 
-  getNegeri(filter?) {
-    this._refNegeriServiceProxy.getRefNegeriForDropdown(filter).subscribe((result) => {
-      this.states = result.items;
-    });
-  }
+	getNegeri(filter?) {
+		this._refNegeriServiceProxy.getRefNegeriForDropdown(filter).subscribe((result) => {
+			this.states = result.items;
+		});
+	}
 
-  show() {
-    if (!this.id) {
-      this.daerah = new CreateOrEditRefDaerahDto();
-    } else {
-      this._refDaerahServiceProxy.getRefDaerahForEdit(this.id).subscribe((result) => {
-        this.daerah = result.ref_daerah;
-      });
-    }
-  }
+	show() {
+		if (!this.id) {
+			this.daerah = new CreateOrEditRefDaerahDto();
+		} else {
+			this._refDaerahServiceProxy.getRefDaerahForEdit(this.id).subscribe((result) => {
+				this.daerah = result.ref_daerah;
+			});
+		}
+	}
 
-  save(): void {
-    this.saving = true;
-    this.daerah.id = 1;
+	save(): void {
+		this.saving = true;
+		this.daerah.id = 1;
 
-    this._refDaerahServiceProxy
-      .createOrEdit(this.daerah)
-      .pipe(
-        finalize(() => {
-          this.saving = false;
-        })
-      )
-      .subscribe(() => {
-        if (this.name == 'add') {
-          Swal.fire('Berjaya!', 'Maklumat Daerah Berjaya Di Tambah.', 'success');
-        } else if (this.name == 'edit') {
-          Swal.fire('Berjaya!', 'Maklumat Daerah Berjaya Di Ubah.', 'success');
-        }
-        this.activeModal.close(true);
-      });
-  }
+		this._refDaerahServiceProxy
+			.createOrEdit(this.daerah)
+			.pipe(
+				finalize(() => {
+					this.saving = false;
+				})
+			)
+			.subscribe(() => {
+				if (this.name == 'add') {
+					Swal.fire('Berjaya!', 'Maklumat Daerah Berjaya Di Tambah.', 'success');
+				} else if (this.name == 'edit') {
+					Swal.fire('Berjaya!', 'Maklumat Daerah Berjaya Di Ubah.', 'success');
+				}
+				this.activeModal.close(true);
+			});
+	}
 }

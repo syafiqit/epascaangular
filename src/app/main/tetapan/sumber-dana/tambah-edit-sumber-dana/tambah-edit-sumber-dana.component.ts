@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import {CreateOrEditRefSumberDanaDto, RefSumberDanaServiceProxy} from "../../../../shared/proxy/service-proxies";
+import { CreateOrEditRefSumberDanaDto, RefSumberDanaServiceProxy } from '../../../../shared/proxy/service-proxies';
 declare let require;
 const Swal = require('sweetalert2');
 
@@ -11,47 +11,47 @@ const Swal = require('sweetalert2');
 	providers: [NgbModalConfig, NgbModal]
 })
 export class TambahEditSumberDanaComponent implements OnInit {
-  @Input() name;
-  @Input() id;
+	@Input() name;
+	@Input() id;
 
-  dana: CreateOrEditRefSumberDanaDto = new CreateOrEditRefSumberDanaDto();
-  saving = false;
+	dana: CreateOrEditRefSumberDanaDto = new CreateOrEditRefSumberDanaDto();
+	saving = false;
 
-  states: any[];
+	states: any[];
 
-  constructor(
-    private modalService: NgbModal,
-    public activeModal: NgbActiveModal,
-    private _refSumberDanaServiceProxy: RefSumberDanaServiceProxy
-  ) {}
+	constructor(
+		private modalService: NgbModal,
+		public activeModal: NgbActiveModal,
+		private _refSumberDanaServiceProxy: RefSumberDanaServiceProxy
+	) {}
 
-  ngOnInit(): void {
-    this.show();
-  }
+	ngOnInit(): void {
+		this.show();
+	}
 
-  show() {
-    if (!this.id) {
-      this.dana = new CreateOrEditRefSumberDanaDto();
-    } else {
-      this._refSumberDanaServiceProxy.getRefSumberDanaForEdit(this.id).subscribe((result) => {
-        this.dana = result.ref_sumber_dana;
-      });
-    }
-  }
+	show() {
+		if (!this.id) {
+			this.dana = new CreateOrEditRefSumberDanaDto();
+		} else {
+			this._refSumberDanaServiceProxy.getRefSumberDanaForEdit(this.id).subscribe((result) => {
+				this.dana = result.ref_sumber_dana;
+			});
+		}
+	}
 
-  save(): void {
-    this.saving = true;
+	save(): void {
+		this.saving = true;
 
-    this._refSumberDanaServiceProxy
-      .createOrEdit(this.dana)
-      .pipe()
-      .subscribe(() => {
-        if (this.name == 'add') {
-          Swal.fire('Berjaya!', 'Maklumat Sumber Dana Berjaya Di Tambah.', 'success');
-        } else if (this.name == 'edit') {
-          Swal.fire('Berjaya!', 'Maklumat Sumber Dana Berjaya Di Ubah.', 'success');
-        }
-        this.activeModal.close(true);
-      });
-  }
+		this._refSumberDanaServiceProxy
+			.createOrEdit(this.dana)
+			.pipe()
+			.subscribe(() => {
+				if (this.name == 'add') {
+					Swal.fire('Berjaya!', 'Maklumat Sumber Dana Berjaya Di Tambah.', 'success');
+				} else if (this.name == 'edit') {
+					Swal.fire('Berjaya!', 'Maklumat Sumber Dana Berjaya Di Ubah.', 'success');
+				}
+				this.activeModal.close(true);
+			});
+	}
 }

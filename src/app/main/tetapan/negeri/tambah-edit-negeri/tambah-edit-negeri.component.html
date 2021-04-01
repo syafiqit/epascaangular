@@ -1,85 +1,85 @@
 <div class="modal-header">
-  <h5 class="modal-title" *ngIf="name === 'add'">Tambah Negeri</h5>
-  <h5 class="modal-title" *ngIf="name === 'edit'">Kemaskini Negeri</h5>
-  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-    <span aria-hidden="true">&times;</span>
-  </button>
+	<h5 class="modal-title" *ngIf="name === 'add'">Tambah Negeri</h5>
+	<h5 class="modal-title" *ngIf="name === 'edit'">Kemaskini Negeri</h5>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	</button>
 </div>
 <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()">
-  <div class="modal-body">
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="form-group">
-          <label for="negeri">Negeri</label>
-          <div>
-            <input
-              type="text"
-              class="form-control digits"
-              id="negeri"
-              name="negeri.nama_negeri"
-              [(ngModel)]="negeri.nama_negeri"
-              #namaNegeri="ngModel"
-              [ngClass]="{ 'is-invalid': f.submitted && namaNegeri.invalid }"
-              minlength="0"
-              maxlength="250"
-              required
-            />
-            <div *ngIf="f.submitted && namaNegeri.invalid" class="invalid-feedback">
-              <div *ngIf="namaNegeri.errors.required">Negeri Wajib Di Isi</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="form-group">
-          <label for="kod_negeri">Kod Negeri</label>
-          <div>
-            <input
-              type="text"
-              class="form-control digits"
-              id="kod_negeri"
-              name="negeri.kod_negeri"
-              [(ngModel)]="negeri.kod_negeri"
-              #kodNegeri="ngModel"
-              [ngClass]="{ 'is-invalid': f.submitted && kodNegeri.invalid }"
-              minlength="0"
-              maxlength="250"
-              required
-            />
-            <div *ngIf="f.submitted && kodNegeri.invalid" class="invalid-feedback">
-              <div *ngIf="kodNegeri.errors.required">Kod Negeri Wajib Di Isi</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="form-group">
-          <label>Status</label>
-          <select
-            class="form-control digits"
-            name="negeri.status_negeri"
-            [(ngModel)]="negeri.status_negeri"
-            #status="ngModel"
-            [ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
-            minlength="0"
-            maxlength="250"
-            required
-          >
-            <option selected disabled>Sila Pilih</option>
-            <option [value]="1">Aktif</option>
-            <option [value]="0">Tidak Aktif</option>
-          </select>
-          <div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
-            <div *ngIf="status.errors.required">Status Wajib Di Isi</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="activeModal.close(false)">Tutup</button>
-    <button type="submit" class="btn btn-primary">Simpan</button>
-  </div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label for="negeri">Negeri</label>
+					<div>
+						<input
+							type="text"
+							class="form-control digits"
+							id="negeri"
+							name="negeri.nama_negeri"
+							[(ngModel)]="negeri.nama_negeri"
+							#namaNegeri="ngModel"
+							[ngClass]="{ 'is-invalid': f.submitted && namaNegeri.invalid }"
+							minlength="0"
+							maxlength="250"
+							required
+						/>
+						<div *ngIf="f.submitted && namaNegeri.invalid" class="invalid-feedback">
+							<div *ngIf="namaNegeri.errors.required">Negeri Wajib Di Isi</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label for="kod_negeri">Kod Negeri</label>
+					<div>
+						<input
+							type="text"
+							class="form-control digits"
+							id="kod_negeri"
+							name="negeri.kod_negeri"
+							[(ngModel)]="negeri.kod_negeri"
+							#kodNegeri="ngModel"
+							[ngClass]="{ 'is-invalid': f.submitted && kodNegeri.invalid }"
+							minlength="0"
+							maxlength="250"
+							required
+						/>
+						<div *ngIf="f.submitted && kodNegeri.invalid" class="invalid-feedback">
+							<div *ngIf="kodNegeri.errors.required">Kod Negeri Wajib Di Isi</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label>Status</label>
+					<select
+						class="form-control digits"
+						name="negeri.status_negeri"
+						[(ngModel)]="negeri.status_negeri"
+						#status="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
+						minlength="0"
+						maxlength="250"
+						required
+					>
+						<option selected disabled>Sila Pilih</option>
+						<option [value]="1">Aktif</option>
+						<option [value]="0">Tidak Aktif</option>
+					</select>
+					<div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
+						<div *ngIf="status.errors.required">Status Wajib Di Isi</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-light" (click)="activeModal.close(false)">Tutup</button>
+		<button type="submit" class="btn btn-primary">Simpan</button>
+	</div>
 </form>
