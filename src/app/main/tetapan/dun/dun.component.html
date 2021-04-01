@@ -11,7 +11,10 @@
 						</button>
 					</div>
 					<div class="row mb-2">
-						<input type="text" class="form-control" placeholder="Carian..." />
+            <div class="input-group">
+              <input class="form-control" type="text" [(ngModel)]="filterDun" name="filterText" placeholder="Carian...">
+              <div class="input-group-append"><button (click)="getDun()" class="btn btn-primary" type="submit"><i class="icon-magnifier"></i></button></div>
+            </div>
 					</div>
 					<div class="row align-items-center">
 						<!--<Primeng-TurboTable-Start>-->
@@ -34,19 +37,19 @@
 								<ng-template pTemplate="header">
 									<tr>
 										<th style="width: 130px">Tindakan</th>
-										<th style="width: 150px" pSortableColumn="dun">
+										<th style="width: 150px" pSortableColumn="nama_dun">
 											Dun
 											<p-sortIcon field="dun"></p-sortIcon>
 										</th>
-										<th style="width: 150px" pSortableColumn="parliament">
+										<th style="width: 150px" pSortableColumn="id_parlimen">
 											Parlimen
 											<p-sortIcon field="parliament"></p-sortIcon>
 										</th>
-										<th style="width: 150px" pSortableColumn="state">
+										<th style="width: 150px" pSortableColumn="id_negeri">
 											Negeri
 											<p-sortIcon field="state"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="status">
+										<th style="width: 130px" pSortableColumn="status_dun">
 											Status
 											<p-sortIcon field="status"></p-sortIcon>
 										</th>
@@ -69,7 +72,7 @@
                         <div ngbDropdownMenu aria-labelledby="action">
                           <button
                             class="dropdown-item"
-                            (click)="editDunModal(record.ref_dun.id)"
+                            (click)="editDunModal(record.id)"
                           >
                             Lihat
                           </button>
@@ -81,19 +84,19 @@
                     </td>
                     <td style="width: 150px">
                       <span class="p-column-title">Dun</span>
-                      {{record.ref_dun.nama_dun}}
+                      {{record.nama_dun}}
                     </td>
                     <td style="width: 150px">
                       <span class="p-column-title">Parlimen</span>
-                      {{getParlimen(record.ref_dun.id_parlimen)}}
+                      {{getParlimen(record.id_parlimen)}}
                     </td>
                     <td style="width: 150px">
                       <span class="p-column-title">Negeri</span>
-                      {{getNegeri(record.ref_dun.id_negeri)}}
+                      {{getNegeri(record.id_negeri)}}
                     </td>
                     <td style="width: 130px">
                       <span class="p-column-title">Status</span>
-                      {{record.ref_dun.status_dun == 1? "Aktif":"Tidak Aktif"}}
+                      {{record.status_dun == 1? "Aktif":"Tidak Aktif"}}
                     </td>
                   </tr>
 								</ng-template>
