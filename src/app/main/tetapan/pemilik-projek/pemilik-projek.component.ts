@@ -22,10 +22,10 @@ export class PemilikProjekComponent implements OnInit {
 	filter = '';
 
 	constructor(
-		config: NgbModalConfig, 
+		config: NgbModalConfig,
 		private modalService: NgbModal,
 		private _refPemilikServiceProxy: RefPemilikServiceProxy
-		) {
+	) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;

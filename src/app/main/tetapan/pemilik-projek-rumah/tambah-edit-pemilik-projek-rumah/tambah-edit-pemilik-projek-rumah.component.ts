@@ -19,7 +19,7 @@ export class TambahEditPemilikProjekRumahComponent implements OnInit {
 	saving = true;
 
 	constructor(
-		private modalService: NgbModal, 
+		private modalService: NgbModal,
 		public activeModal: NgbActiveModal,
 		private _refTapakRumahServiceProxy: RefTapakRumahServiceProxy
 	) {}
@@ -27,7 +27,7 @@ export class TambahEditPemilikProjekRumahComponent implements OnInit {
 	ngOnInit(): void {
 		this.show();
 	}
-	
+
 	show() {
 		if (!this.id) {
 			this.tapak_rumah = new CreateOrEditRefTapakRumahDto();
@@ -37,7 +37,7 @@ export class TambahEditPemilikProjekRumahComponent implements OnInit {
 			});
 		}
 	}
-	
+
 	save(): void {
 		this.saving = true;
 

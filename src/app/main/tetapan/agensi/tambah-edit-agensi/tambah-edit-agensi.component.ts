@@ -1,7 +1,11 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { finalize } from 'rxjs/operators';
-import { CreateOrEditRefAgensiDto, RefAgensiServiceProxy, RefKementerianServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import {
+	CreateOrEditRefAgensiDto,
+	RefAgensiServiceProxy,
+	RefKementerianServiceProxy
+} from 'src/app/shared/proxy/service-proxies';
 declare let require;
 const Swal = require('sweetalert2');
 
@@ -20,11 +24,11 @@ export class TambahEditAgensiComponent implements OnInit {
 	ministries: any;
 
 	constructor(
-		private modalService: NgbModal, 
+		private modalService: NgbModal,
 		public activeModal: NgbActiveModal,
 		private _refAgensiServiceProxy: RefAgensiServiceProxy,
 		private _refKementerianServiceProxy: RefKementerianServiceProxy
-		) {}
+	) {}
 
 	ngOnInit(): void {
 		this.show();

@@ -11,7 +11,6 @@ const Swal = require('sweetalert2');
 	encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig, NgbModal]
 })
-
 export class TambahEditJenisBantuanComponent implements OnInit {
 	@Input() name;
 	@Input() id;
@@ -20,15 +19,15 @@ export class TambahEditJenisBantuanComponent implements OnInit {
 	saving = true;
 
 	constructor(
-		private modalService: NgbModal, 
-		public activeModal: NgbActiveModal, 
+		private modalService: NgbModal,
+		public activeModal: NgbActiveModal,
 		private _refBantuanServiceProxy: RefBantuanServiceProxy
 	) {}
 
 	ngOnInit(): void {
 		this.show();
 	}
-	
+
 	show() {
 		if (!this.id) {
 			this.bantuan = new CreateOrEditRefBantuanDto();
@@ -38,7 +37,7 @@ export class TambahEditJenisBantuanComponent implements OnInit {
 			});
 		}
 	}
-	
+
 	save(): void {
 		this.saving = true;
 

@@ -13,17 +13,16 @@ import { RefJenisBencanaServiceProxy } from 'src/app/shared/proxy/service-proxie
 	encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig, NgbModal]
 })
-
 export class BencanaComponent implements OnInit {
 	@ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
 	primengTableHelper: PrimengTableHelper;
-	
+
 	filter = '';
 
 	constructor(
-		config: NgbModalConfig, 
+		config: NgbModalConfig,
 		private modalService: NgbModal,
 		private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy
 	) {

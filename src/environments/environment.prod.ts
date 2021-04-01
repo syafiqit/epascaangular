@@ -8,5 +8,5 @@ export const environment = {
 		storageBucket: 'Your StorageBucket url',
 		messagingSenderId: 'Your Sender Id'
 	},
-  apiUrl: 'http://10.1.1.98:8200',
+	apiUrl: 'http://10.1.1.98:8200'
 };
