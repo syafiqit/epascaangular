@@ -21,7 +21,7 @@
 								styleClass="p-datatable-striped"
 								sortMode="multiple"
 								[resizableColumns]="true"
-								(onLazyLoad)="getApplication($event)"
+								(onLazyLoad)="getDun($event)"
 								[value]="primengTableHelper.records"
 								rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
 								[paginator]="false"
@@ -53,44 +53,49 @@
 									</tr>
 								</ng-template>
 								<ng-template pTemplate="body" let-record="$implicit">
-									<tr>
-										<td style="width: 130px">
-											<div ngbDropdown class="btn-group" role="group" container="body">
-												<button
-													type="button"
-													class="btn btn-primary btn-primeng dropdown-toggle"
-													id="action"
-													ngbDropdownToggle
-												>
-													<i class="fa fa-cog"></i>
-													<span class="caret"></span>
-													Tindakan
-												</button>
-												<div ngbDropdownMenu aria-labelledby="action">
-													<button class="dropdown-item" (click)="editDunModal()">
-														Lihat
-													</button>
-													<button class="dropdown-item">Padam</button>
-												</div>
-											</div>
-										</td>
-										<td style="width: 150px">
-											<span class="p-column-title">Dun</span>
-											{{record.dun}}
-										</td>
-										<td style="width: 150px">
-											<span class="p-column-title">Parlimen</span>
-											{{record.parliament}}
-										</td>
-										<td style="width: 150px">
-											<span class="p-column-title">Negeri</span>
-											{{record.state}}
-										</td>
-										<td style="width: 130px">
-											<span class="p-column-title">Status</span>
-											{{record.status}}
-										</td>
-									</tr>
+                  <tr>
+                    <td style="width: 130px">
+                      <div ngbDropdown class="btn-group" role="group" container="body">
+                        <button
+                          type="button"
+                          class="btn btn-primary btn-primeng dropdown-toggle"
+                          id="action"
+                          ngbDropdownToggle
+                        >
+                          <i class="fa fa-cog"></i>
+                          <span class="caret"></span>
+                          Tindakan
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="action">
+                          <button
+                            class="dropdown-item"
+                            (click)="editDunModal(record.ref_dun.id)"
+                          >
+                            Lihat
+                          </button>
+                          <button class="dropdown-item">
+                            Padam
+                          </button>
+                        </div>
+                      </div>
+                    </td>
+                    <td style="width: 150px">
+                      <span class="p-column-title">Dun</span>
+                      {{record.ref_dun.nama_dun}}
+                    </td>
+                    <td style="width: 150px">
+                      <span class="p-column-title">Parlimen</span>
+                      {{getParlimen(record.ref_dun.id_parlimen)}}
+                    </td>
+                    <td style="width: 150px">
+                      <span class="p-column-title">Negeri</span>
+                      {{getNegeri(record.ref_dun.id_negeri)}}
+                    </td>
+                    <td style="width: 130px">
+                      <span class="p-column-title">Status</span>
+                      {{record.ref_dun.status_dun == 1? "Aktif":"Tidak Aktif"}}
+                    </td>
+                  </tr>
 								</ng-template>
 							</p-table>
 							<div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">No Data</div>
@@ -98,7 +103,7 @@
 								<p-paginator
 									[rows]="primengTableHelper.defaultRecordsCountPerPage"
 									#paginator
-									(onPageChange)="getApplication($event)"
+									(onPageChange)="getDun($event)"
 									[totalRecords]="primengTableHelper.totalRecordsCount"
 									[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
 								></p-paginator>
