@@ -1,6 +1,12 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import {
+  CreateOrEditRefPerananDto,
+  RefPerananServiceProxy
+} from "../../../../shared/proxy/service-proxies";
+declare let require;
+const Swal = require('sweetalert2');
 
 @Component({
 	selector: 'app-tambah-edit-peranan',
@@ -9,12 +15,47 @@ import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 	providers: [NgbModalConfig, NgbModal]
 })
 export class TambahEditPerananComponent implements OnInit {
-	@Input() name;
+  @Input() name;
+  @Input() id;
 
-	modelFooter: NgbDateStruct;
-	today = this.calendar.getToday();
+  peranan: CreateOrEditRefPerananDto = new CreateOrEditRefPerananDto();
+  saving = false;
 
-	constructor(private modalService: NgbModal, public activeModal: NgbActiveModal, private calendar: NgbCalendar) {}
+  states: any[];
 
-	ngOnInit(): void {}
+  constructor(
+    private modalService: NgbModal,
+    public activeModal: NgbActiveModal,
+    private _refPerananServiceProxy: RefPerananServiceProxy
+  ) {}
+
+  ngOnInit(): void {
+    this.show();
+  }
+
+  show() {
+    if (!this.id) {
+      this.peranan = new CreateOrEditRefPerananDto();
+    } else {
+      this._refPerananServiceProxy.getRefPerananForEdit(this.id).subscribe((result) => {
+        this.peranan = result.ref_peranan;
+      });
+    }
+  }
+
+  save(): void {
+    this.saving = true;
+
+    this._refPerananServiceProxy
+      .createOrEdit(this.peranan)
+      .pipe()
+      .subscribe(() => {
+        if (this.name == 'add') {
+          Swal.fire('Berjaya!', 'Maklumat Peranan Berjaya Di Tambah.', 'success');
+        } else if (this.name == 'edit') {
+          Swal.fire('Berjaya!', 'Maklumat Peranan Berjaya Di Ubah.', 'success');
+        }
+        this.activeModal.close(true);
+      });
+  }
 }

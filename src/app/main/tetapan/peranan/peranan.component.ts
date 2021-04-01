@@ -5,6 +5,7 @@ import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { TambahEditPerananComponent } from './tambah-edit-peranan/tambah-edit-peranan.component';
+import {RefPerananServiceProxy} from "../../../shared/proxy/service-proxies";
 
 @Component({
 	selector: 'app-peranan',
@@ -18,14 +19,13 @@ export class PerananComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 
-	rows = [
-		{ role: 'Pengguna Biasa', status: 'Aktif' },
-		{ role: 'Penyelia', status: 'Aktif' },
-		{ role: 'Admin Sekretariat', status: 'Aktif' },
-		{ role: 'Kewangan', status: 'Aktif' }
-	];
+  filterText = '';
 
-	constructor(config: NgbModalConfig, private modalService: NgbModal) {
+	constructor(
+	  config: NgbModalConfig,
+    private modalService: NgbModal,
+    private _refPerananServiceProxy: RefPerananServiceProxy
+  ) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
@@ -33,16 +33,25 @@ export class PerananComponent implements OnInit {
 
 	ngOnInit(): void {}
 
-	getDisaster(event?: LazyLoadEvent) {
-		if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
+	getPeranan(event?: LazyLoadEvent) {
+    if (this.primengTableHelper.shouldResetPaging(event)) {
+      this.paginator.changePage(0);
+      return;
+    }
 
-		this.primengTableHelper.showLoadingIndicator();
-		this.primengTableHelper.totalRecordsCount = this.rows.length;
-		this.primengTableHelper.records = this.rows;
-		this.primengTableHelper.hideLoadingIndicator();
+    this.primengTableHelper.showLoadingIndicator();
+    this._refPerananServiceProxy
+      .getAll(
+        this.filterText,
+        this.primengTableHelper.getSorting(this.dataTable),
+        this.primengTableHelper.getSkipCount(this.paginator, event),
+        this.primengTableHelper.getMaxResultCount(this.paginator, event)
+      )
+      .subscribe((result) => {
+        this.primengTableHelper.totalRecordsCount = result.total_count;
+        this.primengTableHelper.records = result.items;
+        this.primengTableHelper.hideLoadingIndicator();
+      });
 	}
 
 	reloadPage(): void {
@@ -51,11 +60,22 @@ export class PerananComponent implements OnInit {
 
 	addRoleModal() {
 		const modalRef = this.modalService.open(TambahEditPerananComponent, { size: 'lg' });
-		modalRef.componentInstance.name = 'add';
+    modalRef.componentInstance.name = 'add';
+    modalRef.result.then((response) => {
+      if (response) {
+        this.getPeranan();
+      }
+    });
 	}
 
-	editRoleModal() {
+	editRoleModal(id) {
 		const modalRef = this.modalService.open(TambahEditPerananComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'edit';
+    modalRef.componentInstance.id = id;
+    modalRef.result.then((response) => {
+      if (response) {
+        this.getPeranan();
+      }
+    });
 	}
 }
