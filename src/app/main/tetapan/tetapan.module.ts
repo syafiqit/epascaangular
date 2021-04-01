@@ -43,9 +43,10 @@ import { PerananComponent } from './peranan/peranan.component';
 import { TambahEditPerananComponent } from './peranan/tambah-edit-peranan/tambah-edit-peranan.component';
 import { RujukanComponent } from './rujukan/rujukan.component';
 import { TambahEditRujukanComponent } from './rujukan/tambah-edit-rujukan/tambah-edit-rujukan.component';
+import { NgSelectModule } from "@ng-select/ng-select";
 
 @NgModule({
-	imports: [CommonModule, SharedModule, TetapanRoutingModule, NgxDatatableModule, TableModule, PaginatorModule],
+  imports: [CommonModule, SharedModule, TetapanRoutingModule, NgxDatatableModule, TableModule, PaginatorModule, NgSelectModule],
 	declarations: [
 		PengumumanComponent,
 		TambahEditPengumumanComponent,

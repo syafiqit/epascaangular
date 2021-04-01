@@ -31,23 +31,21 @@
 			</div>
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label for="parlimen">Parlimen</label>
-					<select
-						class="form-control digits"
-						id="parlimen"
-						name="dun.id_parlimen"
+					<label>Parlimen</label>
+          <ng-select
+            [items]="parliament"
+            bindLabel="nama_parlimen"
+            bindValue="id"
+            placeholder="Sila Pilih"
+            class="js-example-placeholder-multiple"
+            name="daerah.id_negeri"
 						[(ngModel)]="dun.id_parlimen"
 						#parlimen="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && parlimen.invalid }"
 						minlength="0"
 						maxlength="250"
 						required
-					>
-						<option selected disabled>Sila Pilih</option>
-						<option *ngFor="let parliament of parliament" value="{{parliament.id}}">
-							{{parliament.nama_parlimen}}
-						</option>
-					</select>
+          ></ng-select>
 					<div *ngIf="f.submitted && parlimen.invalid" class="invalid-feedback">
 						<div *ngIf="parlimen.errors.required">Parlimen Wajib Di Isi</div>
 					</div>
@@ -57,24 +55,24 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label for="negeri">Negeri</label>
-					<select
-						class="form-control digits"
-						id="negeri"
-						name="dun.id_negeri"
-						[(ngModel)]="dun.id_negeri"
-						#negeri="ngModel"
-						[ngClass]="{ 'is-invalid': f.submitted && negeri.invalid }"
-						minlength="0"
-						maxlength="250"
-						required
-					>
-						<option selected disabled>Sila Pilih</option>
-						<option *ngFor="let state of states" value="{{state.id}}">{{state.nama_negeri}}</option>
-					</select>
-					<div *ngIf="f.submitted && negeri.invalid" class="invalid-feedback">
-						<div *ngIf="negeri.errors.required">Negeri Wajib Di Isi</div>
-					</div>
+					<label>Negeri</label>
+          <ng-select
+            [items]="states"
+            bindLabel="nama_negeri"
+            bindValue="id"
+            placeholder="Sila Pilih"
+            class="js-example-placeholder-multiple"
+            name="daerah.id_negeri"
+            [(ngModel)]="dun.id_negeri"
+            #negeri="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && negeri.invalid }"
+            minlength="0"
+            maxlength="250"
+            required
+          ></ng-select>
+          <div *ngIf="f.submitted && negeri.invalid" class="invalid-feedback">
+            <div *ngIf="negeri.errors.required">Negeri Wajib Di Isi</div>
+          </div>
 				</div>
 			</div>
 			<div class="col-lg-6">
