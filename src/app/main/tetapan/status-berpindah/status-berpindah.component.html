@@ -15,7 +15,7 @@
 						</button>
 					</div>
 					<div class="row mb-2">
-						<input type="text" class="form-control" placeholder="Carian..." />
+						<input type="text" class="form-control" placeholder="Carian..." [(ngModel)]="filterText" (keyup.enter)="getPindah()"/>
 					</div>
 					<div class="row align-items-center">
 						<!--<Primeng-TurboTable-Start>-->
@@ -38,11 +38,11 @@
 								<ng-template pTemplate="header">
 									<tr>
 										<th style="width: 150px">Tindakan</th>
-										<th style="width: 160px" pSortableColumn="info">
+										<th style="width: 160px" pSortableColumn="pindah">
 											Maklumat Perpindahan
 											<p-sortIcon field="info"></p-sortIcon>
 										</th>
-										<th style="width: 150px" pSortableColumn="status">
+										<th style="width: 150px" pSortableColumn="status_pindah">
 											Status
 											<p-sortIcon field="status"></p-sortIcon>
 										</th>
