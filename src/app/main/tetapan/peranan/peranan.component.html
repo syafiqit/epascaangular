@@ -20,7 +20,7 @@
 							styleClass="p-datatable-striped"
 							sortMode="multiple"
 							[resizableColumns]="true"
-							(onLazyLoad)="getDisaster($event)"
+							(onLazyLoad)="getPeranan($event)"
 							[value]="primengTableHelper.records"
 							rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
 							[paginator]="false"
@@ -58,18 +58,20 @@
 												Tindakan
 											</button>
 											<div ngbDropdownMenu aria-labelledby="action">
-												<button class="dropdown-item" (click)="editRoleModal()">Lihat</button>
+												<button class="dropdown-item" (click)="editRoleModal(record.id)">
+													Lihat
+												</button>
 												<button class="dropdown-item">Padam</button>
 											</div>
 										</div>
 									</td>
 									<td style="width: 150px">
 										<span class="p-column-title">Nama Peranan</span>
-										{{record.role}}
+										{{record.peranan}}
 									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">Status</span>
-										{{record.status}}
+										{{"Aktif"}}
 									</td>
 								</tr>
 							</ng-template>
@@ -79,7 +81,7 @@
 							<p-paginator
 								[rows]="primengTableHelper.defaultRecordsCountPerPage"
 								#paginator
-								(onPageChange)="getDisaster($event)"
+								(onPageChange)="getPeranan($event)"
 								[totalRecords]="primengTableHelper.totalRecordsCount"
 								[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
 							></p-paginator>

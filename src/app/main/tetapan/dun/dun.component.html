@@ -11,7 +11,20 @@
 						</button>
 					</div>
 					<div class="row mb-2">
-						<input type="text" class="form-control" placeholder="Carian..." />
+						<div class="input-group">
+							<input
+								class="form-control"
+								type="text"
+								[(ngModel)]="filterDun"
+								name="filterText"
+								placeholder="Carian..."
+							/>
+							<div class="input-group-append">
+								<button (click)="getDun()" class="btn btn-primary" type="submit">
+									<i class="icon-magnifier"></i>
+								</button>
+							</div>
+						</div>
 					</div>
 					<div class="row align-items-center">
 						<!--<Primeng-TurboTable-Start>-->
@@ -21,7 +34,7 @@
 								styleClass="p-datatable-striped"
 								sortMode="multiple"
 								[resizableColumns]="true"
-								(onLazyLoad)="getApplication($event)"
+								(onLazyLoad)="getDun($event)"
 								[value]="primengTableHelper.records"
 								rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
 								[paginator]="false"
@@ -34,19 +47,19 @@
 								<ng-template pTemplate="header">
 									<tr>
 										<th style="width: 130px">Tindakan</th>
-										<th style="width: 150px" pSortableColumn="dun">
+										<th style="width: 150px" pSortableColumn="nama_dun">
 											Dun
 											<p-sortIcon field="dun"></p-sortIcon>
 										</th>
-										<th style="width: 150px" pSortableColumn="parliament">
+										<th style="width: 150px" pSortableColumn="id_parlimen">
 											Parlimen
 											<p-sortIcon field="parliament"></p-sortIcon>
 										</th>
-										<th style="width: 150px" pSortableColumn="state">
+										<th style="width: 150px" pSortableColumn="id_negeri">
 											Negeri
 											<p-sortIcon field="state"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="status">
+										<th style="width: 130px" pSortableColumn="status_dun">
 											Status
 											<p-sortIcon field="status"></p-sortIcon>
 										</th>
@@ -67,7 +80,7 @@
 													Tindakan
 												</button>
 												<div ngbDropdownMenu aria-labelledby="action">
-													<button class="dropdown-item" (click)="editDunModal()">
+													<button class="dropdown-item" (click)="editDunModal(record.id)">
 														Lihat
 													</button>
 													<button class="dropdown-item">Padam</button>
@@ -76,19 +89,19 @@
 										</td>
 										<td style="width: 150px">
 											<span class="p-column-title">Dun</span>
-											{{record.dun}}
+											{{record.nama_dun}}
 										</td>
 										<td style="width: 150px">
 											<span class="p-column-title">Parlimen</span>
-											{{record.parliament}}
+											{{getParlimen(record.id_parlimen)}}
 										</td>
 										<td style="width: 150px">
 											<span class="p-column-title">Negeri</span>
-											{{record.state}}
+											{{getNegeri(record.id_negeri)}}
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Status</span>
-											{{record.status}}
+											{{record.status_dun == 1? "Aktif":"Tidak Aktif"}}
 										</td>
 									</tr>
 								</ng-template>
@@ -98,7 +111,7 @@
 								<p-paginator
 									[rows]="primengTableHelper.defaultRecordsCountPerPage"
 									#paginator
-									(onPageChange)="getApplication($event)"
+									(onPageChange)="getDun($event)"
 									[totalRecords]="primengTableHelper.totalRecordsCount"
 									[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
 								></p-paginator>

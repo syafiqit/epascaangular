@@ -5,6 +5,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
+import { RefSumberDanaServiceProxy } from '../../../shared/proxy/service-proxies';
 
 @Component({
 	selector: 'app-sumber-dana',
@@ -18,15 +19,13 @@ export class SumberDanaComponent implements AfterViewInit {
 
 	primengTableHelper: PrimengTableHelper;
 
-	rows = [
-		{ source: 'Kerajaan Negeri', status: 'Aktif' },
-		{ source: 'Kerajaan Persekutuan', status: 'Aktif' },
-		{ source: 'NGO', status: 'Aktif' },
-		{ source: 'Sumbangan Antarabangsa', status: 'Aktif' },
-		{ source: 'Lain-lain', status: 'Aktif' }
-	];
+	filterText = '';
 
-	constructor(config: NgbModalConfig, private modalService: NgbModal) {
+	constructor(
+		config: NgbModalConfig,
+		private modalService: NgbModal,
+		private _refSumberDanaServiceProxy: RefSumberDanaServiceProxy
+	) {
 		config.backdrop = 'static';
 		config.keyboard = false;
 		this.primengTableHelper = new PrimengTableHelper();
@@ -36,16 +35,25 @@ export class SumberDanaComponent implements AfterViewInit {
 		//this.primengTableHelper.adjustScroll(this.dataTable);
 	}
 
-	getApplication(event?: LazyLoadEvent) {
+	getSumberDana(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
 		}
 
 		this.primengTableHelper.showLoadingIndicator();
-		this.primengTableHelper.totalRecordsCount = this.rows.length;
-		this.primengTableHelper.records = this.rows;
-		this.primengTableHelper.hideLoadingIndicator();
+		this._refSumberDanaServiceProxy
+			.getAll(
+				this.filterText,
+				this.primengTableHelper.getSorting(this.dataTable),
+				this.primengTableHelper.getSkipCount(this.paginator, event),
+				this.primengTableHelper.getMaxResultCount(this.paginator, event)
+			)
+			.subscribe((result) => {
+				this.primengTableHelper.totalRecordsCount = result.total_count;
+				this.primengTableHelper.records = result.items;
+				this.primengTableHelper.hideLoadingIndicator();
+			});
 	}
 
 	reloadPage(): void {
@@ -55,10 +63,21 @@ export class SumberDanaComponent implements AfterViewInit {
 	addFundsModal() {
 		const modalRef = this.modalService.open(TambahEditSumberDanaComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
+		modalRef.result.then((response) => {
+			if (response) {
+				this.getSumberDana();
+			}
+		});
 	}
 
-	editFundsModal() {
+	editFundsModal(id) {
 		const modalRef = this.modalService.open(TambahEditSumberDanaComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'edit';
+		modalRef.componentInstance.id = id;
+		modalRef.result.then((response) => {
+			if (response) {
+				this.getSumberDana();
+			}
+		});
 	}
 }

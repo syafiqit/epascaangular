@@ -27,7 +27,7 @@ import { AppAuthService } from './shared/services/app-auth-service';
 import { API_BASE_URL } from './shared/proxy/service-proxies';
 
 export function getRemoteServiceBaseUrl(): string {
-  return environment.apiUrl;
+	return environment.apiUrl;
 }
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -91,7 +91,7 @@ export function appInitializerFactory(injector: Injector) {
 		AppAuthService,
 		CookieService,
 		AppRouteGuard,
-    { provide: API_BASE_URL, useFactory: getRemoteServiceBaseUrl },
+		{ provide: API_BASE_URL, useFactory: getRemoteServiceBaseUrl },
 		{
 			provide: APP_INITIALIZER,
 			useFactory: appInitializerFactory,

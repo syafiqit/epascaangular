@@ -5,6 +5,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
+import { RefPindahServiceProxy } from '../../../shared/proxy/service-proxies';
 
 @Component({
 	selector: 'app-status-berpindah',
@@ -18,15 +19,13 @@ export class StatusBerpindahComponent implements AfterViewInit {
 
 	primengTableHelper: PrimengTableHelper;
 
-	rows = [
-		{ info: 'Pusat Pemindahan', status: 'Aktif' },
-		{ info: 'Berpindah ke Hotel', status: 'Aktif' },
-		{ info: 'Berpindah ke Rumah Saudara', status: 'Aktif' },
-		{ info: 'Tidak Berpindah', status: 'Aktif' },
-		{ info: 'Lain-lain', status: 'Aktif' }
-	];
+	filterText = '';
 
-	constructor(config: NgbModalConfig, private modalService: NgbModal) {
+	constructor(
+		config: NgbModalConfig,
+		private modalService: NgbModal,
+		private _refPindahServiceProxy: RefPindahServiceProxy
+	) {
 		config.backdrop = 'static';
 		config.keyboard = false;
 		this.primengTableHelper = new PrimengTableHelper();
@@ -36,16 +35,25 @@ export class StatusBerpindahComponent implements AfterViewInit {
 		//this.primengTableHelper.adjustScroll(this.dataTable);
 	}
 
-	getApplication(event?: LazyLoadEvent) {
+	getPindah(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
 		}
 
 		this.primengTableHelper.showLoadingIndicator();
-		this.primengTableHelper.totalRecordsCount = this.rows.length;
-		this.primengTableHelper.records = this.rows;
-		this.primengTableHelper.hideLoadingIndicator();
+		this._refPindahServiceProxy
+			.getAll(
+				this.filterText,
+				this.primengTableHelper.getSorting(this.dataTable),
+				this.primengTableHelper.getSkipCount(this.paginator, event),
+				this.primengTableHelper.getMaxResultCount(this.paginator, event)
+			)
+			.subscribe((result) => {
+				this.primengTableHelper.totalRecordsCount = result.total_count;
+				this.primengTableHelper.records = result.items;
+				this.primengTableHelper.hideLoadingIndicator();
+			});
 	}
 
 	reloadPage(): void {
@@ -55,10 +63,21 @@ export class StatusBerpindahComponent implements AfterViewInit {
 	addEvacuateModal() {
 		const modalRef = this.modalService.open(TambahEditStatusBerpindahComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
+		modalRef.result.then((response) => {
+			if (response) {
+				this.getPindah();
+			}
+		});
 	}
 
-	editEvacuateModal() {
+	editEvacuateModal(id) {
 		const modalRef = this.modalService.open(TambahEditStatusBerpindahComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'edit';
+		modalRef.componentInstance.id = id;
+		modalRef.result.then((response) => {
+			if (response) {
+				this.getPindah();
+			}
+		});
 	}
 }
