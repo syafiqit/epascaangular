@@ -6,30 +6,61 @@
 	</button>
 </div>
 
+<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()">
 <div class="modal-body">
-	<form class="form theme-form">
+
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
 					<label>Maklumat Perpindahan</label>
-					<input class="form-control" id="info" type="text" placeholder="Maklumat Perpindahan" />
+          <input
+            class="form-control"
+            id="pindah"
+            type="text"
+            placeholder="Maklumat Perpindahan"
+            [(ngModel)]="pindah.pindah"
+            #nama_pindah="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && nama_pindah.invalid }"
+            name="pindah.pindah"
+            minlength="0"
+            maxlength="250"
+            required
+          />
+          <div *ngIf="f.submitted && nama_pindah.invalid" class="invalid-feedback">
+            <div *ngIf="nama_pindah.errors.required">Maklumat Perpindahan Wajib Di Isi</div>
+          </div>
 				</div>
 			</div>
 
 			<div class="col-lg-6">
 				<div class="form-group">
 					<label>Status</label>
-					<select class="form-control digits">
-						<option>Aktif</option>
-						<option>Tidak Aktif</option>
-					</select>
+          <select
+            id="status"
+            class="form-control digits"
+            name="pindah.status_pindah"
+            [(ngModel)]="pindah.status_pindah"
+            #status="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
+            minlength="0"
+            maxlength="250"
+            required
+          >
+            <option selected disabled>Sila Pilih</option>
+            <option [value]="1">Aktif</option>
+            <option [value]="0">Tidak Aktif</option>
+          </select>
+          <div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
+            <div *ngIf="status.errors.required">Status Wajib Di Isi</div>
+          </div>
 				</div>
 			</div>
 		</div>
-	</form>
+
 </div>
 
 <div class="modal-footer">
 	<button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
-	<button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Simpan</button>
+	<button type="submit" class="btn btn-primary">Simpan</button>
 </div>
+</form>
