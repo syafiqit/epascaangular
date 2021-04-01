@@ -5,31 +5,62 @@
 		<span aria-hidden="true">&times;</span>
 	</button>
 </div>
+
+<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()">
 <div class="modal-body">
-	<form class="form theme-form">
+
 		<div class="row">
 			<div class="col-6">
 				<div class="form-group">
 					<label class="col-form-label">Nama Sektor</label>
-					<input class="form-control" name="name" type="text" placeholder="Nama Sektor" />
+          <input
+            class="form-control"
+            id="nama_agensi_pinjaman"
+            type="text"
+            placeholder="Nama Sektor"
+            [(ngModel)]="pinjaman.nama_agensi_pinjaman"
+            #nama_agensi_pinjaman="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && nama_agensi_pinjaman.invalid }"
+            name="pinjaman.nama_agensi_pinjaman"
+            minlength="0"
+            maxlength="250"
+            required
+          />
+          <div *ngIf="f.submitted && nama_agensi_pinjaman.invalid" class="invalid-feedback">
+            <div *ngIf="nama_agensi_pinjaman.errors.required">Nama Sektor Wajib Di Isi</div>
+          </div>
 				</div>
 			</div>
 			<div class="col-6">
 				<div class="form-group">
 					<label class="col-form-label">Status</label>
 					<div>
-						<select class="form-control" name="status">
-							<option *ngFor="let status of status" value="{{status['status']}}">
-								{{status['status']}}
-							</option>
-						</select>
+            <select
+              id="status"
+              class="form-control digits"
+              name="pinjaman.status_agensi_pinjaman"
+              [(ngModel)]="pinjaman.status_agensi_pinjaman"
+              #status="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
+              minlength="0"
+              maxlength="250"
+              required
+            >
+              <option selected disabled>Sila Pilih</option>
+              <option [value]="1">Aktif</option>
+              <option [value]="0">Tidak Aktif</option>
+            </select>
+            <div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
+              <div *ngIf="status.errors.required">Status Wajib Di Isi</div>
+            </div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</form>
+
 </div>
 <div class="modal-footer">
 	<button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
-	<button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Simpan</button>
+	<button type="submit" class="btn btn-primary" >Simpan</button>
 </div>
+</form>
