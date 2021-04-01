@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import {CreateOrEditRefKerosakanDto, RefKerosakanServiceProxy} from "../../../../shared/proxy/service-proxies";
+declare let require;
+const Swal = require('sweetalert2');
 
 @Component({
 	selector: 'app-tambah-edit-kerosakan-rumah',
@@ -8,9 +11,47 @@ import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-boots
 	providers: [NgbModalConfig, NgbModal]
 })
 export class TambahEditKerosakanRumahComponent implements OnInit {
-	@Input() name;
+  @Input() name;
+  @Input() id;
 
-	constructor(private modalService: NgbModal, public activeModal: NgbActiveModal) {}
+  kerosakan: CreateOrEditRefKerosakanDto = new CreateOrEditRefKerosakanDto();
+  saving = false;
 
-	ngOnInit(): void {}
+  states: any[];
+
+  constructor(
+    private modalService: NgbModal,
+    public activeModal: NgbActiveModal,
+    private _refKerosakanServiceProxy: RefKerosakanServiceProxy
+  ) {}
+
+  ngOnInit(): void {
+    this.show();
+  }
+
+  show() {
+    if (!this.id) {
+      this.kerosakan = new CreateOrEditRefKerosakanDto();
+    } else {
+      this._refKerosakanServiceProxy.getRefKerosakanForEdit(this.id).subscribe((result) => {
+        this.kerosakan = result.ref_kerosakan;
+      });
+    }
+  }
+
+  save(): void {
+    this.saving = true;
+
+    this._refKerosakanServiceProxy
+      .createOrEdit(this.kerosakan)
+      .pipe()
+      .subscribe(() => {
+        if (this.name == 'add') {
+          Swal.fire('Berjaya!', 'Maklumat Kerosakan Rumah Berjaya Di Tambah.', 'success');
+        } else if (this.name == 'edit') {
+          Swal.fire('Berjaya!', 'Maklumat Kerosakan Rumah Berjaya Di Ubah.', 'success');
+        }
+        this.activeModal.close(true);
+      });
+  }
 }
