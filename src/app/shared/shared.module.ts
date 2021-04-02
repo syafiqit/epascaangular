@@ -60,7 +60,8 @@ const NSWAG = [
 	ApiServiceProxies.RefSumberDanaServiceProxy,
 	ApiServiceProxies.RefSumberPeruntukanServiceProxy,
 	ApiServiceProxies.RefTapakRumahServiceProxy,
-	ApiServiceProxies.RefWarganegaraServiceProxy
+	ApiServiceProxies.RefWarganegaraServiceProxy,
+  ApiServiceProxies.RefHubunganServiceProxy
 ];
 
 @NgModule({
