@@ -10,7 +10,13 @@
 					</button>
 				</div>
 				<div class="row mb-2">
-					<input type="text" class="form-control" placeholder="Carian..." />
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Carian..."
+            [(ngModel)]="filterText"
+            (keyup.enter)="getHubungan()"
+          />
 				</div>
 				<div class="row align-items-center">
 					<!--<Primeng-TurboTable-Start>-->
@@ -20,7 +26,7 @@
 							styleClass="p-datatable-striped"
 							sortMode="multiple"
 							[resizableColumns]="true"
-							(onLazyLoad)="getDisaster($event)"
+							(onLazyLoad)="getHubungan($event)"
 							[value]="primengTableHelper.records"
 							rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
 							[paginator]="false"
@@ -33,13 +39,13 @@
 							<ng-template pTemplate="header">
 								<tr>
 									<th style="width: 130px">Tindakan</th>
-									<th style="width: 150px" pSortableColumn="tarih_bencana">
+									<th style="width: 150px" pSortableColumn="nama_hubungan">
 										Nama Hubungan
-										<p-sortIcon field="tarih_bencana"></p-sortIcon>
+										<p-sortIcon field="nama_hubungan"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="jenis_bencana">
+									<th style="width: 130px" pSortableColumn="status_hubungan">
 										Status
-										<p-sortIcon field="jenis_bencana"></p-sortIcon>
+										<p-sortIcon field="status_hubungan"></p-sortIcon>
 									</th>
 								</tr>
 							</ng-template>
@@ -58,7 +64,7 @@
 												Tindakan
 											</button>
 											<div ngbDropdownMenu aria-labelledby="action">
-												<button class="dropdown-item" (click)="editRelationshipModal()">
+												<button class="dropdown-item" (click)="editRelationshipModal(record.id)">
 													Lihat
 												</button>
 												<button class="dropdown-item">Padam</button>
@@ -67,11 +73,11 @@
 									</td>
 									<td style="width: 150px">
 										<span class="p-column-title">Tarikh Bencana</span>
-										{{record.relationship}}
+										{{record.nama_hubungan}}
 									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">Jenis Bencana</span>
-										{{record.status}}
+										{{record.status_hubungan == 1? "Aktif":"Tidak Aktif"}}
 									</td>
 								</tr>
 							</ng-template>
@@ -81,7 +87,7 @@
 							<p-paginator
 								[rows]="primengTableHelper.defaultRecordsCountPerPage"
 								#paginator
-								(onPageChange)="getDisaster($event)"
+								(onPageChange)="getHubungan($event)"
 								[totalRecords]="primengTableHelper.totalRecordsCount"
 								[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
 							></p-paginator>
