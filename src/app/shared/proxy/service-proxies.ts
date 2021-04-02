@@ -1643,6 +1643,277 @@ export class RefDunServiceProxy {
 }
 
 @Injectable()
+export class RefHubunganServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Get all RefHubungan
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfRefHubunganForViewDto> {
+        let url_ = this.baseUrl + "/api/refHubungan/getAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfRefHubunganForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfRefHubunganForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfRefHubunganForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfRefHubunganForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfRefHubunganForViewDto>(<any>null);
+    }
+
+    /**
+     * Get RefHubungan by id
+     * @param id RefHubungan Id
+     * @return Success
+     */
+    getRefHubunganForEdit(id: number): Observable<GetRefHubunganForEditDto> {
+        let url_ = this.baseUrl + "/api/refHubungan/getRefHubunganForEdit?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetRefHubunganForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetRefHubunganForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetRefHubunganForEditDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetRefHubunganForEditDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetRefHubunganForEdit(response: HttpResponseBase): Observable<GetRefHubunganForEditDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetRefHubunganForEditDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetRefHubunganForEditDto>(<any>null);
+    }
+
+    /**
+     * Get all RefHubungan in dropdown list
+     * @param filter (optional) Filter records with a string
+     * @return Success
+     */
+    getRefHubunganForDropdown(filter: string | undefined): Observable<GetRefHubunganForListDto> {
+        let url_ = this.baseUrl + "/api/refHubungan/getRefHubunganForDropdown?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetRefHubunganForDropdown(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetRefHubunganForDropdown(<any>response_);
+                } catch (e) {
+                    return <Observable<GetRefHubunganForListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetRefHubunganForListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetRefHubunganForDropdown(response: HttpResponseBase): Observable<GetRefHubunganForListDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetRefHubunganForListDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetRefHubunganForListDto>(<any>null);
+    }
+
+    /**
+     * Create or edit RefHubungan
+     * @param body Create or edit object
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditRefHubunganDto): Observable<CreateOrEditRefHubunganDto> {
+        let url_ = this.baseUrl + "/api/refHubungan/createOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<CreateOrEditRefHubunganDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CreateOrEditRefHubunganDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditRefHubunganDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CreateOrEditRefHubunganDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<CreateOrEditRefHubunganDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class RefJenisBencanaServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -8541,6 +8812,276 @@ export interface IRefDunDto {
     kod_dun: string;
     nama_dun: string;
     status_dun: number;
+}
+
+export class CreateOrEditRefHubunganDto implements ICreateOrEditRefHubunganDto {
+    id!: number;
+    nama_hubungan!: string;
+    status_hubungan!: number;
+
+    constructor(data?: ICreateOrEditRefHubunganDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.nama_hubungan = _data["nama_hubungan"];
+            this.status_hubungan = _data["status_hubungan"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditRefHubunganDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditRefHubunganDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["nama_hubungan"] = this.nama_hubungan;
+        data["status_hubungan"] = this.status_hubungan;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditRefHubunganDto {
+    id: number;
+    nama_hubungan: string;
+    status_hubungan: number;
+}
+
+export class GetRefHubunganForEditDto implements IGetRefHubunganForEditDto {
+    ref_hubungan!: CreateOrEditRefHubunganDto;
+
+    constructor(data?: IGetRefHubunganForEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.ref_hubungan = _data["ref_hubungan"] ? CreateOrEditRefHubunganDto.fromJS(_data["ref_hubungan"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetRefHubunganForEditDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetRefHubunganForEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["ref_hubungan"] = this.ref_hubungan ? this.ref_hubungan.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetRefHubunganForEditDto {
+    ref_hubungan: CreateOrEditRefHubunganDto;
+}
+
+/** RefHubungan List in Tabular model */
+export class GetRefHubunganForListDto implements IGetRefHubunganForListDto {
+    /** Items in array of object */
+    items!: RefHubunganDto[];
+
+    constructor(data?: IGetRefHubunganForListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(RefHubunganDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): GetRefHubunganForListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetRefHubunganForListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** RefHubungan List in Tabular model */
+export interface IGetRefHubunganForListDto {
+    /** Items in array of object */
+    items: RefHubunganDto[];
+}
+
+export class GetRefHubunganForViewDto implements IGetRefHubunganForViewDto {
+    id!: number;
+    nama_hubungan!: string;
+    status_hubungan!: number;
+
+    constructor(data?: IGetRefHubunganForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.nama_hubungan = _data["nama_hubungan"];
+            this.status_hubungan = _data["status_hubungan"];
+        }
+    }
+
+    static fromJS(data: any): GetRefHubunganForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetRefHubunganForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["nama_hubungan"] = this.nama_hubungan;
+        data["status_hubungan"] = this.status_hubungan;
+        return data; 
+    }
+}
+
+export interface IGetRefHubunganForViewDto {
+    id: number;
+    nama_hubungan: string;
+    status_hubungan: number;
+}
+
+/** RefHubungan List in Tabular model */
+export class PagedResultDtoOfRefHubunganForViewDto implements IPagedResultDtoOfRefHubunganForViewDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetRefHubunganForViewDto[];
+
+    constructor(data?: IPagedResultDtoOfRefHubunganForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetRefHubunganForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfRefHubunganForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfRefHubunganForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** RefHubungan List in Tabular model */
+export interface IPagedResultDtoOfRefHubunganForViewDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetRefHubunganForViewDto[];
+}
+
+export class RefHubunganDto implements IRefHubunganDto {
+    id!: number;
+    nama_hubungan!: string;
+    status_hubungan!: number;
+
+    constructor(data?: IRefHubunganDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.nama_hubungan = _data["nama_hubungan"];
+            this.status_hubungan = _data["status_hubungan"];
+        }
+    }
+
+    static fromJS(data: any): RefHubunganDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new RefHubunganDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["nama_hubungan"] = this.nama_hubungan;
+        data["status_hubungan"] = this.status_hubungan;
+        return data; 
+    }
+}
+
+export interface IRefHubunganDto {
+    id: number;
+    nama_hubungan: string;
+    status_hubungan: number;
 }
 
 export class CreateOrEditRefJenisBencanaDto implements ICreateOrEditRefJenisBencanaDto {
