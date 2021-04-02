@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { CreateOrEditRefHubunganDto, RefHubunganServiceProxy } from '../../../../shared/proxy/service-proxies';
+declare let require;
+const Swal = require('sweetalert2');
 
 @Component({
 	selector: 'app-tambah-edit-hubungan',
@@ -10,11 +12,46 @@ import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 })
 export class TambahEditHubunganComponent implements OnInit {
 	@Input() name;
+	@Input() id;
 
-	modelFooter: NgbDateStruct;
-	today = this.calendar.getToday();
+	hubungan: CreateOrEditRefHubunganDto = new CreateOrEditRefHubunganDto();
+	saving = false;
 
-	constructor(private modalService: NgbModal, public activeModal: NgbActiveModal, private calendar: NgbCalendar) {}
+	states: any[];
 
-	ngOnInit(): void {}
+	constructor(
+		private modalService: NgbModal,
+		public activeModal: NgbActiveModal,
+		private _refHubunganServiceProxy: RefHubunganServiceProxy
+	) {}
+
+	ngOnInit(): void {
+		this.show();
+	}
+
+	show() {
+		if (!this.id) {
+			this.hubungan = new CreateOrEditRefHubunganDto();
+		} else {
+			this._refHubunganServiceProxy.getRefHubunganForEdit(this.id).subscribe((result) => {
+				this.hubungan = result.ref_hubungan;
+			});
+		}
+	}
+
+	save(): void {
+		this.saving = true;
+
+		this._refHubunganServiceProxy
+			.createOrEdit(this.hubungan)
+			.pipe()
+			.subscribe(() => {
+				if (this.name == 'add') {
+					Swal.fire('Berjaya!', 'Maklumat Nama Hubungan Berjaya Di Tambah.', 'success');
+				} else if (this.name == 'edit') {
+					Swal.fire('Berjaya!', 'Maklumat Nama Hubungan Berjaya Di Ubah.', 'success');
+				}
+				this.activeModal.close(true);
+			});
+	}
 }

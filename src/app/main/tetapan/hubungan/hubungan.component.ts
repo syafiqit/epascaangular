@@ -5,6 +5,7 @@ import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { TambahEditHubunganComponent } from './tambah-edit-hubungan/tambah-edit-hubungan.component';
+import { RefHubunganServiceProxy } from '../../../shared/proxy/service-proxies';
 
 @Component({
 	selector: 'app-hubungan',
@@ -18,13 +19,13 @@ export class HubunganComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 
-	rows = [
-		{ relationship: 'Ayah', status: 'Aktif' },
-		{ relationship: 'Mak', status: 'Aktif' },
-		{ relationship: 'Pakcik', status: 'Aktif' }
-	];
+	filterText = '';
 
-	constructor(config: NgbModalConfig, private modalService: NgbModal) {
+	constructor(
+		config: NgbModalConfig,
+		private modalService: NgbModal,
+		private _refHubunganServiceProxy: RefHubunganServiceProxy
+	) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
@@ -32,16 +33,25 @@ export class HubunganComponent implements OnInit {
 
 	ngOnInit(): void {}
 
-	getDisaster(event?: LazyLoadEvent) {
+	getHubungan(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
 		}
 
 		this.primengTableHelper.showLoadingIndicator();
-		this.primengTableHelper.totalRecordsCount = this.rows.length;
-		this.primengTableHelper.records = this.rows;
-		this.primengTableHelper.hideLoadingIndicator();
+		this._refHubunganServiceProxy
+			.getAll(
+				this.filterText,
+				this.primengTableHelper.getSorting(this.dataTable),
+				this.primengTableHelper.getSkipCount(this.paginator, event),
+				this.primengTableHelper.getMaxResultCount(this.paginator, event)
+			)
+			.subscribe((result) => {
+				this.primengTableHelper.totalRecordsCount = result.total_count;
+				this.primengTableHelper.records = result.items;
+				this.primengTableHelper.hideLoadingIndicator();
+			});
 	}
 
 	reloadPage(): void {
@@ -51,10 +61,21 @@ export class HubunganComponent implements OnInit {
 	addRelationshipModal() {
 		const modalRef = this.modalService.open(TambahEditHubunganComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
+		modalRef.result.then((response) => {
+			if (response) {
+				this.getHubungan();
+			}
+		});
 	}
 
-	editRelationshipModal() {
+	editRelationshipModal(id) {
 		const modalRef = this.modalService.open(TambahEditHubunganComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'edit';
+		modalRef.componentInstance.id = id;
+		modalRef.result.then((response) => {
+			if (response) {
+				this.getHubungan();
+			}
+		});
 	}
 }
