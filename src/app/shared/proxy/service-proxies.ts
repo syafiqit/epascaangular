@@ -7936,6 +7936,7 @@ export class CreateOrEditRefBencanaDto implements ICreateOrEditRefBencanaDto {
     id!: number;
     tahun_bencana!: number;
     id_jenis_bencana!: number;
+    nama_bencana!: string;
     id_negeri!: number;
     status_bencana!: number;
 
@@ -7953,6 +7954,7 @@ export class CreateOrEditRefBencanaDto implements ICreateOrEditRefBencanaDto {
             this.id = _data["id"];
             this.tahun_bencana = _data["tahun_bencana"];
             this.id_jenis_bencana = _data["id_jenis_bencana"];
+            this.nama_bencana = _data["nama_bencana"];
             this.id_negeri = _data["id_negeri"];
             this.status_bencana = _data["status_bencana"];
         }
@@ -7970,6 +7972,7 @@ export class CreateOrEditRefBencanaDto implements ICreateOrEditRefBencanaDto {
         data["id"] = this.id;
         data["tahun_bencana"] = this.tahun_bencana;
         data["id_jenis_bencana"] = this.id_jenis_bencana;
+        data["nama_bencana"] = this.nama_bencana;
         data["id_negeri"] = this.id_negeri;
         data["status_bencana"] = this.status_bencana;
         return data; 
@@ -7980,6 +7983,7 @@ export interface ICreateOrEditRefBencanaDto {
     id: number;
     tahun_bencana: number;
     id_jenis_bencana: number;
+    nama_bencana: string;
     id_negeri: number;
     status_bencana: number;
 }
@@ -8072,6 +8076,7 @@ export class GetRefBencanaForViewDto implements IGetRefBencanaForViewDto {
     id!: number;
     tahun_bencana!: number;
     id_jenis_bencana!: number;
+    nama_bencana!: string;
     id_negeri!: number;
     status_bencana!: number;
 
@@ -8089,6 +8094,7 @@ export class GetRefBencanaForViewDto implements IGetRefBencanaForViewDto {
             this.id = _data["id"];
             this.tahun_bencana = _data["tahun_bencana"];
             this.id_jenis_bencana = _data["id_jenis_bencana"];
+            this.nama_bencana = _data["nama_bencana"];
             this.id_negeri = _data["id_negeri"];
             this.status_bencana = _data["status_bencana"];
         }
@@ -8106,6 +8112,7 @@ export class GetRefBencanaForViewDto implements IGetRefBencanaForViewDto {
         data["id"] = this.id;
         data["tahun_bencana"] = this.tahun_bencana;
         data["id_jenis_bencana"] = this.id_jenis_bencana;
+        data["nama_bencana"] = this.nama_bencana;
         data["id_negeri"] = this.id_negeri;
         data["status_bencana"] = this.status_bencana;
         return data; 
@@ -8116,6 +8123,7 @@ export interface IGetRefBencanaForViewDto {
     id: number;
     tahun_bencana: number;
     id_jenis_bencana: number;
+    nama_bencana: string;
     id_negeri: number;
     status_bencana: number;
 }
@@ -8178,6 +8186,7 @@ export class RefBencanaDto implements IRefBencanaDto {
     id!: number;
     tahun_bencana!: number;
     id_jenis_bencana!: number;
+    nama_bencana!: string;
     id_negeri!: number;
     status_bencana!: number;
 
@@ -8195,6 +8204,7 @@ export class RefBencanaDto implements IRefBencanaDto {
             this.id = _data["id"];
             this.tahun_bencana = _data["tahun_bencana"];
             this.id_jenis_bencana = _data["id_jenis_bencana"];
+            this.nama_bencana = _data["nama_bencana"];
             this.id_negeri = _data["id_negeri"];
             this.status_bencana = _data["status_bencana"];
         }
@@ -8212,6 +8222,7 @@ export class RefBencanaDto implements IRefBencanaDto {
         data["id"] = this.id;
         data["tahun_bencana"] = this.tahun_bencana;
         data["id_jenis_bencana"] = this.id_jenis_bencana;
+        data["nama_bencana"] = this.nama_bencana;
         data["id_negeri"] = this.id_negeri;
         data["status_bencana"] = this.status_bencana;
         return data; 
@@ -8222,6 +8233,7 @@ export interface IRefBencanaDto {
     id: number;
     tahun_bencana: number;
     id_jenis_bencana: number;
+    nama_bencana: string;
     id_negeri: number;
     status_bencana: number;
 }
@@ -9086,7 +9098,7 @@ export interface IRefHubunganDto {
 
 export class CreateOrEditRefJenisBencanaDto implements ICreateOrEditRefJenisBencanaDto {
     id!: number;
-    nama_bencana!: string;
+    nama_jenis_bencana!: string;
     catatan!: string;
     status_bencana!: number;
     id_pengguna!: number;
@@ -9103,7 +9115,7 @@ export class CreateOrEditRefJenisBencanaDto implements ICreateOrEditRefJenisBenc
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
-            this.nama_bencana = _data["nama_bencana"];
+            this.nama_jenis_bencana = _data["nama_jenis_bencana"];
             this.catatan = _data["catatan"];
             this.status_bencana = _data["status_bencana"];
             this.id_pengguna = _data["id_pengguna"];
@@ -9120,7 +9132,7 @@ export class CreateOrEditRefJenisBencanaDto implements ICreateOrEditRefJenisBenc
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        data["nama_bencana"] = this.nama_bencana;
+        data["nama_jenis_bencana"] = this.nama_jenis_bencana;
         data["catatan"] = this.catatan;
         data["status_bencana"] = this.status_bencana;
         data["id_pengguna"] = this.id_pengguna;
@@ -9130,7 +9142,7 @@ export class CreateOrEditRefJenisBencanaDto implements ICreateOrEditRefJenisBenc
 
 export interface ICreateOrEditRefJenisBencanaDto {
     id: number;
-    nama_bencana: string;
+    nama_jenis_bencana: string;
     catatan: string;
     status_bencana: number;
     id_pengguna: number;
@@ -9222,7 +9234,7 @@ export interface IGetRefJenisBencanaForListDto {
 
 export class GetRefJenisBencanaForViewDto implements IGetRefJenisBencanaForViewDto {
     id!: number;
-    nama_bencana!: string;
+    nama_jenis_bencana!: string;
     catatan!: string;
     status_bencana!: number;
     id_pengguna!: number;
@@ -9239,7 +9251,7 @@ export class GetRefJenisBencanaForViewDto implements IGetRefJenisBencanaForViewD
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
-            this.nama_bencana = _data["nama_bencana"];
+            this.nama_jenis_bencana = _data["nama_jenis_bencana"];
             this.catatan = _data["catatan"];
             this.status_bencana = _data["status_bencana"];
             this.id_pengguna = _data["id_pengguna"];
@@ -9256,7 +9268,7 @@ export class GetRefJenisBencanaForViewDto implements IGetRefJenisBencanaForViewD
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        data["nama_bencana"] = this.nama_bencana;
+        data["nama_jenis_bencana"] = this.nama_jenis_bencana;
         data["catatan"] = this.catatan;
         data["status_bencana"] = this.status_bencana;
         data["id_pengguna"] = this.id_pengguna;
@@ -9266,7 +9278,7 @@ export class GetRefJenisBencanaForViewDto implements IGetRefJenisBencanaForViewD
 
 export interface IGetRefJenisBencanaForViewDto {
     id: number;
-    nama_bencana: string;
+    nama_jenis_bencana: string;
     catatan: string;
     status_bencana: number;
     id_pengguna: number;
@@ -9328,7 +9340,7 @@ export interface IPagedResultDtoOfRefJenisBencanaForViewDto {
 
 export class RefJenisBencanaDto implements IRefJenisBencanaDto {
     id!: number;
-    nama_bencana!: string;
+    nama_jenis_bencana!: string;
     catatan!: string;
     status_bencana!: number;
     id_pengguna!: number;
@@ -9345,7 +9357,7 @@ export class RefJenisBencanaDto implements IRefJenisBencanaDto {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
-            this.nama_bencana = _data["nama_bencana"];
+            this.nama_jenis_bencana = _data["nama_jenis_bencana"];
             this.catatan = _data["catatan"];
             this.status_bencana = _data["status_bencana"];
             this.id_pengguna = _data["id_pengguna"];
@@ -9362,7 +9374,7 @@ export class RefJenisBencanaDto implements IRefJenisBencanaDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        data["nama_bencana"] = this.nama_bencana;
+        data["nama_jenis_bencana"] = this.nama_jenis_bencana;
         data["catatan"] = this.catatan;
         data["status_bencana"] = this.status_bencana;
         data["id_pengguna"] = this.id_pengguna;
@@ -9372,7 +9384,7 @@ export class RefJenisBencanaDto implements IRefJenisBencanaDto {
 
 export interface IRefJenisBencanaDto {
     id: number;
-    nama_bencana: string;
+    nama_jenis_bencana: string;
     catatan: string;
     status_bencana: number;
     id_pengguna: number;
