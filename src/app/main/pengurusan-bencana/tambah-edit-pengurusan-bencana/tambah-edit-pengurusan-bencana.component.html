@@ -1,0 +1,167 @@
+<div class="modal-header">
+	<h5 class="modal-title" *ngIf="name === 'add'">Tambah Bencana</h5>
+	<h5 class="modal-title" *ngIf="name === 'edit'">Kemaskini Bencana</h5>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Tarikh Kejadian</label>
+                    <input
+						class="form-control"
+						id="tarikh"
+						type="date"
+						name="tarikh_bencana"
+						placeholder="Tarikh Kejadian"
+						[(ngModel)]="dateDisaster"
+						#tarikhBencana="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && tarikhBencana.invalid }"
+						required
+					/>
+					<div *ngIf="f.submitted && tarikhBencana.invalid" class="invalid-feedback">
+						<div *ngIf="tarikhBencana.errors.required">Tarikh Kejadian Wajib diIsi</div>
+					</div>
+                </div>
+            </div>
+    
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Tahun</label>
+                    <input
+						class="form-control"
+						id="tahun"
+						type="text"
+						name="tahun_bencana"
+						placeholder="Tahun"
+						[(ngModel)]="pengurusan_bencana.tahun_bencana"
+						#tahunBencana="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && tahunBencana.invalid }"
+						required
+					/>
+					<div *ngIf="f.submitted && tahunBencana.invalid" class="invalid-feedback">
+						<div *ngIf="tahunBencana.errors.required">Tahun Wajib diIsi</div>
+					</div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Kategori Bencana</label>
+                    <div>
+						<ng-select
+							[items]="disasters"
+							bindLabel="nama_jenis_bencana"
+							bindValue="id"
+							placeholder="Sila Pilih"
+							class="js-example-placeholder-multiple"
+							name="pengurusan_bencana.id_jenis_bencana"
+							[(ngModel)]="pengurusan_bencana.id_jenis_bencana"
+							#jenisBencana="ngModel"
+							[ngClass]="{ 'is-invalid': f.submitted && jenisBencana.invalid }"
+							required
+						></ng-select>
+						<div *ngIf="f.submitted && jenisBencana.invalid" class="invalid-feedback">
+							<div *ngIf="jenisBencana.errors.required">Kategori Bencana Wajib diIsi</div>
+						</div>
+					</div>
+                </div>
+            </div>
+    
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Nama Bencana</label>
+                    <input
+						class="form-control"
+						id="disasterName"
+						type="text"
+						name="nama_bencana"
+						placeholder="Nama Bencana"
+						[(ngModel)]="pengurusan_bencana.nama_bencana"
+						#namaBencana="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
+						required
+					/>
+					<div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
+						<div *ngIf="namaBencana.errors.required">Nama Bencana Wajib diIsi</div>
+					</div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Negeri</label>
+                    <div>
+						<ng-select
+							[items]="states"
+							bindLabel="nama_negeri"
+							bindValue="id"
+							placeholder="Sila Pilih"
+							class="js-example-placeholder-multiple"
+							name="pengurusan_bencana.id_negeri"
+							[(ngModel)]="pengurusan_bencana.id_negeri"
+							#negeri="ngModel"
+							[ngClass]="{ 'is-invalid': f.submitted && negeri.invalid }"
+							required
+						></ng-select>
+						<div *ngIf="f.submitted && negeri.invalid" class="invalid-feedback">
+							<div *ngIf="negeri.errors.required">Negeri Wajib diIsi</div>
+						</div>
+					</div>
+                </div>
+            </div>
+
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label>Status</label>
+					<select
+						class="form-control digits"
+						name="status_bencana"
+						[(ngModel)]="pengurusan_bencana.status_bencana"
+						#status="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
+						minlength="0"
+						maxlength="250"
+						required
+					>
+						<option [ngValue]="undefined" disabled>Sila Pilih</option>
+						<option [value]="1">Aktif</option>
+						<option [value]="0">Tidak Aktif</option>
+					</select>
+					<div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
+						<div *ngIf="status.errors.required">Status Wajib diIsi</div>
+					</div>
+				</div>
+			</div>
+        </div>
+
+		<div class="row">
+			<div class="col-lg-12">
+                <div class="form-group">
+                    <label>Catatan</label>
+                    <textarea
+                        class="form-control"
+                        id="catatan_bencana"
+                        type="text"
+                        name="catatan"
+                        placeholder="Catatan..."
+                        [(ngModel)]="pengurusan_bencana.catatan"
+				    ></textarea>
+                </div>
+            </div>
+		</div>
+    </div>
+
+    <div class="modal-footer">
+		<button type="button" class="btn btn-light" (click)="activeModal.close(false)">Tutup</button>
+		<button type="submit" class="btn btn-primary">Simpan</button>
+	</div>
+</form>
