@@ -1,0 +1,195 @@
+<app-breadcrumb [title]="'Pengurusan Bencana'" [active_item]="['Pengurusan Bencana']"></app-breadcrumb>
+<div class="content d-flex flex-column flex-column-fluid">
+	<div class="container-fluid">
+		<div class="card card-custom gutter-b">
+			<div class="card-body">
+				<div class="row justify-content-end mb-2">
+					<button
+						class="btn btn-primary"
+						type="button"
+						(click)="addDisasterModal()"
+					>
+						<i class="fa fa-plus mr-2"></i>
+						Tambah
+					</button>
+				</div>
+				<div class="row mb-2">
+					<input
+						type="text"
+						class="form-control"
+						placeholder="Carian..."
+						[(ngModel)]="filter"
+						(keyup.enter)="getApplication()"
+					/>
+				</div>
+				<div class="row mb-2">
+					<div class="col-lg-12">
+						<div class="row">
+							<button
+								type="button"
+								class="btn btn-xs btn-outline-primary"
+								(click)="isCollapsed = !isCollapsed"
+								[attr.aria-expanded]="!isCollapsed"
+								aria-controls="collapseExample"
+							>
+								Carian Lanjut
+							</button>
+						</div>
+						<div class="row" [ngbCollapse]="!isCollapsed">
+							<div class="col-lg-12">
+								<div class="card mb-0">
+									<div class="card-body">
+										<form>
+											<div class="row">
+												<div class="col-lg-6">
+													<label>Tahun</label>
+													<input class="form-control" name="year" type="text" placeholder="Tahun" />
+												</div>
+
+												<div class="col-lg-6">
+													<label>Kata Kunci</label>
+													<input class="form-control" name="keyword" type="text" placeholder="Kata Kunci" />
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-lg-6">
+													<div class="form-group">
+														<label>Tarikh Kejadian</label>
+														<input class="form-control" name="tarikh" type="date" placeholder="dd/mm/yyyy" />
+													</div>
+												</div>
+
+												<div class="col-lg-6">
+													<div class="form-group">
+														<label>Nama Bencana</label>
+														<input class="form-control" name="bencana" type="text" placeholder="Nama Bencana" />
+													</div>
+												</div>
+											</div>
+											<div class="row justify-content-end">
+												<button
+													class="btn btn-primary mr-3"
+													type="button"
+													(click)="isCollapsed = !isCollapsed"
+													[attr.aria-expanded]="!isCollapsed"
+												>
+													Cari
+												</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row align-items-center">
+					<!--<Primeng-TurboTable-Start>-->
+					<div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+						<p-table
+							#dataTable
+							styleClass="p-datatable-striped"
+							sortMode="multiple"
+							[resizableColumns]="true"
+							(onLazyLoad)="getApplication($event)"
+							[value]="primengTableHelper.records"
+							rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
+							[paginator]="false"
+							[lazy]="true"
+							[scrollable]="true"
+							ScrollWidth="100%"
+							[responsive]="primengTableHelper.isResponsive"
+							[resizableColumns]="primengTableHelper.resizableColumns"
+						>
+							<ng-template pTemplate="header">
+								<tr>
+									<th style="width: 130px">Tindakan</th>
+									<th style="width: 100px" pSortableColumn="tahun">
+										Tahun
+										<p-sortIcon field="tahun"></p-sortIcon>
+									</th>
+									<th style="width: 130px" pSortableColumn="tarikh">
+										Tarikh Kejadian
+										<p-sortIcon field="tarikh"></p-sortIcon>
+									</th>
+									<th style="width: 130px" pSortableColumn="kategori_bencana">
+										Kategori Bencana
+										<p-sortIcon field="kategori_bencana"></p-sortIcon>
+									</th>
+									<th style="width: 130px" pSortableColumn="nama_bencana">
+										Nama Bencana
+										<p-sortIcon field="nama_bencana"></p-sortIcon>
+									</th>
+									<th style="width: 130px" pSortableColumn="id_negeri">
+										Negeri
+										<p-sortIcon field="negeri"></p-sortIcon>
+									</th>
+								</tr>
+							</ng-template>
+							<ng-template pTemplate="body" let-record="$implicit">
+								<tr>
+									<td style="width: 130px">
+										<div ngbDropdown class="btn-group" role="group" container="body">
+											<button
+												type="button"
+												class="btn btn-primary btn-primeng dropdown-toggle"
+												id="action"
+												ngbDropdownToggle
+											>
+												<i class="fa fa-cog"></i>
+												<span class="caret"></span>
+												Tindakan
+											</button>
+											<div ngbDropdownMenu aria-labelledby="action">
+												<button
+													class="dropdown-item"
+													(click)="editDisasterModal(record.id)"
+												>
+													Lihat
+												</button>
+												<button class="dropdown-item">Padam</button>
+											</div>
+										</div>
+									</td>
+									<td style="width: 100px">
+										<span class="p-column-title">Tahun</span>
+										{{record.tahun_bencana}}
+									</td>
+									<td style="width: 130px">
+										<span class="p-column-title">Tarikh Kejadian</span>
+										{{record.tarikh_bencana | date:'dd-MM-yyyy'}}
+									</td>
+									<td style="width: 130px">
+										<span class="p-column-title">Kategori Bencana</span>
+										{{getBencana(record.id_jenis_bencana)}}
+									</td>
+									<td style="width: 130px">
+										<span class="p-column-title">Nama Bencana</span>
+										{{record.nama_bencana}}
+									</td>
+									<td style="width: 130px">
+										<span class="p-column-title">Negeri</span>
+										{{getNegeri(record.id_negeri)}}
+									</td>
+								</tr>
+							</ng-template>
+						</p-table>
+						<div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">No Data</div>
+						<div class="primeng-paging-container justify-content-between">
+							<p-paginator
+								[rows]="primengTableHelper.defaultRecordsCountPerPage"
+								#paginator
+								(onPageChange)="getApplication($event)"
+								[totalRecords]="primengTableHelper.totalRecordsCount"
+								[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
+							></p-paginator>
+							<span class="total-records-count">Jumlah: {{ primengTableHelper.totalRecordsCount}}</span>
+						</div>
+					</div>
+					<!--<Primeng-TurboTable-End>-->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

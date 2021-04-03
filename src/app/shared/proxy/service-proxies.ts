@@ -7934,10 +7934,12 @@ export interface IRefBantuanDto {
 
 export class CreateOrEditRefBencanaDto implements ICreateOrEditRefBencanaDto {
     id!: number;
+    tarikh_bencana!: moment.Moment;
     tahun_bencana!: number;
     id_jenis_bencana!: number;
     nama_bencana!: string;
     id_negeri!: number;
+    catatan!: string;
     status_bencana!: number;
 
     constructor(data?: ICreateOrEditRefBencanaDto) {
@@ -7952,10 +7954,12 @@ export class CreateOrEditRefBencanaDto implements ICreateOrEditRefBencanaDto {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.tarikh_bencana = _data["tarikh_bencana"] ? moment(_data["tarikh_bencana"].toString()) : <any>undefined;
             this.tahun_bencana = _data["tahun_bencana"];
             this.id_jenis_bencana = _data["id_jenis_bencana"];
             this.nama_bencana = _data["nama_bencana"];
             this.id_negeri = _data["id_negeri"];
+            this.catatan = _data["catatan"];
             this.status_bencana = _data["status_bencana"];
         }
     }
@@ -7970,10 +7974,12 @@ export class CreateOrEditRefBencanaDto implements ICreateOrEditRefBencanaDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.format('YYYY-MM-DD') : <any>undefined;
         data["tahun_bencana"] = this.tahun_bencana;
         data["id_jenis_bencana"] = this.id_jenis_bencana;
         data["nama_bencana"] = this.nama_bencana;
         data["id_negeri"] = this.id_negeri;
+        data["catatan"] = this.catatan;
         data["status_bencana"] = this.status_bencana;
         return data; 
     }
@@ -7981,10 +7987,12 @@ export class CreateOrEditRefBencanaDto implements ICreateOrEditRefBencanaDto {
 
 export interface ICreateOrEditRefBencanaDto {
     id: number;
+    tarikh_bencana: moment.Moment;
     tahun_bencana: number;
     id_jenis_bencana: number;
     nama_bencana: string;
     id_negeri: number;
+    catatan: string;
     status_bencana: number;
 }
 
@@ -8074,10 +8082,12 @@ export interface IGetRefBencanaForListDto {
 
 export class GetRefBencanaForViewDto implements IGetRefBencanaForViewDto {
     id!: number;
+    tarikh_bencana!: moment.Moment;
     tahun_bencana!: number;
     id_jenis_bencana!: number;
     nama_bencana!: string;
     id_negeri!: number;
+    catatan!: string;
     status_bencana!: number;
 
     constructor(data?: IGetRefBencanaForViewDto) {
@@ -8092,10 +8102,12 @@ export class GetRefBencanaForViewDto implements IGetRefBencanaForViewDto {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.tarikh_bencana = _data["tarikh_bencana"] ? moment(_data["tarikh_bencana"].toString()) : <any>undefined;
             this.tahun_bencana = _data["tahun_bencana"];
             this.id_jenis_bencana = _data["id_jenis_bencana"];
             this.nama_bencana = _data["nama_bencana"];
             this.id_negeri = _data["id_negeri"];
+            this.catatan = _data["catatan"];
             this.status_bencana = _data["status_bencana"];
         }
     }
@@ -8110,10 +8122,12 @@ export class GetRefBencanaForViewDto implements IGetRefBencanaForViewDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.format('YYYY-MM-DD') : <any>undefined;
         data["tahun_bencana"] = this.tahun_bencana;
         data["id_jenis_bencana"] = this.id_jenis_bencana;
         data["nama_bencana"] = this.nama_bencana;
         data["id_negeri"] = this.id_negeri;
+        data["catatan"] = this.catatan;
         data["status_bencana"] = this.status_bencana;
         return data; 
     }
@@ -8121,10 +8135,12 @@ export class GetRefBencanaForViewDto implements IGetRefBencanaForViewDto {
 
 export interface IGetRefBencanaForViewDto {
     id: number;
+    tarikh_bencana: moment.Moment;
     tahun_bencana: number;
     id_jenis_bencana: number;
     nama_bencana: string;
     id_negeri: number;
+    catatan: string;
     status_bencana: number;
 }
 
@@ -8184,10 +8200,12 @@ export interface IPagedResultDtoOfRefBencanaForViewDto {
 
 export class RefBencanaDto implements IRefBencanaDto {
     id!: number;
+    tarikh_bencana!: moment.Moment;
     tahun_bencana!: number;
     id_jenis_bencana!: number;
     nama_bencana!: string;
     id_negeri!: number;
+    catatan!: string;
     status_bencana!: number;
 
     constructor(data?: IRefBencanaDto) {
@@ -8202,10 +8220,12 @@ export class RefBencanaDto implements IRefBencanaDto {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.tarikh_bencana = _data["tarikh_bencana"] ? moment(_data["tarikh_bencana"].toString()) : <any>undefined;
             this.tahun_bencana = _data["tahun_bencana"];
             this.id_jenis_bencana = _data["id_jenis_bencana"];
             this.nama_bencana = _data["nama_bencana"];
             this.id_negeri = _data["id_negeri"];
+            this.catatan = _data["catatan"];
             this.status_bencana = _data["status_bencana"];
         }
     }
@@ -8220,10 +8240,12 @@ export class RefBencanaDto implements IRefBencanaDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.format('YYYY-MM-DD') : <any>undefined;
         data["tahun_bencana"] = this.tahun_bencana;
         data["id_jenis_bencana"] = this.id_jenis_bencana;
         data["nama_bencana"] = this.nama_bencana;
         data["id_negeri"] = this.id_negeri;
+        data["catatan"] = this.catatan;
         data["status_bencana"] = this.status_bencana;
         return data; 
     }
@@ -8231,10 +8253,12 @@ export class RefBencanaDto implements IRefBencanaDto {
 
 export interface IRefBencanaDto {
     id: number;
+    tarikh_bencana: moment.Moment;
     tahun_bencana: number;
     id_jenis_bencana: number;
     nama_bencana: string;
     id_negeri: number;
+    catatan: string;
     status_bencana: number;
 }
 

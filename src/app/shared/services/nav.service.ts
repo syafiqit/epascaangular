@@ -77,6 +77,12 @@ export class NavService implements OnDestroy {
 				type: 'link'
 			},
 			{
+				title: 'Pengurusan Bencana',
+				path: '/app/bencana/pengurusan-bencana',
+				icon: 'airplay',
+				type: 'link'
+			},
+			{
 				title: 'Pengurusan Pengguna',
 				path: '/app/pengguna/senarai-pengurusan-pengguna',
 				icon: 'airplay',

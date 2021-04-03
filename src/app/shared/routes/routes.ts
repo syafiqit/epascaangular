@@ -31,6 +31,14 @@ export const content: Routes = [
 				data: { preload: true }
 			},
 			{
+				path: 'bencana',
+				loadChildren: () =>
+					import('../../main/pengurusan-bencana/pengurusan-bencana.module').then(
+						(m) => m.PengurusanBencanaModule
+					),
+				data: { preload: true }
+			},
+			{
 				path: 'pengguna',
 				loadChildren: () =>
 					import('../../main/pengurusan-pengguna/pengurusan-pengguna.module').then(
