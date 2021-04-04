@@ -50,9 +50,9 @@ export class TambahEditJenisBantuanComponent implements OnInit {
 			)
 			.subscribe(() => {
 				if (this.name == 'add') {
-					Swal.fire('Berjaya!', 'Maklumat Jenis Bantuan Berjaya Di Tambah.', 'success');
+					Swal.fire('Berjaya!', 'Maklumat Jenis Bantuan Berjaya DiTambah.', 'success');
 				} else if (this.name == 'edit') {
-					Swal.fire('Berjaya!', 'Maklumat Jenis Bantuan Berjaya Di Ubah.', 'success');
+					Swal.fire('Berjaya!', 'Maklumat Jenis Bantuan Berjaya DiUbah.', 'success');
 				}
 				this.activeModal.close(true);
 			});

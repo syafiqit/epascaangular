@@ -50,9 +50,9 @@ export class TambahEditKementerianComponent implements OnInit {
 			)
 			.subscribe(() => {
 				if (this.name == 'add') {
-					Swal.fire('Berjaya!', 'Maklumat Kementerian Berjaya Di Tambah.', 'success');
+					Swal.fire('Berjaya!', 'Maklumat Kementerian Berjaya DiTambah.', 'success');
 				} else if (this.name == 'edit') {
-					Swal.fire('Berjaya!', 'Maklumat Kementerian Berjaya Di Ubah.', 'success');
+					Swal.fire('Berjaya!', 'Maklumat Kementerian Berjaya DiUbah.', 'success');
 				}
 				this.activeModal.close(true);
 			});

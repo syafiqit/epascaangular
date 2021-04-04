@@ -47,9 +47,9 @@ export class TambahEditSumberDanaComponent implements OnInit {
 			.pipe()
 			.subscribe(() => {
 				if (this.name == 'add') {
-					Swal.fire('Berjaya!', 'Maklumat Sumber Dana Berjaya Di Tambah.', 'success');
+					Swal.fire('Berjaya!', 'Maklumat Sumber Dana Berjaya DiTambah.', 'success');
 				} else if (this.name == 'edit') {
-					Swal.fire('Berjaya!', 'Maklumat Sumber Dana Berjaya Di Ubah.', 'success');
+					Swal.fire('Berjaya!', 'Maklumat Sumber Dana Berjaya DiUbah.', 'success');
 				}
 				this.activeModal.close(true);
 			});

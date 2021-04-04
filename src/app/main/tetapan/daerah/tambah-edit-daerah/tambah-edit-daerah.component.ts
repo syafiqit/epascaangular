@@ -67,9 +67,9 @@ export class TambahEditDaerahComponent implements OnInit {
 			)
 			.subscribe(() => {
 				if (this.name == 'add') {
-					Swal.fire('Berjaya!', 'Maklumat Daerah Berjaya Di Tambah.', 'success');
+					Swal.fire('Berjaya!', 'Maklumat Daerah Berjaya DiTambah.', 'success');
 				} else if (this.name == 'edit') {
-					Swal.fire('Berjaya!', 'Maklumat Daerah Berjaya Di Ubah.', 'success');
+					Swal.fire('Berjaya!', 'Maklumat Daerah Berjaya DiUbah.', 'success');
 				}
 				this.activeModal.close(true);
 			});

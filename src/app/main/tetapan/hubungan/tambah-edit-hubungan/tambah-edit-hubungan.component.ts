@@ -47,9 +47,9 @@ export class TambahEditHubunganComponent implements OnInit {
 			.pipe()
 			.subscribe(() => {
 				if (this.name == 'add') {
-					Swal.fire('Berjaya!', 'Maklumat Nama Hubungan Berjaya Di Tambah.', 'success');
+					Swal.fire('Berjaya!', 'Maklumat Nama Hubungan Berjaya DiTambah.', 'success');
 				} else if (this.name == 'edit') {
-					Swal.fire('Berjaya!', 'Maklumat Nama Hubungan Berjaya Di Ubah.', 'success');
+					Swal.fire('Berjaya!', 'Maklumat Nama Hubungan Berjaya DiUbah.', 'success');
 				}
 				this.activeModal.close(true);
 			});

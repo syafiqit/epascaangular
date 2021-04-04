@@ -23,7 +23,7 @@
 						required
 					/>
 					<div *ngIf="f.submitted && namaAgensi.invalid" class="invalid-feedback">
-						<div *ngIf="namaAgensi.errors.required">Nama Agensi Wajib Di Isi</div>
+						<div *ngIf="namaAgensi.errors.required">Nama Agensi Wajib DiIsi</div>
 					</div>
 				</div>
 			</div>
@@ -43,7 +43,7 @@
 						required
 					/>
 					<div *ngIf="f.submitted && kodAgensi.invalid" class="invalid-feedback">
-						<div *ngIf="kodAgensi.errors.required">Kod Agensi Wajib Di Isi</div>
+						<div *ngIf="kodAgensi.errors.required">Kod Agensi Wajib DiIsi</div>
 					</div>
 				</div>
 			</div>
@@ -54,21 +54,20 @@
 				<div class="form-group">
 					<label class="col-form-label">Kementerian</label>
 					<div>
-						<select
-							class="form-control"
-							name="id_kementerian"
+						<ng-select
+							[items]="ministries"
+							bindLabel="nama_kementerian"
+							bindValue="id"
+							placeholder="Sila Pilih"
+							class="js-example-placeholder-multiple"
+							name="agensi.id_kementerian"
 							[(ngModel)]="agensi.id_kementerian"
 							#kementerian="ngModel"
 							[ngClass]="{ 'is-invalid': f.submitted && kementerian.invalid }"
 							required
-						>
-							<option [ngValue]="undefined" disabled>Sila Pilih</option>
-							<option *ngFor="let ministry of ministries" value="{{ministry.id}}">
-								{{ministry.nama_kementerian}}
-							</option>
-						</select>
+						></ng-select>
 						<div *ngIf="f.submitted && kementerian.invalid" class="invalid-feedback">
-							<div *ngIf="kementerian.errors.required">Kementerian Wajib Di Isi</div>
+							<div *ngIf="kementerian.errors.required">Kementerian Wajib DiIsi</div>
 						</div>
 					</div>
 				</div>
@@ -90,7 +89,7 @@
 						<option [value]="0">Tidak Aktif</option>
 					</select>
 					<div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
-						<div *ngIf="status.errors.required">Status Wajib Di Isi</div>
+						<div *ngIf="status.errors.required">Status Wajib DiIsi</div>
 					</div>
 				</div>
 			</div>

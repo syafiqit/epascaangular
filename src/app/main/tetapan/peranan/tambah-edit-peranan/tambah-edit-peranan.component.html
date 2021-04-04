@@ -26,15 +26,16 @@
 						required
 					/>
 					<div *ngIf="f.submitted && nama_peranan.invalid" class="invalid-feedback">
-						<div *ngIf="nama_peranan.errors.required">Peranan Wajib Di Isi</div>
+						<div *ngIf="nama_peranan.errors.required">Peranan Wajib DiIsi</div>
 					</div>
 				</div>
 			</div>
 
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label for="exampleFormControlSelect9">Status</label>
-					<select class="form-control digits" id="exampleFormControlSelect9">
+					<label>Status</label>
+					<select class="form-control digits">
+						<option>Sila PIlih</option>
 						<option>Aktif</option>
 						<option>Tidak Aktif</option>
 					</select>
