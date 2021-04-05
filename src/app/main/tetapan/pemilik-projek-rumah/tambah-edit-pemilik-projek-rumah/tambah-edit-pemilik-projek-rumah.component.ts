@@ -50,9 +50,9 @@ export class TambahEditPemilikProjekRumahComponent implements OnInit {
 			)
 			.subscribe(() => {
 				if (this.name == 'add') {
-					Swal.fire('Berjaya!', 'Maklumat Pemilik Projek Rumah Berjaya DiTambah.', 'success');
+					Swal.fire('Berjaya!', 'Maklumat Pemilik Projek Rumah Berjaya Ditambah.', 'success');
 				} else if (this.name == 'edit') {
-					Swal.fire('Berjaya!', 'Maklumat Pemilik Projek Rumah Berjaya DiUbah.', 'success');
+					Swal.fire('Berjaya!', 'Maklumat Pemilik Projek Rumah Berjaya Diubah.', 'success');
 				}
 				this.activeModal.close(true);
 			});

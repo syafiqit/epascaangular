@@ -50,9 +50,9 @@ export class TambahEditBencanaComponent implements OnInit {
 			)
 			.subscribe(() => {
 				if (this.name == 'add') {
-					Swal.fire('Berjaya!', 'Maklumat Kategori Bencana Berjaya DiTambah.', 'success');
+					Swal.fire('Berjaya!', 'Maklumat Kategori Bencana Berjaya Ditambah.', 'success');
 				} else if (this.name == 'edit') {
-					Swal.fire('Berjaya!', 'Maklumat Kategori Bencana Berjaya DiUbah.', 'success');
+					Swal.fire('Berjaya!', 'Maklumat Kategori Bencana Berjaya Diubah.', 'success');
 				}
 				this.activeModal.close(true);
 			});

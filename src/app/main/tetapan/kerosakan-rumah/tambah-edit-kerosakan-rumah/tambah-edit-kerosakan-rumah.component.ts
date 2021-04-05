@@ -47,9 +47,9 @@ export class TambahEditKerosakanRumahComponent implements OnInit {
 			.pipe()
 			.subscribe(() => {
 				if (this.name == 'add') {
-					Swal.fire('Berjaya!', 'Maklumat Kerosakan Rumah Berjaya DiTambah.', 'success');
+					Swal.fire('Berjaya!', 'Maklumat Kerosakan Rumah Berjaya Ditambah.', 'success');
 				} else if (this.name == 'edit') {
-					Swal.fire('Berjaya!', 'Maklumat Kerosakan Rumah Berjaya DiUbah.', 'success');
+					Swal.fire('Berjaya!', 'Maklumat Kerosakan Rumah Berjaya Diubah.', 'success');
 				}
 				this.activeModal.close(true);
 			});

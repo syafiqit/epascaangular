@@ -25,7 +25,7 @@
 						required
 					/>
 					<div *ngIf="f.submitted && namaDaerah.invalid" class="invalid-feedback">
-						<div *ngIf="namaDaerah.errors.required">DUN Wajib DiIsi</div>
+						<div *ngIf="namaDaerah.errors.required">DUN Wajib Diisi</div>
 					</div>
 				</div>
 			</div>
@@ -49,7 +49,7 @@
 							required
 						></ng-select>
 						<div *ngIf="f.submitted && negeri.invalid" class="invalid-feedback">
-							<div *ngIf="negeri.errors.required">Negeri Wajib DiIsi</div>
+							<div *ngIf="negeri.errors.required">Negeri Wajib Diisi</div>
 						</div>
 					</div>
 				</div>
@@ -74,7 +74,7 @@
 						<option [value]="0">Tidak Aktif</option>
 					</select>
 					<div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
-						<div *ngIf="status.errors.required">Status Wajib DiIsi</div>
+						<div *ngIf="status.errors.required">Status Wajib Diisi</div>
 					</div>
 				</div>
 			</div>
