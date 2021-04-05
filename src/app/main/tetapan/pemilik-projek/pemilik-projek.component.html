@@ -10,7 +10,13 @@
 					</button>
 				</div>
 				<div class="row mb-2">
-					<input type="text" class="form-control" placeholder="Carian..." />
+					<input
+						type="text"
+						class="form-control"
+						placeholder="Carian..."
+						[(ngModel)]="filter"
+						(keyup.enter)="getApplication()"
+					/>
 				</div>
 				<div class="row align-items-center">
 					<!--<Primeng-TurboTable-Start>-->
@@ -37,7 +43,7 @@
 										Nama Pelaksana
 										<p-sortIcon field="category"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="status">
+									<th style="width: 100px" pSortableColumn="status">
 										Status
 										<p-sortIcon field="status"></p-sortIcon>
 									</th>

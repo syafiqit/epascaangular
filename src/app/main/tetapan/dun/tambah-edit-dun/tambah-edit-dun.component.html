@@ -25,7 +25,7 @@
 						required
 					/>
 					<div *ngIf="f.submitted && namaDun.invalid" class="invalid-feedback">
-						<div *ngIf="namaDun.errors.required">Maklumat DUN Wajib Di Isi</div>
+						<div *ngIf="namaDun.errors.required">Maklumat DUN Wajib Diisi</div>
 					</div>
 				</div>
 			</div>
@@ -47,7 +47,7 @@
 						required
 					></ng-select>
 					<div *ngIf="f.submitted && parlimen.invalid" class="invalid-feedback">
-						<div *ngIf="parlimen.errors.required">Parlimen Wajib Di Isi</div>
+						<div *ngIf="parlimen.errors.required">Parlimen Wajib Diisi</div>
 					</div>
 				</div>
 			</div>
@@ -71,7 +71,7 @@
 						required
 					></ng-select>
 					<div *ngIf="f.submitted && negeri.invalid" class="invalid-feedback">
-						<div *ngIf="negeri.errors.required">Negeri Wajib Di Isi</div>
+						<div *ngIf="negeri.errors.required">Negeri Wajib Diisi</div>
 					</div>
 				</div>
 			</div>
@@ -88,12 +88,12 @@
 						maxlength="250"
 						required
 					>
-						<option selected disabled>Sila Pilih</option>
+						<option [ngValue]="undefined" disabled>Sila Pilih</option>
 						<option [value]="1">Aktif</option>
 						<option [value]="0">Tidak Aktif</option>
 					</select>
 					<div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
-						<div *ngIf="status.errors.required">Status Wajib Di Isi</div>
+						<div *ngIf="status.errors.required">Status Wajib Diisi</div>
 					</div>
 				</div>
 			</div>

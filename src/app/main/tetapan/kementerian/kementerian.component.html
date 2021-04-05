@@ -10,7 +10,13 @@
 					</button>
 				</div>
 				<div class="row mb-2">
-					<input type="text" class="form-control" placeholder="Carian..." />
+					<input
+						type="text"
+						class="form-control"
+						placeholder="Carian..."
+						[(ngModel)]="filter"
+						(keyup.enter)="getMinistry()"
+					/>
 				</div>
 				<div class="row align-items-center">
 					<!--<Primeng-TurboTable-Start>-->

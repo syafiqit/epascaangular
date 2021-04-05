@@ -26,7 +26,7 @@
 						required
 					/>
 					<div *ngIf="f.submitted && nama_agensi_pinjaman.invalid" class="invalid-feedback">
-						<div *ngIf="nama_agensi_pinjaman.errors.required">Nama Sektor Wajib Di Isi</div>
+						<div *ngIf="nama_agensi_pinjaman.errors.required">Nama Sektor Wajib Diisi</div>
 					</div>
 				</div>
 			</div>
@@ -45,12 +45,12 @@
 							maxlength="250"
 							required
 						>
-							<option selected disabled>Sila Pilih</option>
+							<option [ngValue]="undefined" disabled>Sila Pilih</option>
 							<option [value]="1">Aktif</option>
 							<option [value]="0">Tidak Aktif</option>
 						</select>
 						<div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
-							<div *ngIf="status.errors.required">Status Wajib Di Isi</div>
+							<div *ngIf="status.errors.required">Status Wajib Diisi</div>
 						</div>
 					</div>
 				</div>
