@@ -77,15 +77,9 @@ export class NavService implements OnDestroy {
 				type: 'link'
 			},
 			{
-				title: 'Pengurusan Bencana',
-				path: '/app/bencana/pengurusan-bencana',
-				icon: 'airplay',
-				type: 'link'
-			},
-			{
 				title: 'Pengurusan Pengguna',
 				path: '/app/pengguna/senarai-pengurusan-pengguna',
-				icon: 'airplay',
+				icon: 'check-square',
 				type: 'link'
 			},
 			{
@@ -99,7 +93,7 @@ export class NavService implements OnDestroy {
 		const role = this._appSessionService.role;
 		switch (role) {
 			case 'administrator': {
-				menu.push(this.getTabungMenu(), this.getTetapanMenu());
+				menu.push(this.getBencanaMenu(), this.getTabungMenu(), this.getTetapanMenu());
 				break;
 			}
 			case 'kewangan': {
@@ -114,6 +108,18 @@ export class NavService implements OnDestroy {
 		return menu;
 	}
 
+  getBencanaMenu(): Menu {
+		const menu: Menu =
+			{
+				title: 'Pengurusan Bencana',
+				path: '/app/bencana/pengurusan-bencana',
+				icon: 'layers',
+				type: 'link'
+			}
+
+		return menu;
+	}
+
 	getTetapanMenu(): Menu {
 		const menu: Menu = {
 			title: 'Tetapan',
@@ -121,7 +127,7 @@ export class NavService implements OnDestroy {
 			type: 'sub',
 			active: false,
 			children: [
-				{ path: '/app/tetapan/senarai-bencana', title: 'Bencana', type: 'link' },
+				{ path: '/app/tetapan/senarai-bencana', title: 'Kategori Bencana', type: 'link' },
 				{ path: '/app/tetapan/senarai-kementerian', title: 'Kementerian', type: 'link' },
 				{ path: '/app/tetapan/senarai-agensi', title: 'Agensi', type: 'link' },
 				{ path: '/app/tetapan/senarai-pelaksana', title: 'Pelaksana', type: 'link' },
