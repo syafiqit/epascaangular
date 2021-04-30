@@ -34,6 +34,8 @@ import { BusyIfDirective } from './directives/busy-if.directive';
 import { LayoutService } from './services/layout.service';
 import { NavService } from './services/nav.service';
 import * as ApiServiceProxies from './proxy/service-proxies';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { InterceptorService } from './services/interceptor.service';
 
 const NSWAG = [
 	ApiServiceProxies.RefAgamaServiceProxy,
@@ -62,7 +64,8 @@ const NSWAG = [
 	ApiServiceProxies.RefTapakRumahServiceProxy,
 	ApiServiceProxies.RefWarganegaraServiceProxy,
 	ApiServiceProxies.RefHubunganServiceProxy,
-  ApiServiceProxies.AuthServiceProxy
+  ApiServiceProxies.AuthServiceProxy,
+  ApiServiceProxies.SessionServiceProxy
 ];
 
 @NgModule({
@@ -99,7 +102,12 @@ const NSWAG = [
 		DragulaModule.forRoot(),
 		TranslateModule
 	],
-	providers: [NavService, LayoutService, ...NSWAG],
+	providers: [
+    NavService,
+    LayoutService,
+    ...NSWAG,
+		{ provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }
+  ],
 	exports: [
 		NgbModule,
 		FormsModule,
