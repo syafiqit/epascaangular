@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import { finalize } from 'rxjs/operators';
+import { AuthServiceProxy, InputLoginDto } from 'src/app/shared/proxy/service-proxies';
+declare let require;
+const Swal = require('sweetalert2');
 
 @Component({
 	selector: 'app-log-masuk',
@@ -7,11 +11,14 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class LogMasukComponent implements OnInit {
 	public show = false;
+  login: InputLoginDto = new InputLoginDto();
+  loading = false;
+  saving = false;
 
-	nokp = '';
-	password = '';
-
-	constructor(private _cookieService: CookieService) {}
+	constructor(
+    private _cookieService: CookieService,
+    private _authServiceProxy: AuthServiceProxy
+    ) {}
 
 	ngOnInit(): void {}
 
@@ -19,49 +26,20 @@ export class LogMasukComponent implements OnInit {
 		this.show = !this.show;
 	}
 
-	login() {
-		const token = this.randomString();
-		const expireInSeconds = 604800;
-		const expireDate = new Date(new Date().getTime() + 1000 * expireInSeconds);
+	userlogin() {
+    this._authServiceProxy.login(this.login).pipe(
+      finalize(() => {
+        this.loading = false;
+      })
+    ).subscribe(result => {
+      const validity = new Date(new Date().getTime() + (result.expires_in + 28800) * 1000);
+					this._cookieService.set('token', result.access_token, validity, '/');
+					location.href = '/app/muka-halaman';
+    },
+    () => {
+      Swal.fire('', 'Email/Kata Laluan Anda Salah, Sila Cuba Lagi', 'error');
+    }
+    );
+  }
 
-		switch (this.nokp) {
-			case '750504030201': {
-				this._cookieService.set('token', token, expireDate, '/');
-				this._cookieService.set('role', 'administrator', expireDate, '/');
-				location.href = '/app/muka-halaman';
-				break;
-			}
-			case '750504030202': {
-				this._cookieService.set('token', token, expireDate, '/');
-				this._cookieService.set('role', 'penyelia', expireDate, '/');
-				location.href = '/app/muka-halaman';
-				break;
-			}
-			case '750504030203': {
-				this._cookieService.set('token', token, expireDate, '/');
-				this._cookieService.set('role', 'kewangan', expireDate, '/');
-				location.href = '/app/muka-halaman';
-				break;
-			}
-			case '750504030204': {
-				this._cookieService.set('token', token, expireDate, '/');
-				this._cookieService.set('role', 'pengguna', expireDate, '/');
-				location.href = '/app/muka-halaman';
-				break;
-			}
-			default: {
-				location.href = '/akaun/log-masuk';
-				break;
-			}
-		}
-	}
-
-	randomString() {
-		let text = '';
-		const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-		for (let i = 0; i < 20; i++) text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-		return text;
-	}
 }

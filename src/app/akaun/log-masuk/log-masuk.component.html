@@ -1,16 +1,21 @@
 <div class="login-main">
-	<form class="theme-form">
+	<form class="theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && userlogin()" novalidate>
 		<h4>Log Masuk</h4>
 		<div class="form-group">
-			<label class="col-form-label">K/P Pengguna</label>
+			<label class="col-form-label">Email Pengguna</label>
 			<input
 				class="form-control"
-				autocomplete="username"
-				[(ngModel)]="nokp"
-				name="nokp"
-				type="text"
-				required=""
+				autocomplete="email"
+				name="email"
+				[(ngModel)]="login.emel"
+				type="email"
+				required
+				#email="ngModel"
+				[ngClass]="{ 'is-invalid': f.submitted && email.invalid }"
 			/>
+			<div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
+				<div *ngIf="email.errors.required">Email Wajib Di Isi</div>
+			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-form-label">Kata Laluan</label>
@@ -19,15 +24,20 @@
 				autocomplete="current-password"
 				type="password"
 				name="login[password]"
-				[(ngModel)]="password"
+				[(ngModel)]="login.kata_laluan"
 				required
 				[type]="show ? 'text' : 'password'"
+				#password="ngModel"
+				[ngClass]="{ 'is-invalid': f.submitted && password.invalid }"
 			/>
 			<div class="show-hide" (click)="showPassword()" *ngIf="!show">
-				<span class="show"></span>
+				<div style="margin-top: 4px; margin-right: -10px; color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-outline fa-lg"></i></div>
 			</div>
 			<div class="show-hide" (click)="showPassword()" *ngIf="show">
-				<span class="Hide"></span>
+				<div style="margin-top: 4px; margin-right: -10px; color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-off-outline fa-lg"></i></div>
+			</div>
+			<div *ngIf="f.submitted && password.invalid" class="invalid-feedback">
+				<div *ngIf="password.errors.required">Kata Laluan Di Isi</div>
 			</div>
 		</div>
 		<div class="form-group mb-0">
@@ -36,12 +46,7 @@
 				<label class="text-muted" for="checkbox1">Ingatkan Kata Laluan?</label>
 			</div>
 			<a class="link" [routerLink]="'/akaun/lupa-katalaluan'">Lupa Kata Laluan?</a>
-			<button class="btn btn-primary btn-block" type="submit" (click)="login()">Log Masuk</button>
+			<button class="btn btn-primary btn-block" type="submit">Log Masuk</button>
 		</div>
-
-		<p class="mt-4 mb-0">
-			Tiada Akaun?
-			<a class="ml-2" [routerLink]="'/akaun/daftar'">Daftar</a>
-		</p>
 	</form>
 </div>
