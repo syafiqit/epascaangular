@@ -8,6 +8,7 @@ import { DaftarAkaunComponent } from '../akaun/daftar-akaun/daftar-akaun.compone
 import { TukarKataLaluanComponent } from '../akaun/tukar-kata-laluan/tukar-kata-laluan.component';
 import { SharedModule } from '../shared/shared.module';
 import { AccountRouteGuard } from '../shared/guards/account-route-guard';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
 	declarations: [
@@ -17,7 +18,7 @@ import { AccountRouteGuard } from '../shared/guards/account-route-guard';
 		DaftarAkaunComponent,
 		TukarKataLaluanComponent
 	],
-	imports: [CommonModule, SharedModule, AkaunRoutingModule],
+	imports: [CommonModule, SharedModule, AkaunRoutingModule, NgSelectModule],
 	providers: [AccountRouteGuard]
 })
 export class AkaunModule {}

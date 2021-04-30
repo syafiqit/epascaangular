@@ -1,104 +1,332 @@
 <div class="login-main">
-	<form class="theme-form">
+	<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid " novalidate>
 		<h4>Pendaftaran Baharu</h4>
+    <hr />
+    <h6>Maklumat Pemohon</h6>
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
 					<label class="col-form-label">Nama Pemohon</label>
-					<input class="form-control" type="text" required="" />
+					<input
+						class="form-control"
+						id="namaPemohon"
+						type="text"
+						name="nama"
+						[(ngModel)]="register.nama"
+						placeholder="Nama Pemohon"
+						#namaPemohon="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && namaPemohon.invalid }"
+						autocomplete="name"
+						required
+					/>
+					<div *ngIf="f.submitted && namaPemohon.invalid" class="invalid-feedback">
+						<div *ngIf="namaPemohon.errors.required">Nama Pemohon Wajib Diisi</div>
+					</div>
 				</div>
 			</div>
+
 			<div class="col-lg-6">
 				<div class="form-group">
 					<label class="col-form-label">No Kad Pengenalan</label>
-					<input class="form-control" type="text" required="" />
+					<input
+						class="form-control"
+						id="noKadPengenalan"
+						type="text"
+						name="no_kp"
+						[(ngModel)]="register.no_kp"
+						placeholder="Nama Pemohon"
+						#noKadPengenalan="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && noKadPengenalan.invalid }"
+            oninput="this.value=this.value.replace(/\D+/g, '');"
+            minlength="12"
+            maxlength="12"
+						required
+					/>
+					<div *ngIf="f.submitted && noKadPengenalan.invalid" class="invalid-feedback">
+						<div *ngIf="noKadPengenalan.errors.required">No Kad Pengenalan Wajib Diisi</div>
+					</div>
 				</div>
 			</div>
 		</div>
+
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label class="col-form-label">E-mel</label>
-					<input class="form-control" type="text" required="" />
+					<label class="col-form-label">Emel</label>
+					<input
+						class="form-control"
+						id="emelPemohon"
+						type="text"
+						name="emel"
+						[(ngModel)]="register.emel"
+						placeholder="Emel"
+						#emelPemohon="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && emelPemohon.invalid }"
+            autocomplete="email"
+						required
+					/>
+					<div *ngIf="f.submitted && emelPemohon.invalid" class="invalid-feedback">
+						<div *ngIf="emelPemohon.errors.required">Emel Wajib Diisi</div>
+					</div>
 				</div>
 			</div>
-			<div class="col-lg-6">
+
+      <div class="col-lg-6">
 				<div class="form-group">
 					<label class="col-form-label">Telefon Bimbit</label>
-					<input class="form-control" type="text" required="" />
+					<input
+						class="form-control"
+						id="telefonBimbit"
+						type="text"
+						name="telefon_bimbit"
+						[(ngModel)]="register.telefon_bimbit"
+						placeholder="Telefon Bimbit"
+						#telefonBimbit="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && telefonBimbit.invalid }"
+            oninput="this.value=this.value.replace(/\D+/g, '');"
+            minlength="9"
+            maxlength="15"
+            autocomplete="mobile"
+						required
+					/>
+					<div *ngIf="f.submitted && telefonBimbit.invalid" class="invalid-feedback">
+						<div *ngIf="telefonBimbit.errors.required">Telefon Bimbit Wajib Diisi</div>
+					</div>
 				</div>
 			</div>
 		</div>
+
+    <div class="row">
+      <div class="col-lg-6">
+				<div class="form-group">
+					<label class="col-form-label">Kata Laluan</label>
+					<input
+            class="form-control"
+            [type]="show ? 'text' : 'password'"
+            name="kata_laluan"
+            required=""
+            [(ngModel)]="register.kata_laluan"
+            required
+            #kataLaluan1="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && kataLaluan1.invalid }"
+          />
+          <div class="show-hide" (click)="showPassword()" *ngIf="!show">
+            <div style="margin-top: 5px; margin-right: -10px; color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-outline fa-lg"></i></div>
+          </div>
+          <div class="show-hide" (click)="showPassword()" *ngIf="show">
+            <div style="margin-top: 5px; margin-right: -10px; color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-off-outline fa-lg"></i></div>
+          </div>
+          <div *ngIf="f.submitted && kataLaluan1.invalid" class="invalid-feedback">
+            <div *ngIf="kataLaluan1.errors.required">Kata Laluan Wajib Di Isi</div>
+          </div>
+				</div>
+			</div>
+
+      <div class="col-lg-6">
+				<div class="form-group">
+					<label class="col-form-label">Ulang Kata Laluan</label>
+					<input
+            class="form-control"
+            [type]="showNew ? 'text' : 'password'"
+            name="ulang_kata_laluan"
+            required=""
+            [(ngModel)]="ulang_kata_laluan"
+            required
+            #kataLaluan2="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && kataLaluan2.invalid }"
+          />
+          <div class="show-hide" (click)="showNewPassword()" *ngIf="!showNew">
+            <div style="margin-top: 5px; margin-right: -10px; color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-outline fa-lg"></i></div>
+          </div>
+          <div class="show-hide" (click)="showNewPassword()" *ngIf="showNew">
+            <div style="margin-top: 5px; margin-right: -10px; color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-off-outline fa-lg"></i></div>
+          </div>
+          <div *ngIf="f.submitted && kataLaluan2.invalid" class="invalid-feedback">
+            <div *ngIf="kataLaluan2.errors.required">Ulang Kata Laluan Wajib Di Isi</div>
+          </div>
+				</div>
+			</div>
+    </div>
 		<hr />
+
 		<h6>Maklumat Agensi</h6>
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
 					<label class="col-form-label">Nama Agensi</label>
-					<input class="form-control" type="text" required="" />
+					<div>
+            <ng-select
+              [items]="agency"
+              bindLabel="nama_agensi"
+              placeholder="Sila Pilih"
+              class="js-example-placeholder-multiple"
+              name="namaAgensi"
+              (change)="setAgensi()"
+              [(ngModel)]="agensi"
+              #namaAgensi="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && namaAgensi.invalid }"
+              required
+            ></ng-select>
+            <div
+              *ngIf="f.submitted && namaAgensi.invalid"
+              class="invalid-feedback"
+            >
+              <div *ngIf="namaAgensi.errors.required">
+                Nama Agensi Wajib Dipilih
+              </div>
+            </div>
+          </div>
 				</div>
 			</div>
-			<div class="col-lg-6">
+
+      <div class="col-lg-6">
 				<div class="form-group">
-					<label class="col-form-label">Jawatan</label>
-					<input class="form-control" type="text" required="" />
+					<label class="col-form-label">Nama Kementerian</label>
+					<select
+            class="form-control"
+            name="id_kementerian"
+            [(ngModel)]="register.id_kementerian"
+            #kementerian="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && kementerian.invalid }"
+            required
+            disabled
+          >
+            <option [ngValue]="undefined" disabled>Sila Pilih</option>
+            <option *ngFor="let ministry of ministries" value="{{ministry.id}}">
+              {{ministry.nama_kementerian}}
+            </option>
+          </select>
+          <div *ngIf="f.submitted && kementerian.invalid" class="invalid-feedback">
+            <div *ngIf="kementerian.errors.required">Kementerian Wajib Dipilih</div>
+          </div>
 				</div>
 			</div>
 		</div>
+
+    <div class="row">
+      <div class="col-lg-6">
+				<div class="form-group">
+					<label class="col-form-label">Jawatan</label>
+					<input
+						class="form-control"
+						id="jawatanPemohon"
+						type="text"
+						name="jawatan"
+						[(ngModel)]="register.jawatan"
+						placeholder="Jawatan"
+						#jawatanPemohon="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && jawatanPemohon.invalid }"
+						required
+					/>
+					<div *ngIf="f.submitted && jawatanPemohon.invalid" class="invalid-feedback">
+						<div *ngIf="jawatanPemohon.errors.required">Jawatan Wajib Diisi</div>
+					</div>
+				</div>
+			</div>
+    </div>
+
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
 					<label class="col-form-label">No Telefon Pejabat</label>
-					<input class="form-control" type="text" required="" />
+					<input
+						class="form-control"
+						id="noTelefonPejabat"
+						type="text"
+						name="telefon_pejabat"
+						[(ngModel)]="register.telefon_pejabat"
+						placeholder="No Telefon Pejabat"
+						#noTelefonPejabat="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && noTelefonPejabat.invalid }"
+            oninput="this.value=this.value.replace(/\D+/g, '');"
+            minlength="9"
+            maxlength="15"
+            autocomplete="tel"
+						required
+					/>
+					<div *ngIf="f.submitted && noTelefonPejabat.invalid" class="invalid-feedback">
+						<div *ngIf="noTelefonPejabat.errors.required">No Telefon Pejabat Wajib Diisi</div>
+					</div>
 				</div>
 			</div>
+
 			<div class="col-lg-6">
 				<div class="form-group">
 					<label class="col-form-label">Fax</label>
-					<input class="form-control" type="text" required="" />
+					<input
+						class="form-control"
+						id="noFax"
+						type="text"
+						name="fax"
+						[(ngModel)]="register.fax"
+						placeholder="Fax"
+						#noFax="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && noFax.invalid }"
+            oninput="this.value=this.value.replace(/\D+/g, '');"
+            minlength="8"
+            maxlength="15"
+            autocomplete="fax"
+						required
+					/>
+					<div *ngIf="f.submitted && noFax.invalid" class="invalid-feedback">
+						<div *ngIf="noFax.errors.required">Fax Wajib Diisi</div>
+					</div>
 				</div>
 			</div>
 		</div>
+
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
 					<label class="col-form-label">Alamat 1</label>
-					<input class="form-control" type="text" required="" />
-				</div>
-			</div>
-			<div class="col-lg-6">
-				<div class="form-group">
-					<label class="col-form-label">Alamat 2</label>
-					<input class="form-control" type="text" required="" />
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-6">
-				<div class="form-group">
-					<label class="col-form-label">Negeri</label>
-					<div>
-						<select class="form-control" name="state">
-							<option *ngFor="let state of state" value="{{state['state']}}">{{state['state']}}</option>
-						</select>
+					<input
+						class="form-control"
+						id="alamat1Agensi"
+						type="text"
+						name="alamat1"
+						[(ngModel)]="register.alamat1"
+						placeholder="Alamat 1"
+						#alamat1Agensi="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && alamat1Agensi.invalid }"
+            autocomplete="address-line1"
+						required
+					/>
+					<div *ngIf="f.submitted && alamat1Agensi.invalid" class="invalid-feedback">
+						<div *ngIf="alamat1Agensi.errors.required">Alamat 1 Agensi Wajib Diisi</div>
 					</div>
 				</div>
 			</div>
+
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label class="col-form-label">Poskod</label>
-					<input class="form-control" type="text" required="" />
+					<label class="col-form-label">Alamat 2</label>
+					<input
+						class="form-control"
+						id="alamat2Agensi"
+						type="text"
+						name="alamat2"
+						[(ngModel)]="register.alamat2"
+						placeholder="Alamat 2"
+						#alamat2Agensi="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && alamat2Agensi.invalid }"
+            autocomplete="address-line2"
+						required
+					/>
+					<div *ngIf="f.submitted && alamat2Agensi.invalid" class="invalid-feedback">
+						<div *ngIf="alamat2Agensi.errors.required">Alamat 2 Agensi Wajib Diisi</div>
+					</div>
 				</div>
 			</div>
 		</div>
+
 		<div class="row">
 			<div class="col-12 justify-content-between mt-4">
 				<button class="btn btn-light pull-left" type="button" [routerLink]="['/akaun/log-masuk']">
 					Kembali
 				</button>
-				<button class="btn btn-primary pull-right" type="button" [routerLink]="['/akaun/log-masuk']">
-					Hantar
-				</button>
+				<button class="btn btn-primary pull-right" type="submit" (click)="save()">
+          Hantar
+        </button>
 			</div>
 		</div>
 	</form>
