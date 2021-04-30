@@ -6,7 +6,7 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label class="col-form-label">Nama Pemohon</label>
+					<label class="col-form-label">Nama Pemohon*</label>
 					<input
 						class="form-control"
 						id="namaPemohon"
@@ -27,7 +27,7 @@
 
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label class="col-form-label">No Kad Pengenalan</label>
+					<label class="col-form-label">No Kad Pengenalan*</label>
 					<input
 						class="form-control"
 						id="noKadPengenalan"
@@ -52,7 +52,7 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label class="col-form-label">Emel</label>
+					<label class="col-form-label">Emel*</label>
 					<input
 						class="form-control"
 						id="emelPemohon"
@@ -73,7 +73,7 @@
 
       <div class="col-lg-6">
 				<div class="form-group">
-					<label class="col-form-label">Telefon Bimbit</label>
+					<label class="col-form-label">Telefon Bimbit*</label>
 					<input
 						class="form-control"
 						id="telefonBimbit"
@@ -99,7 +99,7 @@
     <div class="row">
       <div class="col-lg-6">
 				<div class="form-group">
-					<label class="col-form-label">Kata Laluan</label>
+					<label class="col-form-label">Kata Laluan*</label>
 					<input
             class="form-control"
             [type]="show ? 'text' : 'password'"
@@ -124,7 +124,7 @@
 
       <div class="col-lg-6">
 				<div class="form-group">
-					<label class="col-form-label">Ulang Kata Laluan</label>
+					<label class="col-form-label">Ulang Kata Laluan*</label>
 					<input
             class="form-control"
             [type]="showNew ? 'text' : 'password'"
@@ -153,7 +153,7 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label class="col-form-label">Nama Agensi</label>
+					<label class="col-form-label">Nama Agensi*</label>
 					<div>
             <ng-select
               [items]="agency"
@@ -181,7 +181,7 @@
 
       <div class="col-lg-6">
 				<div class="form-group">
-					<label class="col-form-label">Nama Kementerian</label>
+					<label class="col-form-label">Nama Kementerian*</label>
 					<select
             class="form-control"
             name="id_kementerian"
@@ -206,7 +206,7 @@
     <div class="row">
       <div class="col-lg-6">
 				<div class="form-group">
-					<label class="col-form-label">Jawatan</label>
+					<label class="col-form-label">Jawatan*</label>
 					<input
 						class="form-control"
 						id="jawatanPemohon"
@@ -228,7 +228,7 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label class="col-form-label">No Telefon Pejabat</label>
+					<label class="col-form-label">No Telefon Pejabat*</label>
 					<input
 						class="form-control"
 						id="noTelefonPejabat"
@@ -252,7 +252,7 @@
 
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label class="col-form-label">Fax</label>
+					<label class="col-form-label">Fax*</label>
 					<input
 						class="form-control"
 						id="noFax"
@@ -278,7 +278,7 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label class="col-form-label">Alamat 1</label>
+					<label class="col-form-label">Alamat 1*</label>
 					<input
 						class="form-control"
 						id="alamat1Agensi"
@@ -299,7 +299,7 @@
 
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label class="col-form-label">Alamat 2</label>
+					<label class="col-form-label">Alamat 2*</label>
 					<input
 						class="form-control"
 						id="alamat2Agensi"
@@ -318,6 +318,82 @@
 				</div>
 			</div>
 		</div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label>Poskod*</label>
+          <input
+            class="form-control"
+            id="poskodAgensi"
+            type="text"
+            name="poskod"
+            [(ngModel)]="register.poskod"
+            placeholder="Poskod"
+            #poskodAgensi="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && poskodAgensi.invalid }"
+            minlength="5"
+            maxlength="5"
+            oninput="this.value=this.value.replace(/\D+/g, '');"
+            autocomplete="postal-code"
+            required
+          />
+          <div *ngIf="f.submitted && poskodAgensi.invalid" class="invalid-feedback">
+            <div *ngIf="poskodAgensi.errors.required">Poskod Wajib Diisi</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label>Daerah*</label>
+          <div>
+            <ng-select
+              [items]="districts"
+              bindLabel="nama_daerah"
+              placeholder="Sila Pilih"
+              class="js-example-placeholder-multiple"
+              name="daerahAgensi"
+              (change)="setDaerah()"
+              [(ngModel)]="daerah"
+              #namaDaerah="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && namaDaerah.invalid }"
+              required
+            ></ng-select>
+            <div *ngIf="f.submitted && namaDaerah.invalid" class="invalid-feedback">
+              <div *ngIf="namaDaerah.errors.required">Daerah Wajib Diisi</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label>Negeri*</label>
+          <div>
+            <select
+              class="form-control"
+              name="id_negeri"
+              [(ngModel)]="register.id_negeri"
+              #negeri="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && negeri.invalid }"
+              required
+              disabled
+            >
+              <option [ngValue]="undefined" disabled>Sila Pilih</option>
+              <option *ngFor="let state of states" value="{{state.id}}">
+                {{state.nama_negeri}}
+              </option>
+            </select>
+            <div *ngIf="f.submitted && negeri.invalid" class="invalid-feedback">
+              <div *ngIf="negeri.errors.required">Negeri Wajib Diisi</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 		<div class="row">
 			<div class="col-12 justify-content-between mt-4">
