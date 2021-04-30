@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthServiceProxy, RefAgensiServiceProxy, RefKementerianServiceProxy, RefPerananServiceProxy, RegisterPenggunaDto } from 'src/app/shared/proxy/service-proxies';
+import { AuthServiceProxy, RefAgensiServiceProxy, RefDaerahServiceProxy, RefKementerianServiceProxy, RefNegeriServiceProxy, RefPerananServiceProxy, RegisterPenggunaDto } from 'src/app/shared/proxy/service-proxies';
 declare let require;
 const Swal = require('sweetalert2');
 
@@ -21,23 +21,30 @@ export class DaftarAkaunComponent implements OnInit {
   roles: any;
   agency: any;
   ministries: any;
+  districts: any;
+  states: any;
 	saving = false;
   show = false;
   showNew = false;
   ulang_kata_laluan: any;
   agensi: any;
+  daerah: any;
 
 	constructor(
 		private _authServiceProxy: AuthServiceProxy,
     private _refPerananServiceProxy: RefPerananServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
-    private _refKementerianServiceProxy: RefKementerianServiceProxy
+    private _refKementerianServiceProxy: RefKementerianServiceProxy,
+    private _refDaerahServiceProxy: RefDaerahServiceProxy,
+    private _refNegeriServiceProxy: RefNegeriServiceProxy
 	) {}
 
 	ngOnInit(): void {
     this.getPeranan();
     this.getAgensi();
     this.getKementerian();
+    this.getDaerah();
+    this.getNegeri();
   }
 
   showPassword() {
@@ -66,10 +73,27 @@ export class DaftarAkaunComponent implements OnInit {
 		});
 	}
 
+  getDaerah(filter?) {
+		this._refDaerahServiceProxy.getRefDaerahForDropdown(filter).subscribe((result) => {
+			this.districts = result.items;
+		});
+	}
+
+  getNegeri(filter?) {
+		this._refNegeriServiceProxy.getRefNegeriForDropdown(filter).subscribe((result) => {
+			this.states = result.items;
+		});
+	}
+
 	setAgensi() {
 		this.register.id_agensi = this.agensi.id;
 		this.register.id_kementerian = this.agensi.id_kementerian;
 	}
+
+  setDaerah() {
+    this.register.id_daerah = this.daerah.id;
+		this.register.id_negeri = this.daerah.id_negeri;
+  }
 
 	save() {
 		this.saving = true;
