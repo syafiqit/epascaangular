@@ -5472,6 +5472,216 @@ export class RefPinjamanPerniagaanServiceProxy {
 }
 
 @Injectable()
+export class RefRujukanServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Get all RefRujukan
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfRefRujukanForViewDto> {
+        let url_ = this.baseUrl + "/api/refRujukan/getAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfRefRujukanForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfRefRujukanForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfRefRujukanForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfRefRujukanForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfRefRujukanForViewDto>(<any>null);
+    }
+
+    /**
+     * Get RefRujukan by id
+     * @param id RefRujukan Id
+     * @return Success
+     */
+    getRefRujukanForEdit(id: number): Observable<GetRefRujukanForEditDto> {
+        let url_ = this.baseUrl + "/api/refRujukan/getRefRujukanForEdit?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetRefRujukanForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetRefRujukanForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetRefRujukanForEditDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetRefRujukanForEditDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetRefRujukanForEdit(response: HttpResponseBase): Observable<GetRefRujukanForEditDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetRefRujukanForEditDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetRefRujukanForEditDto>(<any>null);
+    }
+
+    /**
+     * Create or edit RefRujukan
+     * @param body Create or edit object
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditRefRujukanDto): Observable<CreateOrEditRefRujukanDto> {
+        let url_ = this.baseUrl + "/api/refRujukan/createOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<CreateOrEditRefRujukanDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CreateOrEditRefRujukanDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditRefRujukanDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CreateOrEditRefRujukanDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<CreateOrEditRefRujukanDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class RefSektorServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -7437,6 +7647,277 @@ export class SessionServiceProxy {
     }
 }
 
+@Injectable()
+export class UserServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Get all User
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAllUser(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfUserForViewDto> {
+        let url_ = this.baseUrl + "/api/user/getAllUser?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllUser(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllUser(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfUserForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfUserForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllUser(response: HttpResponseBase): Observable<PagedResultDtoOfUserForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfUserForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfUserForViewDto>(<any>null);
+    }
+
+    /**
+     * approve user
+     * @param id user Id
+     * @return Success
+     */
+    approvedUser(id: number): Observable<GetUserForViewDto> {
+        let url_ = this.baseUrl + "/api/user/ApprovedUser?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApprovedUser(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApprovedUser(<any>response_);
+                } catch (e) {
+                    return <Observable<GetUserForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetUserForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processApprovedUser(response: HttpResponseBase): Observable<GetUserForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetUserForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetUserForViewDto>(<any>null);
+    }
+
+    /**
+     * Get User by id
+     * @param id User Id
+     * @return Success
+     */
+    getUserForEdit(id: number): Observable<GetUserForEditDto> {
+        let url_ = this.baseUrl + "/api/user/getUserForEdit?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetUserForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetUserForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetUserForEditDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetUserForEditDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetUserForEdit(response: HttpResponseBase): Observable<GetUserForEditDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetUserForEditDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetUserForEditDto>(<any>null);
+    }
+
+    /**
+     * Edit User
+     * @param body Edit object
+     * @return Success
+     */
+    edit(body: EditUserDto): Observable<EditUserDto> {
+        let url_ = this.baseUrl + "/api/user/edit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<EditUserDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<EditUserDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processEdit(response: HttpResponseBase): Observable<EditUserDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = EditUserDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<EditUserDto>(<any>null);
+    }
+}
+
 export class InputForgotPasswordDto implements IInputForgotPasswordDto {
     emel!: string;
 
@@ -7620,6 +8101,9 @@ export class RegisterPenggunaDto implements IRegisterPenggunaDto {
     emel!: string;
     kata_laluan!: string;
     id_peranan!: number;
+    poskod!: string;
+    id_daerah!: number;
+    id_negeri!: number;
 
     constructor(data?: IRegisterPenggunaDto) {
         if (data) {
@@ -7646,6 +8130,9 @@ export class RegisterPenggunaDto implements IRegisterPenggunaDto {
             this.emel = _data["emel"];
             this.kata_laluan = _data["kata_laluan"];
             this.id_peranan = _data["id_peranan"];
+            this.poskod = _data["poskod"];
+            this.id_daerah = _data["id_daerah"];
+            this.id_negeri = _data["id_negeri"];
         }
     }
 
@@ -7672,6 +8159,9 @@ export class RegisterPenggunaDto implements IRegisterPenggunaDto {
         data["emel"] = this.emel;
         data["kata_laluan"] = this.kata_laluan;
         data["id_peranan"] = this.id_peranan;
+        data["poskod"] = this.poskod;
+        data["id_daerah"] = this.id_daerah;
+        data["id_negeri"] = this.id_negeri;
         return data; 
     }
 }
@@ -7691,6 +8181,9 @@ export interface IRegisterPenggunaDto {
     emel: string;
     kata_laluan: string;
     id_peranan: number;
+    poskod: string;
+    id_daerah: number;
+    id_negeri: number;
 }
 
 export class CreateOrEditRefAgamaDto implements ICreateOrEditRefAgamaDto {
@@ -13063,6 +13556,312 @@ export interface IRefPinjamanPerniagaanDto {
     status_agensi_pinjaman: number;
 }
 
+export class CreateOrEditRefRujukanDto implements ICreateOrEditRefRujukanDto {
+    id!: number;
+    nama_rujukan!: string;
+    nama_dokumen!: string;
+    lokasi_dokumen!: string;
+    sambungan_fail!: string;
+    status_rujukan!: number;
+    tarikh_cipta!: moment.Moment;
+    id_pengguna_cipta!: number;
+    tarikh_kemaskini!: moment.Moment;
+    id_pengguna_kemaskini!: number;
+
+    constructor(data?: ICreateOrEditRefRujukanDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.nama_rujukan = _data["nama_rujukan"];
+            this.nama_dokumen = _data["nama_dokumen"];
+            this.lokasi_dokumen = _data["lokasi_dokumen"];
+            this.sambungan_fail = _data["sambungan_fail"];
+            this.status_rujukan = _data["status_rujukan"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditRefRujukanDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditRefRujukanDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["nama_rujukan"] = this.nama_rujukan;
+        data["nama_dokumen"] = this.nama_dokumen;
+        data["lokasi_dokumen"] = this.lokasi_dokumen;
+        data["sambungan_fail"] = this.sambungan_fail;
+        data["status_rujukan"] = this.status_rujukan;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditRefRujukanDto {
+    id: number;
+    nama_rujukan: string;
+    nama_dokumen: string;
+    lokasi_dokumen: string;
+    sambungan_fail: string;
+    status_rujukan: number;
+    tarikh_cipta: moment.Moment;
+    id_pengguna_cipta: number;
+    tarikh_kemaskini: moment.Moment;
+    id_pengguna_kemaskini: number;
+}
+
+export class GetRefRujukanForEditDto implements IGetRefRujukanForEditDto {
+    ref_rujukan!: CreateOrEditRefRujukanDto;
+
+    constructor(data?: IGetRefRujukanForEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.ref_rujukan = _data["ref_rujukan"] ? CreateOrEditRefRujukanDto.fromJS(_data["ref_rujukan"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetRefRujukanForEditDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetRefRujukanForEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["ref_rujukan"] = this.ref_rujukan ? this.ref_rujukan.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetRefRujukanForEditDto {
+    ref_rujukan: CreateOrEditRefRujukanDto;
+}
+
+export class GetRefRujukanForViewDto implements IGetRefRujukanForViewDto {
+    id!: number;
+    nama_rujukan!: string;
+    nama_dokumen!: string;
+    lokasi_dokumen!: string;
+    sambungan_fail!: string;
+    status_rujukan!: number;
+    tarikh_cipta!: moment.Moment;
+    id_pengguna_cipta!: number;
+    tarikh_kemaskini!: moment.Moment;
+    id_pengguna_kemaskini!: number;
+
+    constructor(data?: IGetRefRujukanForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.nama_rujukan = _data["nama_rujukan"];
+            this.nama_dokumen = _data["nama_dokumen"];
+            this.lokasi_dokumen = _data["lokasi_dokumen"];
+            this.sambungan_fail = _data["sambungan_fail"];
+            this.status_rujukan = _data["status_rujukan"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+        }
+    }
+
+    static fromJS(data: any): GetRefRujukanForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetRefRujukanForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["nama_rujukan"] = this.nama_rujukan;
+        data["nama_dokumen"] = this.nama_dokumen;
+        data["lokasi_dokumen"] = this.lokasi_dokumen;
+        data["sambungan_fail"] = this.sambungan_fail;
+        data["status_rujukan"] = this.status_rujukan;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        return data; 
+    }
+}
+
+export interface IGetRefRujukanForViewDto {
+    id: number;
+    nama_rujukan: string;
+    nama_dokumen: string;
+    lokasi_dokumen: string;
+    sambungan_fail: string;
+    status_rujukan: number;
+    tarikh_cipta: moment.Moment;
+    id_pengguna_cipta: number;
+    tarikh_kemaskini: moment.Moment;
+    id_pengguna_kemaskini: number;
+}
+
+/** RefRujukan List in Tabular model */
+export class PagedResultDtoOfRefRujukanForViewDto implements IPagedResultDtoOfRefRujukanForViewDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetRefRujukanForViewDto[];
+
+    constructor(data?: IPagedResultDtoOfRefRujukanForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetRefRujukanForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfRefRujukanForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfRefRujukanForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** RefRujukan List in Tabular model */
+export interface IPagedResultDtoOfRefRujukanForViewDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetRefRujukanForViewDto[];
+}
+
+export class RefRujukanDto implements IRefRujukanDto {
+    id!: number;
+    nama_rujukan!: string;
+    nama_dokumen!: string;
+    lokasi_dokumen!: string;
+    sambungan_fail!: string;
+    status_rujukan!: number;
+    tarikh_cipta!: moment.Moment;
+    id_pengguna_cipta!: number;
+    tarikh_kemaskini!: moment.Moment;
+    id_pengguna_kemaskini!: number;
+
+    constructor(data?: IRefRujukanDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.nama_rujukan = _data["nama_rujukan"];
+            this.nama_dokumen = _data["nama_dokumen"];
+            this.lokasi_dokumen = _data["lokasi_dokumen"];
+            this.sambungan_fail = _data["sambungan_fail"];
+            this.status_rujukan = _data["status_rujukan"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+        }
+    }
+
+    static fromJS(data: any): RefRujukanDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new RefRujukanDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["nama_rujukan"] = this.nama_rujukan;
+        data["nama_dokumen"] = this.nama_dokumen;
+        data["lokasi_dokumen"] = this.lokasi_dokumen;
+        data["sambungan_fail"] = this.sambungan_fail;
+        data["status_rujukan"] = this.status_rujukan;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        return data; 
+    }
+}
+
+export interface IRefRujukanDto {
+    id: number;
+    nama_rujukan: string;
+    nama_dokumen: string;
+    lokasi_dokumen: string;
+    sambungan_fail: string;
+    status_rujukan: number;
+    tarikh_cipta: moment.Moment;
+    id_pengguna_cipta: number;
+    tarikh_kemaskini: moment.Moment;
+    id_pengguna_kemaskini: number;
+}
+
 export class CreateOrEditRefSektorDto implements ICreateOrEditRefSektorDto {
     id!: number;
     nama_sektor!: string;
@@ -15031,6 +15830,364 @@ export interface IChangePasswordDto {
     kata_laluan_lama: string;
     kata_laluan_baru: string;
     ulang_kata_laluan_baru: string;
+}
+
+export class EditUserDto implements IEditUserDto {
+    id!: number;
+    nama!: string;
+    id_agensi!: number;
+    id_kementerian!: number;
+    jawatan!: string;
+    id_peranan!: number;
+    status_pengguna!: number;
+    no_kp!: string;
+    alamat_1!: string;
+    alamat_2!: string;
+    telefon_pejabat!: string;
+    telefon_bimbit!: string;
+    fax!: string;
+    emel!: string;
+    poskod!: string;
+    id_daerah!: number;
+    id_negeri!: number;
+
+    constructor(data?: IEditUserDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.nama = _data["nama"];
+            this.id_agensi = _data["id_agensi"];
+            this.id_kementerian = _data["id_kementerian"];
+            this.jawatan = _data["jawatan"];
+            this.id_peranan = _data["id_peranan"];
+            this.status_pengguna = _data["status_pengguna"];
+            this.no_kp = _data["no_kp"];
+            this.alamat_1 = _data["alamat_1"];
+            this.alamat_2 = _data["alamat_2"];
+            this.telefon_pejabat = _data["telefon_pejabat"];
+            this.telefon_bimbit = _data["telefon_bimbit"];
+            this.fax = _data["fax"];
+            this.emel = _data["emel"];
+            this.poskod = _data["poskod"];
+            this.id_daerah = _data["id_daerah"];
+            this.id_negeri = _data["id_negeri"];
+        }
+    }
+
+    static fromJS(data: any): EditUserDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new EditUserDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["nama"] = this.nama;
+        data["id_agensi"] = this.id_agensi;
+        data["id_kementerian"] = this.id_kementerian;
+        data["jawatan"] = this.jawatan;
+        data["id_peranan"] = this.id_peranan;
+        data["status_pengguna"] = this.status_pengguna;
+        data["no_kp"] = this.no_kp;
+        data["alamat_1"] = this.alamat_1;
+        data["alamat_2"] = this.alamat_2;
+        data["telefon_pejabat"] = this.telefon_pejabat;
+        data["telefon_bimbit"] = this.telefon_bimbit;
+        data["fax"] = this.fax;
+        data["emel"] = this.emel;
+        data["poskod"] = this.poskod;
+        data["id_daerah"] = this.id_daerah;
+        data["id_negeri"] = this.id_negeri;
+        return data; 
+    }
+}
+
+export interface IEditUserDto {
+    id: number;
+    nama: string;
+    id_agensi: number;
+    id_kementerian: number;
+    jawatan: string;
+    id_peranan: number;
+    status_pengguna: number;
+    no_kp: string;
+    alamat_1: string;
+    alamat_2: string;
+    telefon_pejabat: string;
+    telefon_bimbit: string;
+    fax: string;
+    emel: string;
+    poskod: string;
+    id_daerah: number;
+    id_negeri: number;
+}
+
+export class GetUserForEditDto implements IGetUserForEditDto {
+    id!: number;
+    nama!: string;
+    id_agensi!: number;
+    id_kementerian!: number;
+    jawatan!: string;
+    id_peranan!: number;
+    status_pengguna!: number;
+    nama_agensi!: string;
+    nama_kementerian!: string;
+    peranan!: string;
+    no_kp!: string;
+    alamat_1!: string;
+    alamat_2!: string;
+    telefon_pejabat!: string;
+    telefon_bimbit!: string;
+    fax!: string;
+    emel!: string;
+    poskod!: string;
+    id_daerah!: number;
+    id_negeri!: number;
+    nama_daerah!: string;
+    nama_negeri!: string;
+
+    constructor(data?: IGetUserForEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.nama = _data["nama"];
+            this.id_agensi = _data["id_agensi"];
+            this.id_kementerian = _data["id_kementerian"];
+            this.jawatan = _data["jawatan"];
+            this.id_peranan = _data["id_peranan"];
+            this.status_pengguna = _data["status_pengguna"];
+            this.nama_agensi = _data["nama_agensi"];
+            this.nama_kementerian = _data["nama_kementerian"];
+            this.peranan = _data["peranan"];
+            this.no_kp = _data["no_kp"];
+            this.alamat_1 = _data["alamat_1"];
+            this.alamat_2 = _data["alamat_2"];
+            this.telefon_pejabat = _data["telefon_pejabat"];
+            this.telefon_bimbit = _data["telefon_bimbit"];
+            this.fax = _data["fax"];
+            this.emel = _data["emel"];
+            this.poskod = _data["poskod"];
+            this.id_daerah = _data["id_daerah"];
+            this.id_negeri = _data["id_negeri"];
+            this.nama_daerah = _data["nama_daerah"];
+            this.nama_negeri = _data["nama_negeri"];
+        }
+    }
+
+    static fromJS(data: any): GetUserForEditDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetUserForEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["nama"] = this.nama;
+        data["id_agensi"] = this.id_agensi;
+        data["id_kementerian"] = this.id_kementerian;
+        data["jawatan"] = this.jawatan;
+        data["id_peranan"] = this.id_peranan;
+        data["status_pengguna"] = this.status_pengguna;
+        data["nama_agensi"] = this.nama_agensi;
+        data["nama_kementerian"] = this.nama_kementerian;
+        data["peranan"] = this.peranan;
+        data["no_kp"] = this.no_kp;
+        data["alamat_1"] = this.alamat_1;
+        data["alamat_2"] = this.alamat_2;
+        data["telefon_pejabat"] = this.telefon_pejabat;
+        data["telefon_bimbit"] = this.telefon_bimbit;
+        data["fax"] = this.fax;
+        data["emel"] = this.emel;
+        data["poskod"] = this.poskod;
+        data["id_daerah"] = this.id_daerah;
+        data["id_negeri"] = this.id_negeri;
+        data["nama_daerah"] = this.nama_daerah;
+        data["nama_negeri"] = this.nama_negeri;
+        return data; 
+    }
+}
+
+export interface IGetUserForEditDto {
+    id: number;
+    nama: string;
+    id_agensi: number;
+    id_kementerian: number;
+    jawatan: string;
+    id_peranan: number;
+    status_pengguna: number;
+    nama_agensi: string;
+    nama_kementerian: string;
+    peranan: string;
+    no_kp: string;
+    alamat_1: string;
+    alamat_2: string;
+    telefon_pejabat: string;
+    telefon_bimbit: string;
+    fax: string;
+    emel: string;
+    poskod: string;
+    id_daerah: number;
+    id_negeri: number;
+    nama_daerah: string;
+    nama_negeri: string;
+}
+
+export class GetUserForViewDto implements IGetUserForViewDto {
+    id!: number;
+    nama!: string;
+    id_agensi!: number;
+    id_kementerian!: number;
+    jawatan!: string;
+    id_peranan!: number;
+    status_pengguna!: number;
+    nama_agensi!: string;
+    nama_kementerian!: string;
+    peranan!: string;
+    poskod!: string;
+    nama_daerah!: string;
+    nama_negeri!: string;
+
+    constructor(data?: IGetUserForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.nama = _data["nama"];
+            this.id_agensi = _data["id_agensi"];
+            this.id_kementerian = _data["id_kementerian"];
+            this.jawatan = _data["jawatan"];
+            this.id_peranan = _data["id_peranan"];
+            this.status_pengguna = _data["status_pengguna"];
+            this.nama_agensi = _data["nama_agensi"];
+            this.nama_kementerian = _data["nama_kementerian"];
+            this.peranan = _data["peranan"];
+            this.poskod = _data["poskod"];
+            this.nama_daerah = _data["nama_daerah"];
+            this.nama_negeri = _data["nama_negeri"];
+        }
+    }
+
+    static fromJS(data: any): GetUserForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetUserForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["nama"] = this.nama;
+        data["id_agensi"] = this.id_agensi;
+        data["id_kementerian"] = this.id_kementerian;
+        data["jawatan"] = this.jawatan;
+        data["id_peranan"] = this.id_peranan;
+        data["status_pengguna"] = this.status_pengguna;
+        data["nama_agensi"] = this.nama_agensi;
+        data["nama_kementerian"] = this.nama_kementerian;
+        data["peranan"] = this.peranan;
+        data["poskod"] = this.poskod;
+        data["nama_daerah"] = this.nama_daerah;
+        data["nama_negeri"] = this.nama_negeri;
+        return data; 
+    }
+}
+
+export interface IGetUserForViewDto {
+    id: number;
+    nama: string;
+    id_agensi: number;
+    id_kementerian: number;
+    jawatan: string;
+    id_peranan: number;
+    status_pengguna: number;
+    nama_agensi: string;
+    nama_kementerian: string;
+    peranan: string;
+    poskod: string;
+    nama_daerah: string;
+    nama_negeri: string;
+}
+
+/** Ngo List in Tabular model */
+export class PagedResultDtoOfUserForViewDto implements IPagedResultDtoOfUserForViewDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetUserForViewDto[];
+
+    constructor(data?: IPagedResultDtoOfUserForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetUserForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfUserForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfUserForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** Ngo List in Tabular model */
+export interface IPagedResultDtoOfUserForViewDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetUserForViewDto[];
 }
 
 export class ApiException extends Error {
