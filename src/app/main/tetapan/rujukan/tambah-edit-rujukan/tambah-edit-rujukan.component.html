@@ -5,26 +5,39 @@
 		<span aria-hidden="true">&times;</span>
 	</button>
 </div>
-<div class="modal-body">
-	<form class="form theme-form">
-		<div class="row">
-			<div class="col-lg-6">
-				<div class="form-group">
-					<label for="exampleFormControlInput1">Nama Rujukan</label>
-					<input class="form-control" name="alamat_1" type="text" placeholder="Nama Rujukan" />
-				</div>
-			</div>
+<form class="form theme-form" name="form" [formGroup]="formGroup" (ngSubmit)="nama_rujukan.valid && save()">
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label>Nama Rujukan</label>
+          <input
+            class="form-control"
+            [(ngModel)]="rujukan.nama_rujukan"
+            [ngModelOptions]="{standalone: true}"
+            #nama_rujukan="ngModel"
+            [ngClass]="{ 'is-invalid': nama_rujukan.invalid && (nama_rujukan.dirty || nama_rujukan.touched) }"
+            name="nama_rujukan"
+            minlength="0"
+            maxlength="250"
+            required
+          />
+          <div *ngIf="nama_rujukan.invalid && (nama_rujukan.dirty || nama_rujukan.touched)" class="invalid-feedback">
+            <div *ngIf="nama_rujukan.errors.required">Peranan Wajib Di isi</div>
+          </div>
+        </div>
+      </div>
 
-			<div class="col-lg-6">
-				<div class="form-group">
-					<label for="exampleFormControlSelect9">Muat Naik Fail</label>
-					<input class="form-control" type="file" />
-				</div>
-			</div>
-		</div>
-	</form>
-</div>
-<div class="modal-footer">
-	<button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
-	<button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Simpan</button>
-</div>
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label>Muat Naik Fail</label>
+          <input (change)="onSelect($event)" class="form-control" type="file" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="activeModal.close(false)">Tutup</button>
+    <button type="submit" class="btn btn-primary">Simpan</button>
+  </div>
+</form>
