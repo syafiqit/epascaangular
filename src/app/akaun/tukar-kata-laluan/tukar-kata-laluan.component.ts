@@ -37,7 +37,6 @@ export class TukarKataLaluanComponent implements OnInit {
 		this._authServiceProxy.verifyCode(emel, kod_akses).subscribe(
 			(e) => {
 				this.allowChangePassword = true;
-				console.log('kod akses sah');
 			},
 			(err) => {
 				this.showMessage = true;
