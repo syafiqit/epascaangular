@@ -3,18 +3,20 @@
 	<div class="container-fluid">
 		<div class="card card-custom gutter-b">
 			<div class="card-body">
-				<div class="row pr-0" style="margin-bottom: 10px; margin-right: -25px">
-          <div class="col-6" style="margin-left: -12px">
+				<div class="row pr-0 mb-3">
+          <div class="col justify-content-start pl-0">
             <div class="faq-form">
               <input class="form-control" type="text" placeholder="Carian..." />
               <i class="search-icon" data-feather="search"></i>
             </div>
           </div>
-          <div class="col-6" style="text-align: end; padding: 0">
-            <button (click)="addDistrictModal()" type="button" class="btn btn-primary" style="font-weight: 500">
-              <i class="fa fa-plus mr-2"></i>
-              Tambah
-            </button>
+          <div class="col pr-0">
+            <div class="justify-content-end pull-right">
+              <button (click)="addDistrictModal()" type="button" class="btn btn-primary">
+                <i class="fa fa-plus mr-2"></i>
+                <b>Tambah</b>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -40,13 +42,13 @@
 									<th style="width: 130px">Tindakan</th>
 									<th style="width: 150px" pSortableColumn="nama_daerah">
 										Daerah
-										<p-sortIcon field="category"></p-sortIcon>
+										<p-sortIcon field="nama_daerah"></p-sortIcon>
 									</th>
-									<th style="width: 150px" pSortableColumn="id_negeri">
+									<th style="width: 150px" pSortableColumn="nama_negeri">
 										Negeri
-										<p-sortIcon field="type"></p-sortIcon>
+										<p-sortIcon field="nama_negeri"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="status_daerah">
+									<th style="width: 130px" pSortableColumn="status">
 										Status
 										<p-sortIcon field="status"></p-sortIcon>
 									</th>
