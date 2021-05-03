@@ -6,6 +6,7 @@ import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { RefBantuanServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import { finalize } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-jenis-bantuan',
@@ -33,7 +34,7 @@ export class JenisBantuanComponent implements OnInit {
 
 	ngOnInit(): void {}
 
-	getApplication(event?: LazyLoadEvent) {
+	getBantuan(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
@@ -47,10 +48,12 @@ export class JenisBantuanComponent implements OnInit {
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
 			)
+      .pipe(finalize(()=>{
+        this.primengTableHelper.hideLoadingIndicator();
+      }))
 			.subscribe((result) => {
 				this.primengTableHelper.totalRecordsCount = result.total_count;
 				this.primengTableHelper.records = result.items;
-				this.primengTableHelper.hideLoadingIndicator();
 			});
 	}
 
@@ -63,7 +66,7 @@ export class JenisBantuanComponent implements OnInit {
 		modalRef.componentInstance.name = 'add';
 		modalRef.result.then((response) => {
 			if (response) {
-				this.getApplication();
+				this.getBantuan();
 			}
 		});
 	}
@@ -74,7 +77,7 @@ export class JenisBantuanComponent implements OnInit {
 		modalRef.componentInstance.id = id;
 		modalRef.result.then((response) => {
 			if (response) {
-				this.getApplication();
+				this.getBantuan();
 			}
 		});
 	}

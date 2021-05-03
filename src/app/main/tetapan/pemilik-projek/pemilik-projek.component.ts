@@ -6,6 +6,7 @@ import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TambahEditPemilikProjekComponent } from './tambah-edit-pemilik-projek/tambah-edit-pemilik-projek.component';
 import { RefPemilikServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import { finalize } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-pemilik-projek',
@@ -33,7 +34,7 @@ export class PemilikProjekComponent implements OnInit {
 
 	ngOnInit(): void {}
 
-	getApplication(event?: LazyLoadEvent) {
+	getProject(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
@@ -47,10 +48,12 @@ export class PemilikProjekComponent implements OnInit {
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
 			)
+      .pipe(finalize(()=>{
+        this.primengTableHelper.hideLoadingIndicator();
+      }))
 			.subscribe((result) => {
 				this.primengTableHelper.totalRecordsCount = result.total_count;
 				this.primengTableHelper.records = result.items;
-				this.primengTableHelper.hideLoadingIndicator();
 			});
 	}
 
@@ -63,7 +66,7 @@ export class PemilikProjekComponent implements OnInit {
 		modalRef.componentInstance.name = 'add';
 		modalRef.result.then((response) => {
 			if (response) {
-				this.getApplication();
+				this.getProject();
 			}
 		});
 	}
@@ -74,7 +77,7 @@ export class PemilikProjekComponent implements OnInit {
 		modalRef.componentInstance.id = id;
 		modalRef.result.then((response) => {
 			if (response) {
-				this.getApplication();
+				this.getProject();
 			}
 		});
 	}

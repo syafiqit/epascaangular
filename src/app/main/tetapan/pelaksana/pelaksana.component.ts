@@ -6,6 +6,7 @@ import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TambahEditPelaksanaComponent } from './tambah-edit-pelaksana/tambah-edit-pelaksana.component';
 import { RefPelaksanaServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import { finalize } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-pelaksana',
@@ -33,7 +34,7 @@ export class PelaksanaComponent implements OnInit {
 
 	ngOnInit(): void {}
 
-	getApplication(event?: LazyLoadEvent) {
+	getPelaksana(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
@@ -47,10 +48,12 @@ export class PelaksanaComponent implements OnInit {
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
 			)
+      .pipe(finalize(()=>{
+        this.primengTableHelper.hideLoadingIndicator();
+      }))
 			.subscribe((result) => {
 				this.primengTableHelper.totalRecordsCount = result.total_count;
 				this.primengTableHelper.records = result.items;
-				this.primengTableHelper.hideLoadingIndicator();
 			});
 	}
 
@@ -63,7 +66,7 @@ export class PelaksanaComponent implements OnInit {
 		modalRef.componentInstance.name = 'add';
 		modalRef.result.then((response) => {
 			if (response) {
-				this.getApplication();
+				this.getPelaksana();
 			}
 		});
 	}
@@ -74,7 +77,7 @@ export class PelaksanaComponent implements OnInit {
 		modalRef.componentInstance.id = id;
 		modalRef.result.then((response) => {
 			if (response) {
-				this.getApplication();
+				this.getPelaksana();
 			}
 		});
 	}

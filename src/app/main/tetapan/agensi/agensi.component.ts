@@ -6,6 +6,7 @@ import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TambahEditAgensiComponent } from './tambah-edit-agensi/tambah-edit-agensi.component';
 import { RefAgensiServiceProxy, RefKementerianServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import { finalize } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-agensi',
@@ -40,7 +41,7 @@ export class AgensiComponent implements OnInit {
 		this.kementerian();
 	}
 
-	getApplication(event?: LazyLoadEvent) {
+	getAgensi(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
@@ -54,10 +55,12 @@ export class AgensiComponent implements OnInit {
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
 			)
+      .pipe(finalize(()=>{
+        this.primengTableHelper.hideLoadingIndicator();
+      }))
 			.subscribe((result) => {
 				this.primengTableHelper.totalRecordsCount = result.total_count;
 				this.primengTableHelper.records = result.items;
-				this.primengTableHelper.hideLoadingIndicator();
 			});
 	}
 
@@ -84,7 +87,7 @@ export class AgensiComponent implements OnInit {
 		modalRef.componentInstance.name = 'add';
 		modalRef.result.then((response) => {
 			if (response) {
-				this.getApplication();
+				this.getAgensi();
 			}
 		});
 	}
@@ -95,7 +98,7 @@ export class AgensiComponent implements OnInit {
 		modalRef.componentInstance.id = id;
 		modalRef.result.then((response) => {
 			if (response) {
-				this.getApplication();
+				this.getAgensi();
 			}
 		});
 	}

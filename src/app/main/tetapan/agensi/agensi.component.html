@@ -3,34 +3,34 @@
 	<div class="container-fluid">
 		<div class="card card-custom gutter-b">
 			<div class="card-body">
-				<div class="row justify-content-end pb-2">
-					<button class="btn btn-primary" type="button" (click)="addAgencyModal()">
-						<i class="fa fa-plus mr-2"></i>
-						Tambah
-					</button>
-				</div>
-				<div class="row mb-2">
-					<input
-						type="text"
-						class="form-control"
-						placeholder="Carian..."
-						[(ngModel)]="filter"
-						(keyup.enter)="getApplication()"
-					/>
-				</div>
+				<div class="row pr-0" style="margin-bottom: 10px; margin-right: -25px">
+          <div class="col-6" style="margin-left: -12px">
+            <div class="faq-form">
+              <input class="form-control" type="text" placeholder="Carian..." />
+              <i class="search-icon" data-feather="search"></i>
+            </div>
+          </div>
+          <div class="col-6" style="text-align: end; padding: 0">
+            <button (click)="addAgencyModal()" type="button" class="btn btn-primary" style="font-weight: 500">
+              <i class="fa fa-plus mr-2"></i>
+              Tambah
+            </button>
+          </div>
+        </div>
+
 				<div class="row align-items-center">
 					<!--<Primeng-TurboTable-Start>-->
-					<div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+					<div class="primeng-datatable-container">
 						<p-table
 							#dataTable
 							styleClass="p-datatable-striped"
-							sortMode="multiple"
 							[resizableColumns]="true"
-							(onLazyLoad)="getApplication($event)"
+							(onLazyLoad)="getAgensi($event)"
 							[value]="primengTableHelper.records"
 							rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
 							[paginator]="false"
 							[lazy]="true"
+              [loading]="primengTableHelper.isLoading"
 							[scrollable]="true"
 							ScrollWidth="100%"
 							[responsive]="primengTableHelper.isResponsive"
@@ -103,7 +103,7 @@
 							<p-paginator
 								[rows]="primengTableHelper.defaultRecordsCountPerPage"
 								#paginator
-								(onPageChange)="getApplication($event)"
+								(onPageChange)="getAgensi($event)"
 								[totalRecords]="primengTableHelper.totalRecordsCount"
 								[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
 							></p-paginator>

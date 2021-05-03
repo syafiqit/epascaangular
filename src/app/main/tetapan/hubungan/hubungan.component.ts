@@ -6,6 +6,7 @@ import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { TambahEditHubunganComponent } from './tambah-edit-hubungan/tambah-edit-hubungan.component';
 import { RefHubunganServiceProxy } from '../../../shared/proxy/service-proxies';
+import { finalize } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-hubungan',
@@ -47,10 +48,12 @@ export class HubunganComponent implements OnInit {
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
 			)
+      .pipe(finalize(()=>{
+        this.primengTableHelper.hideLoadingIndicator();
+      }))
 			.subscribe((result) => {
 				this.primengTableHelper.totalRecordsCount = result.total_count;
 				this.primengTableHelper.records = result.items;
-				this.primengTableHelper.hideLoadingIndicator();
 			});
 	}
 

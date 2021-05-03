@@ -1,7 +1,7 @@
 <div class="modal-header">
 	<h5 class="modal-title" *ngIf="name === 'add'">Tambah Sumber Dana</h5>
 	<h5 class="modal-title" *ngIf="name === 'edit'">Kemaskini Sumber Dana</h5>
-	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
 		<span aria-hidden="true">&times;</span>
 	</button>
 </div>
@@ -41,8 +41,6 @@
 						[(ngModel)]="dana.status_sumber_dana"
 						#status="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
-						minlength="0"
-						maxlength="250"
 						required
 					>
 						<option [ngValue]="undefined" disabled>Sila Pilih</option>
