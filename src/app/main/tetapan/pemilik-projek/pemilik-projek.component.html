@@ -3,34 +3,36 @@
 	<div class="container-fluid">
 		<div class="card card-custom gutter-b">
 			<div class="card-body">
-				<div class="row justify-content-end pb-2">
-					<button class="btn btn-primary" type="button" (click)="addProjectOwnerModal()">
-						<i class="fa fa-plus mr-2"></i>
-						Tambah
-					</button>
-				</div>
-				<div class="row mb-2">
-					<input
-						type="text"
-						class="form-control"
-						placeholder="Carian..."
-						[(ngModel)]="filter"
-						(keyup.enter)="getApplication()"
-					/>
-				</div>
+				<div class="row pr-0 mb-3">
+          <div class="col justify-content-start pl-0">
+            <div class="faq-form">
+              <input class="form-control" type="text" placeholder="Carian..." />
+              <i class="search-icon" data-feather="search"></i>
+            </div>
+          </div>
+          <div class="col pr-0">
+            <div class="justify-content-end pull-right">
+              <button (click)="addProjectOwnerModal()" type="button" class="btn btn-primary">
+                <i class="fa fa-plus mr-2"></i>
+                <b>Tambah</b>
+              </button>
+            </div>
+          </div>
+        </div>
+
 				<div class="row align-items-center">
 					<!--<Primeng-TurboTable-Start>-->
-					<div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+					<div class="primeng-datatable-container">
 						<p-table
 							#dataTable
 							styleClass="p-datatable-striped"
-							sortMode="multiple"
 							[resizableColumns]="true"
-							(onLazyLoad)="getApplication($event)"
+							(onLazyLoad)="getProject($event)"
 							[value]="primengTableHelper.records"
 							rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
 							[paginator]="false"
 							[lazy]="true"
+              [loading]="primengTableHelper.isLoading"
 							[scrollable]="true"
 							ScrollWidth="100%"
 							[responsive]="primengTableHelper.isResponsive"
@@ -39,13 +41,13 @@
 							<ng-template pTemplate="header">
 								<tr>
 									<th style="width: 130px">Tindakan</th>
-									<th style="width: 150px" pSortableColumn="projectOwner">
+									<th style="width: 150px" pSortableColumn="nama_pemilik">
 										Nama Pelaksana
-										<p-sortIcon field="category"></p-sortIcon>
+										<p-sortIcon field="nama_pemilik"></p-sortIcon>
 									</th>
-									<th style="width: 100px" pSortableColumn="status">
+									<th style="width: 100px" pSortableColumn="status_pemilik">
 										Status
-										<p-sortIcon field="status"></p-sortIcon>
+										<p-sortIcon field="status_pemilik"></p-sortIcon>
 									</th>
 								</tr>
 							</ng-template>
@@ -90,7 +92,7 @@
 							<p-paginator
 								[rows]="primengTableHelper.defaultRecordsCountPerPage"
 								#paginator
-								(onPageChange)="getApplication($event)"
+								(onPageChange)="getProject($event)"
 								[totalRecords]="primengTableHelper.totalRecordsCount"
 								[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
 							></p-paginator>

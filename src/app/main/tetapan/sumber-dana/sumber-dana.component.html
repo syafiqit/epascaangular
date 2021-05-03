@@ -1,41 +1,43 @@
 <app-breadcrumb
 	[title]="'Medan Sumber Dana'"
 	[items]="['Medan']"
-	[active_item]="['Medan Sumber Dana']"
+	[active_item]="['Sumber Dana']"
 ></app-breadcrumb>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="card">
 				<div class="card-body">
-					<div class="row mb-2 justify-content-end">
-						<button class="btn btn-primary" type="button" (click)="addFundsModal()">
-							<i class="fa fa-plus mr-2"></i>
-							Tambah
-						</button>
-					</div>
-					<div class="row mb-2">
-						<input
-							type="text"
-							class="form-control"
-							placeholder="Carian..."
-							[(ngModel)]="filterText"
-							(keyup.enter)="getSumberDana()"
-						/>
-					</div>
+					<div class="row pr-0 mb-3">
+            <div class="col justify-content-start pl-0">
+              <div class="faq-form">
+                <input class="form-control" type="text" placeholder="Carian..." />
+                <i class="search-icon" data-feather="search"></i>
+              </div>
+            </div>
+            <div class="col pr-0">
+              <div class="justify-content-end pull-right">
+                <button (click)="addFundsModal()" type="button" class="btn btn-primary">
+                  <i class="fa fa-plus mr-2"></i>
+                  <b>Tambah</b>
+                </button>
+              </div>
+            </div>
+          </div>
+
 					<div class="row align-items-center">
 						<!--<Primeng-TurboTable-Start>-->
-						<div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+						<div class="primeng-datatable-container">
 							<p-table
 								#dataTable
 								styleClass="p-datatable-striped"
-								sortMode="multiple"
 								[resizableColumns]="true"
 								(onLazyLoad)="getSumberDana($event)"
 								[value]="primengTableHelper.records"
 								rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
 								[paginator]="false"
 								[lazy]="true"
+                [loading]="primengTableHelper.isLoading"
 								[scrollable]="true"
 								ScrollWidth="100%"
 								[responsive]="primengTableHelper.isResponsive"
@@ -46,11 +48,11 @@
 										<th style="width: 150px">Tindakan</th>
 										<th style="width: 160px" pSortableColumn="nama_sumber_dana">
 											Sumber
-											<p-sortIcon field="source"></p-sortIcon>
+											<p-sortIcon field="nama_sumber_dana"></p-sortIcon>
 										</th>
 										<th style="width: 150px" pSortableColumn="status_sumber_dana">
 											Status
-											<p-sortIcon field="status"></p-sortIcon>
+											<p-sortIcon field="status_sumber_dana"></p-sortIcon>
 										</th>
 									</tr>
 								</ng-template>

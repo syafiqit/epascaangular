@@ -6,6 +6,7 @@ import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { TambahEditRujukanComponent } from './tambah-edit-rujukan/tambah-edit-rujukan.component';
 import {RefRujukanServiceProxy} from "../../../shared/proxy/service-proxies";
+import { finalize } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-rujukan',
@@ -20,11 +21,6 @@ export class RujukanComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
 
   filterText = '';
-
-	rows = [
-		{ name: 'Manual Penggunaan Sistem', fail: 'Sistem.pdf' },
-		{ name: 'Manual Pengurusan Tabung', fail: 'Sistem_Tabung.pdf' }
-	];
 
 	constructor(
 	  config: NgbModalConfig,
@@ -52,10 +48,12 @@ export class RujukanComponent implements OnInit {
         this.primengTableHelper.getSkipCount(this.paginator, event),
         this.primengTableHelper.getMaxResultCount(this.paginator, event)
       )
+      .pipe(finalize(()=>{
+        this.primengTableHelper.hideLoadingIndicator();
+      }))
       .subscribe((result) => {
         this.primengTableHelper.totalRecordsCount = result.total_count;
         this.primengTableHelper.records = result.items;
-        this.primengTableHelper.hideLoadingIndicator();
       });
 	}
 

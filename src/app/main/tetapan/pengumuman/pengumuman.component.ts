@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { OnInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TambahEditPengumumanComponent } from './tambah-edit-pengumuman/tambah-edit-pengumuman.component';
 import { LazyLoadEvent } from 'primeng/api';
@@ -12,7 +12,7 @@ import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 	encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig, NgbModal]
 })
-export class PengumumanComponent implements AfterViewInit {
+export class PengumumanComponent implements OnInit {
 	@ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
@@ -37,21 +37,9 @@ export class PengumumanComponent implements AfterViewInit {
 		this.primengTableHelper = new PrimengTableHelper();
 	}
 
-	addAnnouncementModal() {
-		const modalRef = this.modalService.open(TambahEditPengumumanComponent, { size: 'lg' });
-		modalRef.componentInstance.name = 'add';
-	}
+	ngOnInit(): void {}
 
-	editAnnouncementModal() {
-		const modalRef = this.modalService.open(TambahEditPengumumanComponent, { size: 'lg' });
-		modalRef.componentInstance.name = 'edit';
-	}
-
-	ngAfterViewInit(): void {
-		//this.primengTableHelper.adjustScroll(this.dataTable);
-	}
-
-	getApplication(event?: LazyLoadEvent) {
+	getAnnouncement(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
@@ -65,5 +53,15 @@ export class PengumumanComponent implements AfterViewInit {
 
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
+	}
+
+	addAnnouncementModal() {
+		const modalRef = this.modalService.open(TambahEditPengumumanComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'add';
+	}
+
+	editAnnouncementModal() {
+		const modalRef = this.modalService.open(TambahEditPengumumanComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'edit';
 	}
 }
