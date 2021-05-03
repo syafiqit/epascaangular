@@ -1,67 +1,81 @@
-<app-breadcrumb [title]="'Pengguna'" [items]="['Akaun']" [active_item]="'Pengguna'"></app-breadcrumb>
+<app-breadcrumb [title]="'Profil Pengguna'" [items]="['Akaun']" [active_item]="'Pengguna'"></app-breadcrumb>
 
 <div class="row">
 	<div class="col-lg-12">
 		<div class="card">
 			<div class="card-body">
-				<form class="form theme-form">
+				<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()">
 					<div class="row">
-						<div class="col-lg-3">
-							<div class="row">
-								<img
-									class="img-fluid for-light"
-									src="assets/images/dashboard/bg.jpg"
-									alt="looginpage"
-								/>
-							</div>
-							<div class="row mt-3">
-								<div class="form-group">
-									<input class="form-control" type="file" />
+						<div class="col-lg-4">
+							<form [formGroup]="secondFormGroup">
+								<div class="card shadow shadow-showcase">
+									<div class="product-box">
+										<div class="product-img">
+											<img class="img-fluid" src="/assets/images/other-images/default-image.jpg" alt="profile-image" />
+											<div class="product-hover">
+												<ngx-dropzone (change)="onSelect($event)">
+													<ngx-dropzone-label>Kemaskini Gambar</ngx-dropzone-label>
+												</ngx-dropzone>
+											</div>
+											<div *ngFor="let f of files" [file]="f">
+												<label>{{ f.name }}</label>
+											</div>
+										</div>
+									</div>
 								</div>
-							</div>
+							</form>
 						</div>
-						<div class="col-lg-9">
-							<div class="row mb-3">
-								<div class="col-lg-6">
-									<label>
-										<b>Status :</b>
-										Aktif
-									</label>
-								</div>
 
-								<div class="col-lg-6">
-									<label>
-										<b>Peranan Pengguna :</b>
-										Administrator
-									</label>
+						<div class="col-lg-8">
+							<div class="row mb-3">
+                <div class="col-lg-6">
+                  <h6>Maklumat Pengguna</h6>
+                </div>
+
+								<div class="col-lg-6" *ngFor="let item of getProfile.peranan | keyvalue">
+									<label>Peranan Pengguna : {{item.value}}</label>
 								</div>
 							</div>
-							<h5>Maklumat Pengguna</h5>
-							<hr />
+
 							<div class="row">
 								<div class="col-lg-6">
 									<div class="form-group">
-										<label for="exampleFormControlInput1">Nama</label>
+										<label>Nama</label>
 										<input
 											class="form-control"
-											name="name"
+											name="nama"
 											type="text"
 											placeholder="Nama"
-											[(ngModel)]="account.name"
+											[(ngModel)]="getProfile.pengguna.nama"
+                      #name="ngModel"
+                      [ngClass]="{ 'is-invalid': f.submitted && name.invalid }"
+                      required
 										/>
+                    <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+                      <div *ngIf="name.errors.required">Nama Wajib Diisi</div>
+                    </div>
 									</div>
 								</div>
 
 								<div class="col-lg-6">
 									<div class="form-group">
-										<label for="exampleFormControlInput1">No. K/P</label>
+										<label>No Kad Pengenalan</label>
 										<input
 											class="form-control"
-											name="kp"
-											type="email"
-											placeholder="No. K/P"
-											[(ngModel)]="account.No_kp"
+											name="no_kp"
+											type="text"
+											placeholder="No Kad Pengenalan"
+											[(ngModel)]="getProfile.pengguna.no_kp"
+                      #noKP="ngModel"
+                      [ngClass]="{ 'is-invalid': f.submitted && noKP.invalid }"
+                      oninput="this.value=this.value.replace(/\D+/g, '');"
+                      minlength="12"
+                      maxlength="12"
+                      required
 										/>
+                    <div *ngIf="f.submitted && noKP.invalid" class="invalid-feedback">
+                      <div *ngIf="noKP.errors.required">No Kad Pengenalan Wajib Diisi</div>
+                    </div>
 									</div>
 								</div>
 							</div>
@@ -69,27 +83,37 @@
 							<div class="row">
 								<div class="col-lg-6">
 									<div class="form-group">
-										<label for="exampleFormControlInput1">Telefon Bimbit</label>
+										<label>Emel</label>
 										<input
 											class="form-control"
-											name="no_tel2"
+											name="emel"
+											type="text"
+											placeholder="Emel"
+											[(ngModel)]="getProfile.pengguna.emel"
+                      disabled
+										/>
+									</div>
+								</div>
+
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label>Telefon Bimbit</label>
+										<input
+											class="form-control"
+											name="telefon_bimbit"
 											type="text"
 											placeholder="Telefon Bimbit"
-											[(ngModel)]="account.tel_2"
+											[(ngModel)]="getProfile.pengguna.telefon_bimbit"
+                      #mobile="ngModel"
+                      [ngClass]="{ 'is-invalid': f.submitted && mobile.invalid }"
+                      oninput="this.value=this.value.replace(/\D+/g, '');"
+                      minlength="10"
+                      maxlength="15"
+                      required
 										/>
-									</div>
-								</div>
-
-								<div class="col-lg-6">
-									<div class="form-group">
-										<label for="exampleFormControlInput1">Email</label>
-										<input
-											class="form-control"
-											name="email"
-											type="text"
-											placeholder="Email"
-											[(ngModel)]="account.email"
-										/>
+                    <div *ngIf="f.submitted && mobile.invalid" class="invalid-feedback">
+                      <div *ngIf="mobile.errors.required">Telefon Bimbit Wajib Diisi</div>
+                    </div>
 									</div>
 								</div>
 							</div>
@@ -97,82 +121,223 @@
 							<div class="row">
 								<div class="col-lg-6">
 									<div class="form-group">
-										<label for="exampleFormControlInput1">Jawatan</label>
+										<label>Jawatan</label>
 										<input
 											class="form-control"
-											name="position"
+											name="jawatan"
 											type="text"
 											placeholder="Jawatan"
-											[(ngModel)]="account.position"
+											[(ngModel)]="getProfile.pengguna.jawatan"
+                      #position="ngModel"
+                      [ngClass]="{ 'is-invalid': f.submitted && position.invalid }"
+                      required
 										/>
+                    <div *ngIf="f.submitted && position.invalid" class="invalid-feedback">
+                      <div *ngIf="position.errors.required">Jawatan Wajib Diisi</div>
+                    </div>
 									</div>
 								</div>
-							</div>
-							<h5 class="mt-2">Maklumat Bekerja</h5>
-							<hr />
-							<div class="row">
-								<div class="col-lg-6">
-									<div class="form-group">
-										<label for="exampleFormControlInput1">Kementerian</label>
-										<input
-											class="form-control"
-											name="minisry"
-											type="text"
-											placeholder="Kementerian"
-											[(ngModel)]="account.ministry"
-										/>
-									</div>
-								</div>
-
-								<div class="col-lg-6">
-									<div class="form-group">
-										<label for="exampleFormControlInput1">Agensi</label>
-										<input
-											class="form-control"
-											name="agency"
-											type="text"
-											placeholder="Agensi"
-											[(ngModel)]="account.agency"
-										/>
-									</div>
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-lg-6">
-									<div class="form-group">
-										<label for="exampleFormControlInput1">Telefon Pejabat</label>
-										<input
-											class="form-control"
-											name="no_tel1"
-											type="text"
-											placeholder="Telefon Pejabat"
-											[(ngModel)]="account.tel_1"
-										/>
-									</div>
-								</div>
-
-								<div class="col-lg-6">
-									<div class="form-group">
-										<label for="exampleFormControlInput1">Fax</label>
-										<input
-											class="form-control"
-											name="fax"
-											type="text"
-											placeholder="Fax"
-											[(ngModel)]="account.fax"
-										/>
-									</div>
-								</div>
-							</div>
-
-							<div class="row justify-content-end">
-								<button class="btn btn-light mr-2" type="button" [routerLink]="['/app/muka-halaman']">
-									Kembali
-								</button>
-								<button class="btn btn-primary" type="button">Simpan</button>
 							</div>
 						</div>
+					</div>
+          <hr />
+
+          <h6>Maklumat Agensi</h6>
+					<div class="row">
+            <div class="col-lg-6">
+							<div class="form-group">
+								<label>Agensi</label>
+								<ng-select
+                  [items]="agencies"
+                  bindLabel="nama_agensi"
+                  placeholder="Sila Pilih"
+                  class="js-example-placeholder-multiple"
+                  name="nama_agensi"
+                  (change)="setKementerian()"
+                  [(ngModel)]="agensi"
+                  #namaAgensi="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && namaAgensi.invalid }"
+                  required
+                ></ng-select>
+                <div *ngIf="f.submitted && namaAgensi.invalid" class="invalid-feedback">
+                  <div *ngIf="namaAgensi.errors.required">Agensi Wajib Diisi</div>
+                </div>
+							</div>
+						</div>
+
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label>Kementerian</label>
+                <select
+                  class="form-control"
+                  name="id_kementerian"
+                  [(ngModel)]="getProfile.pengguna.id_kementerian"
+                  disabled
+                >
+                  <option [ngValue]="undefined" disabled>Sila Pilih</option>
+                  <option *ngFor="let ministry of ministries" value="{{ministry.id}}">
+                    {{ministry.nama_kementerian}}
+                  </option>
+                </select>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="form-group">
+							  <label>Telefon Pejabat</label>
+								<input
+									class="form-control"
+									name="telefon_pejabat"
+									type="text"
+									placeholder="Telefon Pejabat"
+									[(ngModel)]="getProfile.pengguna.telefon_pejabat"
+                  #noTel="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && noTel.invalid }"
+                  oninput="this.value=this.value.replace(/\D+/g, '');"
+                  minlength="9"
+                  maxlength="15"
+                  required
+								/>
+                <div *ngIf="f.submitted && noTel.invalid" class="invalid-feedback">
+                  <div *ngIf="noTel.errors.required">Telefon Pejabat Wajib Diisi</div>
+                </div>
+							</div>
+						</div>
+
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label>Fax</label>
+								<input
+									class="form-control"
+									name="fax"
+									type="text"
+									placeholder="Fax"
+									[(ngModel)]="getProfile.pengguna.fax"
+                  #noFax="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && noFax.invalid }"
+                  oninput="this.value=this.value.replace(/\D+/g, '');"
+                  minlength="9"
+                  maxlength="15"
+                  required
+								/>
+                <div *ngIf="f.submitted && noFax.invalid" class="invalid-feedback">
+                  <div *ngIf="noFax.errors.required">Fax Wajib Diisi</div>
+                </div>
+							</div>
+						</div>
+					</div>
+
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>Alamat 1</label>
+                <input
+									class="form-control"
+									name="alamat_1"
+									type="text"
+									placeholder="Alamat 1"
+									[(ngModel)]="getProfile.pengguna.alamat_1"
+                  #add1="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && add1.invalid }"
+                  required
+								/>
+                <div *ngIf="f.submitted && add1.invalid" class="invalid-feedback">
+                  <div *ngIf="add1.errors.required">Alamat 1 Agensi Wajib Diisi</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>Alamat 2</label>
+                <input
+									class="form-control"
+									name="alamat_2"
+									type="text"
+									placeholder="Alamat 2"
+									[(ngModel)]="getProfile.pengguna.alamat_2"
+                  #add2="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && add2.invalid }"
+                  required
+							  />
+                <div *ngIf="f.submitted && add2.invalid" class="invalid-feedback">
+                  <div *ngIf="add2.errors.required">Alamat 2 Agensi Wajib Diisi</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>Poskod</label>
+                <input
+									class="form-control"
+									name="poskod"
+									type="text"
+									placeholder="Poskod"
+									[(ngModel)]="getProfile.pengguna.poskod"
+                  #postcode="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && postcode.invalid }"
+                  oninput="this.value=this.value.replace(/\D+/g, '');"
+                  minlength="5"
+                  maxlength="5"
+                  required
+								/>
+                <div *ngIf="f.submitted && postcode.invalid" class="invalid-feedback">
+                  <div *ngIf="postcode.errors.required">Poskod Wajib Diisi</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>Daerah</label>
+                <ng-select
+                  [items]="districts"
+                  bindLabel="nama_daerah"
+                  placeholder="Sila Pilih"
+                  class="js-example-placeholder-multiple"
+                  name="nama_daerah"
+                  (change)="setNegeri()"
+                  [(ngModel)]="daerahAgensi"
+                  #namaDaerah="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && namaDaerah.invalid }"
+                  required
+                ></ng-select>
+                <div *ngIf="f.submitted && namaDaerah.invalid" class="invalid-feedback">
+                  <div *ngIf="namaDaerah.errors.required">Daerah Wajib Diisi</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>Negeri</label>
+                <select
+                  class="form-control"
+                  name="id_negeri"
+                  [(ngModel)]="getProfile.pengguna.id_negeri"
+                  disabled
+                >
+                  <option [ngValue]="undefined" disabled>Sila Pilih</option>
+                  <option *ngFor="let state of states" value="{{state.id}}">
+                    {{state.nama_negeri}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+					<div class="row justify-content-end mr-1">
+						<button class="btn btn-light mr-2" type="button" [routerLink]="['/app/muka-halaman']">
+							Kembali
+						</button>
+						<button class="btn btn-primary" type="button" (click)="save()">Simpan</button>
 					</div>
 				</form>
 			</div>

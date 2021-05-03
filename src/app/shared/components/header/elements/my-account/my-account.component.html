@@ -1,11 +1,17 @@
 <div class="media profile-media" (click)="toggleMessageBox()">
-	<img class="b-r-10" src="assets/images/dashboard/profile.jpg" alt="" />
+	<div>
+		<img class="b-r-10" src="/assets/images/other-images/default-image.jpg" style="height: 37px; width: 37px" alt="profile-image" />
+	</div>
 	<div class="media-body">
-		<span>{{name}}</span>
-		<p class="mb-0 font-roboto">
-			{{role | uppercase}}
-			<i class="middle fa fa-angle-down"></i>
-		</p>
+		<div >
+      <span>{{name}}</span>
+    </div>
+		<div >
+      <p class="mb-0 font-roboto">
+        {{emel | uppercase}}
+        <i class="middle fa fa-angle-down"></i>
+      </p>
+    </div>
 	</div>
 </div>
 <ul class="profile-dropdown onhover-show-div" [class.active]="openMessageBox">
