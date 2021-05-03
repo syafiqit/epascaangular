@@ -7654,6 +7654,119 @@ export class SessionServiceProxy {
     }
 
     /**
+     * Get current login info
+     * @return Success
+     */
+    getProfil(): Observable<GetProfilDto> {
+        let url_ = this.baseUrl + "/api/session/getProfil";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetProfil(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetProfil(<any>response_);
+                } catch (e) {
+                    return <Observable<GetProfilDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetProfilDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetProfil(response: HttpResponseBase): Observable<GetProfilDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetProfilDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetProfilDto>(<any>null);
+    }
+
+    /**
+     * Update profil pengguna
+     * @param body Edit Profil Input
+     * @return Success
+     */
+    updateProfil(body: UpdateProfilDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/session/updateProfil";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateProfil(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateProfil(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdateProfil(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
      * Update kata laluan pengguna
      * @param body Change Password Input
      * @return Success
@@ -7918,6 +8031,63 @@ export class UserServiceProxy {
             }));
         }
         return _observableOf<GetUserForEditDto>(<any>null);
+    }
+
+    /**
+     * Create Pengguna
+     * @param body Create or edit object
+     * @return Success
+     */
+    create(body: CreatePenggunaDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/user/create";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreate(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreate(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreate(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
     }
 
     /**
@@ -15938,6 +16108,298 @@ export interface IChangePasswordDto {
     kata_laluan_lama: string;
     kata_laluan_baru: string;
     ulang_kata_laluan_baru: string;
+}
+
+export class GetProfilDto implements IGetProfilDto {
+    pengguna!: PenggunaProfilDto;
+    daerah!: string;
+    negeri!: string;
+    peranan!: string;
+    kementerian!: string;
+    agensi!: string;
+
+    constructor(data?: IGetProfilDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.pengguna = _data["pengguna"] ? PenggunaProfilDto.fromJS(_data["pengguna"]) : <any>undefined;
+            this.daerah = _data["daerah"];
+            this.negeri = _data["negeri"];
+            this.peranan = _data["peranan"];
+            this.kementerian = _data["kementerian"];
+            this.agensi = _data["agensi"];
+        }
+    }
+
+    static fromJS(data: any): GetProfilDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetProfilDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["pengguna"] = this.pengguna ? this.pengguna.toJSON() : <any>undefined;
+        data["daerah"] = this.daerah;
+        data["negeri"] = this.negeri;
+        data["peranan"] = this.peranan;
+        data["kementerian"] = this.kementerian;
+        data["agensi"] = this.agensi;
+        return data; 
+    }
+}
+
+export interface IGetProfilDto {
+    pengguna: PenggunaProfilDto;
+    daerah: string;
+    negeri: string;
+    peranan: string;
+    kementerian: string;
+    agensi: string;
+}
+
+export class PenggunaProfilDto implements IPenggunaProfilDto {
+    id!: number;
+    nama!: string;
+    id_kementerian!: number;
+    id_agensi!: number;
+    no_kp!: string;
+    jawatan!: string;
+    alamat_1!: string;
+    alamat_2!: string;
+    telefon_pejabat!: string;
+    telefon_bimbit!: string;
+    fax!: string;
+    emel!: string;
+    kata_laluan!: string;
+    id_peranan!: number;
+    poskod!: string;
+    id_daerah!: number;
+    id_negeri!: number;
+
+    constructor(data?: IPenggunaProfilDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.nama = _data["nama"];
+            this.id_kementerian = _data["id_kementerian"];
+            this.id_agensi = _data["id_agensi"];
+            this.no_kp = _data["no_kp"];
+            this.jawatan = _data["jawatan"];
+            this.alamat_1 = _data["alamat_1"];
+            this.alamat_2 = _data["alamat_2"];
+            this.telefon_pejabat = _data["telefon_pejabat"];
+            this.telefon_bimbit = _data["telefon_bimbit"];
+            this.fax = _data["fax"];
+            this.emel = _data["emel"];
+            this.kata_laluan = _data["kata_laluan"];
+            this.id_peranan = _data["id_peranan"];
+            this.poskod = _data["poskod"];
+            this.id_daerah = _data["id_daerah"];
+            this.id_negeri = _data["id_negeri"];
+        }
+    }
+
+    static fromJS(data: any): PenggunaProfilDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PenggunaProfilDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["nama"] = this.nama;
+        data["id_kementerian"] = this.id_kementerian;
+        data["id_agensi"] = this.id_agensi;
+        data["no_kp"] = this.no_kp;
+        data["jawatan"] = this.jawatan;
+        data["alamat_1"] = this.alamat_1;
+        data["alamat_2"] = this.alamat_2;
+        data["telefon_pejabat"] = this.telefon_pejabat;
+        data["telefon_bimbit"] = this.telefon_bimbit;
+        data["fax"] = this.fax;
+        data["emel"] = this.emel;
+        data["kata_laluan"] = this.kata_laluan;
+        data["id_peranan"] = this.id_peranan;
+        data["poskod"] = this.poskod;
+        data["id_daerah"] = this.id_daerah;
+        data["id_negeri"] = this.id_negeri;
+        return data; 
+    }
+}
+
+export interface IPenggunaProfilDto {
+    id: number;
+    nama: string;
+    id_kementerian: number;
+    id_agensi: number;
+    no_kp: string;
+    jawatan: string;
+    alamat_1: string;
+    alamat_2: string;
+    telefon_pejabat: string;
+    telefon_bimbit: string;
+    fax: string;
+    emel: string;
+    kata_laluan: string;
+    id_peranan: number;
+    poskod: string;
+    id_daerah: number;
+    id_negeri: number;
+}
+
+export class UpdateProfilDto implements IUpdateProfilDto {
+    pengguna!: PenggunaProfilDto;
+
+    constructor(data?: IUpdateProfilDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.pengguna = _data["pengguna"] ? PenggunaProfilDto.fromJS(_data["pengguna"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): UpdateProfilDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateProfilDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["pengguna"] = this.pengguna ? this.pengguna.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IUpdateProfilDto {
+    pengguna: PenggunaProfilDto;
+}
+
+export class CreatePenggunaDto implements ICreatePenggunaDto {
+    id!: number;
+    nama!: string;
+    id_kementerian!: number;
+    id_agensi!: number;
+    no_kp!: string;
+    jawatan!: string;
+    alamat1!: string;
+    alamat2!: string;
+    telefon_pejabat!: string;
+    telefon_bimbit!: string;
+    fax!: string;
+    emel!: string;
+    kata_laluan!: string;
+    id_peranan!: number;
+    poskod!: string;
+    id_daerah!: number;
+    id_negeri!: number;
+
+    constructor(data?: ICreatePenggunaDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.nama = _data["nama"];
+            this.id_kementerian = _data["id_kementerian"];
+            this.id_agensi = _data["id_agensi"];
+            this.no_kp = _data["no_kp"];
+            this.jawatan = _data["jawatan"];
+            this.alamat1 = _data["alamat1"];
+            this.alamat2 = _data["alamat2"];
+            this.telefon_pejabat = _data["telefon_pejabat"];
+            this.telefon_bimbit = _data["telefon_bimbit"];
+            this.fax = _data["fax"];
+            this.emel = _data["emel"];
+            this.kata_laluan = _data["kata_laluan"];
+            this.id_peranan = _data["id_peranan"];
+            this.poskod = _data["poskod"];
+            this.id_daerah = _data["id_daerah"];
+            this.id_negeri = _data["id_negeri"];
+        }
+    }
+
+    static fromJS(data: any): CreatePenggunaDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreatePenggunaDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["nama"] = this.nama;
+        data["id_kementerian"] = this.id_kementerian;
+        data["id_agensi"] = this.id_agensi;
+        data["no_kp"] = this.no_kp;
+        data["jawatan"] = this.jawatan;
+        data["alamat1"] = this.alamat1;
+        data["alamat2"] = this.alamat2;
+        data["telefon_pejabat"] = this.telefon_pejabat;
+        data["telefon_bimbit"] = this.telefon_bimbit;
+        data["fax"] = this.fax;
+        data["emel"] = this.emel;
+        data["kata_laluan"] = this.kata_laluan;
+        data["id_peranan"] = this.id_peranan;
+        data["poskod"] = this.poskod;
+        data["id_daerah"] = this.id_daerah;
+        data["id_negeri"] = this.id_negeri;
+        return data; 
+    }
+}
+
+export interface ICreatePenggunaDto {
+    id: number;
+    nama: string;
+    id_kementerian: number;
+    id_agensi: number;
+    no_kp: string;
+    jawatan: string;
+    alamat1: string;
+    alamat2: string;
+    telefon_pejabat: string;
+    telefon_bimbit: string;
+    fax: string;
+    emel: string;
+    kata_laluan: string;
+    id_peranan: number;
+    poskod: string;
+    id_daerah: number;
+    id_negeri: number;
 }
 
 export class EditUserDto implements IEditUserDto {
