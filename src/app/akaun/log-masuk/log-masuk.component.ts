@@ -37,7 +37,7 @@ export class LogMasukComponent implements OnInit {
 					location.href = '/app/muka-halaman';
     },
     () => {
-      Swal.fire('', 'Email/Kata Laluan Anda Salah, Sila Cuba Lagi', 'error');
+      Swal.fire('', 'No K.P/Kata Laluan Anda Salah, Sila Cuba Lagi', 'error');
     }
     );
   }
