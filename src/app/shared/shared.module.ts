@@ -36,6 +36,8 @@ import { NavService } from './services/nav.service';
 import * as ApiServiceProxies from './proxy/service-proxies';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './services/interceptor.service';
+import { ButtonBusyDirective } from './directives/button-busy.directive';
+
 
 const NSWAG = [
 	ApiServiceProxies.RefAgamaServiceProxy,
@@ -65,7 +67,8 @@ const NSWAG = [
 	ApiServiceProxies.RefWarganegaraServiceProxy,
 	ApiServiceProxies.RefHubunganServiceProxy,
   ApiServiceProxies.AuthServiceProxy,
-  ApiServiceProxies.SessionServiceProxy
+  ApiServiceProxies.SessionServiceProxy,
+  ApiServiceProxies.UserServiceProxy
 ];
 
 @NgModule({
@@ -81,6 +84,7 @@ const NSWAG = [
 		DisableKeyPressDirective,
 		OnlyAlphabetsDirective,
 		OnlyNumbersDirective,
+    ButtonBusyDirective,
 		BusyIfDirective,
 		LoaderComponent,
 		TapToTopComponent,
@@ -120,7 +124,8 @@ const NSWAG = [
 		DisableKeyPressDirective,
 		OnlyAlphabetsDirective,
 		OnlyNumbersDirective,
-		BusyIfDirective
+		BusyIfDirective,
+    ButtonBusyDirective
 	]
 })
 export class SharedModule {}
