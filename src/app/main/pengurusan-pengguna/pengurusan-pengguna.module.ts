@@ -7,6 +7,8 @@ import { PaginatorModule } from 'primeng/paginator';
 import { PengurusanPenggunaRoutingModule } from './pengurusan-pengguna-routing.module';
 import { PengurusanPenggunaComponent } from '../pengurusan-pengguna/pengurusan-pengguna.component';
 import { TambahEditPengurusanPenggunaComponent } from '../pengurusan-pengguna/tambah-edit-pengurusan-pengguna/tambah-edit-pengurusan-pengguna.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+
 
 @NgModule({
 	imports: [
@@ -15,7 +17,8 @@ import { TambahEditPengurusanPenggunaComponent } from '../pengurusan-pengguna/ta
 		PengurusanPenggunaRoutingModule,
 		NgxDatatableModule,
 		TableModule,
-		PaginatorModule
+		PaginatorModule,
+    NgSelectModule
 	],
 	declarations: [PengurusanPenggunaComponent, TambahEditPengurusanPenggunaComponent]
 })

@@ -3,32 +3,42 @@
 	<div class="container-fluid">
 		<div class="card card-custom gutter-b">
 			<div class="card-body">
-				<div class="row justify-content-end mb-2">
-					<button
-						class="btn btn-primary"
-						type="button"
-						[routerLink]="['/app/pengguna/tambah-edit-pengurusan-pengguna']"
-					>
-						<i class="fa fa-plus mr-2"></i>
-						Tambah
-					</button>
-				</div>
-				<div class="row mb-2">
-					<input type="text" class="form-control" placeholder="Carian..." />
-				</div>
+        <div class="row" style="margin-bottom: 4px">
+          <div class="col-7" style="text-align: left; padding: 0">
+            <form class="form-inline">
+              <div class="form-group">
+                <div class="faq-form">
+                  <input class="form-control"
+                         type="text"
+                         style="width:480px"
+                         placeholder="Carian...">
+                  <i class="search-icon" data-feather="search"></i>
+                </div>
+              </div>
+              <button type="button"
+                      class="btn btn-primary"
+                      (click)="isCollapsed = !isCollapsed"
+                      [attr.aria-expanded]="!isCollapsed"
+                      aria-controls="collapseExample"
+                      title="Carian Lanjut"
+                      style="font-weight:500; margin-left:-5px">
+                <i class="fa fa-filter"></i>
+              </button>
+            </form>
+          </div>
+          <div class="col-5" style="text-align: right; padding: 0">
+              <div>
+                <button [routerLink]="['/app/pengguna/tambah-edit-pengurusan-pengguna']"
+                        class="btn btn-primary ml-2"
+                        style="font-weight: 500">
+                  <i class="fa fa-plus mr-2"></i>
+                  Tambah
+                </button>
+              </div>
+          </div>
+        </div>
 				<div class="row mb-2">
 					<div class="col-lg-12">
-						<div class="row">
-							<button
-								type="button"
-								class="btn btn-xs btn-outline-primary"
-								(click)="isCollapsed = !isCollapsed"
-								[attr.aria-expanded]="!isCollapsed"
-								aria-controls="collapseExample"
-							>
-								Carian Lanjut
-							</button>
-						</div>
 						<div class="row" [ngbCollapse]="!isCollapsed">
 							<div class="col-lg-12">
 								<div class="card mb-0">
@@ -92,17 +102,17 @@
 				</div>
 				<div class="row align-items-center">
 					<!--<Primeng-TurboTable-Start>-->
-					<div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+					<div class="primeng-datatable-container">
 						<p-table
 							#dataTable
 							styleClass="p-datatable-striped"
-							sortMode="multiple"
 							[resizableColumns]="true"
 							(onLazyLoad)="getUser($event)"
 							[value]="primengTableHelper.records"
 							rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
 							[paginator]="false"
 							[lazy]="true"
+              [loading]="primengTableHelper.isLoading"
 							[scrollable]="true"
 							ScrollWidth="100%"
 							[responsive]="primengTableHelper.isResponsive"
@@ -111,25 +121,21 @@
 							<ng-template pTemplate="header">
 								<tr>
 									<th style="width: 130px">Tindakan</th>
-									<th style="width: 100px" pSortableColumn="id_pengguna">
-										ID Pengguna
-										<p-sortIcon field="id_pengguna"></p-sortIcon>
+									<th style="width: 100px" pSortableColumn="nama">
+										Nama
+										<p-sortIcon field="nama"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="nama_pengguna">
-										Nama Pengguna
-										<p-sortIcon field="nama_pengguna"></p-sortIcon>
-									</th>
-									<th style="width: 130px" pSortableColumn="agensi">
+									<th style="width: 130px" pSortableColumn="nama_agensi">
 										Agensi
-										<p-sortIcon field="agensi"></p-sortIcon>
+										<p-sortIcon field="nama_agensi"></p-sortIcon>
 									</th>
-									<th style="width: 100px" pSortableColumn="peranan">
+									<th style="width: 130px" pSortableColumn="peranan">
 										Peranan
 										<p-sortIcon field="peranan"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="login_terakhir">
-										Login Terakhir
-										<p-sortIcon field="login_terakhir"></p-sortIcon>
+									<th style="width: 130px" pSortableColumn="status_pengguna">
+										Status
+										<p-sortIcon field="jawatan_pengguna"></p-sortIcon>
 									</th>
 								</tr>
 							</ng-template>
@@ -151,32 +157,47 @@
 												<button
 													class="dropdown-item"
 													[routerLink]="['/app/pengguna/tambah-edit-pengurusan-pengguna']"
+                          [queryParams]="{id: record.id}"
 												>
 													Lihat
+												</button>
+                        <button
+                          *ngIf="record.status_pengguna == 1"
+													class="dropdown-item"
+													(click)="approveConfirmation(record.id)"
+												>
+													Sahkan
 												</button>
 												<button class="dropdown-item">Padam</button>
 											</div>
 										</div>
 									</td>
 									<td style="width: 100px">
-										<span class="p-column-title">ID Pengguna</span>
-										{{record.userID}}
-									</td>
-									<td style="width: 130px">
-										<span class="p-column-title">Nama Pengguna</span>
-										{{record.userName}}
+										<span class="p-column-title">Nama</span>
+										{{record.nama}}
 									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">Agensi</span>
-										{{record.agency}}
-									</td>
-									<td style="width: 100px">
-										<span class="p-column-title">Peranan</span>
-										{{record.userRole}}
+										{{record.nama_agensi}}
 									</td>
 									<td style="width: 130px">
-										<span class="p-column-title">Login Terakhir</span>
-										{{record.lastLog}}
+										<span class="p-column-title">Peranan</span>
+										{{record.peranan}}
+									</td>
+									<td style="width: 130px">
+										<span class="p-column-title">Status</span>
+										<div *ngIf="record.status_pengguna == 1">
+                      <label>Permohonan</label>
+                    </div>
+                    <div *ngIf="record.status_pengguna == 2">
+                      <label>Berdaftar</label>
+                    </div>
+                    <div *ngIf="record.status_pengguna == 3">
+                      <label>Tidak Aktif</label>
+                    </div>
+                    <div *ngIf="record.status_pengguna == 4">
+                      <label>Ditolak</label>
+                    </div>
 									</td>
 								</tr>
 							</ng-template>
