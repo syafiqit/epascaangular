@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { AuthChangePasswordDto, AuthServiceProxy } from 'src/app/shared/proxy/service-proxies';
+declare let require;
+const Swal = require('sweetalert2');
 
 @Component({
 	selector: 'app-tukar-kata-laluan',
@@ -20,11 +22,16 @@ export class TukarKataLaluanComponent implements OnInit {
 
   save(){
     this.loading = true;
-    this._authService.changePassword(this.input).pipe(finalize(()=>{
+      if (this.input.kata_laluan_baru === this.input.ulang_kata_laluan_baru) {
+      this._authService.changePassword(this.input).pipe(finalize(()=>{
+        this.loading = false;
+      })).subscribe(e=>{
+        location.href = 'akaun/log-masuk';
+      });
+    }else {
+			Swal.fire('', 'Kata Laluan Dan Ulang Kata Laluan Tidak Sama ', 'error');
       this.loading = false;
-    })).subscribe(e=>{
-      location.href = 'akaun/log-masuk';
-    });
+		}
   }
 
   showPassword() {
