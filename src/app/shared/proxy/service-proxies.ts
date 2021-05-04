@@ -16282,7 +16282,6 @@ export class GetProfilDto implements IGetProfilDto {
     peranan!: string;
     kementerian!: string;
     agensi!: string;
-    gambar!: string;
 
     constructor(data?: IGetProfilDto) {
         if (data) {
@@ -16301,7 +16300,6 @@ export class GetProfilDto implements IGetProfilDto {
             this.peranan = _data["peranan"];
             this.kementerian = _data["kementerian"];
             this.agensi = _data["agensi"];
-            this.gambar = _data["gambar"];
         }
     }
 
@@ -16320,7 +16318,6 @@ export class GetProfilDto implements IGetProfilDto {
         data["peranan"] = this.peranan;
         data["kementerian"] = this.kementerian;
         data["agensi"] = this.agensi;
-        data["gambar"] = this.gambar;
         return data; 
     }
 }
@@ -16332,7 +16329,6 @@ export interface IGetProfilDto {
     peranan: string;
     kementerian: string;
     agensi: string;
-    gambar: string;
 }
 
 export class OutputGambarProfil implements IOutputGambarProfil {
@@ -16389,6 +16385,7 @@ export class PenggunaProfilDto implements IPenggunaProfilDto {
     poskod!: string;
     id_daerah!: number;
     id_negeri!: number;
+    gambar!: string;
 
     constructor(data?: IPenggunaProfilDto) {
         if (data) {
@@ -16418,6 +16415,7 @@ export class PenggunaProfilDto implements IPenggunaProfilDto {
             this.poskod = _data["poskod"];
             this.id_daerah = _data["id_daerah"];
             this.id_negeri = _data["id_negeri"];
+            this.gambar = _data["gambar"];
         }
     }
 
@@ -16447,6 +16445,7 @@ export class PenggunaProfilDto implements IPenggunaProfilDto {
         data["poskod"] = this.poskod;
         data["id_daerah"] = this.id_daerah;
         data["id_negeri"] = this.id_negeri;
+        data["gambar"] = this.gambar;
         return data; 
     }
 }
@@ -16469,6 +16468,7 @@ export interface IPenggunaProfilDto {
     poskod: string;
     id_daerah: number;
     id_negeri: number;
+    gambar: string;
 }
 
 export class UpdateProfilDto implements IUpdateProfilDto {
@@ -16625,6 +16625,8 @@ export class EditUserDto implements IEditUserDto {
     poskod!: string;
     id_daerah!: number;
     id_negeri!: number;
+    nama_daerah!: string;
+    nama_negeri!: string;
 
     constructor(data?: IEditUserDto) {
         if (data) {
@@ -16654,6 +16656,8 @@ export class EditUserDto implements IEditUserDto {
             this.poskod = _data["poskod"];
             this.id_daerah = _data["id_daerah"];
             this.id_negeri = _data["id_negeri"];
+            this.nama_daerah = _data["nama_daerah"];
+            this.nama_negeri = _data["nama_negeri"];
         }
     }
 
@@ -16683,6 +16687,8 @@ export class EditUserDto implements IEditUserDto {
         data["poskod"] = this.poskod;
         data["id_daerah"] = this.id_daerah;
         data["id_negeri"] = this.id_negeri;
+        data["nama_daerah"] = this.nama_daerah;
+        data["nama_negeri"] = this.nama_negeri;
         return data; 
     }
 }
@@ -16705,31 +16711,12 @@ export interface IEditUserDto {
     poskod: string;
     id_daerah: number;
     id_negeri: number;
+    nama_daerah: string;
+    nama_negeri: string;
 }
 
 export class GetUserForEditDto implements IGetUserForEditDto {
-    id!: number;
-    nama!: string;
-    id_agensi!: number;
-    id_kementerian!: number;
-    jawatan!: string;
-    id_peranan!: number;
-    status_pengguna!: number;
-    nama_agensi!: string;
-    nama_kementerian!: string;
-    peranan!: string;
-    no_kp!: string;
-    alamat_1!: string;
-    alamat_2!: string;
-    telefon_pejabat!: string;
-    telefon_bimbit!: string;
-    fax!: string;
-    emel!: string;
-    poskod!: string;
-    id_daerah!: number;
-    id_negeri!: number;
-    nama_daerah!: string;
-    nama_negeri!: string;
+    pengguna!: EditUserDto;
 
     constructor(data?: IGetUserForEditDto) {
         if (data) {
@@ -16742,28 +16729,7 @@ export class GetUserForEditDto implements IGetUserForEditDto {
 
     init(_data?: any) {
         if (_data) {
-            this.id = _data["id"];
-            this.nama = _data["nama"];
-            this.id_agensi = _data["id_agensi"];
-            this.id_kementerian = _data["id_kementerian"];
-            this.jawatan = _data["jawatan"];
-            this.id_peranan = _data["id_peranan"];
-            this.status_pengguna = _data["status_pengguna"];
-            this.nama_agensi = _data["nama_agensi"];
-            this.nama_kementerian = _data["nama_kementerian"];
-            this.peranan = _data["peranan"];
-            this.no_kp = _data["no_kp"];
-            this.alamat_1 = _data["alamat_1"];
-            this.alamat_2 = _data["alamat_2"];
-            this.telefon_pejabat = _data["telefon_pejabat"];
-            this.telefon_bimbit = _data["telefon_bimbit"];
-            this.fax = _data["fax"];
-            this.emel = _data["emel"];
-            this.poskod = _data["poskod"];
-            this.id_daerah = _data["id_daerah"];
-            this.id_negeri = _data["id_negeri"];
-            this.nama_daerah = _data["nama_daerah"];
-            this.nama_negeri = _data["nama_negeri"];
+            this.pengguna = _data["pengguna"] ? EditUserDto.fromJS(_data["pengguna"]) : <any>undefined;
         }
     }
 
@@ -16776,55 +16742,13 @@ export class GetUserForEditDto implements IGetUserForEditDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["nama"] = this.nama;
-        data["id_agensi"] = this.id_agensi;
-        data["id_kementerian"] = this.id_kementerian;
-        data["jawatan"] = this.jawatan;
-        data["id_peranan"] = this.id_peranan;
-        data["status_pengguna"] = this.status_pengguna;
-        data["nama_agensi"] = this.nama_agensi;
-        data["nama_kementerian"] = this.nama_kementerian;
-        data["peranan"] = this.peranan;
-        data["no_kp"] = this.no_kp;
-        data["alamat_1"] = this.alamat_1;
-        data["alamat_2"] = this.alamat_2;
-        data["telefon_pejabat"] = this.telefon_pejabat;
-        data["telefon_bimbit"] = this.telefon_bimbit;
-        data["fax"] = this.fax;
-        data["emel"] = this.emel;
-        data["poskod"] = this.poskod;
-        data["id_daerah"] = this.id_daerah;
-        data["id_negeri"] = this.id_negeri;
-        data["nama_daerah"] = this.nama_daerah;
-        data["nama_negeri"] = this.nama_negeri;
+        data["pengguna"] = this.pengguna ? this.pengguna.toJSON() : <any>undefined;
         return data; 
     }
 }
 
 export interface IGetUserForEditDto {
-    id: number;
-    nama: string;
-    id_agensi: number;
-    id_kementerian: number;
-    jawatan: string;
-    id_peranan: number;
-    status_pengguna: number;
-    nama_agensi: string;
-    nama_kementerian: string;
-    peranan: string;
-    no_kp: string;
-    alamat_1: string;
-    alamat_2: string;
-    telefon_pejabat: string;
-    telefon_bimbit: string;
-    fax: string;
-    emel: string;
-    poskod: string;
-    id_daerah: number;
-    id_negeri: number;
-    nama_daerah: string;
-    nama_negeri: string;
+    pengguna: EditUserDto;
 }
 
 export class GetUserForViewDto implements IGetUserForViewDto {
