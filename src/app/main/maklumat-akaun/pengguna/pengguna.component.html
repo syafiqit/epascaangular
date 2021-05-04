@@ -8,9 +8,25 @@
 					<div class="row">
 						<div class="col-lg-4">
 							<form [formGroup]="secondFormGroup">
-								<div class="card shadow shadow-showcase">
+                <div class="card shadow shadow-showcase" *ngIf="getProfile.pengguna.gambar">
 									<div class="product-box">
-										<div class="product-img">
+										<div class="product-img image-center">
+											<img class="img-fluid" [src]="getProfile.pengguna.gambar" alt="profile-image" />
+                      <div class="product-hover">
+                        <ngx-dropzone (change)="onSelect($event)">
+                          <ngx-dropzone-label>Kemaskini Gambar</ngx-dropzone-label>
+                        </ngx-dropzone>
+                      </div>
+                      <div *ngFor="let f of files" [file]="f">
+                        <label>{{ f.name }}</label>
+                      </div>
+										</div>
+									</div>
+								</div>
+
+								<div class="card shadow shadow-showcase" *ngIf="!getProfile.pengguna.gambar">
+									<div class="product-box">
+										<div class="product-img image-center">
 											<img class="img-fluid" src="/assets/images/other-images/default-image.jpg" alt="profile-image" />
 											<div class="product-hover">
 												<ngx-dropzone (change)="onSelect($event)">
