@@ -77,8 +77,6 @@ export class TambahEditPengurusanPenggunaComponent implements AfterViewInit {
 		} else {
 			this._userServiceProxy.getUserForEdit(this.idPengguna).subscribe((result) => {
 				this.pengguna = result;
-        console.log(this.idPengguna);
-        console.log(result);
 			});
 		}
   }

@@ -6,6 +6,7 @@ import { AccountRouteGuard } from '../shared/guards/account-route-guard';
 import { LogMasukComponent } from './log-masuk/log-masuk.component';
 import { LupaKataLaluanComponent } from './lupa-kata-laluan/lupa-kata-laluan.component';
 import { TukarKataLaluanComponent } from './tukar-kata-laluan/tukar-kata-laluan.component';
+import { ResetKataLaluanComponent } from './reset-kata-laluan/reset-kata-laluan.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,8 @@ const routes: Routes = [
 			{ path: 'log-masuk', component: LogMasukComponent, canActivate: [AccountRouteGuard] },
 			{ path: 'lupa-katalaluan', component: LupaKataLaluanComponent, canActivate: [AccountRouteGuard] },
 			{ path: 'daftar', component: DaftarAkaunComponent, canActivate: [AccountRouteGuard] },
-			{ path: 'tukar-katalaluan', component: TukarKataLaluanComponent, canActivate: [AccountRouteGuard] }
+      { path: 'reset', component: ResetKataLaluanComponent, canActivate: [AccountRouteGuard] },
+			{ path: 'tukar', component: TukarKataLaluanComponent}
 		]
 	}
 ];

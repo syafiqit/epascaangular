@@ -9,6 +9,7 @@ import { TukarKataLaluanComponent } from '../akaun/tukar-kata-laluan/tukar-kata-
 import { SharedModule } from '../shared/shared.module';
 import { AccountRouteGuard } from '../shared/guards/account-route-guard';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ResetKataLaluanComponent } from './reset-kata-laluan/reset-kata-laluan.component';
 
 @NgModule({
 	declarations: [
@@ -16,7 +17,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 		LogMasukComponent,
 		LupaKataLaluanComponent,
 		DaftarAkaunComponent,
-		TukarKataLaluanComponent
+		TukarKataLaluanComponent,
+		ResetKataLaluanComponent
 	],
 	imports: [CommonModule, SharedModule, AkaunRoutingModule, NgSelectModule],
 	providers: [AccountRouteGuard]

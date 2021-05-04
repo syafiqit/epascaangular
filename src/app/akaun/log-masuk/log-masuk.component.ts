@@ -27,19 +27,28 @@ export class LogMasukComponent implements OnInit {
 	}
 
 	userlogin() {
-    this._authServiceProxy.login(this.login).pipe(
-      finalize(() => {
-        this.loading = false;
-      })
-    ).subscribe(result => {
-      const validity = new Date(new Date().getTime() + (result.expires_in + 28800) * 1000);
+    this.loading = true;
+		this._authServiceProxy
+			.login(this.login)
+			.pipe(
+				finalize(() => {
+					this.loading = false;
+				})
+			)
+			.subscribe(
+				(result) => {
+					const validity = new Date(new Date().getTime() + (result.expires_in + 28800) * 1000);
 					this._cookieService.set('token', result.access_token, validity, '/');
-					location.href = '/app/muka-halaman';
-    },
-    () => {
-      Swal.fire('', 'No K.P/Kata Laluan Anda Salah, Sila Cuba Lagi', 'error');
-    }
-    );
+					this.redirect(result.tukar_kata_laluan);
+				},
+				() => {
+				  Swal.fire('', 'Email/Kata Laluan Anda Salah, Sila Cuba Lagi', 'error');
+				}
+			);
+	}
+
+  redirect(changePassword: boolean){
+    changePassword == true ? location.href = '/akaun/tukar' : location.href = '/' ;
   }
 
 }

@@ -46,7 +46,7 @@
 				<label class="text-muted" for="checkbox1">Ingatkan Kata Laluan?</label>
 			</div>
 			<a class="link" [routerLink]="'/akaun/lupa-katalaluan'">Lupa Kata Laluan?</a>
-			<button class="btn btn-primary btn-block" type="submit">Log Masuk</button>
+			<button class="btn btn-primary btn-block" type="submit" [buttonBusy]="loading">Log Masuk</button>
 		</div>
     <p class="mt-4 mb-0">
 			Tiada Akaun?
