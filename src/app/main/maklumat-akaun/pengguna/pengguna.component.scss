@@ -1,0 +1,16 @@
+.image-center{
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+  align-items:center;
+};
+
+ngx-dropzone{
+  height: 50px;
+  width: 200px
+};
+
+img{
+  height: 230px;
+  width: 200px;
+};

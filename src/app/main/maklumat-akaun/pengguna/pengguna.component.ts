@@ -18,7 +18,7 @@ const Swal = require('sweetalert2');
 @Component({
 	selector: 'app-pengguna',
 	templateUrl: './pengguna.component.html',
-	styles: ['ngx-dropzone{ height: 50px; width: 200px }','img{ height: 100%; width: 100%; }']
+  styleUrls: ['./pengguna.component.scss']
 })
 export class PenggunaComponent implements OnInit {
 
