@@ -40,7 +40,6 @@ export class LogMasukComponent implements OnInit {
 					const validity = new Date(new Date().getTime() + (result.expires_in + 28800) * 1000);
 					this._cookieService.set('token', result.access_token, validity, '/');
 					this.redirect(result.tukar_kata_laluan);
-          console.log(result.tukar_kata_laluan);
 				},
 				() => {
 				  Swal.fire('', 'Email/Kata Laluan Anda Salah, Sila Cuba Lagi', 'error');
