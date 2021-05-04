@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {
@@ -10,13 +11,14 @@ import {
   SessionServiceProxy,
   UpdateProfilDto
 } from 'src/app/shared/proxy/service-proxies';
+import { environment } from 'src/environments/environment';
 declare let require;
 const Swal = require('sweetalert2');
 
 @Component({
 	selector: 'app-pengguna',
 	templateUrl: './pengguna.component.html',
-	styles: ['ngx-dropzone{ height: 50px; width: 200px }','img{ height: 200px; }']
+	styles: ['ngx-dropzone{ height: 50px; width: 200px }','img{ height: 100%; width: 100%; }']
 })
 export class PenggunaComponent implements OnInit {
 
@@ -26,6 +28,8 @@ export class PenggunaComponent implements OnInit {
   secondFormGroup: FormGroup;
 	files: File[] = [];
 	hasImage: number;
+  url: string;
+	serverUrl = environment.apiUrl + '/api/session/uploadGambarProfil';
 
   ministries: any;
   agencies: any;
@@ -42,7 +46,8 @@ export class PenggunaComponent implements OnInit {
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
     private _refDaerahServiceProxy: RefDaerahServiceProxy,
     private _refNegeriServiceProxy: RefNegeriServiceProxy,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private httpClient: HttpClient
   ) {
     this.getProfile = new GetProfilDto();
     this.getProfile.pengguna = new PenggunaProfilDto();
@@ -124,5 +129,13 @@ export class PenggunaComponent implements OnInit {
 				location.reload();
 			});
 		});
+    const formData = new FormData();
+		if (this.files.length > 0) {
+			formData.append('image', this.secondFormGroup.get('profile').value);
+
+			this.httpClient.post<any>(this.serverUrl, formData).subscribe(
+				(res) => (this.url = res.url)
+			);
+		}
 	}
 }
