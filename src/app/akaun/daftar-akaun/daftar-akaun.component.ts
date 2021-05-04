@@ -24,9 +24,6 @@ export class DaftarAkaunComponent implements OnInit {
   districts: any;
   states: any;
 	saving = false;
-  show = false;
-  showNew = false;
-  ulang_kata_laluan: any;
   agensi: any;
   daerah: any;
 
@@ -46,14 +43,6 @@ export class DaftarAkaunComponent implements OnInit {
     this.getDaerah();
     this.getNegeri();
   }
-
-  showPassword() {
-		this.show = !this.show;
-	}
-
-	showNewPassword() {
-		this.showNew = !this.showNew;
-	}
 
   getPeranan(filter?) {
 		this._refPerananServiceProxy.getRefPerananForDropdown(filter).subscribe((result) => {
@@ -97,8 +86,7 @@ export class DaftarAkaunComponent implements OnInit {
 
 	save() {
 		this.saving = true;
-		if (this.register.kata_laluan == this.ulang_kata_laluan) {
-      this._authServiceProxy
+		this._authServiceProxy
 			.registerUser(this.register)
 			.pipe()
 			.subscribe((result) => {
@@ -106,9 +94,5 @@ export class DaftarAkaunComponent implements OnInit {
 					location.href = '/akaun/log-masuk';
 				});
 			});
-    }
-    else {
-      Swal.fire('', 'Kata Laluan Dan Ulang Kata Laluan Tidak Sepadan ', 'error');
-    }
 	}
 }
