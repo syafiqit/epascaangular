@@ -21,6 +21,8 @@ const Swal = require('sweetalert2');
 	providers: [NgbModalConfig, NgbModal]
 })
 export class BantuanMangsaComponent implements OnInit {
+  @Input() public idMangsa: number;
+
 	@ViewChild('ihsanDataTable', { static: true }) ihsanDataTable: Table;
 	@ViewChild('ihsanPaginator', { static: true }) ihsanPaginator: Paginator;
 

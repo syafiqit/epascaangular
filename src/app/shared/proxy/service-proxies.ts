@@ -11419,7 +11419,7 @@ export class CreateOrEditMangsaAirDto implements ICreateOrEditMangsaAirDto {
     id_mangsa!: number;
     nama!: string;
     no_kp!: string;
-    hubungan!: string;
+    id_hubungan!: number;
     umur!: number;
     pekerjaan!: string;
     status_mangsa_air!: number;
@@ -11445,7 +11445,7 @@ export class CreateOrEditMangsaAirDto implements ICreateOrEditMangsaAirDto {
             this.id_mangsa = _data["id_mangsa"];
             this.nama = _data["nama"];
             this.no_kp = _data["no_kp"];
-            this.hubungan = _data["hubungan"];
+            this.id_hubungan = _data["id_hubungan"];
             this.umur = _data["umur"];
             this.pekerjaan = _data["pekerjaan"];
             this.status_mangsa_air = _data["status_mangsa_air"];
@@ -11471,7 +11471,7 @@ export class CreateOrEditMangsaAirDto implements ICreateOrEditMangsaAirDto {
         data["id_mangsa"] = this.id_mangsa;
         data["nama"] = this.nama;
         data["no_kp"] = this.no_kp;
-        data["hubungan"] = this.hubungan;
+        data["id_hubungan"] = this.id_hubungan;
         data["umur"] = this.umur;
         data["pekerjaan"] = this.pekerjaan;
         data["status_mangsa_air"] = this.status_mangsa_air;
@@ -11490,7 +11490,7 @@ export interface ICreateOrEditMangsaAirDto {
     id_mangsa: number;
     nama: string;
     no_kp: string;
-    hubungan: string;
+    id_hubungan: number;
     umur: number;
     pekerjaan: string;
     status_mangsa_air: number;
@@ -11543,7 +11543,7 @@ export class GetMangsaAirForViewDto implements IGetMangsaAirForViewDto {
     id_mangsa!: number;
     nama!: string;
     no_kp!: string;
-    hubungan!: string;
+    id_hubungan!: number;
     umur!: number;
     pekerjaan!: string;
     status_mangsa_air!: number;
@@ -11569,7 +11569,7 @@ export class GetMangsaAirForViewDto implements IGetMangsaAirForViewDto {
             this.id_mangsa = _data["id_mangsa"];
             this.nama = _data["nama"];
             this.no_kp = _data["no_kp"];
-            this.hubungan = _data["hubungan"];
+            this.id_hubungan = _data["id_hubungan"];
             this.umur = _data["umur"];
             this.pekerjaan = _data["pekerjaan"];
             this.status_mangsa_air = _data["status_mangsa_air"];
@@ -11595,7 +11595,7 @@ export class GetMangsaAirForViewDto implements IGetMangsaAirForViewDto {
         data["id_mangsa"] = this.id_mangsa;
         data["nama"] = this.nama;
         data["no_kp"] = this.no_kp;
-        data["hubungan"] = this.hubungan;
+        data["id_hubungan"] = this.id_hubungan;
         data["umur"] = this.umur;
         data["pekerjaan"] = this.pekerjaan;
         data["status_mangsa_air"] = this.status_mangsa_air;
@@ -11614,7 +11614,7 @@ export interface IGetMangsaAirForViewDto {
     id_mangsa: number;
     nama: string;
     no_kp: string;
-    hubungan: string;
+    id_hubungan: number;
     umur: number;
     pekerjaan: string;
     status_mangsa_air: number;

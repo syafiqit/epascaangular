@@ -26,6 +26,7 @@ export class PengurusanMangsaComponent implements OnInit {
 
 	rows = [
 		{
+      id: 1,
 			kp: '999999-11-2222',
 			nameKir: 'Asmah Binti Haji Ameran',
 			waterBill: '1',
@@ -35,6 +36,7 @@ export class PengurusanMangsaComponent implements OnInit {
 			verification: 'Sudah'
 		},
 		{
+      id: 2,
 			kp: '999999-11-2222',
 			nameKir: 'Asmah Binti Haji Ameran',
 			waterBill: '1',
@@ -44,6 +46,7 @@ export class PengurusanMangsaComponent implements OnInit {
 			verification: 'Sudah'
 		},
 		{
+      id: 3,
 			kp: '999999-11-2222',
 			nameKir: 'Asmah Binti Haji Ameran',
 			waterBill: '1',
@@ -53,6 +56,7 @@ export class PengurusanMangsaComponent implements OnInit {
 			verification: 'Sudah'
 		},
 		{
+      id: 4,
 			kp: '999999-11-2222',
 			nameKir: 'Asmah Binti Haji Ameran',
 			waterBill: '1',
@@ -62,6 +66,7 @@ export class PengurusanMangsaComponent implements OnInit {
 			verification: 'Sudah'
 		},
 		{
+      id: 5,
 			kp: '999999-11-2222',
 			nameKir: 'Asmah Binti Haji Ameran',
 			waterBill: '1',
@@ -71,6 +76,7 @@ export class PengurusanMangsaComponent implements OnInit {
 			verification: 'Sudah'
 		},
 		{
+      id: 6,
 			kp: '999999-11-2222',
 			nameKir: 'Asmah Binti Haji Ameran',
 			waterBill: '1',
@@ -80,6 +86,7 @@ export class PengurusanMangsaComponent implements OnInit {
 			verification: 'Sudah'
 		},
 		{
+      id: 7,
 			kp: '999999-11-2222',
 			nameKir: 'Asmah Binti Haji Ameran',
 			waterBill: '1',
@@ -89,6 +96,7 @@ export class PengurusanMangsaComponent implements OnInit {
 			verification: 'Sudah'
 		},
 		{
+      id: 8,
 			kp: '999999-11-2222',
 			nameKir: 'Asmah Binti Haji Ameran',
 			waterBill: '1',
@@ -98,6 +106,7 @@ export class PengurusanMangsaComponent implements OnInit {
 			verification: 'Sudah'
 		},
 		{
+      id: 9,
 			kp: '999999-11-2222',
 			nameKir: 'Asmah Binti Haji Ameran',
 			waterBill: '1',
@@ -107,6 +116,7 @@ export class PengurusanMangsaComponent implements OnInit {
 			verification: 'Sudah'
 		},
 		{
+      id: 10,
 			kp: '999999-11-2222',
 			nameKir: 'Asmah Binti Haji Ameran',
 			waterBill: '1',
@@ -116,6 +126,7 @@ export class PengurusanMangsaComponent implements OnInit {
 			verification: 'Sudah'
 		},
 		{
+      id: 11,
 			kp: '999999-11-2222',
 			nameKir: 'Asmah Binti Haji Ameran',
 			waterBill: '1',
@@ -125,6 +136,7 @@ export class PengurusanMangsaComponent implements OnInit {
 			verification: 'Sudah'
 		},
 		{
+      id: 12,
 			kp: '999999-11-2222',
 			nameKir: 'Asmah Binti Haji Ameran',
 			waterBill: '1',

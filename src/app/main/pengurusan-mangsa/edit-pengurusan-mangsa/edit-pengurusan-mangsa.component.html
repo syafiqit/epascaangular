@@ -8,29 +8,29 @@
 		<div class="col-sm-12">
 			<div class="card">
 				<div class="card-body">
-					<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+					<ul ngbNav #nav="ngbNav" [(activeId)]="tabId" class="nav-tabs">
 						<li [ngbNavItem]="1">
 							<a ngbNavLink>Maklumat Mangsa</a>
 							<ng-template ngbNavContent>
-								<app-maklumat-mangsa></app-maklumat-mangsa>
+								<app-maklumat-mangsa [idMangsa]="id"></app-maklumat-mangsa>
 							</ng-template>
 						</li>
 						<li [ngbNavItem]="2">
 							<a ngbNavLink>Isi Rumah</a>
 							<ng-template ngbNavContent>
-								<app-ahli-rumah-mangsa></app-ahli-rumah-mangsa>
+								<app-ahli-rumah-mangsa [idMangsa]="id"></app-ahli-rumah-mangsa>
 							</ng-template>
 						</li>
 						<li [ngbNavItem]="3">
 							<a ngbNavLink>Maklumat Bencana</a>
 							<ng-template ngbNavContent>
-								<app-mangsa-bencana></app-mangsa-bencana>
+								<app-mangsa-bencana [idMangsa]="id"></app-mangsa-bencana>
 							</ng-template>
 						</li>
 						<li [ngbNavItem]="4">
 							<a ngbNavLink>Bantuan Mangsa</a>
 							<ng-template ngbNavContent>
-								<app-bantuan-mangsa></app-bantuan-mangsa>
+								<app-bantuan-mangsa [idMangsa]="id"></app-bantuan-mangsa>
 							</ng-template>
 						</li>
 					</ul>
