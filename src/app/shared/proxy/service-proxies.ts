@@ -380,6 +380,2835 @@ export class AuthServiceProxy {
 }
 
 @Injectable()
+export class MangsaAirServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Get all MangsaAir
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaAirForViewDto> {
+        let url_ = this.baseUrl + "/api/mangsaAir/getAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfMangsaAirForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfMangsaAirForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfMangsaAirForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfMangsaAirForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfMangsaAirForViewDto>(<any>null);
+    }
+
+    /**
+     * Get all MangsaAir by Id Mangsa
+     * @param idMangsa Filter by Id Mangsa
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAllByIdMangsa(idMangsa: string, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaAirForViewDto> {
+        let url_ = this.baseUrl + "/api/mangsaAir/getAllByIdMangsa?";
+        if (idMangsa === undefined || idMangsa === null)
+            throw new Error("The parameter 'idMangsa' must be defined and cannot be null.");
+        else
+            url_ += "idMangsa=" + encodeURIComponent("" + idMangsa) + "&";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllByIdMangsa(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllByIdMangsa(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfMangsaAirForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfMangsaAirForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllByIdMangsa(response: HttpResponseBase): Observable<PagedResultDtoOfMangsaAirForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfMangsaAirForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfMangsaAirForViewDto>(<any>null);
+    }
+
+    /**
+     * Get MangsaAir by id
+     * @param id MangsaAir Id
+     * @return Success
+     */
+    getMangsaAirForEdit(id: number): Observable<GetMangsaAirForEditDto> {
+        let url_ = this.baseUrl + "/api/mangsaAir/getMangsaAirForEdit?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetMangsaAirForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetMangsaAirForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetMangsaAirForEditDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetMangsaAirForEditDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetMangsaAirForEdit(response: HttpResponseBase): Observable<GetMangsaAirForEditDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetMangsaAirForEditDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetMangsaAirForEditDto>(<any>null);
+    }
+
+    /**
+     * Create or edit MangsaAir
+     * @param body Create or edit object
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditMangsaAirDto): Observable<CreateOrEditMangsaAirDto> {
+        let url_ = this.baseUrl + "/api/mangsaAir/createOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<CreateOrEditMangsaAirDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CreateOrEditMangsaAirDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditMangsaAirDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CreateOrEditMangsaAirDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<CreateOrEditMangsaAirDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class MangsaAntarabangsaServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Get all MangsaAntarabangsa
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaAntarabangsaForViewDto> {
+        let url_ = this.baseUrl + "/api/mangsaAntarabangsa/getAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfMangsaAntarabangsaForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfMangsaAntarabangsaForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfMangsaAntarabangsaForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfMangsaAntarabangsaForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfMangsaAntarabangsaForViewDto>(<any>null);
+    }
+
+    /**
+     * Get all MangsaAntarabangsa by Id Mangsa
+     * @param idMangsa Filter by Id Mangsa
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAllByIdMangsa(idMangsa: string, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaAntarabangsaForViewDto> {
+        let url_ = this.baseUrl + "/api/mangsaAntarabangsa/getAllByIdMangsa?";
+        if (idMangsa === undefined || idMangsa === null)
+            throw new Error("The parameter 'idMangsa' must be defined and cannot be null.");
+        else
+            url_ += "idMangsa=" + encodeURIComponent("" + idMangsa) + "&";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllByIdMangsa(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllByIdMangsa(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfMangsaAntarabangsaForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfMangsaAntarabangsaForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllByIdMangsa(response: HttpResponseBase): Observable<PagedResultDtoOfMangsaAntarabangsaForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfMangsaAntarabangsaForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfMangsaAntarabangsaForViewDto>(<any>null);
+    }
+
+    /**
+     * Get MangsaAntarabangsa by id
+     * @param id MangsaAntarabangsa Id
+     * @return Success
+     */
+    getMangsaAntarabangsaForEdit(id: number): Observable<GetMangsaAntarabangsaForEditDto> {
+        let url_ = this.baseUrl + "/api/mangsaAntarabangsa/getMangsaAntarabangsaForEdit?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetMangsaAntarabangsaForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetMangsaAntarabangsaForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetMangsaAntarabangsaForEditDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetMangsaAntarabangsaForEditDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetMangsaAntarabangsaForEdit(response: HttpResponseBase): Observable<GetMangsaAntarabangsaForEditDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetMangsaAntarabangsaForEditDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetMangsaAntarabangsaForEditDto>(<any>null);
+    }
+
+    /**
+     * Create or edit MangsaAntarabangsa
+     * @param body Create or edit object
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditMangsaAntarabangsaDto): Observable<CreateOrEditMangsaAntarabangsaDto> {
+        let url_ = this.baseUrl + "/api/mangsaAntarabangsa/createOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<CreateOrEditMangsaAntarabangsaDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CreateOrEditMangsaAntarabangsaDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditMangsaAntarabangsaDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CreateOrEditMangsaAntarabangsaDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<CreateOrEditMangsaAntarabangsaDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class MangsaBantuanServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Get all MangsaBantuan
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaBantuanForViewDto> {
+        let url_ = this.baseUrl + "/api/mangsaBantuan/getAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfMangsaBantuanForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfMangsaBantuanForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfMangsaBantuanForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfMangsaBantuanForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfMangsaBantuanForViewDto>(<any>null);
+    }
+
+    /**
+     * Get all MangsaBantuan by Id Mangsa
+     * @param idMangsa Filter by Id Mangsa
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAllByIdMangsa(idMangsa: string, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaBantuanForViewDto> {
+        let url_ = this.baseUrl + "/api/mangsaBantuan/getAllByIdMangsa?";
+        if (idMangsa === undefined || idMangsa === null)
+            throw new Error("The parameter 'idMangsa' must be defined and cannot be null.");
+        else
+            url_ += "idMangsa=" + encodeURIComponent("" + idMangsa) + "&";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllByIdMangsa(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllByIdMangsa(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfMangsaBantuanForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfMangsaBantuanForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllByIdMangsa(response: HttpResponseBase): Observable<PagedResultDtoOfMangsaBantuanForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfMangsaBantuanForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfMangsaBantuanForViewDto>(<any>null);
+    }
+
+    /**
+     * Get MangsaBantuan by id
+     * @param id MangsaBantuan Id
+     * @return Success
+     */
+    getMangsaBantuanForEdit(id: number): Observable<GetMangsaBantuanForEditDto> {
+        let url_ = this.baseUrl + "/api/mangsaBantuan/getMangsaBantuanForEdit?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetMangsaBantuanForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetMangsaBantuanForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetMangsaBantuanForEditDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetMangsaBantuanForEditDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetMangsaBantuanForEdit(response: HttpResponseBase): Observable<GetMangsaBantuanForEditDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetMangsaBantuanForEditDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetMangsaBantuanForEditDto>(<any>null);
+    }
+
+    /**
+     * Create or edit MangsaBantuan
+     * @param body Create or edit object
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditMangsaBantuanDto): Observable<CreateOrEditMangsaBantuanDto> {
+        let url_ = this.baseUrl + "/api/mangsaBantuan/createOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<CreateOrEditMangsaBantuanDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CreateOrEditMangsaBantuanDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditMangsaBantuanDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CreateOrEditMangsaBantuanDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<CreateOrEditMangsaBantuanDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class MangsaBencanaServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Get all MangsaBencana
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaBencanaForViewDto> {
+        let url_ = this.baseUrl + "/api/mangsaBencana/getAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfMangsaBencanaForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfMangsaBencanaForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfMangsaBencanaForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfMangsaBencanaForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfMangsaBencanaForViewDto>(<any>null);
+    }
+
+    /**
+     * Get all MangsaBencana by Id Mangsa
+     * @param idMangsa Filter by Id Mangsa
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAllByIdMangsa(idMangsa: string, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaBencanaForViewDto> {
+        let url_ = this.baseUrl + "/api/mangsaBencana/getAllByIdMangsa?";
+        if (idMangsa === undefined || idMangsa === null)
+            throw new Error("The parameter 'idMangsa' must be defined and cannot be null.");
+        else
+            url_ += "idMangsa=" + encodeURIComponent("" + idMangsa) + "&";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllByIdMangsa(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllByIdMangsa(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfMangsaBencanaForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfMangsaBencanaForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllByIdMangsa(response: HttpResponseBase): Observable<PagedResultDtoOfMangsaBencanaForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfMangsaBencanaForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfMangsaBencanaForViewDto>(<any>null);
+    }
+
+    /**
+     * Get MangsaBencana by id
+     * @param id MangsaBencana Id
+     * @return Success
+     */
+    getMangsaBencanaForEdit(id: number): Observable<GetMangsaBencanaForEditDto> {
+        let url_ = this.baseUrl + "/api/mangsaBencana/getMangsaBencanaForEdit?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetMangsaBencanaForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetMangsaBencanaForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetMangsaBencanaForEditDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetMangsaBencanaForEditDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetMangsaBencanaForEdit(response: HttpResponseBase): Observable<GetMangsaBencanaForEditDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetMangsaBencanaForEditDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetMangsaBencanaForEditDto>(<any>null);
+    }
+
+    /**
+     * Create or edit MangsaBencana
+     * @param body Create or edit object
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditMangsaBencanaDto): Observable<CreateOrEditMangsaBencanaDto> {
+        let url_ = this.baseUrl + "/api/mangsaBencana/createOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<CreateOrEditMangsaBencanaDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CreateOrEditMangsaBencanaDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditMangsaBencanaDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CreateOrEditMangsaBencanaDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<CreateOrEditMangsaBencanaDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class MangsaKerosakanServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Get all MangsaKerosakan
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaKerosakanForViewDto> {
+        let url_ = this.baseUrl + "/api/mangsaKerosakan/getAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfMangsaKerosakanForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfMangsaKerosakanForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfMangsaKerosakanForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfMangsaKerosakanForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfMangsaKerosakanForViewDto>(<any>null);
+    }
+
+    /**
+     * Get all MangsaKerosakan by Id Mangsa
+     * @param idMangsa Filter by Id Mangsa
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAllByIdMangsa(idMangsa: string, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaKerosakanForViewDto> {
+        let url_ = this.baseUrl + "/api/mangsaKerosakan/getAllByIdMangsa?";
+        if (idMangsa === undefined || idMangsa === null)
+            throw new Error("The parameter 'idMangsa' must be defined and cannot be null.");
+        else
+            url_ += "idMangsa=" + encodeURIComponent("" + idMangsa) + "&";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllByIdMangsa(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllByIdMangsa(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfMangsaKerosakanForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfMangsaKerosakanForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllByIdMangsa(response: HttpResponseBase): Observable<PagedResultDtoOfMangsaKerosakanForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfMangsaKerosakanForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfMangsaKerosakanForViewDto>(<any>null);
+    }
+
+    /**
+     * Get MangsaKerosakan by id
+     * @param id MangsaKerosakan Id
+     * @return Success
+     */
+    getMangsaKerosakanForEdit(id: number): Observable<GetMangsaKerosakanForEditDto> {
+        let url_ = this.baseUrl + "/api/mangsaKerosakan/getMangsaKerosakanForEdit?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetMangsaKerosakanForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetMangsaKerosakanForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetMangsaKerosakanForEditDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetMangsaKerosakanForEditDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetMangsaKerosakanForEdit(response: HttpResponseBase): Observable<GetMangsaKerosakanForEditDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetMangsaKerosakanForEditDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetMangsaKerosakanForEditDto>(<any>null);
+    }
+
+    /**
+     * Create or edit MangsaKerosakan
+     * @param body Create or edit object
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditMangsaKerosakanDto): Observable<CreateOrEditMangsaKerosakanDto> {
+        let url_ = this.baseUrl + "/api/mangsaKerosakan/createOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<CreateOrEditMangsaKerosakanDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CreateOrEditMangsaKerosakanDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditMangsaKerosakanDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CreateOrEditMangsaKerosakanDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<CreateOrEditMangsaKerosakanDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class MangsaPertanianServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Get all MangsaPertanian
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaPertanianForViewDto> {
+        let url_ = this.baseUrl + "/api/mangsaPertanian/getAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfMangsaPertanianForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfMangsaPertanianForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfMangsaPertanianForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfMangsaPertanianForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfMangsaPertanianForViewDto>(<any>null);
+    }
+
+    /**
+     * Get all MangsaPertanian by Id Mangsa
+     * @param idMangsa Filter by Id Mangsa
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAllByIdMangsa(idMangsa: string, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaPertanianForViewDto> {
+        let url_ = this.baseUrl + "/api/mangsaPertanian/getAllByIdMangsa?";
+        if (idMangsa === undefined || idMangsa === null)
+            throw new Error("The parameter 'idMangsa' must be defined and cannot be null.");
+        else
+            url_ += "idMangsa=" + encodeURIComponent("" + idMangsa) + "&";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllByIdMangsa(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllByIdMangsa(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfMangsaPertanianForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfMangsaPertanianForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllByIdMangsa(response: HttpResponseBase): Observable<PagedResultDtoOfMangsaPertanianForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfMangsaPertanianForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfMangsaPertanianForViewDto>(<any>null);
+    }
+
+    /**
+     * Get MangsaPertanian by id
+     * @param id MangsaPertanian Id
+     * @return Success
+     */
+    getMangsaPertanianForEdit(id: number): Observable<GetMangsaPertanianForEditDto> {
+        let url_ = this.baseUrl + "/api/mangsaPertanian/getMangsaPertanianForEdit?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetMangsaPertanianForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetMangsaPertanianForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetMangsaPertanianForEditDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetMangsaPertanianForEditDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetMangsaPertanianForEdit(response: HttpResponseBase): Observable<GetMangsaPertanianForEditDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetMangsaPertanianForEditDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetMangsaPertanianForEditDto>(<any>null);
+    }
+
+    /**
+     * Create or edit MangsaPertanian
+     * @param body Create or edit object
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditMangsaPertanianDto): Observable<CreateOrEditMangsaPertanianDto> {
+        let url_ = this.baseUrl + "/api/mangsaPertanian/createOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<CreateOrEditMangsaPertanianDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CreateOrEditMangsaPertanianDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditMangsaPertanianDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CreateOrEditMangsaPertanianDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<CreateOrEditMangsaPertanianDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class MangsaPinjamanServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Get all MangsaPinjaman
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaPinjamanForViewDto> {
+        let url_ = this.baseUrl + "/api/mangsaPinjaman/getAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfMangsaPinjamanForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfMangsaPinjamanForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfMangsaPinjamanForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfMangsaPinjamanForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfMangsaPinjamanForViewDto>(<any>null);
+    }
+
+    /**
+     * Get all MangsaPinjaman by Id Mangsa
+     * @param idMangsa Filter by Id Mangsa
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAllByIdMangsa(idMangsa: string, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaPinjamanForViewDto> {
+        let url_ = this.baseUrl + "/api/mangsaPinjaman/getAllByIdMangsa?";
+        if (idMangsa === undefined || idMangsa === null)
+            throw new Error("The parameter 'idMangsa' must be defined and cannot be null.");
+        else
+            url_ += "idMangsa=" + encodeURIComponent("" + idMangsa) + "&";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllByIdMangsa(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllByIdMangsa(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfMangsaPinjamanForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfMangsaPinjamanForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllByIdMangsa(response: HttpResponseBase): Observable<PagedResultDtoOfMangsaPinjamanForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfMangsaPinjamanForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfMangsaPinjamanForViewDto>(<any>null);
+    }
+
+    /**
+     * Get MangsaPinjaman by id
+     * @param id MangsaPinjaman Id
+     * @return Success
+     */
+    getMangsaPinjamanForEdit(id: number): Observable<GetMangsaPinjamanForEditDto> {
+        let url_ = this.baseUrl + "/api/mangsaPinjaman/getMangsaPinjamanForEdit?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetMangsaPinjamanForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetMangsaPinjamanForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetMangsaPinjamanForEditDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetMangsaPinjamanForEditDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetMangsaPinjamanForEdit(response: HttpResponseBase): Observable<GetMangsaPinjamanForEditDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetMangsaPinjamanForEditDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetMangsaPinjamanForEditDto>(<any>null);
+    }
+
+    /**
+     * Create or edit MangsaPinjaman
+     * @param body Create or edit object
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditMangsaPinjamanDto): Observable<CreateOrEditMangsaPinjamanDto> {
+        let url_ = this.baseUrl + "/api/mangsaPinjaman/createOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<CreateOrEditMangsaPinjamanDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CreateOrEditMangsaPinjamanDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditMangsaPinjamanDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CreateOrEditMangsaPinjamanDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<CreateOrEditMangsaPinjamanDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class MangsaRumahServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Get all MangsaRumah
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaRumahForViewDto> {
+        let url_ = this.baseUrl + "/api/mangsaRumah/getAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfMangsaRumahForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfMangsaRumahForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfMangsaRumahForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfMangsaRumahForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfMangsaRumahForViewDto>(<any>null);
+    }
+
+    /**
+     * Get all MangsaRumah by Id Mangsa
+     * @param idMangsa Filter by Id Mangsa
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAllByIdMangsa(idMangsa: string, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaRumahForViewDto> {
+        let url_ = this.baseUrl + "/api/mangsaRumah/getAllByIdMangsa?";
+        if (idMangsa === undefined || idMangsa === null)
+            throw new Error("The parameter 'idMangsa' must be defined and cannot be null.");
+        else
+            url_ += "idMangsa=" + encodeURIComponent("" + idMangsa) + "&";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllByIdMangsa(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllByIdMangsa(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfMangsaRumahForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfMangsaRumahForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllByIdMangsa(response: HttpResponseBase): Observable<PagedResultDtoOfMangsaRumahForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfMangsaRumahForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfMangsaRumahForViewDto>(<any>null);
+    }
+
+    /**
+     * Get MangsaRumah by id
+     * @param id MangsaRumah Id
+     * @return Success
+     */
+    getMangsaRumahForEdit(id: number): Observable<GetMangsaRumahForEditDto> {
+        let url_ = this.baseUrl + "/api/mangsaRumah/getMangsaRumahForEdit?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetMangsaRumahForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetMangsaRumahForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetMangsaRumahForEditDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetMangsaRumahForEditDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetMangsaRumahForEdit(response: HttpResponseBase): Observable<GetMangsaRumahForEditDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetMangsaRumahForEditDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetMangsaRumahForEditDto>(<any>null);
+    }
+
+    /**
+     * Create or edit MangsaRumah
+     * @param body Create or edit object
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditMangsaRumahDto): Observable<CreateOrEditMangsaRumahDto> {
+        let url_ = this.baseUrl + "/api/mangsaRumah/createOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<CreateOrEditMangsaRumahDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CreateOrEditMangsaRumahDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditMangsaRumahDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CreateOrEditMangsaRumahDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<CreateOrEditMangsaRumahDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class MangsaWangIhsanServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Get all MangsaWangIhsan
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaWangIhsanForViewDto> {
+        let url_ = this.baseUrl + "/api/mangsaWangIhsan/getAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfMangsaWangIhsanForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfMangsaWangIhsanForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfMangsaWangIhsanForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfMangsaWangIhsanForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfMangsaWangIhsanForViewDto>(<any>null);
+    }
+
+    /**
+     * Get all MangsaWangIhsan by Id Mangsa
+     * @param idMangsa Filter by Id Mangsa
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAllByIdMangsa(idMangsa: string, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaWangIhsanForViewDto> {
+        let url_ = this.baseUrl + "/api/mangsaWangIhsan/getAllByIdMangsa?";
+        if (idMangsa === undefined || idMangsa === null)
+            throw new Error("The parameter 'idMangsa' must be defined and cannot be null.");
+        else
+            url_ += "idMangsa=" + encodeURIComponent("" + idMangsa) + "&";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllByIdMangsa(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllByIdMangsa(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfMangsaWangIhsanForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfMangsaWangIhsanForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllByIdMangsa(response: HttpResponseBase): Observable<PagedResultDtoOfMangsaWangIhsanForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfMangsaWangIhsanForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfMangsaWangIhsanForViewDto>(<any>null);
+    }
+
+    /**
+     * Get MangsaWangIhsan by id
+     * @param id MangsaWangIhsan Id
+     * @return Success
+     */
+    getMangsaWangIhsanForEdit(id: number): Observable<GetMangsaWangIhsanForEditDto> {
+        let url_ = this.baseUrl + "/api/mangsaWangIhsan/getMangsaWangIhsanForEdit?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetMangsaWangIhsanForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetMangsaWangIhsanForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetMangsaWangIhsanForEditDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetMangsaWangIhsanForEditDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetMangsaWangIhsanForEdit(response: HttpResponseBase): Observable<GetMangsaWangIhsanForEditDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetMangsaWangIhsanForEditDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetMangsaWangIhsanForEditDto>(<any>null);
+    }
+
+    /**
+     * Create or edit MangsaWangIhsan
+     * @param body Create or edit object
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditMangsaWangIhsanDto): Observable<CreateOrEditMangsaWangIhsanDto> {
+        let url_ = this.baseUrl + "/api/mangsaWangIhsan/createOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<CreateOrEditMangsaWangIhsanDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CreateOrEditMangsaWangIhsanDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditMangsaWangIhsanDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CreateOrEditMangsaWangIhsanDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<CreateOrEditMangsaWangIhsanDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class MangsaServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Get all Mangsa
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaForViewDto> {
+        let url_ = this.baseUrl + "/api/mangsa/getAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfMangsaForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfMangsaForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfMangsaForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfMangsaForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfMangsaForViewDto>(<any>null);
+    }
+
+    /**
+     * Get Mangsa by id
+     * @param id Mangsa Id
+     * @return Success
+     */
+    getMangsaForEdit(id: number): Observable<GetMangsaForEditDto> {
+        let url_ = this.baseUrl + "/api/mangsa/getMangsaForEdit?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetMangsaForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetMangsaForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetMangsaForEditDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetMangsaForEditDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetMangsaForEdit(response: HttpResponseBase): Observable<GetMangsaForEditDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetMangsaForEditDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetMangsaForEditDto>(<any>null);
+    }
+
+    /**
+     * Create or edit Mangsa
+     * @param body Create or edit object
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditMangsaDto): Observable<CreateOrEditMangsaDto> {
+        let url_ = this.baseUrl + "/api/mangsa/createOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<CreateOrEditMangsaDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CreateOrEditMangsaDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditMangsaDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CreateOrEditMangsaDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<CreateOrEditMangsaDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class RefAgamaServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -8159,8 +10988,8 @@ export class UserServiceProxy {
      * @param body Create or edit object
      * @return Success
      */
-    createOrEdit(body: CreateOrEditPenggunaDto): Observable<void> {
-        let url_ = this.baseUrl + "/api/user/createOrEdit";
+    create(body: CreatePenggunaDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/user/create";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -8175,11 +11004,11 @@ export class UserServiceProxy {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processCreateOrEdit(response_);
+            return this.processCreate(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processCreateOrEdit(<any>response_);
+                    return this.processCreate(<any>response_);
                 } catch (e) {
                     return <Observable<void>><any>_observableThrow(e);
                 }
@@ -8188,7 +11017,7 @@ export class UserServiceProxy {
         }));
     }
 
-    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+    protected processCreate(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -8209,6 +11038,67 @@ export class UserServiceProxy {
             }));
         }
         return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * Edit User
+     * @param body Edit object
+     * @return Success
+     */
+    edit(body: EditUserDto): Observable<EditUserDto> {
+        let url_ = this.baseUrl + "/api/user/edit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<EditUserDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<EditUserDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processEdit(response: HttpResponseBase): Observable<EditUserDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = EditUserDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<EditUserDto>(<any>null);
     }
 }
 
@@ -8522,6 +11412,2730 @@ export interface IRegisterPenggunaDto {
     poskod: string;
     id_daerah: number;
     id_negeri: number;
+}
+
+export class CreateOrEditMangsaAirDto implements ICreateOrEditMangsaAirDto {
+    id!: number;
+    id_mangsa!: number;
+    nama!: string;
+    no_kp!: string;
+    id_hubungan!: number;
+    umur!: number;
+    pekerjaan!: string;
+    status_mangsa_air!: number;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_agensi!: number;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+    sebab_hapus!: string;
+
+    constructor(data?: ICreateOrEditMangsaAirDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_mangsa = _data["id_mangsa"];
+            this.nama = _data["nama"];
+            this.no_kp = _data["no_kp"];
+            this.id_hubungan = _data["id_hubungan"];
+            this.umur = _data["umur"];
+            this.pekerjaan = _data["pekerjaan"];
+            this.status_mangsa_air = _data["status_mangsa_air"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_agensi = _data["id_agensi"];
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.sebab_hapus = _data["sebab_hapus"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditMangsaAirDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditMangsaAirDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_mangsa"] = this.id_mangsa;
+        data["nama"] = this.nama;
+        data["no_kp"] = this.no_kp;
+        data["id_hubungan"] = this.id_hubungan;
+        data["umur"] = this.umur;
+        data["pekerjaan"] = this.pekerjaan;
+        data["status_mangsa_air"] = this.status_mangsa_air;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_agensi"] = this.id_agensi;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["sebab_hapus"] = this.sebab_hapus;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditMangsaAirDto {
+    id: number;
+    id_mangsa: number;
+    nama: string;
+    no_kp: string;
+    id_hubungan: number;
+    umur: number;
+    pekerjaan: string;
+    status_mangsa_air: number;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_agensi: number;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+    sebab_hapus: string;
+}
+
+export class GetMangsaAirForEditDto implements IGetMangsaAirForEditDto {
+    mangsa_air!: CreateOrEditMangsaAirDto;
+
+    constructor(data?: IGetMangsaAirForEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.mangsa_air = _data["mangsa_air"] ? CreateOrEditMangsaAirDto.fromJS(_data["mangsa_air"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetMangsaAirForEditDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetMangsaAirForEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["mangsa_air"] = this.mangsa_air ? this.mangsa_air.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetMangsaAirForEditDto {
+    mangsa_air: CreateOrEditMangsaAirDto;
+}
+
+export class GetMangsaAirForViewDto implements IGetMangsaAirForViewDto {
+    id!: number;
+    id_mangsa!: number;
+    nama!: string;
+    no_kp!: string;
+    id_hubungan!: number;
+    umur!: number;
+    pekerjaan!: string;
+    status_mangsa_air!: number;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_agensi!: number;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+    sebab_hapus!: string;
+
+    constructor(data?: IGetMangsaAirForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_mangsa = _data["id_mangsa"];
+            this.nama = _data["nama"];
+            this.no_kp = _data["no_kp"];
+            this.id_hubungan = _data["id_hubungan"];
+            this.umur = _data["umur"];
+            this.pekerjaan = _data["pekerjaan"];
+            this.status_mangsa_air = _data["status_mangsa_air"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_agensi = _data["id_agensi"];
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.sebab_hapus = _data["sebab_hapus"];
+        }
+    }
+
+    static fromJS(data: any): GetMangsaAirForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetMangsaAirForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_mangsa"] = this.id_mangsa;
+        data["nama"] = this.nama;
+        data["no_kp"] = this.no_kp;
+        data["id_hubungan"] = this.id_hubungan;
+        data["umur"] = this.umur;
+        data["pekerjaan"] = this.pekerjaan;
+        data["status_mangsa_air"] = this.status_mangsa_air;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_agensi"] = this.id_agensi;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["sebab_hapus"] = this.sebab_hapus;
+        return data; 
+    }
+}
+
+export interface IGetMangsaAirForViewDto {
+    id: number;
+    id_mangsa: number;
+    nama: string;
+    no_kp: string;
+    id_hubungan: number;
+    umur: number;
+    pekerjaan: string;
+    status_mangsa_air: number;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_agensi: number;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+    sebab_hapus: string;
+}
+
+/** MangsaAir List in Tabular model */
+export class PagedResultDtoOfMangsaAirForViewDto implements IPagedResultDtoOfMangsaAirForViewDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetMangsaAirForViewDto[];
+
+    constructor(data?: IPagedResultDtoOfMangsaAirForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetMangsaAirForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfMangsaAirForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfMangsaAirForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** MangsaAir List in Tabular model */
+export interface IPagedResultDtoOfMangsaAirForViewDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetMangsaAirForViewDto[];
+}
+
+export class CreateOrEditMangsaAntarabangsaDto implements ICreateOrEditMangsaAntarabangsaDto {
+    id!: number;
+    id_bencana!: number;
+    id_mangsa!: number;
+    negara!: string;
+    status_mangsa_antarabangsa!: number;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_agensi!: number;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+
+    constructor(data?: ICreateOrEditMangsaAntarabangsaDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_bencana = _data["id_bencana"];
+            this.id_mangsa = _data["id_mangsa"];
+            this.negara = _data["negara"];
+            this.status_mangsa_antarabangsa = _data["status_mangsa_antarabangsa"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_agensi = _data["id_agensi"];
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditMangsaAntarabangsaDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditMangsaAntarabangsaDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_bencana"] = this.id_bencana;
+        data["id_mangsa"] = this.id_mangsa;
+        data["negara"] = this.negara;
+        data["status_mangsa_antarabangsa"] = this.status_mangsa_antarabangsa;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_agensi"] = this.id_agensi;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditMangsaAntarabangsaDto {
+    id: number;
+    id_bencana: number;
+    id_mangsa: number;
+    negara: string;
+    status_mangsa_antarabangsa: number;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_agensi: number;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+}
+
+export class GetMangsaAntarabangsaForEditDto implements IGetMangsaAntarabangsaForEditDto {
+    mangsa_antarabangsa!: CreateOrEditMangsaAntarabangsaDto;
+
+    constructor(data?: IGetMangsaAntarabangsaForEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.mangsa_antarabangsa = _data["mangsa_antarabangsa"] ? CreateOrEditMangsaAntarabangsaDto.fromJS(_data["mangsa_antarabangsa"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetMangsaAntarabangsaForEditDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetMangsaAntarabangsaForEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["mangsa_antarabangsa"] = this.mangsa_antarabangsa ? this.mangsa_antarabangsa.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetMangsaAntarabangsaForEditDto {
+    mangsa_antarabangsa: CreateOrEditMangsaAntarabangsaDto;
+}
+
+export class GetMangsaAntarabangsaForViewDto implements IGetMangsaAntarabangsaForViewDto {
+    id!: number;
+    id_bencana!: number;
+    id_mangsa!: number;
+    negara!: string;
+    status_mangsa_antarabangsa!: number;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_agensi!: number;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+
+    constructor(data?: IGetMangsaAntarabangsaForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_bencana = _data["id_bencana"];
+            this.id_mangsa = _data["id_mangsa"];
+            this.negara = _data["negara"];
+            this.status_mangsa_antarabangsa = _data["status_mangsa_antarabangsa"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_agensi = _data["id_agensi"];
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetMangsaAntarabangsaForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetMangsaAntarabangsaForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_bencana"] = this.id_bencana;
+        data["id_mangsa"] = this.id_mangsa;
+        data["negara"] = this.negara;
+        data["status_mangsa_antarabangsa"] = this.status_mangsa_antarabangsa;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_agensi"] = this.id_agensi;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetMangsaAntarabangsaForViewDto {
+    id: number;
+    id_bencana: number;
+    id_mangsa: number;
+    negara: string;
+    status_mangsa_antarabangsa: number;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_agensi: number;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+}
+
+/** MangsaAntarabangsa List in Tabular model */
+export class PagedResultDtoOfMangsaAntarabangsaForViewDto implements IPagedResultDtoOfMangsaAntarabangsaForViewDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetMangsaAntarabangsaForViewDto[];
+
+    constructor(data?: IPagedResultDtoOfMangsaAntarabangsaForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetMangsaAntarabangsaForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfMangsaAntarabangsaForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfMangsaAntarabangsaForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** MangsaAntarabangsa List in Tabular model */
+export interface IPagedResultDtoOfMangsaAntarabangsaForViewDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetMangsaAntarabangsaForViewDto[];
+}
+
+export class CreateOrEditMangsaBantuanDto implements ICreateOrEditMangsaBantuanDto {
+    id!: number;
+    id_bencana!: number;
+    id_mangsa!: number;
+    id_sumber_dana!: number;
+    sumber_dana_lain!: string;
+    id_agensi_bantuan!: number;
+    status_mangsa_bantuan!: number;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_agensi!: number;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+    sebab_hapus!: string;
+
+    constructor(data?: ICreateOrEditMangsaBantuanDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_bencana = _data["id_bencana"];
+            this.id_mangsa = _data["id_mangsa"];
+            this.id_sumber_dana = _data["id_sumber_dana"];
+            this.sumber_dana_lain = _data["sumber_dana_lain"];
+            this.id_agensi_bantuan = _data["id_agensi_bantuan"];
+            this.status_mangsa_bantuan = _data["status_mangsa_bantuan"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_agensi = _data["id_agensi"];
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.sebab_hapus = _data["sebab_hapus"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditMangsaBantuanDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditMangsaBantuanDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_bencana"] = this.id_bencana;
+        data["id_mangsa"] = this.id_mangsa;
+        data["id_sumber_dana"] = this.id_sumber_dana;
+        data["sumber_dana_lain"] = this.sumber_dana_lain;
+        data["id_agensi_bantuan"] = this.id_agensi_bantuan;
+        data["status_mangsa_bantuan"] = this.status_mangsa_bantuan;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_agensi"] = this.id_agensi;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["sebab_hapus"] = this.sebab_hapus;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditMangsaBantuanDto {
+    id: number;
+    id_bencana: number;
+    id_mangsa: number;
+    id_sumber_dana: number;
+    sumber_dana_lain: string;
+    id_agensi_bantuan: number;
+    status_mangsa_bantuan: number;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_agensi: number;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+    sebab_hapus: string;
+}
+
+export class GetMangsaBantuanForEditDto implements IGetMangsaBantuanForEditDto {
+    mangsa_bantuan!: CreateOrEditMangsaBantuanDto;
+
+    constructor(data?: IGetMangsaBantuanForEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.mangsa_bantuan = _data["mangsa_bantuan"] ? CreateOrEditMangsaBantuanDto.fromJS(_data["mangsa_bantuan"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetMangsaBantuanForEditDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetMangsaBantuanForEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["mangsa_bantuan"] = this.mangsa_bantuan ? this.mangsa_bantuan.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetMangsaBantuanForEditDto {
+    mangsa_bantuan: CreateOrEditMangsaBantuanDto;
+}
+
+export class GetMangsaBantuanForViewDto implements IGetMangsaBantuanForViewDto {
+    id!: number;
+    id_bencana!: number;
+    id_mangsa!: number;
+    id_sumber_dana!: number;
+    sumber_dana_lain!: string;
+    id_agensi_bantuan!: number;
+    status_mangsa_bantuan!: number;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_agensi!: number;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+    sebab_hapus!: string;
+
+    constructor(data?: IGetMangsaBantuanForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_bencana = _data["id_bencana"];
+            this.id_mangsa = _data["id_mangsa"];
+            this.id_sumber_dana = _data["id_sumber_dana"];
+            this.sumber_dana_lain = _data["sumber_dana_lain"];
+            this.id_agensi_bantuan = _data["id_agensi_bantuan"];
+            this.status_mangsa_bantuan = _data["status_mangsa_bantuan"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_agensi = _data["id_agensi"];
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.sebab_hapus = _data["sebab_hapus"];
+        }
+    }
+
+    static fromJS(data: any): GetMangsaBantuanForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetMangsaBantuanForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_bencana"] = this.id_bencana;
+        data["id_mangsa"] = this.id_mangsa;
+        data["id_sumber_dana"] = this.id_sumber_dana;
+        data["sumber_dana_lain"] = this.sumber_dana_lain;
+        data["id_agensi_bantuan"] = this.id_agensi_bantuan;
+        data["status_mangsa_bantuan"] = this.status_mangsa_bantuan;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_agensi"] = this.id_agensi;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["sebab_hapus"] = this.sebab_hapus;
+        return data; 
+    }
+}
+
+export interface IGetMangsaBantuanForViewDto {
+    id: number;
+    id_bencana: number;
+    id_mangsa: number;
+    id_sumber_dana: number;
+    sumber_dana_lain: string;
+    id_agensi_bantuan: number;
+    status_mangsa_bantuan: number;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_agensi: number;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+    sebab_hapus: string;
+}
+
+/** MangsaBantuan List in Tabular model */
+export class PagedResultDtoOfMangsaBantuanForViewDto implements IPagedResultDtoOfMangsaBantuanForViewDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetMangsaBantuanForViewDto[];
+
+    constructor(data?: IPagedResultDtoOfMangsaBantuanForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetMangsaBantuanForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfMangsaBantuanForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfMangsaBantuanForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** MangsaBantuan List in Tabular model */
+export interface IPagedResultDtoOfMangsaBantuanForViewDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetMangsaBantuanForViewDto[];
+}
+
+export class CreateOrEditMangsaBencanaDto implements ICreateOrEditMangsaBencanaDto {
+    id!: number;
+    id_bencana!: number;
+    id_mangsa!: number;
+    id_pindah!: number;
+    nama_pusat_pemindahan!: string;
+    masalah!: string;
+    status_mangsa_bencana!: number;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+    id_agensi!: number;
+    sebab_hapus!: string;
+
+    constructor(data?: ICreateOrEditMangsaBencanaDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_bencana = _data["id_bencana"];
+            this.id_mangsa = _data["id_mangsa"];
+            this.id_pindah = _data["id_pindah"];
+            this.nama_pusat_pemindahan = _data["nama_pusat_pemindahan"];
+            this.masalah = _data["masalah"];
+            this.status_mangsa_bencana = _data["status_mangsa_bencana"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.id_agensi = _data["id_agensi"];
+            this.sebab_hapus = _data["sebab_hapus"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditMangsaBencanaDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditMangsaBencanaDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_bencana"] = this.id_bencana;
+        data["id_mangsa"] = this.id_mangsa;
+        data["id_pindah"] = this.id_pindah;
+        data["nama_pusat_pemindahan"] = this.nama_pusat_pemindahan;
+        data["masalah"] = this.masalah;
+        data["status_mangsa_bencana"] = this.status_mangsa_bencana;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["id_agensi"] = this.id_agensi;
+        data["sebab_hapus"] = this.sebab_hapus;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditMangsaBencanaDto {
+    id: number;
+    id_bencana: number;
+    id_mangsa: number;
+    id_pindah: number;
+    nama_pusat_pemindahan: string;
+    masalah: string;
+    status_mangsa_bencana: number;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+    id_agensi: number;
+    sebab_hapus: string;
+}
+
+export class GetMangsaBencanaForEditDto implements IGetMangsaBencanaForEditDto {
+    mangsa_bencana!: CreateOrEditMangsaBencanaDto;
+
+    constructor(data?: IGetMangsaBencanaForEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.mangsa_bencana = _data["mangsa_bencana"] ? CreateOrEditMangsaBencanaDto.fromJS(_data["mangsa_bencana"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetMangsaBencanaForEditDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetMangsaBencanaForEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["mangsa_bencana"] = this.mangsa_bencana ? this.mangsa_bencana.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetMangsaBencanaForEditDto {
+    mangsa_bencana: CreateOrEditMangsaBencanaDto;
+}
+
+export class GetMangsaBencanaForViewDto implements IGetMangsaBencanaForViewDto {
+    id!: number;
+    id_bencana!: number;
+    id_mangsa!: number;
+    id_pindah!: number;
+    nama_pusat_pemindahan!: string;
+    masalah!: string;
+    status_mangsa_bencana!: number;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+    id_agensi!: number;
+    sebab_hapus!: string;
+
+    constructor(data?: IGetMangsaBencanaForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_bencana = _data["id_bencana"];
+            this.id_mangsa = _data["id_mangsa"];
+            this.id_pindah = _data["id_pindah"];
+            this.nama_pusat_pemindahan = _data["nama_pusat_pemindahan"];
+            this.masalah = _data["masalah"];
+            this.status_mangsa_bencana = _data["status_mangsa_bencana"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.id_agensi = _data["id_agensi"];
+            this.sebab_hapus = _data["sebab_hapus"];
+        }
+    }
+
+    static fromJS(data: any): GetMangsaBencanaForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetMangsaBencanaForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_bencana"] = this.id_bencana;
+        data["id_mangsa"] = this.id_mangsa;
+        data["id_pindah"] = this.id_pindah;
+        data["nama_pusat_pemindahan"] = this.nama_pusat_pemindahan;
+        data["masalah"] = this.masalah;
+        data["status_mangsa_bencana"] = this.status_mangsa_bencana;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["id_agensi"] = this.id_agensi;
+        data["sebab_hapus"] = this.sebab_hapus;
+        return data; 
+    }
+}
+
+export interface IGetMangsaBencanaForViewDto {
+    id: number;
+    id_bencana: number;
+    id_mangsa: number;
+    id_pindah: number;
+    nama_pusat_pemindahan: string;
+    masalah: string;
+    status_mangsa_bencana: number;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+    id_agensi: number;
+    sebab_hapus: string;
+}
+
+/** MangsaBencana List in Tabular model */
+export class PagedResultDtoOfMangsaBencanaForViewDto implements IPagedResultDtoOfMangsaBencanaForViewDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetMangsaBencanaForViewDto[];
+
+    constructor(data?: IPagedResultDtoOfMangsaBencanaForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetMangsaBencanaForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfMangsaBencanaForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfMangsaBencanaForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** MangsaBencana List in Tabular model */
+export interface IPagedResultDtoOfMangsaBencanaForViewDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetMangsaBencanaForViewDto[];
+}
+
+export class CreateOrEditMangsaKerosakanDto implements ICreateOrEditMangsaKerosakanDto {
+    id!: number;
+    id_mangsa!: number;
+    id_mangsa_rumah!: number;
+    id_kerosakan!: number;
+    status_kerosakan!: number;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_agensi!: number;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+    sebab_hapus!: string;
+
+    constructor(data?: ICreateOrEditMangsaKerosakanDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_mangsa = _data["id_mangsa"];
+            this.id_mangsa_rumah = _data["id_mangsa_rumah"];
+            this.id_kerosakan = _data["id_kerosakan"];
+            this.status_kerosakan = _data["status_kerosakan"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_agensi = _data["id_agensi"];
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.sebab_hapus = _data["sebab_hapus"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditMangsaKerosakanDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditMangsaKerosakanDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_mangsa"] = this.id_mangsa;
+        data["id_mangsa_rumah"] = this.id_mangsa_rumah;
+        data["id_kerosakan"] = this.id_kerosakan;
+        data["status_kerosakan"] = this.status_kerosakan;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_agensi"] = this.id_agensi;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["sebab_hapus"] = this.sebab_hapus;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditMangsaKerosakanDto {
+    id: number;
+    id_mangsa: number;
+    id_mangsa_rumah: number;
+    id_kerosakan: number;
+    status_kerosakan: number;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_agensi: number;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+    sebab_hapus: string;
+}
+
+export class GetMangsaKerosakanForEditDto implements IGetMangsaKerosakanForEditDto {
+    mangsa_kerosakan!: CreateOrEditMangsaKerosakanDto;
+
+    constructor(data?: IGetMangsaKerosakanForEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.mangsa_kerosakan = _data["mangsa_kerosakan"] ? CreateOrEditMangsaKerosakanDto.fromJS(_data["mangsa_kerosakan"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetMangsaKerosakanForEditDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetMangsaKerosakanForEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["mangsa_kerosakan"] = this.mangsa_kerosakan ? this.mangsa_kerosakan.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetMangsaKerosakanForEditDto {
+    mangsa_kerosakan: CreateOrEditMangsaKerosakanDto;
+}
+
+export class GetMangsaKerosakanForViewDto implements IGetMangsaKerosakanForViewDto {
+    id!: number;
+    id_mangsa!: number;
+    id_mangsa_rumah!: number;
+    id_kerosakan!: number;
+    status_kerosakan!: number;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_agensi!: number;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+    sebab_hapus!: string;
+
+    constructor(data?: IGetMangsaKerosakanForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_mangsa = _data["id_mangsa"];
+            this.id_mangsa_rumah = _data["id_mangsa_rumah"];
+            this.id_kerosakan = _data["id_kerosakan"];
+            this.status_kerosakan = _data["status_kerosakan"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_agensi = _data["id_agensi"];
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.sebab_hapus = _data["sebab_hapus"];
+        }
+    }
+
+    static fromJS(data: any): GetMangsaKerosakanForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetMangsaKerosakanForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_mangsa"] = this.id_mangsa;
+        data["id_mangsa_rumah"] = this.id_mangsa_rumah;
+        data["id_kerosakan"] = this.id_kerosakan;
+        data["status_kerosakan"] = this.status_kerosakan;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_agensi"] = this.id_agensi;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["sebab_hapus"] = this.sebab_hapus;
+        return data; 
+    }
+}
+
+export interface IGetMangsaKerosakanForViewDto {
+    id: number;
+    id_mangsa: number;
+    id_mangsa_rumah: number;
+    id_kerosakan: number;
+    status_kerosakan: number;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_agensi: number;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+    sebab_hapus: string;
+}
+
+/** MangsaKerosakan List in Tabular model */
+export class PagedResultDtoOfMangsaKerosakanForViewDto implements IPagedResultDtoOfMangsaKerosakanForViewDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetMangsaKerosakanForViewDto[];
+
+    constructor(data?: IPagedResultDtoOfMangsaKerosakanForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetMangsaKerosakanForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfMangsaKerosakanForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfMangsaKerosakanForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** MangsaKerosakan List in Tabular model */
+export interface IPagedResultDtoOfMangsaKerosakanForViewDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetMangsaKerosakanForViewDto[];
+}
+
+export class CreateOrEditMangsaPertanianDto implements ICreateOrEditMangsaPertanianDto {
+    id!: number;
+    id_bencana!: number;
+    id_mangsa!: number;
+    id_agensi_bantuan!: number;
+    id_jenis_pertanian!: number;
+    luas!: string;
+    luas_musnah!: string;
+    bilangan!: number;
+    bilangan_rosak!: number;
+    status_mangsa_pertanian!: number;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_agensi!: number;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+
+    constructor(data?: ICreateOrEditMangsaPertanianDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_bencana = _data["id_bencana"];
+            this.id_mangsa = _data["id_mangsa"];
+            this.id_agensi_bantuan = _data["id_agensi_bantuan"];
+            this.id_jenis_pertanian = _data["id_jenis_pertanian"];
+            this.luas = _data["luas"];
+            this.luas_musnah = _data["luas_musnah"];
+            this.bilangan = _data["bilangan"];
+            this.bilangan_rosak = _data["bilangan_rosak"];
+            this.status_mangsa_pertanian = _data["status_mangsa_pertanian"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_agensi = _data["id_agensi"];
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditMangsaPertanianDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditMangsaPertanianDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_bencana"] = this.id_bencana;
+        data["id_mangsa"] = this.id_mangsa;
+        data["id_agensi_bantuan"] = this.id_agensi_bantuan;
+        data["id_jenis_pertanian"] = this.id_jenis_pertanian;
+        data["luas"] = this.luas;
+        data["luas_musnah"] = this.luas_musnah;
+        data["bilangan"] = this.bilangan;
+        data["bilangan_rosak"] = this.bilangan_rosak;
+        data["status_mangsa_pertanian"] = this.status_mangsa_pertanian;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_agensi"] = this.id_agensi;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditMangsaPertanianDto {
+    id: number;
+    id_bencana: number;
+    id_mangsa: number;
+    id_agensi_bantuan: number;
+    id_jenis_pertanian: number;
+    luas: string;
+    luas_musnah: string;
+    bilangan: number;
+    bilangan_rosak: number;
+    status_mangsa_pertanian: number;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_agensi: number;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+}
+
+export class GetMangsaPertanianForEditDto implements IGetMangsaPertanianForEditDto {
+    mangsa_pertanian!: CreateOrEditMangsaPertanianDto;
+
+    constructor(data?: IGetMangsaPertanianForEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.mangsa_pertanian = _data["mangsa_pertanian"] ? CreateOrEditMangsaPertanianDto.fromJS(_data["mangsa_pertanian"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetMangsaPertanianForEditDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetMangsaPertanianForEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["mangsa_pertanian"] = this.mangsa_pertanian ? this.mangsa_pertanian.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetMangsaPertanianForEditDto {
+    mangsa_pertanian: CreateOrEditMangsaPertanianDto;
+}
+
+export class GetMangsaPertanianForViewDto implements IGetMangsaPertanianForViewDto {
+    id!: number;
+    id_bencana!: number;
+    id_mangsa!: number;
+    id_agensi_bantuan!: number;
+    id_jenis_pertanian!: number;
+    luas!: string;
+    luas_musnah!: string;
+    bilangan!: number;
+    bilangan_rosak!: number;
+    status_mangsa_pertanian!: number;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_agensi!: number;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+
+    constructor(data?: IGetMangsaPertanianForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_bencana = _data["id_bencana"];
+            this.id_mangsa = _data["id_mangsa"];
+            this.id_agensi_bantuan = _data["id_agensi_bantuan"];
+            this.id_jenis_pertanian = _data["id_jenis_pertanian"];
+            this.luas = _data["luas"];
+            this.luas_musnah = _data["luas_musnah"];
+            this.bilangan = _data["bilangan"];
+            this.bilangan_rosak = _data["bilangan_rosak"];
+            this.status_mangsa_pertanian = _data["status_mangsa_pertanian"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_agensi = _data["id_agensi"];
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetMangsaPertanianForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetMangsaPertanianForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_bencana"] = this.id_bencana;
+        data["id_mangsa"] = this.id_mangsa;
+        data["id_agensi_bantuan"] = this.id_agensi_bantuan;
+        data["id_jenis_pertanian"] = this.id_jenis_pertanian;
+        data["luas"] = this.luas;
+        data["luas_musnah"] = this.luas_musnah;
+        data["bilangan"] = this.bilangan;
+        data["bilangan_rosak"] = this.bilangan_rosak;
+        data["status_mangsa_pertanian"] = this.status_mangsa_pertanian;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_agensi"] = this.id_agensi;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetMangsaPertanianForViewDto {
+    id: number;
+    id_bencana: number;
+    id_mangsa: number;
+    id_agensi_bantuan: number;
+    id_jenis_pertanian: number;
+    luas: string;
+    luas_musnah: string;
+    bilangan: number;
+    bilangan_rosak: number;
+    status_mangsa_pertanian: number;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_agensi: number;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+}
+
+/** MangsaPertanian List in Tabular model */
+export class PagedResultDtoOfMangsaPertanianForViewDto implements IPagedResultDtoOfMangsaPertanianForViewDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetMangsaPertanianForViewDto[];
+
+    constructor(data?: IPagedResultDtoOfMangsaPertanianForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetMangsaPertanianForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfMangsaPertanianForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfMangsaPertanianForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** MangsaPertanian List in Tabular model */
+export interface IPagedResultDtoOfMangsaPertanianForViewDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetMangsaPertanianForViewDto[];
+}
+
+export class CreateOrEditMangsaPinjamanDto implements ICreateOrEditMangsaPinjamanDto {
+    id!: number;
+    id_bencana!: number;
+    id_mangsa!: number;
+    id_sektor!: number;
+    sektor!: string;
+    jumlah_pinjaman!: number;
+    tempoh_pinjaman!: string;
+    id_sumber_dana!: number;
+    id_agensi_bantuan!: number;
+    status_mangsa_pinjaman!: number;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_agensi!: number;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+
+    constructor(data?: ICreateOrEditMangsaPinjamanDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_bencana = _data["id_bencana"];
+            this.id_mangsa = _data["id_mangsa"];
+            this.id_sektor = _data["id_sektor"];
+            this.sektor = _data["sektor"];
+            this.jumlah_pinjaman = _data["jumlah_pinjaman"];
+            this.tempoh_pinjaman = _data["tempoh_pinjaman"];
+            this.id_sumber_dana = _data["id_sumber_dana"];
+            this.id_agensi_bantuan = _data["id_agensi_bantuan"];
+            this.status_mangsa_pinjaman = _data["status_mangsa_pinjaman"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_agensi = _data["id_agensi"];
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditMangsaPinjamanDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditMangsaPinjamanDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_bencana"] = this.id_bencana;
+        data["id_mangsa"] = this.id_mangsa;
+        data["id_sektor"] = this.id_sektor;
+        data["sektor"] = this.sektor;
+        data["jumlah_pinjaman"] = this.jumlah_pinjaman;
+        data["tempoh_pinjaman"] = this.tempoh_pinjaman;
+        data["id_sumber_dana"] = this.id_sumber_dana;
+        data["id_agensi_bantuan"] = this.id_agensi_bantuan;
+        data["status_mangsa_pinjaman"] = this.status_mangsa_pinjaman;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_agensi"] = this.id_agensi;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditMangsaPinjamanDto {
+    id: number;
+    id_bencana: number;
+    id_mangsa: number;
+    id_sektor: number;
+    sektor: string;
+    jumlah_pinjaman: number;
+    tempoh_pinjaman: string;
+    id_sumber_dana: number;
+    id_agensi_bantuan: number;
+    status_mangsa_pinjaman: number;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_agensi: number;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+}
+
+export class GetMangsaPinjamanForEditDto implements IGetMangsaPinjamanForEditDto {
+    mangsa_pinjaman!: CreateOrEditMangsaPinjamanDto;
+
+    constructor(data?: IGetMangsaPinjamanForEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.mangsa_pinjaman = _data["mangsa_pinjaman"] ? CreateOrEditMangsaPinjamanDto.fromJS(_data["mangsa_pinjaman"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetMangsaPinjamanForEditDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetMangsaPinjamanForEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["mangsa_pinjaman"] = this.mangsa_pinjaman ? this.mangsa_pinjaman.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetMangsaPinjamanForEditDto {
+    mangsa_pinjaman: CreateOrEditMangsaPinjamanDto;
+}
+
+export class GetMangsaPinjamanForViewDto implements IGetMangsaPinjamanForViewDto {
+    id!: number;
+    id_bencana!: number;
+    id_mangsa!: number;
+    id_sektor!: number;
+    sektor!: string;
+    jumlah_pinjaman!: number;
+    tempoh_pinjaman!: string;
+    id_sumber_dana!: number;
+    id_agensi_bantuan!: number;
+    status_mangsa_pinjaman!: number;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_agensi!: number;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+
+    constructor(data?: IGetMangsaPinjamanForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_bencana = _data["id_bencana"];
+            this.id_mangsa = _data["id_mangsa"];
+            this.id_sektor = _data["id_sektor"];
+            this.sektor = _data["sektor"];
+            this.jumlah_pinjaman = _data["jumlah_pinjaman"];
+            this.tempoh_pinjaman = _data["tempoh_pinjaman"];
+            this.id_sumber_dana = _data["id_sumber_dana"];
+            this.id_agensi_bantuan = _data["id_agensi_bantuan"];
+            this.status_mangsa_pinjaman = _data["status_mangsa_pinjaman"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_agensi = _data["id_agensi"];
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetMangsaPinjamanForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetMangsaPinjamanForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_bencana"] = this.id_bencana;
+        data["id_mangsa"] = this.id_mangsa;
+        data["id_sektor"] = this.id_sektor;
+        data["sektor"] = this.sektor;
+        data["jumlah_pinjaman"] = this.jumlah_pinjaman;
+        data["tempoh_pinjaman"] = this.tempoh_pinjaman;
+        data["id_sumber_dana"] = this.id_sumber_dana;
+        data["id_agensi_bantuan"] = this.id_agensi_bantuan;
+        data["status_mangsa_pinjaman"] = this.status_mangsa_pinjaman;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_agensi"] = this.id_agensi;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetMangsaPinjamanForViewDto {
+    id: number;
+    id_bencana: number;
+    id_mangsa: number;
+    id_sektor: number;
+    sektor: string;
+    jumlah_pinjaman: number;
+    tempoh_pinjaman: string;
+    id_sumber_dana: number;
+    id_agensi_bantuan: number;
+    status_mangsa_pinjaman: number;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_agensi: number;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+}
+
+/** MangsaPinjaman List in Tabular model */
+export class PagedResultDtoOfMangsaPinjamanForViewDto implements IPagedResultDtoOfMangsaPinjamanForViewDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetMangsaPinjamanForViewDto[];
+
+    constructor(data?: IPagedResultDtoOfMangsaPinjamanForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetMangsaPinjamanForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfMangsaPinjamanForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfMangsaPinjamanForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** MangsaPinjaman List in Tabular model */
+export interface IPagedResultDtoOfMangsaPinjamanForViewDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetMangsaPinjamanForViewDto[];
+}
+
+export class CreateOrEditMangsaRumahDto implements ICreateOrEditMangsaRumahDto {
+    id!: number;
+    id_bencana!: number;
+    id_mangsa!: number;
+    id_jenis_bantuan!: number;
+    naik_taraf!: boolean;
+    id_jenis_rumah!: number;
+    id_jenis_penempatan!: number;
+    id_status_kerosakan!: number;
+    id_pemilik!: number;
+    id_sumber_dana!: number;
+    sumber_dana_lain!: string;
+    id_pelaksana!: number;
+    pelaksana_lain!: string;
+    kontraktor!: string;
+    no_pkk!: string;
+    peratus_kemajuan!: number;
+    id_status_kemajuan!: number;
+    geran_rumah!: string;
+    pemilik_tanah!: string;
+    id_tapak_rumah!: number;
+    status_mangsa_rumah!: number;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_agensi!: number;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+
+    constructor(data?: ICreateOrEditMangsaRumahDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_bencana = _data["id_bencana"];
+            this.id_mangsa = _data["id_mangsa"];
+            this.id_jenis_bantuan = _data["id_jenis_bantuan"];
+            this.naik_taraf = _data["naik_taraf"];
+            this.id_jenis_rumah = _data["id_jenis_rumah"];
+            this.id_jenis_penempatan = _data["id_jenis_penempatan"];
+            this.id_status_kerosakan = _data["id_status_kerosakan"];
+            this.id_pemilik = _data["id_pemilik"];
+            this.id_sumber_dana = _data["id_sumber_dana"];
+            this.sumber_dana_lain = _data["sumber_dana_lain"];
+            this.id_pelaksana = _data["id_pelaksana"];
+            this.pelaksana_lain = _data["pelaksana_lain"];
+            this.kontraktor = _data["kontraktor"];
+            this.no_pkk = _data["no_pkk"];
+            this.peratus_kemajuan = _data["peratus_kemajuan"];
+            this.id_status_kemajuan = _data["id_status_kemajuan"];
+            this.geran_rumah = _data["geran_rumah"];
+            this.pemilik_tanah = _data["pemilik_tanah"];
+            this.id_tapak_rumah = _data["id_tapak_rumah"];
+            this.status_mangsa_rumah = _data["status_mangsa_rumah"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_agensi = _data["id_agensi"];
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditMangsaRumahDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditMangsaRumahDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_bencana"] = this.id_bencana;
+        data["id_mangsa"] = this.id_mangsa;
+        data["id_jenis_bantuan"] = this.id_jenis_bantuan;
+        data["naik_taraf"] = this.naik_taraf;
+        data["id_jenis_rumah"] = this.id_jenis_rumah;
+        data["id_jenis_penempatan"] = this.id_jenis_penempatan;
+        data["id_status_kerosakan"] = this.id_status_kerosakan;
+        data["id_pemilik"] = this.id_pemilik;
+        data["id_sumber_dana"] = this.id_sumber_dana;
+        data["sumber_dana_lain"] = this.sumber_dana_lain;
+        data["id_pelaksana"] = this.id_pelaksana;
+        data["pelaksana_lain"] = this.pelaksana_lain;
+        data["kontraktor"] = this.kontraktor;
+        data["no_pkk"] = this.no_pkk;
+        data["peratus_kemajuan"] = this.peratus_kemajuan;
+        data["id_status_kemajuan"] = this.id_status_kemajuan;
+        data["geran_rumah"] = this.geran_rumah;
+        data["pemilik_tanah"] = this.pemilik_tanah;
+        data["id_tapak_rumah"] = this.id_tapak_rumah;
+        data["status_mangsa_rumah"] = this.status_mangsa_rumah;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_agensi"] = this.id_agensi;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditMangsaRumahDto {
+    id: number;
+    id_bencana: number;
+    id_mangsa: number;
+    id_jenis_bantuan: number;
+    naik_taraf: boolean;
+    id_jenis_rumah: number;
+    id_jenis_penempatan: number;
+    id_status_kerosakan: number;
+    id_pemilik: number;
+    id_sumber_dana: number;
+    sumber_dana_lain: string;
+    id_pelaksana: number;
+    pelaksana_lain: string;
+    kontraktor: string;
+    no_pkk: string;
+    peratus_kemajuan: number;
+    id_status_kemajuan: number;
+    geran_rumah: string;
+    pemilik_tanah: string;
+    id_tapak_rumah: number;
+    status_mangsa_rumah: number;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_agensi: number;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+}
+
+export class GetMangsaRumahForEditDto implements IGetMangsaRumahForEditDto {
+    mangsa_rumah!: CreateOrEditMangsaRumahDto;
+
+    constructor(data?: IGetMangsaRumahForEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.mangsa_rumah = _data["mangsa_rumah"] ? CreateOrEditMangsaRumahDto.fromJS(_data["mangsa_rumah"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetMangsaRumahForEditDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetMangsaRumahForEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["mangsa_rumah"] = this.mangsa_rumah ? this.mangsa_rumah.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetMangsaRumahForEditDto {
+    mangsa_rumah: CreateOrEditMangsaRumahDto;
+}
+
+export class GetMangsaRumahForViewDto implements IGetMangsaRumahForViewDto {
+    id!: number;
+    id_bencana!: number;
+    id_mangsa!: number;
+    id_jenis_bantuan!: number;
+    naik_taraf!: boolean;
+    id_jenis_rumah!: number;
+    id_jenis_penempatan!: number;
+    id_status_kerosakan!: number;
+    id_pemilik!: number;
+    id_sumber_dana!: number;
+    sumber_dana_lain!: string;
+    id_pelaksana!: number;
+    pelaksana_lain!: string;
+    kontraktor!: string;
+    no_pkk!: string;
+    peratus_kemajuan!: number;
+    id_status_kemajuan!: number;
+    geran_rumah!: string;
+    pemilik_tanah!: string;
+    id_tapak_rumah!: number;
+    status_mangsa_rumah!: number;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_agensi!: number;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+
+    constructor(data?: IGetMangsaRumahForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_bencana = _data["id_bencana"];
+            this.id_mangsa = _data["id_mangsa"];
+            this.id_jenis_bantuan = _data["id_jenis_bantuan"];
+            this.naik_taraf = _data["naik_taraf"];
+            this.id_jenis_rumah = _data["id_jenis_rumah"];
+            this.id_jenis_penempatan = _data["id_jenis_penempatan"];
+            this.id_status_kerosakan = _data["id_status_kerosakan"];
+            this.id_pemilik = _data["id_pemilik"];
+            this.id_sumber_dana = _data["id_sumber_dana"];
+            this.sumber_dana_lain = _data["sumber_dana_lain"];
+            this.id_pelaksana = _data["id_pelaksana"];
+            this.pelaksana_lain = _data["pelaksana_lain"];
+            this.kontraktor = _data["kontraktor"];
+            this.no_pkk = _data["no_pkk"];
+            this.peratus_kemajuan = _data["peratus_kemajuan"];
+            this.id_status_kemajuan = _data["id_status_kemajuan"];
+            this.geran_rumah = _data["geran_rumah"];
+            this.pemilik_tanah = _data["pemilik_tanah"];
+            this.id_tapak_rumah = _data["id_tapak_rumah"];
+            this.status_mangsa_rumah = _data["status_mangsa_rumah"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_agensi = _data["id_agensi"];
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetMangsaRumahForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetMangsaRumahForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_bencana"] = this.id_bencana;
+        data["id_mangsa"] = this.id_mangsa;
+        data["id_jenis_bantuan"] = this.id_jenis_bantuan;
+        data["naik_taraf"] = this.naik_taraf;
+        data["id_jenis_rumah"] = this.id_jenis_rumah;
+        data["id_jenis_penempatan"] = this.id_jenis_penempatan;
+        data["id_status_kerosakan"] = this.id_status_kerosakan;
+        data["id_pemilik"] = this.id_pemilik;
+        data["id_sumber_dana"] = this.id_sumber_dana;
+        data["sumber_dana_lain"] = this.sumber_dana_lain;
+        data["id_pelaksana"] = this.id_pelaksana;
+        data["pelaksana_lain"] = this.pelaksana_lain;
+        data["kontraktor"] = this.kontraktor;
+        data["no_pkk"] = this.no_pkk;
+        data["peratus_kemajuan"] = this.peratus_kemajuan;
+        data["id_status_kemajuan"] = this.id_status_kemajuan;
+        data["geran_rumah"] = this.geran_rumah;
+        data["pemilik_tanah"] = this.pemilik_tanah;
+        data["id_tapak_rumah"] = this.id_tapak_rumah;
+        data["status_mangsa_rumah"] = this.status_mangsa_rumah;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_agensi"] = this.id_agensi;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetMangsaRumahForViewDto {
+    id: number;
+    id_bencana: number;
+    id_mangsa: number;
+    id_jenis_bantuan: number;
+    naik_taraf: boolean;
+    id_jenis_rumah: number;
+    id_jenis_penempatan: number;
+    id_status_kerosakan: number;
+    id_pemilik: number;
+    id_sumber_dana: number;
+    sumber_dana_lain: string;
+    id_pelaksana: number;
+    pelaksana_lain: string;
+    kontraktor: string;
+    no_pkk: string;
+    peratus_kemajuan: number;
+    id_status_kemajuan: number;
+    geran_rumah: string;
+    pemilik_tanah: string;
+    id_tapak_rumah: number;
+    status_mangsa_rumah: number;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_agensi: number;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+}
+
+/** MangsaRumah List in Tabular model */
+export class PagedResultDtoOfMangsaRumahForViewDto implements IPagedResultDtoOfMangsaRumahForViewDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetMangsaRumahForViewDto[];
+
+    constructor(data?: IPagedResultDtoOfMangsaRumahForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetMangsaRumahForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfMangsaRumahForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfMangsaRumahForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** MangsaRumah List in Tabular model */
+export interface IPagedResultDtoOfMangsaRumahForViewDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetMangsaRumahForViewDto[];
+}
+
+export class CreateOrEditMangsaWangIhsanDto implements ICreateOrEditMangsaWangIhsanDto {
+    id!: number;
+    id_bencana!: number;
+    id_mangsa!: number;
+    id_agensi_bantuan!: number;
+    tarikh_serahan!: string;
+    id_sumber_dana!: number;
+    status_mangsa_wang_ihsan!: number;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_agensi!: number;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+
+    constructor(data?: ICreateOrEditMangsaWangIhsanDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_bencana = _data["id_bencana"];
+            this.id_mangsa = _data["id_mangsa"];
+            this.id_agensi_bantuan = _data["id_agensi_bantuan"];
+            this.tarikh_serahan = _data["tarikh_serahan"];
+            this.id_sumber_dana = _data["id_sumber_dana"];
+            this.status_mangsa_wang_ihsan = _data["status_mangsa_wang_ihsan"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_agensi = _data["id_agensi"];
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditMangsaWangIhsanDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditMangsaWangIhsanDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_bencana"] = this.id_bencana;
+        data["id_mangsa"] = this.id_mangsa;
+        data["id_agensi_bantuan"] = this.id_agensi_bantuan;
+        data["tarikh_serahan"] = this.tarikh_serahan;
+        data["id_sumber_dana"] = this.id_sumber_dana;
+        data["status_mangsa_wang_ihsan"] = this.status_mangsa_wang_ihsan;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_agensi"] = this.id_agensi;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditMangsaWangIhsanDto {
+    id: number;
+    id_bencana: number;
+    id_mangsa: number;
+    id_agensi_bantuan: number;
+    tarikh_serahan: string;
+    id_sumber_dana: number;
+    status_mangsa_wang_ihsan: number;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_agensi: number;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+}
+
+export class GetMangsaWangIhsanForEditDto implements IGetMangsaWangIhsanForEditDto {
+    mangsa_wang_ihsan!: CreateOrEditMangsaWangIhsanDto;
+
+    constructor(data?: IGetMangsaWangIhsanForEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.mangsa_wang_ihsan = _data["mangsa_wang_ihsan"] ? CreateOrEditMangsaWangIhsanDto.fromJS(_data["mangsa_wang_ihsan"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetMangsaWangIhsanForEditDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetMangsaWangIhsanForEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["mangsa_wang_ihsan"] = this.mangsa_wang_ihsan ? this.mangsa_wang_ihsan.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetMangsaWangIhsanForEditDto {
+    mangsa_wang_ihsan: CreateOrEditMangsaWangIhsanDto;
+}
+
+export class GetMangsaWangIhsanForViewDto implements IGetMangsaWangIhsanForViewDto {
+    id!: number;
+    id_bencana!: number;
+    id_mangsa!: number;
+    id_agensi_bantuan!: number;
+    tarikh_serahan!: string;
+    id_sumber_dana!: number;
+    status_mangsa_wang_ihsan!: number;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_agensi!: number;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+
+    constructor(data?: IGetMangsaWangIhsanForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_bencana = _data["id_bencana"];
+            this.id_mangsa = _data["id_mangsa"];
+            this.id_agensi_bantuan = _data["id_agensi_bantuan"];
+            this.tarikh_serahan = _data["tarikh_serahan"];
+            this.id_sumber_dana = _data["id_sumber_dana"];
+            this.status_mangsa_wang_ihsan = _data["status_mangsa_wang_ihsan"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_agensi = _data["id_agensi"];
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetMangsaWangIhsanForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetMangsaWangIhsanForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_bencana"] = this.id_bencana;
+        data["id_mangsa"] = this.id_mangsa;
+        data["id_agensi_bantuan"] = this.id_agensi_bantuan;
+        data["tarikh_serahan"] = this.tarikh_serahan;
+        data["id_sumber_dana"] = this.id_sumber_dana;
+        data["status_mangsa_wang_ihsan"] = this.status_mangsa_wang_ihsan;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_agensi"] = this.id_agensi;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetMangsaWangIhsanForViewDto {
+    id: number;
+    id_bencana: number;
+    id_mangsa: number;
+    id_agensi_bantuan: number;
+    tarikh_serahan: string;
+    id_sumber_dana: number;
+    status_mangsa_wang_ihsan: number;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_agensi: number;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+}
+
+/** MangsaWangIhsan List in Tabular model */
+export class PagedResultDtoOfMangsaWangIhsanForViewDto implements IPagedResultDtoOfMangsaWangIhsanForViewDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetMangsaWangIhsanForViewDto[];
+
+    constructor(data?: IPagedResultDtoOfMangsaWangIhsanForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetMangsaWangIhsanForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfMangsaWangIhsanForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfMangsaWangIhsanForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** MangsaWangIhsan List in Tabular model */
+export interface IPagedResultDtoOfMangsaWangIhsanForViewDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetMangsaWangIhsanForViewDto[];
+}
+
+export class CreateOrEditMangsaDto implements ICreateOrEditMangsaDto {
+    id!: number;
+    nama!: string;
+    no_kp!: string;
+    telefon!: string;
+    alamat_1!: string;
+    alamat_2!: string;
+    id_daerah!: number;
+    id_parlimen!: number;
+    id_dun!: number;
+    id_negeri!: number;
+    poskod!: string;
+    catatan!: string;
+    status_mangsa!: number;
+    status_verifikasi!: number;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+    sebab_hapus!: string;
+
+    constructor(data?: ICreateOrEditMangsaDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.nama = _data["nama"];
+            this.no_kp = _data["no_kp"];
+            this.telefon = _data["telefon"];
+            this.alamat_1 = _data["alamat_1"];
+            this.alamat_2 = _data["alamat_2"];
+            this.id_daerah = _data["id_daerah"];
+            this.id_parlimen = _data["id_parlimen"];
+            this.id_dun = _data["id_dun"];
+            this.id_negeri = _data["id_negeri"];
+            this.poskod = _data["poskod"];
+            this.catatan = _data["catatan"];
+            this.status_mangsa = _data["status_mangsa"];
+            this.status_verifikasi = _data["status_verifikasi"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.sebab_hapus = _data["sebab_hapus"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditMangsaDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditMangsaDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["nama"] = this.nama;
+        data["no_kp"] = this.no_kp;
+        data["telefon"] = this.telefon;
+        data["alamat_1"] = this.alamat_1;
+        data["alamat_2"] = this.alamat_2;
+        data["id_daerah"] = this.id_daerah;
+        data["id_parlimen"] = this.id_parlimen;
+        data["id_dun"] = this.id_dun;
+        data["id_negeri"] = this.id_negeri;
+        data["poskod"] = this.poskod;
+        data["catatan"] = this.catatan;
+        data["status_mangsa"] = this.status_mangsa;
+        data["status_verifikasi"] = this.status_verifikasi;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["sebab_hapus"] = this.sebab_hapus;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditMangsaDto {
+    id: number;
+    nama: string;
+    no_kp: string;
+    telefon: string;
+    alamat_1: string;
+    alamat_2: string;
+    id_daerah: number;
+    id_parlimen: number;
+    id_dun: number;
+    id_negeri: number;
+    poskod: string;
+    catatan: string;
+    status_mangsa: number;
+    status_verifikasi: number;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+    sebab_hapus: string;
+}
+
+export class GetMangsaForEditDto implements IGetMangsaForEditDto {
+    mangsa!: CreateOrEditMangsaDto;
+
+    constructor(data?: IGetMangsaForEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.mangsa = _data["mangsa"] ? CreateOrEditMangsaDto.fromJS(_data["mangsa"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetMangsaForEditDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetMangsaForEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["mangsa"] = this.mangsa ? this.mangsa.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetMangsaForEditDto {
+    mangsa: CreateOrEditMangsaDto;
+}
+
+export class GetMangsaForViewDto implements IGetMangsaForViewDto {
+    id!: number;
+    nama!: string;
+    no_kp!: string;
+    telefon!: string;
+    alamat_1!: string;
+    alamat_2!: string;
+    id_daerah!: number;
+    id_parlimen!: number;
+    id_dun!: number;
+    id_negeri!: number;
+    poskod!: string;
+    catatan!: string;
+    status_mangsa!: number;
+    status_verifikasi!: number;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+    sebab_hapus!: string;
+
+    constructor(data?: IGetMangsaForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.nama = _data["nama"];
+            this.no_kp = _data["no_kp"];
+            this.telefon = _data["telefon"];
+            this.alamat_1 = _data["alamat_1"];
+            this.alamat_2 = _data["alamat_2"];
+            this.id_daerah = _data["id_daerah"];
+            this.id_parlimen = _data["id_parlimen"];
+            this.id_dun = _data["id_dun"];
+            this.id_negeri = _data["id_negeri"];
+            this.poskod = _data["poskod"];
+            this.catatan = _data["catatan"];
+            this.status_mangsa = _data["status_mangsa"];
+            this.status_verifikasi = _data["status_verifikasi"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.sebab_hapus = _data["sebab_hapus"];
+        }
+    }
+
+    static fromJS(data: any): GetMangsaForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetMangsaForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["nama"] = this.nama;
+        data["no_kp"] = this.no_kp;
+        data["telefon"] = this.telefon;
+        data["alamat_1"] = this.alamat_1;
+        data["alamat_2"] = this.alamat_2;
+        data["id_daerah"] = this.id_daerah;
+        data["id_parlimen"] = this.id_parlimen;
+        data["id_dun"] = this.id_dun;
+        data["id_negeri"] = this.id_negeri;
+        data["poskod"] = this.poskod;
+        data["catatan"] = this.catatan;
+        data["status_mangsa"] = this.status_mangsa;
+        data["status_verifikasi"] = this.status_verifikasi;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["sebab_hapus"] = this.sebab_hapus;
+        return data; 
+    }
+}
+
+export interface IGetMangsaForViewDto {
+    id: number;
+    nama: string;
+    no_kp: string;
+    telefon: string;
+    alamat_1: string;
+    alamat_2: string;
+    id_daerah: number;
+    id_parlimen: number;
+    id_dun: number;
+    id_negeri: number;
+    poskod: string;
+    catatan: string;
+    status_mangsa: number;
+    status_verifikasi: number;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+    sebab_hapus: string;
+}
+
+/** Mangsa List in Tabular model */
+export class PagedResultDtoOfMangsaForViewDto implements IPagedResultDtoOfMangsaForViewDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetMangsaForViewDto[];
+
+    constructor(data?: IPagedResultDtoOfMangsaForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetMangsaForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfMangsaForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfMangsaForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** Mangsa List in Tabular model */
+export interface IPagedResultDtoOfMangsaForViewDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetMangsaForViewDto[];
 }
 
 export class CreateOrEditRefAgamaDto implements ICreateOrEditRefAgamaDto {
@@ -16446,42 +22060,6 @@ export interface IUpdateProfilDto {
     pengguna: PenggunaProfilDto;
 }
 
-export class CreateOrEditPenggunaDto implements ICreateOrEditPenggunaDto {
-    pengguna!: CreatePenggunaDto;
-
-    constructor(data?: ICreateOrEditPenggunaDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.pengguna = _data["pengguna"] ? CreatePenggunaDto.fromJS(_data["pengguna"]) : <any>undefined;
-        }
-    }
-
-    static fromJS(data: any): CreateOrEditPenggunaDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new CreateOrEditPenggunaDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["pengguna"] = this.pengguna ? this.pengguna.toJSON() : <any>undefined;
-        return data; 
-    }
-}
-
-export interface ICreateOrEditPenggunaDto {
-    pengguna: CreatePenggunaDto;
-}
-
 export class CreatePenggunaDto implements ICreatePenggunaDto {
     id!: number;
     nama!: string;
@@ -16500,8 +22078,6 @@ export class CreatePenggunaDto implements ICreatePenggunaDto {
     poskod!: string;
     id_daerah!: number;
     id_negeri!: number;
-    nama_daerah!: string;
-    nama_negeri!: string;
 
     constructor(data?: ICreatePenggunaDto) {
         if (data) {
@@ -16531,8 +22107,6 @@ export class CreatePenggunaDto implements ICreatePenggunaDto {
             this.poskod = _data["poskod"];
             this.id_daerah = _data["id_daerah"];
             this.id_negeri = _data["id_negeri"];
-            this.nama_daerah = _data["nama_daerah"];
-            this.nama_negeri = _data["nama_negeri"];
         }
     }
 
@@ -16562,8 +22136,6 @@ export class CreatePenggunaDto implements ICreatePenggunaDto {
         data["poskod"] = this.poskod;
         data["id_daerah"] = this.id_daerah;
         data["id_negeri"] = this.id_negeri;
-        data["nama_daerah"] = this.nama_daerah;
-        data["nama_negeri"] = this.nama_negeri;
         return data; 
     }
 }
@@ -16586,8 +22158,6 @@ export interface ICreatePenggunaDto {
     poskod: string;
     id_daerah: number;
     id_negeri: number;
-    nama_daerah: string;
-    nama_negeri: string;
 }
 
 export class EditUserDto implements IEditUserDto {

@@ -68,7 +68,17 @@ const NSWAG = [
 	ApiServiceProxies.RefHubunganServiceProxy,
   ApiServiceProxies.AuthServiceProxy,
   ApiServiceProxies.SessionServiceProxy,
-  ApiServiceProxies.UserServiceProxy
+  ApiServiceProxies.UserServiceProxy,
+  ApiServiceProxies.MangsaAirServiceProxy,
+  ApiServiceProxies.MangsaAntarabangsaServiceProxy,
+  ApiServiceProxies.MangsaBantuanServiceProxy,
+  ApiServiceProxies.MangsaBencanaServiceProxy,
+  ApiServiceProxies.MangsaKerosakanServiceProxy,
+  ApiServiceProxies.MangsaPertanianServiceProxy,
+  ApiServiceProxies.MangsaPinjamanServiceProxy,
+  ApiServiceProxies.MangsaRumahServiceProxy,
+  ApiServiceProxies.MangsaServiceProxy,
+  ApiServiceProxies.MangsaWangIhsanServiceProxy
 ];
 
 @NgModule({
