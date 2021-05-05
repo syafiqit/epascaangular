@@ -18,6 +18,7 @@ export class MyAccountComponent implements OnInit {
 
 	name = '';
 	emel = '';
+  gambar = '';
 
 	constructor(
 		config: NgbModalConfig,
@@ -41,6 +42,7 @@ export class MyAccountComponent implements OnInit {
 			this.getProfil = result;
       this.name = result.pengguna.nama;
       this.emel = result.pengguna.emel;
+      this.gambar = result.pengguna.gambar;
 		});
 	}
 

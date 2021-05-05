@@ -10988,8 +10988,8 @@ export class UserServiceProxy {
      * @param body Create or edit object
      * @return Success
      */
-    create(body: CreatePenggunaDto): Observable<void> {
-        let url_ = this.baseUrl + "/api/user/create";
+    createOrEdit(body: CreateOrEditPenggunaDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/user/createOrEdit";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -11004,11 +11004,11 @@ export class UserServiceProxy {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processCreate(response_);
+            return this.processCreateOrEdit(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processCreate(<any>response_);
+                    return this.processCreateOrEdit(<any>response_);
                 } catch (e) {
                     return <Observable<void>><any>_observableThrow(e);
                 }
@@ -11017,7 +11017,7 @@ export class UserServiceProxy {
         }));
     }
 
-    protected processCreate(response: HttpResponseBase): Observable<void> {
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -11038,67 +11038,6 @@ export class UserServiceProxy {
             }));
         }
         return _observableOf<void>(<any>null);
-    }
-
-    /**
-     * Edit User
-     * @param body Edit object
-     * @return Success
-     */
-    edit(body: EditUserDto): Observable<EditUserDto> {
-        let url_ = this.baseUrl + "/api/user/edit";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processEdit(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processEdit(<any>response_);
-                } catch (e) {
-                    return <Observable<EditUserDto>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<EditUserDto>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processEdit(response: HttpResponseBase): Observable<EditUserDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = EditUserDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status === 500) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("Internal error has occured", status, _responseText, _headers);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<EditUserDto>(<any>null);
     }
 }
 
@@ -22060,6 +21999,42 @@ export interface IUpdateProfilDto {
     pengguna: PenggunaProfilDto;
 }
 
+export class CreateOrEditPenggunaDto implements ICreateOrEditPenggunaDto {
+    pengguna!: CreatePenggunaDto;
+
+    constructor(data?: ICreateOrEditPenggunaDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.pengguna = _data["pengguna"] ? CreatePenggunaDto.fromJS(_data["pengguna"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditPenggunaDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditPenggunaDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["pengguna"] = this.pengguna ? this.pengguna.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditPenggunaDto {
+    pengguna: CreatePenggunaDto;
+}
+
 export class CreatePenggunaDto implements ICreatePenggunaDto {
     id!: number;
     nama!: string;
@@ -22067,8 +22042,8 @@ export class CreatePenggunaDto implements ICreatePenggunaDto {
     id_agensi!: number;
     no_kp!: string;
     jawatan!: string;
-    alamat1!: string;
-    alamat2!: string;
+    alamat_1!: string;
+    alamat_2!: string;
     telefon_pejabat!: string;
     telefon_bimbit!: string;
     fax!: string;
@@ -22078,6 +22053,8 @@ export class CreatePenggunaDto implements ICreatePenggunaDto {
     poskod!: string;
     id_daerah!: number;
     id_negeri!: number;
+    nama_daerah!: string;
+    nama_negeri!: string;
 
     constructor(data?: ICreatePenggunaDto) {
         if (data) {
@@ -22096,8 +22073,8 @@ export class CreatePenggunaDto implements ICreatePenggunaDto {
             this.id_agensi = _data["id_agensi"];
             this.no_kp = _data["no_kp"];
             this.jawatan = _data["jawatan"];
-            this.alamat1 = _data["alamat1"];
-            this.alamat2 = _data["alamat2"];
+            this.alamat_1 = _data["alamat_1"];
+            this.alamat_2 = _data["alamat_2"];
             this.telefon_pejabat = _data["telefon_pejabat"];
             this.telefon_bimbit = _data["telefon_bimbit"];
             this.fax = _data["fax"];
@@ -22107,6 +22084,8 @@ export class CreatePenggunaDto implements ICreatePenggunaDto {
             this.poskod = _data["poskod"];
             this.id_daerah = _data["id_daerah"];
             this.id_negeri = _data["id_negeri"];
+            this.nama_daerah = _data["nama_daerah"];
+            this.nama_negeri = _data["nama_negeri"];
         }
     }
 
@@ -22125,8 +22104,8 @@ export class CreatePenggunaDto implements ICreatePenggunaDto {
         data["id_agensi"] = this.id_agensi;
         data["no_kp"] = this.no_kp;
         data["jawatan"] = this.jawatan;
-        data["alamat1"] = this.alamat1;
-        data["alamat2"] = this.alamat2;
+        data["alamat_1"] = this.alamat_1;
+        data["alamat_2"] = this.alamat_2;
         data["telefon_pejabat"] = this.telefon_pejabat;
         data["telefon_bimbit"] = this.telefon_bimbit;
         data["fax"] = this.fax;
@@ -22136,6 +22115,8 @@ export class CreatePenggunaDto implements ICreatePenggunaDto {
         data["poskod"] = this.poskod;
         data["id_daerah"] = this.id_daerah;
         data["id_negeri"] = this.id_negeri;
+        data["nama_daerah"] = this.nama_daerah;
+        data["nama_negeri"] = this.nama_negeri;
         return data; 
     }
 }
@@ -22147,8 +22128,8 @@ export interface ICreatePenggunaDto {
     id_agensi: number;
     no_kp: string;
     jawatan: string;
-    alamat1: string;
-    alamat2: string;
+    alamat_1: string;
+    alamat_2: string;
     telefon_pejabat: string;
     telefon_bimbit: string;
     fax: string;
@@ -22158,6 +22139,8 @@ export interface ICreatePenggunaDto {
     poskod: string;
     id_daerah: number;
     id_negeri: number;
+    nama_daerah: string;
+    nama_negeri: string;
 }
 
 export class EditUserDto implements IEditUserDto {
@@ -22180,6 +22163,7 @@ export class EditUserDto implements IEditUserDto {
     id_negeri!: number;
     nama_daerah!: string;
     nama_negeri!: string;
+    kata_laluan!: string;
 
     constructor(data?: IEditUserDto) {
         if (data) {
@@ -22211,6 +22195,7 @@ export class EditUserDto implements IEditUserDto {
             this.id_negeri = _data["id_negeri"];
             this.nama_daerah = _data["nama_daerah"];
             this.nama_negeri = _data["nama_negeri"];
+            this.kata_laluan = _data["kata_laluan"];
         }
     }
 
@@ -22242,6 +22227,7 @@ export class EditUserDto implements IEditUserDto {
         data["id_negeri"] = this.id_negeri;
         data["nama_daerah"] = this.nama_daerah;
         data["nama_negeri"] = this.nama_negeri;
+        data["kata_laluan"] = this.kata_laluan;
         return data; 
     }
 }
@@ -22266,6 +22252,7 @@ export interface IEditUserDto {
     id_negeri: number;
     nama_daerah: string;
     nama_negeri: string;
+    kata_laluan: string;
 }
 
 export class GetUserForEditDto implements IGetUserForEditDto {
