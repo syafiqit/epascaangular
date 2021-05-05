@@ -24,7 +24,7 @@
                     id="namaPemohon"
                     type="text"
                     name="nama"
-                    [(ngModel)]="daftar.nama"
+                    [(ngModel)]="edit.pengguna.nama"
                     placeholder="Nama Pemohon"
                     #namaPemohon="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && namaPemohon.invalid }"
@@ -45,7 +45,7 @@
                     id="noKadPengenalan"
                     type="text"
                     name="no_kp"
-                    [(ngModel)]="daftar.no_kp"
+                    [(ngModel)]="edit.pengguna.no_kp"
                     placeholder="No Kad Pengenalan"
                     #noKadPengenalan="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && noKadPengenalan.invalid }"
@@ -70,7 +70,7 @@
                     id="jawatanPemohon"
                     type="text"
                     name="jawatan"
-                    [(ngModel)]="daftar.jawatan"
+                    [(ngModel)]="edit.pengguna.jawatan"
                     placeholder="Jawatan"
                     #jawatanPemohon="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && jawatanPemohon.invalid }"
@@ -84,58 +84,6 @@
 
 
 						</div>
-
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="form-group">
-                  <label class="col-form-label">Kata Laluan Baru*</label>
-                  <input
-                    class="form-control"
-                    [type]="show ? 'text' : 'password'"
-                    name="kata_laluan"
-                    required=""
-                    [(ngModel)]="daftar.kata_laluan"
-                    required
-                    #kataLaluan1="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && kataLaluan1.invalid }"
-                  />
-                  <div class="show-hide" (click)="showPassword()" *ngIf="!show">
-                    <div style="margin-top: 5px; color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-outline fa-lg"></i></div>
-                  </div>
-                  <div class="show-hide" (click)="showPassword()" *ngIf="show">
-                    <div style="margin-top: 5px; color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-off-outline fa-lg"></i></div>
-                  </div>
-                  <div *ngIf="f.submitted && kataLaluan1.invalid" class="invalid-feedback">
-                    <div *ngIf="kataLaluan1.errors.required">Kata Laluan Wajib Di Isi</div>
-                  </div>
-                </div>
-							</div>
-
-							<div class="col-lg-6">
-								<div class="form-group">
-                  <label class="col-form-label">Ulang Kata Laluan*</label>
-                  <input
-                    class="form-control"
-                    [type]="showNew ? 'text' : 'password'"
-                    name="ulang_kata_laluan"
-                    required=""
-                    [(ngModel)]="ulang_kata_laluan"
-                    required
-                    #kataLaluan2="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && kataLaluan2.invalid }"
-                  />
-                  <div class="show-hide" (click)="showNewPassword()" *ngIf="!showNew">
-                    <div style="margin-top: 5px; color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-outline fa-lg"></i></div>
-                  </div>
-                  <div class="show-hide" (click)="showNewPassword()" *ngIf="showNew">
-                    <div style="margin-top: 5px; color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-off-outline fa-lg"></i></div>
-                  </div>
-                  <div *ngIf="f.submitted && kataLaluan2.invalid" class="invalid-feedback">
-                    <div *ngIf="kataLaluan2.errors.required">Ulang Kata Laluan Wajib Di Isi</div>
-                  </div>
-                </div>
-							</div>
-						</div>
 						<hr />
 						<h6>Maklumat Berhubung</h6>
 						<div class="row">
@@ -147,7 +95,7 @@
                     id="noTelefonPejabat"
                     type="text"
                     name="telefon_pejabat"
-                    [(ngModel)]="daftar.telefon_pejabat"
+                    [(ngModel)]="edit.pengguna.telefon_pejabat"
                     placeholder="No Telefon Pejabat"
                     #noTelefonPejabat="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && noTelefonPejabat.invalid }"
@@ -171,7 +119,7 @@
                     id="telefonBimbit"
                     type="text"
                     name="telefon_bimbit"
-                    [(ngModel)]="daftar.telefon_bimbit"
+                    [(ngModel)]="edit.pengguna.telefon_bimbit"
                     placeholder="Telefon Bimbit"
                     #telefonBimbit="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && telefonBimbit.invalid }"
@@ -197,7 +145,7 @@
                     id="noFax"
                     type="text"
                     name="fax"
-                    [(ngModel)]="daftar.fax"
+                    [(ngModel)]="edit.pengguna.fax"
                     placeholder="Fax"
                     #noFax="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && noFax.invalid }"
@@ -221,7 +169,7 @@
                     id="emelPemohon"
                     type="text"
                     name="emel"
-                    [(ngModel)]="daftar.emel"
+                    [(ngModel)]="edit.pengguna.emel"
                     placeholder="Emel"
                     #emelPemohon="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && emelPemohon.invalid }"
@@ -271,7 +219,7 @@
                   <select
                     class="form-control"
                     name="id_kementerian"
-                    [(ngModel)]="daftar.id_kementerian"
+                    [(ngModel)]="edit.pengguna.id_kementerian"
                     #kementerian="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && kementerian.invalid }"
                     required
@@ -298,7 +246,7 @@
                     id="alamat1Agensi"
                     type="text"
                     name="alamat1"
-                    [(ngModel)]="daftar.alamat1"
+                    [(ngModel)]="edit.pengguna.alamat_1"
                     placeholder="Alamat 1"
                     #alamat1Agensi="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && alamat1Agensi.invalid }"
@@ -319,7 +267,7 @@
                     id="alamat2Agensi"
                     type="text"
                     name="alamat2"
-                    [(ngModel)]="daftar.alamat2"
+                    [(ngModel)]="edit.pengguna.alamat_2"
                     placeholder="Alamat 2"
                     #alamat2Agensi="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && alamat2Agensi.invalid }"
@@ -342,7 +290,7 @@
                     id="poskodAgensi"
                     type="text"
                     name="poskod"
-                    [(ngModel)]="daftar.poskod"
+                    [(ngModel)]="edit.pengguna.poskod"
                     placeholder="Poskod"
                     #poskodAgensi="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && poskodAgensi.invalid }"
@@ -390,7 +338,7 @@
                     <select
                       class="form-control"
                       name="id_negeri"
-                      [(ngModel)]="daftar.id_negeri"
+                      [(ngModel)]="edit.pengguna.id_negeri"
                       #negeri="ngModel"
                       [ngClass]="{ 'is-invalid': f.submitted && negeri.invalid }"
                       required
@@ -408,6 +356,49 @@
                 </div>
 							</div>
 						</div>
+
+            <div *ngIf="idPengguna">
+              <hr>
+              <h6>Tetap Semula Kata Laluan</h6>
+            <div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+                  <label class="col-form-label">Kata Laluan Baru*</label>
+                  <input
+                    class="form-control"
+                    [type]="show ? 'text' : 'password'"
+                    name="kata_laluan"
+                    [(ngModel)]="edit.pengguna.kata_laluan"
+                  />
+                  <div class="show-hide" (click)="showPassword()" *ngIf="!show">
+                    <div style="margin-top: 5px; color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-outline fa-lg"></i></div>
+                  </div>
+                  <div class="show-hide" (click)="showPassword()" *ngIf="show">
+                    <div style="margin-top: 5px; color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-off-outline fa-lg"></i></div>
+                  </div>
+                </div>
+							</div>
+
+							<div class="col-lg-6">
+								<div class="form-group">
+                  <label class="col-form-label">Ulang Kata Laluan*</label>
+                  <input
+                    class="form-control"
+                    [type]="showNew ? 'text' : 'password'"
+                    name="ulang_kata_laluan"
+                    [(ngModel)]="ulang_kata_laluan"
+                  />
+                  <div class="show-hide" (click)="showNewPassword()" *ngIf="!showNew">
+                    <div style="margin-top: 5px; color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-outline fa-lg"></i></div>
+                  </div>
+                  <div class="show-hide" (click)="showNewPassword()" *ngIf="showNew">
+                    <div style="margin-top: 5px; color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-off-outline fa-lg"></i></div>
+                  </div>
+                </div>
+							</div>
+						</div>
+            </div>
+            <hr>
 						<button
 							class="btn btn-primary pull-right"
 							type="submit"

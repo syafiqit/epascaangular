@@ -1,9 +1,9 @@
 <div class="media profile-media" (click)="toggleMessageBox()">
-	<div *ngIf="!getProfil.pengguna.gambar">
+	<div *ngIf="!gambar">
 		<img class="b-r-10" src="/assets/images/other-images/default-image.jpg" style="height: 37px; width: 37px" alt="" />
 	</div>
-	<div *ngIf="getProfil.pengguna.gambar">
-		<img class="img-fluid" [src]="getProfil.pengguna.gambar" style="height: 37px; width: 37px" alt="" />
+	<div *ngIf="gambar">
+		<img class="img-fluid" [src]="gambar" style="height: 37px; width: 37px" alt="" />
 	</div>
 	<div class="media-body">
 		<div >

@@ -5,7 +5,7 @@ import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { ColumnMode, id, SortType } from '@swimlane/ngx-datatable';
 import { ActivatedRoute } from '@angular/router';
-import { CreatePenggunaDto, GetUserForEditDto, RefAgensiServiceProxy, RefDaerahServiceProxy, RefKementerianServiceProxy, RefNegeriServiceProxy, UserServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import { CreateOrEditPenggunaDto, CreatePenggunaDto, EditUserDto, GetUserForEditDto, RefAgensiServiceProxy, RefDaerahServiceProxy, RefKementerianServiceProxy, RefNegeriServiceProxy, UserServiceProxy } from 'src/app/shared/proxy/service-proxies';
 declare let require;
 const Swal = require('sweetalert2');
 
@@ -33,8 +33,8 @@ export class TambahEditPengurusanPenggunaComponent implements AfterViewInit {
 
 
 	primengTableHelper: PrimengTableHelper;
-  pengguna: GetUserForEditDto = new GetUserForEditDto();
-  daftar: CreatePenggunaDto = new CreatePenggunaDto();
+  edit: GetUserForEditDto = new GetUserForEditDto();
+  daftar: CreateOrEditPenggunaDto = new CreateOrEditPenggunaDto();
 
 	rows = [
 		{ category: 'Profil Mangsa' },
@@ -61,22 +61,26 @@ export class TambahEditPengurusanPenggunaComponent implements AfterViewInit {
     ) {
 		this.primengTableHelper = new PrimengTableHelper();
     this.idPengguna = this._activatedRoute.snapshot.queryParams['id'];
+    this.edit.pengguna = new EditUserDto();
 	}
 
 	ngAfterViewInit(): void {
     this.shows();
-    this.getAgensi();
-    this.getKementerian();
-    this.getDaerah();
-    this.getNegeri();
 	}
 
   shows(){
     if (!this.idPengguna) {
-			this.pengguna = new GetUserForEditDto();
+        this.getKementerian();
+        this.getAgensiForCreate();
+        this.getDaerahForCreate();
+        this.getNegeri();
 		} else {
 			this._userServiceProxy.getUserForEdit(this.idPengguna).subscribe((result) => {
-				this.pengguna = result;
+				this.edit = result;
+        this.getAgensiForEdit(result.pengguna.id_kementerian);
+        this.getKementerian();
+        this.getDaerahForEdit(result.pengguna.id_daerah);
+        this.getNegeri();
 			});
 		}
   }
@@ -93,16 +97,36 @@ export class TambahEditPengurusanPenggunaComponent implements AfterViewInit {
 		this.showNew = !this.showNew;
 	}
 
-  getAgensi(filter?) {
+  getAgensiForEdit(idAgensi, filter?) {
+		this._refAgensiServiceProxy.getRefAgensiForDropdown(filter).subscribe((result) => {
+			this.agency = result.items;
+      this.agensi = this.agency.find((data)=>{
+        return data.id == idAgensi;
+      })
+      return this.agensi.nama_agensi;
+		});
+	}
+
+  getAgensiForCreate(filter?) {
 		this._refAgensiServiceProxy.getRefAgensiForDropdown(filter).subscribe((result) => {
 			this.agency = result.items;
 		});
 	}
 
-  getDaerah(filter?) {
-		this._refDaerahServiceProxy.getRefDaerahForDropdown(filter).subscribe((result) => {
+  getDaerahForEdit(idDaerah, filter?) {
+      this._refDaerahServiceProxy.getRefDaerahForDropdown(filter).subscribe((result) => {
 			this.districts = result.items;
-		});
+      this.daerah = this.districts.find((data)=>{
+        return data.id == idDaerah;
+      })
+        return this.daerah.nama_daerah;
+		  });
+	}
+
+  getDaerahForCreate(filter?) {
+      this._refDaerahServiceProxy.getRefDaerahForDropdown(filter).subscribe((result) => {
+        this.districts = result.items;
+      });
 	}
 
   getNegeri(filter?) {
@@ -118,30 +142,26 @@ export class TambahEditPengurusanPenggunaComponent implements AfterViewInit {
 	}
 
   setAgensi() {
-		this.daftar.id_agensi = this.agensi.id;
-		this.daftar.id_kementerian = this.agensi.id_kementerian;
+		this.edit.pengguna.id_agensi = this.agensi.id;
+		this.edit.pengguna.id_kementerian = this.agensi.id_kementerian;
 	}
 
   setDaerah() {
-    this.daftar.id_daerah = this.daerah.id;
-		this.daftar.id_negeri = this.daerah.id_negeri;
+    this.edit.pengguna.id_daerah = this.daerah.id;
+		this.edit.pengguna.id_negeri = this.daerah.id_negeri;
   }
 
-  save(){
-    this.saving = true;
-		if (this.daftar.kata_laluan == this.ulang_kata_laluan) {
-      this._userServiceProxy
-			.create(this.daftar)
+  save() {
+		this.saving = true;
+    this.daftar.pengguna = this.edit.pengguna;
+		this._userServiceProxy
+			.createOrEdit(this.daftar)
 			.pipe()
 			.subscribe((result) => {
 				Swal.fire('Berjaya!', 'Maklumat Berjaya Didaftarkan.', 'success').then(() => {
 					location.href = '/app/pengguna/senarai-pengurusan-pengguna';
 				});
 			});
-    }
-    else {
-      Swal.fire('', 'Kata Laluan Dan Ulang Kata Laluan Tidak Sepadan ', 'error');
-    }
-  }
+	  }
 
 }
