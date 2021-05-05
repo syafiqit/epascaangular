@@ -3151,7 +3151,7 @@ export class MangsaServiceProxy {
      * @param body Create or edit object
      * @return Success
      */
-    createOrEdit(body: CreateOrEditMangsaDto): Observable<CreateOrEditMangsaDto> {
+    createOrEdit(body: InputCreateMangsaDto): Observable<InputCreateMangsaDto> {
         let url_ = this.baseUrl + "/api/mangsa/createOrEdit";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -3174,14 +3174,14 @@ export class MangsaServiceProxy {
                 try {
                     return this.processCreateOrEdit(<any>response_);
                 } catch (e) {
-                    return <Observable<CreateOrEditMangsaDto>><any>_observableThrow(e);
+                    return <Observable<InputCreateMangsaDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<CreateOrEditMangsaDto>><any>_observableThrow(response_);
+                return <Observable<InputCreateMangsaDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditMangsaDto> {
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<InputCreateMangsaDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -3192,7 +3192,7 @@ export class MangsaServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = CreateOrEditMangsaDto.fromJS(resultData200);
+            result200 = InputCreateMangsaDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status === 500) {
@@ -3204,7 +3204,7 @@ export class MangsaServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<CreateOrEditMangsaDto>(<any>null);
+        return _observableOf<InputCreateMangsaDto>(<any>null);
     }
 }
 
@@ -11492,6 +11492,7 @@ export class GetMangsaAirForViewDto implements IGetMangsaAirForViewDto {
     id_pengguna_kemaskini!: number;
     tarikh_kemaskini!: moment.Moment;
     sebab_hapus!: string;
+    nama_hubungan!: string;
 
     constructor(data?: IGetMangsaAirForViewDto) {
         if (data) {
@@ -11518,6 +11519,7 @@ export class GetMangsaAirForViewDto implements IGetMangsaAirForViewDto {
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
             this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
             this.sebab_hapus = _data["sebab_hapus"];
+            this.nama_hubungan = _data["nama_hubungan"];
         }
     }
 
@@ -11544,6 +11546,7 @@ export class GetMangsaAirForViewDto implements IGetMangsaAirForViewDto {
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
+        data["nama_hubungan"] = this.nama_hubungan;
         return data; 
     }
 }
@@ -11563,6 +11566,7 @@ export interface IGetMangsaAirForViewDto {
     id_pengguna_kemaskini: number;
     tarikh_kemaskini: moment.Moment;
     sebab_hapus: string;
+    nama_hubungan: string;
 }
 
 /** MangsaAir List in Tabular model */
@@ -12245,6 +12249,8 @@ export class GetMangsaBencanaForViewDto implements IGetMangsaBencanaForViewDto {
     tarikh_kemaskini!: moment.Moment;
     id_agensi!: number;
     sebab_hapus!: string;
+    nama_bencana!: string;
+    pindah!: string;
 
     constructor(data?: IGetMangsaBencanaForViewDto) {
         if (data) {
@@ -12270,6 +12276,8 @@ export class GetMangsaBencanaForViewDto implements IGetMangsaBencanaForViewDto {
             this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
             this.id_agensi = _data["id_agensi"];
             this.sebab_hapus = _data["sebab_hapus"];
+            this.nama_bencana = _data["nama_bencana"];
+            this.pindah = _data["pindah"];
         }
     }
 
@@ -12295,6 +12303,8 @@ export class GetMangsaBencanaForViewDto implements IGetMangsaBencanaForViewDto {
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
         data["id_agensi"] = this.id_agensi;
         data["sebab_hapus"] = this.sebab_hapus;
+        data["nama_bencana"] = this.nama_bencana;
+        data["pindah"] = this.pindah;
         return data; 
     }
 }
@@ -12313,6 +12323,8 @@ export interface IGetMangsaBencanaForViewDto {
     tarikh_kemaskini: moment.Moment;
     id_agensi: number;
     sebab_hapus: string;
+    nama_bencana: string;
+    pindah: string;
 }
 
 /** MangsaBencana List in Tabular model */
@@ -13029,6 +13041,7 @@ export class GetMangsaPinjamanForViewDto implements IGetMangsaPinjamanForViewDto
     id_agensi!: number;
     id_pengguna_kemaskini!: number;
     tarikh_kemaskini!: moment.Moment;
+    nama_agensi!: string;
 
     constructor(data?: IGetMangsaPinjamanForViewDto) {
         if (data) {
@@ -13056,6 +13069,7 @@ export class GetMangsaPinjamanForViewDto implements IGetMangsaPinjamanForViewDto
             this.id_agensi = _data["id_agensi"];
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
             this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.nama_agensi = _data["nama_agensi"];
         }
     }
 
@@ -13083,6 +13097,7 @@ export class GetMangsaPinjamanForViewDto implements IGetMangsaPinjamanForViewDto
         data["id_agensi"] = this.id_agensi;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["nama_agensi"] = this.nama_agensi;
         return data; 
     }
 }
@@ -13103,6 +13118,7 @@ export interface IGetMangsaPinjamanForViewDto {
     id_agensi: number;
     id_pengguna_kemaskini: number;
     tarikh_kemaskini: moment.Moment;
+    nama_agensi: string;
 }
 
 /** MangsaPinjaman List in Tabular model */
@@ -13534,6 +13550,7 @@ export class CreateOrEditMangsaWangIhsanDto implements ICreateOrEditMangsaWangIh
     id_agensi!: number;
     id_pengguna_kemaskini!: number;
     tarikh_kemaskini!: moment.Moment;
+    jumlah!: number;
 
     constructor(data?: ICreateOrEditMangsaWangIhsanDto) {
         if (data) {
@@ -13558,6 +13575,7 @@ export class CreateOrEditMangsaWangIhsanDto implements ICreateOrEditMangsaWangIh
             this.id_agensi = _data["id_agensi"];
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
             this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.jumlah = _data["jumlah"];
         }
     }
 
@@ -13582,6 +13600,7 @@ export class CreateOrEditMangsaWangIhsanDto implements ICreateOrEditMangsaWangIh
         data["id_agensi"] = this.id_agensi;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["jumlah"] = this.jumlah;
         return data; 
     }
 }
@@ -13599,6 +13618,7 @@ export interface ICreateOrEditMangsaWangIhsanDto {
     id_agensi: number;
     id_pengguna_kemaskini: number;
     tarikh_kemaskini: moment.Moment;
+    jumlah: number;
 }
 
 export class GetMangsaWangIhsanForEditDto implements IGetMangsaWangIhsanForEditDto {
@@ -13650,6 +13670,8 @@ export class GetMangsaWangIhsanForViewDto implements IGetMangsaWangIhsanForViewD
     id_agensi!: number;
     id_pengguna_kemaskini!: number;
     tarikh_kemaskini!: moment.Moment;
+    nama_bencana!: string;
+    nama_agensi!: string;
 
     constructor(data?: IGetMangsaWangIhsanForViewDto) {
         if (data) {
@@ -13674,6 +13696,8 @@ export class GetMangsaWangIhsanForViewDto implements IGetMangsaWangIhsanForViewD
             this.id_agensi = _data["id_agensi"];
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
             this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.nama_bencana = _data["nama_bencana"];
+            this.nama_agensi = _data["nama_agensi"];
         }
     }
 
@@ -13698,6 +13722,8 @@ export class GetMangsaWangIhsanForViewDto implements IGetMangsaWangIhsanForViewD
         data["id_agensi"] = this.id_agensi;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["nama_bencana"] = this.nama_bencana;
+        data["nama_agensi"] = this.nama_agensi;
         return data; 
     }
 }
@@ -13715,6 +13741,8 @@ export interface IGetMangsaWangIhsanForViewDto {
     id_agensi: number;
     id_pengguna_kemaskini: number;
     tarikh_kemaskini: moment.Moment;
+    nama_bencana: string;
+    nama_agensi: string;
 }
 
 /** MangsaWangIhsan List in Tabular model */
@@ -13935,6 +13963,7 @@ export class GetMangsaForViewDto implements IGetMangsaForViewDto {
     id_pengguna_kemaskini!: number;
     tarikh_kemaskini!: moment.Moment;
     sebab_hapus!: string;
+    nama_negeri!: string;
 
     constructor(data?: IGetMangsaForViewDto) {
         if (data) {
@@ -13966,6 +13995,7 @@ export class GetMangsaForViewDto implements IGetMangsaForViewDto {
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
             this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
             this.sebab_hapus = _data["sebab_hapus"];
+            this.nama_negeri = _data["nama_negeri"];
         }
     }
 
@@ -13997,6 +14027,7 @@ export class GetMangsaForViewDto implements IGetMangsaForViewDto {
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
+        data["nama_negeri"] = this.nama_negeri;
         return data; 
     }
 }
@@ -14021,6 +14052,131 @@ export interface IGetMangsaForViewDto {
     id_pengguna_kemaskini: number;
     tarikh_kemaskini: moment.Moment;
     sebab_hapus: string;
+    nama_negeri: string;
+}
+
+export class InputBencanaMangsaDto implements IInputBencanaMangsaDto {
+    id!: number;
+    id_bencana!: number;
+    id_mangsa!: number;
+    id_pindah!: number;
+    nama_pusat_pemindahan!: string;
+    masalah!: string;
+    status_mangsa_bencana!: number;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+    id_agensi!: number;
+    sebab_hapus!: string;
+
+    constructor(data?: IInputBencanaMangsaDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_bencana = _data["id_bencana"];
+            this.id_mangsa = _data["id_mangsa"];
+            this.id_pindah = _data["id_pindah"];
+            this.nama_pusat_pemindahan = _data["nama_pusat_pemindahan"];
+            this.masalah = _data["masalah"];
+            this.status_mangsa_bencana = _data["status_mangsa_bencana"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.id_agensi = _data["id_agensi"];
+            this.sebab_hapus = _data["sebab_hapus"];
+        }
+    }
+
+    static fromJS(data: any): InputBencanaMangsaDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InputBencanaMangsaDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_bencana"] = this.id_bencana;
+        data["id_mangsa"] = this.id_mangsa;
+        data["id_pindah"] = this.id_pindah;
+        data["nama_pusat_pemindahan"] = this.nama_pusat_pemindahan;
+        data["masalah"] = this.masalah;
+        data["status_mangsa_bencana"] = this.status_mangsa_bencana;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["id_agensi"] = this.id_agensi;
+        data["sebab_hapus"] = this.sebab_hapus;
+        return data; 
+    }
+}
+
+export interface IInputBencanaMangsaDto {
+    id: number;
+    id_bencana: number;
+    id_mangsa: number;
+    id_pindah: number;
+    nama_pusat_pemindahan: string;
+    masalah: string;
+    status_mangsa_bencana: number;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+    id_agensi: number;
+    sebab_hapus: string;
+}
+
+export class InputCreateMangsaDto implements IInputCreateMangsaDto {
+    mangsa!: CreateOrEditMangsaDto;
+    bencana!: InputBencanaMangsaDto;
+
+    constructor(data?: IInputCreateMangsaDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.mangsa = _data["mangsa"] ? CreateOrEditMangsaDto.fromJS(_data["mangsa"]) : <any>undefined;
+            this.bencana = _data["bencana"] ? InputBencanaMangsaDto.fromJS(_data["bencana"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): InputCreateMangsaDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InputCreateMangsaDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["mangsa"] = this.mangsa ? this.mangsa.toJSON() : <any>undefined;
+        data["bencana"] = this.bencana ? this.bencana.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IInputCreateMangsaDto {
+    mangsa: CreateOrEditMangsaDto;
+    bencana: InputBencanaMangsaDto;
 }
 
 /** Mangsa List in Tabular model */
