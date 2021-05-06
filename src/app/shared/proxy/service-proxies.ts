@@ -11742,6 +11742,7 @@ export class GetMangsaAntarabangsaForViewDto implements IGetMangsaAntarabangsaFo
     id_agensi!: number;
     id_pengguna_kemaskini!: number;
     tarikh_kemaskini!: moment.Moment;
+    nama_bencana!: string;
 
     constructor(data?: IGetMangsaAntarabangsaForViewDto) {
         if (data) {
@@ -11764,6 +11765,7 @@ export class GetMangsaAntarabangsaForViewDto implements IGetMangsaAntarabangsaFo
             this.id_agensi = _data["id_agensi"];
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
             this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.nama_bencana = _data["nama_bencana"];
         }
     }
 
@@ -11786,6 +11788,7 @@ export class GetMangsaAntarabangsaForViewDto implements IGetMangsaAntarabangsaFo
         data["id_agensi"] = this.id_agensi;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["nama_bencana"] = this.nama_bencana;
         return data; 
     }
 }
@@ -11801,6 +11804,7 @@ export interface IGetMangsaAntarabangsaForViewDto {
     id_agensi: number;
     id_pengguna_kemaskini: number;
     tarikh_kemaskini: moment.Moment;
+    nama_bencana: string;
 }
 
 /** MangsaAntarabangsa List in Tabular model */
@@ -11991,6 +11995,7 @@ export class GetMangsaBantuanForViewDto implements IGetMangsaBantuanForViewDto {
     id_pengguna_kemaskini!: number;
     tarikh_kemaskini!: moment.Moment;
     sebab_hapus!: string;
+    nama_agensi!: string;
 
     constructor(data?: IGetMangsaBantuanForViewDto) {
         if (data) {
@@ -12016,6 +12021,7 @@ export class GetMangsaBantuanForViewDto implements IGetMangsaBantuanForViewDto {
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
             this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
             this.sebab_hapus = _data["sebab_hapus"];
+            this.nama_agensi = _data["nama_agensi"];
         }
     }
 
@@ -12041,6 +12047,7 @@ export class GetMangsaBantuanForViewDto implements IGetMangsaBantuanForViewDto {
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
+        data["nama_agensi"] = this.nama_agensi;
         return data; 
     }
 }
@@ -12059,6 +12066,7 @@ export interface IGetMangsaBantuanForViewDto {
     id_pengguna_kemaskini: number;
     tarikh_kemaskini: moment.Moment;
     sebab_hapus: string;
+    nama_agensi: string;
 }
 
 /** MangsaBantuan List in Tabular model */
@@ -12767,6 +12775,9 @@ export class GetMangsaPertanianForViewDto implements IGetMangsaPertanianForViewD
     id_agensi!: number;
     id_pengguna_kemaskini!: number;
     tarikh_kemaskini!: moment.Moment;
+    nama_bencana!: string;
+    nama_agensi!: string;
+    nama_jenis_pertanian!: string;
 
     constructor(data?: IGetMangsaPertanianForViewDto) {
         if (data) {
@@ -12794,6 +12805,9 @@ export class GetMangsaPertanianForViewDto implements IGetMangsaPertanianForViewD
             this.id_agensi = _data["id_agensi"];
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
             this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.nama_bencana = _data["nama_bencana"];
+            this.nama_agensi = _data["nama_agensi"];
+            this.nama_jenis_pertanian = _data["nama_jenis_pertanian"];
         }
     }
 
@@ -12821,6 +12835,9 @@ export class GetMangsaPertanianForViewDto implements IGetMangsaPertanianForViewD
         data["id_agensi"] = this.id_agensi;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["nama_bencana"] = this.nama_bencana;
+        data["nama_agensi"] = this.nama_agensi;
+        data["nama_jenis_pertanian"] = this.nama_jenis_pertanian;
         return data; 
     }
 }
@@ -12841,6 +12858,9 @@ export interface IGetMangsaPertanianForViewDto {
     id_agensi: number;
     id_pengguna_kemaskini: number;
     tarikh_kemaskini: moment.Moment;
+    nama_bencana: string;
+    nama_agensi: string;
+    nama_jenis_pertanian: string;
 }
 
 /** MangsaPertanian List in Tabular model */
@@ -13374,6 +13394,8 @@ export class GetMangsaRumahForViewDto implements IGetMangsaRumahForViewDto {
     id_agensi!: number;
     id_pengguna_kemaskini!: number;
     tarikh_kemaskini!: moment.Moment;
+    nama_bencana!: string;
+    nama_bantuan!: string;
 
     constructor(data?: IGetMangsaRumahForViewDto) {
         if (data) {
@@ -13412,6 +13434,8 @@ export class GetMangsaRumahForViewDto implements IGetMangsaRumahForViewDto {
             this.id_agensi = _data["id_agensi"];
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
             this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.nama_bencana = _data["nama_bencana"];
+            this.nama_bantuan = _data["nama_bantuan"];
         }
     }
 
@@ -13450,6 +13474,8 @@ export class GetMangsaRumahForViewDto implements IGetMangsaRumahForViewDto {
         data["id_agensi"] = this.id_agensi;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["nama_bencana"] = this.nama_bencana;
+        data["nama_bantuan"] = this.nama_bantuan;
         return data; 
     }
 }
@@ -13481,6 +13507,8 @@ export interface IGetMangsaRumahForViewDto {
     id_agensi: number;
     id_pengguna_kemaskini: number;
     tarikh_kemaskini: moment.Moment;
+    nama_bencana: string;
+    nama_bantuan: string;
 }
 
 /** MangsaRumah List in Tabular model */
