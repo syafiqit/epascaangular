@@ -3206,6 +3206,75 @@ export class MangsaServiceProxy {
         }
         return _observableOf<InputCreateMangsaDto>(<any>null);
     }
+
+    /**
+     * Store profile mangsa image
+     * @param id Mangsa Id
+     * @param image (optional) 
+     * @return Success
+     */
+    uploadGambarProfilMangsa(id: number, image: FileParameter | undefined): Observable<OutputGambarProfilMangsaDto> {
+        let url_ = this.baseUrl + "/api/mangsa/uploadGambarProfilMangsa?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = new FormData();
+        if (image === null || image === undefined)
+            throw new Error("The parameter 'image' cannot be null.");
+        else
+            content_.append("image", image.data, image.fileName ? image.fileName : "image");
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUploadGambarProfilMangsa(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUploadGambarProfilMangsa(<any>response_);
+                } catch (e) {
+                    return <Observable<OutputGambarProfilMangsaDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<OutputGambarProfilMangsaDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUploadGambarProfilMangsa(response: HttpResponseBase): Observable<OutputGambarProfilMangsaDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = OutputGambarProfilMangsaDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<OutputGambarProfilMangsaDto>(<any>null);
+    }
 }
 
 @Injectable()
@@ -13992,6 +14061,7 @@ export class GetMangsaForViewDto implements IGetMangsaForViewDto {
     tarikh_kemaskini!: moment.Moment;
     sebab_hapus!: string;
     nama_negeri!: string;
+    nama_agensi!: string;
 
     constructor(data?: IGetMangsaForViewDto) {
         if (data) {
@@ -14024,6 +14094,7 @@ export class GetMangsaForViewDto implements IGetMangsaForViewDto {
             this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
             this.sebab_hapus = _data["sebab_hapus"];
             this.nama_negeri = _data["nama_negeri"];
+            this.nama_agensi = _data["nama_agensi"];
         }
     }
 
@@ -14056,6 +14127,7 @@ export class GetMangsaForViewDto implements IGetMangsaForViewDto {
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
         data["nama_negeri"] = this.nama_negeri;
+        data["nama_agensi"] = this.nama_agensi;
         return data; 
     }
 }
@@ -14081,6 +14153,7 @@ export interface IGetMangsaForViewDto {
     tarikh_kemaskini: moment.Moment;
     sebab_hapus: string;
     nama_negeri: string;
+    nama_agensi: string;
 }
 
 export class InputBencanaMangsaDto implements IInputBencanaMangsaDto {
@@ -14205,6 +14278,42 @@ export class InputCreateMangsaDto implements IInputCreateMangsaDto {
 export interface IInputCreateMangsaDto {
     mangsa: CreateOrEditMangsaDto;
     bencana: InputBencanaMangsaDto;
+}
+
+export class OutputGambarProfilMangsaDto implements IOutputGambarProfilMangsaDto {
+    gambar!: string;
+
+    constructor(data?: IOutputGambarProfilMangsaDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.gambar = _data["gambar"];
+        }
+    }
+
+    static fromJS(data: any): OutputGambarProfilMangsaDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new OutputGambarProfilMangsaDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["gambar"] = this.gambar;
+        return data; 
+    }
+}
+
+export interface IOutputGambarProfilMangsaDto {
+    gambar: string;
 }
 
 /** Mangsa List in Tabular model */
