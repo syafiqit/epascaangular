@@ -1,15 +1,19 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { LazyLoadEvent } from 'primeng/api';
+import { MangsaServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import { finalize } from 'rxjs/operators';
+import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 declare let require;
 const Swal = require('sweetalert2');
 
 @Component({
 	selector: 'app-pengurusan-mangsa',
-	templateUrl: './pengurusan-mangsa.component.html'
+	templateUrl: './pengurusan-mangsa.component.html',
+	encapsulation: ViewEncapsulation.None,
+	providers: [NgbModalConfig]
 })
 export class PengurusanMangsaComponent implements OnInit {
 	@ViewChild('dataTable', { static: true }) dataTable: Table;
@@ -17,149 +21,19 @@ export class PengurusanMangsaComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 
+	filter: string;
+
 	public isCollapsed = false;
 
-	localization = {
-		emptyMessage: 'Tiada Data',
-		totalMessage: 'Jumlah'
-	};
+	items = [{ data: 'Nama' }, { data: 'No Kad Pengenalan' }];
 
-	rows = [
-		{
-      id: 1,
-			kp: '999999-11-2222',
-			nameKir: 'Asmah Binti Haji Ameran',
-			waterBill: '1',
-			total: '500',
-			state: 'Sarawak',
-			source: 'JPAM',
-			verification: 'Sudah'
-		},
-		{
-      id: 2,
-			kp: '999999-11-2222',
-			nameKir: 'Asmah Binti Haji Ameran',
-			waterBill: '1',
-			total: '500',
-			state: 'Sarawak',
-			source: 'JPAM',
-			verification: 'Sudah'
-		},
-		{
-      id: 3,
-			kp: '999999-11-2222',
-			nameKir: 'Asmah Binti Haji Ameran',
-			waterBill: '1',
-			total: '500',
-			state: 'Sarawak',
-			source: 'JPAM',
-			verification: 'Sudah'
-		},
-		{
-      id: 4,
-			kp: '999999-11-2222',
-			nameKir: 'Asmah Binti Haji Ameran',
-			waterBill: '1',
-			total: '500',
-			state: 'Sarawak',
-			source: 'JPAM',
-			verification: 'Sudah'
-		},
-		{
-      id: 5,
-			kp: '999999-11-2222',
-			nameKir: 'Asmah Binti Haji Ameran',
-			waterBill: '1',
-			total: '500',
-			state: 'Sarawak',
-			source: 'JPAM',
-			verification: 'Sudah'
-		},
-		{
-      id: 6,
-			kp: '999999-11-2222',
-			nameKir: 'Asmah Binti Haji Ameran',
-			waterBill: '1',
-			total: '500',
-			state: 'Sarawak',
-			source: 'JPAM',
-			verification: 'Sudah'
-		},
-		{
-      id: 7,
-			kp: '999999-11-2222',
-			nameKir: 'Asmah Binti Haji Ameran',
-			waterBill: '1',
-			total: '500',
-			state: 'Sarawak',
-			source: 'JPAM',
-			verification: 'Sudah'
-		},
-		{
-      id: 8,
-			kp: '999999-11-2222',
-			nameKir: 'Asmah Binti Haji Ameran',
-			waterBill: '1',
-			total: '500',
-			state: 'Sarawak',
-			source: 'JPAM',
-			verification: 'Sudah'
-		},
-		{
-      id: 9,
-			kp: '999999-11-2222',
-			nameKir: 'Asmah Binti Haji Ameran',
-			waterBill: '1',
-			total: '500',
-			state: 'Sarawak',
-			source: 'JPAM',
-			verification: 'Sudah'
-		},
-		{
-      id: 10,
-			kp: '999999-11-2222',
-			nameKir: 'Asmah Binti Haji Ameran',
-			waterBill: '1',
-			total: '500',
-			state: 'Sarawak',
-			source: 'JPAM',
-			verification: 'Sudah'
-		},
-		{
-      id: 11,
-			kp: '999999-11-2222',
-			nameKir: 'Asmah Binti Haji Ameran',
-			waterBill: '1',
-			total: '500',
-			state: 'Sarawak',
-			source: 'JPAM',
-			verification: 'Sudah'
-		},
-		{
-      id: 12,
-			kp: '999999-11-2222',
-			nameKir: 'Asmah Binti Haji Ameran',
-			waterBill: '1',
-			total: '500',
-			state: 'Sarawak',
-			source: 'JPAM',
-			verification: 'Sudah'
-		}
-	];
-
-	categories = [{ data: 'barangan kebersihan' }, { data: 'barangan perubatan' }];
-
-	items = [{ data: 'Nama' }, { data: 'No KP' }];
-
-	ColumnMode = ColumnMode;
-	SortType = SortType;
-
-	delete() {
-		Swal.fire('Berjaya!', 'Barangan Berjaya Di Buang.', 'success');
-	}
-
-	constructor() {
+	constructor(
+		config: NgbModalConfig,
+    private _mangsaServiceProxy: MangsaServiceProxy
+  ) {
 		this.primengTableHelper = new PrimengTableHelper();
+		config.backdrop = 'static';
+		config.keyboard = false;
 	}
 
 	ngOnInit(): void {}
@@ -171,12 +45,27 @@ export class PengurusanMangsaComponent implements OnInit {
 		}
 
 		this.primengTableHelper.showLoadingIndicator();
-		this.primengTableHelper.totalRecordsCount = this.rows.length;
-		this.primengTableHelper.records = this.rows;
-		this.primengTableHelper.hideLoadingIndicator();
+		this._mangsaServiceProxy
+			.getAll(
+				this.filter,
+				this.primengTableHelper.getSorting(this.dataTable),
+				this.primengTableHelper.getSkipCount(this.paginator, event),
+				this.primengTableHelper.getMaxResultCount(this.paginator, event)
+			)
+      .pipe(finalize(()=>{
+				this.primengTableHelper.hideLoadingIndicator();
+      }))
+			.subscribe((result) => {
+				this.primengTableHelper.totalRecordsCount = result.total_count;
+				this.primengTableHelper.records = result.items;
+			});
 	}
 
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
+	}
+
+	delete() {
+		Swal.fire('Berjaya!', 'Barangan Berjaya Dibuang.', 'success');
 	}
 }

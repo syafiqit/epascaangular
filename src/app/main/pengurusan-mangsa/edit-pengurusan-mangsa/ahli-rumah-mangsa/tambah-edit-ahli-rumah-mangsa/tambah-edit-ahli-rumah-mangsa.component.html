@@ -1,23 +1,51 @@
 <div class="modal-header">
-	<h4 class="modal-title">Ahli Isi Rumah</h4>
-	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+	<h5 class="modal-title" *ngIf="name === 'add'">Tambah Ahli Isi Rumah</h5>
+	<h5 class="modal-title" *ngIf="name === 'edit'">Kemaskini Ahli Isi Rumah</h5>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
 		<span aria-hidden="true">&times;</span>
 	</button>
 </div>
 
-<div class="modal-body">
-	<form class="form theme-form">
+<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid " novalidate>
+  <div class="modal-body">
 		<div class="row">
-			<div class="col-lg-6">
+      <div class="col-lg-6">
 				<div class="form-group">
-					<label for="exampleFormControlSelect9">No. KP</label>
-					<input class="form-control" id="ss" type="text" placeholder="xxxx-xx-xxxx" />
+					<label>Nama</label>
+					<input
+						class="form-control"
+            id="nama_mangsa"
+						type="text"
+						name="nama"
+						[(ngModel)]="addAhli.nama"
+						placeholder="Nama Ahli Isi Rumah"
+						#namaMangsa="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && namaMangsa.invalid }"
+						required
+					/>
+					<div *ngIf="f.submitted && namaMangsa.invalid" class="invalid-feedback">
+						<div *ngIf="namaMangsa.errors.required">Nama Ahli Isi Rumah Wajib Diisi</div>
+					</div>
 				</div>
 			</div>
+
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label for="itemLabel">Nama</label>
-					<input class="form-control" id="itemLabel" type="text" placeholder="Nama" />
+					<label>No Kad Pengenalan</label>
+					<input
+						class="form-control"
+            id="noKP"
+						type="text"
+						name="no_kp"
+						[(ngModel)]="addAhli.no_kp"
+						placeholder="No Kad Pengenalan"
+						#kadPengenalan="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && kadPengenalan.invalid }"
+						required
+					/>
+					<div *ngIf="f.submitted && kadPengenalan.invalid" class="invalid-feedback">
+						<div *ngIf="kadPengenalan.errors.required">No Kad Pengenalan Wajib Diisi</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -25,23 +53,49 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label for="exampleFormControlSelect9">Hubungan</label>
-					<select class="form-control digits" id="exampleFormControlSelect9">
-						<option *ngFor="let r of relationships">{{r.data}}</option>
-					</select>
+					<label>Hubungan</label>
+					<ng-select
+						[items]="relationships"
+						bindLabel="nama_hubungan"
+						bindValue="id"
+						placeholder="Sila Pilih"
+						class="js-example-placeholder-multiple"
+						name="id_hubungan"
+						[(ngModel)]="addAhli.id_hubungan"
+						#hubungan="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && hubungan.invalid }"
+						required
+					></ng-select>
+					<div *ngIf="f.submitted && hubungan.invalid" class="invalid-feedback">
+						<div *ngIf="hubungan.errors.required">Kementerian Wajib Dipilih</div>
+					</div>
 				</div>
 			</div>
+
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label for="exampleFormControlSelect9">Umur</label>
-					<input class="form-control" id="sss" type="text" placeholder="umur" />
+					<label>Umur</label>
+					<input
+						class="form-control"
+            id="umur_ahli"
+						type="text"
+						name="umur"
+						[(ngModel)]="addAhli.umur"
+						placeholder="Umur"
+						#umurAhli="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && umurAhli.invalid }"
+						required
+					/>
+					<div *ngIf="f.submitted && umurAhli.invalid" class="invalid-feedback">
+						<div *ngIf="umurAhli.errors.required">Umur Ahli Isi Rumah Wajib Diisi</div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</form>
-</div>
+	</div>
 
-<div class="modal-footer">
-	<button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
-	<button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Simpan</button>
-</div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="activeModal.close(false)">Tutup</button>
+		<button type="submit" class="btn btn-primary" (click)="save()">Simpan</button>
+  </div>
+</form>

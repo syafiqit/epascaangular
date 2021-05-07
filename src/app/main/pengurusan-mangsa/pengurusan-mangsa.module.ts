@@ -4,6 +4,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { PengurusanMangsaRoutingModule } from './pengurusan-mangsa-routing.module';
 import { PengurusanMangsaComponent } from './pengurusan-mangsa.component';
 import { TambahPengurusanMangsaComponent } from './tambah-pengurusan-mangsa/tambah-pengurusan-mangsa.component';
@@ -28,7 +29,8 @@ import { BantuanPinjamanKhasComponent } from './edit-pengurusan-mangsa/bantuan-m
 		PengurusanMangsaRoutingModule,
 		NgxDatatableModule,
 		TableModule,
-		PaginatorModule
+		PaginatorModule,
+    NgSelectModule
 	],
 	declarations: [
 		PengurusanMangsaComponent,
