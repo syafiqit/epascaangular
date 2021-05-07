@@ -12,52 +12,52 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="row justify-content-end">
-			<div class="col-xl-6 col-xs-12">
-				<div class="form-group">
-					<button (click)="addVictimDisasterModal()" class="btn btn-primary pull-right mb-4">
-						<i class="fa fa-plus mr-2"></i>
-						Tambah
-					</button>
-				</div>
-			</div>
+			<div class="form-group">
+        <button (click)="addVictimDisasterModal()" class="btn btn-primary pull-right">
+          <i class="fa fa-plus mr-2"></i>
+          Tambah
+        </button>
+      </div>
 		</div>
+
 		<div class="row">
 			<div class="row align-items-center">
 				<!--<Primeng-TurboTable-Start>-->
-				<div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+				<div class="primeng-datatable-container">
 					<p-table
-						#dataTable
-						styleClass="p-datatable-striped"
-						sortMode="multiple"
-						[resizableColumns]="true"
-						(onLazyLoad)="getDisaster($event)"
-						[value]="primengTableHelper.records"
-						rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
-						[paginator]="false"
-						[lazy]="true"
-						[scrollable]="true"
-						ScrollWidth="100%"
-						[responsive]="primengTableHelper.isResponsive"
+            #dataTable
+            styleClass="p-datatable-striped"
+            [resizableColumns]="true"
+            (onLazyLoad)="getDisaster($event)"
+            [value]="primengTableHelper.records"
+            rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
+            [paginator]="false"
+            [lazy]="true"
+            [loading]="primengTableHelper.isLoading"
+            [scrollable]="true"
+            ScrollWidth="100%"
+            [responsive]="primengTableHelper.isResponsive"
 					>
 						<ng-template pTemplate="header">
 							<tr>
 								<th style="width: 130px">Tindakan</th>
-								<th style="width: 100px" pSortableColumn="year">
+								<th style="width: 100px" pSortableColumn="tahun_bencana">
 									Tahun Bencana
-									<p-sortIcon field="year"></p-sortIcon>
+									<p-sortIcon field="tahun_bencana"></p-sortIcon>
 								</th>
-								<th style="width: 130px" pSortableColumn="type">
-									Jenis Bencana
-									<p-sortIcon field="type"></p-sortIcon>
+								<th style="width: 130px" pSortableColumn="nama_bencana">
+									Nama Bencana
+									<p-sortIcon field="nama_bencana"></p-sortIcon>
 								</th>
-								<th style="width: 130px" pSortableColumn="status">
+								<th style="width: 130px" pSortableColumn="pindah">
 									Status Pindah
-									<p-sortIcon field="status"></p-sortIcon>
+									<p-sortIcon field="pindah"></p-sortIcon>
 								</th>
-								<th style="width: 130px" pSortableColumn="centre">
+								<th style="width: 130px" pSortableColumn="nama_pusat_pemindahan">
 									Nama Pusat
-									<p-sortIcon field="centre"></p-sortIcon>
+									<p-sortIcon field="nama_pusat_pemindahan"></p-sortIcon>
 								</th>
 							</tr>
 						</ng-template>
@@ -76,28 +76,28 @@
 											Tindakan
 										</button>
 										<div ngbDropdownMenu aria-labelledby="action">
-											<button class="dropdown-item" (click)="addVictimDisasterModal()">
-												Ubah
+											<button class="dropdown-item" (click)="editVictimDisasterModal(record.id)">
+												Kemaskini
 											</button>
 											<button class="dropdown-item" (click)="delete()">Padam</button>
 										</div>
 									</div>
 								</td>
 								<td style="width: 100px">
-									<span class="p-column-title">year</span>
-									{{record.year}}
+									<span class="p-column-title">Tahun Bencana</span>
+									{{record.tahun_bencana}}
 								</td>
 								<td style="width: 130px">
-									<span class="p-column-title">Jenis Bencana</span>
-									{{record.type}}
+									<span class="p-column-title">Nama Bencana</span>
+									{{record.nama_bencana}}
 								</td>
 								<td style="width: 130px">
-									<span class="p-column-title">status</span>
-									{{record.status}}
+									<span class="p-column-title">Status Pindah</span>
+									{{record.pindah}}
 								</td>
 								<td style="width: 130px">
-									<span class="p-column-title">centre</span>
-									{{record.centre}}
+									<span class="p-column-title">Nama Pusat</span>
+									{{record.nama_pusat_pemindahan}}
 								</td>
 							</tr>
 						</ng-template>

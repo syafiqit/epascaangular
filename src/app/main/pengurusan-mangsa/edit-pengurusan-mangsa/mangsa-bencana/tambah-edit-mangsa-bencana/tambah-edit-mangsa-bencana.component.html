@@ -1,64 +1,95 @@
 <div class="modal-header">
-	<h4 class="modal-title">Mangsa Bencana</h4>
-	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+	<h5 class="modal-title" *ngIf="name === 'add'">Tambah Maklumat Bencana</h5>
+	<h5 class="modal-title" *ngIf="name === 'edit'">Kemaskini Maklumat Bencana</h5>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
 		<span aria-hidden="true">&times;</span>
 	</button>
 </div>
 
-<div class="modal-body">
-	<form class="form theme-form">
+<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid " novalidate>
+  <div class="modal-body">
 		<div class="row">
-			<div class="col-xl-6 col-xs-12">
+			<div class="col-lg-6">
 				<div class="form-group">
-					<label for="exampleFormControlInput1">Kejadian Bencana</label>
-					<select class="form-control digits" id="exampleFormControlSelect9">
-						<option>Covid-19</option>
-						<option>Banjir</option>
-						<option>Ribut</option>
-					</select>
+					<label>Nama Bencana</label>
+					<ng-select
+						[items]="disasters"
+						bindLabel="nama_bencana"
+						bindValue="id"
+						placeholder="Sila Pilih"
+						class="js-example-placeholder-multiple"
+						name="id_bencana"
+						[(ngModel)]="addBencana.id_bencana"
+						#bencana="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && bencana.invalid }"
+						required
+					></ng-select>
+					<div *ngIf="f.submitted && bencana.invalid" class="invalid-feedback">
+						<div *ngIf="bencana.errors.required">Nama Bencana Wajib Dipilih</div>
+					</div>
 				</div>
 			</div>
-			<div class="col-xl-6 col-xs-12">
+
+			<div class="col-lg-6">
 				<div class="form-group">
-					<label for="exampleFormControlSelect9">Tahun Bencana</label>
-					<select class="form-control digits" id="exampleFormControlSelect9">
-						<option>Pilih</option>
-						<option>2020</option>
-					</select>
+					<label>Status Berpindah</label>
+					<ng-select
+						[items]="evacuates"
+						bindLabel="pindah"
+						bindValue="id"
+						placeholder="Sila Pilih"
+						class="js-example-placeholder-multiple"
+						name="id_pindah"
+						[(ngModel)]="addBencana.id_pindah"
+						#pindah="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && pindah.invalid }"
+						required
+					></ng-select>
+					<div *ngIf="f.submitted && pindah.invalid" class="invalid-feedback">
+						<div *ngIf="pindah.errors.required">Status Berpindah Wajib Dipilih</div>
+					</div>
 				</div>
 			</div>
 		</div>
 
 		<div class="row">
-			<div class="col-xl-6 col-xs-12">
+			<div class="col-lg-6">
 				<div class="form-group">
-					<label for="exampleFormControlInput1">Status Berpindah</label>
-					<select class="form-control digits" id="exampleFormControlSelect9">
-						<option>Tidak berpindah</option>
-						<option>Pindah ke pusat pemindahan</option>
-						<option>Lain-lain</option>
-					</select>
+					<label>Nama Pusat</label>
+					<input
+						class="form-control"
+            id="pusatPindah"
+						type="text"
+						name="nama_pusat_pemindahan"
+						[(ngModel)]="addBencana.nama_pusat_pemindahan"
+						placeholder="Nama Pusat"
+						#namaPusat="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && namaPusat.invalid }"
+						required
+					/>
+					<div *ngIf="f.submitted && namaPusat.invalid" class="invalid-feedback">
+						<div *ngIf="namaPusat.errors.required">Nama Pusat Wajib Diisi</div>
+					</div>
 				</div>
 			</div>
-			<div class="col-xl-6 col-xs-12">
-				<div class="form-group">
-					<label for="exampleFormControlSelect9">Nama Pusat</label>
-					<input class="form-control" id="sss" type="text" placeholder="Nama Pusat" />
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col">
-				<div class="form-group mb-3">
-					<label for="exampleFormControlTextarea4">Masalah Dihadapi</label>
-					<textarea class="form-control" id="exampleFormControlTextarea4" rows="3"></textarea>
-				</div>
-			</div>
-		</div>
-	</form>
-</div>
 
-<div class="modal-footer">
-	<button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Kembali</button>
-	<button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Simpan</button>
-</div>
+      <div class="col-lg-6">
+				<div class="form-group">
+					<label>Masalah Dihadapi</label>
+					<textarea
+            class="form-control"
+            rows="3"
+            name="masalah"
+            [(ngModel)]="addBencana.masalah"
+            placeholder="Masalah yang dihadapi..."
+          ></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="activeModal.close(false)">Tutup</button>
+		<button type="submit" class="btn btn-primary" (click)="save()">Simpan</button>
+  </div>
+</form>

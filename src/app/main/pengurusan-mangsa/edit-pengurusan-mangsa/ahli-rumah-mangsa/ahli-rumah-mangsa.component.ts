@@ -1,11 +1,13 @@
-import { Component, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TambahEditAhliRumahMangsaComponent } from './tambah-edit-ahli-rumah-mangsa/tambah-edit-ahli-rumah-mangsa.component';
 import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { LazyLoadEvent } from 'primeng/api';
+import { GetMangsaForEditDto, MangsaAirServiceProxy, MangsaServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import { finalize } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 declare let require;
 const Swal = require('sweetalert2');
 
@@ -21,29 +23,42 @@ export class AhliRumahMangsaComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 
-  @Input() public idMangsa: number;
-
 	public isCollapsed = false;
 
-	rows = [{ kp: 'xxxx-xx-xxxx', name: 'Azizah Bt Kasim', age: '12', relationship: 'Anak Perempuan' }];
+  filter: string;
+  idMangsa: string;
+  mangsaId: any;
+  getMangsa: GetMangsaForEditDto = new GetMangsaForEditDto();
 
-	categories = [{ data: 'barangan kebersihan' }, { data: 'barangan perubatan' }];
+  nama: string;
+  no_kp: string;
 
-	items = [{ data: 'Makanan Tin' }, { data: 'Makanan Kering' }];
-
-	ColumnMode = ColumnMode;
-	SortType = SortType;
-
-	delete() {
-		Swal.fire('Berjaya!', 'Barangan Berjaya Di Buang.', 'success');
-	}
-
-	addHouseholdModal() {
-		this.modalService.open(TambahEditAhliRumahMangsaComponent, { size: 'lg' });
-	}
-
-	constructor(config: NgbModalConfig, private modalService: NgbModal) {
+	constructor(
+    config: NgbModalConfig,
+    private _activatedRoute: ActivatedRoute,
+    private modalService: NgbModal,
+    private _mangsaAirServiceProxy: MangsaAirServiceProxy,
+    private _mangsaServiceProxy: MangsaServiceProxy
+    ) {
 		this.primengTableHelper = new PrimengTableHelper();
+    this.idMangsa = this._activatedRoute.snapshot.queryParams['id'];
+	}
+
+	ngOnInit(): void {
+    // this.show();
+  }
+
+	// show() {
+	// 	this._mangsaServiceProxy.getMangsaForEdit(this.mangsaId).subscribe((result) => {
+  //     this.idMangsa = this.getMangsa.mangsa.nama;
+	// 		this.getMangsa = result;
+  //     this.nama = result.mangsa.nama;
+  //     this.no_kp = result.mangsa.no_kp;
+	// 	});
+	// }
+
+	reloadPage(): void {
+		this.paginator.changePage(this.paginator.getPage());
 	}
 
 	getHousehold(event?: LazyLoadEvent) {
@@ -53,14 +68,45 @@ export class AhliRumahMangsaComponent implements OnInit {
 		}
 
 		this.primengTableHelper.showLoadingIndicator();
-		this.primengTableHelper.totalRecordsCount = this.rows.length;
-		this.primengTableHelper.records = this.rows;
-		this.primengTableHelper.hideLoadingIndicator();
+		this._mangsaAirServiceProxy
+			.getAllByIdMangsa(
+        this.idMangsa,
+				this.filter,
+				this.primengTableHelper.getSorting(this.dataTable),
+				this.primengTableHelper.getSkipCount(this.paginator, event),
+				this.primengTableHelper.getMaxResultCount(this.paginator, event)
+			)
+      .pipe(finalize(()=>{
+				this.primengTableHelper.hideLoadingIndicator();
+      }))
+			.subscribe((result) => {
+				this.primengTableHelper.totalRecordsCount = result.total_count;
+				this.primengTableHelper.records = result.items;
+			});
 	}
 
-	reloadPage(): void {
-		this.paginator.changePage(this.paginator.getPage());
+	delete() {
+		Swal.fire('Berjaya!', 'Barangan Berjaya Dibuang.', 'success');
 	}
 
-	ngOnInit(): void {}
+	addAhliRumahModal() {
+		const modalRef = this.modalService.open(TambahEditAhliRumahMangsaComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'add';
+		modalRef.result.then((response) => {
+			if (response) {
+				this.getHousehold();
+			}
+		});
+	}
+
+	editAhliRumahModal(id) {
+		const modalRef = this.modalService.open(TambahEditAhliRumahMangsaComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'edit';
+		modalRef.componentInstance.id = id;
+		modalRef.result.then((response) => {
+			if (response) {
+				this.getHousehold();
+			}
+		});
+	}
 }

@@ -3,39 +3,38 @@
 		<div class="row">
 			<div class="col-xl-6 col-xs-12">
 				<div class="form-group">
-					<label>Nama: Asmah Binti Haji Ameran</label>
+					<label>Nama:</label>
 				</div>
 			</div>
 			<div class="col-xl-6 col-xs-12">
 				<div class="form-group">
-					<label>No KP: xxxxxx-xx-xxxx</label>
+					<label>No Kad Pengenalan:</label>
 				</div>
 			</div>
 		</div>
-		<div class="row justify-content-end">
-			<div class="col-xl-6 col-xs-12">
-				<div class="form-group">
-					<button (click)="addHouseholdModal()" class="btn btn-primary pull-right mb-4">
-						<i class="fa fa-plus mr-2"></i>
-						Tambah
-					</button>
-				</div>
-			</div>
+		<div class="row justify-content-end pr-0">
+			<div class="form-group">
+        <button (click)="addAhliRumahModal()" class="btn btn-primary pull-right">
+          <i class="fa fa-plus mr-2"></i>
+          Tambah
+        </button>
+      </div>
 		</div>
+
 		<div class="row">
 			<div class="row align-items-center">
 				<!--<Primeng-TurboTable-Start>-->
-				<div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+				<div class="primeng-datatable-container">
 					<p-table
 						#dataTable
 						styleClass="p-datatable-striped"
-						sortMode="multiple"
 						[resizableColumns]="true"
 						(onLazyLoad)="getHousehold($event)"
 						[value]="primengTableHelper.records"
 						rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
 						[paginator]="false"
 						[lazy]="true"
+            [loading]="primengTableHelper.isLoading"
 						[scrollable]="true"
 						ScrollWidth="100%"
 						[responsive]="primengTableHelper.isResponsive"
@@ -43,21 +42,21 @@
 						<ng-template pTemplate="header">
 							<tr>
 								<th style="width: 130px">Tindakan</th>
-								<th style="width: 100px" pSortableColumn="kp">
-									No KP
-									<p-sortIcon field="kp"></p-sortIcon>
+								<th style="width: 100px" pSortableColumn="no_kp">
+									No Kad Pengenalan
+									<p-sortIcon field="no_kp"></p-sortIcon>
 								</th>
-								<th style="width: 130px" pSortableColumn="name">
+								<th style="width: 130px" pSortableColumn="nama">
 									Nama Ahli Isi Rumah
-									<p-sortIcon field="name"></p-sortIcon>
+									<p-sortIcon field="nama"></p-sortIcon>
 								</th>
-								<th style="width: 130px" pSortableColumn="age">
+								<th style="width: 100px" pSortableColumn="umur">
 									Umur
-									<p-sortIcon field="age"></p-sortIcon>
+									<p-sortIcon field="umur"></p-sortIcon>
 								</th>
-								<th style="width: 130px" pSortableColumn="relationship">
+								<th style="width: 100px" pSortableColumn="nama_hubungan">
 									Hubungan
-									<p-sortIcon field="relationship"></p-sortIcon>
+									<p-sortIcon field="nama_hubungan"></p-sortIcon>
 								</th>
 							</tr>
 						</ng-template>
@@ -65,37 +64,39 @@
 							<tr>
 								<td style="width: 130px">
 									<div ngbDropdown class="btn-group" role="group" container="body">
-										<button
-											type="button"
-											class="btn btn-primary btn-primeng dropdown-toggle"
-											id="action"
-											ngbDropdownToggle
-										>
-											<i class="fa fa-cog"></i>
-											<span class="caret"></span>
-											Tindakan
-										</button>
-										<div ngbDropdownMenu aria-labelledby="action">
-											<button class="dropdown-item" (click)="addHouseholdModal()">Ubah</button>
-											<button class="dropdown-item" (click)="delete()">Padam</button>
-										</div>
-									</div>
+                    <button
+                      type="button"
+                      class="btn btn-primary btn-primeng dropdown-toggle"
+                      id="action"
+                      ngbDropdownToggle
+                    >
+                      <i class="fa fa-cog"></i>
+                      <span class="caret"></span>
+                      Tindakan
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="action">
+                      <button class="dropdown-item" (click)="editAhliRumahModal(record.id)">
+                        Kemaskini
+                      </button>
+                      <button class="dropdown-item">Padam</button>
+                    </div>
+                  </div>
 								</td>
 								<td style="width: 100px">
-									<span class="p-column-title">No KP</span>
-									{{record.kp}}
+									<span class="p-column-title">No Kad Pengenalan</span>
+									{{record.no_kp}}
 								</td>
 								<td style="width: 130px">
 									<span class="p-column-title">Nama Ahli Isi Rumah</span>
-									{{record.name}}
+									{{record.nama}}
 								</td>
-								<td style="width: 130px">
+								<td style="width: 100px">
 									<span class="p-column-title">Umur</span>
-									{{record.age}}
+									{{record.umur}}
 								</td>
-								<td style="width: 130px">
+								<td style="width: 100px">
 									<span class="p-column-title">Hubungan</span>
-									{{record.relationship}}
+									{{record.nama_hubungan}}
 								</td>
 							</tr>
 						</ng-template>
@@ -117,16 +118,3 @@
 		</div>
 	</div>
 </form>
-
-<ngx-datatable-column name="No KP" prop="kp" [flexGrow]="1">
-	<ng-template let-row="row" let-value="value" ngx-datatable-cell-template>{{ value }}</ng-template>
-</ngx-datatable-column>
-<ngx-datatable-column name="Nama Ahli Isi Rumah" prop="name" [flexGrow]="2">
-	<ng-template let-value="value" ngx-datatable-cell-template>{{ value }}</ng-template>
-</ngx-datatable-column>
-<ngx-datatable-column name="Umur" prop="age" [flexGrow]="1">
-	<ng-template let-value="value" ngx-datatable-cell-template>{{ value }}</ng-template>
-</ngx-datatable-column>
-<ngx-datatable-column name="Hubungan" prop="relationship" [flexGrow]="1">
-	<ng-template let-value="value" ngx-datatable-cell-template>{{ value }}</ng-template>
-</ngx-datatable-column>
