@@ -3209,16 +3209,11 @@ export class MangsaServiceProxy {
 
     /**
      * Store profile mangsa image
-     * @param id Mangsa Id
      * @param image (optional) 
      * @return Success
      */
-    uploadGambarProfilMangsa(id: number, image: FileParameter | undefined): Observable<OutputGambarProfilMangsaDto> {
-        let url_ = this.baseUrl + "/api/mangsa/uploadGambarProfilMangsa?";
-        if (id === undefined || id === null)
-            throw new Error("The parameter 'id' must be defined and cannot be null.");
-        else
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+    uploadGambarProfilMangsa(image: FileParameter | undefined): Observable<OutputGambarProfilMangsaDto> {
+        let url_ = this.baseUrl + "/api/mangsa/uploadGambarProfilMangsa";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = new FormData();
@@ -13928,6 +13923,7 @@ export class CreateOrEditMangsaDto implements ICreateOrEditMangsaDto {
     id_pengguna_kemaskini!: number;
     tarikh_kemaskini!: moment.Moment;
     sebab_hapus!: string;
+    gambar!: string;
 
     constructor(data?: ICreateOrEditMangsaDto) {
         if (data) {
@@ -13959,6 +13955,7 @@ export class CreateOrEditMangsaDto implements ICreateOrEditMangsaDto {
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
             this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
             this.sebab_hapus = _data["sebab_hapus"];
+            this.gambar = _data["gambar"];
         }
     }
 
@@ -13990,6 +13987,7 @@ export class CreateOrEditMangsaDto implements ICreateOrEditMangsaDto {
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
+        data["gambar"] = this.gambar;
         return data; 
     }
 }
@@ -14014,6 +14012,7 @@ export interface ICreateOrEditMangsaDto {
     id_pengguna_kemaskini: number;
     tarikh_kemaskini: moment.Moment;
     sebab_hapus: string;
+    gambar: string;
 }
 
 export class GetMangsaForEditDto implements IGetMangsaForEditDto {
@@ -14293,7 +14292,7 @@ export interface IInputCreateMangsaDto {
 }
 
 export class OutputGambarProfilMangsaDto implements IOutputGambarProfilMangsaDto {
-    gambar!: string;
+    url!: string;
 
     constructor(data?: IOutputGambarProfilMangsaDto) {
         if (data) {
@@ -14306,7 +14305,7 @@ export class OutputGambarProfilMangsaDto implements IOutputGambarProfilMangsaDto
 
     init(_data?: any) {
         if (_data) {
-            this.gambar = _data["gambar"];
+            this.url = _data["url"];
         }
     }
 
@@ -14319,13 +14318,13 @@ export class OutputGambarProfilMangsaDto implements IOutputGambarProfilMangsaDto
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["gambar"] = this.gambar;
+        data["url"] = this.url;
         return data; 
     }
 }
 
 export interface IOutputGambarProfilMangsaDto {
-    gambar: string;
+    url: string;
 }
 
 /** Mangsa List in Tabular model */
