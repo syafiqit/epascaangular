@@ -25,9 +25,7 @@ export class PengurusanMangsaComponent implements OnInit {
 
 	public isCollapsed = false;
 
-	categories = [{ data: 'barangan kebersihan' }, { data: 'barangan perubatan' }];
-
-	items = [{ data: 'Nama' }, { data: 'No KP' }];
+	items = [{ data: 'Nama' }, { data: 'No Kad Pengenalan' }];
 
 	constructor(
 		config: NgbModalConfig,
@@ -68,6 +66,6 @@ export class PengurusanMangsaComponent implements OnInit {
 	}
 
 	delete() {
-		Swal.fire('Berjaya!', 'Barangan Berjaya Di Buang.', 'success');
+		Swal.fire('Berjaya!', 'Barangan Berjaya Dibuang.', 'success');
 	}
 }

@@ -5,7 +5,11 @@ import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { LazyLoadEvent } from 'primeng/api';
-import { GetMangsaForEditDto, MangsaAirServiceProxy, MangsaServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import {
+  GetMangsaForEditDto,
+  MangsaAirServiceProxy,
+  MangsaServiceProxy
+} from 'src/app/shared/proxy/service-proxies';
 import { finalize } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 declare let require;
@@ -44,18 +48,7 @@ export class AhliRumahMangsaComponent implements OnInit {
     this.idMangsa = this._activatedRoute.snapshot.queryParams['id'];
 	}
 
-	ngOnInit(): void {
-    // this.show();
-  }
-
-	// show() {
-	// 	this._mangsaServiceProxy.getMangsaForEdit(this.mangsaId).subscribe((result) => {
-  //     this.idMangsa = this.getMangsa.mangsa.nama;
-	// 		this.getMangsa = result;
-  //     this.nama = result.mangsa.nama;
-  //     this.no_kp = result.mangsa.no_kp;
-	// 	});
-	// }
+	ngOnInit(): void {}
 
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
