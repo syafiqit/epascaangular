@@ -475,7 +475,7 @@ export class MangsaAirServiceProxy {
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAllByIdMangsa(idMangsa: string, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaAirForViewDto> {
+    getAllByIdMangsa(idMangsa: number, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaAirForViewDto> {
         let url_ = this.baseUrl + "/api/mangsaAir/getAllByIdMangsa?";
         if (idMangsa === undefined || idMangsa === null)
             throw new Error("The parameter 'idMangsa' must be defined and cannot be null.");
@@ -766,7 +766,7 @@ export class MangsaAntarabangsaServiceProxy {
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAllByIdMangsa(idMangsa: string, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaAntarabangsaForViewDto> {
+    getAllByIdMangsa(idMangsa: number, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaAntarabangsaForViewDto> {
         let url_ = this.baseUrl + "/api/mangsaAntarabangsa/getAllByIdMangsa?";
         if (idMangsa === undefined || idMangsa === null)
             throw new Error("The parameter 'idMangsa' must be defined and cannot be null.");
@@ -1057,7 +1057,7 @@ export class MangsaBantuanServiceProxy {
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAllByIdMangsa(idMangsa: string, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaBantuanForViewDto> {
+    getAllByIdMangsa(idMangsa: number, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaBantuanForViewDto> {
         let url_ = this.baseUrl + "/api/mangsaBantuan/getAllByIdMangsa?";
         if (idMangsa === undefined || idMangsa === null)
             throw new Error("The parameter 'idMangsa' must be defined and cannot be null.");
@@ -1348,7 +1348,7 @@ export class MangsaBencanaServiceProxy {
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAllByIdMangsa(idMangsa: string, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaBencanaForViewDto> {
+    getAllByIdMangsa(idMangsa: number, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaBencanaForViewDto> {
         let url_ = this.baseUrl + "/api/mangsaBencana/getAllByIdMangsa?";
         if (idMangsa === undefined || idMangsa === null)
             throw new Error("The parameter 'idMangsa' must be defined and cannot be null.");
@@ -1639,7 +1639,7 @@ export class MangsaKerosakanServiceProxy {
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAllByIdMangsa(idMangsa: string, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaKerosakanForViewDto> {
+    getAllByIdMangsa(idMangsa: number, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaKerosakanForViewDto> {
         let url_ = this.baseUrl + "/api/mangsaKerosakan/getAllByIdMangsa?";
         if (idMangsa === undefined || idMangsa === null)
             throw new Error("The parameter 'idMangsa' must be defined and cannot be null.");
@@ -1930,7 +1930,7 @@ export class MangsaPertanianServiceProxy {
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAllByIdMangsa(idMangsa: string, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaPertanianForViewDto> {
+    getAllByIdMangsa(idMangsa: number, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaPertanianForViewDto> {
         let url_ = this.baseUrl + "/api/mangsaPertanian/getAllByIdMangsa?";
         if (idMangsa === undefined || idMangsa === null)
             throw new Error("The parameter 'idMangsa' must be defined and cannot be null.");
@@ -2221,7 +2221,7 @@ export class MangsaPinjamanServiceProxy {
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAllByIdMangsa(idMangsa: string, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaPinjamanForViewDto> {
+    getAllByIdMangsa(idMangsa: number, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaPinjamanForViewDto> {
         let url_ = this.baseUrl + "/api/mangsaPinjaman/getAllByIdMangsa?";
         if (idMangsa === undefined || idMangsa === null)
             throw new Error("The parameter 'idMangsa' must be defined and cannot be null.");
@@ -2512,7 +2512,7 @@ export class MangsaRumahServiceProxy {
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAllByIdMangsa(idMangsa: string, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaRumahForViewDto> {
+    getAllByIdMangsa(idMangsa: number, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaRumahForViewDto> {
         let url_ = this.baseUrl + "/api/mangsaRumah/getAllByIdMangsa?";
         if (idMangsa === undefined || idMangsa === null)
             throw new Error("The parameter 'idMangsa' must be defined and cannot be null.");
@@ -2803,7 +2803,7 @@ export class MangsaWangIhsanServiceProxy {
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAllByIdMangsa(idMangsa: string, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaWangIhsanForViewDto> {
+    getAllByIdMangsa(idMangsa: number, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaWangIhsanForViewDto> {
         let url_ = this.baseUrl + "/api/mangsaWangIhsan/getAllByIdMangsa?";
         if (idMangsa === undefined || idMangsa === null)
             throw new Error("The parameter 'idMangsa' must be defined and cannot be null.");
