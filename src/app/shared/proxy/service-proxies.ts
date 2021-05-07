@@ -12328,6 +12328,7 @@ export class GetMangsaBencanaForViewDto implements IGetMangsaBencanaForViewDto {
     sebab_hapus!: string;
     nama_bencana!: string;
     pindah!: string;
+    tahun_bencana!: number;
 
     constructor(data?: IGetMangsaBencanaForViewDto) {
         if (data) {
@@ -12355,6 +12356,7 @@ export class GetMangsaBencanaForViewDto implements IGetMangsaBencanaForViewDto {
             this.sebab_hapus = _data["sebab_hapus"];
             this.nama_bencana = _data["nama_bencana"];
             this.pindah = _data["pindah"];
+            this.tahun_bencana = _data["tahun_bencana"];
         }
     }
 
@@ -12382,6 +12384,7 @@ export class GetMangsaBencanaForViewDto implements IGetMangsaBencanaForViewDto {
         data["sebab_hapus"] = this.sebab_hapus;
         data["nama_bencana"] = this.nama_bencana;
         data["pindah"] = this.pindah;
+        data["tahun_bencana"] = this.tahun_bencana;
         return data; 
     }
 }
@@ -12402,6 +12405,7 @@ export interface IGetMangsaBencanaForViewDto {
     sebab_hapus: string;
     nama_bencana: string;
     pindah: string;
+    tahun_bencana: number;
 }
 
 /** MangsaBencana List in Tabular model */
@@ -13769,6 +13773,8 @@ export class GetMangsaWangIhsanForViewDto implements IGetMangsaWangIhsanForViewD
     tarikh_kemaskini!: moment.Moment;
     nama_bencana!: string;
     nama_agensi!: string;
+    tarikh_bencana!: moment.Moment;
+    jumlah!: number;
 
     constructor(data?: IGetMangsaWangIhsanForViewDto) {
         if (data) {
@@ -13795,6 +13801,8 @@ export class GetMangsaWangIhsanForViewDto implements IGetMangsaWangIhsanForViewD
             this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
             this.nama_bencana = _data["nama_bencana"];
             this.nama_agensi = _data["nama_agensi"];
+            this.tarikh_bencana = _data["tarikh_bencana"] ? moment(_data["tarikh_bencana"].toString()) : <any>undefined;
+            this.jumlah = _data["jumlah"];
         }
     }
 
@@ -13821,6 +13829,8 @@ export class GetMangsaWangIhsanForViewDto implements IGetMangsaWangIhsanForViewD
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
         data["nama_bencana"] = this.nama_bencana;
         data["nama_agensi"] = this.nama_agensi;
+        data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
+        data["jumlah"] = this.jumlah;
         return data; 
     }
 }
@@ -13840,6 +13850,8 @@ export interface IGetMangsaWangIhsanForViewDto {
     tarikh_kemaskini: moment.Moment;
     nama_bencana: string;
     nama_agensi: string;
+    tarikh_bencana: moment.Moment;
+    jumlah: number;
 }
 
 /** MangsaWangIhsan List in Tabular model */
