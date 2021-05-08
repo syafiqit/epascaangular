@@ -5,6 +5,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 import { PengurusanMangsaRoutingModule } from './pengurusan-mangsa-routing.module';
 import { PengurusanMangsaComponent } from './pengurusan-mangsa.component';
 import { TambahPengurusanMangsaComponent } from './tambah-pengurusan-mangsa/tambah-pengurusan-mangsa.component';
@@ -30,7 +31,8 @@ import { BantuanPinjamanKhasComponent } from './edit-pengurusan-mangsa/bantuan-m
 		NgxDatatableModule,
 		TableModule,
 		PaginatorModule,
-    NgSelectModule
+    NgSelectModule,
+    NgxDropzoneModule
 	],
 	declarations: [
 		PengurusanMangsaComponent,

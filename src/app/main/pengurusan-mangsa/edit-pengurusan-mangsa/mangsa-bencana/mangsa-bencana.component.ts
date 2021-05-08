@@ -1,12 +1,15 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, Input } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TambahEditMangsaBencanaComponent } from './tambah-edit-mangsa-bencana/tambah-edit-mangsa-bencana.component';
 import { LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
-import { MangsaBencanaServiceProxy } from 'src/app/shared/proxy/service-proxies';
-import { ActivatedRoute } from '@angular/router';
+import {
+  GetMangsaForEditDto,
+  MangsaBencanaServiceProxy,
+  MangsaServiceProxy
+} from 'src/app/shared/proxy/service-proxies';
 import { finalize } from 'rxjs/operators';
 declare let require;
 const Swal = require('sweetalert2');
@@ -18,25 +21,34 @@ const Swal = require('sweetalert2');
 	providers: [NgbModalConfig, NgbModal]
 })
 export class MangsaBencanaComponent implements OnInit {
+  @Input() public idMangsa: number;
+
   @ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
 	primengTableHelper: PrimengTableHelper;
 
-  idMangsa: string;
   filter: string;
+  getMangsa: GetMangsaForEditDto = new GetMangsaForEditDto();
 
 	constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,
-    private _activatedRoute: ActivatedRoute,
-    private _mangsaBencanaServiceProxy: MangsaBencanaServiceProxy
+    private _mangsaBencanaServiceProxy: MangsaBencanaServiceProxy,
+    private _mangsaServiceProxy: MangsaServiceProxy
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
-    this.idMangsa = this._activatedRoute.snapshot.queryParams['id'];
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+    this.show();
+  }
+
+	show(): void {
+		this._mangsaServiceProxy.getMangsaForEdit(this.idMangsa).subscribe((result) => {
+			this.getMangsa = result;
+		});
+	}
 
 	getDisaster(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {

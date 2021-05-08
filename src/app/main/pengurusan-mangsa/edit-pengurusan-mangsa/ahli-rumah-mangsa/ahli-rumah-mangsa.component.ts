@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, Input } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TambahEditAhliRumahMangsaComponent } from './tambah-edit-ahli-rumah-mangsa/tambah-edit-ahli-rumah-mangsa.component';
 import { Table } from 'primeng/table';
@@ -11,7 +11,6 @@ import {
   MangsaServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { finalize } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
 declare let require;
 const Swal = require('sweetalert2');
 
@@ -22,6 +21,8 @@ const Swal = require('sweetalert2');
 	providers: [NgbModalConfig, NgbModal]
 })
 export class AhliRumahMangsaComponent implements OnInit {
+  @Input() public idMangsa: number;
+
 	@ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
@@ -30,25 +31,28 @@ export class AhliRumahMangsaComponent implements OnInit {
 	public isCollapsed = false;
 
   filter: string;
-  idMangsa: string;
   mangsaId: any;
+  victims: any;
   getMangsa: GetMangsaForEditDto = new GetMangsaForEditDto();
-
-  nama: string;
-  no_kp: string;
 
 	constructor(
     config: NgbModalConfig,
-    private _activatedRoute: ActivatedRoute,
     private modalService: NgbModal,
     private _mangsaAirServiceProxy: MangsaAirServiceProxy,
     private _mangsaServiceProxy: MangsaServiceProxy
     ) {
 		this.primengTableHelper = new PrimengTableHelper();
-    this.idMangsa = this._activatedRoute.snapshot.queryParams['id'];
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+    this.show();
+  }
+
+	show(): void {
+		this._mangsaServiceProxy.getMangsaForEdit(this.idMangsa).subscribe((result) => {
+			this.getMangsa = result;
+		});
+	}
 
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());

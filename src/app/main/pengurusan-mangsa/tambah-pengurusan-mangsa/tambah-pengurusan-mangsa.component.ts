@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs/operators';
+import { DatePipe } from '@angular/common';
 import {
   CreateOrEditMangsaDto,
   InputCreateMangsaDto,
@@ -10,7 +11,9 @@ import {
   RefNegeriServiceProxy,
   RefParlimenServiceProxy,
   RefPindahServiceProxy,
-  RefBencanaServiceProxy
+  RefBencanaServiceProxy,
+  SessionServiceProxy,
+  GetProfilDto
 } from 'src/app/shared/proxy/service-proxies';
 declare let require;
 const Swal = require('sweetalert2');
@@ -23,6 +26,9 @@ const Swal = require('sweetalert2');
 export class TambahPengurusanMangsaComponent implements OnInit {
 
   addMangsa: InputCreateMangsaDto = new InputCreateMangsaDto();
+  getProfile: GetProfilDto = new GetProfilDto();
+  dateNow = new Date();
+  latest_date: string;
 	saving = false;
   dun: any;
   parliaments: any;
@@ -35,20 +41,24 @@ export class TambahPengurusanMangsaComponent implements OnInit {
   verify: number;
 
 	constructor(
+    public datePipe: DatePipe,
     private _mangsaServiceProxy: MangsaServiceProxy,
     private _refDunServiceProxy: RefDunServiceProxy,
     private _refParlimenServiceProxy: RefParlimenServiceProxy,
     private _refDaerahServiceProxy: RefDaerahServiceProxy,
     private _refNegeriServiceProxy: RefNegeriServiceProxy,
     private _refBencanaServiceProxy: RefBencanaServiceProxy,
-    private _refPindahServiceProxy: RefPindahServiceProxy
+    private _refPindahServiceProxy: RefPindahServiceProxy,
+    private _sessionServiceProxy: SessionServiceProxy
   ) {
+    this.latest_date = this.datePipe.transform(this.dateNow, 'dd-MM-yyyy');
 		this.addMangsa = new InputCreateMangsaDto();
     this.addMangsa.mangsa = new CreateOrEditMangsaDto();
     this.addMangsa.bencana = new InputBencanaMangsaDto();
 	}
 
 	ngOnInit(): void {
+    this.show();
     this.getDun();
     this.getParlimen();
     this.getDaerah();
@@ -56,6 +66,13 @@ export class TambahPengurusanMangsaComponent implements OnInit {
     this.getBencana();
     this.getStatusPindah();
   }
+
+	show(): void {
+		this._sessionServiceProxy.getProfil().subscribe((result) => {
+			this.getProfile = result;
+      this.addMangsa.mangsa.id_pengguna_cipta = result.pengguna.id;
+		});
+	}
 
   getDun(filter?) {
 		this._refDunServiceProxy.getRefDunForDropdown(filter).subscribe((result) => {
