@@ -368,16 +368,19 @@
                 <div class="row">
                   <div class="form-group">
                     <label><b>Nama :</b></label>
+                    <a>{{getProfile?.pengguna?.nama}}</a>
                   </div>
                 </div>
-                <div class="row">
+                <div class="row" *ngFor="let item of getProfile.agensi | keyvalue">
                   <div class="form-group">
                     <label><b>Agensi :</b></label>
+                    <a>{{item?.value}}</a>
                   </div>
                 </div>
                 <div class="row">
                   <div class="form-group">
                     <label><b>Tarikh Semasa :</b></label>
+                    <a>{{latest_date}}</a>
                   </div>
                 </div>
               </div>
