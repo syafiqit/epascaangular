@@ -17,6 +17,12 @@
   background-size: auto 200%;
   transition: all 0.3s ease;
 }
+
+.btn-primary {
+  background-color: #0869ef !important;
+  border-color: #0869ef !important;
+}
+
 .btn-primary-gradien{
   @include btn-gradien(60,lighten($primary-color,8%),0%,darken($primary-color,8%),100%,$white);
   color: $white;

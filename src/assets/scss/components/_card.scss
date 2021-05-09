@@ -3,11 +3,11 @@
 ==========================**/
 //Card css
 .card {
-  margin-bottom: $card-margin-bottom;
+  margin-bottom: 20px;
   border: none;
   transition: all 0.3s ease;
   letter-spacing: 0.5px;
-  border-radius: $card-border-radious;
+  border-radius: 5px;
   box-shadow: $card-box-shadow;
 
   &:hover {
@@ -23,17 +23,20 @@
     border-top-left-radius: $card-border-radious;
     border-top-right-radius: $card-border-radious;
     position: relative;
+    margin-top:5px;
+    margin-bottom:5px;
+    margin-left:5px;
 
     &.card-no-border {
       border-bottom: none !important;
     }
 
     h5 {
-      font-size: 22px;
+      font-size: 18px;
 
       &:not(.mb-0),
       &:not(.m-0) {
-        margin-bottom: 0;
+        margin-bottom: 5px;
         text-transform: $card-header-font-transform;
       }
     }
@@ -236,7 +239,7 @@
       margin-bottom: 30px;
       margin-top: 10px;
       color: $theme-body-sub-title-color;
-      font-size: 14px;
+      font-size: 16px;
     }
   }
 
@@ -257,7 +260,7 @@
       }
 
       h6 {
-        font-size: 14px;
+        font-size: 16px;
         color: $theme-body-sub-title-color;
       }
 

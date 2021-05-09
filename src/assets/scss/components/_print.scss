@@ -2,13 +2,15 @@
      77. Print CSS Start
 ==========================**/
 @media print {
-.page-wrapper {
+  .page-wrapper {
     .page-title {
       visibility: hidden;
     }
+
     .page-body-wrapper {
       .page-title {
-        display: none;
+        padding-top: 30px;
+        padding-bottom: 16px;
       }
     }
   }
