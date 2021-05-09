@@ -11698,6 +11698,10 @@ export class CreateOrEditMangsaAntarabangsaDto implements ICreateOrEditMangsaAnt
     id_agensi!: number;
     id_pengguna_kemaskini!: number;
     tarikh_kemaskini!: moment.Moment;
+    kos_bantuan!: number;
+    tarikh_bantuan!: moment.Moment;
+    catatan!: string;
+    nama_bantuan!: string;
 
     constructor(data?: ICreateOrEditMangsaAntarabangsaDto) {
         if (data) {
@@ -11720,6 +11724,10 @@ export class CreateOrEditMangsaAntarabangsaDto implements ICreateOrEditMangsaAnt
             this.id_agensi = _data["id_agensi"];
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
             this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.kos_bantuan = _data["kos_bantuan"];
+            this.tarikh_bantuan = _data["tarikh_bantuan"] ? moment(_data["tarikh_bantuan"].toString()) : <any>undefined;
+            this.catatan = _data["catatan"];
+            this.nama_bantuan = _data["nama_bantuan"];
         }
     }
 
@@ -11742,6 +11750,10 @@ export class CreateOrEditMangsaAntarabangsaDto implements ICreateOrEditMangsaAnt
         data["id_agensi"] = this.id_agensi;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["kos_bantuan"] = this.kos_bantuan;
+        data["tarikh_bantuan"] = this.tarikh_bantuan ? this.tarikh_bantuan.toISOString() : <any>undefined;
+        data["catatan"] = this.catatan;
+        data["nama_bantuan"] = this.nama_bantuan;
         return data; 
     }
 }
@@ -11757,6 +11769,10 @@ export interface ICreateOrEditMangsaAntarabangsaDto {
     id_agensi: number;
     id_pengguna_kemaskini: number;
     tarikh_kemaskini: moment.Moment;
+    kos_bantuan: number;
+    tarikh_bantuan: moment.Moment;
+    catatan: string;
+    nama_bantuan: string;
 }
 
 export class GetMangsaAntarabangsaForEditDto implements IGetMangsaAntarabangsaForEditDto {
@@ -11806,8 +11822,10 @@ export class GetMangsaAntarabangsaForViewDto implements IGetMangsaAntarabangsaFo
     id_agensi!: number;
     id_pengguna_kemaskini!: number;
     tarikh_kemaskini!: moment.Moment;
-    nama_bencana!: string;
+    nama_bantuan!: string;
     tarikh_bencana!: moment.Moment;
+    kos_bantuan!: number;
+    nama_bencana!: string;
 
     constructor(data?: IGetMangsaAntarabangsaForViewDto) {
         if (data) {
@@ -11830,8 +11848,10 @@ export class GetMangsaAntarabangsaForViewDto implements IGetMangsaAntarabangsaFo
             this.id_agensi = _data["id_agensi"];
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
             this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
-            this.nama_bencana = _data["nama_bencana"];
+            this.nama_bantuan = _data["nama_bantuan"];
             this.tarikh_bencana = _data["tarikh_bencana"] ? moment(_data["tarikh_bencana"].toString()) : <any>undefined;
+            this.kos_bantuan = _data["kos_bantuan"];
+            this.nama_bencana = _data["nama_bencana"];
         }
     }
 
@@ -11854,8 +11874,10 @@ export class GetMangsaAntarabangsaForViewDto implements IGetMangsaAntarabangsaFo
         data["id_agensi"] = this.id_agensi;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
-        data["nama_bencana"] = this.nama_bencana;
+        data["nama_bantuan"] = this.nama_bantuan;
         data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
+        data["kos_bantuan"] = this.kos_bantuan;
+        data["nama_bencana"] = this.nama_bencana;
         return data; 
     }
 }
@@ -11871,8 +11893,10 @@ export interface IGetMangsaAntarabangsaForViewDto {
     id_agensi: number;
     id_pengguna_kemaskini: number;
     tarikh_kemaskini: moment.Moment;
-    nama_bencana: string;
+    nama_bantuan: string;
     tarikh_bencana: moment.Moment;
+    kos_bantuan: number;
+    nama_bencana: string;
 }
 
 /** MangsaAntarabangsa List in Tabular model */
@@ -11943,6 +11967,10 @@ export class CreateOrEditMangsaBantuanDto implements ICreateOrEditMangsaBantuanD
     id_pengguna_kemaskini!: number;
     tarikh_kemaskini!: moment.Moment;
     sebab_hapus!: string;
+    kos_bantuan!: number;
+    tarikh_bantuan!: moment.Moment;
+    catatan!: string;
+    nama_bantuan!: string;
 
     constructor(data?: ICreateOrEditMangsaBantuanDto) {
         if (data) {
@@ -11968,6 +11996,10 @@ export class CreateOrEditMangsaBantuanDto implements ICreateOrEditMangsaBantuanD
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
             this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
             this.sebab_hapus = _data["sebab_hapus"];
+            this.kos_bantuan = _data["kos_bantuan"];
+            this.tarikh_bantuan = _data["tarikh_bantuan"] ? moment(_data["tarikh_bantuan"].toString()) : <any>undefined;
+            this.catatan = _data["catatan"];
+            this.nama_bantuan = _data["nama_bantuan"];
         }
     }
 
@@ -11993,6 +12025,10 @@ export class CreateOrEditMangsaBantuanDto implements ICreateOrEditMangsaBantuanD
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
+        data["kos_bantuan"] = this.kos_bantuan;
+        data["tarikh_bantuan"] = this.tarikh_bantuan ? this.tarikh_bantuan.toISOString() : <any>undefined;
+        data["catatan"] = this.catatan;
+        data["nama_bantuan"] = this.nama_bantuan;
         return data; 
     }
 }
@@ -12011,6 +12047,10 @@ export interface ICreateOrEditMangsaBantuanDto {
     id_pengguna_kemaskini: number;
     tarikh_kemaskini: moment.Moment;
     sebab_hapus: string;
+    kos_bantuan: number;
+    tarikh_bantuan: moment.Moment;
+    catatan: string;
+    nama_bantuan: string;
 }
 
 export class GetMangsaBantuanForEditDto implements IGetMangsaBantuanForEditDto {
@@ -12066,6 +12106,7 @@ export class GetMangsaBantuanForViewDto implements IGetMangsaBantuanForViewDto {
     nama_agensi!: string;
     nama_bencana!: string;
     tarikh_bencana!: moment.Moment;
+    kos_bantuan!: number;
 
     constructor(data?: IGetMangsaBantuanForViewDto) {
         if (data) {
@@ -12094,6 +12135,7 @@ export class GetMangsaBantuanForViewDto implements IGetMangsaBantuanForViewDto {
             this.nama_agensi = _data["nama_agensi"];
             this.nama_bencana = _data["nama_bencana"];
             this.tarikh_bencana = _data["tarikh_bencana"] ? moment(_data["tarikh_bencana"].toString()) : <any>undefined;
+            this.kos_bantuan = _data["kos_bantuan"];
         }
     }
 
@@ -12122,6 +12164,7 @@ export class GetMangsaBantuanForViewDto implements IGetMangsaBantuanForViewDto {
         data["nama_agensi"] = this.nama_agensi;
         data["nama_bencana"] = this.nama_bencana;
         data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
+        data["kos_bantuan"] = this.kos_bantuan;
         return data; 
     }
 }
@@ -12143,6 +12186,7 @@ export interface IGetMangsaBantuanForViewDto {
     nama_agensi: string;
     nama_bencana: string;
     tarikh_bencana: moment.Moment;
+    kos_bantuan: number;
 }
 
 /** MangsaBantuan List in Tabular model */
@@ -12727,6 +12771,11 @@ export class CreateOrEditMangsaPertanianDto implements ICreateOrEditMangsaPertan
     id_agensi!: number;
     id_pengguna_kemaskini!: number;
     tarikh_kemaskini!: moment.Moment;
+    anggaran_nilai_rosak!: number;
+    anggaran_nilai_bantuan!: number;
+    kos_bantuan!: number;
+    tarikh_bantuan!: moment.Moment;
+    catatan!: string;
 
     constructor(data?: ICreateOrEditMangsaPertanianDto) {
         if (data) {
@@ -12754,6 +12803,11 @@ export class CreateOrEditMangsaPertanianDto implements ICreateOrEditMangsaPertan
             this.id_agensi = _data["id_agensi"];
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
             this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.anggaran_nilai_rosak = _data["anggaran_nilai_rosak"];
+            this.anggaran_nilai_bantuan = _data["anggaran_nilai_bantuan"];
+            this.kos_bantuan = _data["kos_bantuan"];
+            this.tarikh_bantuan = _data["tarikh_bantuan"] ? moment(_data["tarikh_bantuan"].toString()) : <any>undefined;
+            this.catatan = _data["catatan"];
         }
     }
 
@@ -12781,6 +12835,11 @@ export class CreateOrEditMangsaPertanianDto implements ICreateOrEditMangsaPertan
         data["id_agensi"] = this.id_agensi;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["anggaran_nilai_rosak"] = this.anggaran_nilai_rosak;
+        data["anggaran_nilai_bantuan"] = this.anggaran_nilai_bantuan;
+        data["kos_bantuan"] = this.kos_bantuan;
+        data["tarikh_bantuan"] = this.tarikh_bantuan ? this.tarikh_bantuan.toISOString() : <any>undefined;
+        data["catatan"] = this.catatan;
         return data; 
     }
 }
@@ -12801,6 +12860,11 @@ export interface ICreateOrEditMangsaPertanianDto {
     id_agensi: number;
     id_pengguna_kemaskini: number;
     tarikh_kemaskini: moment.Moment;
+    anggaran_nilai_rosak: number;
+    anggaran_nilai_bantuan: number;
+    kos_bantuan: number;
+    tarikh_bantuan: moment.Moment;
+    catatan: string;
 }
 
 export class GetMangsaPertanianForEditDto implements IGetMangsaPertanianForEditDto {
@@ -12859,6 +12923,11 @@ export class GetMangsaPertanianForViewDto implements IGetMangsaPertanianForViewD
     nama_agensi!: string;
     nama_jenis_pertanian!: string;
     tarikh_bencana!: moment.Moment;
+    anggaran_nilai_rosak!: number;
+    anggaran_nilai_bantuan!: number;
+    kos_bantuan!: number;
+    tarikh_bantuan!: moment.Moment;
+    catatan!: string;
 
     constructor(data?: IGetMangsaPertanianForViewDto) {
         if (data) {
@@ -12890,6 +12959,11 @@ export class GetMangsaPertanianForViewDto implements IGetMangsaPertanianForViewD
             this.nama_agensi = _data["nama_agensi"];
             this.nama_jenis_pertanian = _data["nama_jenis_pertanian"];
             this.tarikh_bencana = _data["tarikh_bencana"] ? moment(_data["tarikh_bencana"].toString()) : <any>undefined;
+            this.anggaran_nilai_rosak = _data["anggaran_nilai_rosak"];
+            this.anggaran_nilai_bantuan = _data["anggaran_nilai_bantuan"];
+            this.kos_bantuan = _data["kos_bantuan"];
+            this.tarikh_bantuan = _data["tarikh_bantuan"] ? moment(_data["tarikh_bantuan"].toString()) : <any>undefined;
+            this.catatan = _data["catatan"];
         }
     }
 
@@ -12921,6 +12995,11 @@ export class GetMangsaPertanianForViewDto implements IGetMangsaPertanianForViewD
         data["nama_agensi"] = this.nama_agensi;
         data["nama_jenis_pertanian"] = this.nama_jenis_pertanian;
         data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
+        data["anggaran_nilai_rosak"] = this.anggaran_nilai_rosak;
+        data["anggaran_nilai_bantuan"] = this.anggaran_nilai_bantuan;
+        data["kos_bantuan"] = this.kos_bantuan;
+        data["tarikh_bantuan"] = this.tarikh_bantuan ? this.tarikh_bantuan.toISOString() : <any>undefined;
+        data["catatan"] = this.catatan;
         return data; 
     }
 }
@@ -12945,6 +13024,11 @@ export interface IGetMangsaPertanianForViewDto {
     nama_agensi: string;
     nama_jenis_pertanian: string;
     tarikh_bencana: moment.Moment;
+    anggaran_nilai_rosak: number;
+    anggaran_nilai_bantuan: number;
+    kos_bantuan: number;
+    tarikh_bantuan: moment.Moment;
+    catatan: string;
 }
 
 /** MangsaPertanian List in Tabular model */
@@ -13017,6 +13101,7 @@ export class CreateOrEditMangsaPinjamanDto implements ICreateOrEditMangsaPinjama
     id_agensi!: number;
     id_pengguna_kemaskini!: number;
     tarikh_kemaskini!: moment.Moment;
+    tarikh_mula!: moment.Moment;
 
     constructor(data?: ICreateOrEditMangsaPinjamanDto) {
         if (data) {
@@ -13044,6 +13129,7 @@ export class CreateOrEditMangsaPinjamanDto implements ICreateOrEditMangsaPinjama
             this.id_agensi = _data["id_agensi"];
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
             this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.tarikh_mula = _data["tarikh_mula"] ? moment(_data["tarikh_mula"].toString()) : <any>undefined;
         }
     }
 
@@ -13071,6 +13157,7 @@ export class CreateOrEditMangsaPinjamanDto implements ICreateOrEditMangsaPinjama
         data["id_agensi"] = this.id_agensi;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["tarikh_mula"] = this.tarikh_mula ? this.tarikh_mula.toISOString() : <any>undefined;
         return data; 
     }
 }
@@ -13091,6 +13178,7 @@ export interface ICreateOrEditMangsaPinjamanDto {
     id_agensi: number;
     id_pengguna_kemaskini: number;
     tarikh_kemaskini: moment.Moment;
+    tarikh_mula: moment.Moment;
 }
 
 export class GetMangsaPinjamanForEditDto implements IGetMangsaPinjamanForEditDto {
@@ -13314,6 +13402,11 @@ export class CreateOrEditMangsaRumahDto implements ICreateOrEditMangsaRumahDto {
     id_agensi!: number;
     id_pengguna_kemaskini!: number;
     tarikh_kemaskini!: moment.Moment;
+    kos_anggaran!: number;
+    kos_sebenar!: number;
+    tarikh_mula!: moment.Moment;
+    tarikh_siap!: moment.Moment;
+    catatan!: string;
 
     constructor(data?: ICreateOrEditMangsaRumahDto) {
         if (data) {
@@ -13352,6 +13445,11 @@ export class CreateOrEditMangsaRumahDto implements ICreateOrEditMangsaRumahDto {
             this.id_agensi = _data["id_agensi"];
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
             this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.kos_anggaran = _data["kos_anggaran"];
+            this.kos_sebenar = _data["kos_sebenar"];
+            this.tarikh_mula = _data["tarikh_mula"] ? moment(_data["tarikh_mula"].toString()) : <any>undefined;
+            this.tarikh_siap = _data["tarikh_siap"] ? moment(_data["tarikh_siap"].toString()) : <any>undefined;
+            this.catatan = _data["catatan"];
         }
     }
 
@@ -13390,6 +13488,11 @@ export class CreateOrEditMangsaRumahDto implements ICreateOrEditMangsaRumahDto {
         data["id_agensi"] = this.id_agensi;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["kos_anggaran"] = this.kos_anggaran;
+        data["kos_sebenar"] = this.kos_sebenar;
+        data["tarikh_mula"] = this.tarikh_mula ? this.tarikh_mula.toISOString() : <any>undefined;
+        data["tarikh_siap"] = this.tarikh_siap ? this.tarikh_siap.toISOString() : <any>undefined;
+        data["catatan"] = this.catatan;
         return data; 
     }
 }
@@ -13421,6 +13524,11 @@ export interface ICreateOrEditMangsaRumahDto {
     id_agensi: number;
     id_pengguna_kemaskini: number;
     tarikh_kemaskini: moment.Moment;
+    kos_anggaran: number;
+    kos_sebenar: number;
+    tarikh_mula: moment.Moment;
+    tarikh_siap: moment.Moment;
+    catatan: string;
 }
 
 export class GetMangsaRumahForEditDto implements IGetMangsaRumahForEditDto {
@@ -13489,6 +13597,8 @@ export class GetMangsaRumahForViewDto implements IGetMangsaRumahForViewDto {
     nama_bencana!: string;
     tarikh_bencana!: moment.Moment;
     nama_bantuan!: string;
+    kos_anggaran!: number;
+    kos_sebenar!: number;
 
     constructor(data?: IGetMangsaRumahForViewDto) {
         if (data) {
@@ -13530,6 +13640,8 @@ export class GetMangsaRumahForViewDto implements IGetMangsaRumahForViewDto {
             this.nama_bencana = _data["nama_bencana"];
             this.tarikh_bencana = _data["tarikh_bencana"] ? moment(_data["tarikh_bencana"].toString()) : <any>undefined;
             this.nama_bantuan = _data["nama_bantuan"];
+            this.kos_anggaran = _data["kos_anggaran"];
+            this.kos_sebenar = _data["kos_sebenar"];
         }
     }
 
@@ -13571,6 +13683,8 @@ export class GetMangsaRumahForViewDto implements IGetMangsaRumahForViewDto {
         data["nama_bencana"] = this.nama_bencana;
         data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
         data["nama_bantuan"] = this.nama_bantuan;
+        data["kos_anggaran"] = this.kos_anggaran;
+        data["kos_sebenar"] = this.kos_sebenar;
         return data; 
     }
 }
@@ -13605,6 +13719,8 @@ export interface IGetMangsaRumahForViewDto {
     nama_bencana: string;
     tarikh_bencana: moment.Moment;
     nama_bantuan: string;
+    kos_anggaran: number;
+    kos_sebenar: number;
 }
 
 /** MangsaRumah List in Tabular model */
@@ -13952,6 +14068,8 @@ export class CreateOrEditMangsaDto implements ICreateOrEditMangsaDto {
     tarikh_kemaskini!: moment.Moment;
     sebab_hapus!: string;
     gambar!: string;
+    nama_bantuan!: string;
+    tarikh_bantuan!: moment.Moment;
 
     constructor(data?: ICreateOrEditMangsaDto) {
         if (data) {
@@ -13984,6 +14102,8 @@ export class CreateOrEditMangsaDto implements ICreateOrEditMangsaDto {
             this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
             this.sebab_hapus = _data["sebab_hapus"];
             this.gambar = _data["gambar"];
+            this.nama_bantuan = _data["nama_bantuan"];
+            this.tarikh_bantuan = _data["tarikh_bantuan"] ? moment(_data["tarikh_bantuan"].toString()) : <any>undefined;
         }
     }
 
@@ -14016,6 +14136,8 @@ export class CreateOrEditMangsaDto implements ICreateOrEditMangsaDto {
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
         data["gambar"] = this.gambar;
+        data["nama_bantuan"] = this.nama_bantuan;
+        data["tarikh_bantuan"] = this.tarikh_bantuan ? this.tarikh_bantuan.toISOString() : <any>undefined;
         return data; 
     }
 }
@@ -14041,6 +14163,8 @@ export interface ICreateOrEditMangsaDto {
     tarikh_kemaskini: moment.Moment;
     sebab_hapus: string;
     gambar: string;
+    nama_bantuan: string;
+    tarikh_bantuan: moment.Moment;
 }
 
 export class GetMangsaForEditDto implements IGetMangsaForEditDto {

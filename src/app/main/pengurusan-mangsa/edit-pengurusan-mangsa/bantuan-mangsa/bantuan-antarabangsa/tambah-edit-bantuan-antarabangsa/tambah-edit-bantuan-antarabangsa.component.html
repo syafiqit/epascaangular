@@ -1,0 +1,148 @@
+<div class="modal-header">
+	<h4 class="modal-title" *ngIf="name === 'add'">Tambah Bantuan Antarabangsa</h4>
+  <h4 class="modal-title" *ngIf="name === 'edit'">Kemaskini Bantuan Antarabangsa</h4>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+	<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
+    <div class="modal-body">
+		<div class="row">
+			<div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Nama Bencana</label>
+          <div>
+            <ng-select
+              [items]="bencana"
+              bindLabel="nama_bencana"
+              bindValue="id"
+              placeholder="Sila Pilih"
+              class="js-example-placeholder-multiple"
+              name="id_bencana"
+              [(ngModel)]="antarabangsa.id_bencana"
+              #namaBencana="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
+              required
+            ></ng-select>
+            <div
+              *ngIf="f.submitted && namaBencana.invalid"
+              class="invalid-feedback"
+            >
+              <div *ngIf="namaBencana.errors.required">
+                Nama Bencana Wajib Dipilih
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Negara Penyumbang</label>
+          <input
+            class="form-control"
+            id="negaraPenyumbang"
+            type="text"
+            name="antarabangsa.negara"
+            [(ngModel)]="antarabangsa.negara"
+            placeholder="Negara Penyumbang"
+            #negaraPenyumbang="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && negaraPenyumbang.invalid }"
+            autocomplete="name"
+            required
+          />
+          <div *ngIf="f.submitted && negaraPenyumbang.invalid" class="invalid-feedback">
+            <div *ngIf="negaraPenyumbang.errors.required">Negara Penyumbang Wajib Diisi</div>
+          </div>
+        </div>
+      </div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Nama Bantuan</label>
+          <input
+            class="form-control"
+            id="nama_bantuan"
+            type="text"
+            name="antarabangsa.nama_bantuan"
+            [(ngModel)]="antarabangsa.nama_bantuan"
+            placeholder="Nama Bantuan"
+            #bantuanAntarabangsa="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && bantuanAntarabangsa.invalid }"
+            autocomplete="name"
+            required
+          />
+          <div *ngIf="f.submitted && bantuanAntarabangsa.invalid" class="invalid-feedback">
+            <div *ngIf="bantuanAntarabangsa.errors.required">Nama Bantuan Wajib Diisi</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Kos Bantuan(RM)</label>
+          <input
+            class="form-control"
+            id="kosBantuan"
+            type="text"
+            name="antarabangsa.negara"
+            [(ngModel)]="antarabangsa.kos_bantuan"
+            placeholder="Kos Bantuan"
+            #kosBantuan="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && kosBantuan.invalid }"
+            autocomplete="name"
+            required
+            onlyNumbers
+          />
+          <div *ngIf="f.submitted && kosBantuan.invalid" class="invalid-feedback">
+            <div *ngIf="kosBantuan.errors.required">Kos Bantuan Wajib Diisi</div>
+          </div>
+        </div>
+      </div>
+		</div>
+
+    <div class="row">
+      <div class="col-lg-6">
+				<div class="form-group">
+					<label>Tarikh Mula Bantuan</label>
+					<input
+						class="form-control"
+						id="tarikhMulaBantuan"
+						type="date"
+						name="antarabangsa.tarikh_bantuan"
+						[(ngModel)]="antarabangsa.tarikh_bantuan"
+						placeholder="Tarikh Bantuan"
+						#tarikhBantuan="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && tarikhBantuan.invalid }"
+						required
+					/>
+					<div *ngIf="f.submitted && tarikhBantuan.invalid" class="invalid-feedback">
+						<div *ngIf="tarikhBantuan.errors.required">Tarikh Bantuan Wajib Diisi</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<div class="form-group">
+					<label for="exampleFormControlTextarea4">Catatan</label>
+					<textarea
+            class="form-control"
+            id="exampleFormControlTextarea4"
+            name="antarabangsa.catatan"
+            [(ngModel)]="antarabangsa.catatan"
+            rows="3">
+          </textarea>
+				</div>
+			</div>
+		</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
+	<button type="submit" class="btn btn-primary">Simpan</button>
+</div>
+</form>
