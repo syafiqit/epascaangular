@@ -23,6 +23,7 @@
 
   svg {
     width: $header-wrapper-nav-icon-size;
+    margin-top: -3rem;
   }
 
   &:before {
@@ -43,11 +44,13 @@
     &:before {
       height: 40px;
       width: 40px;
+      margin-top: -0.5rem;
+      margin-left: 1px;
       transform: scale(1);
       transition: all 0.3s ease;
     }
 
-    >svg {
+    > svg {
       color: var(--theme-deafult) !important;
       stroke: var(--theme-deafult) !important;
     }
