@@ -1,0 +1,168 @@
+<div class="modal-header">
+	<h4 class="modal-title" *ngIf="name === 'add'">Tambah Bantuan Pinjaman Khas</h4>
+  <h4 class="modal-title" *ngIf="name === 'edit'">Kemaskini Bantuan Pinjaman Khas</h4>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+	<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
+    <div class="modal-body">
+		<div class="row">
+			<div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Nama Bencana</label>
+          <div>
+            <ng-select
+              [items]="bencana"
+              bindLabel="nama_bencana"
+              bindValue="id"
+              placeholder="Sila Pilih"
+              class="js-example-placeholder-multiple"
+              name="pinjamanKhas.id_bencana"
+              [(ngModel)]="pinjamanKhas.id_bencana"
+              #namaBencana="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
+              required
+            ></ng-select>
+            <div
+              *ngIf="f.submitted && namaBencana.invalid"
+              class="invalid-feedback"
+            >
+              <div *ngIf="namaBencana.errors.required">
+                Nama Bencana Wajib Dipilih
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Agensi Pemberi Bantuan</label>
+          <div>
+            <ng-select
+              [items]="agensi"
+              bindLabel="nama_agensi"
+              bindValue="id"
+              placeholder="Sila Pilih"
+              class="js-example-placeholder-multiple"
+              name="pinjamanKhas.id_agensi_bantuan"
+              [(ngModel)]="pinjamanKhas.id_agensi_bantuan"
+              #namaAgensi="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && namaAgensi.invalid }"
+              required
+            ></ng-select>
+            <div
+              *ngIf="f.submitted && namaAgensi.invalid"
+              class="invalid-feedback"
+            >
+              <div *ngIf="namaAgensi.errors.required">
+                Agensi Pemberi Bantuan Wajib Dipilih
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label>Tarikh Mula Pinjaman</label>
+					<input
+						class="form-control"
+						id="tarikhMulaPinjaman"
+						type="date"
+						name="pinjamanKhas.tarikh_mula"
+						[(ngModel)]="pinjamanKhas.tarikh_mula"
+						placeholder="Tarikh Mula Pinjaman"
+						#tarikhmula="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && tarikhmula.invalid }"
+						required
+					/>
+					<div *ngIf="f.submitted && tarikhmula.invalid" class="invalid-feedback">
+						<div *ngIf="tarikhmula.errors.required">Tarikh Mula Pinjaman Wajib Diisi</div>
+					</div>
+				</div>
+			</div>
+
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Tempoh Pinjaman</label>
+          <input
+            class="form-control"
+            id="tempohPinjaman"
+            type="text"
+            name="pinjamanKhas.tempoh_pinjaman"
+            [(ngModel)]="pinjamanKhas.tempoh_pinjaman"
+            placeholder="Tempoh Pinjaman"
+            #tempohPinjaman="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && tempohPinjaman.invalid }"
+            autocomplete="name"
+            required
+          />
+          <div *ngIf="f.submitted && tempohPinjaman.invalid" class="invalid-feedback">
+            <div *ngIf="tempohPinjaman.errors.required">Tempoh Pinjaman Wajib Diisi</div>
+          </div>
+        </div>
+      </div>
+		</div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Sektor</label>
+          <div>
+            <ng-select
+              [items]="sektor"
+              bindLabel="nama_sektor"
+              bindValue="id"
+              placeholder="Sila Pilih"
+              class="js-example-placeholder-multiple"
+              name="pinjamanKhas.id_sektor"
+              [(ngModel)]="pinjamanKhas.id_sektor"
+              #namaSektor="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && namaSektor.invalid }"
+              required
+            ></ng-select>
+            <div
+              *ngIf="f.submitted && namaSektor.invalid"
+              class="invalid-feedback"
+            >
+              <div *ngIf="namaSektor.errors.required">
+                Nama Sektor Wajib Dipilih
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Jumlah Pinjaman</label>
+          <input
+            class="form-control"
+            id="jumlahPinjaman"
+            type="text"
+            name="pinjamanKhas.jumlah_pinjaman"
+            [(ngModel)]="pinjamanKhas.jumlah_pinjaman"
+            placeholder="Jumlah Pinjaman"
+            #jumlahPinjaman="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && jumlahPinjaman.invalid }"
+            autocomplete="name"
+            required
+            onlyNumbers
+          />
+          <div *ngIf="f.submitted && jumlahPinjaman.invalid" class="invalid-feedback">
+            <div *ngIf="jumlahPinjaman.errors.required">Jumlah Pinjaman Wajib Diisi</div>
+          </div>
+        </div>
+      </div>
+		</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
+	<button type="submit" class="btn btn-primary">Simpan</button>
+</div>
+</form>

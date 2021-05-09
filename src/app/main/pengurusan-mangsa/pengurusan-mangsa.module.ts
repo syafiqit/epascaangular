@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
-import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { PengurusanMangsaRoutingModule } from './pengurusan-mangsa-routing.module';
 import { PengurusanMangsaComponent } from './pengurusan-mangsa.component';
@@ -22,6 +22,12 @@ import { BantuanWangIhsanComponent } from './edit-pengurusan-mangsa/bantuan-mang
 import { BantuanAntarabangsaComponent } from './edit-pengurusan-mangsa/bantuan-mangsa/bantuan-antarabangsa/bantuan-antarabangsa.component';
 import { BantuanLainComponent } from './edit-pengurusan-mangsa/bantuan-mangsa/bantuan-lain/bantuan-lain.component';
 import { BantuanPinjamanKhasComponent } from './edit-pengurusan-mangsa/bantuan-mangsa/bantuan-pinjaman-khas/bantuan-pinjaman-khas.component';
+import { TambahEditBantuanAntarabangsaComponent } from './edit-pengurusan-mangsa/bantuan-mangsa/bantuan-antarabangsa/tambah-edit-bantuan-antarabangsa/tambah-edit-bantuan-antarabangsa.component';
+import { TambahEditBantuanLainComponent } from './edit-pengurusan-mangsa/bantuan-mangsa/bantuan-lain/tambah-edit-bantuan-lain/tambah-edit-bantuan-lain.component';
+import { TambahEditBantuanPertanianComponent } from './edit-pengurusan-mangsa/bantuan-mangsa/bantuan-pertanian/tambah-edit-bantuan-pertanian/tambah-edit-bantuan-pertanian.component';
+import { TambahEditBantuanPinjamanKhasComponent } from './edit-pengurusan-mangsa/bantuan-mangsa/bantuan-pinjaman-khas/tambah-edit-bantuan-pinjaman-khas/tambah-edit-bantuan-pinjaman-khas.component';
+import { TambahEditBantuanRumahComponent } from './edit-pengurusan-mangsa/bantuan-mangsa/bantuan-rumah/tambah-edit-bantuan-rumah/tambah-edit-bantuan-rumah.component';
+import { TambahEditBantuanWangIhsanComponent } from './edit-pengurusan-mangsa/bantuan-mangsa/bantuan-wang-ihsan/tambah-edit-bantuan-wang-ihsan/tambah-edit-bantuan-wang-ihsan.component';
 
 @NgModule({
 	imports: [
@@ -49,7 +55,13 @@ import { BantuanPinjamanKhasComponent } from './edit-pengurusan-mangsa/bantuan-m
 		BantuanWangIhsanComponent,
 		BantuanAntarabangsaComponent,
 		BantuanLainComponent,
-		BantuanPinjamanKhasComponent
+		BantuanPinjamanKhasComponent,
+		TambahEditBantuanAntarabangsaComponent,
+		TambahEditBantuanLainComponent,
+		TambahEditBantuanPertanianComponent,
+		TambahEditBantuanPinjamanKhasComponent,
+		TambahEditBantuanRumahComponent,
+		TambahEditBantuanWangIhsanComponent
 	]
 })
 export class PengurusanMangsaModule {}

@@ -1,0 +1,445 @@
+<div class="modal-header">
+	<h4 class="modal-title" *ngIf="name === 'add'">Tambah Bantuan Rumah</h4>
+  <h4 class="modal-title" *ngIf="name === 'edit'">Kemaskini Bantuan Rumah</h4>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+	<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
+    <div class="modal-body">
+		<div class="row">
+			<div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Nama Bencana</label>
+          <div>
+            <ng-select
+              [items]="bencana"
+              bindLabel="nama_bencana"
+              bindValue="id"
+              placeholder="Sila Pilih"
+              class="js-example-placeholder-multiple"
+              name="id_bencana"
+              [(ngModel)]="bantuanRumah.id_bencana"
+              #namaBencana="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
+              required
+            ></ng-select>
+            <div
+              *ngIf="f.submitted && namaBencana.invalid"
+              class="invalid-feedback"
+            >
+              <div *ngIf="namaBencana.errors.required">
+                Nama Bencana Wajib Dipilih
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Jenis Bantuan</label>
+          <div>
+            <ng-select
+              [items]="jenisBantuan"
+              bindLabel="nama_bantuan"
+              bindValue="id"
+              placeholder="Sila Pilih"
+              class="js-example-placeholder-multiple"
+              name="id_jenis_bantuan"
+              [(ngModel)]="bantuanRumah.id_jenis_bantuan"
+              #namaBantuan="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && namaBantuan.invalid }"
+              required
+            ></ng-select>
+            <div
+              *ngIf="f.submitted && namaBantuan.invalid"
+              class="invalid-feedback"
+            >
+              <div *ngIf="namaBantuan.errors.required">
+                Jenis Bantuan Wajib Dipilih
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Jenis Kerosakan Rumah</label>
+          <div>
+            <ng-select
+              [items]="kerosakan"
+              bindLabel="nama_kerosakan"
+              bindValue="id"
+              placeholder="Sila Pilih"
+              class="js-example-placeholder-multiple"
+              name="id_status_kerosakan"
+              [(ngModel)]="bantuanRumah.id_status_kerosakan"
+              #namaKerosakan="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && namaKerosakan.invalid }"
+              required
+            ></ng-select>
+            <div
+              *ngIf="f.submitted && namaKerosakan.invalid"
+              class="invalid-feedback"
+            >
+              <div *ngIf="namaKerosakan.errors.required">
+                Jenis Kerosakan Wajib Dipilih
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Status Tapak Asal</label>
+          <div>
+            <ng-select
+              [items]="tapakRumah"
+              bindLabel="nama_tapak_rumah"
+              bindValue="id"
+              placeholder="Sila Pilih"
+              class="js-example-placeholder-multiple"
+              name="bantuanRumah.id_tapak_rumah"
+              [(ngModel)]="bantuanRumah.id_tapak_rumah"
+              #statusTapakRumah="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && statusTapakRumah.invalid }"
+              required
+            ></ng-select>
+            <div
+              *ngIf="f.submitted && statusTapakRumah.invalid"
+              class="invalid-feedback"
+            >
+              <div *ngIf="statusTapakRumah.errors.required">
+                Status Tapak Asal Wajib Dipilih
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Agensi Pemilik</label>
+          <div>
+            <ng-select
+              [items]="pemilik"
+              bindLabel="nama_pemilik"
+              bindValue="id"
+              placeholder="Sila Pilih"
+              class="js-example-placeholder-multiple"
+              name="bantuanRumah.id_pemilik"
+              [(ngModel)]="bantuanRumah.id_pemilik"
+              #namaPemilik="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && namaPemilik.invalid }"
+              required
+            ></ng-select>
+            <div
+              *ngIf="f.submitted && namaPemilik.invalid"
+              class="invalid-feedback"
+            >
+              <div *ngIf="namaPemilik.errors.required">
+                Nama Agensi Pemilik Wajib Dipilih
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+		</div>
+		<hr />
+		<div class="row">
+			<div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Sumber Dana</label>
+          <div>
+            <ng-select
+              [items]="sumberDana"
+              bindLabel="nama_sumber_dana"
+              bindValue="id"
+              placeholder="Sila Pilih"
+              class="js-example-placeholder-multiple"
+              name="bantuanRumah.id_sumber_dana"
+              [(ngModel)]="bantuanRumah.id_sumber_dana"
+              #namaSumberDana="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && namaSumberDana.invalid }"
+              required
+            ></ng-select>
+            <div
+              *ngIf="f.submitted && namaSumberDana.invalid"
+              class="invalid-feedback"
+            >
+              <div *ngIf="namaSumberDana.errors.required">
+                Sumber Dana Wajib Dipilih
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+			<div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Nyatakan Jika Sumber Dana Lain</label>
+          <input
+            class="form-control"
+            id="ngoLain"
+            type="text"
+            name="bantuanRumah.sumber_dana_lain"
+            [(ngModel)]="bantuanRumah.sumber_dana_lain"
+            placeholder="Sumber Dana Lain-lain"
+            #sumberDanaLain="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && sumberDanaLain.invalid }"
+            autocomplete="name"
+          />
+        </div>
+      </div>
+		</div>
+		<hr />
+
+		<div class="row">
+			<div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Pelaksana</label>
+          <div>
+            <ng-select
+              [items]="pelaksana"
+              bindLabel="nama_pelaksana"
+              bindValue="id"
+              placeholder="Sila Pilih"
+              class="js-example-placeholder-multiple"
+              name="bantuanRumah.id_pelaksana"
+              [(ngModel)]="bantuanRumah.id_pelaksana"
+              #namaPelaksana="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && namaPelaksana.invalid }"
+              required
+            ></ng-select>
+            <div
+              *ngIf="f.submitted && namaPelaksana.invalid"
+              class="invalid-feedback"
+            >
+              <div *ngIf="namaPelaksana.errors.required">
+                Nama Pelaksana Wajib Dipilih
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+			<div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Nyatakan Jika Pelaksana Lain</label>
+          <input
+            class="form-control"
+            id="pelaksanaLain"
+            type="text"
+            name="bantuanRumah.pelaksana_lain"
+            [(ngModel)]="bantuanRumah.pelaksana_lain"
+            placeholder="Pelaksana Lain-lain"
+            #NamaPelaksanaLain="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && NamaPelaksanaLain.invalid }"
+            autocomplete="name"
+          />
+        </div>
+      </div>
+		</div>
+		<hr />
+		<div class="row">
+			<div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Kontraktor</label>
+          <input
+            class="form-control"
+            id="kontraktor"
+            type="text"
+            name="bantuanRumah.kontraktor"
+            [(ngModel)]="bantuanRumah.kontraktor"
+            placeholder="Kontraktor"
+            #namaKontraktor="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && namaKontraktor.invalid }"
+            autocomplete="name"
+            required
+          />
+          <div *ngIf="f.submitted && namaKontraktor.invalid" class="invalid-feedback">
+            <div *ngIf="namaKontraktor.errors.required">Kontraktor Wajib Diisi</div>
+          </div>
+        </div>
+      </div>
+
+			<div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">No. PKK</label>
+          <input
+            class="form-control"
+            id="noPkk"
+            type="text"
+            name="bantuanRumah.no_pkk"
+            [(ngModel)]="bantuanRumah.no_pkk"
+            placeholder="No. PKK"
+            #noPkk="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && noPkk.invalid }"
+            autocomplete="name"
+            required
+          />
+          <div *ngIf="f.submitted && noPkk.invalid" class="invalid-feedback">
+            <div *ngIf="noPkk.errors.required">No. PKK Wajib Diisi</div>
+          </div>
+        </div>
+      </div>
+		</div>
+		<hr />
+		<div class="row">
+			<div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Kos Anggaran</label>
+          <input
+            class="form-control"
+            id="kosAnggaran"
+            type="text"
+            name="bantuanRumah.kos_anggaran"
+            [(ngModel)]="bantuanRumah.kos_anggaran"
+            placeholder="Kos Anggaran"
+            #kosAnggaran="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && kosAnggaran.invalid }"
+            autocomplete="name"
+            required
+            onlyNumbers
+          />
+          <div *ngIf="f.submitted && kosAnggaran.invalid" class="invalid-feedback">
+            <div *ngIf="kosAnggaran.errors.required">Kos Anggaran Wajib Diisi</div>
+          </div>
+        </div>
+      </div>
+
+			<div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Kos Sebenar</label>
+          <input
+            class="form-control"
+            id="kosSebenar"
+            type="text"
+            name="bantuanRumah.kos_sebenar"
+            [(ngModel)]="bantuanRumah.kos_sebenar"
+            placeholder="Kos Sebenar"
+            #kosSebenar="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && kosSebenar.invalid }"
+            autocomplete="name"
+            required
+            onlyNumbers
+          />
+          <div *ngIf="f.submitted && kosSebenar.invalid" class="invalid-feedback">
+            <div *ngIf="kosSebenar.errors.required">Kos Sebenar Wajib Diisi</div>
+          </div>
+        </div>
+      </div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Tarikh Mula</label>
+          <input
+            class="form-control"
+            id="tarikhMula"
+            type="date"
+            name="bantuanRumah.tarikh_mula"
+            [(ngModel)]="bantuanRumah.tarikh_mula"
+            placeholder="Tarikh Mula"
+            #tarikhMula="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && tarikhMula.invalid }"
+            autocomplete="name"
+            required
+          />
+          <div *ngIf="f.submitted && tarikhMula.invalid" class="invalid-feedback">
+            <div *ngIf="tarikhMula.errors.required">Tarikh Mula Wajib Dipilih</div>
+          </div>
+        </div>
+      </div>
+
+			<div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Tarikh Siap</label>
+          <input
+            class="form-control"
+            id="tarikhSiap"
+            type="date"
+            name="bantuanRumah.tarikh_siap"
+            [(ngModel)]="bantuanRumah.tarikh_siap"
+            placeholder="Tarikh Siap"
+            #tarikhSiap="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && tarikhSiap.invalid }"
+            autocomplete="name"
+            required
+          />
+          <div *ngIf="f.submitted && tarikhSiap.invalid" class="invalid-feedback">
+            <div *ngIf="tarikhSiap.errors.required">Tarikh Siap Wajib Dipilih</div>
+          </div>
+        </div>
+      </div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Peratus Kemajuan</label>
+          <input
+            class="form-control"
+            id="peratusKemajuan"
+            type="text"
+            name="bantuanRumah.peratus_kemajuan"
+            [(ngModel)]="bantuanRumah.peratus_kemajuan"
+            placeholder="Peratus Kemajuan (%)"
+            #peratusKemajuan="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && peratusKemajuan.invalid }"
+            autocomplete="name"
+            required
+            onlyNumbers
+          />
+          <div *ngIf="f.submitted && peratusKemajuan.invalid" class="invalid-feedback">
+            <div *ngIf="peratusKemajuan.errors.required">Peratus Kemajuan Wajib Diisi</div>
+          </div>
+        </div>
+      </div>
+			<div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Status Kemajuan</label>
+          <div>
+            <ng-select
+              [items]="statusKemajuan"
+              bindLabel="status_kemajuan"
+              bindValue="id"
+              placeholder="Sila Pilih"
+              class="js-example-placeholder-multiple"
+              name="bantuanRumah.id_status_kemajuan"
+              [(ngModel)]="bantuanRumah.id_status_kemajuan"
+              #namaStatusKemajuan="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && namaStatusKemajuan.invalid }"
+              required
+            ></ng-select>
+            <div
+              *ngIf="f.submitted && namaStatusKemajuan.invalid"
+              class="invalid-feedback"
+            >
+              <div *ngIf="namaStatusKemajuan.errors.required">
+                Status Kemjuan Wajib Dipilih
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="form-group">
+					<label for="exampleFormControlTextarea4">Catatan</label>
+					<textarea class="form-control" id="exampleFormControlTextarea4" name="catatan" rows="3" [(ngModel)]="bantuanRumah.catatan"></textarea>
+				</div>
+			</div>
+		</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
+	<button type="submit" class="btn btn-primary">Simpan</button>
+</div>
+</form>

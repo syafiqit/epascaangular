@@ -1,0 +1,116 @@
+<div class="modal-header">
+	<h4 class="modal-title" *ngIf="name === 'add'">Tambah Bantuan Wang Ihsan</h4>
+  <h4 class="modal-title" *ngIf="name === 'edit'">Kemaskini Bantuan Wang Ihsan</h4>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
+<div class="modal-body">
+		<div class="row">
+			<div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Nama Bencana</label>
+          <div>
+            <ng-select
+              [items]="disaster"
+              bindLabel="nama_bencana"
+              bindValue="id"
+              placeholder="Sila Pilih"
+              class="js-example-placeholder-multiple"
+              name="id_bencana"
+              [(ngModel)]="wangIhsan.id_bencana"
+              #namaBencana="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
+              required
+            ></ng-select>
+            <div
+              *ngIf="f.submitted && namaBencana.invalid"
+              class="invalid-feedback"
+            >
+              <div *ngIf="namaBencana.errors.required">
+                Nama Bencana Wajib Dipilih
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Agensi Pemberi Bantuan</label>
+          <div>
+            <ng-select
+              [items]="agency"
+              bindLabel="nama_agensi"
+              bindValue="id"
+              placeholder="Sila Pilih"
+              class="js-example-placeholder-multiple"
+              name="id_agensi"
+              [(ngModel)]="wangIhsan.id_agensi_bantuan"
+              #namaAgensi="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && namaAgensi.invalid }"
+              required
+            ></ng-select>
+            <div
+              *ngIf="f.submitted && namaAgensi.invalid"
+              class="invalid-feedback"
+            >
+              <div *ngIf="namaAgensi.errors.required">
+                Nama Agensi Wajib Dipilih
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label>Tarikh Serahan</label>
+					<input
+						class="form-control"
+						id="tarikhSerahan"
+						type="date"
+						name="wangIhsan.tarikh_serahan"
+						[(ngModel)]="wangIhsan.tarikh_serahan"
+						placeholder="Tarikh Serahan"
+						#tarikhSerahan="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && tarikhSerahan.invalid }"
+						required
+					/>
+					<div *ngIf="f.submitted && tarikhSerahan.invalid" class="invalid-feedback">
+						<div *ngIf="tarikhSerahan.errors.required">Tarikh Serahan Wajib Di Isi</div>
+					</div>
+				</div>
+			</div>
+
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Jumlah</label>
+          <input
+            class="form-control"
+            id="jumlah"
+            type="text"
+            name="jumlah"
+            [(ngModel)]="wangIhsan.jumlah"
+            placeholder="Jumlah"
+            #jumlah="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && jumlah.invalid }"
+            autocomplete="name"
+            required
+          />
+          <div *ngIf="f.submitted && jumlah.invalid" class="invalid-feedback">
+            <div *ngIf="jumlah.errors.required">Jumlah Wajib Diisi</div>
+          </div>
+        </div>
+      </div>
+		</div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
+  <button type="submit" class="btn btn-primary">Simpan</button>
+</div>
+</form>
