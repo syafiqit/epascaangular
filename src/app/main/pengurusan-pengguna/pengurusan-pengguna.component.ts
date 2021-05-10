@@ -5,7 +5,11 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
-import { UserServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import {
+  RefAgensiServiceProxy,
+  RefPerananServiceProxy,
+  UserServiceProxy
+} from 'src/app/shared/proxy/service-proxies';
 import { ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 declare let require;
@@ -23,23 +27,32 @@ export class PengurusanPenggunaComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 	public isCollapsed = false;
-  filterText = '';
+  filter: string;
+  filterAgensi: string;
+  filterPeranan: string;
   saving = false;
   idPengguna: any;
+  agencies: any;
+  roles: any;
 
 	constructor(
     private _activatedRoute: ActivatedRoute,
     config: NgbModalConfig,
     private modalService: NgbModal,
-    private  _userServiceProxy: UserServiceProxy
-    ) {
+    private _userServiceProxy: UserServiceProxy,
+    private _refAgensiServiceProxy: RefAgensiServiceProxy,
+    private _refPerananServiceProxy: RefPerananServiceProxy
+  ) {
     this.idPengguna = this._activatedRoute.snapshot.queryParams['id'];
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+    this.getAgensi();
+    this.getPeranan();
+  }
 
 	getUser(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
@@ -50,7 +63,9 @@ export class PengurusanPenggunaComponent implements OnInit {
 		this.primengTableHelper.showLoadingIndicator();
 		this._userServiceProxy
 			.getAllUser(
-				this.filterText,
+				this.filter,
+        this.filterAgensi,
+        this.filterPeranan,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -64,6 +79,18 @@ export class PengurusanPenggunaComponent implements OnInit {
 				this.primengTableHelper.totalRecordsCount = result.total_count;
 				this.primengTableHelper.records = result.items;
 			});
+	}
+
+  getAgensi(filter?) {
+		this._refAgensiServiceProxy.getRefAgensiForDropdown(filter).subscribe((result) => {
+			this.agencies = result.items;
+		});
+	}
+
+  getPeranan(filter?) {
+		this._refPerananServiceProxy.getRefPerananForDropdown(filter).subscribe((result) => {
+			this.roles = result.items;
+		});
 	}
 
   approveUser(id){

@@ -21,8 +21,6 @@
 						#nama_peranan="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && nama_peranan.invalid }"
 						name="peranan.peranan"
-						minlength="0"
-						maxlength="250"
 						required
 					/>
 					<div *ngIf="f.submitted && nama_peranan.invalid" class="invalid-feedback">

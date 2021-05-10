@@ -90,13 +90,12 @@ export class TambahEditRujukanComponent implements OnInit {
                 if (this.name == 'add') {
                   Swal.fire('Berjaya!', 'Maklumat Rujukan Berjaya Ditambah.', 'success');
                 } else if (this.name == 'edit') {
-                  Swal.fire('Berjaya!', 'Maklumat Rujukan Berjaya Diubah.', 'success');
+                  Swal.fire('Berjaya!', 'Maklumat Rujukan Berjaya Dikemaskini.', 'success');
                 }
                 this.activeModal.close(true);
               });
           }
-        },
-        (err) => console.log(err)
+        }
       );
     }
     else{
@@ -107,7 +106,7 @@ export class TambahEditRujukanComponent implements OnInit {
           if (this.name == 'add') {
             Swal.fire('Berjaya!', 'Maklumat Rujukan Berjaya Ditambah.', 'success');
           } else if (this.name == 'edit') {
-            Swal.fire('Berjaya!', 'Maklumat Rujukan Berjaya Diubah.', 'success');
+            Swal.fire('Berjaya!', 'Maklumat Rujukan Berjaya Dikemaskini.', 'success');
           }
           this.activeModal.close(true);
         });

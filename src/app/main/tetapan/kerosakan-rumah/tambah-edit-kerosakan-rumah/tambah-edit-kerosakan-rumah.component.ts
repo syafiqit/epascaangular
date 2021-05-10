@@ -49,7 +49,7 @@ export class TambahEditKerosakanRumahComponent implements OnInit {
 				if (this.name == 'add') {
 					Swal.fire('Berjaya!', 'Maklumat Kerosakan Rumah Berjaya Ditambah.', 'success');
 				} else if (this.name == 'edit') {
-					Swal.fire('Berjaya!', 'Maklumat Kerosakan Rumah Berjaya Diubah.', 'success');
+					Swal.fire('Berjaya!', 'Maklumat Kerosakan Rumah Berjaya Dikemaskini.', 'success');
 				}
 				this.activeModal.close(true);
 			});

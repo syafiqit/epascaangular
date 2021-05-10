@@ -65,7 +65,7 @@ export class TambahEditAgensiComponent implements OnInit {
 				if (this.name == 'add') {
 					Swal.fire('Berjaya!', 'Maklumat Agensi Berjaya Ditambah.', 'success');
 				} else if (this.name == 'edit') {
-					Swal.fire('Berjaya!', 'Maklumat Agensi Berjaya Diubah.', 'success');
+					Swal.fire('Berjaya!', 'Maklumat Agensi Berjaya Dikemaskini.', 'success');
 				}
 				this.activeModal.close(true);
 			});

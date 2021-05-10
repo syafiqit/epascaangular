@@ -68,7 +68,7 @@ export class TambahEditDunComponent implements OnInit {
 				if (this.name == 'add') {
 					Swal.fire('Berjaya!', 'Maklumat Dun Berjaya Ditambah.', 'success');
 				} else if (this.name == 'edit') {
-					Swal.fire('Berjaya!', 'Maklumat Dun Berjaya Diubah.', 'success');
+					Swal.fire('Berjaya!', 'Maklumat Dun Berjaya Dikemaskini.', 'success');
 				}
 				this.activeModal.close(true);
 			});

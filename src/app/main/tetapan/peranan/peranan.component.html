@@ -6,10 +6,18 @@
 				<div class="row pr-0 mb-3">
           <div class="col justify-content-start pl-0">
             <div class="faq-form">
-              <input class="form-control" type="text" placeholder="Carian..." />
+              <input
+                class="form-control"
+                type="text"
+                placeholder="Carian..."
+                [(ngModel)]="filterText"
+                (keyup.enter)="getPeranan()"
+                [ngModelOptions]="{standalone: true}"
+              />
               <i class="search-icon" data-feather="search"></i>
             </div>
           </div>
+
           <div class="col pr-0">
             <div class="justify-content-end pull-right">
               <button (click)="addRoleModal()" type="button" class="btn btn-primary">

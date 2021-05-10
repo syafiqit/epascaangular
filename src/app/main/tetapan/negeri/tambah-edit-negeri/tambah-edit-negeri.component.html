@@ -20,8 +20,6 @@
 							[(ngModel)]="negeri.nama_negeri"
 							#namaNegeri="ngModel"
 							[ngClass]="{ 'is-invalid': f.submitted && namaNegeri.invalid }"
-							minlength="0"
-							maxlength="250"
 							required
 						/>
 						<div *ngIf="f.submitted && namaNegeri.invalid" class="invalid-feedback">
@@ -42,8 +40,6 @@
 							[(ngModel)]="negeri.kod_negeri"
 							#kodNegeri="ngModel"
 							[ngClass]="{ 'is-invalid': f.submitted && kodNegeri.invalid }"
-							minlength="0"
-							maxlength="250"
 							required
 						/>
 						<div *ngIf="f.submitted && kodNegeri.invalid" class="invalid-feedback">
@@ -63,8 +59,6 @@
 						[(ngModel)]="negeri.status_negeri"
 						#status="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
-						minlength="0"
-						maxlength="250"
 						required
 					>
 						<option [ngValue]="undefined" disabled>Sila Pilih</option>
@@ -72,7 +66,7 @@
 						<option [value]="0">Tidak Aktif</option>
 					</select>
 					<div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
-						<div *ngIf="status.errors.required">Status Wajib Diisi</div>
+						<div *ngIf="status.errors.required">Status Wajib Dipilih</div>
 					</div>
 				</div>
 			</div>
