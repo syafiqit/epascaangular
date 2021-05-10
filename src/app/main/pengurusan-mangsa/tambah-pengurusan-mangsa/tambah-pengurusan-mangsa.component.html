@@ -14,7 +14,7 @@
 						<div class="row">
               <div class="col-lg-6">
 								<div class="form-group">
-									<label>Nama</label>
+									<label>Nama*</label>
 									<input
 										class="form-control"
                     id="namaMangsa"
@@ -34,7 +34,7 @@
 
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>No Kad Pengenalan</label>
+									<label>No Kad Pengenalan*</label>
 									<input
 										class="form-control"
                     id="noKP"
@@ -59,7 +59,7 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>DUN</label>
+									<label>DUN*</label>
 									<ng-select
                     [items]="dun"
                     bindLabel="nama_dun"
@@ -80,7 +80,7 @@
 
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Parlimen</label>
+									<label>Parlimen*</label>
 									<select
                     class="form-control"
                     name="id_parlimen"
@@ -99,7 +99,7 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Alamat 1</label>
+									<label>Alamat 1*</label>
 									<input
 										class="form-control"
                     id="alamat1"
@@ -127,13 +127,7 @@
                     name="nama"
                     [(ngModel)]="addMangsa.mangsa.alamat_2"
 										placeholder="Alamat 2"
-                    #alamat2="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && alamat2.invalid }"
-                    required
                   />
-                  <div *ngIf="f.submitted && alamat2.invalid" class="invalid-feedback">
-                    <div *ngIf="alamat2.errors.required">Alamat 2 Mangsa Wajib Diisi</div>
-                  </div>
 								</div>
 							</div>
 						</div>
@@ -141,7 +135,7 @@
 						<div class="row">
               <div class="col-lg-6">
 								<div class="form-group">
-									<label>Poskod</label>
+									<label>Poskod*</label>
 									<input
 										class="form-control"
                     id="poskodMangsa"
@@ -164,7 +158,7 @@
 
               <div class="col-lg-6">
 								<div class="form-group">
-									<label>Daerah</label>
+									<label>Daerah*</label>
 									<ng-select
                     [items]="districts"
                     bindLabel="nama_daerah"
@@ -187,7 +181,7 @@
             <div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Negeri</label>
+									<label>Negeri*</label>
 									<select
                     class="form-control"
                     name="id_negeri"
@@ -204,7 +198,7 @@
 
               <div class="col-lg-6">
 								<div class="form-group">
-									<label>No Telefon</label>
+									<label>No Telefon*</label>
 									<input
 										class="form-control"
                     id="noTel"
@@ -274,7 +268,7 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Nama Bencana</label>
+									<label>Nama Bencana*</label>
 									<select
                     class="form-control"
                     name="id_bencana"
@@ -296,7 +290,7 @@
 
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Status Berpindah</label>
+									<label>Status Berpindah*</label>
 									<select
                     class="form-control"
                     name="id_pindah"
@@ -320,7 +314,7 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Nama Pusat</label>
+									<label>Nama Pusat*</label>
 									<input
 										class="form-control"
                     id="pusatPindah"
