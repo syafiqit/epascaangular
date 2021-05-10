@@ -52,7 +52,7 @@ export class TambahEditPemilikProjekComponent implements OnInit {
 				if (this.name == 'add') {
 					Swal.fire('Berjaya!', 'Maklumat Pemilik Projek Berjaya Ditambah.', 'success');
 				} else if (this.name == 'edit') {
-					Swal.fire('Berjaya!', 'Maklumat Pemilik Projek Berjaya Diubah.', 'success');
+					Swal.fire('Berjaya!', 'Maklumat Pemilik Projek Berjaya Dikemaskini.', 'success');
 				}
 				this.activeModal.close(true);
 			});

@@ -3013,11 +3013,17 @@ export class MangsaServiceProxy {
      * Get all Mangsa
      * @param filter (optional) Filter records with a string
      * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param filterNegeri (optional) Filter records with a string
+     * @param filterAgensi (optional) Filter records with a string
+     * @param filterDaerah (optional) Filter records with a string
+     * @param filterDun (optional) Filter records with a string
+     * @param filterParlimen (optional) Filter records with a string
+     * @param filterBencana (optional) Filter records with a string
      * @param skipCount (optional) Skip n-value of a record
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaForViewDto> {
+    getAll(filter: string | undefined, sorting: string | undefined, filterNegeri: string | undefined, filterAgensi: string | undefined, filterDaerah: number | undefined, filterDun: number | undefined, filterParlimen: number | undefined, filterBencana: number | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaForViewDto> {
         let url_ = this.baseUrl + "/api/mangsa/getAll?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -3027,6 +3033,30 @@ export class MangsaServiceProxy {
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
             url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (filterNegeri === null)
+            throw new Error("The parameter 'filterNegeri' cannot be null.");
+        else if (filterNegeri !== undefined)
+            url_ += "filterNegeri=" + encodeURIComponent("" + filterNegeri) + "&";
+        if (filterAgensi === null)
+            throw new Error("The parameter 'filterAgensi' cannot be null.");
+        else if (filterAgensi !== undefined)
+            url_ += "filterAgensi=" + encodeURIComponent("" + filterAgensi) + "&";
+        if (filterDaerah === null)
+            throw new Error("The parameter 'filterDaerah' cannot be null.");
+        else if (filterDaerah !== undefined)
+            url_ += "filterDaerah=" + encodeURIComponent("" + filterDaerah) + "&";
+        if (filterDun === null)
+            throw new Error("The parameter 'filterDun' cannot be null.");
+        else if (filterDun !== undefined)
+            url_ += "filterDun=" + encodeURIComponent("" + filterDun) + "&";
+        if (filterParlimen === null)
+            throw new Error("The parameter 'filterParlimen' cannot be null.");
+        else if (filterParlimen !== undefined)
+            url_ += "filterParlimen=" + encodeURIComponent("" + filterParlimen) + "&";
+        if (filterBencana === null)
+            throw new Error("The parameter 'filterBencana' cannot be null.");
+        else if (filterBencana !== undefined)
+            url_ += "filterBencana=" + encodeURIComponent("" + filterBencana) + "&";
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
@@ -10852,17 +10882,27 @@ export class UserServiceProxy {
     /**
      * Get all User
      * @param filter (optional) Filter records with a string
+     * @param filterAgensi (optional) Filter records with a string
+     * @param filterPeranan (optional) Filter records with a string
      * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
      * @param skipCount (optional) Skip n-value of a record
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAllUser(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfUserForViewDto> {
+    getAllUser(filter: string | undefined, filterAgensi: string | undefined, filterPeranan: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfUserForViewDto> {
         let url_ = this.baseUrl + "/api/user/getAllUser?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
             url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (filterAgensi === null)
+            throw new Error("The parameter 'filterAgensi' cannot be null.");
+        else if (filterAgensi !== undefined)
+            url_ += "filterAgensi=" + encodeURIComponent("" + filterAgensi) + "&";
+        if (filterPeranan === null)
+            throw new Error("The parameter 'filterPeranan' cannot be null.");
+        else if (filterPeranan !== undefined)
+            url_ += "filterPeranan=" + encodeURIComponent("" + filterPeranan) + "&";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
@@ -22761,6 +22801,7 @@ export class GetUserForViewDto implements IGetUserForViewDto {
     poskod!: string;
     nama_daerah!: string;
     nama_negeri!: string;
+    no_kp!: string;
 
     constructor(data?: IGetUserForViewDto) {
         if (data) {
@@ -22786,6 +22827,7 @@ export class GetUserForViewDto implements IGetUserForViewDto {
             this.poskod = _data["poskod"];
             this.nama_daerah = _data["nama_daerah"];
             this.nama_negeri = _data["nama_negeri"];
+            this.no_kp = _data["no_kp"];
         }
     }
 
@@ -22811,6 +22853,7 @@ export class GetUserForViewDto implements IGetUserForViewDto {
         data["poskod"] = this.poskod;
         data["nama_daerah"] = this.nama_daerah;
         data["nama_negeri"] = this.nama_negeri;
+        data["no_kp"] = this.no_kp;
         return data; 
     }
 }
@@ -22829,6 +22872,7 @@ export interface IGetUserForViewDto {
     poskod: string;
     nama_daerah: string;
     nama_negeri: string;
+    no_kp: string;
 }
 
 /** Ngo List in Tabular model */

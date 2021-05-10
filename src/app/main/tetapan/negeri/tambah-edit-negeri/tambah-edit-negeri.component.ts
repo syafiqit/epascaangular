@@ -60,7 +60,7 @@ export class TambahEditNegeriComponent implements OnInit {
 				if (this.name == 'add') {
 					Swal.fire('Berjaya!', 'Maklumat Negeri Berjaya Ditambah.', 'success');
 				} else if (this.name == 'edit') {
-					Swal.fire('Berjaya!', 'Maklumat Negeri Berjaya Diubah.', 'success');
+					Swal.fire('Berjaya!', 'Maklumat Negeri Berjaya Dikemaskini.', 'success');
 				}
 				this.activeModal.close(true);
 			});

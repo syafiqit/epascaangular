@@ -5,6 +5,7 @@
 		<span aria-hidden="true">&times;</span>
 	</button>
 </div>
+
 <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()">
 	<div class="modal-body">
 		<div class="row">
@@ -29,6 +30,7 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="col-lg-6">
 				<div class="form-group">
 					<label>Parlimen</label>
@@ -47,11 +49,12 @@
 						required
 					></ng-select>
 					<div *ngIf="f.submitted && parlimen.invalid" class="invalid-feedback">
-						<div *ngIf="parlimen.errors.required">Parlimen Wajib Diisi</div>
+						<div *ngIf="parlimen.errors.required">Parlimen Wajib Dipilih</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
@@ -71,10 +74,11 @@
 						required
 					></ng-select>
 					<div *ngIf="f.submitted && negeri.invalid" class="invalid-feedback">
-						<div *ngIf="negeri.errors.required">Negeri Wajib Diisi</div>
+						<div *ngIf="negeri.errors.required">Negeri Wajib Dipilih</div>
 					</div>
 				</div>
 			</div>
+
 			<div class="col-lg-6">
 				<div class="form-group">
 					<label>Status</label>
@@ -93,12 +97,13 @@
 						<option [value]="0">Tidak Aktif</option>
 					</select>
 					<div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
-						<div *ngIf="status.errors.required">Status Wajib Diisi</div>
+						<div *ngIf="status.errors.required">Status Wajib Dipilih</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 	<div class="modal-footer">
 		<button type="button" class="btn btn-light" (click)="activeModal.close(false)">Tutup</button>
 		<button type="submit" class="btn btn-primary">Simpan</button>

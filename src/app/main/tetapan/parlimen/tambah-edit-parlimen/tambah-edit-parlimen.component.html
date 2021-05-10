@@ -1,5 +1,6 @@
 <div class="modal-header">
-	<h5 class="modal-title">Tambah Parlimen</h5>
+	<h5 class="modal-title" *ngIf="name === 'add'">Tambah Parlimen</h5>
+	<h5 class="modal-title" *ngIf="name === 'edit'">Kemaskini Parlimen</h5>
 	<button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
 		<span aria-hidden="true">&times;</span>
 	</button>
@@ -19,8 +20,6 @@
 						#namaParlimen="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && namaParlimen.invalid }"
 						name="parlimen.nama_parlimen"
-						minlength="0"
-						maxlength="250"
 						required
 					/>
 					<div *ngIf="f.submitted && namaParlimen.invalid" class="invalid-feedback">
@@ -42,12 +41,10 @@
 						name="parlimen.id_negeri"
 						#negeri="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && negeri.invalid }"
-						minlength="0"
-						maxlength="250"
 						required
 					></ng-select>
 					<div *ngIf="f.submitted && negeri.invalid" class="invalid-feedback">
-						<div *ngIf="negeri.errors.required">Negeri Wajib Diisi</div>
+						<div *ngIf="negeri.errors.required">Negeri Wajib Dipilih</div>
 					</div>
 				</div>
 			</div>
@@ -64,8 +61,6 @@
 						[(ngModel)]="parlimen.status_parlimen"
 						#status="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
-						minlength="0"
-						maxlength="250"
 						required
 					>
 						<option [ngValue]="undefined" disabled>Sila Pilih</option>
@@ -73,7 +68,7 @@
 						<option [value]="0">Tidak Aktif</option>
 					</select>
 					<div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
-						<div *ngIf="status.errors.required">Status Wajib Diisi</div>
+						<div *ngIf="status.errors.required">Status Wajib Dipilih</div>
 					</div>
 				</div>
 			</div>

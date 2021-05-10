@@ -49,7 +49,7 @@ export class TambahEditStatusBerpindahComponent implements OnInit {
 				if (this.name == 'add') {
 					Swal.fire('Berjaya!', 'Maklumat Status Berpindah Berjaya Ditambah.', 'success');
 				} else if (this.name == 'edit') {
-					Swal.fire('Berjaya!', 'Maklumat Status Berpindah Berjaya Diubah.', 'success');
+					Swal.fire('Berjaya!', 'Maklumat Status Berpindah Berjaya Dikemaskini.', 'success');
 				}
 				this.activeModal.close(true);
 			});

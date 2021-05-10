@@ -49,7 +49,7 @@
 							required
 						></ng-select>
 						<div *ngIf="f.submitted && negeri.invalid" class="invalid-feedback">
-							<div *ngIf="negeri.errors.required">Negeri Wajib Diisi</div>
+							<div *ngIf="negeri.errors.required">Negeri Wajib Dipilih</div>
 						</div>
 					</div>
 				</div>
@@ -74,7 +74,7 @@
 						<option [value]="0">Tidak Aktif</option>
 					</select>
 					<div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
-						<div *ngIf="status.errors.required">Status Wajib Diisi</div>
+						<div *ngIf="status.errors.required">Status Wajib Dipilih</div>
 					</div>
 				</div>
 			</div>
