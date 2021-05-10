@@ -151,7 +151,7 @@ export class MaklumatMangsaComponent implements OnInit {
 
 			this.httpClient.post<any>(this.serverUrl, formData).subscribe(
 				(res) => {
-          this.url = res.url
+          this.url = res.url;
           this.save();
         });
 		}
@@ -161,8 +161,7 @@ export class MaklumatMangsaComponent implements OnInit {
   }
 
 	save() {
-    this.editMangsa.mangsa.id = this.idMangsa;
-    this.editMangsa.mangsa.gambar = this.url;
+    this.getMangsa.mangsa.gambar = this.url;
     this.editMangsa.mangsa = this.getMangsa.mangsa;
 		this._mangsaServiceProxy.createOrEdit(this.editMangsa).subscribe((result) => {
 			Swal.fire('Berjaya!', 'Maklumat Mangsa Berjaya Dikemaskini.', 'success').then(() => {

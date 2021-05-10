@@ -1,15 +1,10 @@
-<div class="row" style="margin-bottom: 4px">
-  <div class="col-12" style="text-align: right; padding: 0">
-      <div>
-        <button (click)="addAgricultureModal(mangsaId)"
-                class="btn btn-primary ml-2"
-                style="font-weight: 500">
-          <i class="fa fa-plus mr-2"></i>
-          Tambah
-        </button>
-      </div>
-  </div>
+<div class="row justify-content-end pr-0 mb-1">
+  <button (click)="addAgricultureModal(mangsaId)" class="btn btn-primary pull-right">
+    <i class="fa fa-plus mr-2"></i>
+    <b>Tambah</b>
+  </button>
 </div>
+
 <div class="row align-items-center">
   <div class="primeng-datatable-container">
     <p-table
@@ -60,7 +55,7 @@
             </button>
             <div ngbDropdownMenu aria-labelledby="action">
               <button class="dropdown-item" (click)="editAgricultureModal(record.id, mangsaId)">
-                Ubah
+                Kemaskini
               </button>
               <button class="dropdown-item" (click)="delete()">Padam</button>
             </div>
