@@ -63,7 +63,7 @@
 					</div>
 
 					<div class="col-lg-1 mt-4 mr-5">
-						<button class="btn btn-primary justify-content-end mr-3" type="button">Cari</button>
+						<button class="btn btn-primary justify-content-end mr-3" style="margin-top:5px" type="button">Cari</button>
 					</div>
 				</div>
 			</form>
@@ -84,64 +84,41 @@
 	<div class="row">
 		<div class="col-lg-3" *ngFor="let report of report">
 			<div class="card bg-primary">
-				<div class="card-body">
-					<div class="media static-top-widget">
-						<div class="media-body">
-							<i
-								class="icon-bg"
-								data-feather="user"
-								*ngIf="report.title === 'Jumlah Keseluruhan Mangsa'"
-							></i>
-							<i
-								class="icon-bg"
-								data-feather="send"
-								*ngIf="report.title === 'Jumlah Bantuan Antarabangsa'"
-							></i>
-							<i
-								class="icon-bg"
-								data-feather="home"
-								*ngIf="report.title === 'Jumlah Bina Rumah Kekal'"
-							></i>
-							<i
-								class="icon-bg"
-								data-feather="triangle"
-								*ngIf="report.title === 'Jumlah Rumah Dibaik Pulih'"
-							></i>
-							<i class="icon-bg" data-feather="box" *ngIf="report.title === 'Jumlah Pinjaman Khas'"></i>
-							<i
-								class="icon-bg"
-								data-feather="dollar-sign"
-								*ngIf="report.title === 'Jumlah Penerima Wang Ihsan'"
-							></i>
-							<i
-								class="icon-bg"
-								data-feather="droplet"
-								*ngIf="report.title === 'Jumlah Bantuan Pertanian'"
-							></i>
-							<i
-								class="icon-bg"
-								data-feather="file-text"
-								*ngIf="report.title === 'Jumlah Lain-Lain Bantuan'"
-							></i>
+				<div class="media static-top-widget">
+					<div class="media-body">
+						<i class="icon-bg" data-feather="user" *ngIf="report.title === 'Jumlah Keseluruhan Mangsa'"></i>
+						<i class="icon-bg" data-feather="send" *ngIf="report.title === 'Jumlah Bantuan Antarabangsa'"></i>
+						<i class="icon-bg" data-feather="home" *ngIf="report.title === 'Jumlah Bina Rumah Kekal'"></i>
+						<i class="icon-bg" data-feather="triangle" *ngIf="report.title === 'Jumlah Rumah Dibaik Pulih'"></i>
+						<i class="icon-bg" data-feather="box" *ngIf="report.title === 'Jumlah Pinjaman Khas'"></i>
+						<i class="icon-bg" data-feather="dollar-sign" *ngIf="report.title === 'Jumlah Penerima Wang Ihsan'"></i>
+						<i class="icon-bg" data-feather="droplet" *ngIf="report.title === 'Jumlah Bantuan Pertanian'"></i>
+						<i class="icon-bg" data-feather="file-text" *ngIf="report.title === 'Jumlah Lain-Lain Bantuan'"></i>
+					</div>
+				</div>
+				<div class="card-body" style="background-color:#145DB7;text-align:start; padding:20px; border-radius:8px">
+					<div class="row">
+						<div class="col-12">
+							<label style="color:#BBD9FF;">{{report.title}}</label>
 						</div>
 					</div>
-					<div class="row justify-content-center">
-						<label>{{report.title}}</label>
+					<div class="row">
+						<div class="col-12">
+							<h5 style="font-weight:500">{{report.total}}</h5>
+						</div>
 					</div>
-
-					<div class="row justify-content-center">
-						<h4>{{report.total}}</h4>
+					<div class="row">
+						<div class="col-12">
+							<label style="color:#BBD9FF;">{{report.title2}}</label>
+						</div>
 					</div>
-
-					<div class="row justify-content-center mt-2">
-						<label>{{report.title2}}</label>
-					</div>
-
-					<div class="row justify-content-center">
-						<h4>RM{{report.total_kos}}</h4>
+					<div class="row">
+						<div class="col-12">
+							<h5 style="font-weight:500">RM{{report.total_kos}}</h5>
+						</div>
 					</div>
 				</div>
 			</div>
+			</div>
 		</div>
 	</div>
-</div>
