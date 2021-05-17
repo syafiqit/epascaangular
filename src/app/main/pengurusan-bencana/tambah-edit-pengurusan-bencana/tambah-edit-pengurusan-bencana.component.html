@@ -1,7 +1,7 @@
 <div class="modal-header">
 	<h5 class="modal-title" *ngIf="name === 'add'">Tambah Bencana</h5>
 	<h5 class="modal-title" *ngIf="name === 'edit'">Kemaskini Bencana</h5>
-	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
 		<span aria-hidden="true">&times;</span>
 	</button>
 </div>
@@ -28,7 +28,7 @@
 					</div>
                 </div>
             </div>
-    
+
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Tahun</label>
@@ -49,7 +49,7 @@
                 </div>
             </div>
         </div>
-    
+
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-group">
@@ -73,7 +73,7 @@
 					</div>
                 </div>
             </div>
-    
+
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Nama Bencana</label>
@@ -94,7 +94,7 @@
                 </div>
             </div>
         </div>
-    
+
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-group">

@@ -5,11 +5,12 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
-import { 
-	RefBencanaServiceProxy, 
-	RefJenisBencanaServiceProxy, 
-	RefNegeriServiceProxy 
+import {
+	RefBencanaServiceProxy,
+	RefJenisBencanaServiceProxy,
+	RefNegeriServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-pengurusan-bencana',
@@ -33,11 +34,11 @@ export class PengurusanBencanaComponent implements OnInit {
   states: any[];
 
 	constructor(
-    config: NgbModalConfig, 
+    config: NgbModalConfig,
     private modalService: NgbModal,
     private _refBencanaServiceProxy: RefBencanaServiceProxy,
-	private _refNegeriServiceProxy: RefNegeriServiceProxy,
-	private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy
+    private _refNegeriServiceProxy: RefNegeriServiceProxy,
+    private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
@@ -49,7 +50,7 @@ export class PengurusanBencanaComponent implements OnInit {
 		this.bencana();
 	}
 
-	getApplication(event?: LazyLoadEvent) {
+	getDisaster(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
@@ -63,10 +64,12 @@ export class PengurusanBencanaComponent implements OnInit {
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
 			)
+      .pipe(finalize(()=> {
+        this.primengTableHelper.hideLoadingIndicator();
+      }))
 			.subscribe((result) => {
 				this.primengTableHelper.totalRecordsCount = result.total_count;
 				this.primengTableHelper.records = result.items;
-				this.primengTableHelper.hideLoadingIndicator();
 			});
 	}
 
@@ -107,7 +110,7 @@ export class PengurusanBencanaComponent implements OnInit {
 		modalRef.componentInstance.name = 'add';
 		modalRef.result.then((response) => {
 			if (response) {
-				this.getApplication();
+				this.getDisaster();
 			}
 		});
 	}
@@ -118,7 +121,7 @@ export class PengurusanBencanaComponent implements OnInit {
 		modalRef.componentInstance.id = id;
 		modalRef.result.then((response) => {
 			if (response) {
-				this.getApplication();
+				this.getDisaster();
 			}
 		});
 	}
