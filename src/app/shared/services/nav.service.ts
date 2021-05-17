@@ -87,6 +87,12 @@ export class NavService implements OnDestroy {
 				path: '/app/mangsa/senarai-pengurusan-mangsa',
 				icon: 'users',
 				type: 'link'
+			},
+			{
+				title: 'Pengurusan Bencana',
+				path: '/app/bencana/pengurusan-bencana',
+				icon: 'wind',
+				type: 'link'
 			}
 		];
 

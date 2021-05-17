@@ -3,100 +3,112 @@
 	<div class="container-fluid">
 		<div class="card card-custom gutter-b">
 			<div class="card-body">
-				<div class="row justify-content-end mb-2">
-					<button
-						class="btn btn-primary"
-						type="button"
-						(click)="addDisasterModal()"
-					>
-						<i class="fa fa-plus mr-2"></i>
-						Tambah
-					</button>
-				</div>
-				<div class="row mb-2">
-					<input
-						type="text"
-						class="form-control"
-						placeholder="Carian..."
-						[(ngModel)]="filter"
-						(keyup.enter)="getApplication()"
-					/>
-				</div>
-				<div class="row mb-2">
-					<div class="col-lg-12">
-						<div class="row">
-							<button
-								type="button"
-								class="btn btn-xs btn-outline-primary"
-								(click)="isCollapsed = !isCollapsed"
-								[attr.aria-expanded]="!isCollapsed"
-								aria-controls="collapseExample"
-							>
-								Carian Lanjut
-							</button>
-						</div>
-						<div class="row" [ngbCollapse]="!isCollapsed">
-							<div class="col-lg-12">
-								<div class="card mb-0">
-									<div class="card-body">
-										<form>
-											<div class="row">
-												<div class="col-lg-6">
-													<label>Tahun</label>
-													<input class="form-control" name="year" type="text" placeholder="Tahun" />
-												</div>
+				<div class="row mb-1">
+          <div class="col-6 justify-content-start pl-0">
+            <div class="faq-form">
+              <input
+                class="form-control"
+                type="text"
+                placeholder="Carian..."
+                [(ngModel)]="filter"
+                (keyup.enter)="getDisaster()"
+                [ngModelOptions]="{standalone: true}"
+              />
+              <i class="search-icon" data-feather="search"></i>
+            </div>
+          </div>
 
-												<div class="col-lg-6">
-													<label>Kata Kunci</label>
-													<input class="form-control" name="keyword" type="text" placeholder="Kata Kunci" />
-												</div>
-											</div>
+          <div class="col-2 justify-content-between pl-0">
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="isCollapsed = !isCollapsed"
+              [attr.aria-expanded]="!isCollapsed"
+              aria-controls="collapseExample"
+              title="Carian Lanjut"
+              style="font-weight: 500"
+            >
+              <i class="fa fa-filter"></i>
+            </button>
+          </div>
 
-											<div class="row">
-												<div class="col-lg-6">
-													<div class="form-group">
-														<label>Tarikh Kejadian</label>
-														<input class="form-control" name="tarikh" type="date" placeholder="dd/mm/yyyy" />
-													</div>
-												</div>
+          <div class="col-4 justify-content-end pr-0">
+            <button
+                class="btn btn-primary pull-right"
+                (click)="addDisasterModal()"
+              >
+                <i class="fa fa-plus mr-2"></i>
+                <b>Tambah</b>
+              </button>
+          </div>
+        </div>
 
-												<div class="col-lg-6">
-													<div class="form-group">
-														<label>Nama Bencana</label>
-														<input class="form-control" name="bencana" type="text" placeholder="Nama Bencana" />
-													</div>
-												</div>
-											</div>
-											<div class="row justify-content-end">
-												<button
-													class="btn btn-primary mr-3"
-													type="button"
-													(click)="isCollapsed = !isCollapsed"
-													[attr.aria-expanded]="!isCollapsed"
-												>
-													Cari
-												</button>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+        <div class="row mb-2">
+          <div class="col-lg-12">
+            <div class="row">
+              <div class="col-lg-12">
+                <div id="collapseExample" [ngbCollapse]="!isCollapsed">
+                  <form>
+                    <div class="row mt-2">
+                      <div class="col-lg-6">
+                        <label>Tahun</label>
+                        <input class="form-control" name="year" type="text" placeholder="Tahun" />
+                      </div>
+
+                      <div class="col-lg-6">
+                        <label>Kata Kunci</label>
+                        <input class="form-control" name="keyword" type="text" placeholder="Kata Kunci" />
+                      </div>
+                    </div>
+
+                    <div class="row mt-2">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label>Tarikh Kejadian</label>
+                          <input class="form-control" name="tarikh" type="date" placeholder="dd/mm/yyyy" />
+                        </div>
+                      </div>
+
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label>Nama Bencana</label>
+                          <input class="form-control" name="bencana" type="text" placeholder="Nama Bencana" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row justify-content-end mb-2">
+                      <button
+                        class="btn btn-primary mr-3"
+                        type="button"
+                        (click)="isCollapsed = !isCollapsed"
+                        [attr.aria-expanded]="!isCollapsed"
+                        (click)="getDisaster()"
+                      >
+                      <i class="fa fa-search mr-2"></i>
+                        <b>Cari</b>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
 				<div class="row align-items-center">
 					<!--<Primeng-TurboTable-Start>-->
-					<div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+					<div class="primeng-datatable-container">
 						<p-table
 							#dataTable
 							styleClass="p-datatable-striped"
-							sortMode="multiple"
 							[resizableColumns]="true"
-							(onLazyLoad)="getApplication($event)"
+							(onLazyLoad)="getDisaster($event)"
 							[value]="primengTableHelper.records"
 							rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
 							[paginator]="false"
 							[lazy]="true"
+              [loading]="primengTableHelper.isLoading"
 							[scrollable]="true"
 							ScrollWidth="100%"
 							[responsive]="primengTableHelper.isResponsive"
@@ -123,7 +135,7 @@
 									</th>
 									<th style="width: 130px" pSortableColumn="id_negeri">
 										Negeri
-										<p-sortIcon field="negeri"></p-sortIcon>
+										<p-sortIcon field="id_negeri"></p-sortIcon>
 									</th>
 								</tr>
 							</ng-template>
@@ -146,7 +158,7 @@
 													class="dropdown-item"
 													(click)="editDisasterModal(record.id)"
 												>
-													Lihat
+													Kemaskini
 												</button>
 												<button class="dropdown-item">Padam</button>
 											</div>
@@ -180,7 +192,7 @@
 							<p-paginator
 								[rows]="primengTableHelper.defaultRecordsCountPerPage"
 								#paginator
-								(onPageChange)="getApplication($event)"
+								(onPageChange)="getDisaster($event)"
 								[totalRecords]="primengTableHelper.totalRecordsCount"
 								[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
 							></p-paginator>
