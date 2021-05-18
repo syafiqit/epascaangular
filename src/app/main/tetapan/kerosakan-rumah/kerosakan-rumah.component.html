@@ -1,7 +1,7 @@
 <app-breadcrumb
-	[title]="'Medan Jenis Kerosakan Rumah'"
-	[items]="['Medan']"
-	[active_item]="['Medan Jenis Kerosakan Rumah']"
+	[title]="'Tetapan Jenis Kerosakan Rumah'"
+	[items]="['Tetapan']"
+	[active_item]="['Jenis Kerosakan Rumah']"
 ></app-breadcrumb>
 
 <div class="container-fluid">
@@ -15,10 +15,10 @@
                 <input
                   class="form-control"
                   type="text"
+                  name="searchKerosakan"
                   placeholder="Carian..."
                   [(ngModel)]="filterText"
                   (keyup.enter)="getStatusKerosakan()"
-                  [ngModelOptions]="{standalone: true}"
                 />
                 <i class="search-icon" data-feather="search"></i>
               </div>

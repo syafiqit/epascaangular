@@ -20,7 +20,7 @@ export class PelaksanaComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 
-	filter = '';
+	filter: string;
 
 	constructor(
 		config: NgbModalConfig,

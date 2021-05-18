@@ -7,8 +7,7 @@ import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import {
 	RefBencanaServiceProxy,
-	RefJenisBencanaServiceProxy,
-	RefNegeriServiceProxy
+	RefJenisBencanaServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { finalize } from 'rxjs/operators';
 

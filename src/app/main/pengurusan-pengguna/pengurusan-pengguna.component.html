@@ -9,10 +9,10 @@
               <input
                 class="form-control"
                 type="text"
+                name="searchUser"
                 placeholder="Carian..."
                 [(ngModel)]="filter"
                 (keyup.enter)="getUser()"
-                [ngModelOptions]="{standalone: true}"
               />
               <i class="search-icon" data-feather="search"></i>
             </div>
@@ -61,7 +61,6 @@
                             class="js-example-placeholder-multiple"
                             name="namaAgensi"
                             [(ngModel)]="filterAgensi"
-                            [ngModelOptions]="{standalone: true}"
                           ></ng-select>
                         </div>
                       </div>
@@ -77,7 +76,6 @@
                             class="js-example-placeholder-multiple"
                             name="namaPeranan"
                             [(ngModel)]="filterPeranan"
-                            [ngModelOptions]="{standalone: true}"
                           ></ng-select>
                         </div>
                       </div>

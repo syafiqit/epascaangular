@@ -1,8 +1,4 @@
-<app-breadcrumb
-	[title]="'Medan Jenis Bantuan'"
-	[items]="['Pentadbiran','Medan']"
-	[active_item]="'Medan Jenis Bantuan'"
-></app-breadcrumb>
+<app-breadcrumb [title]="'Tetapan Jenis Bantuan'" [items]="['Tetapan']" [active_item]="'Jenis Bantuan'"></app-breadcrumb>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-12">
@@ -14,10 +10,10 @@
                 <input
                   class="form-control"
                   type="text"
+                  name="searchBantuan"
                   placeholder="Carian..."
                   [(ngModel)]="filter"
                   (keyup.enter)="getBantuan()"
-                  [ngModelOptions]="{standalone: true}"
                 />
                 <i class="search-icon" data-feather="search"></i>
               </div>

@@ -20,7 +20,7 @@ export class PinjamanUsahawanComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 
-	filterText = '';
+	filterText: string;
 
 	constructor(
 		config: NgbModalConfig,

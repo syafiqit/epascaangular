@@ -9,10 +9,10 @@
               <input
                 class="form-control"
                 type="text"
+                name="searchDisaster"
                 placeholder="Carian..."
                 [(ngModel)]="filter"
                 (keyup.enter)="getDisaster()"
-                [ngModelOptions]="{standalone: true}"
               />
               <i class="search-icon" data-feather="search"></i>
             </div>
@@ -59,7 +59,6 @@
                             type="text"
                             placeholder="Tahun"
                             [(ngModel)]="filterTahun"
-                            [ngModelOptions]="{standalone: true}"
                           />
                         </div>
                       </div>
@@ -73,7 +72,6 @@
                             type="text"
                             placeholder="Jenis Bencana"
                             [(ngModel)]="filterBencana"
-                            [ngModelOptions]="{standalone: true}"
                           />
                         </div>
                       </div>
@@ -91,7 +89,6 @@
                             class="js-example-placeholder-multiple"
                             name="jenisBencana"
                             [(ngModel)]="filterJenis"
-                            [ngModelOptions]="{standalone: true}"
                           ></ng-select>
                         </div>
                       </div>
@@ -153,9 +150,9 @@
 										Nama Bencana
 										<p-sortIcon field="nama_bencana"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="id_negeri">
+									<th style="width: 130px" pSortableColumn="nama_negeri">
 										Negeri
-										<p-sortIcon field="id_negeri"></p-sortIcon>
+										<p-sortIcon field="nama_negeri"></p-sortIcon>
 									</th>
 								</tr>
 							</ng-template>
@@ -216,7 +213,7 @@
 								[totalRecords]="primengTableHelper.totalRecordsCount"
 								[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
 							></p-paginator>
-							<span class="total-records-count">Jumlah: {{ primengTableHelper.totalRecordsCount}}</span>
+							<span class="total-records-count">Jumlah: {{primengTableHelper.totalRecordsCount}}</span>
 						</div>
 					</div>
 					<!--<Primeng-TurboTable-End>-->

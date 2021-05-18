@@ -20,7 +20,7 @@ export class BencanaComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 
-	filter = '';
+	filter: string;
 
 	constructor(
 		config: NgbModalConfig,
