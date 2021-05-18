@@ -51,43 +51,63 @@
                   <form>
                     <div class="row mt-2">
                       <div class="col-lg-6">
-                        <label>Tahun</label>
-                        <input class="form-control" name="year" type="text" placeholder="Tahun" />
-                      </div>
-
-                      <div class="col-lg-6">
-                        <label>Kata Kunci</label>
-                        <input class="form-control" name="keyword" type="text" placeholder="Kata Kunci" />
-                      </div>
-                    </div>
-
-                    <div class="row mt-2">
-                      <div class="col-lg-6">
                         <div class="form-group">
-                          <label>Tarikh Kejadian</label>
-                          <input class="form-control" name="tarikh" type="date" placeholder="dd/mm/yyyy" />
+                          <label>Tahun</label>
+                          <input
+                            class="form-control"
+                            name="tahun"
+                            type="text"
+                            placeholder="Tahun"
+                            [(ngModel)]="filterTahun"
+                            [ngModelOptions]="{standalone: true}"
+                          />
                         </div>
                       </div>
 
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label>Jenis Bencana</label>
+                          <input
+                            class="form-control"
+                            name="jenis_bencana"
+                            type="text"
+                            placeholder="Jenis Bencana"
+                            [(ngModel)]="filterBencana"
+                            [ngModelOptions]="{standalone: true}"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
                       <div class="col-lg-6">
                         <div class="form-group">
                           <label>Nama Bencana</label>
-                          <input class="form-control" name="bencana" type="text" placeholder="Nama Bencana" />
+                          <ng-select
+                            [items]="disasters"
+                            bindLabel="nama_jenis_bencana"
+                            bindValue="id"
+                            placeholder="Sila Pilih"
+                            class="js-example-placeholder-multiple"
+                            name="jenisBencana"
+                            [(ngModel)]="filterJenis"
+                            [ngModelOptions]="{standalone: true}"
+                          ></ng-select>
                         </div>
                       </div>
-                    </div>
 
-                    <div class="row justify-content-end mb-2">
-                      <button
-                        class="btn btn-primary mr-3"
-                        type="button"
-                        (click)="isCollapsed = !isCollapsed"
-                        [attr.aria-expanded]="!isCollapsed"
-                        (click)="getDisaster()"
-                      >
-                      <i class="fa fa-search mr-2"></i>
-                        <b>Cari</b>
-                      </button>
+                      <div class="col-lg-6 justify-content-end mt-4">
+                        <button
+                          class="btn btn-primary pull-right mt-1"
+                          type="button"
+                          (click)="isCollapsed = !isCollapsed"
+                          [attr.aria-expanded]="!isCollapsed"
+                          (click)="getDisaster()"
+                        >
+                        <i class="fa fa-search mr-2"></i>
+                          <b>Cari</b>
+                        </button>
+                      </div>
                     </div>
                   </form>
                 </div>
@@ -125,9 +145,9 @@
 										Tarikh Kejadian
 										<p-sortIcon field="tarikh"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="kategori_bencana">
-										Kategori Bencana
-										<p-sortIcon field="kategori_bencana"></p-sortIcon>
+									<th style="width: 130px" pSortableColumn="jenis_bencana">
+										Jenis Bencana
+										<p-sortIcon field="jenis_bencana"></p-sortIcon>
 									</th>
 									<th style="width: 130px" pSortableColumn="nama_bencana">
 										Nama Bencana
@@ -173,8 +193,8 @@
 										{{record.tarikh_bencana | date:'dd-MM-yyyy'}}
 									</td>
 									<td style="width: 130px">
-										<span class="p-column-title">Kategori Bencana</span>
-										{{getBencana(record.id_jenis_bencana)}}
+										<span class="p-column-title">Jenis Bencana</span>
+										{{record.nama_jenis_bencana}}
 									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">Nama Bencana</span>
@@ -182,7 +202,7 @@
 									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">Negeri</span>
-										{{getNegeri(record.id_negeri)}}
+										{{record.nama_negeri}}
 									</td>
 								</tr>
 							</ng-template>

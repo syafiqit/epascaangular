@@ -26,7 +26,11 @@ export class PengurusanBencanaComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
 	public isCollapsed = false;
 
-  filter = '';
+  filter: string;
+  filterTahun: number;
+  filterBencana: string;
+  filterJenis: number;
+
   sorting: string;
   skipCount: number;
   maxResultCount: number;
@@ -37,7 +41,6 @@ export class PengurusanBencanaComponent implements OnInit {
     config: NgbModalConfig,
     private modalService: NgbModal,
     private _refBencanaServiceProxy: RefBencanaServiceProxy,
-    private _refNegeriServiceProxy: RefNegeriServiceProxy,
     private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
@@ -46,8 +49,7 @@ export class PengurusanBencanaComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.negeri();
-		this.bencana();
+		this.getJenisBencana();
 	}
 
 	getDisaster(event?: LazyLoadEvent) {
@@ -60,6 +62,9 @@ export class PengurusanBencanaComponent implements OnInit {
 		this._refBencanaServiceProxy
 			.getAll(
 				this.filter,
+        this.filterTahun,
+        this.filterBencana,
+        this.filterJenis,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -73,32 +78,10 @@ export class PengurusanBencanaComponent implements OnInit {
 			});
 	}
 
-	bencana() {
-		this._refJenisBencanaServiceProxy
-			.getAll(this.filter, this.sorting, this.skipCount, (this.maxResultCount = 20))
-			.subscribe((result) => {
-				this.disasters = result.items.map((data) => {
-					return data.nama_jenis_bencana;
-				});
-			});
-	}
-
-	getBencana(id) {
-		return this.disasters[id - 1];
-	}
-
-	negeri() {
-		this._refNegeriServiceProxy
-			.getAll(this.filter, this.sorting, this.skipCount, (this.maxResultCount = 20))
-			.subscribe((result) => {
-				this.states = result.items.map((data) => {
-					return data.nama_negeri;
-				});
-			});
-	}
-
-	getNegeri(id) {
-		return this.states[id - 1];
+  getJenisBencana(filter?) {
+		this._refJenisBencanaServiceProxy.getRefJenisBencanaForDropdown(filter).subscribe((result) => {
+			this.disasters = result.items;
+		});
 	}
 
 	reloadPage(): void {
