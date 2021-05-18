@@ -4129,17 +4129,32 @@ export class RefBencanaServiceProxy {
     /**
      * Get all RefBencana
      * @param filter (optional) Filter records with a string
+     * @param filterTahun (optional) Filter records with a integer
+     * @param filterBencana (optional) Filter records with a string
+     * @param filterJenis (optional) Filter records with a string
      * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
      * @param skipCount (optional) Skip n-value of a record
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfRefBencanaForViewDto> {
+    getAll(filter: string | undefined, filterTahun: number | undefined, filterBencana: string | undefined, filterJenis: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfRefBencanaForViewDto> {
         let url_ = this.baseUrl + "/api/refBencana/getAll?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
             url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (filterTahun === null)
+            throw new Error("The parameter 'filterTahun' cannot be null.");
+        else if (filterTahun !== undefined)
+            url_ += "filterTahun=" + encodeURIComponent("" + filterTahun) + "&";
+        if (filterBencana === null)
+            throw new Error("The parameter 'filterBencana' cannot be null.");
+        else if (filterBencana !== undefined)
+            url_ += "filterBencana=" + encodeURIComponent("" + filterBencana) + "&";
+        if (filterJenis === null)
+            throw new Error("The parameter 'filterJenis' cannot be null.");
+        else if (filterJenis !== undefined)
+            url_ += "filterJenis=" + encodeURIComponent("" + filterJenis) + "&";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
@@ -15000,6 +15015,7 @@ export class GetRefAgensiForViewDto implements IGetRefAgensiForViewDto {
     pemberi_pinjaman!: number;
     pengguna_sistem!: number;
     status_agensi!: number;
+    nama_kementerian!: string;
 
     constructor(data?: IGetRefAgensiForViewDto) {
         if (data) {
@@ -15020,6 +15036,7 @@ export class GetRefAgensiForViewDto implements IGetRefAgensiForViewDto {
             this.pemberi_pinjaman = _data["pemberi_pinjaman"];
             this.pengguna_sistem = _data["pengguna_sistem"];
             this.status_agensi = _data["status_agensi"];
+            this.nama_kementerian = _data["nama_kementerian"];
         }
     }
 
@@ -15040,6 +15057,7 @@ export class GetRefAgensiForViewDto implements IGetRefAgensiForViewDto {
         data["pemberi_pinjaman"] = this.pemberi_pinjaman;
         data["pengguna_sistem"] = this.pengguna_sistem;
         data["status_agensi"] = this.status_agensi;
+        data["nama_kementerian"] = this.nama_kementerian;
         return data; 
     }
 }
@@ -15053,6 +15071,7 @@ export interface IGetRefAgensiForViewDto {
     pemberi_pinjaman: number;
     pengguna_sistem: number;
     status_agensi: number;
+    nama_kementerian: string;
 }
 
 /** RefAgensi List in Tabular model */
@@ -15600,6 +15619,8 @@ export class GetRefBencanaForViewDto implements IGetRefBencanaForViewDto {
     id_negeri!: number;
     catatan!: string;
     status_bencana!: number;
+    nama_negeri!: string;
+    nama_jenis_bencana!: string;
 
     constructor(data?: IGetRefBencanaForViewDto) {
         if (data) {
@@ -15620,6 +15641,8 @@ export class GetRefBencanaForViewDto implements IGetRefBencanaForViewDto {
             this.id_negeri = _data["id_negeri"];
             this.catatan = _data["catatan"];
             this.status_bencana = _data["status_bencana"];
+            this.nama_negeri = _data["nama_negeri"];
+            this.nama_jenis_bencana = _data["nama_jenis_bencana"];
         }
     }
 
@@ -15640,6 +15663,8 @@ export class GetRefBencanaForViewDto implements IGetRefBencanaForViewDto {
         data["id_negeri"] = this.id_negeri;
         data["catatan"] = this.catatan;
         data["status_bencana"] = this.status_bencana;
+        data["nama_negeri"] = this.nama_negeri;
+        data["nama_jenis_bencana"] = this.nama_jenis_bencana;
         return data; 
     }
 }
@@ -15653,6 +15678,8 @@ export interface IGetRefBencanaForViewDto {
     id_negeri: number;
     catatan: string;
     status_bencana: number;
+    nama_negeri: string;
+    nama_jenis_bencana: string;
 }
 
 /** RefBencana List in Tabular model */
@@ -15910,6 +15937,7 @@ export class GetRefDaerahForViewDto implements IGetRefDaerahForViewDto {
     id_negeri!: number;
     nama_daerah!: string;
     status_daerah!: number;
+    nama_negeri!: string;
 
     constructor(data?: IGetRefDaerahForViewDto) {
         if (data) {
@@ -15926,6 +15954,7 @@ export class GetRefDaerahForViewDto implements IGetRefDaerahForViewDto {
             this.id_negeri = _data["id_negeri"];
             this.nama_daerah = _data["nama_daerah"];
             this.status_daerah = _data["status_daerah"];
+            this.nama_negeri = _data["nama_negeri"];
         }
     }
 
@@ -15942,6 +15971,7 @@ export class GetRefDaerahForViewDto implements IGetRefDaerahForViewDto {
         data["id_negeri"] = this.id_negeri;
         data["nama_daerah"] = this.nama_daerah;
         data["status_daerah"] = this.status_daerah;
+        data["nama_negeri"] = this.nama_negeri;
         return data; 
     }
 }
@@ -15951,6 +15981,7 @@ export interface IGetRefDaerahForViewDto {
     id_negeri: number;
     nama_daerah: string;
     status_daerah: number;
+    nama_negeri: string;
 }
 
 /** RefDaerah List in Tabular model */
@@ -16202,6 +16233,8 @@ export class GetRefDunForViewDto implements IGetRefDunForViewDto {
     kod_dun!: string;
     nama_dun!: string;
     status_dun!: number;
+    nama_negeri!: string;
+    nama_parlimen!: string;
 
     constructor(data?: IGetRefDunForViewDto) {
         if (data) {
@@ -16220,6 +16253,8 @@ export class GetRefDunForViewDto implements IGetRefDunForViewDto {
             this.kod_dun = _data["kod_dun"];
             this.nama_dun = _data["nama_dun"];
             this.status_dun = _data["status_dun"];
+            this.nama_negeri = _data["nama_negeri"];
+            this.nama_parlimen = _data["nama_parlimen"];
         }
     }
 
@@ -16238,6 +16273,8 @@ export class GetRefDunForViewDto implements IGetRefDunForViewDto {
         data["kod_dun"] = this.kod_dun;
         data["nama_dun"] = this.nama_dun;
         data["status_dun"] = this.status_dun;
+        data["nama_negeri"] = this.nama_negeri;
+        data["nama_parlimen"] = this.nama_parlimen;
         return data; 
     }
 }
@@ -16249,6 +16286,8 @@ export interface IGetRefDunForViewDto {
     kod_dun: string;
     nama_dun: string;
     status_dun: number;
+    nama_negeri: string;
+    nama_parlimen: string;
 }
 
 /** RefDun List in Tabular model */
@@ -18453,6 +18492,7 @@ export class GetRefParlimenForViewDto implements IGetRefParlimenForViewDto {
     nama_parlimen!: string;
     kod_parlimen!: string;
     status_parlimen!: number;
+    nama_negeri!: string;
 
     constructor(data?: IGetRefParlimenForViewDto) {
         if (data) {
@@ -18470,6 +18510,7 @@ export class GetRefParlimenForViewDto implements IGetRefParlimenForViewDto {
             this.nama_parlimen = _data["nama_parlimen"];
             this.kod_parlimen = _data["kod_parlimen"];
             this.status_parlimen = _data["status_parlimen"];
+            this.nama_negeri = _data["nama_negeri"];
         }
     }
 
@@ -18487,6 +18528,7 @@ export class GetRefParlimenForViewDto implements IGetRefParlimenForViewDto {
         data["nama_parlimen"] = this.nama_parlimen;
         data["kod_parlimen"] = this.kod_parlimen;
         data["status_parlimen"] = this.status_parlimen;
+        data["nama_negeri"] = this.nama_negeri;
         return data; 
     }
 }
@@ -18497,6 +18539,7 @@ export interface IGetRefParlimenForViewDto {
     nama_parlimen: string;
     kod_parlimen: string;
     status_parlimen: number;
+    nama_negeri: string;
 }
 
 /** RefParlimen List in Tabular model */

@@ -53,44 +53,44 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label>Kategori Bencana</label>
+                    <label>Jenis Bencana</label>
                     <div>
-						<ng-select
-							[items]="disasters"
-							bindLabel="nama_jenis_bencana"
-							bindValue="id"
-							placeholder="Sila Pilih"
-							class="js-example-placeholder-multiple"
-							name="pengurusan_bencana.id_jenis_bencana"
-							[(ngModel)]="pengurusan_bencana.id_jenis_bencana"
-							#jenisBencana="ngModel"
-							[ngClass]="{ 'is-invalid': f.submitted && jenisBencana.invalid }"
-							required
-						></ng-select>
-						<div *ngIf="f.submitted && jenisBencana.invalid" class="invalid-feedback">
-							<div *ngIf="jenisBencana.errors.required">Kategori Bencana Wajib diIsi</div>
-						</div>
-					</div>
+                    <ng-select
+                      [items]="disasters"
+                      bindLabel="nama_jenis_bencana"
+                      bindValue="id"
+                      placeholder="Sila Pilih"
+                      class="js-example-placeholder-multiple"
+                      name="pengurusan_bencana.id_jenis_bencana"
+                      [(ngModel)]="pengurusan_bencana.id_jenis_bencana"
+                      #jenisBencana="ngModel"
+                      [ngClass]="{ 'is-invalid': f.submitted && jenisBencana.invalid }"
+                      required
+                    ></ng-select>
+                    <div *ngIf="f.submitted && jenisBencana.invalid" class="invalid-feedback">
+                      <div *ngIf="jenisBencana.errors.required">Kategori Bencana Wajib diIsi</div>
+                    </div>
+                  </div>
                 </div>
             </div>
 
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label>Nama Bencana</label>
-                    <input
-						class="form-control"
-						id="disasterName"
-						type="text"
-						name="nama_bencana"
-						placeholder="Nama Bencana"
-						[(ngModel)]="pengurusan_bencana.nama_bencana"
-						#namaBencana="ngModel"
-						[ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
-						required
-					/>
-					<div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
-						<div *ngIf="namaBencana.errors.required">Nama Bencana Wajib diIsi</div>
-					</div>
+                  <label>Nama Bencana</label>
+                  <input
+                    class="form-control"
+                    id="disasterName"
+                    type="text"
+                    name="nama_bencana"
+                    placeholder="Nama Bencana"
+                    [(ngModel)]="pengurusan_bencana.nama_bencana"
+                    #namaBencana="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
+                    required
+                  />
+                  <div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
+                    <div *ngIf="namaBencana.errors.required">Nama Bencana Wajib diIsi</div>
+                  </div>
                 </div>
             </div>
         </div>
