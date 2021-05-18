@@ -20,7 +20,7 @@ export class KementerianComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 
-	filter = '';
+	filter: string;
 
 	constructor(
 		config: NgbModalConfig,

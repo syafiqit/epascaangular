@@ -1,4 +1,4 @@
-<app-breadcrumb [title]="'Medan Parlimen'" [items]="['Medan']" [active_item]="'Parlimen'"></app-breadcrumb>
+<app-breadcrumb [title]="'Tetapan Parlimen'" [items]="['Tetapan']" [active_item]="'Parlimen'"></app-breadcrumb>
 <div class="content d-flex flex-column flex-column-fluid">
 	<div class="container-fluid">
 		<div class="card card-custom gutter-b">
@@ -9,10 +9,10 @@
               <input
                 class="form-control"
                 type="text"
+                name="searchParlimen"
                 placeholder="Carian..."
                 [(ngModel)]="filterText"
                 (keyup.enter)="getParlimen()"
-                [ngModelOptions]="{standalone: true}"
               />
               <i class="search-icon" data-feather="search"></i>
             </div>
@@ -90,7 +90,7 @@
 									</td>
 									<td style="width: 150px">
 										<span class="p-column-title">Negeri</span>
-										{{getNegeri(record.id_negeri)}}
+										{{record.nama_negeri}}
 									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">Status</span>

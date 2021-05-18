@@ -20,7 +20,7 @@ export class SumberDanaComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 
-	filterText = '';
+	filterText: string;
 
 	constructor(
 		config: NgbModalConfig,

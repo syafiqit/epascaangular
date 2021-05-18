@@ -5,7 +5,7 @@ import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TambahEditDaerahComponent } from './tambah-edit-daerah/tambah-edit-daerah.component';
-import { RefDaerahServiceProxy, RefNegeriServiceProxy } from '../../../shared/proxy/service-proxies';
+import { RefDaerahServiceProxy } from '../../../shared/proxy/service-proxies';
 import { finalize } from 'rxjs/operators';
 
 @Component({
@@ -20,27 +20,19 @@ export class DaerahComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 
-	filterText = '';
-	filter: any;
-	sorting: any;
-	skipCount: any;
-	maxResultCount: any;
-	states: any[];
+	filterText: string;
 
 	constructor(
 		config: NgbModalConfig,
 		private modalService: NgbModal,
-		private _refDaerahServiceProxy: RefDaerahServiceProxy,
-		private _refNegeriServiceProxy: RefNegeriServiceProxy
+		private _refDaerahServiceProxy: RefDaerahServiceProxy
 	) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
 	}
 
-	ngOnInit(): void {
-		this.negeri();
-	}
+	ngOnInit(): void {}
 
 	getDaerah(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
@@ -67,18 +59,6 @@ export class DaerahComponent implements OnInit {
 
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
-	}
-
-	negeri() {
-		this._refNegeriServiceProxy.getRefNegeriForDropdown(this.filter).subscribe((result) => {
-			this.states = result.items.map((data) => {
-				return data.nama_negeri;
-			});
-		});
-	}
-
-	getNegeri(id) {
-		return this.states[id - 1];
 	}
 
 	addDistrictModal() {

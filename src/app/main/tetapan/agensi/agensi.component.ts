@@ -5,7 +5,7 @@ import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TambahEditAgensiComponent } from './tambah-edit-agensi/tambah-edit-agensi.component';
-import { RefAgensiServiceProxy, RefKementerianServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import { RefAgensiServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import { finalize } from 'rxjs/operators';
 
 @Component({
@@ -20,26 +20,19 @@ export class AgensiComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 
-	filter = '';
-	sorting: string;
-	skipCount: number;
-	maxResultCount: number;
-	ministry: any[];
+	filter: string;
 
 	constructor(
 		config: NgbModalConfig,
 		private modalService: NgbModal,
-		private _refAgensiServiceProxy: RefAgensiServiceProxy,
-		private _refKementerianServiceProxy: RefKementerianServiceProxy
+		private _refAgensiServiceProxy: RefAgensiServiceProxy
 	) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
 	}
 
-	ngOnInit(): void {
-		this.kementerian();
-	}
+	ngOnInit(): void {}
 
 	getAgensi(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
@@ -62,20 +55,6 @@ export class AgensiComponent implements OnInit {
 				this.primengTableHelper.totalRecordsCount = result.total_count;
 				this.primengTableHelper.records = result.items;
 			});
-	}
-
-	kementerian() {
-		this._refKementerianServiceProxy
-			.getAll(this.filter, this.sorting, this.skipCount, (this.maxResultCount = 20))
-			.subscribe((result) => {
-				this.ministry = result.items.map((data) => {
-					return data.nama_kementerian;
-				});
-			});
-	}
-
-	getKementerian(id) {
-		return this.ministry[id - 1];
 	}
 
 	reloadPage(): void {

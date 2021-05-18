@@ -1,4 +1,4 @@
-<app-breadcrumb [title]="'Kategori Bencana'" [items]="['Medan']" [active_item]="'Kategori Bencana'"></app-breadcrumb>
+<app-breadcrumb [title]="'Tetapan Jenis Bencana'" [items]="['Tetapan']" [active_item]="'Jenis Bencana'"></app-breadcrumb>
 <div class="content d-flex flex-column flex-column-fluid">
 	<div class="container-fluid">
 		<div class="card card-custom gutter-b">
@@ -9,10 +9,10 @@
               <input
                 class="form-control"
                 type="text"
+                name="searchBencana"
                 placeholder="Carian..."
                 [(ngModel)]="filter"
                 (keyup.enter)="getDisaster()"
-                [ngModelOptions]="{standalone: true}"
               />
               <i class="search-icon" data-feather="search"></i>
             </div>

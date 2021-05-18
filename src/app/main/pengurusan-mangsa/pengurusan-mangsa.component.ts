@@ -14,7 +14,6 @@ import {
 } from 'src/app/shared/proxy/service-proxies';
 import { finalize } from 'rxjs/operators';
 import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { NumberSymbol } from '@angular/common';
 declare let require;
 const Swal = require('sweetalert2');
 

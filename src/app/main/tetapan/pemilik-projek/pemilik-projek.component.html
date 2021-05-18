@@ -1,4 +1,4 @@
-<app-breadcrumb [title]="'Medan Pemilik Projek'" [items]="['Medan']" [active_item]="'Pemilik Projek'"></app-breadcrumb>
+<app-breadcrumb [title]="'Tetapan Pemilik Projek'" [items]="['Tetapan']" [active_item]="'Pemilik Projek'"></app-breadcrumb>
 <div class="content d-flex flex-column flex-column-fluid">
 	<div class="container-fluid">
 		<div class="card card-custom gutter-b">
@@ -9,10 +9,10 @@
               <input
                 class="form-control"
                 type="text"
+                name="searchPemilik"
                 placeholder="Carian..."
                 [(ngModel)]="filter"
                 (keyup.enter)="getProject()"
-                [ngModelOptions]="{standalone: true}"
               />
               <i class="search-icon" data-feather="search"></i>
             </div>

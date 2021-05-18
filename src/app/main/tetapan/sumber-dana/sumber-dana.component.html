@@ -1,6 +1,6 @@
 <app-breadcrumb
-	[title]="'Medan Sumber Dana'"
-	[items]="['Medan']"
+	[title]="'Tetapan Sumber Dana'"
+	[items]="['Tetapan']"
 	[active_item]="['Sumber Dana']"
 ></app-breadcrumb>
 <div class="container-fluid">
@@ -14,10 +14,10 @@
                 <input
                   class="form-control"
                   type="text"
+                  name="searchSumber"
                   placeholder="Carian..."
                   [(ngModel)]="filterText"
                   (keyup.enter)="getSumberDana()"
-                  [ngModelOptions]="{standalone: true}"
                 />
                 <i class="search-icon" data-feather="search"></i>
               </div>

@@ -5,7 +5,7 @@ import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TambahEditParlimenComponent } from './tambah-edit-parlimen/tambah-edit-parlimen.component';
-import { RefNegeriServiceProxy, RefParlimenServiceProxy } from '../../../shared/proxy/service-proxies';
+import { RefParlimenServiceProxy } from '../../../shared/proxy/service-proxies';
 import { finalize } from 'rxjs/operators';
 
 @Component({
@@ -20,24 +20,19 @@ export class ParlimenComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 
-	filterText = '';
-	filter: any;
-	states: any[];
+	filterText: string;
 
 	constructor(
 		config: NgbModalConfig,
 		private modalService: NgbModal,
-		private _refParlimenServiceProxy: RefParlimenServiceProxy,
-		private _refNegeriServiceProxy: RefNegeriServiceProxy
+		private _refParlimenServiceProxy: RefParlimenServiceProxy
 	) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
 	}
 
-	ngOnInit(): void {
-		this.negeri();
-	}
+	ngOnInit(): void {}
 
 	getParlimen(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
@@ -60,18 +55,6 @@ export class ParlimenComponent implements OnInit {
 				this.primengTableHelper.totalRecordsCount = result.total_count;
 				this.primengTableHelper.records = result.items;
 			});
-	}
-
-	negeri() {
-		this._refNegeriServiceProxy.getRefNegeriForDropdown(this.filter).subscribe((result) => {
-			this.states = result.items.map((data) => {
-				return data.nama_negeri;
-			});
-		});
-	}
-
-	getNegeri(id) {
-		return this.states[id - 1];
 	}
 
 	reloadPage(): void {

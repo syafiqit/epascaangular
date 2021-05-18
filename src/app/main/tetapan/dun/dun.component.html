@@ -1,4 +1,4 @@
-<app-breadcrumb [title]="'DUN'" [items]="['Medan']" [active_item]="'Dun'"></app-breadcrumb>
+<app-breadcrumb [title]="'Tetapan Dun'" [items]="['Tetapan']" [active_item]="'Dun'"></app-breadcrumb>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-12">
@@ -10,10 +10,10 @@
                 <input
                   class="form-control"
                   type="text"
+                  name="searchDun"
                   placeholder="Carian..."
                   [(ngModel)]="filterDun"
                   (keyup.enter)="getDun()"
-                  [ngModelOptions]="{standalone: true}"
                 />
                 <i class="search-icon" data-feather="search"></i>
               </div>
@@ -95,11 +95,11 @@
 										</td>
 										<td style="width: 150px">
 											<span class="p-column-title">Parlimen</span>
-											{{getParlimen(record.id_parlimen)}}
+											{{record.nama_parlimen}}
 										</td>
 										<td style="width: 150px">
 											<span class="p-column-title">Negeri</span>
-											{{getNegeri(record.id_negeri)}}
+											{{record.nama_negeri}}
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Status</span>

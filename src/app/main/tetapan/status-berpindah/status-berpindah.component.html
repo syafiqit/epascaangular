@@ -1,6 +1,6 @@
 <app-breadcrumb
-	[title]="'Medan Status Pindah (Maklumat Mangsa)'"
-	[items]="['Medan']"
+	[title]="'Tetapan Status Pindah (Maklumat Mangsa)'"
+	[items]="['Tetapan']"
 	[active_item]="['Status Berpindah']"
 ></app-breadcrumb>
 <div class="container-fluid">
@@ -14,10 +14,10 @@
                 <input
                   class="form-control"
                   type="text"
+                  name="searchPindah"
                   placeholder="Carian..."
                   [(ngModel)]="filterText"
                   (keyup.enter)="getPindah()"
-                  [ngModelOptions]="{standalone: true}"
                 />
                 <i class="search-icon" data-feather="search"></i>
               </div>

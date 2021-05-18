@@ -1,15 +1,11 @@
-import { AfterViewInit, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TambahEditDunComponent } from './tambah-edit-dun/tambah-edit-dun.component';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
-import {
-	RefDunServiceProxy,
-	RefNegeriServiceProxy,
-	RefParlimenServiceProxy
-} from '../../../shared/proxy/service-proxies';
+import { RefDunServiceProxy } from '../../../shared/proxy/service-proxies';
 import { finalize } from 'rxjs/operators';
 
 @Component({
@@ -23,31 +19,19 @@ export class DunComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 
-	filterDun = '';
-	filter: any;
-	sorting: any;
-	skipCount: any;
-	maxResultCount: any;
-	filterNegeri: any;
-	states: any[];
-	parliament: any[];
+	filterDun: string;
 
 	constructor(
 		config: NgbModalConfig,
 		private modalService: NgbModal,
-		private _refDunServiceProxy: RefDunServiceProxy,
-		private _refNegeriServiceProxy: RefNegeriServiceProxy,
-		private _refParlimenServiceProxy: RefParlimenServiceProxy
+		private _refDunServiceProxy: RefDunServiceProxy
 	) {
 		config.backdrop = 'static';
 		config.keyboard = false;
 		this.primengTableHelper = new PrimengTableHelper();
 	}
 
-	ngOnInit(): void {
-		this.negeri();
-		this.parlimen();
-	}
+	ngOnInit(): void {}
 
 	getDun(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
@@ -70,30 +54,6 @@ export class DunComponent implements OnInit {
 				this.primengTableHelper.totalRecordsCount = result.total_count;
 				this.primengTableHelper.records = result.items;
 			});
-	}
-
-	parlimen() {
-		this._refParlimenServiceProxy.getRefParlimenForDropdown(this.filter).subscribe((result) => {
-			this.parliament = result.items.map((data) => {
-				return data.nama_parlimen;
-			});
-		});
-	}
-
-	getParlimen(id) {
-		return this.parliament[id - 1];
-	}
-
-	negeri() {
-		this._refNegeriServiceProxy.getRefNegeriForDropdown(this.filterNegeri).subscribe((result) => {
-			this.states = result.items.map((data) => {
-				return data.nama_negeri;
-			});
-		});
-	}
-
-	getNegeri(id) {
-		return this.states[id - 1];
 	}
 
 	reloadPage(): void {

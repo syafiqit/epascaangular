@@ -1,4 +1,4 @@
-<app-breadcrumb [title]="'Medan Daerah'" [items]="['Medan']" [active_item]="'Daerah'"></app-breadcrumb>
+<app-breadcrumb [title]="'Tetapan Daerah'" [items]="['Tetapan']" [active_item]="'Daerah'"></app-breadcrumb>
 <div class="content d-flex flex-column flex-column-fluid">
 	<div class="container-fluid">
 		<div class="card card-custom gutter-b">
@@ -9,10 +9,10 @@
               <input
                 class="form-control"
                 type="text"
+                name="searchDaerah"
                 placeholder="Carian..."
                 [(ngModel)]="filterText"
                 (keyup.enter)="getDaerah()"
-                [ngModelOptions]="{standalone: true}"
               />
               <i class="search-icon" data-feather="search"></i>
             </div>
@@ -89,7 +89,7 @@
 									</td>
 									<td style="width: 150px">
 										<span class="p-column-title">Negeri</span>
-										{{getNegeri(record.id_negeri)}}
+										{{record.nama_negeri}}
 									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">Status</span>

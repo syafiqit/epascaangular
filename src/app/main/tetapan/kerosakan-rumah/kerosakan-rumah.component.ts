@@ -20,8 +20,7 @@ export class KerosakanRumahComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 
-	filterText = '';
-	filter: any;
+	filterText: string;
 
 	constructor(
 		config: NgbModalConfig,

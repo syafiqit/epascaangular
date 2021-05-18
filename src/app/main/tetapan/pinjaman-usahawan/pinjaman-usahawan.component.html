@@ -1,6 +1,6 @@
 <app-breadcrumb
-	[title]="'Medan Sektor Pinjaman Usahawan'"
-	[items]="['Medan']"
+	[title]="'Tetapan Sektor Pinjaman Usahawan'"
+	[items]="['Tetapan']"
 	[active_item]="'Sektor Pinjaman Usahawan'"
 ></app-breadcrumb>
 <div class="container-fluid">
@@ -14,10 +14,10 @@
                 <input
                   class="form-control"
                   type="text"
+                  name="searchPinjaman"
                   placeholder="Carian..."
                   [(ngModel)]="filterText"
                   (keyup.enter)="getPinjaman()"
-                  [ngModelOptions]="{standalone: true}"
                 />
                 <i class="search-icon" data-feather="search"></i>
               </div>
