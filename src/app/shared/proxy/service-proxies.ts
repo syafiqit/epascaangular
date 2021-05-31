@@ -10884,6 +10884,1686 @@ export class SessionServiceProxy {
 }
 
 @Injectable()
+export class TabungBayaranSkbBulananServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Get all TabungBayaranSkbBulanan
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungBayaranSkbBulananForViewDto> {
+        let url_ = this.baseUrl + "/api/tabungBayaranSkbBulanan/getAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfTabungBayaranSkbBulananForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfTabungBayaranSkbBulananForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfTabungBayaranSkbBulananForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfTabungBayaranSkbBulananForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfTabungBayaranSkbBulananForViewDto>(<any>null);
+    }
+
+    /**
+     * Get TabungBayaranSkbBulanan by id
+     * @param id TabungBayaranSkbBulanan Id
+     * @return Success
+     */
+    getTabungBayaranSkbBulananForEdit(id: number): Observable<GetTabungBayaranSkbBulananForEditDto> {
+        let url_ = this.baseUrl + "/api/tabungBayaranSkbBulanan/getTabungBayaranSkbBulananForEdit?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTabungBayaranSkbBulananForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTabungBayaranSkbBulananForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetTabungBayaranSkbBulananForEditDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetTabungBayaranSkbBulananForEditDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTabungBayaranSkbBulananForEdit(response: HttpResponseBase): Observable<GetTabungBayaranSkbBulananForEditDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetTabungBayaranSkbBulananForEditDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetTabungBayaranSkbBulananForEditDto>(<any>null);
+    }
+
+    /**
+     * Create or edit TabungBayaranSkbBulanan
+     * @param body Create or edit object
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditTabungBayaranSkbBulananDto): Observable<CreateOrEditTabungBayaranSkbBulananDto> {
+        let url_ = this.baseUrl + "/api/tabungBayaranSkbBulanan/createOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<CreateOrEditTabungBayaranSkbBulananDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CreateOrEditTabungBayaranSkbBulananDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditTabungBayaranSkbBulananDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CreateOrEditTabungBayaranSkbBulananDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<CreateOrEditTabungBayaranSkbBulananDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class TabungBayaranSkbServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Get all TabungBayaranSkb
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungBayaranSkbForViewDto> {
+        let url_ = this.baseUrl + "/api/tabungBayaranSkb/getAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfTabungBayaranSkbForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfTabungBayaranSkbForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfTabungBayaranSkbForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfTabungBayaranSkbForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfTabungBayaranSkbForViewDto>(<any>null);
+    }
+
+    /**
+     * Get TabungBayaranSkb by id
+     * @param id TabungBayaranSkb Id
+     * @return Success
+     */
+    getTabungBayaranSkbForEdit(id: number): Observable<GetTabungBayaranSkbForEditDto> {
+        let url_ = this.baseUrl + "/api/tabungBayaranSkb/getTabungBayaranSkbForEdit?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTabungBayaranSkbForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTabungBayaranSkbForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetTabungBayaranSkbForEditDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetTabungBayaranSkbForEditDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTabungBayaranSkbForEdit(response: HttpResponseBase): Observable<GetTabungBayaranSkbForEditDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetTabungBayaranSkbForEditDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetTabungBayaranSkbForEditDto>(<any>null);
+    }
+
+    /**
+     * Create or edit TabungBayaranSkb
+     * @param body Create or edit object
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditTabungBayaranSkbDto): Observable<CreateOrEditTabungBayaranSkbDto> {
+        let url_ = this.baseUrl + "/api/tabungBayaranSkb/createOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<CreateOrEditTabungBayaranSkbDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CreateOrEditTabungBayaranSkbDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditTabungBayaranSkbDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CreateOrEditTabungBayaranSkbDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<CreateOrEditTabungBayaranSkbDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class TabungBayaranTerusServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Get all TabungBayaranTerus
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungBayaranTerusForViewDto> {
+        let url_ = this.baseUrl + "/api/tabungBayaranTerus/getAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfTabungBayaranTerusForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfTabungBayaranTerusForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfTabungBayaranTerusForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfTabungBayaranTerusForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfTabungBayaranTerusForViewDto>(<any>null);
+    }
+
+    /**
+     * Get TabungBayaranTerus by id
+     * @param id TabungBayaranTerus Id
+     * @return Success
+     */
+    getTabungBayaranTerusForEdit(id: number): Observable<GetTabungBayaranTerusForEditDto> {
+        let url_ = this.baseUrl + "/api/tabungBayaranTerus/getTabungBayaranTerusForEdit?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTabungBayaranTerusForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTabungBayaranTerusForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetTabungBayaranTerusForEditDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetTabungBayaranTerusForEditDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTabungBayaranTerusForEdit(response: HttpResponseBase): Observable<GetTabungBayaranTerusForEditDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetTabungBayaranTerusForEditDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetTabungBayaranTerusForEditDto>(<any>null);
+    }
+
+    /**
+     * Create or edit TabungBayaranTerus
+     * @param body Create or edit object
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditTabungBayaranTerusDto): Observable<CreateOrEditTabungBayaranTerusDto> {
+        let url_ = this.baseUrl + "/api/tabungBayaranTerus/createOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<CreateOrEditTabungBayaranTerusDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CreateOrEditTabungBayaranTerusDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditTabungBayaranTerusDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CreateOrEditTabungBayaranTerusDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<CreateOrEditTabungBayaranTerusDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class TabungBwiKirServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Get all TabungBwiKir
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungBwiKirForViewDto> {
+        let url_ = this.baseUrl + "/api/tabungBwiKir/getAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfTabungBwiKirForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfTabungBwiKirForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfTabungBwiKirForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfTabungBwiKirForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfTabungBwiKirForViewDto>(<any>null);
+    }
+
+    /**
+     * Get TabungBwiKir by id
+     * @param id TabungBwiKir Id
+     * @return Success
+     */
+    getTabungBwiKirForEdit(id: number): Observable<GetTabungBwiKirForEditDto> {
+        let url_ = this.baseUrl + "/api/tabungBwiKir/getTabungBwiKirForEdit?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTabungBwiKirForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTabungBwiKirForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetTabungBwiKirForEditDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetTabungBwiKirForEditDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTabungBwiKirForEdit(response: HttpResponseBase): Observable<GetTabungBwiKirForEditDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetTabungBwiKirForEditDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetTabungBwiKirForEditDto>(<any>null);
+    }
+
+    /**
+     * Create or edit TabungBwiKir
+     * @param body Create or edit object
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditTabungBwiKirDto): Observable<CreateOrEditTabungBwiKirDto> {
+        let url_ = this.baseUrl + "/api/tabungBwiKir/createOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<CreateOrEditTabungBwiKirDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CreateOrEditTabungBwiKirDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditTabungBwiKirDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CreateOrEditTabungBwiKirDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<CreateOrEditTabungBwiKirDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class TabungBwiServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Get all TabungBwi
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungBwiForViewDto> {
+        let url_ = this.baseUrl + "/api/tabungBwi/getAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfTabungBwiForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfTabungBwiForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfTabungBwiForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfTabungBwiForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfTabungBwiForViewDto>(<any>null);
+    }
+
+    /**
+     * Get TabungBwi by id
+     * @param id TabungBwi Id
+     * @return Success
+     */
+    getTabungBwiForEdit(id: number): Observable<GetTabungBwiForEditDto> {
+        let url_ = this.baseUrl + "/api/tabungBwi/getTabungBwiForEdit?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTabungBwiForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTabungBwiForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetTabungBwiForEditDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetTabungBwiForEditDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTabungBwiForEdit(response: HttpResponseBase): Observable<GetTabungBwiForEditDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetTabungBwiForEditDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetTabungBwiForEditDto>(<any>null);
+    }
+
+    /**
+     * Create or edit TabungBwi
+     * @param body Create or edit object
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditTabungBwiDto): Observable<CreateOrEditTabungBwiDto> {
+        let url_ = this.baseUrl + "/api/tabungBwi/createOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<CreateOrEditTabungBwiDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CreateOrEditTabungBwiDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditTabungBwiDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CreateOrEditTabungBwiDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<CreateOrEditTabungBwiDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class TabungKelulusanServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Get all TabungKelulusan
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungKelulusanForViewDto> {
+        let url_ = this.baseUrl + "/api/tabungKelulusan/getAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfTabungKelulusanForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfTabungKelulusanForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfTabungKelulusanForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfTabungKelulusanForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfTabungKelulusanForViewDto>(<any>null);
+    }
+
+    /**
+     * Get TabungKelulusan by id
+     * @param id TabungKelulusan Id
+     * @return Success
+     */
+    getTabungKelulusanForEdit(id: number): Observable<GetTabungKelulusanForEditDto> {
+        let url_ = this.baseUrl + "/api/tabungKelulusan/getTabungKelulusanForEdit?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTabungKelulusanForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTabungKelulusanForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetTabungKelulusanForEditDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetTabungKelulusanForEditDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTabungKelulusanForEdit(response: HttpResponseBase): Observable<GetTabungKelulusanForEditDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetTabungKelulusanForEditDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetTabungKelulusanForEditDto>(<any>null);
+    }
+
+    /**
+     * Create or edit TabungKelulusan
+     * @param body Create or edit object
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditTabungKelulusanDto): Observable<CreateOrEditTabungKelulusanDto> {
+        let url_ = this.baseUrl + "/api/tabungKelulusan/createOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<CreateOrEditTabungKelulusanDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CreateOrEditTabungKelulusanDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditTabungKelulusanDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CreateOrEditTabungKelulusanDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<CreateOrEditTabungKelulusanDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class TabungPeruntukanServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Get all TabungPeruntukan
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungPeruntukanForViewDto> {
+        let url_ = this.baseUrl + "/api/tabungPeruntukan/getAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfTabungPeruntukanForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfTabungPeruntukanForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfTabungPeruntukanForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfTabungPeruntukanForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfTabungPeruntukanForViewDto>(<any>null);
+    }
+
+    /**
+     * Get TabungPeruntukan by id
+     * @param id TabungPeruntukan Id
+     * @return Success
+     */
+    getTabungPeruntukanForEdit(id: number): Observable<GetTabungPeruntukanForEditDto> {
+        let url_ = this.baseUrl + "/api/tabungPeruntukan/getTabungPeruntukanForEdit?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTabungPeruntukanForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTabungPeruntukanForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetTabungPeruntukanForEditDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetTabungPeruntukanForEditDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTabungPeruntukanForEdit(response: HttpResponseBase): Observable<GetTabungPeruntukanForEditDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetTabungPeruntukanForEditDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetTabungPeruntukanForEditDto>(<any>null);
+    }
+
+    /**
+     * Create or edit TabungPeruntukan
+     * @param body Create or edit object
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditTabungPeruntukanDto): Observable<CreateOrEditTabungPeruntukanDto> {
+        let url_ = this.baseUrl + "/api/tabungPeruntukan/createOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<CreateOrEditTabungPeruntukanDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CreateOrEditTabungPeruntukanDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditTabungPeruntukanDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CreateOrEditTabungPeruntukanDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<CreateOrEditTabungPeruntukanDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class TabungServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Get all Tabung
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungForViewDto> {
+        let url_ = this.baseUrl + "/api/tabung/getAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfTabungForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfTabungForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfTabungForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfTabungForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfTabungForViewDto>(<any>null);
+    }
+
+    /**
+     * Get Tabung by id
+     * @param id Tabung Id
+     * @return Success
+     */
+    getTabungForEdit(id: number): Observable<GetTabungForEditDto> {
+        let url_ = this.baseUrl + "/api/tabung/getTabungForEdit?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTabungForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTabungForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetTabungForEditDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetTabungForEditDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTabungForEdit(response: HttpResponseBase): Observable<GetTabungForEditDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetTabungForEditDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetTabungForEditDto>(<any>null);
+    }
+
+    /**
+     * Create or edit Tabung
+     * @param body Create or edit object
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditTabungDto): Observable<CreateOrEditTabungDto> {
+        let url_ = this.baseUrl + "/api/tabung/createOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<CreateOrEditTabungDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CreateOrEditTabungDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditTabungDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CreateOrEditTabungDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<CreateOrEditTabungDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class UserServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -22536,6 +24216,2006 @@ export class UpdateProfilDto implements IUpdateProfilDto {
 
 export interface IUpdateProfilDto {
     pengguna: PenggunaProfilDto;
+}
+
+export class CreateOrEditTabungBayaranSkbBulananDto implements ICreateOrEditTabungBayaranSkbBulananDto {
+    id_tabung_bayaran_skb!: number;
+    bulan!: string;
+    tahun!: string;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+
+    constructor(data?: ICreateOrEditTabungBayaranSkbBulananDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id_tabung_bayaran_skb = _data["id_tabung_bayaran_skb"];
+            this.bulan = _data["bulan"];
+            this.tahun = _data["tahun"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditTabungBayaranSkbBulananDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditTabungBayaranSkbBulananDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id_tabung_bayaran_skb"] = this.id_tabung_bayaran_skb;
+        data["bulan"] = this.bulan;
+        data["tahun"] = this.tahun;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditTabungBayaranSkbBulananDto {
+    id_tabung_bayaran_skb: number;
+    bulan: string;
+    tahun: string;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+}
+
+export class GetTabungBayaranSkbBulananForEditDto implements IGetTabungBayaranSkbBulananForEditDto {
+    tabung_bayaran_skb_bulanan!: CreateOrEditTabungBayaranSkbBulananDto;
+
+    constructor(data?: IGetTabungBayaranSkbBulananForEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.tabung_bayaran_skb_bulanan = _data["tabung_bayaran_skb_bulanan"] ? CreateOrEditTabungBayaranSkbBulananDto.fromJS(_data["tabung_bayaran_skb_bulanan"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetTabungBayaranSkbBulananForEditDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTabungBayaranSkbBulananForEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["tabung_bayaran_skb_bulanan"] = this.tabung_bayaran_skb_bulanan ? this.tabung_bayaran_skb_bulanan.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetTabungBayaranSkbBulananForEditDto {
+    tabung_bayaran_skb_bulanan: CreateOrEditTabungBayaranSkbBulananDto;
+}
+
+export class GetTabungBayaranSkbBulananForViewDto implements IGetTabungBayaranSkbBulananForViewDto {
+    id_tabung_bayaran_skb!: number;
+    bulan!: string;
+    tahun!: string;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+
+    constructor(data?: IGetTabungBayaranSkbBulananForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id_tabung_bayaran_skb = _data["id_tabung_bayaran_skb"];
+            this.bulan = _data["bulan"];
+            this.tahun = _data["tahun"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetTabungBayaranSkbBulananForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTabungBayaranSkbBulananForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id_tabung_bayaran_skb"] = this.id_tabung_bayaran_skb;
+        data["bulan"] = this.bulan;
+        data["tahun"] = this.tahun;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetTabungBayaranSkbBulananForViewDto {
+    id_tabung_bayaran_skb: number;
+    bulan: string;
+    tahun: string;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+}
+
+/** TabungBayaranSkbBulanan List in Tabular model */
+export class PagedResultDtoOfTabungBayaranSkbBulananForViewDto implements IPagedResultDtoOfTabungBayaranSkbBulananForViewDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetTabungBayaranSkbBulananForViewDto[];
+
+    constructor(data?: IPagedResultDtoOfTabungBayaranSkbBulananForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetTabungBayaranSkbBulananForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfTabungBayaranSkbBulananForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfTabungBayaranSkbBulananForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** TabungBayaranSkbBulanan List in Tabular model */
+export interface IPagedResultDtoOfTabungBayaranSkbBulananForViewDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetTabungBayaranSkbBulananForViewDto[];
+}
+
+export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayaranSkbDto {
+    id!: number;
+    id_tabung_kelulusan!: number;
+    id_pegawai!: number;
+    id_agensi!: number;
+    tarikh_mula!: moment.Moment;
+    tarikh_tamat!: moment.Moment;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+    hapus!: boolean;
+    id_pengguna_hapus!: number;
+    tarikh_hapus!: moment.Moment;
+    sebab_hapus!: string;
+
+    constructor(data?: ICreateOrEditTabungBayaranSkbDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_tabung_kelulusan = _data["id_tabung_kelulusan"];
+            this.id_pegawai = _data["id_pegawai"];
+            this.id_agensi = _data["id_agensi"];
+            this.tarikh_mula = _data["tarikh_mula"] ? moment(_data["tarikh_mula"].toString()) : <any>undefined;
+            this.tarikh_tamat = _data["tarikh_tamat"] ? moment(_data["tarikh_tamat"].toString()) : <any>undefined;
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.hapus = _data["hapus"];
+            this.id_pengguna_hapus = _data["id_pengguna_hapus"];
+            this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
+            this.sebab_hapus = _data["sebab_hapus"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditTabungBayaranSkbDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditTabungBayaranSkbDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_tabung_kelulusan"] = this.id_tabung_kelulusan;
+        data["id_pegawai"] = this.id_pegawai;
+        data["id_agensi"] = this.id_agensi;
+        data["tarikh_mula"] = this.tarikh_mula ? this.tarikh_mula.toISOString() : <any>undefined;
+        data["tarikh_tamat"] = this.tarikh_tamat ? this.tarikh_tamat.toISOString() : <any>undefined;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["hapus"] = this.hapus;
+        data["id_pengguna_hapus"] = this.id_pengguna_hapus;
+        data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
+        data["sebab_hapus"] = this.sebab_hapus;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditTabungBayaranSkbDto {
+    id: number;
+    id_tabung_kelulusan: number;
+    id_pegawai: number;
+    id_agensi: number;
+    tarikh_mula: moment.Moment;
+    tarikh_tamat: moment.Moment;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+    hapus: boolean;
+    id_pengguna_hapus: number;
+    tarikh_hapus: moment.Moment;
+    sebab_hapus: string;
+}
+
+export class GetTabungBayaranSkbForEditDto implements IGetTabungBayaranSkbForEditDto {
+    tabung_bayaran_skb!: CreateOrEditTabungBayaranSkbDto;
+
+    constructor(data?: IGetTabungBayaranSkbForEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.tabung_bayaran_skb = _data["tabung_bayaran_skb"] ? CreateOrEditTabungBayaranSkbDto.fromJS(_data["tabung_bayaran_skb"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetTabungBayaranSkbForEditDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTabungBayaranSkbForEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["tabung_bayaran_skb"] = this.tabung_bayaran_skb ? this.tabung_bayaran_skb.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetTabungBayaranSkbForEditDto {
+    tabung_bayaran_skb: CreateOrEditTabungBayaranSkbDto;
+}
+
+export class GetTabungBayaranSkbForViewDto implements IGetTabungBayaranSkbForViewDto {
+    id!: number;
+    id_tabung_kelulusan!: number;
+    id_pegawai!: number;
+    id_agensi!: number;
+    tarikh_mula!: moment.Moment;
+    tarikh_tamat!: moment.Moment;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+    hapus!: boolean;
+    id_pengguna_hapus!: number;
+    tarikh_hapus!: moment.Moment;
+    sebab_hapus!: string;
+
+    constructor(data?: IGetTabungBayaranSkbForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_tabung_kelulusan = _data["id_tabung_kelulusan"];
+            this.id_pegawai = _data["id_pegawai"];
+            this.id_agensi = _data["id_agensi"];
+            this.tarikh_mula = _data["tarikh_mula"] ? moment(_data["tarikh_mula"].toString()) : <any>undefined;
+            this.tarikh_tamat = _data["tarikh_tamat"] ? moment(_data["tarikh_tamat"].toString()) : <any>undefined;
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.hapus = _data["hapus"];
+            this.id_pengguna_hapus = _data["id_pengguna_hapus"];
+            this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
+            this.sebab_hapus = _data["sebab_hapus"];
+        }
+    }
+
+    static fromJS(data: any): GetTabungBayaranSkbForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTabungBayaranSkbForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_tabung_kelulusan"] = this.id_tabung_kelulusan;
+        data["id_pegawai"] = this.id_pegawai;
+        data["id_agensi"] = this.id_agensi;
+        data["tarikh_mula"] = this.tarikh_mula ? this.tarikh_mula.toISOString() : <any>undefined;
+        data["tarikh_tamat"] = this.tarikh_tamat ? this.tarikh_tamat.toISOString() : <any>undefined;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["hapus"] = this.hapus;
+        data["id_pengguna_hapus"] = this.id_pengguna_hapus;
+        data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
+        data["sebab_hapus"] = this.sebab_hapus;
+        return data; 
+    }
+}
+
+export interface IGetTabungBayaranSkbForViewDto {
+    id: number;
+    id_tabung_kelulusan: number;
+    id_pegawai: number;
+    id_agensi: number;
+    tarikh_mula: moment.Moment;
+    tarikh_tamat: moment.Moment;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+    hapus: boolean;
+    id_pengguna_hapus: number;
+    tarikh_hapus: moment.Moment;
+    sebab_hapus: string;
+}
+
+/** TabungBayaranSkb List in Tabular model */
+export class PagedResultDtoOfTabungBayaranSkbForViewDto implements IPagedResultDtoOfTabungBayaranSkbForViewDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetTabungBayaranSkbForViewDto[];
+
+    constructor(data?: IPagedResultDtoOfTabungBayaranSkbForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetTabungBayaranSkbForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfTabungBayaranSkbForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfTabungBayaranSkbForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** TabungBayaranSkb List in Tabular model */
+export interface IPagedResultDtoOfTabungBayaranSkbForViewDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetTabungBayaranSkbForViewDto[];
+}
+
+export class CreateOrEditTabungBayaranTerusDto implements ICreateOrEditTabungBayaranTerusDto {
+    id!: number;
+    id_tabung_kelulusan!: number;
+    no_baucar!: string;
+    penerima!: string;
+    tarikh!: moment.Moment;
+    perihal!: string;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+    hapus!: boolean;
+    id_pengguna_hapus!: number;
+    tarikh_hapus!: moment.Moment;
+    sebab_hapus!: string;
+
+    constructor(data?: ICreateOrEditTabungBayaranTerusDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_tabung_kelulusan = _data["id_tabung_kelulusan"];
+            this.no_baucar = _data["no_baucar"];
+            this.penerima = _data["penerima"];
+            this.tarikh = _data["tarikh"] ? moment(_data["tarikh"].toString()) : <any>undefined;
+            this.perihal = _data["perihal"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.hapus = _data["hapus"];
+            this.id_pengguna_hapus = _data["id_pengguna_hapus"];
+            this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
+            this.sebab_hapus = _data["sebab_hapus"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditTabungBayaranTerusDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditTabungBayaranTerusDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_tabung_kelulusan"] = this.id_tabung_kelulusan;
+        data["no_baucar"] = this.no_baucar;
+        data["penerima"] = this.penerima;
+        data["tarikh"] = this.tarikh ? this.tarikh.toISOString() : <any>undefined;
+        data["perihal"] = this.perihal;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["hapus"] = this.hapus;
+        data["id_pengguna_hapus"] = this.id_pengguna_hapus;
+        data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
+        data["sebab_hapus"] = this.sebab_hapus;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditTabungBayaranTerusDto {
+    id: number;
+    id_tabung_kelulusan: number;
+    no_baucar: string;
+    penerima: string;
+    tarikh: moment.Moment;
+    perihal: string;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+    hapus: boolean;
+    id_pengguna_hapus: number;
+    tarikh_hapus: moment.Moment;
+    sebab_hapus: string;
+}
+
+export class GetTabungBayaranTerusForEditDto implements IGetTabungBayaranTerusForEditDto {
+    tabung_bayaran_terus!: CreateOrEditTabungBayaranTerusDto;
+
+    constructor(data?: IGetTabungBayaranTerusForEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.tabung_bayaran_terus = _data["tabung_bayaran_terus"] ? CreateOrEditTabungBayaranTerusDto.fromJS(_data["tabung_bayaran_terus"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetTabungBayaranTerusForEditDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTabungBayaranTerusForEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["tabung_bayaran_terus"] = this.tabung_bayaran_terus ? this.tabung_bayaran_terus.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetTabungBayaranTerusForEditDto {
+    tabung_bayaran_terus: CreateOrEditTabungBayaranTerusDto;
+}
+
+export class GetTabungBayaranTerusForViewDto implements IGetTabungBayaranTerusForViewDto {
+    id!: number;
+    id_tabung_kelulusan!: number;
+    no_baucar!: string;
+    penerima!: string;
+    tarikh!: moment.Moment;
+    perihal!: string;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+    hapus!: boolean;
+    id_pengguna_hapus!: number;
+    tarikh_hapus!: moment.Moment;
+    sebab_hapus!: string;
+
+    constructor(data?: IGetTabungBayaranTerusForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_tabung_kelulusan = _data["id_tabung_kelulusan"];
+            this.no_baucar = _data["no_baucar"];
+            this.penerima = _data["penerima"];
+            this.tarikh = _data["tarikh"] ? moment(_data["tarikh"].toString()) : <any>undefined;
+            this.perihal = _data["perihal"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.hapus = _data["hapus"];
+            this.id_pengguna_hapus = _data["id_pengguna_hapus"];
+            this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
+            this.sebab_hapus = _data["sebab_hapus"];
+        }
+    }
+
+    static fromJS(data: any): GetTabungBayaranTerusForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTabungBayaranTerusForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_tabung_kelulusan"] = this.id_tabung_kelulusan;
+        data["no_baucar"] = this.no_baucar;
+        data["penerima"] = this.penerima;
+        data["tarikh"] = this.tarikh ? this.tarikh.toISOString() : <any>undefined;
+        data["perihal"] = this.perihal;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["hapus"] = this.hapus;
+        data["id_pengguna_hapus"] = this.id_pengguna_hapus;
+        data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
+        data["sebab_hapus"] = this.sebab_hapus;
+        return data; 
+    }
+}
+
+export interface IGetTabungBayaranTerusForViewDto {
+    id: number;
+    id_tabung_kelulusan: number;
+    no_baucar: string;
+    penerima: string;
+    tarikh: moment.Moment;
+    perihal: string;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+    hapus: boolean;
+    id_pengguna_hapus: number;
+    tarikh_hapus: moment.Moment;
+    sebab_hapus: string;
+}
+
+/** TabungBayaranTerus List in Tabular model */
+export class PagedResultDtoOfTabungBayaranTerusForViewDto implements IPagedResultDtoOfTabungBayaranTerusForViewDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetTabungBayaranTerusForViewDto[];
+
+    constructor(data?: IPagedResultDtoOfTabungBayaranTerusForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetTabungBayaranTerusForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfTabungBayaranTerusForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfTabungBayaranTerusForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** TabungBayaranTerus List in Tabular model */
+export interface IPagedResultDtoOfTabungBayaranTerusForViewDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetTabungBayaranTerusForViewDto[];
+}
+
+export class CreateOrEditTabungBwiKirDto implements ICreateOrEditTabungBwiKirDto {
+    id!: number;
+    id_tabung_bwi!: number;
+    id_mangsa!: number;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+    id_pengguna_hapus!: number;
+    tarikh_hapus!: moment.Moment;
+    sebab_hapus!: string;
+
+    constructor(data?: ICreateOrEditTabungBwiKirDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_tabung_bwi = _data["id_tabung_bwi"];
+            this.id_mangsa = _data["id_mangsa"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.id_pengguna_hapus = _data["id_pengguna_hapus"];
+            this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
+            this.sebab_hapus = _data["sebab_hapus"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditTabungBwiKirDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditTabungBwiKirDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_tabung_bwi"] = this.id_tabung_bwi;
+        data["id_mangsa"] = this.id_mangsa;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["id_pengguna_hapus"] = this.id_pengguna_hapus;
+        data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
+        data["sebab_hapus"] = this.sebab_hapus;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditTabungBwiKirDto {
+    id: number;
+    id_tabung_bwi: number;
+    id_mangsa: number;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+    id_pengguna_hapus: number;
+    tarikh_hapus: moment.Moment;
+    sebab_hapus: string;
+}
+
+export class GetTabungBwiKirForEditDto implements IGetTabungBwiKirForEditDto {
+    tabung_bwi_kir!: CreateOrEditTabungBwiKirDto;
+
+    constructor(data?: IGetTabungBwiKirForEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.tabung_bwi_kir = _data["tabung_bwi_kir"] ? CreateOrEditTabungBwiKirDto.fromJS(_data["tabung_bwi_kir"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetTabungBwiKirForEditDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTabungBwiKirForEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["tabung_bwi_kir"] = this.tabung_bwi_kir ? this.tabung_bwi_kir.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetTabungBwiKirForEditDto {
+    tabung_bwi_kir: CreateOrEditTabungBwiKirDto;
+}
+
+export class GetTabungBwiKirForViewDto implements IGetTabungBwiKirForViewDto {
+    id!: number;
+    id_tabung_bwi!: number;
+    id_mangsa!: number;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+    id_pengguna_hapus!: number;
+    tarikh_hapus!: moment.Moment;
+    sebab_hapus!: string;
+
+    constructor(data?: IGetTabungBwiKirForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_tabung_bwi = _data["id_tabung_bwi"];
+            this.id_mangsa = _data["id_mangsa"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.id_pengguna_hapus = _data["id_pengguna_hapus"];
+            this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
+            this.sebab_hapus = _data["sebab_hapus"];
+        }
+    }
+
+    static fromJS(data: any): GetTabungBwiKirForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTabungBwiKirForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_tabung_bwi"] = this.id_tabung_bwi;
+        data["id_mangsa"] = this.id_mangsa;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["id_pengguna_hapus"] = this.id_pengguna_hapus;
+        data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
+        data["sebab_hapus"] = this.sebab_hapus;
+        return data; 
+    }
+}
+
+export interface IGetTabungBwiKirForViewDto {
+    id: number;
+    id_tabung_bwi: number;
+    id_mangsa: number;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+    id_pengguna_hapus: number;
+    tarikh_hapus: moment.Moment;
+    sebab_hapus: string;
+}
+
+/** TabungBwiKir List in Tabular model */
+export class PagedResultDtoOfTabungBwiKirForViewDto implements IPagedResultDtoOfTabungBwiKirForViewDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetTabungBwiKirForViewDto[];
+
+    constructor(data?: IPagedResultDtoOfTabungBwiKirForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetTabungBwiKirForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfTabungBwiKirForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfTabungBwiKirForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** TabungBwiKir List in Tabular model */
+export interface IPagedResultDtoOfTabungBwiKirForViewDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetTabungBwiKirForViewDto[];
+}
+
+export class CreateOrEditTabungBwiDto implements ICreateOrEditTabungBwiDto {
+    id!: number;
+    id_tabung_kelulusan!: number;
+    jumlah_kir!: number;
+    tarikh_eft!: moment.Moment;
+    no_rujukan_akuan_kp!: string;
+    tarikh_akuan_kp!: moment.Moment;
+    no_rujukan_saluran_kpd_bkp!: string;
+    tarikh_saluran_kpd_bkp!: moment.Moment;
+    no_rujukan_laporan_kpd_bkp!: string;
+    tarikh_laporan_kpd_bkp!: moment.Moment;
+    no_rujukan_makluman_majlis!: string;
+    tarikh_makluman_majlis!: moment.Moment;
+    tarikh_majlis_makluman_majlis!: moment.Moment;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+    id_pengguna_hapus!: number;
+    tarikh_hapus!: moment.Moment;
+    sebab_hapus!: string;
+
+    constructor(data?: ICreateOrEditTabungBwiDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_tabung_kelulusan = _data["id_tabung_kelulusan"];
+            this.jumlah_kir = _data["jumlah_kir"];
+            this.tarikh_eft = _data["tarikh_eft"] ? moment(_data["tarikh_eft"].toString()) : <any>undefined;
+            this.no_rujukan_akuan_kp = _data["no_rujukan_akuan_kp"];
+            this.tarikh_akuan_kp = _data["tarikh_akuan_kp"] ? moment(_data["tarikh_akuan_kp"].toString()) : <any>undefined;
+            this.no_rujukan_saluran_kpd_bkp = _data["no_rujukan_saluran_kpd_bkp"];
+            this.tarikh_saluran_kpd_bkp = _data["tarikh_saluran_kpd_bkp"] ? moment(_data["tarikh_saluran_kpd_bkp"].toString()) : <any>undefined;
+            this.no_rujukan_laporan_kpd_bkp = _data["no_rujukan_laporan_kpd_bkp"];
+            this.tarikh_laporan_kpd_bkp = _data["tarikh_laporan_kpd_bkp"] ? moment(_data["tarikh_laporan_kpd_bkp"].toString()) : <any>undefined;
+            this.no_rujukan_makluman_majlis = _data["no_rujukan_makluman_majlis"];
+            this.tarikh_makluman_majlis = _data["tarikh_makluman_majlis"] ? moment(_data["tarikh_makluman_majlis"].toString()) : <any>undefined;
+            this.tarikh_majlis_makluman_majlis = _data["tarikh_majlis_makluman_majlis"] ? moment(_data["tarikh_majlis_makluman_majlis"].toString()) : <any>undefined;
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.id_pengguna_hapus = _data["id_pengguna_hapus"];
+            this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
+            this.sebab_hapus = _data["sebab_hapus"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditTabungBwiDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditTabungBwiDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_tabung_kelulusan"] = this.id_tabung_kelulusan;
+        data["jumlah_kir"] = this.jumlah_kir;
+        data["tarikh_eft"] = this.tarikh_eft ? this.tarikh_eft.toISOString() : <any>undefined;
+        data["no_rujukan_akuan_kp"] = this.no_rujukan_akuan_kp;
+        data["tarikh_akuan_kp"] = this.tarikh_akuan_kp ? this.tarikh_akuan_kp.toISOString() : <any>undefined;
+        data["no_rujukan_saluran_kpd_bkp"] = this.no_rujukan_saluran_kpd_bkp;
+        data["tarikh_saluran_kpd_bkp"] = this.tarikh_saluran_kpd_bkp ? this.tarikh_saluran_kpd_bkp.toISOString() : <any>undefined;
+        data["no_rujukan_laporan_kpd_bkp"] = this.no_rujukan_laporan_kpd_bkp;
+        data["tarikh_laporan_kpd_bkp"] = this.tarikh_laporan_kpd_bkp ? this.tarikh_laporan_kpd_bkp.toISOString() : <any>undefined;
+        data["no_rujukan_makluman_majlis"] = this.no_rujukan_makluman_majlis;
+        data["tarikh_makluman_majlis"] = this.tarikh_makluman_majlis ? this.tarikh_makluman_majlis.toISOString() : <any>undefined;
+        data["tarikh_majlis_makluman_majlis"] = this.tarikh_majlis_makluman_majlis ? this.tarikh_majlis_makluman_majlis.toISOString() : <any>undefined;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["id_pengguna_hapus"] = this.id_pengguna_hapus;
+        data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
+        data["sebab_hapus"] = this.sebab_hapus;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditTabungBwiDto {
+    id: number;
+    id_tabung_kelulusan: number;
+    jumlah_kir: number;
+    tarikh_eft: moment.Moment;
+    no_rujukan_akuan_kp: string;
+    tarikh_akuan_kp: moment.Moment;
+    no_rujukan_saluran_kpd_bkp: string;
+    tarikh_saluran_kpd_bkp: moment.Moment;
+    no_rujukan_laporan_kpd_bkp: string;
+    tarikh_laporan_kpd_bkp: moment.Moment;
+    no_rujukan_makluman_majlis: string;
+    tarikh_makluman_majlis: moment.Moment;
+    tarikh_majlis_makluman_majlis: moment.Moment;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+    id_pengguna_hapus: number;
+    tarikh_hapus: moment.Moment;
+    sebab_hapus: string;
+}
+
+export class GetTabungBwiForEditDto implements IGetTabungBwiForEditDto {
+    tabung_bwi!: CreateOrEditTabungBwiDto;
+
+    constructor(data?: IGetTabungBwiForEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.tabung_bwi = _data["tabung_bwi"] ? CreateOrEditTabungBwiDto.fromJS(_data["tabung_bwi"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetTabungBwiForEditDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTabungBwiForEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["tabung_bwi"] = this.tabung_bwi ? this.tabung_bwi.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetTabungBwiForEditDto {
+    tabung_bwi: CreateOrEditTabungBwiDto;
+}
+
+export class GetTabungBwiForViewDto implements IGetTabungBwiForViewDto {
+    id!: number;
+    id_tabung_kelulusan!: number;
+    jumlah_kir!: number;
+    tarikh_eft!: moment.Moment;
+    no_rujukan_akuan_kp!: string;
+    tarikh_akuan_kp!: moment.Moment;
+    no_rujukan_saluran_kpd_bkp!: string;
+    tarikh_saluran_kpd_bkp!: moment.Moment;
+    no_rujukan_laporan_kpd_bkp!: string;
+    tarikh_laporan_kpd_bkp!: moment.Moment;
+    no_rujukan_makluman_majlis!: string;
+    tarikh_makluman_majlis!: moment.Moment;
+    tarikh_majlis_makluman_majlis!: moment.Moment;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+    id_pengguna_hapus!: number;
+    tarikh_hapus!: moment.Moment;
+    sebab_hapus!: string;
+
+    constructor(data?: IGetTabungBwiForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_tabung_kelulusan = _data["id_tabung_kelulusan"];
+            this.jumlah_kir = _data["jumlah_kir"];
+            this.tarikh_eft = _data["tarikh_eft"] ? moment(_data["tarikh_eft"].toString()) : <any>undefined;
+            this.no_rujukan_akuan_kp = _data["no_rujukan_akuan_kp"];
+            this.tarikh_akuan_kp = _data["tarikh_akuan_kp"] ? moment(_data["tarikh_akuan_kp"].toString()) : <any>undefined;
+            this.no_rujukan_saluran_kpd_bkp = _data["no_rujukan_saluran_kpd_bkp"];
+            this.tarikh_saluran_kpd_bkp = _data["tarikh_saluran_kpd_bkp"] ? moment(_data["tarikh_saluran_kpd_bkp"].toString()) : <any>undefined;
+            this.no_rujukan_laporan_kpd_bkp = _data["no_rujukan_laporan_kpd_bkp"];
+            this.tarikh_laporan_kpd_bkp = _data["tarikh_laporan_kpd_bkp"] ? moment(_data["tarikh_laporan_kpd_bkp"].toString()) : <any>undefined;
+            this.no_rujukan_makluman_majlis = _data["no_rujukan_makluman_majlis"];
+            this.tarikh_makluman_majlis = _data["tarikh_makluman_majlis"] ? moment(_data["tarikh_makluman_majlis"].toString()) : <any>undefined;
+            this.tarikh_majlis_makluman_majlis = _data["tarikh_majlis_makluman_majlis"] ? moment(_data["tarikh_majlis_makluman_majlis"].toString()) : <any>undefined;
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.id_pengguna_hapus = _data["id_pengguna_hapus"];
+            this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
+            this.sebab_hapus = _data["sebab_hapus"];
+        }
+    }
+
+    static fromJS(data: any): GetTabungBwiForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTabungBwiForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_tabung_kelulusan"] = this.id_tabung_kelulusan;
+        data["jumlah_kir"] = this.jumlah_kir;
+        data["tarikh_eft"] = this.tarikh_eft ? this.tarikh_eft.toISOString() : <any>undefined;
+        data["no_rujukan_akuan_kp"] = this.no_rujukan_akuan_kp;
+        data["tarikh_akuan_kp"] = this.tarikh_akuan_kp ? this.tarikh_akuan_kp.toISOString() : <any>undefined;
+        data["no_rujukan_saluran_kpd_bkp"] = this.no_rujukan_saluran_kpd_bkp;
+        data["tarikh_saluran_kpd_bkp"] = this.tarikh_saluran_kpd_bkp ? this.tarikh_saluran_kpd_bkp.toISOString() : <any>undefined;
+        data["no_rujukan_laporan_kpd_bkp"] = this.no_rujukan_laporan_kpd_bkp;
+        data["tarikh_laporan_kpd_bkp"] = this.tarikh_laporan_kpd_bkp ? this.tarikh_laporan_kpd_bkp.toISOString() : <any>undefined;
+        data["no_rujukan_makluman_majlis"] = this.no_rujukan_makluman_majlis;
+        data["tarikh_makluman_majlis"] = this.tarikh_makluman_majlis ? this.tarikh_makluman_majlis.toISOString() : <any>undefined;
+        data["tarikh_majlis_makluman_majlis"] = this.tarikh_majlis_makluman_majlis ? this.tarikh_majlis_makluman_majlis.toISOString() : <any>undefined;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["id_pengguna_hapus"] = this.id_pengguna_hapus;
+        data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
+        data["sebab_hapus"] = this.sebab_hapus;
+        return data; 
+    }
+}
+
+export interface IGetTabungBwiForViewDto {
+    id: number;
+    id_tabung_kelulusan: number;
+    jumlah_kir: number;
+    tarikh_eft: moment.Moment;
+    no_rujukan_akuan_kp: string;
+    tarikh_akuan_kp: moment.Moment;
+    no_rujukan_saluran_kpd_bkp: string;
+    tarikh_saluran_kpd_bkp: moment.Moment;
+    no_rujukan_laporan_kpd_bkp: string;
+    tarikh_laporan_kpd_bkp: moment.Moment;
+    no_rujukan_makluman_majlis: string;
+    tarikh_makluman_majlis: moment.Moment;
+    tarikh_majlis_makluman_majlis: moment.Moment;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+    id_pengguna_hapus: number;
+    tarikh_hapus: moment.Moment;
+    sebab_hapus: string;
+}
+
+/** TabungBwi List in Tabular model */
+export class PagedResultDtoOfTabungBwiForViewDto implements IPagedResultDtoOfTabungBwiForViewDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetTabungBwiForViewDto[];
+
+    constructor(data?: IPagedResultDtoOfTabungBwiForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetTabungBwiForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfTabungBwiForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfTabungBwiForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** TabungBwi List in Tabular model */
+export interface IPagedResultDtoOfTabungBwiForViewDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetTabungBwiForViewDto[];
+}
+
+export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulusanDto {
+    id!: number;
+    id_tabung!: number;
+    id_bencana!: number;
+    id_bantuan!: number;
+    id_komitmen!: number;
+    rujukan_surat!: string;
+    tarikh_surat!: moment.Moment;
+    tarikh_mula_kelulusan!: moment.Moment;
+    tarikh_tamat_kelulusan!: moment.Moment;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+    hapus!: boolean;
+    id_pengguna_hapus!: number;
+    tarikh_hapus!: moment.Moment;
+    sebab_hapus!: string;
+
+    constructor(data?: ICreateOrEditTabungKelulusanDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_tabung = _data["id_tabung"];
+            this.id_bencana = _data["id_bencana"];
+            this.id_bantuan = _data["id_bantuan"];
+            this.id_komitmen = _data["id_komitmen"];
+            this.rujukan_surat = _data["rujukan_surat"];
+            this.tarikh_surat = _data["tarikh_surat"] ? moment(_data["tarikh_surat"].toString()) : <any>undefined;
+            this.tarikh_mula_kelulusan = _data["tarikh_mula_kelulusan"] ? moment(_data["tarikh_mula_kelulusan"].toString()) : <any>undefined;
+            this.tarikh_tamat_kelulusan = _data["tarikh_tamat_kelulusan"] ? moment(_data["tarikh_tamat_kelulusan"].toString()) : <any>undefined;
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.hapus = _data["hapus"];
+            this.id_pengguna_hapus = _data["id_pengguna_hapus"];
+            this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
+            this.sebab_hapus = _data["sebab_hapus"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditTabungKelulusanDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditTabungKelulusanDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_tabung"] = this.id_tabung;
+        data["id_bencana"] = this.id_bencana;
+        data["id_bantuan"] = this.id_bantuan;
+        data["id_komitmen"] = this.id_komitmen;
+        data["rujukan_surat"] = this.rujukan_surat;
+        data["tarikh_surat"] = this.tarikh_surat ? this.tarikh_surat.toISOString() : <any>undefined;
+        data["tarikh_mula_kelulusan"] = this.tarikh_mula_kelulusan ? this.tarikh_mula_kelulusan.toISOString() : <any>undefined;
+        data["tarikh_tamat_kelulusan"] = this.tarikh_tamat_kelulusan ? this.tarikh_tamat_kelulusan.toISOString() : <any>undefined;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["hapus"] = this.hapus;
+        data["id_pengguna_hapus"] = this.id_pengguna_hapus;
+        data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
+        data["sebab_hapus"] = this.sebab_hapus;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditTabungKelulusanDto {
+    id: number;
+    id_tabung: number;
+    id_bencana: number;
+    id_bantuan: number;
+    id_komitmen: number;
+    rujukan_surat: string;
+    tarikh_surat: moment.Moment;
+    tarikh_mula_kelulusan: moment.Moment;
+    tarikh_tamat_kelulusan: moment.Moment;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+    hapus: boolean;
+    id_pengguna_hapus: number;
+    tarikh_hapus: moment.Moment;
+    sebab_hapus: string;
+}
+
+export class GetTabungKelulusanForEditDto implements IGetTabungKelulusanForEditDto {
+    tabung_kelulusan!: CreateOrEditTabungKelulusanDto;
+
+    constructor(data?: IGetTabungKelulusanForEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.tabung_kelulusan = _data["tabung_kelulusan"] ? CreateOrEditTabungKelulusanDto.fromJS(_data["tabung_kelulusan"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetTabungKelulusanForEditDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTabungKelulusanForEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["tabung_kelulusan"] = this.tabung_kelulusan ? this.tabung_kelulusan.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetTabungKelulusanForEditDto {
+    tabung_kelulusan: CreateOrEditTabungKelulusanDto;
+}
+
+export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewDto {
+    id!: number;
+    id_tabung!: number;
+    id_bencana!: number;
+    id_bantuan!: number;
+    id_komitmen!: number;
+    rujukan_surat!: string;
+    tarikh_surat!: moment.Moment;
+    tarikh_mula_kelulusan!: moment.Moment;
+    tarikh_tamat_kelulusan!: moment.Moment;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+    hapus!: boolean;
+    id_pengguna_hapus!: number;
+    tarikh_hapus!: moment.Moment;
+    sebab_hapus!: string;
+
+    constructor(data?: IGetTabungKelulusanForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_tabung = _data["id_tabung"];
+            this.id_bencana = _data["id_bencana"];
+            this.id_bantuan = _data["id_bantuan"];
+            this.id_komitmen = _data["id_komitmen"];
+            this.rujukan_surat = _data["rujukan_surat"];
+            this.tarikh_surat = _data["tarikh_surat"] ? moment(_data["tarikh_surat"].toString()) : <any>undefined;
+            this.tarikh_mula_kelulusan = _data["tarikh_mula_kelulusan"] ? moment(_data["tarikh_mula_kelulusan"].toString()) : <any>undefined;
+            this.tarikh_tamat_kelulusan = _data["tarikh_tamat_kelulusan"] ? moment(_data["tarikh_tamat_kelulusan"].toString()) : <any>undefined;
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.hapus = _data["hapus"];
+            this.id_pengguna_hapus = _data["id_pengguna_hapus"];
+            this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
+            this.sebab_hapus = _data["sebab_hapus"];
+        }
+    }
+
+    static fromJS(data: any): GetTabungKelulusanForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTabungKelulusanForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_tabung"] = this.id_tabung;
+        data["id_bencana"] = this.id_bencana;
+        data["id_bantuan"] = this.id_bantuan;
+        data["id_komitmen"] = this.id_komitmen;
+        data["rujukan_surat"] = this.rujukan_surat;
+        data["tarikh_surat"] = this.tarikh_surat ? this.tarikh_surat.toISOString() : <any>undefined;
+        data["tarikh_mula_kelulusan"] = this.tarikh_mula_kelulusan ? this.tarikh_mula_kelulusan.toISOString() : <any>undefined;
+        data["tarikh_tamat_kelulusan"] = this.tarikh_tamat_kelulusan ? this.tarikh_tamat_kelulusan.toISOString() : <any>undefined;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["hapus"] = this.hapus;
+        data["id_pengguna_hapus"] = this.id_pengguna_hapus;
+        data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
+        data["sebab_hapus"] = this.sebab_hapus;
+        return data; 
+    }
+}
+
+export interface IGetTabungKelulusanForViewDto {
+    id: number;
+    id_tabung: number;
+    id_bencana: number;
+    id_bantuan: number;
+    id_komitmen: number;
+    rujukan_surat: string;
+    tarikh_surat: moment.Moment;
+    tarikh_mula_kelulusan: moment.Moment;
+    tarikh_tamat_kelulusan: moment.Moment;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+    hapus: boolean;
+    id_pengguna_hapus: number;
+    tarikh_hapus: moment.Moment;
+    sebab_hapus: string;
+}
+
+/** TabungKelulusan List in Tabular model */
+export class PagedResultDtoOfTabungKelulusanForViewDto implements IPagedResultDtoOfTabungKelulusanForViewDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetTabungKelulusanForViewDto[];
+
+    constructor(data?: IPagedResultDtoOfTabungKelulusanForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetTabungKelulusanForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfTabungKelulusanForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfTabungKelulusanForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** TabungKelulusan List in Tabular model */
+export interface IPagedResultDtoOfTabungKelulusanForViewDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetTabungKelulusanForViewDto[];
+}
+
+export class CreateOrEditTabungPeruntukanDto implements ICreateOrEditTabungPeruntukanDto {
+    id!: number;
+    id_tabung!: number;
+    nama_peruntukan!: string;
+    tarikh_peruntukan!: moment.Moment;
+    no_rujukan!: string;
+    id_sumber_peruntukan!: number;
+    sumber_peruntukan_lain!: string;
+
+    constructor(data?: ICreateOrEditTabungPeruntukanDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_tabung = _data["id_tabung"];
+            this.nama_peruntukan = _data["nama_peruntukan"];
+            this.tarikh_peruntukan = _data["tarikh_peruntukan"] ? moment(_data["tarikh_peruntukan"].toString()) : <any>undefined;
+            this.no_rujukan = _data["no_rujukan"];
+            this.id_sumber_peruntukan = _data["id_sumber_peruntukan"];
+            this.sumber_peruntukan_lain = _data["sumber_peruntukan_lain"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditTabungPeruntukanDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditTabungPeruntukanDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_tabung"] = this.id_tabung;
+        data["nama_peruntukan"] = this.nama_peruntukan;
+        data["tarikh_peruntukan"] = this.tarikh_peruntukan ? this.tarikh_peruntukan.toISOString() : <any>undefined;
+        data["no_rujukan"] = this.no_rujukan;
+        data["id_sumber_peruntukan"] = this.id_sumber_peruntukan;
+        data["sumber_peruntukan_lain"] = this.sumber_peruntukan_lain;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditTabungPeruntukanDto {
+    id: number;
+    id_tabung: number;
+    nama_peruntukan: string;
+    tarikh_peruntukan: moment.Moment;
+    no_rujukan: string;
+    id_sumber_peruntukan: number;
+    sumber_peruntukan_lain: string;
+}
+
+export class GetTabungPeruntukanForEditDto implements IGetTabungPeruntukanForEditDto {
+    tabung_peruntukan!: CreateOrEditTabungPeruntukanDto;
+
+    constructor(data?: IGetTabungPeruntukanForEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.tabung_peruntukan = _data["tabung_peruntukan"] ? CreateOrEditTabungPeruntukanDto.fromJS(_data["tabung_peruntukan"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetTabungPeruntukanForEditDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTabungPeruntukanForEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["tabung_peruntukan"] = this.tabung_peruntukan ? this.tabung_peruntukan.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetTabungPeruntukanForEditDto {
+    tabung_peruntukan: CreateOrEditTabungPeruntukanDto;
+}
+
+export class GetTabungPeruntukanForViewDto implements IGetTabungPeruntukanForViewDto {
+    id!: number;
+    id_tabung!: number;
+    nama_peruntukan!: string;
+    tarikh_peruntukan!: moment.Moment;
+    no_rujukan!: string;
+    id_sumber_peruntukan!: number;
+    sumber_peruntukan_lain!: string;
+
+    constructor(data?: IGetTabungPeruntukanForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_tabung = _data["id_tabung"];
+            this.nama_peruntukan = _data["nama_peruntukan"];
+            this.tarikh_peruntukan = _data["tarikh_peruntukan"] ? moment(_data["tarikh_peruntukan"].toString()) : <any>undefined;
+            this.no_rujukan = _data["no_rujukan"];
+            this.id_sumber_peruntukan = _data["id_sumber_peruntukan"];
+            this.sumber_peruntukan_lain = _data["sumber_peruntukan_lain"];
+        }
+    }
+
+    static fromJS(data: any): GetTabungPeruntukanForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTabungPeruntukanForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_tabung"] = this.id_tabung;
+        data["nama_peruntukan"] = this.nama_peruntukan;
+        data["tarikh_peruntukan"] = this.tarikh_peruntukan ? this.tarikh_peruntukan.toISOString() : <any>undefined;
+        data["no_rujukan"] = this.no_rujukan;
+        data["id_sumber_peruntukan"] = this.id_sumber_peruntukan;
+        data["sumber_peruntukan_lain"] = this.sumber_peruntukan_lain;
+        return data; 
+    }
+}
+
+export interface IGetTabungPeruntukanForViewDto {
+    id: number;
+    id_tabung: number;
+    nama_peruntukan: string;
+    tarikh_peruntukan: moment.Moment;
+    no_rujukan: string;
+    id_sumber_peruntukan: number;
+    sumber_peruntukan_lain: string;
+}
+
+/** TabungPeruntukan List in Tabular model */
+export class PagedResultDtoOfTabungPeruntukanForViewDto implements IPagedResultDtoOfTabungPeruntukanForViewDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetTabungPeruntukanForViewDto[];
+
+    constructor(data?: IPagedResultDtoOfTabungPeruntukanForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetTabungPeruntukanForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfTabungPeruntukanForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfTabungPeruntukanForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** TabungPeruntukan List in Tabular model */
+export interface IPagedResultDtoOfTabungPeruntukanForViewDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetTabungPeruntukanForViewDto[];
+}
+
+export class CreateOrEditTabungDto implements ICreateOrEditTabungDto {
+    id!: number;
+    nama_tabung!: string;
+    status_tabung!: number;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+
+    constructor(data?: ICreateOrEditTabungDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.nama_tabung = _data["nama_tabung"];
+            this.status_tabung = _data["status_tabung"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditTabungDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditTabungDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["nama_tabung"] = this.nama_tabung;
+        data["status_tabung"] = this.status_tabung;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditTabungDto {
+    id: number;
+    nama_tabung: string;
+    status_tabung: number;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+}
+
+export class GetTabungForEditDto implements IGetTabungForEditDto {
+    tabung!: CreateOrEditTabungDto;
+
+    constructor(data?: IGetTabungForEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.tabung = _data["tabung"] ? CreateOrEditTabungDto.fromJS(_data["tabung"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetTabungForEditDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTabungForEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["tabung"] = this.tabung ? this.tabung.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetTabungForEditDto {
+    tabung: CreateOrEditTabungDto;
+}
+
+export class GetTabungForViewDto implements IGetTabungForViewDto {
+    id!: number;
+    nama_tabung!: string;
+    status_tabung!: number;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+
+    constructor(data?: IGetTabungForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.nama_tabung = _data["nama_tabung"];
+            this.status_tabung = _data["status_tabung"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetTabungForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTabungForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["nama_tabung"] = this.nama_tabung;
+        data["status_tabung"] = this.status_tabung;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetTabungForViewDto {
+    id: number;
+    nama_tabung: string;
+    status_tabung: number;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+}
+
+/** Tabung List in Tabular model */
+export class PagedResultDtoOfTabungForViewDto implements IPagedResultDtoOfTabungForViewDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetTabungForViewDto[];
+
+    constructor(data?: IPagedResultDtoOfTabungForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetTabungForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfTabungForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfTabungForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** Tabung List in Tabular model */
+export interface IPagedResultDtoOfTabungForViewDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetTabungForViewDto[];
 }
 
 export class CreateOrEditPenggunaDto implements ICreateOrEditPenggunaDto {

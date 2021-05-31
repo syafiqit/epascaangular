@@ -9,6 +9,7 @@
   "bracketSpacing": true,
   "jsxBracketSameLine": true,
   "arrowParens": "always",
+  "endOfLine": "auto",
   "overrides": [
       {
           "files": "*.component.html",
