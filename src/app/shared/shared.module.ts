@@ -38,7 +38,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './services/interceptor.service';
 import { ButtonBusyDirective } from './directives/button-busy.directive';
 
-
 const NSWAG = [
 	ApiServiceProxies.RefAgamaServiceProxy,
 	ApiServiceProxies.RefAgensiServiceProxy,
@@ -78,7 +77,15 @@ const NSWAG = [
   ApiServiceProxies.MangsaPinjamanServiceProxy,
   ApiServiceProxies.MangsaRumahServiceProxy,
   ApiServiceProxies.MangsaServiceProxy,
-  ApiServiceProxies.MangsaWangIhsanServiceProxy
+  ApiServiceProxies.MangsaWangIhsanServiceProxy,
+  ApiServiceProxies.TabungServiceProxy,
+  ApiServiceProxies.TabungBayaranSkbBulananServiceProxy,
+  ApiServiceProxies.TabungBayaranSkbServiceProxy,
+  ApiServiceProxies.TabungBayaranTerusServiceProxy,
+  ApiServiceProxies.TabungBwiKirServiceProxy,
+  ApiServiceProxies.TabungBwiServiceProxy,
+  ApiServiceProxies.TabungKelulusanServiceProxy,
+  ApiServiceProxies.TabungPeruntukanServiceProxy
 ];
 
 @NgModule({
