@@ -24430,6 +24430,7 @@ export interface IPagedResultDtoOfTabungBayaranSkbBulananForViewDto {
 
 export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayaranSkbDto {
     id!: number;
+    no_rujukan_skb!: string;
     id_tabung_kelulusan!: number;
     id_pegawai!: number;
     id_agensi!: number;
@@ -24456,6 +24457,7 @@ export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayar
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.no_rujukan_skb = _data["no_rujukan_skb"];
             this.id_tabung_kelulusan = _data["id_tabung_kelulusan"];
             this.id_pegawai = _data["id_pegawai"];
             this.id_agensi = _data["id_agensi"];
@@ -24482,6 +24484,7 @@ export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayar
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["no_rujukan_skb"] = this.no_rujukan_skb;
         data["id_tabung_kelulusan"] = this.id_tabung_kelulusan;
         data["id_pegawai"] = this.id_pegawai;
         data["id_agensi"] = this.id_agensi;
@@ -24501,6 +24504,7 @@ export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayar
 
 export interface ICreateOrEditTabungBayaranSkbDto {
     id: number;
+    no_rujukan_skb: string;
     id_tabung_kelulusan: number;
     id_pegawai: number;
     id_agensi: number;
@@ -24554,6 +24558,7 @@ export interface IGetTabungBayaranSkbForEditDto {
 
 export class GetTabungBayaranSkbForViewDto implements IGetTabungBayaranSkbForViewDto {
     id!: number;
+    no_rujukan_skb!: string;
     id_tabung_kelulusan!: number;
     id_pegawai!: number;
     id_agensi!: number;
@@ -24580,6 +24585,7 @@ export class GetTabungBayaranSkbForViewDto implements IGetTabungBayaranSkbForVie
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.no_rujukan_skb = _data["no_rujukan_skb"];
             this.id_tabung_kelulusan = _data["id_tabung_kelulusan"];
             this.id_pegawai = _data["id_pegawai"];
             this.id_agensi = _data["id_agensi"];
@@ -24606,6 +24612,7 @@ export class GetTabungBayaranSkbForViewDto implements IGetTabungBayaranSkbForVie
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["no_rujukan_skb"] = this.no_rujukan_skb;
         data["id_tabung_kelulusan"] = this.id_tabung_kelulusan;
         data["id_pegawai"] = this.id_pegawai;
         data["id_agensi"] = this.id_agensi;
@@ -24625,6 +24632,7 @@ export class GetTabungBayaranSkbForViewDto implements IGetTabungBayaranSkbForVie
 
 export interface IGetTabungBayaranSkbForViewDto {
     id: number;
+    no_rujukan_skb: string;
     id_tabung_kelulusan: number;
     id_pegawai: number;
     id_agensi: number;
@@ -25510,6 +25518,7 @@ export interface IPagedResultDtoOfTabungBwiForViewDto {
 
 export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulusanDto {
     id!: number;
+    no_rujukan_kelulusan!: string;
     id_tabung!: number;
     id_bencana!: number;
     id_bantuan!: number;
@@ -25539,6 +25548,7 @@ export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulu
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.no_rujukan_kelulusan = _data["no_rujukan_kelulusan"];
             this.id_tabung = _data["id_tabung"];
             this.id_bencana = _data["id_bencana"];
             this.id_bantuan = _data["id_bantuan"];
@@ -25568,6 +25578,7 @@ export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulu
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["no_rujukan_kelulusan"] = this.no_rujukan_kelulusan;
         data["id_tabung"] = this.id_tabung;
         data["id_bencana"] = this.id_bencana;
         data["id_bantuan"] = this.id_bantuan;
@@ -25590,6 +25601,7 @@ export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulu
 
 export interface ICreateOrEditTabungKelulusanDto {
     id: number;
+    no_rujukan_kelulusan: string;
     id_tabung: number;
     id_bencana: number;
     id_bantuan: number;
@@ -25646,6 +25658,7 @@ export interface IGetTabungKelulusanForEditDto {
 
 export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewDto {
     id!: number;
+    no_rujukan_kelulusan!: string;
     id_tabung!: number;
     id_bencana!: number;
     id_bantuan!: number;
@@ -25675,6 +25688,7 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.no_rujukan_kelulusan = _data["no_rujukan_kelulusan"];
             this.id_tabung = _data["id_tabung"];
             this.id_bencana = _data["id_bencana"];
             this.id_bantuan = _data["id_bantuan"];
@@ -25704,6 +25718,7 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["no_rujukan_kelulusan"] = this.no_rujukan_kelulusan;
         data["id_tabung"] = this.id_tabung;
         data["id_bencana"] = this.id_bencana;
         data["id_bantuan"] = this.id_bantuan;
@@ -25726,6 +25741,7 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
 
 export interface IGetTabungKelulusanForViewDto {
     id: number;
+    no_rujukan_kelulusan: string;
     id_tabung: number;
     id_bencana: number;
     id_bantuan: number;
