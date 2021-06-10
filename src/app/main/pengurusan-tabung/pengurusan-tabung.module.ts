@@ -22,6 +22,7 @@ import { TambahKetuaIsiRumahComponent } from './wang-ihsan/tambah-ketua-isi-ruma
 import { TambahNoRujukanComponent } from './wang-ihsan/tambah-no-rujukan/tambah-no-rujukan.component';
 import { EditTabungComponent } from './tabung/edit-tabung/edit-tabung.component';
 import { TambahPeruntukanComponent } from './tabung/edit-tabung/tambah-peruntukan/tambah-peruntukan.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
 	imports: [
@@ -30,7 +31,8 @@ import { TambahPeruntukanComponent } from './tabung/edit-tabung/tambah-peruntuka
 		PengurusanTabungRoutingModule,
 		NgxDatatableModule,
 		TableModule,
-		PaginatorModule
+		PaginatorModule,
+    NgSelectModule
 	],
 	declarations: [
 		TabungComponent,

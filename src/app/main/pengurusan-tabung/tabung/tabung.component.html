@@ -52,14 +52,14 @@
 					<input type="text" class="form-control" placeholder="Carian..." />
 				</div>
 				<div class="row align-items-center">
-					<!--<Primeng-TurboTable-Start>-->
-					<div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+					<div class="primeng-datatable-container">
 						<p-table
 							#dataTable
 							styleClass="p-datatable-striped"
 							sortMode="multiple"
 							[resizableColumns]="true"
-							(onLazyLoad)="getFund($event)"
+							(onLazyLoad)="getTabung($event)"
+              [loading]="primengTableHelper.isLoading"
 							[value]="primengTableHelper.records"
 							rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
 							[paginator]="false"
@@ -72,37 +72,33 @@
 							<ng-template pTemplate="header">
 								<tr>
 									<th style="width: 130px">Tindakan</th>
-									<th style="width: 100px" pSortableColumn="nama">
+									<th style="width: 100px" pSortableColumn="nama_tabung">
 										Nama
-										<p-sortIcon field="nama"></p-sortIcon>
+										<p-sortIcon field="nama_tabung"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="baki">
+									<th style="width: 130px" pSortableColumn="tarikh_baki">
 										Tarikh Baki
-										<p-sortIcon field="baki"></p-sortIcon>
+										<p-sortIcon field="tarikh_baki"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="jumlah">
-										Jumlah Baki Bawaan (RM)
-										<p-sortIcon field="jumlah"></p-sortIcon>
+									<th style="width: 130px" pSortableColumn="baki_bawaan">
+										Baki Bawaan
+										<p-sortIcon field="baki_bawaan"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="sehingga">
-										Tarikh Terimaan Sehingga
-										<p-sortIcon field="sehingga"></p-sortIcon>
+									<th style="width: 130px" pSortableColumn="tarikh_akhir_peruntukan">
+										Tarikh Akhir Peruntukan
+										<p-sortIcon field="tarikh_akhir_peruntukan"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="jumlah_rm">
-										Jumlah Peruntukan (RM)
-										<p-sortIcon field="jumlah_rm"></p-sortIcon>
+									<th style="width: 130px" pSortableColumn="peruntukan">
+										Peruntukan
+										<p-sortIcon field="peruntukan"></p-sortIcon>
 									</th>
 									<th style="width: 120px" pSortableColumn="jumlah_keseluruhan">
-										Jumlah Keseluruhan (RM)
+										Jumlah Keseluruhan
 										<p-sortIcon field="jumlah_keseluruhan"></p-sortIcon>
 									</th>
-									<th style="width: 100px" pSortableColumn="jumlah_baki">
-										Jumlah Perbelanjaan Sehingga (RM)
-										<p-sortIcon field="jumlah_baki"></p-sortIcon>
-									</th>
 									<th style="width: 100px" pSortableColumn="jumlah_baki_semasa">
-										Jumlah Baki Semasa (RM)
-										<p-sortIcon field="jumlah_baki"></p-sortIcon>
+										Baki Semasa
+										<p-sortIcon field="jumlah_baki_semasa"></p-sortIcon>
 									</th>
 								</tr>
 							</ng-template>
@@ -124,6 +120,7 @@
 												<button
 													class="dropdown-item"
 													[routerLink]="['/app/tabung/edit-tabung']"
+                          [queryParams]="{id: record.id }"
 												>
 													Lihat
 												</button>
@@ -133,35 +130,31 @@
 									</td>
 									<td style="width: 100px">
 										<span class="p-column-title">Nama</span>
-										{{record.name}}
+										{{record.nama_tabung}}
 									</td>
 									<td style="width: 130px">
-										<span class="p-column-title">Baki Pada</span>
-										{{record.date}}
+										<span class="p-column-title">Tarikh Baki</span>
+                    {{record.tarikh_baki | date:'dd-MM-yyyy'}}
 									</td>
 									<td style="width: 130px">
-										<span class="p-column-title">Jumlah</span>
-										{{record.total}}
+										<span class="p-column-title">Jumlah Baki Bawaan (RM)</span>
+                    {{record.baki_bawaan}}
 									</td>
 									<td style="width: 130px">
-										<span class="p-column-title">Sehingga Pada</span>
-										{{record.date2}}
+										<span class="p-column-title">Tarikh Akhir Peruntukan</span>
+                    {{record.tarikh_akhir_peruntukan | date:'dd-MM-yyyy'}}
 									</td>
 									<td style="width: 130px">
-										<span class="p-column-title">Jumlah</span>
-										{{record.total2}}
+										<span class="p-column-title">Jumlah Peruntukan (RM)</span>
+                    {{record.peruntukan}}
 									</td>
 									<td style="width: 120px">
-										<span class="p-column-title">Jumlah Keseluruhan</span>
-										{{record.total_overal}}
+										<span class="p-column-title">Jumlah Keseluruhan (RM)</span>
+                    {{record.jumlah_keseluruhan}}
 									</td>
 									<td style="width: 100px">
-										<span class="p-column-title">Jumlah Perbelanjaan Sehingga</span>
-										{{record.balance}}
-									</td>
-									<td style="width: 100px">
-										<span class="p-column-title">Jumlah Baki Semasa</span>
-										{{record.balance_until}}
+										<span class="p-column-title">Jumlah Baki Semasa (RM)</span>
+                    {{record.jumlah_baki_semasa}}
 									</td>
 								</tr>
 							</ng-template>
@@ -171,14 +164,13 @@
 							<p-paginator
 								[rows]="primengTableHelper.defaultRecordsCountPerPage"
 								#paginator
-								(onPageChange)="getFund($event)"
+								(onPageChange)="getTabung($event)"
 								[totalRecords]="primengTableHelper.totalRecordsCount"
 								[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
 							></p-paginator>
 							<span class="total-records-count">Jumlah: {{ primengTableHelper.totalRecordsCount}}</span>
 						</div>
 					</div>
-					<!--<Primeng-TurboTable-End>-->
 				</div>
 			</div>
 		</div>

@@ -5,6 +5,8 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
+import { TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import { finalize } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-tabung',
@@ -17,6 +19,7 @@ export class TabungComponent implements OnInit {
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
 	primengTableHelper: PrimengTableHelper;
+  filterText: string;
 
 	rows = [
 		{
@@ -47,7 +50,11 @@ export class TabungComponent implements OnInit {
 		{ title: 'Jumlah Tanggung Semasa (RM)', total_kos: '22,323,321.00' }
 	];
 
-	constructor(config: NgbModalConfig, private modalService: NgbModal) {
+	constructor(
+    config: NgbModalConfig,
+    private modalService: NgbModal,
+    private tabungServiceProxy: TabungServiceProxy
+    ) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
@@ -55,17 +62,28 @@ export class TabungComponent implements OnInit {
 
 	ngOnInit(): void {}
 
-	getFund(event?: LazyLoadEvent) {
-		if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
+	getTabung(event?: LazyLoadEvent) {
+    if (this.primengTableHelper.shouldResetPaging(event)) {
+      this.paginator.changePage(0);
+      return;
+    }
+    this.primengTableHelper.showLoadingIndicator();
 
-		this.primengTableHelper.showLoadingIndicator();
-		this.primengTableHelper.totalRecordsCount = this.rows.length;
-		this.primengTableHelper.records = this.rows;
-		this.primengTableHelper.hideLoadingIndicator();
-	}
+    this.tabungServiceProxy
+    .getAll(
+      this.filterText,
+      this.primengTableHelper.getSorting(this.dataTable),
+      this.primengTableHelper.getSkipCount(this.paginator, event),
+      this.primengTableHelper.getMaxResultCount(this.paginator, event)
+    )
+    .pipe(finalize(()=>{
+      this.primengTableHelper.hideLoadingIndicator();
+    }))
+    .subscribe((result) => {
+      this.primengTableHelper.totalRecordsCount = result.total_count;
+      this.primengTableHelper.records = result.items;
+    });
+  }
 
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
@@ -74,10 +92,5 @@ export class TabungComponent implements OnInit {
 	addFundModal() {
 		const modalRef = this.modalService.open(TambahEditTabungComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
-	}
-
-	editFundModal() {
-		const modalRef = this.modalService.open(TambahEditTabungComponent, { size: 'lg' });
-		modalRef.componentInstance.name = 'edit';
 	}
 }
