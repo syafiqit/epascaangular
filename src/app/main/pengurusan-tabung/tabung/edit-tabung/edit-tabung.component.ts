@@ -35,33 +35,6 @@ export class EditTabungComponent implements OnInit {
   tarikhAkhirPeruntukan: string;
   filterText: string;
 
-	rows = [
-		{
-			bil: '1',
-			date: '1/3/2020',
-			ref_number: 'AXXXX',
-			source: '-',
-			name: 'Sumbangan Tabung Takaful',
-			total: '100,000.00',
-			notes: '-'
-		}
-	];
-
-	rows2 = [
-		{
-			bil: '1',
-			date_modified: '1/3/2020',
-			total_bal: 'RM 400,000.00',
-			modified_by: 'Mohd Ramzan'
-		},
-		{
-			bil: '2',
-			date_modified: '20/2/2020',
-			total_bal: 'RM 200,000.00',
-			modified_by: 'Mohd Ramzan'
-		}
-	];
-
 	ColumnMode = ColumnMode;
 	SortType = SortType;
 
@@ -122,11 +95,6 @@ export class EditTabungComponent implements OnInit {
 			this.paginator.changePage(0);
 			return;
 		}
-
-		this.primengTableHelperSejarah.showLoadingIndicator();
-		this.primengTableHelperSejarah.totalRecordsCount = this.rows.length;
-		this.primengTableHelperSejarah.records = this.rows2;
-		this.primengTableHelperSejarah.hideLoadingIndicator();
 	}
 
 	addTabungPeruntukan(idTabung) {
