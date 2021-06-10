@@ -12231,6 +12231,87 @@ export class TabungPeruntukanServiceProxy {
     }
 
     /**
+     * Get all TabungPeruntukan by Id Tabung
+     * @param idTabung Filter by Id Tabung
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getPeruntukanByIdTabung(idTabung: number, filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungPeruntukanForViewDto> {
+        let url_ = this.baseUrl + "/api/tabungPeruntukan/getPeruntukanByIdTabung?";
+        if (idTabung === undefined || idTabung === null)
+            throw new Error("The parameter 'idTabung' must be defined and cannot be null.");
+        else
+            url_ += "idTabung=" + encodeURIComponent("" + idTabung) + "&";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPeruntukanByIdTabung(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPeruntukanByIdTabung(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfTabungPeruntukanForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfTabungPeruntukanForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetPeruntukanByIdTabung(response: HttpResponseBase): Observable<PagedResultDtoOfTabungPeruntukanForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfTabungPeruntukanForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfTabungPeruntukanForViewDto>(<any>null);
+    }
+
+    /**
      * Get TabungPeruntukan by id
      * @param id TabungPeruntukan Id
      * @return Success
@@ -25822,6 +25903,8 @@ export class CreateOrEditTabungPeruntukanDto implements ICreateOrEditTabungPerun
     no_rujukan!: string;
     id_sumber_peruntukan!: number;
     sumber_peruntukan_lain!: string;
+    jumlah!: number;
+    catatan!: string;
 
     constructor(data?: ICreateOrEditTabungPeruntukanDto) {
         if (data) {
@@ -25841,6 +25924,8 @@ export class CreateOrEditTabungPeruntukanDto implements ICreateOrEditTabungPerun
             this.no_rujukan = _data["no_rujukan"];
             this.id_sumber_peruntukan = _data["id_sumber_peruntukan"];
             this.sumber_peruntukan_lain = _data["sumber_peruntukan_lain"];
+            this.jumlah = _data["jumlah"];
+            this.catatan = _data["catatan"];
         }
     }
 
@@ -25860,6 +25945,8 @@ export class CreateOrEditTabungPeruntukanDto implements ICreateOrEditTabungPerun
         data["no_rujukan"] = this.no_rujukan;
         data["id_sumber_peruntukan"] = this.id_sumber_peruntukan;
         data["sumber_peruntukan_lain"] = this.sumber_peruntukan_lain;
+        data["jumlah"] = this.jumlah;
+        data["catatan"] = this.catatan;
         return data; 
     }
 }
@@ -25872,6 +25959,8 @@ export interface ICreateOrEditTabungPeruntukanDto {
     no_rujukan: string;
     id_sumber_peruntukan: number;
     sumber_peruntukan_lain: string;
+    jumlah: number;
+    catatan: string;
 }
 
 export class GetTabungPeruntukanForEditDto implements IGetTabungPeruntukanForEditDto {
@@ -25918,6 +26007,8 @@ export class GetTabungPeruntukanForViewDto implements IGetTabungPeruntukanForVie
     no_rujukan!: string;
     id_sumber_peruntukan!: number;
     sumber_peruntukan_lain!: string;
+    jumlah!: number;
+    catatan!: string;
 
     constructor(data?: IGetTabungPeruntukanForViewDto) {
         if (data) {
@@ -25937,6 +26028,8 @@ export class GetTabungPeruntukanForViewDto implements IGetTabungPeruntukanForVie
             this.no_rujukan = _data["no_rujukan"];
             this.id_sumber_peruntukan = _data["id_sumber_peruntukan"];
             this.sumber_peruntukan_lain = _data["sumber_peruntukan_lain"];
+            this.jumlah = _data["jumlah"];
+            this.catatan = _data["catatan"];
         }
     }
 
@@ -25956,6 +26049,8 @@ export class GetTabungPeruntukanForViewDto implements IGetTabungPeruntukanForVie
         data["no_rujukan"] = this.no_rujukan;
         data["id_sumber_peruntukan"] = this.id_sumber_peruntukan;
         data["sumber_peruntukan_lain"] = this.sumber_peruntukan_lain;
+        data["jumlah"] = this.jumlah;
+        data["catatan"] = this.catatan;
         return data; 
     }
 }
@@ -25968,6 +26063,8 @@ export interface IGetTabungPeruntukanForViewDto {
     no_rujukan: string;
     id_sumber_peruntukan: number;
     sumber_peruntukan_lain: string;
+    jumlah: number;
+    catatan: string;
 }
 
 /** TabungPeruntukan List in Tabular model */
@@ -26028,6 +26125,13 @@ export class CreateOrEditTabungDto implements ICreateOrEditTabungDto {
     id!: number;
     nama_tabung!: string;
     status_tabung!: number;
+    tarikh_baki!: moment.Moment;
+    baki_bawaan!: number;
+    tarikh_akhir_peruntukan!: moment.Moment;
+    peruntukan!: number;
+    jumlah_keseluruhan!: number;
+    jumlah_baki_semasa!: number;
+    catatan!: string;
     id_pengguna_cipta!: number;
     tarikh_cipta!: moment.Moment;
     id_pengguna_kemaskini!: number;
@@ -26047,6 +26151,13 @@ export class CreateOrEditTabungDto implements ICreateOrEditTabungDto {
             this.id = _data["id"];
             this.nama_tabung = _data["nama_tabung"];
             this.status_tabung = _data["status_tabung"];
+            this.tarikh_baki = _data["tarikh_baki"] ? moment(_data["tarikh_baki"].toString()) : <any>undefined;
+            this.baki_bawaan = _data["baki_bawaan"];
+            this.tarikh_akhir_peruntukan = _data["tarikh_akhir_peruntukan"] ? moment(_data["tarikh_akhir_peruntukan"].toString()) : <any>undefined;
+            this.peruntukan = _data["peruntukan"];
+            this.jumlah_keseluruhan = _data["jumlah_keseluruhan"];
+            this.jumlah_baki_semasa = _data["jumlah_baki_semasa"];
+            this.catatan = _data["catatan"];
             this.id_pengguna_cipta = _data["id_pengguna_cipta"];
             this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
@@ -26066,6 +26177,13 @@ export class CreateOrEditTabungDto implements ICreateOrEditTabungDto {
         data["id"] = this.id;
         data["nama_tabung"] = this.nama_tabung;
         data["status_tabung"] = this.status_tabung;
+        data["tarikh_baki"] = this.tarikh_baki ? this.tarikh_baki.toISOString() : <any>undefined;
+        data["baki_bawaan"] = this.baki_bawaan;
+        data["tarikh_akhir_peruntukan"] = this.tarikh_akhir_peruntukan ? this.tarikh_akhir_peruntukan.toISOString() : <any>undefined;
+        data["peruntukan"] = this.peruntukan;
+        data["jumlah_keseluruhan"] = this.jumlah_keseluruhan;
+        data["jumlah_baki_semasa"] = this.jumlah_baki_semasa;
+        data["catatan"] = this.catatan;
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
@@ -26078,6 +26196,13 @@ export interface ICreateOrEditTabungDto {
     id: number;
     nama_tabung: string;
     status_tabung: number;
+    tarikh_baki: moment.Moment;
+    baki_bawaan: number;
+    tarikh_akhir_peruntukan: moment.Moment;
+    peruntukan: number;
+    jumlah_keseluruhan: number;
+    jumlah_baki_semasa: number;
+    catatan: string;
     id_pengguna_cipta: number;
     tarikh_cipta: moment.Moment;
     id_pengguna_kemaskini: number;
@@ -26124,6 +26249,13 @@ export class GetTabungForViewDto implements IGetTabungForViewDto {
     id!: number;
     nama_tabung!: string;
     status_tabung!: number;
+    tarikh_baki!: moment.Moment;
+    baki_bawaan!: number;
+    tarikh_akhir_peruntukan!: number;
+    peruntukan!: number;
+    jumlah_keseluruhan!: number;
+    jumlah_perbelanjaan_semasa!: number;
+    jumlah_baki_semasa!: number;
     id_pengguna_cipta!: number;
     tarikh_cipta!: moment.Moment;
     id_pengguna_kemaskini!: number;
@@ -26143,6 +26275,13 @@ export class GetTabungForViewDto implements IGetTabungForViewDto {
             this.id = _data["id"];
             this.nama_tabung = _data["nama_tabung"];
             this.status_tabung = _data["status_tabung"];
+            this.tarikh_baki = _data["tarikh_baki"] ? moment(_data["tarikh_baki"].toString()) : <any>undefined;
+            this.baki_bawaan = _data["baki_bawaan"];
+            this.tarikh_akhir_peruntukan = _data["tarikh_akhir_peruntukan"];
+            this.peruntukan = _data["peruntukan"];
+            this.jumlah_keseluruhan = _data["jumlah_keseluruhan"];
+            this.jumlah_perbelanjaan_semasa = _data["jumlah_perbelanjaan_semasa"];
+            this.jumlah_baki_semasa = _data["jumlah_baki_semasa"];
             this.id_pengguna_cipta = _data["id_pengguna_cipta"];
             this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
@@ -26162,6 +26301,13 @@ export class GetTabungForViewDto implements IGetTabungForViewDto {
         data["id"] = this.id;
         data["nama_tabung"] = this.nama_tabung;
         data["status_tabung"] = this.status_tabung;
+        data["tarikh_baki"] = this.tarikh_baki ? this.tarikh_baki.toISOString() : <any>undefined;
+        data["baki_bawaan"] = this.baki_bawaan;
+        data["tarikh_akhir_peruntukan"] = this.tarikh_akhir_peruntukan;
+        data["peruntukan"] = this.peruntukan;
+        data["jumlah_keseluruhan"] = this.jumlah_keseluruhan;
+        data["jumlah_perbelanjaan_semasa"] = this.jumlah_perbelanjaan_semasa;
+        data["jumlah_baki_semasa"] = this.jumlah_baki_semasa;
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
@@ -26174,6 +26320,13 @@ export interface IGetTabungForViewDto {
     id: number;
     nama_tabung: string;
     status_tabung: number;
+    tarikh_baki: moment.Moment;
+    baki_bawaan: number;
+    tarikh_akhir_peruntukan: number;
+    peruntukan: number;
+    jumlah_keseluruhan: number;
+    jumlah_perbelanjaan_semasa: number;
+    jumlah_baki_semasa: number;
     id_pengguna_cipta: number;
     tarikh_cipta: moment.Moment;
     id_pengguna_kemaskini: number;
