@@ -19,7 +19,13 @@
                     name="nama_tabung"
                     [(ngModel)]="getTabung.tabung.nama_tabung"
                     placeholder="Nama Tabung"
+                    #namaTabung="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && namaTabung.invalid }"
+                    required
                   />
+                  <div *ngIf="f.submitted && namaTabung.invalid" class="invalid-feedback">
+                    <div *ngIf="namaTabung.errors.required">Nama Tabung Wajib Diisi</div>
+                  </div>
 								</div>
 							</div>
 						</div>
@@ -27,13 +33,19 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Tarikh Baki</label>
+									<label>Tarikh Baki Semasa</label>
 									<input
                     class="form-control"
                     name="tarikhBaki"
                     type="date"
                     [(ngModel)]="tarikhBaki"
+                    #tarikhBakiSemasa="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && tarikhBakiSemasa.invalid }"
+                    required
                   />
+                  <div *ngIf="f.submitted && tarikhBakiSemasa.invalid" class="invalid-feedback">
+                    <div *ngIf="tarikhBakiSemasa.errors.required">Tarikh Baki Semasa Wajib Dipilih</div>
+                  </div>
 								</div>
 							</div>
 
@@ -98,7 +110,13 @@
                     name="jumlah_baki_semasa"
                     type="text"
                     [(ngModel)]="getTabung.tabung.jumlah_baki_semasa"
+                    #jumlahBakiSemasa="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && jumlahBakiSemasa.invalid }"
+                    required
                   />
+                  <div *ngIf="f.submitted && jumlahBakiSemasa.invalid" class="invalid-feedback">
+                    <div *ngIf="jumlahBakiSemasa.errors.required">Jumlah Baki Semasa Wajib Diisi</div>
+                  </div>
 								</div>
 							</div>
 						</div>
