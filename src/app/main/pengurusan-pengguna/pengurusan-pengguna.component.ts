@@ -81,6 +81,14 @@ export class PengurusanPenggunaComponent implements OnInit {
 			});
 	}
 
+  resetFilter() {
+    this.filter = undefined;
+    this.filterAgensi = undefined;
+    this.filterPeranan = undefined;
+
+    this.getUser();
+  }
+
   getAgensi(filter?) {
 		this._refAgensiServiceProxy.getRefAgensiForDropdown(filter).subscribe((result) => {
 			this.agencies = result.items;

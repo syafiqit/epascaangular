@@ -53,15 +53,15 @@
                       <div class="row mt-2">
                         <div class="col-lg-4">
                           <div class="form-group">
-                            <label>Bencana</label>
+                            <label>Sumber</label>
                             <ng-select
-                              [items]="disasters"
-                              bindLabel="nama_bencana"
-                              bindValue="id"
+                              [items]="agencies"
+                              bindLabel="nama_agensi"
+                              bindValue="nama_agensi"
                               placeholder="Sila Pilih"
                               class="js-example-placeholder-multiple"
-                              name="namaBencana"
-                              [(ngModel)]="filterBencana"
+                              name="namaAgensi"
+                              [(ngModel)]="filterAgensi"
                             ></ng-select>
                           </div>
                         </div>
@@ -80,76 +80,21 @@
                             ></ng-select>
                           </div>
                         </div>
-
-                        <div class="col-lg-4">
-                          <div class="form-group">
-                            <label>Daerah</label>
-                            <ng-select
-                              [items]="districts"
-                              bindLabel="nama_daerah"
-                              bindValue="id"
-                              placeholder="Sila Pilih"
-                              class="js-example-placeholder-multiple"
-                              name="namaDaerah"
-                              [(ngModel)]="filterDaerah"
-                            ></ng-select>
-                          </div>
-                        </div>
                       </div>
 
-                      <div class="row">
-                        <div class="col-lg-4">
-                          <div class="form-group">
-                            <label>Agensi</label>
-                            <ng-select
-                              [items]="agencies"
-                              bindLabel="nama_agensi"
-                              bindValue="nama_agensi"
-                              placeholder="Sila Pilih"
-                              class="js-example-placeholder-multiple"
-                              name="namaAgensi"
-                              [(ngModel)]="filterAgensi"
-                            ></ng-select>
-                          </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                          <div class="form-group">
-                            <label>Parlimen</label>
-                            <ng-select
-                              [items]="parliaments"
-                              bindLabel="nama_parlimen"
-                              bindValue="id"
-                              placeholder="Sila Pilih"
-                              class="js-example-placeholder-multiple"
-                              name="namaParlimen"
-                              [(ngModel)]="filterParlimen"
-                            ></ng-select>
-                          </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                          <div class="form-group">
-                            <label for="year">DUN</label>
-                            <ng-select
-                              [items]="dun"
-                              bindLabel="nama_dun"
-                              bindValue="id"
-                              placeholder="Sila Pilih"
-                              class="js-example-placeholder-multiple"
-                              name="namaDun"
-                              [(ngModel)]="filterDun"
-                            ></ng-select>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row justify-content-end mb-2">
+                      <div class="row no-gutters justify-content-end mb-2">
                         <button
-                          class="btn btn-primary mr-3"
+                          class="btn btn-light mr-2"
+                          type="reset"
+                          (click)="resetFilter()"
+                        >
+                        <i class="fa fa-refresh mr-2"></i>
+                          <b>Reset</b>
+                        </button>
+
+                        <button
+                          class="btn btn-primary pull-right"
                           type="button"
-                          (click)="isCollapsed = !isCollapsed"
-                          [attr.aria-expanded]="!isCollapsed"
                           (click)="getVictim()"
                         >
                         <i class="fa fa-search mr-2"></i>
@@ -164,7 +109,6 @@
           </div>
 
 					<div class="row align-items-center">
-						<!--<Primeng-TurboTable-Start>-->
 						<div class="primeng-datatable-container">
 							<p-table
 								#dataTable
@@ -179,12 +123,13 @@
 								[scrollable]="true"
 								ScrollWidth="100%"
 								[responsive]="primengTableHelper.isResponsive"
+                [resizableColumns]="primengTableHelper.resizableColumns"
 							>
 								<ng-template pTemplate="header">
 									<tr>
 										<th style="width: 130px">Tindakan</th>
-										<th style="width: 100px" pSortableColumn="no_kp">
-											No KP
+										<th style="width: 130px" pSortableColumn="no_kp">
+											No. Kad Pengenalan
 											<p-sortIcon field="no_kp"></p-sortIcon>
 										</th>
 										<th style="width: 130px" pSortableColumn="nama">
@@ -192,7 +137,7 @@
 											<p-sortIcon field="nama"></p-sortIcon>
 										</th>
 										<th style="width: 130px" pSortableColumn="status_mangsa">
-											Bil AIR
+											Bil. AIR
 											<p-sortIcon field="status_mangsa"></p-sortIcon>
 										</th>
 										<th style="width: 130px" pSortableColumn="jumlah_bantuan">
@@ -239,8 +184,8 @@
 												</div>
 											</div>
 										</td>
-										<td style="width: 100px">
-											<span class="p-column-title">No Kad Pengenalan</span>
+										<td style="width: 130px">
+											<span class="p-column-title">No. Kad Pengenalan</span>
 											{{record.no_kp}}
 										</td>
 										<td style="width: 130px">
@@ -248,7 +193,7 @@
 											{{record.nama}}
 										</td>
 										<td style="width: 130px">
-											<span class="p-column-title">Bil AIR</span>
+											<span class="p-column-title">Bil. AIR</span>
                       0
 											<!-- {{record.status_mangsa}} -->
 										</td>
@@ -286,7 +231,6 @@
 								</span>
 							</div>
 						</div>
-						<!--<Primeng-TurboTable-End>-->
 					</div>
 				</div>
 			</div>

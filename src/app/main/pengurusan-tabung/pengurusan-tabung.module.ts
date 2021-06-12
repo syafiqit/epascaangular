@@ -4,6 +4,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { PengurusanTabungRoutingModule } from './pengurusan-tabung-routing.module';
 import { TabungComponent } from './tabung/tabung.component';
 import { TambahEditTabungComponent } from './tabung/tambah-edit-tabung/tambah-edit-tabung.component';
@@ -12,6 +13,7 @@ import { TambahEditWangIhsanComponent } from './wang-ihsan/tambah-edit-wang-ihsa
 import { MukaHalamanTabungComponent } from './muka-halaman-tabung/muka-halaman-tabung.component';
 import { SkbComponent } from './skb/skb.component';
 import { TambahEditSkbComponent } from './skb/tambah-edit-skb/tambah-edit-skb.component';
+import { PilihanRujukanKelulusanComponent } from './skb/pilihan-rujukan-kelulusan/pilihan-rujukan-kelulusan.component';
 import { BayaranSecaraTerusComponent } from './bayaran-secara-terus/bayaran-secara-terus.component';
 import { TambahEditBayaranSecaraTerusComponent } from './bayaran-secara-terus/tambah-edit-bayaran-secara-terus/tambah-edit-bayaran-secara-terus.component';
 import { KelulusanComponent } from './kelulusan/kelulusan.component';
@@ -42,6 +44,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 		MukaHalamanTabungComponent,
 		SkbComponent,
 		TambahEditSkbComponent,
+    PilihanRujukanKelulusanComponent,
 		BayaranSecaraTerusComponent,
 		TambahEditBayaranSecaraTerusComponent,
 		KelulusanComponent,

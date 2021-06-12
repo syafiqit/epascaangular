@@ -6,11 +6,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import {
   MangsaServiceProxy,
   RefAgensiServiceProxy,
-  RefBencanaServiceProxy,
-  RefDaerahServiceProxy,
-  RefDunServiceProxy,
-  RefNegeriServiceProxy,
-  RefParlimenServiceProxy
+  RefNegeriServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { finalize } from 'rxjs/operators';
 import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -38,11 +34,7 @@ export class PengurusanMangsaComponent implements OnInit {
   filterBencana: number;
 
 	public isCollapsed = false;
-  dun: any;
-  parliaments: any;
-  districts: any;
   states: any;
-  disasters: any;
   agencies: any;
 
 	items = [{ data: 'Nama' }, { data: 'No Kad Pengenalan' }];
@@ -50,11 +42,7 @@ export class PengurusanMangsaComponent implements OnInit {
 	constructor(
 		config: NgbModalConfig,
     private _mangsaServiceProxy: MangsaServiceProxy,
-    private _refBencanaServiceProxy: RefBencanaServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
-    private _refDunServiceProxy: RefDunServiceProxy,
-    private _refParlimenServiceProxy: RefParlimenServiceProxy,
-    private _refDaerahServiceProxy: RefDaerahServiceProxy,
     private _refNegeriServiceProxy: RefNegeriServiceProxy
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
@@ -63,11 +51,7 @@ export class PengurusanMangsaComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-    this.getDun();
-    this.getParlimen();
-    this.getDaerah();
     this.getNegeri();
-    this.getBencana();
     this.getAgensi();
   }
 
@@ -100,33 +84,17 @@ export class PengurusanMangsaComponent implements OnInit {
 			});
 	}
 
-  getDun(filter?) {
-		this._refDunServiceProxy.getRefDunForDropdown(filter).subscribe((result) => {
-			this.dun = result.items;
-		});
-	}
+  resetFilter() {
+    this.filter = undefined;
+    this.filterAgensi = undefined;
+    this.filterNegeri = undefined;
 
-  getParlimen(filter?) {
-		this._refParlimenServiceProxy.getRefParlimenForDropdown(filter).subscribe((result) => {
-			this.parliaments = result.items;
-		});
-	}
-
-  getDaerah(filter?) {
-		this._refDaerahServiceProxy.getRefDaerahForDropdown(filter).subscribe((result) => {
-			this.districts = result.items;
-		});
-	}
+    this.getVictim();
+  }
 
   getNegeri(filter?) {
 		this._refNegeriServiceProxy.getRefNegeriForDropdown(filter).subscribe((result) => {
 			this.states = result.items;
-		});
-	}
-
-  getBencana(filter?) {
-		this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
-			this.disasters = result.items;
 		});
 	}
 

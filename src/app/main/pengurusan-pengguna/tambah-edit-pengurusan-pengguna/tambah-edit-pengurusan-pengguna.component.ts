@@ -5,7 +5,17 @@ import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { ColumnMode, id, SortType } from '@swimlane/ngx-datatable';
 import { ActivatedRoute } from '@angular/router';
-import { CreateOrEditPenggunaDto, CreatePenggunaDto, EditUserDto, GetUserForEditDto, RefAgensiServiceProxy, RefDaerahServiceProxy, RefKementerianServiceProxy, RefNegeriServiceProxy, UserServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import {
+  CreateOrEditPenggunaDto,
+  CreatePenggunaDto,
+  EditUserDto,
+  GetUserForEditDto,
+  RefAgensiServiceProxy,
+  RefDaerahServiceProxy,
+  RefKementerianServiceProxy,
+  RefNegeriServiceProxy,
+  UserServiceProxy
+} from 'src/app/shared/proxy/service-proxies';
 declare let require;
 const Swal = require('sweetalert2');
 
