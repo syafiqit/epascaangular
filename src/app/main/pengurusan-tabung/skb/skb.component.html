@@ -1,5 +1,5 @@
 <app-breadcrumb
-	[title]="'Belanja Secara Kuasa Kebenaran Berbelanja Kumpulan Wang Amanah Bantuan Bencana Negara (KWABBN)'"
+	[title]="'Surat Kuasa Belanja KWABBN'"
 	[items]="['Pengurusan Tabung','Pembayaran']"
 	[active_item]="['SKB']"
 ></app-breadcrumb>
@@ -7,28 +7,111 @@
 	<div class="container-fluid">
 		<div class="card card-custom gutter-b">
 			<div class="card-body">
-				<div class="row justify-content-end mb-2">
-					<button class="btn btn-primary" type="button" [routerLink]="['/app/tabung/tambah-edit-skb']">
-						<i class="fa fa-plus mr-2"></i>
-						Tambah
-					</button>
-				</div>
-				<div class="row mb-2">
-					<input type="text" class="form-control" placeholder="Carian..." />
-				</div>
-				<div class="row align-items-center">
-					<!--<Primeng-TurboTable-Start>-->
-					<div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+				<div class="row">
+          <div class="col-6 justify-content-start pl-0">
+            <div class="faq-form">
+              <input
+                class="form-control"
+                type="text"
+                name="searchSKB"
+                placeholder="Carian..."
+                [(ngModel)]="filter"
+                (keyup.enter)="getSKB()"
+              />
+              <i class="search-icon" data-feather="search"></i>
+            </div>
+          </div>
+
+          <div class="col-2 justify-content-between pl-0">
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="isCollapsed = !isCollapsed"
+              [attr.aria-expanded]="!isCollapsed"
+              aria-controls="collapseExample"
+              title="Carian Lanjut"
+              style="font-weight: 500"
+            >
+              <i class="fa fa-filter"></i>
+            </button>
+          </div>
+
+          <div class="col-4 justify-content-end pr-0">
+            <button
+                [routerLink]="['/app/tabung/tambah-edit-skb']"
+                class="btn btn-primary pull-right"
+              >
+                <i class="fa fa-plus mr-2"></i>
+                <b>Tambah</b>
+              </button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="row">
+              <div class="col-lg-12">
+                <div id="collapseExample" [ngbCollapse]="!isCollapsed">
+                  <form>
+                    <div class="row mt-3">
+                      <div class="col-lg-4">
+                        <div class="form-group">
+                          <label>Agensi</label>
+                          <ng-select
+                            [items]="agencies"
+                            bindLabel="nama_agensi"
+                            bindValue="id"
+                            placeholder="Sila Pilih"
+                            class="js-example-placeholder-multiple"
+                            name="namaAgensi"
+                          ></ng-select>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-4">
+                        <div class="form-group">
+                          <label>Tabung</label>
+                          <ng-select
+                            [items]="funds"
+                            bindLabel="nama_tabung"
+                            bindValue="id"
+                            placeholder="Sila Pilih"
+                            class="js-example-placeholder-multiple"
+                            name="namaTabung"
+                          ></ng-select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row pr-3 justify-content-end">
+                      <button
+                          class="btn btn-primary pull-right"
+                          type="button"
+                          (click)="getSKB()"
+                        >
+                        <i class="fa fa-search mr-2"></i>
+                          <b>Cari</b>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+				<div class="row mt-3 align-items-center">
+					<div class="primeng-datatable-container">
 						<p-table
 							#dataTable
 							styleClass="p-datatable-striped"
-							sortMode="multiple"
 							[resizableColumns]="true"
 							(onLazyLoad)="getSKB($event)"
 							[value]="primengTableHelper.records"
 							rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
 							[paginator]="false"
 							[lazy]="true"
+              [loading]="primengTableHelper.isLoading"
 							[scrollable]="true"
 							ScrollWidth="100%"
 							[responsive]="primengTableHelper.isResponsive"
@@ -37,49 +120,45 @@
 							<ng-template pTemplate="header">
 								<tr>
 									<th style="width: 150px">Tindakan</th>
-									<th style="width: 150px" pSortableColumn="ruj_lulus">
+									<th style="width: 150px" pSortableColumn="no_rujukan_kelulusan">
 										No. Rujukan Kelulusan
-										<p-sortIcon field="ruj_lulus"></p-sortIcon>
+										<p-sortIcon field="no_rujukan_kelulusan"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="ruj_skb">
+									<th style="width: 130px" pSortableColumn="no_rujukan_skb">
 										No. Rujukan SKB
-										<p-sortIcon field="ruj_skb"></p-sortIcon>
+										<p-sortIcon field="no_rujukan_skb"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="pegawai">
+									<th style="width: 130px" pSortableColumn="jawatan">
 										Pegawai
-										<p-sortIcon field="pegawai"></p-sortIcon>
+										<p-sortIcon field="jawatan"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="agensi">
+									<th style="width: 130px" pSortableColumn="nama_agensi">
 										Agensi
-										<p-sortIcon field="agensi"></p-sortIcon>
+										<p-sortIcon field="nama_agensi"></p-sortIcon>
 									</th>
-									<th style="width: 120px" pSortableColumn="kategori_tabung">
-										Kategori Tabung
-										<p-sortIcon field="kategori_tabung"></p-sortIcon>
+									<th style="width: 120px" pSortableColumn="nama_tabung">
+										Tabung
+										<p-sortIcon field="nama_tabung"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="tarikh_mula">
+									<th style="width: 130px" pSortableColumn="jumlah_siling_peruntukan">
+										Siling Peruntukan
+										<p-sortIcon field="jumlah_siling_peruntukan"></p-sortIcon>
+									</th>
+									<th style="width: 160px" pSortableColumn="jumlah_baki_peruntukan">
+										Baki Peruntukan
+										<p-sortIcon field="jumlah_baki_peruntukan"></p-sortIcon>
+									</th>
+									<th style="width: 160px" pSortableColumn="jumlah_belanja">
+										Jumlah Belanja
+										<p-sortIcon field="jumlah_belanja"></p-sortIcon>
+									</th>
+									<th style="width: 100px" pSortableColumn="tarikh_mula">
 										Tarikh Mula
 										<p-sortIcon field="tarikh_mula"></p-sortIcon>
 									</th>
 									<th style="width: 100px" pSortableColumn="tarikh_tamat">
 										Tarikh Tamat
 										<p-sortIcon field="tarikh_tamat"></p-sortIcon>
-									</th>
-									<th style="width: 130px" pSortableColumn="siling_peruntukan">
-										Siling Peruntukan
-										<p-sortIcon field="siling_peruntukan"></p-sortIcon>
-									</th>
-									<th style="width: 160px" pSortableColumn="baki_peruntukan">
-										Baki Peruntukan
-										<p-sortIcon field="baki_peruntukan"></p-sortIcon>
-									</th>
-									<th style="width: 160px" pSortableColumn="jumlah_belanja">
-										Jumlah Belanja
-										<p-sortIcon field="jumlah_belanja"></p-sortIcon>
-									</th>
-									<th style="width: 130px" pSortableColumn="status">
-										Status
-										<p-sortIcon field="status"></p-sortIcon>
 									</th>
 								</tr>
 							</ng-template>
@@ -101,6 +180,7 @@
 												<button
 													class="dropdown-item"
 													[routerLink]="['/app/tabung/tambah-edit-skb']"
+                          [queryParams]="{id: record.id}"
 												>
 													Lihat
 												</button>
@@ -110,47 +190,43 @@
 									</td>
 									<td style="width: 150px">
 										<span class="p-column-title">No. Rujukan Kelulusan</span>
-										{{record.approvalRef}}
+										{{record.no_rujukan_kelulusan}}
 									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">No. Rujukan SKB</span>
-										{{record.skbRef}}
+										{{record.no_rujukan_skb}}
 									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">Pegawai</span>
-										{{record.officer}}
+										{{record.jawatan}}
 									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">Agensi</span>
-										{{record.agency}}
+										{{record.nama_agensi}}
 									</td>
 									<td style="width: 120px">
-										<span class="p-column-title">Kategori Tabung</span>
-										{{record.fundCategory}}
-									</td>
-									<td style="width: 130px">
-										<span class="p-column-title">Tarikh Mula</span>
-										{{record.startDate}}
-									</td>
-									<td style="width: 100px">
-										<span class="p-column-title">Tarikh Tamat</span>
-										{{record.endDate}}
+										<span class="p-column-title">Tabung</span>
+										{{record.nama_tabung}}
 									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">Siling Peruntukan</span>
-										{{record.ceilingAllocate}}
+										{{record.jumlah_siling_peruntukan}}
 									</td>
 									<td style="width: 160px">
 										<span class="p-column-title">Baki Peruntukan</span>
-										{{record.balAllocate}}
+										{{record.jumlah_baki_peruntukan}}
 									</td>
 									<td style="width: 160px">
 										<span class="p-column-title">Jumlah Belanja</span>
-										{{record.totalExp}}
+										{{record.jumlah_belanja}}
 									</td>
-									<td style="width: 130px">
-										<span class="p-column-title">Status</span>
-										{{record.status}}
+									<td style="width: 100px">
+										<span class="p-column-title">Tarikh Mula</span>
+										{{record.tarikh_mula}}
+									</td>
+									<td style="width: 100px">
+										<span class="p-column-title">Tarikh Tamat</span>
+										{{record.tarikh_tamat}}
 									</td>
 								</tr>
 							</ng-template>
@@ -167,7 +243,6 @@
 							<span class="total-records-count">Jumlah: {{ primengTableHelper.totalRecordsCount}}</span>
 						</div>
 					</div>
-					<!--<Primeng-TurboTable-End>-->
 				</div>
 			</div>
 		</div>

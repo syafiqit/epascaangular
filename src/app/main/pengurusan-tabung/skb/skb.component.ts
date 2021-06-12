@@ -1,56 +1,48 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
-import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute } from '@angular/router';
+import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
+import { finalize } from 'rxjs/operators';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
+import { RefAgensiServiceProxy, TabungBayaranSkbServiceProxy, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
 
 @Component({
 	selector: 'app-skb',
 	templateUrl: './skb.component.html',
 	encapsulation: ViewEncapsulation.None,
-	providers: [NgbModalConfig, NgbModal]
+	providers: [NgbModalConfig]
 })
 export class SkbComponent implements OnInit {
 	@ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
 	primengTableHelper: PrimengTableHelper;
+	public isCollapsed = false;
 
-	rows = [
-		{
-			approvalRef: 'AXXXXX',
-			skbRef: 'SKBXXX',
-			officer: 'Setiausaha Kerajaan',
-			agency: 'SUK Negeri Kedah',
-			fundCategory: 'Bukan Covid',
-			startDate: '23/10/2019',
-			endDate: '30/6/2020',
-			ceilingAllocate: '510000.00',
-			balAllocate: '510000.00',
-			totalExp: '-',
-			status: 'Tamat Tempoh'
-		},
-		{
-			approvalRef: 'AXXXXX',
-			skbRef: 'SKBXXX',
-			officer: 'Setiausaha Kerajaan',
-			agency: 'APM Negeri Johor ',
-			fundCategory: 'Bukan Covid',
-			startDate: '25/10/2019',
-			endDate: '31/3/2020',
-			ceilingAllocate: '20000.00',
-			balAllocate: '15000.00',
-			totalExp: '5000',
-			status: 'Lanjut'
-		}
-	];
+  idSkb: any;
+	filter: string;
+  agencies: any;
+  funds: any;
 
-	constructor(config: NgbModalConfig, private modalService: NgbModal) {
+	constructor(
+    config: NgbModalConfig,
+    private _activatedRoute: ActivatedRoute,
+    private _tabungBayaranSkbServiceProxy: TabungBayaranSkbServiceProxy,
+    private _refAgensiServiceProxy: RefAgensiServiceProxy,
+    private _tabungServiceProxy: TabungServiceProxy
+  ) {
+    this.idSkb = this._activatedRoute.snapshot.queryParams['id'];
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
 	}
+
+	ngOnInit(): void {
+    this.getAgensi();
+    this.getTabung();
+  }
 
 	getSKB(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
@@ -59,14 +51,40 @@ export class SkbComponent implements OnInit {
 		}
 
 		this.primengTableHelper.showLoadingIndicator();
-		this.primengTableHelper.totalRecordsCount = this.rows.length;
-		this.primengTableHelper.records = this.rows;
-		this.primengTableHelper.hideLoadingIndicator();
+		this._tabungBayaranSkbServiceProxy
+			.getAll(
+				this.filter,
+				this.primengTableHelper.getSorting(this.dataTable),
+				this.primengTableHelper.getSkipCount(this.paginator, event),
+				this.primengTableHelper.getMaxResultCount(this.paginator, event)
+			)
+      .pipe(finalize(()=> {
+        this.primengTableHelper.hideLoadingIndicator();
+      }))
+			.subscribe((result) => {
+				this.primengTableHelper.totalRecordsCount = result.total_count;
+				this.primengTableHelper.records = result.items;
+			});
 	}
 
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
 	}
 
-	ngOnInit(): void {}
+  getAgensi(filter?) {
+		this._refAgensiServiceProxy.getRefAgensiForDropdown(filter).subscribe((result) => {
+			this.agencies = result.items;
+		});
+	}
+
+  getTabung(filter?) {
+		this._tabungServiceProxy.getTabungForDropdown(filter).subscribe((result) => {
+			this.funds = result.items;
+		});
+	}
+
+  resetFilter() {
+    this.filter = undefined;
+    this.getSKB();
+  }
 }

@@ -1,0 +1,79 @@
+<div class="modal-header">
+	<h5 class="modal-title" *ngIf="name === 'add'">Tambah Belanja Bulanan</h5>
+	<h5 class="modal-title" *ngIf="name === 'edit'">Kemaskini Belanja Bulanan</h5>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-6">
+				<div class="form-group">
+					<label class="col-form-label">Bulan</label>
+					<input
+						class="form-control"
+						type="text"
+						placeholder="Bulan"
+						name="bulan_belanja"
+						[(ngModel)]="skbBulanan.bulan"
+						#bulanBelanja="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && bulanBelanja.invalid }"
+						required
+            onlyAlphabets
+					/>
+					<div *ngIf="f.submitted && bulanBelanja.invalid" class="invalid-feedback">
+						<div *ngIf="bulanBelanja.errors.required">Bulan Wajib Diisi</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-6">
+				<div class="form-group">
+					<label class="col-form-label">Tahun</label>
+					<input
+						class="form-control"
+						type="text"
+						placeholder="Tahun"
+						name="tahun_belanja"
+						[(ngModel)]="skbBulanan.tahun"
+						#tahunBelanja="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && tahunBelanja.invalid }"
+						required
+            onlyNumbers
+					/>
+					<div *ngIf="f.submitted && tahunBelanja.invalid" class="invalid-feedback">
+						<div *ngIf="tahunBelanja.errors.required">Tahun Wajib Diisi</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-6">
+				<div class="form-group">
+					<label class="col-form-label">Jumlah Belanja (RM)</label>
+					<input
+						class="form-control"
+						type="text"
+						placeholder="Jumlah Belanja"
+						name="jumlah_belanja"
+						[(ngModel)]="skbBulanan.tahun"
+						#jumlahBelanja="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && jumlahBelanja.invalid }"
+						required
+            onlyNumbers
+					/>
+					<div *ngIf="f.submitted && jumlahBelanja.invalid" class="invalid-feedback">
+						<div *ngIf="jumlahBelanja.errors.required">Jumlah Belanja Wajib Diisi</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-light" (click)="activeModal.close(false)">Tutup</button>
+		<button type="submit" class="btn btn-primary">Simpan</button>
+	</div>
+</form>
