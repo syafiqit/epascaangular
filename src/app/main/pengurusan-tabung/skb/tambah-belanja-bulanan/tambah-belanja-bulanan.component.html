@@ -5,7 +5,7 @@
 		<span aria-hidden="true">&times;</span>
 	</button>
 </div>
-<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
+<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save(bulanan.tahun, bulanan.bulan, bulanan.jumlah)" novalidate>
 	<div class="modal-body">
 		<div class="row">
 			<div class="col-6">
@@ -16,7 +16,7 @@
 						type="text"
 						placeholder="Bulan"
 						name="bulan_belanja"
-						[(ngModel)]="skbBulanan.bulan"
+						[(ngModel)]="bulanan.bulan"
 						#bulanBelanja="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && bulanBelanja.invalid }"
 						required
@@ -36,7 +36,7 @@
 						type="text"
 						placeholder="Tahun"
 						name="tahun_belanja"
-						[(ngModel)]="skbBulanan.tahun"
+						[(ngModel)]="bulanan.tahun"
 						#tahunBelanja="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && tahunBelanja.invalid }"
 						required
@@ -58,7 +58,7 @@
 						type="text"
 						placeholder="Jumlah Belanja"
 						name="jumlah_belanja"
-						[(ngModel)]="skbBulanan.tahun"
+						[(ngModel)]="bulanan.jumlah"
 						#jumlahBelanja="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && jumlahBelanja.invalid }"
 						required

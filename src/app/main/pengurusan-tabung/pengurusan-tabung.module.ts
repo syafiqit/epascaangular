@@ -12,8 +12,10 @@ import { WangIhsanComponent } from './wang-ihsan/wang-ihsan.component';
 import { TambahEditWangIhsanComponent } from './wang-ihsan/tambah-edit-wang-ihsan/tambah-edit-wang-ihsan.component';
 import { MukaHalamanTabungComponent } from './muka-halaman-tabung/muka-halaman-tabung.component';
 import { SkbComponent } from './skb/skb.component';
-import { TambahEditSkbComponent } from './skb/tambah-edit-skb/tambah-edit-skb.component';
+import { TambahSkbComponent } from './skb/tambah-skb/tambah-skb.component';
+import { EditSkbComponent } from './skb/edit-skb/edit-skb.component';
 import { PilihanRujukanKelulusanComponent } from './skb/pilihan-rujukan-kelulusan/pilihan-rujukan-kelulusan.component';
+import { TambahBelanjaBulanan } from './skb/tambah-belanja-bulanan/tambah-belanja-bulanan.component';
 import { BayaranSecaraTerusComponent } from './bayaran-secara-terus/bayaran-secara-terus.component';
 import { TambahEditBayaranSecaraTerusComponent } from './bayaran-secara-terus/tambah-edit-bayaran-secara-terus/tambah-edit-bayaran-secara-terus.component';
 import { KelulusanComponent } from './kelulusan/kelulusan.component';
@@ -24,7 +26,6 @@ import { TambahKetuaIsiRumahComponent } from './wang-ihsan/tambah-ketua-isi-ruma
 import { TambahNoRujukanComponent } from './wang-ihsan/tambah-no-rujukan/tambah-no-rujukan.component';
 import { EditTabungComponent } from './tabung/edit-tabung/edit-tabung.component';
 import { TambahPeruntukanComponent } from './tabung/edit-tabung/tambah-peruntukan/tambah-peruntukan.component';
-import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
 	imports: [
@@ -43,8 +44,10 @@ import { NgSelectModule } from '@ng-select/ng-select';
 		TambahEditWangIhsanComponent,
 		MukaHalamanTabungComponent,
 		SkbComponent,
-		TambahEditSkbComponent,
+		TambahSkbComponent,
+    EditSkbComponent,
     PilihanRujukanKelulusanComponent,
+    TambahBelanjaBulanan,
 		BayaranSecaraTerusComponent,
 		TambahEditBayaranSecaraTerusComponent,
 		KelulusanComponent,
