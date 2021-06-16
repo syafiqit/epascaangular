@@ -15,6 +15,7 @@ import {
   SessionServiceProxy,
   GetProfilDto
 } from 'src/app/shared/proxy/service-proxies';
+import { Router } from '@angular/router';
 declare let require;
 const Swal = require('sweetalert2');
 
@@ -49,7 +50,8 @@ export class TambahPengurusanMangsaComponent implements OnInit {
     private _refNegeriServiceProxy: RefNegeriServiceProxy,
     private _refBencanaServiceProxy: RefBencanaServiceProxy,
     private _refPindahServiceProxy: RefPindahServiceProxy,
-    private _sessionServiceProxy: SessionServiceProxy
+    private _sessionServiceProxy: SessionServiceProxy,
+    private router: Router
   ) {
     this.latest_date = this.datePipe.transform(this.dateNow, 'dd-MM-yyyy');
 		this.addMangsa = new InputCreateMangsaDto();
@@ -142,7 +144,7 @@ export class TambahPengurusanMangsaComponent implements OnInit {
 			)
 			.subscribe(() => {
 				Swal.fire('Berjaya!', 'Pendaftaran Mangsa Berjaya Disimpan!', 'success').then(() => {
-					location.href = '/app/mangsa/senarai-pengurusan-mangsa';
+					this.router.navigateByUrl('/app/mangsa/senarai-pengurusan-mangsa');
 				});
 			});
     }

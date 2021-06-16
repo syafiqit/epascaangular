@@ -13,13 +13,12 @@ import {
   InputSkbBulananDto,
   RefAgensiServiceProxy,
   TabungBayaranSkbBulananServiceProxy,
-  TabungBayaranSkbServiceProxy,
-  TabungKelulusanServiceProxy
+  TabungBayaranSkbServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { TambahBelanjaBulanan } from '../tambah-belanja-bulanan/tambah-belanja-bulanan.component';
 import * as moment from 'moment';
 import { finalize } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 declare let require;
 const Swal = require('sweetalert2');
 @Component({
@@ -58,7 +57,8 @@ export class EditSkbComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private _tabungBayaranSkbServiceProxy: TabungBayaranSkbServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
-    private _tabungBayaranSkbBulananServiceProxy: TabungBayaranSkbBulananServiceProxy
+    private _tabungBayaranSkbBulananServiceProxy: TabungBayaranSkbBulananServiceProxy,
+    private router: Router
   ) {
     this.idSkb = this._activatedRoute.snapshot.queryParams['id'];
     this.primengTableHelper = new PrimengTableHelper();
@@ -187,7 +187,7 @@ export class EditSkbComponent implements OnInit {
 			.pipe()
 			.subscribe((result) => {
 				Swal.fire('Berjaya!', 'Maklumat Surat Kuasa Belanja Berjaya Dikemaskini.', 'success').then(() => {
-					location.href = '/app/tabung/senarai-skb';
+					this.router.navigateByUrl('/app/tabung/senarai-skb');
 				});
 			});
 	}
