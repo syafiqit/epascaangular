@@ -14,6 +14,7 @@ import {
 } from 'src/app/shared/proxy/service-proxies';
 import { TambahBelanjaBulanan } from '../tambah-belanja-bulanan/tambah-belanja-bulanan.component';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
 declare let require;
 const Swal = require('sweetalert2');
 @Component({
@@ -49,7 +50,8 @@ export class TambahSkbComponent implements OnInit {
     private modalService: NgbModal,
     public activeModal: NgbActiveModal,
     private _tabungBayaranSkbServiceProxy: TabungBayaranSkbServiceProxy,
-    private _refAgensiServiceProxy: RefAgensiServiceProxy
+    private _refAgensiServiceProxy: RefAgensiServiceProxy,
+    private router: Router
   ) {
     this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
@@ -123,30 +125,6 @@ export class TambahSkbComponent implements OnInit {
 		);
 	}
 
-  deleteBulanan(tahun?, bulan?, jumlah?) {
-    const index: number = this.rows.indexOf(tahun);
-    const index2: number = this.rowsId.indexOf(bulan);
-    const index3: number = this.idRows.indexOf(jumlah);
-
-    if (index !== -1) {
-        this.rows.splice(index, 1);
-        this.getAddSKB();
-        console.log(this.rows);
-    }
-
-    if (index2 !== -1) {
-      this.rowsId.splice(index2, 1);
-      this.getAddSKB();
-      console.log(this.rowsId);
-    }
-
-    if (index3 !== -1) {
-      this.idRows.splice(index3, 1);
-      this.getAddSKB();
-      console.log(this.idRows);
-    }
-	}
-
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
 	}
@@ -180,7 +158,7 @@ export class TambahSkbComponent implements OnInit {
 			.pipe()
 			.subscribe((result) => {
 				Swal.fire('Berjaya!', 'Maklumat Surat Kuasa Belanja Berjaya Dihantar.', 'success').then(() => {
-					location.href = '/app/tabung/senarai-skb';
+          this.router.navigateByUrl('/app/tabung/senarai-skb');
 				});
 			});
 	}
