@@ -41,6 +41,7 @@ export class TambahSkbComponent implements OnInit {
   saving = false;
   tarikhMula: string;
   tarikhTamat: string;
+  idBulan: number = 0;
   rows = [];
   rowsId = [];
   idRows = [];
@@ -89,22 +90,21 @@ export class TambahSkbComponent implements OnInit {
     modalRef.result.then(
 			(response) => {
 				if (response) {
-          this.rows.push({ tahun: response.tahun, bulan: response.bulan, jumlah: response.jumlah });
+          this.idBulan = this.idBulan + 1;
+          this.rows.push({ id: this.idBulan, tahun: response.tahun, bulan: response.bulan, jumlah: response.jumlah });
           this.getAddSKB();
-          const monthly = new InputSkbBulananDto();
-          monthly.tahun = response.tahun;
-          monthly.bulan = response.bulan;
-          monthly.jumlah = response.jumlah;
-          this.bulanan.push(monthly);
 				}
 			},
 			() => {}
 		);
 	}
 
-  editBulanan(tahun, bulan, jumlah) {
+
+  editBulanan(idBulan, tahun, bulan, jumlah) {
 		const modalRef = this.modalService.open(TambahBelanjaBulanan, { size: 'lg' });
 		modalRef.componentInstance.name = 'edit';
+    modalRef.componentInstance.kategori = 1;
+		modalRef.componentInstance.idBulan = idBulan;
 		modalRef.componentInstance.tahun = tahun;
 		modalRef.componentInstance.bulan = bulan;
 		modalRef.componentInstance.jumlah = jumlah;
@@ -112,17 +112,22 @@ export class TambahSkbComponent implements OnInit {
     modalRef.result.then(
 			(response) => {
 				if (response) {
-          this.rows.push({ tahun: response.tahun, bulan: response.bulan, jumlah: response.jumlah });
+          let d = this.rows.find(e => e.id == response.id);
+          d.tahun = response.tahun;
+          d.bulan = response.bulan;
+          d.jumlah = response.jumlah;
           this.getAddSKB();
-          const monthly = new InputSkbBulananDto();
-          monthly.tahun = response.tahun;
-          monthly.bulan = response.bulan;
-          monthly.jumlah = response.jumlah;
-          this.bulanan.push(monthly);
+
 				}
 			},
 			() => {}
 		);
+	}
+
+  deleteBulanan(id) {
+    const index = this.rows.indexOf(id);
+    this.rows.splice(index, 1);
+    this.getAddSKB();
 	}
 
 	reloadPage(): void {
@@ -146,6 +151,14 @@ export class TambahSkbComponent implements OnInit {
 
 	save() {
     this.saving = true;
+    for(let i = 0; i < this.rows.length; i++){
+      const monthly = new InputSkbBulananDto();
+      monthly.tahun = this.rows[i].tahun;
+      monthly.bulan = this.rows[i].bulan;
+      monthly.jumlah = this.rows[i].jumlah;
+      this.bulanan.push(monthly);
+    }
+
     this.bayaranSKB.skb = this.skb;
     this.bayaranSKB.skb.tarikh_mula = moment(this.tarikhMula);
     this.bayaranSKB.skb.tarikh_tamat = moment(this.tarikhTamat);

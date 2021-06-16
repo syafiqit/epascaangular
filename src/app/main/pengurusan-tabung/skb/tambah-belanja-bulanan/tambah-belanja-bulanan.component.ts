@@ -12,6 +12,7 @@ const Swal = require('sweetalert2');
 export class TambahBelanjaBulanan implements OnInit {
 	@Input() name;
 	@Input() id;
+  @Input() idBulan;
 	@Input() tahun;
 	@Input() bulan;
 	@Input() jumlah;
@@ -44,9 +45,12 @@ export class TambahBelanjaBulanan implements OnInit {
 		}
 	}
 
-	save(tahun, bulan, jumlah): void {
-    if (this.kategori == 1) {
-      this.activeModal.close({ tahun: tahun, bulan: bulan, jumlah: jumlah });
+	save(id, tahun, bulan, jumlah): void {
+    if (this.kategori == 1 && !this.idBulan) {
+      this.activeModal.close({tahun: tahun, bulan: bulan, jumlah: jumlah });
+    }
+    else if (this.kategori ==1 && this.idBulan){
+      this.activeModal.close({ id: this.idBulan, tahun: tahun, bulan: bulan, jumlah: jumlah });
     }
     else {
       this.saving = true;

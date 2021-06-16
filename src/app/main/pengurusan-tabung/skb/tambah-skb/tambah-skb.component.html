@@ -206,9 +206,15 @@
                             <div ngbDropdownMenu aria-labelledby="action">
                               <button
                                 class="dropdown-item"
-                                (click)="editBulanan(record.tahun, record.bulan, record.jumlah)"
+                                (click)="editBulanan(record.id, record.tahun, record.bulan, record.jumlah)"
                               >
                                 Kemaskini
+                              </button>
+                              <button
+                                class="dropdown-item"
+                                (click)="deleteBulanan(record.id)"
+                              >
+                                Padam
                               </button>
                             </div>
                           </div>
