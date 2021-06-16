@@ -5,7 +5,8 @@ import { WangIhsanComponent } from './wang-ihsan/wang-ihsan.component';
 import { TambahEditWangIhsanComponent } from './wang-ihsan/tambah-edit-wang-ihsan/tambah-edit-wang-ihsan.component';
 import { MukaHalamanTabungComponent } from './muka-halaman-tabung/muka-halaman-tabung.component';
 import { SkbComponent } from './skb/skb.component';
-import { TambahEditSkbComponent } from './skb/tambah-edit-skb/tambah-edit-skb.component';
+import { TambahSkbComponent } from './skb/tambah-skb/tambah-skb.component';
+import { EditSkbComponent } from './skb/edit-skb/edit-skb.component';
 import { BayaranSecaraTerusComponent } from './bayaran-secara-terus/bayaran-secara-terus.component';
 import { TambahEditBayaranSecaraTerusComponent } from './bayaran-secara-terus/tambah-edit-bayaran-secara-terus/tambah-edit-bayaran-secara-terus.component';
 import { KelulusanComponent } from './kelulusan/kelulusan.component';
@@ -38,8 +39,12 @@ const routes: Routes = [
 				component: SkbComponent
 			},
 			{
-				path: 'tambah-edit-skb',
-				component: TambahEditSkbComponent
+				path: 'tambah-skb',
+				component: TambahSkbComponent
+			},
+			{
+				path: 'edit-skb',
+				component: EditSkbComponent
 			},
 			{
 				path: 'senarai-bayaran-secara-terus',

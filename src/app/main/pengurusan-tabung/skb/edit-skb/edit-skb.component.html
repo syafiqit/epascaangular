@@ -1,12 +1,7 @@
-<app-breadcrumb *ngIf="idSkb"
+<app-breadcrumb
 	[title]="'Kemaskini Surat Kuasa Belanja KWABBN'"
 	[items]="['Pengurusan Tabung','Pembayaran']"
 	[active_item]="'Kemaskini SKB'"
-></app-breadcrumb>
-<app-breadcrumb *ngIf="!idSkb"
-	[title]="'Tambah Surat Kuasa Belanja KWABBN'"
-	[items]="['Pengurusan Tabung','Pembayaran']"
-	[active_item]="['Tambah SKB']"
 ></app-breadcrumb>
 
 <div class="container-fluid">
@@ -27,9 +22,9 @@
                       placeholder="No. Rujukan Kelulusan"
                       name="no_kelulusan"
                       [(ngModel)]="no_rujukan_kelulusan"
+                      #rujukanKelulusan="ngModel"
+                      [ngClass]="{ 'is-invalid': f.submitted && rujukanKelulusan.invalid }"
                       required
-                      #noKelulusan="ngModel"
-                      [ngClass]="{ 'is-invalid': f.submitted && noKelulusan.invalid }"
                       readonly
 										/>
 										<div class="input-group-append">
@@ -38,8 +33,8 @@
 											</button>
 										</div>
 									</div>
-                  <div *ngIf="f.submitted && noKelulusan.invalid" class="invalid-feedback">
-                    <div *ngIf="noKelulusan.errors.required">No. Rujukan Kelulusan Wajib Dipilih</div>
+                  <div *ngIf="f.submitted && rujukanKelulusan.invalid" class="invalid-feedback">
+                    <div *ngIf="rujukanKelulusan.errors.required">No. Rujukan Kelulusan Wajib Dipilih</div>
                   </div>
 								</div>
 							</div>
@@ -51,22 +46,22 @@
                     class="form-control"
                     type="text"
                     placeholder="Nama Tabung"
-                    name="namaTabung"
+                    name="nama_tabung"
                     [(ngModel)]="nama_tabung"
+                    #namaTabung="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && namaTabung.invalid }"
                     required
-                    #tabungNama="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && tabungNama.invalid }"
                     readonly
                   />
 								</div>
-                <div *ngIf="f.submitted && tabungNama.invalid" class="invalid-feedback">
-                  <div *ngIf="tabungNama.errors.required">Nama Tabung Wajib Dipilih</div>
+                <div *ngIf="f.submitted && namaTabung.invalid" class="invalid-feedback">
+                  <div *ngIf="namaTabung.errors.required">Nama Tabung Wajib Dipilih</div>
                 </div>
 							</div>
 						</div>
 
 						<div class="row">
-							<div class="col-lg-6" *ngIf="idSkb">
+							<div class="col-lg-6">
 								<div class="form-group">
 									<label>No. Rujukan SKB</label>
 									<input
@@ -79,9 +74,7 @@
                   />
 								</div>
 							</div>
-						</div>
 
-						<div class="row" *ngIf="idSkb">
               <div class="col-lg-6">
 								<div class="form-group">
 									<label>Perihal SKB</label>
@@ -89,7 +82,7 @@
                     class="form-control input-air-primary"
                     rows="3"
                     placeholder="Perihal Surat Kuasa Belanja"
-                    name="rujukanSKB"
+                    name="perihalSKB"
                     [(ngModel)]="edit.tabung_bayaran_skb.perihal"
                   ></textarea>
 								</div>
@@ -107,8 +100,6 @@
                     type="text"
                     placeholder="Pegawai"
                     name="officer"
-                    [(ngModel)]="getPegawai.pengguna.jawatan"
-                    disabled
                   />
 								</div>
 							</div>
@@ -119,13 +110,18 @@
                   <ng-select
                     [items]="agencies"
                     bindLabel="nama_agensi"
+                    bindValue="id"
                     placeholder="Sila Pilih"
                     class="js-example-placeholder-multiple"
                     name="nama_agensi"
-                    [(ngModel)]="agensi"
+                    [(ngModel)]="edit.tabung_bayaran_skb.id_agensi"
                     #namaAgensi="ngModel"
-                    [disabled]="true"
+                    [ngClass]="{ 'is-invalid': f.submitted && namaAgensi.invalid }"
+                    required
                   ></ng-select>
+                  <div *ngIf="f.submitted && namaAgensi.invalid" class="invalid-feedback">
+                    <div *ngIf="namaAgensi.errors.required">Agensi Wajib Dipilih</div>
+                  </div>
 								</div>
 							</div>
 						</div>
@@ -136,14 +132,19 @@
 									<label>Tarikh Mula</label>
 									<input
                     class="form-control"
-                    id="startDate"
                     type="date"
                     name="tarikh_mula"
-                    [(ngModel)]="edit.tabung_bayaran_skb.tarikh_mula"
+                    [(ngModel)]="tarikhMula"
                     min="{{ date | date: 'yyyy-MM-dd' }}"
+                    #startDate="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && startDate.invalid }"
+                    required
                     onlyNumbers
                     onlyAlphabets
                   />
+                  <div *ngIf="f.submitted && startDate.invalid" class="invalid-feedback">
+                    <div *ngIf="startDate.errors.required">Tarikh Mula Wajib Dipilih</div>
+                  </div>
 								</div>
 							</div>
 
@@ -152,21 +153,38 @@
 									<label>Tarikh Tamat</label>
 									<input
                     class="form-control"
-                    id="endDate"
                     type="date"
                     name="tarikh_tamat"
-                    [(ngModel)]="edit.tabung_bayaran_skb.tarikh_tamat"
+                    [(ngModel)]="tarikhTamat"
                     min="{{ date | date: 'yyyy-MM-dd' }}"
+                    #endDate="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && endDate.invalid }"
+                    required
                     onlyNumbers
                     onlyAlphabets
                   />
+                  <div *ngIf="f.submitted && endDate.invalid" class="invalid-feedback">
+                    <div *ngIf="endDate.errors.required">Tarikh Tamat Wajib Dipilih</div>
+                  </div>
 								</div>
 							</div>
 						</div>
 						<hr />
 
 						<h6>Maklumat Belanja Bulanan</h6>
-						<div class="row">
+
+            <div class="row no-gutters justify-content-end">
+              <button
+                type="button"
+                class="btn btn-primary pull-right"
+                (click)="addBulanan(edit.tabung_bayaran_skb.id)"
+              >
+                <i class="fa fa-plus mr-2"></i>
+                <b>Tambah</b>
+              </button>
+            </div>
+
+						<div class="row mt-3">
               <div class="col-lg-12 align-items-center">
                 <div class="primeng-datatable-container">
                   <p-table
@@ -187,13 +205,17 @@
                     <ng-template pTemplate="header">
                       <tr>
                         <th style="width: 130px">Tindakan</th>
-                        <th style="width: 150px" pSortableColumn="tarih_bencana">
-                          Bulan
-                          <p-sortIcon field="tarih_bencana"></p-sortIcon>
+                        <th style="width: 150px" pSortableColumn="tahun">
+                          Tahun
+                          <p-sortIcon field="tahun"></p-sortIcon>
                         </th>
-                        <th style="width: 130px" pSortableColumn="jenis_bencana">
+                        <th style="width: 150px" pSortableColumn="bulan">
+                          Bulan
+                          <p-sortIcon field="bulan"></p-sortIcon>
+                        </th>
+                        <th style="width: 150px" pSortableColumn="jumlah">
                           Jumlah
-                          <p-sortIcon field="jenis_bencana"></p-sortIcon>
+                          <p-sortIcon field="jumlah"></p-sortIcon>
                         </th>
                       </tr>
                     </ng-template>
@@ -212,17 +234,21 @@
                               Tindakan
                             </button>
                             <div ngbDropdownMenu aria-labelledby="action">
-                              <button class="dropdown-item">Lihat</button>
+                              <button class="dropdown-item" (click)="editBulanan(record.id, record.id_tabung_bayaran_skb)">Lihat</button>
                             </div>
                           </div>
                         </td>
                         <td style="width: 150px">
-                          <span class="p-column-title">Bulan</span>
-                          {{record.month}}
+                          <span class="p-column-title">Tahun</span>
+                          {{record.tahun}}
                         </td>
-                        <td style="width: 130px">
+                        <td style="width: 150px">
+                          <span class="p-column-title">Bulan</span>
+                          {{record.bulan}}
+                        </td>
+                        <td style="width: 150px">
                           <span class="p-column-title">Jumlah</span>
-                          RM {{record.total}}
+                          RM{{record.jumlah}}
                         </td>
                       </tr>
                     </ng-template>
@@ -260,18 +286,6 @@
 								</div>
 							</div>
 
-              <div class="col-lg-6">
-                <button
-                  [routerLink]="['/app/tabung/tambah-belanja-bulanan']"
-                  class="btn btn-primary pull-right"
-                >
-                  <i class="fa fa-plus mr-2"></i>
-                  <b>Tambah</b>
-                </button>
-              </div>
-            </div>
-
-            <div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Siling Peruntukan (RM)</label>
@@ -279,8 +293,8 @@
                     class="form-control"
                     type="text"
                     name="siling_peruntukan"
-                    [(ngModel)]="edit.tabung_bayaran_skb.jumlah_siling_peruntukan"
                     placeholder="Jumlah Siling Peruntukan"
+                    [(ngModel)]="edit.tabung_bayaran_skb.jumlah_siling_peruntukan"
                     #silingPeruntukan="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && silingPeruntukan.invalid }"
                     required
@@ -291,7 +305,9 @@
                   </div>
 								</div>
 							</div>
+            </div>
 
+            <div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Baki Peruntukan (RM)</label>
@@ -299,8 +315,8 @@
                     class="form-control"
                     type="text"
                     name="baki_peruntukan"
-                    [(ngModel)]="edit.tabung_bayaran_skb.jumlah_baki_peruntukan"
                     placeholder="Jumlah Baki Peruntukan"
+                    [(ngModel)]="edit.tabung_bayaran_skb.jumlah_baki_peruntukan"
                     #bakiPeruntukan="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && bakiPeruntukan.invalid }"
                     required
@@ -313,10 +329,7 @@
 							</div>
 						</div>
 
-						<button class="btn btn-primary pull-right" type="submit">
-							<span *ngIf="!idSkb">Hantar</span>
-              <span *ngIf="idSkb">Simpan</span>
-						</button>
+						<button class="btn btn-primary pull-right" type="submit">Simpan</button>
 						<button
 							class="btn btn-light pull-right mr-2"
 							[routerLink]="['/app/tabung/senarai-skb']"

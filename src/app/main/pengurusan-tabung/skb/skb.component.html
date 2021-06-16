@@ -38,7 +38,7 @@
 
           <div class="col-4 justify-content-end pr-0">
             <button
-                [routerLink]="['/app/tabung/tambah-edit-skb']"
+                [routerLink]="['/app/tabung/tambah-skb']"
                 class="btn btn-primary pull-right"
               >
                 <i class="fa fa-plus mr-2"></i>
@@ -179,12 +179,11 @@
 											<div ngbDropdownMenu aria-labelledby="action">
 												<button
 													class="dropdown-item"
-													[routerLink]="['/app/tabung/tambah-edit-skb']"
+													[routerLink]="['/app/tabung/edit-skb']"
                           [queryParams]="{id: record.id}"
 												>
 													Lihat
 												</button>
-												<button class="dropdown-item">Padam</button>
 											</div>
 										</div>
 									</td>
@@ -210,23 +209,23 @@
 									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">Siling Peruntukan</span>
-										{{record.jumlah_siling_peruntukan}}
+										RM{{record.jumlah_siling_peruntukan}}
 									</td>
 									<td style="width: 160px">
 										<span class="p-column-title">Baki Peruntukan</span>
-										{{record.jumlah_baki_peruntukan}}
+										RM{{record.jumlah_baki_peruntukan}}
 									</td>
 									<td style="width: 160px">
 										<span class="p-column-title">Jumlah Belanja</span>
-										{{record.jumlah_belanja}}
+										RM{{record.jumlah_belanja}}
 									</td>
 									<td style="width: 100px">
 										<span class="p-column-title">Tarikh Mula</span>
-										{{record.tarikh_mula}}
+										{{record.tarikh_mula | date:'dd-MM-yyyy'}}
 									</td>
 									<td style="width: 100px">
 										<span class="p-column-title">Tarikh Tamat</span>
-										{{record.tarikh_tamat}}
+										{{record.tarikh_tamat | date:'dd-MM-yyyy'}}
 									</td>
 								</tr>
 							</ng-template>
