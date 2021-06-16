@@ -4,7 +4,7 @@ import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { ColumnMode, id, SortType } from '@swimlane/ngx-datatable';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   CreateOrEditPenggunaDto,
   CreatePenggunaDto,
@@ -68,6 +68,7 @@ export class TambahEditPengurusanPenggunaComponent implements AfterViewInit {
     private _refDaerahServiceProxy: RefDaerahServiceProxy,
     private _refNegeriServiceProxy: RefNegeriServiceProxy,
     private _refKementerianServiceProxy: RefKementerianServiceProxy,
+    private router: Router
     ) {
 		this.primengTableHelper = new PrimengTableHelper();
     this.idPengguna = this._activatedRoute.snapshot.queryParams['id'];
@@ -169,7 +170,7 @@ export class TambahEditPengurusanPenggunaComponent implements AfterViewInit {
 			.pipe()
 			.subscribe((result) => {
 				Swal.fire('Berjaya!', 'Maklumat Berjaya Didaftarkan.', 'success').then(() => {
-					location.href = '/app/pengguna/senarai-pengurusan-pengguna';
+					this.router.navigateByUrl('/app/pengguna/senarai-pengurusan-pengguna');
 				});
 			});
 	  }
