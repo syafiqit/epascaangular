@@ -12,8 +12,7 @@
                   type="text"
                   name="searchVictim"
                   placeholder="Carian..."
-                  [(ngModel)]="filter"
-                  (keyup.enter)="getVictim()"
+                  (keyup)="applyFilter($event.target.value)"
                 />
                 <i class="search-icon" data-feather="search"></i>
               </div>

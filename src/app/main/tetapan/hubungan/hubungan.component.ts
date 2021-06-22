@@ -6,7 +6,8 @@ import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { TambahEditHubunganComponent } from './tambah-edit-hubungan/tambah-edit-hubungan.component';
 import { RefHubunganServiceProxy } from '../../../shared/proxy/service-proxies';
-import { finalize } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
 	selector: 'app-hubungan',
@@ -21,6 +22,7 @@ export class HubunganComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
 
 	filterText: string;
+  terms$ = new Subject<string>();
 
 	constructor(
 		config: NgbModalConfig,
@@ -32,7 +34,18 @@ export class HubunganComponent implements OnInit {
 		config.keyboard = false;
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+    this.terms$.pipe(
+      debounceTime(500), distinctUntilChanged()
+    ).subscribe((filterValue: string) =>{
+      this.filterText = filterValue;
+      this.getHubungan();
+    });
+  }
+
+  applyFilter(filterValue: string){
+    this.terms$.next(filterValue);
+  }
 
 	getHubungan(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {

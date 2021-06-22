@@ -6,7 +6,8 @@ import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TambahEditNegeriComponent } from './tambah-edit-negeri/tambah-edit-negeri.component';
 import { RefNegeriServiceProxy } from '../../../shared/proxy/service-proxies';
-import { finalize } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
 	selector: 'app-negeri',
@@ -19,7 +20,8 @@ export class NegeriComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 
-	filterText: string;
+	filter: string;
+  terms$ = new Subject<string>();
 
 	constructor(
 		config: NgbModalConfig,
@@ -31,7 +33,18 @@ export class NegeriComponent implements OnInit {
 		config.keyboard = false;
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+    this.terms$.pipe(
+      debounceTime(500), distinctUntilChanged()
+    ).subscribe((filterValue: string) =>{
+      this.filter = filterValue;
+      this.getNegeri();
+    });
+  }
+
+  applyFilter(filterValue: string){
+    this.terms$.next(filterValue);
+  }
 
 	getNegeri(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
@@ -42,7 +55,7 @@ export class NegeriComponent implements OnInit {
 		this.primengTableHelper.showLoadingIndicator();
 		this._refNegeriServiceProxy
 			.getAll(
-				this.filterText,
+				this.filter,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)

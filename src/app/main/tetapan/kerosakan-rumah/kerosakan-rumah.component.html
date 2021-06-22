@@ -17,8 +17,7 @@
                   type="text"
                   name="searchKerosakan"
                   placeholder="Carian..."
-                  [(ngModel)]="filterText"
-                  (keyup.enter)="getStatusKerosakan()"
+                  (keyup)="applyFilter($event.target.value)"
                 />
                 <i class="search-icon" data-feather="search"></i>
               </div>
@@ -35,13 +34,12 @@
           </div>
 
 					<div class="row align-items-center">
-						<!--<Primeng-TurboTable-Start>-->
 						<div class="primeng-datatable-container">
 							<p-table
 								#dataTable
 								styleClass="p-datatable-striped"
 								[resizableColumns]="true"
-								(onLazyLoad)="getStatusKerosakan($event)"
+								(onLazyLoad)="getKerosakanRumah($event)"
 								[value]="primengTableHelper.records"
 								rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
 								[paginator]="false"
@@ -103,7 +101,7 @@
 								<p-paginator
 									[rows]="primengTableHelper.defaultRecordsCountPerPage"
 									#paginator
-									(onPageChange)="getStatusKerosakan($event)"
+									(onPageChange)="getKerosakanRumah($event)"
 									[totalRecords]="primengTableHelper.totalRecordsCount"
 									[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
 								></p-paginator>
@@ -112,7 +110,6 @@
 								</span>
 							</div>
 						</div>
-						<!--<Primeng-TurboTable-End>-->
 					</div>
 				</div>
 			</div>

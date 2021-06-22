@@ -124,7 +124,7 @@ export class NavService implements OnDestroy {
         type: 'sub',
         active: false,
         children: [
-          { path: '/app/tetapan/senarai-bencana', title: 'Kategori Bencana', type: 'link' },
+          { path: '/app/tetapan/senarai-bencana', title: 'Bencana', type: 'link' },
           { path: '/app/tetapan/senarai-kementerian', title: 'Kementerian', type: 'link' },
           { path: '/app/tetapan/senarai-agensi', title: 'Agensi', type: 'link' },
           { path: '/app/tetapan/senarai-pelaksana', title: 'Pelaksana', type: 'link' },

@@ -6,7 +6,8 @@ import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { RefKerosakanServiceProxy } from '../../../shared/proxy/service-proxies';
-import { finalize } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
 	selector: 'app-kerosakan-rumah',
@@ -20,7 +21,8 @@ export class KerosakanRumahComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 
-	filterText: string;
+	filter: string;
+  terms$ = new Subject<string>();
 
 	constructor(
 		config: NgbModalConfig,
@@ -32,9 +34,20 @@ export class KerosakanRumahComponent implements OnInit {
 		this.primengTableHelper = new PrimengTableHelper();
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+    this.terms$.pipe(
+      debounceTime(500), distinctUntilChanged()
+    ).subscribe((filterValue: string) =>{
+      this.filter = filterValue;
+      this.getKerosakanRumah();
+    });
+  }
 
-	getStatusKerosakan(event?: LazyLoadEvent) {
+  applyFilter(filterValue: string){
+    this.terms$.next(filterValue);
+  }
+
+	getKerosakanRumah(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
@@ -43,7 +56,7 @@ export class KerosakanRumahComponent implements OnInit {
 		this.primengTableHelper.showLoadingIndicator();
 		this._refKerosakanServiceProxy
 			.getAll(
-				this.filterText,
+				this.filter,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -66,7 +79,7 @@ export class KerosakanRumahComponent implements OnInit {
 		modalRef.componentInstance.name = 'add';
 		modalRef.result.then((response) => {
 			if (response) {
-				this.getStatusKerosakan();
+				this.getKerosakanRumah();
 			}
 		});
 	}
@@ -77,7 +90,7 @@ export class KerosakanRumahComponent implements OnInit {
 		modalRef.componentInstance.id = id;
 		modalRef.result.then((response) => {
 			if (response) {
-				this.getStatusKerosakan();
+				this.getKerosakanRumah();
 			}
 		});
 	}

@@ -8,8 +8,9 @@ import {
   RefAgensiServiceProxy,
   RefNegeriServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
-import { finalize } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { Subject } from 'rxjs';
 declare let require;
 const Swal = require('sweetalert2');
 
@@ -32,6 +33,7 @@ export class PengurusanMangsaComponent implements OnInit {
   filterDun: number;
   filterParlimen: number;
   filterBencana: number;
+  terms$ = new Subject<string>();
 
 	public isCollapsed = false;
   states: any;
@@ -53,6 +55,18 @@ export class PengurusanMangsaComponent implements OnInit {
 	ngOnInit(): void {
     this.getNegeri();
     this.getAgensi();
+
+    this.terms$.pipe(
+      debounceTime(500), distinctUntilChanged()
+    ).subscribe((filterValue: string) =>{
+      this.filter = filterValue;
+      this.getVictim();
+    });
+
+  }
+
+  applyFilter(filterValue: string){
+    this.terms$.next(filterValue);
   }
 
 	getVictim(event?: LazyLoadEvent) {

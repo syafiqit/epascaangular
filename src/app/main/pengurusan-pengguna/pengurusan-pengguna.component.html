@@ -11,8 +11,7 @@
                 type="text"
                 name="searchUser"
                 placeholder="Carian..."
-                [(ngModel)]="filter"
-                (keyup.enter)="getUser()"
+                (keyup)="applyFilter($event.target.value)"
               />
               <i class="search-icon" data-feather="search"></i>
             </div>

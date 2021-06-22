@@ -6,7 +6,8 @@ import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { RefKementerianServiceProxy } from 'src/app/shared/proxy/service-proxies';
-import { finalize } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
 	selector: 'app-kementerian',
@@ -21,6 +22,7 @@ export class KementerianComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
 
 	filter: string;
+  terms$ = new Subject<string>();
 
 	constructor(
 		config: NgbModalConfig,
@@ -32,9 +34,20 @@ export class KementerianComponent implements OnInit {
 		config.keyboard = false;
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+    this.terms$.pipe(
+      debounceTime(500), distinctUntilChanged()
+    ).subscribe((filterValue: string) =>{
+      this.filter = filterValue;
+      this.getKementerian();
+    });
+  }
 
-	getMinistry(event?: LazyLoadEvent) {
+  applyFilter(filterValue: string){
+    this.terms$.next(filterValue);
+  }
+
+	getKementerian(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
@@ -66,7 +79,7 @@ export class KementerianComponent implements OnInit {
 		modalRef.componentInstance.name = 'add';
 		modalRef.result.then((response) => {
 			if (response) {
-				this.getMinistry();
+				this.getKementerian();
 			}
 		});
 	}
@@ -77,7 +90,7 @@ export class KementerianComponent implements OnInit {
 		modalRef.componentInstance.id = id;
 		modalRef.result.then((response) => {
 			if (response) {
-				this.getMinistry();
+				this.getKementerian();
 			}
 		});
 	}

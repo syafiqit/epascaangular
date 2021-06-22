@@ -12,8 +12,7 @@
                   type="text"
                   name="searchBantuan"
                   placeholder="Carian..."
-                  [(ngModel)]="filter"
-                  (keyup.enter)="getBantuan()"
+                  (keyup)="applyFilter($event.target.value)"
                 />
                 <i class="search-icon" data-feather="search"></i>
               </div>
@@ -29,7 +28,6 @@
           </div>
 
 					<div class="row align-items-center">
-						<!--<Primeng-TurboTable-Start>-->
 						<div class="primeng-datatable-container">
 							<p-table
 								#dataTable
@@ -109,7 +107,6 @@
 								</span>
 							</div>
 						</div>
-						<!--<Primeng-TurboTable-End>-->
 					</div>
 				</div>
 			</div>
