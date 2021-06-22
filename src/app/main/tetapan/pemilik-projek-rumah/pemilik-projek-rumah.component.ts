@@ -6,7 +6,8 @@ import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { RefTapakRumahServiceProxy } from 'src/app/shared/proxy/service-proxies';
-import { finalize } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
 	selector: 'app-pemilik-projek-rumah',
@@ -21,6 +22,7 @@ export class PemilikProjekRumahComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
 
 	filter: string;
+  terms$ = new Subject<string>();
 
 	constructor(
 		config: NgbModalConfig,
@@ -32,7 +34,18 @@ export class PemilikProjekRumahComponent implements OnInit {
 		this.primengTableHelper = new PrimengTableHelper();
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+    this.terms$.pipe(
+      debounceTime(500), distinctUntilChanged()
+    ).subscribe((filterValue: string) =>{
+      this.filter = filterValue;
+      this.getProjekRumah();
+    });
+  }
+
+  applyFilter(filterValue: string){
+    this.terms$.next(filterValue);
+  }
 
 	getProjekRumah(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {

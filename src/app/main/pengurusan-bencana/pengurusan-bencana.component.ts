@@ -9,7 +9,8 @@ import {
 	RefBencanaServiceProxy,
 	RefJenisBencanaServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
-import { finalize } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-pengurusan-bencana',
@@ -29,6 +30,7 @@ export class PengurusanBencanaComponent implements OnInit {
   filterTahun: number;
   filterBencana: string;
   filterJenis: number;
+  terms$ = new Subject<string>();
 
   sorting: string;
   skipCount: number;
@@ -49,7 +51,19 @@ export class PengurusanBencanaComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.getJenisBencana();
+
+    this.terms$.pipe(
+      debounceTime(500), distinctUntilChanged()
+    ).subscribe((filterValue: string) =>{
+      this.filter = filterValue;
+      this.getDisaster();
+    });
+
 	}
+
+  applyFilter(filterValue: string){
+    this.terms$.next(filterValue);
+  }
 
 	getDisaster(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
@@ -82,6 +96,13 @@ export class PengurusanBencanaComponent implements OnInit {
 			this.disasters = result.items;
 		});
 	}
+
+  resetFilter() {
+    this.filter = undefined;
+    this.filterJenis = undefined;
+
+    this.getDisaster();
+  }
 
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());

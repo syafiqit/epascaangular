@@ -11188,17 +11188,27 @@ export class TabungBayaranSkbServiceProxy {
     /**
      * Get all TabungBayaranSkb
      * @param filter (optional) Filter records with a string
+     * @param filterAgensi (optional) Filter records with a string
+     * @param filterTabung (optional) Filter records with a string
      * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
      * @param skipCount (optional) Skip n-value of a record
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungBayaranSkbForViewDto> {
+    getAll(filter: string | undefined, filterAgensi: string | undefined, filterTabung: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungBayaranSkbForViewDto> {
         let url_ = this.baseUrl + "/api/tabungBayaranSkb/getAll?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
             url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (filterAgensi === null)
+            throw new Error("The parameter 'filterAgensi' cannot be null.");
+        else if (filterAgensi !== undefined)
+            url_ += "filterAgensi=" + encodeURIComponent("" + filterAgensi) + "&";
+        if (filterTabung === null)
+            throw new Error("The parameter 'filterTabung' cannot be null.");
+        else if (filterTabung !== undefined)
+            url_ += "filterTabung=" + encodeURIComponent("" + filterTabung) + "&";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
@@ -11818,17 +11828,22 @@ export class TabungBwiServiceProxy {
     /**
      * Get all TabungBwi
      * @param filter (optional) Filter records with a string
+     * @param filterJenisBencana (optional) Filter records with a string
      * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
      * @param skipCount (optional) Skip n-value of a record
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungBwiForViewDto> {
+    getAll(filter: string | undefined, filterJenisBencana: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungBwiForViewDto> {
         let url_ = this.baseUrl + "/api/tabungBwi/getAll?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
             url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (filterJenisBencana === null)
+            throw new Error("The parameter 'filterJenisBencana' cannot be null.");
+        else if (filterJenisBencana !== undefined)
+            url_ += "filterJenisBencana=" + encodeURIComponent("" + filterJenisBencana) + "&";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
@@ -11889,6 +11904,82 @@ export class TabungBwiServiceProxy {
             }));
         }
         return _observableOf<PagedResultDtoOfTabungBwiForViewDto>(<any>null);
+    }
+
+    /**
+     * Get all TabungBwiKir
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAllKir(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<InputResultKirForViewDto> {
+        let url_ = this.baseUrl + "/api/tabungBwi/getAllKir?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllKir(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllKir(<any>response_);
+                } catch (e) {
+                    return <Observable<InputResultKirForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<InputResultKirForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllKir(response: HttpResponseBase): Observable<InputResultKirForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = InputResultKirForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<InputResultKirForViewDto>(<any>null);
     }
 
     /**
@@ -25731,6 +25822,74 @@ export interface ICreateOrEditTabungBwiDto {
     sebab_hapus: string;
 }
 
+export class GetAllKirForViewDto implements IGetAllKirForViewDto {
+    id!: number;
+    id_mangsa!: number;
+    jumlah!: number;
+    nama!: string;
+    id_daerah!: number;
+    id_negeri!: number;
+    nama_daerah!: string;
+    nama_negeri!: string;
+    jumlahBwiKir!: number;
+
+    constructor(data?: IGetAllKirForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_mangsa = _data["id_mangsa"];
+            this.jumlah = _data["jumlah"];
+            this.nama = _data["nama"];
+            this.id_daerah = _data["id_daerah"];
+            this.id_negeri = _data["id_negeri"];
+            this.nama_daerah = _data["nama_daerah"];
+            this.nama_negeri = _data["nama_negeri"];
+            this.jumlahBwiKir = _data["jumlahBwiKir"];
+        }
+    }
+
+    static fromJS(data: any): GetAllKirForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetAllKirForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_mangsa"] = this.id_mangsa;
+        data["jumlah"] = this.jumlah;
+        data["nama"] = this.nama;
+        data["id_daerah"] = this.id_daerah;
+        data["id_negeri"] = this.id_negeri;
+        data["nama_daerah"] = this.nama_daerah;
+        data["nama_negeri"] = this.nama_negeri;
+        data["jumlahBwiKir"] = this.jumlahBwiKir;
+        return data; 
+    }
+}
+
+export interface IGetAllKirForViewDto {
+    id: number;
+    id_mangsa: number;
+    jumlah: number;
+    nama: string;
+    id_daerah: number;
+    id_negeri: number;
+    nama_daerah: string;
+    nama_negeri: string;
+    jumlahBwiKir: number;
+}
+
 export class GetTabungBwiForEditDto implements IGetTabungBwiForEditDto {
     tabung_bwi!: CreateOrEditTabungBwiDto;
 
@@ -25788,6 +25947,9 @@ export class GetTabungBwiForViewDto implements IGetTabungBwiForViewDto {
     id_pengguna_hapus!: number;
     tarikh_hapus!: moment.Moment;
     sebab_hapus!: string;
+    nama_tabung!: string;
+    nama_jenis_bencana!: string;
+    tahun_bencana!: number;
 
     constructor(data?: IGetTabungBwiForViewDto) {
         if (data) {
@@ -25820,6 +25982,9 @@ export class GetTabungBwiForViewDto implements IGetTabungBwiForViewDto {
             this.id_pengguna_hapus = _data["id_pengguna_hapus"];
             this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
             this.sebab_hapus = _data["sebab_hapus"];
+            this.nama_tabung = _data["nama_tabung"];
+            this.nama_jenis_bencana = _data["nama_jenis_bencana"];
+            this.tahun_bencana = _data["tahun_bencana"];
         }
     }
 
@@ -25852,6 +26017,9 @@ export class GetTabungBwiForViewDto implements IGetTabungBwiForViewDto {
         data["id_pengguna_hapus"] = this.id_pengguna_hapus;
         data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
+        data["nama_tabung"] = this.nama_tabung;
+        data["nama_jenis_bencana"] = this.nama_jenis_bencana;
+        data["tahun_bencana"] = this.tahun_bencana;
         return data; 
     }
 }
@@ -25877,6 +26045,63 @@ export interface IGetTabungBwiForViewDto {
     id_pengguna_hapus: number;
     tarikh_hapus: moment.Moment;
     sebab_hapus: string;
+    nama_tabung: string;
+    nama_jenis_bencana: string;
+    tahun_bencana: number;
+}
+
+/** TabungBwi List in Tabular model */
+export class InputResultKirForViewDto implements IInputResultKirForViewDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetAllKirForViewDto[];
+
+    constructor(data?: IInputResultKirForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetAllKirForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): InputResultKirForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InputResultKirForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** TabungBwi List in Tabular model */
+export interface IInputResultKirForViewDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetAllKirForViewDto[];
 }
 
 /** TabungBwi List in Tabular model */
@@ -25944,8 +26169,6 @@ export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulu
     tarikh_surat!: moment.Moment;
     tarikh_mula_kelulusan!: moment.Moment;
     tarikh_tamat_kelulusan!: moment.Moment;
-    perihal_surat!: string;
-    rujukan!: string;
     id_pengguna_cipta!: number;
     tarikh_cipta!: moment.Moment;
     id_pengguna_kemaskini!: number;
@@ -25954,7 +26177,6 @@ export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulu
     id_pengguna_hapus!: number;
     tarikh_hapus!: moment.Moment;
     sebab_hapus!: string;
-    nama_tabung!: string;
 
     constructor(data?: ICreateOrEditTabungKelulusanDto) {
         if (data) {
@@ -25977,8 +26199,6 @@ export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulu
             this.tarikh_surat = _data["tarikh_surat"] ? moment(_data["tarikh_surat"].toString()) : <any>undefined;
             this.tarikh_mula_kelulusan = _data["tarikh_mula_kelulusan"] ? moment(_data["tarikh_mula_kelulusan"].toString()) : <any>undefined;
             this.tarikh_tamat_kelulusan = _data["tarikh_tamat_kelulusan"] ? moment(_data["tarikh_tamat_kelulusan"].toString()) : <any>undefined;
-            this.perihal_surat = _data["perihal_surat"];
-            this.rujukan = _data["rujukan"];
             this.id_pengguna_cipta = _data["id_pengguna_cipta"];
             this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
@@ -25987,7 +26207,6 @@ export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulu
             this.id_pengguna_hapus = _data["id_pengguna_hapus"];
             this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
             this.sebab_hapus = _data["sebab_hapus"];
-            this.nama_tabung = _data["nama_tabung"];
         }
     }
 
@@ -26010,8 +26229,6 @@ export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulu
         data["tarikh_surat"] = this.tarikh_surat ? this.tarikh_surat.toISOString() : <any>undefined;
         data["tarikh_mula_kelulusan"] = this.tarikh_mula_kelulusan ? this.tarikh_mula_kelulusan.toISOString() : <any>undefined;
         data["tarikh_tamat_kelulusan"] = this.tarikh_tamat_kelulusan ? this.tarikh_tamat_kelulusan.toISOString() : <any>undefined;
-        data["perihal_surat"] = this.perihal_surat;
-        data["rujukan"] = this.rujukan;
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
@@ -26020,7 +26237,6 @@ export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulu
         data["id_pengguna_hapus"] = this.id_pengguna_hapus;
         data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
-        data["nama_tabung"] = this.nama_tabung;
         return data; 
     }
 }
@@ -26036,8 +26252,6 @@ export interface ICreateOrEditTabungKelulusanDto {
     tarikh_surat: moment.Moment;
     tarikh_mula_kelulusan: moment.Moment;
     tarikh_tamat_kelulusan: moment.Moment;
-    perihal_surat: string;
-    rujukan: string;
     id_pengguna_cipta: number;
     tarikh_cipta: moment.Moment;
     id_pengguna_kemaskini: number;
@@ -26046,7 +26260,6 @@ export interface ICreateOrEditTabungKelulusanDto {
     id_pengguna_hapus: number;
     tarikh_hapus: moment.Moment;
     sebab_hapus: string;
-    nama_tabung: string;
 }
 
 export class GetTabungKelulusanForEditDto implements IGetTabungKelulusanForEditDto {
@@ -26096,8 +26309,6 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
     tarikh_surat!: moment.Moment;
     tarikh_mula_kelulusan!: moment.Moment;
     tarikh_tamat_kelulusan!: moment.Moment;
-    perihal_surat!: string;
-    rujukan!: string;
     id_pengguna_cipta!: number;
     tarikh_cipta!: moment.Moment;
     id_pengguna_kemaskini!: number;
@@ -26106,7 +26317,6 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
     id_pengguna_hapus!: number;
     tarikh_hapus!: moment.Moment;
     sebab_hapus!: string;
-    nama_tabung!: string;
 
     constructor(data?: IGetTabungKelulusanForViewDto) {
         if (data) {
@@ -26129,8 +26339,6 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
             this.tarikh_surat = _data["tarikh_surat"] ? moment(_data["tarikh_surat"].toString()) : <any>undefined;
             this.tarikh_mula_kelulusan = _data["tarikh_mula_kelulusan"] ? moment(_data["tarikh_mula_kelulusan"].toString()) : <any>undefined;
             this.tarikh_tamat_kelulusan = _data["tarikh_tamat_kelulusan"] ? moment(_data["tarikh_tamat_kelulusan"].toString()) : <any>undefined;
-            this.perihal_surat = _data["perihal_surat"];
-            this.rujukan = _data["rujukan"];
             this.id_pengguna_cipta = _data["id_pengguna_cipta"];
             this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
@@ -26139,7 +26347,6 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
             this.id_pengguna_hapus = _data["id_pengguna_hapus"];
             this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
             this.sebab_hapus = _data["sebab_hapus"];
-            this.nama_tabung = _data["nama_tabung"];
         }
     }
 
@@ -26162,8 +26369,6 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
         data["tarikh_surat"] = this.tarikh_surat ? this.tarikh_surat.toISOString() : <any>undefined;
         data["tarikh_mula_kelulusan"] = this.tarikh_mula_kelulusan ? this.tarikh_mula_kelulusan.toISOString() : <any>undefined;
         data["tarikh_tamat_kelulusan"] = this.tarikh_tamat_kelulusan ? this.tarikh_tamat_kelulusan.toISOString() : <any>undefined;
-        data["perihal_surat"] = this.perihal_surat;
-        data["rujukan"] = this.rujukan;
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
@@ -26172,7 +26377,6 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
         data["id_pengguna_hapus"] = this.id_pengguna_hapus;
         data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
-        data["nama_tabung"] = this.nama_tabung;
         return data; 
     }
 }
@@ -26188,8 +26392,6 @@ export interface IGetTabungKelulusanForViewDto {
     tarikh_surat: moment.Moment;
     tarikh_mula_kelulusan: moment.Moment;
     tarikh_tamat_kelulusan: moment.Moment;
-    perihal_surat: string;
-    rujukan: string;
     id_pengguna_cipta: number;
     tarikh_cipta: moment.Moment;
     id_pengguna_kemaskini: number;
@@ -26198,7 +26400,6 @@ export interface IGetTabungKelulusanForViewDto {
     id_pengguna_hapus: number;
     tarikh_hapus: moment.Moment;
     sebab_hapus: string;
-    nama_tabung: string;
 }
 
 /** TabungKelulusan List in Tabular model */

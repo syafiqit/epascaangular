@@ -16,7 +16,7 @@
                 name="searchSKB"
                 placeholder="Carian..."
                 [(ngModel)]="filter"
-                (keyup.enter)="getSKB()"
+                (keyup)="applyFilter($event.target.value)"
               />
               <i class="search-icon" data-feather="search"></i>
             </div>
@@ -60,10 +60,11 @@
                           <ng-select
                             [items]="agencies"
                             bindLabel="nama_agensi"
-                            bindValue="id"
+                            bindValue="nama_agensi"
                             placeholder="Sila Pilih"
                             class="js-example-placeholder-multiple"
                             name="namaAgensi"
+                            [(ngModel)]="filterAgensi"
                           ></ng-select>
                         </div>
                       </div>
@@ -74,23 +75,33 @@
                           <ng-select
                             [items]="funds"
                             bindLabel="nama_tabung"
-                            bindValue="id"
+                            bindValue="nama_tabung"
                             placeholder="Sila Pilih"
                             class="js-example-placeholder-multiple"
                             name="namaTabung"
+                            [(ngModel)]="filterTabung"
                           ></ng-select>
                         </div>
                       </div>
                     </div>
 
-                    <div class="row pr-3 justify-content-end">
+                    <div class="row no-gutters justify-content-end mb-2">
                       <button
-                          class="btn btn-primary pull-right"
-                          type="button"
-                          (click)="getSKB()"
-                        >
-                        <i class="fa fa-search mr-2"></i>
-                          <b>Cari</b>
+                        class="btn btn-light mr-2"
+                        type="reset"
+                        (click)="resetFilter()"
+                      >
+                      <i class="fa fa-refresh mr-2"></i>
+                        <b>Reset</b>
+                      </button>
+
+                      <button
+                        class="btn btn-primary pull-right"
+                        type="button"
+                        (click)="getSKB()"
+                      >
+                      <i class="fa fa-search mr-2"></i>
+                        <b>Cari</b>
                       </button>
                     </div>
                   </form>

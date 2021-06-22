@@ -6,7 +6,8 @@ import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TambahEditParlimenComponent } from './tambah-edit-parlimen/tambah-edit-parlimen.component';
 import { RefParlimenServiceProxy } from '../../../shared/proxy/service-proxies';
-import { finalize } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
 	selector: 'app-parlimen',
@@ -20,7 +21,8 @@ export class ParlimenComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 
-	filterText: string;
+	filter: string;
+  terms$ = new Subject<string>();
 
 	constructor(
 		config: NgbModalConfig,
@@ -32,7 +34,18 @@ export class ParlimenComponent implements OnInit {
 		config.keyboard = false;
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+    this.terms$.pipe(
+      debounceTime(500), distinctUntilChanged()
+    ).subscribe((filterValue: string) =>{
+      this.filter = filterValue;
+      this.getParlimen();
+    });
+  }
+
+  applyFilter(filterValue: string){
+    this.terms$.next(filterValue);
+  }
 
 	getParlimen(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
@@ -43,7 +56,7 @@ export class ParlimenComponent implements OnInit {
 		this.primengTableHelper.showLoadingIndicator();
 		this._refParlimenServiceProxy
 			.getAll(
-				this.filterText,
+				this.filter,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)

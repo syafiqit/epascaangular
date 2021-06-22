@@ -6,7 +6,8 @@ import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { TambahEditRujukanComponent } from './tambah-edit-rujukan/tambah-edit-rujukan.component';
 import {RefRujukanServiceProxy} from "../../../shared/proxy/service-proxies";
-import { finalize } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
 	selector: 'app-rujukan',
@@ -21,6 +22,7 @@ export class RujukanComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
 
   filterText: string;
+  terms$ = new Subject<string>();
 
 	constructor(
 	  config: NgbModalConfig,
@@ -32,7 +34,18 @@ export class RujukanComponent implements OnInit {
 		config.keyboard = false;
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+    this.terms$.pipe(
+      debounceTime(500), distinctUntilChanged()
+    ).subscribe((filterValue: string) =>{
+      this.filterText = filterValue;
+      this.getRujukan();
+    });
+  }
+
+  applyFilter(filterValue: string){
+    this.terms$.next(filterValue);
+  }
 
 	getRujukan(event?: LazyLoadEvent) {
     if (this.primengTableHelper.shouldResetPaging(event)) {

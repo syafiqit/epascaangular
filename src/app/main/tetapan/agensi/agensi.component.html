@@ -12,7 +12,7 @@
                 name="searchAgensi"
                 placeholder="Carian..."
                 [(ngModel)]="filter"
-                (keyup.enter)="getAgensi()"
+                (keyup)="applyFilter($event.target.value)"
               />
               <i class="search-icon" data-feather="search"></i>
             </div>
@@ -28,7 +28,6 @@
         </div>
 
 				<div class="row align-items-center">
-					<!--<Primeng-TurboTable-Start>-->
 					<div class="primeng-datatable-container">
 						<p-table
 							#dataTable
@@ -119,7 +118,6 @@
 							<span class="total-records-count">Jumlah: {{ primengTableHelper.totalRecordsCount}}</span>
 						</div>
 					</div>
-					<!--<Primeng-TurboTable-End>-->
 				</div>
 			</div>
 		</div>

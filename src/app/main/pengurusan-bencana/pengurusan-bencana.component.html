@@ -12,7 +12,7 @@
                 name="searchDisaster"
                 placeholder="Carian..."
                 [(ngModel)]="filter"
-                (keyup.enter)="getDisaster()"
+                (keyup)="applyFilter($event.target.value)"
               />
               <i class="search-icon" data-feather="search"></i>
             </div>
@@ -50,37 +50,9 @@
                 <div id="collapseExample" [ngbCollapse]="!isCollapsed">
                   <form>
                     <div class="row mt-2">
-                      <div class="col-lg-6">
-                        <div class="form-group">
-                          <label>Tahun</label>
-                          <input
-                            class="form-control"
-                            name="tahun"
-                            type="text"
-                            placeholder="Tahun"
-                            [(ngModel)]="filterTahun"
-                          />
-                        </div>
-                      </div>
-
-                      <div class="col-lg-6">
+                      <div class="col-lg-4">
                         <div class="form-group">
                           <label>Jenis Bencana</label>
-                          <input
-                            class="form-control"
-                            name="jenis_bencana"
-                            type="text"
-                            placeholder="Jenis Bencana"
-                            [(ngModel)]="filterBencana"
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <div class="form-group">
-                          <label>Nama Bencana</label>
                           <ng-select
                             [items]="disasters"
                             bindLabel="nama_jenis_bencana"
@@ -92,19 +64,26 @@
                           ></ng-select>
                         </div>
                       </div>
+                    </div>
 
-                      <div class="col-lg-6 justify-content-end mt-4">
-                        <button
-                          class="btn btn-primary pull-right mt-1"
-                          type="button"
-                          (click)="isCollapsed = !isCollapsed"
-                          [attr.aria-expanded]="!isCollapsed"
-                          (click)="getDisaster()"
-                        >
-                        <i class="fa fa-search mr-2"></i>
-                          <b>Cari</b>
-                        </button>
-                      </div>
+                    <div class="row no-gutters justify-content-end mb-2">
+                      <button
+                        class="btn btn-light mr-2"
+                        type="reset"
+                        (click)="resetFilter()"
+                      >
+                      <i class="fa fa-refresh mr-2"></i>
+                        <b>Reset</b>
+                      </button>
+
+                      <button
+                        class="btn btn-primary pull-right"
+                        type="button"
+                        (click)="getDisaster()"
+                      >
+                      <i class="fa fa-search mr-2"></i>
+                        <b>Cari</b>
+                      </button>
                     </div>
                   </form>
                 </div>
@@ -114,7 +93,6 @@
         </div>
 
 				<div class="row align-items-center">
-					<!--<Primeng-TurboTable-Start>-->
 					<div class="primeng-datatable-container">
 						<p-table
 							#dataTable
@@ -134,17 +112,17 @@
 							<ng-template pTemplate="header">
 								<tr>
 									<th style="width: 130px">Tindakan</th>
-									<th style="width: 100px" pSortableColumn="tahun">
+									<th style="width: 100px" pSortableColumn="tahun_bencana">
 										Tahun
-										<p-sortIcon field="tahun"></p-sortIcon>
+										<p-sortIcon field="tahun_bencana"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="tarikh">
+									<th style="width: 130px" pSortableColumn="tarikh_bencana">
 										Tarikh Kejadian
-										<p-sortIcon field="tarikh"></p-sortIcon>
+										<p-sortIcon field="tarikh_bencana"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="jenis_bencana">
+									<th style="width: 130px" pSortableColumn="nama_jenis_bencana">
 										Jenis Bencana
-										<p-sortIcon field="jenis_bencana"></p-sortIcon>
+										<p-sortIcon field="nama_jenis_bencana"></p-sortIcon>
 									</th>
 									<th style="width: 130px" pSortableColumn="nama_bencana">
 										Nama Bencana
@@ -216,7 +194,6 @@
 							<span class="total-records-count">Jumlah: {{primengTableHelper.totalRecordsCount}}</span>
 						</div>
 					</div>
-					<!--<Primeng-TurboTable-End>-->
 				</div>
 			</div>
 		</div>

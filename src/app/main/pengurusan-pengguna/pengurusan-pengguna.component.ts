@@ -11,7 +11,8 @@ import {
   UserServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { ActivatedRoute } from '@angular/router';
-import { finalize } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 declare let require;
 const Swal = require('sweetalert2');
 
@@ -34,6 +35,7 @@ export class PengurusanPenggunaComponent implements OnInit {
   idPengguna: any;
   agencies: any;
   roles: any;
+  terms$ = new Subject<string>();
 
 	constructor(
     private _activatedRoute: ActivatedRoute,
@@ -52,6 +54,18 @@ export class PengurusanPenggunaComponent implements OnInit {
 	ngOnInit(): void {
     this.getAgensi();
     this.getPeranan();
+
+    this.terms$.pipe(
+      debounceTime(500), distinctUntilChanged()
+    ).subscribe((filterValue: string) =>{
+      this.filter = filterValue;
+      this.getUser();
+    });
+
+  }
+
+  applyFilter(filterValue: string){
+    this.terms$.next(filterValue);
   }
 
 	getUser(event?: LazyLoadEvent) {

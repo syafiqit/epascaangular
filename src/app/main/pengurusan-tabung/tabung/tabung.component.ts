@@ -6,7 +6,8 @@ import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
-import { finalize } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
 	selector: 'app-tabung',
@@ -20,6 +21,7 @@ export class TabungComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
   filterText: string;
+  terms$ = new Subject<string>();
 
 	report = [
 		{ title: 'Jumlah Keseluruhan Semasa (RM)', total_kos: '491,081,927.21' },
@@ -37,7 +39,19 @@ export class TabungComponent implements OnInit {
 		config.keyboard = false;
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+
+    this.terms$.pipe(
+      debounceTime(500), distinctUntilChanged()
+    ).subscribe((filterValue: string) =>{
+      this.filterText = filterValue;
+      this.getTabung();
+    });
+  }
+
+  applyFilter(filterValue: string){
+    this.terms$.next(filterValue);
+  }
 
 	getTabung(event?: LazyLoadEvent) {
     if (this.primengTableHelper.shouldResetPaging(event)) {

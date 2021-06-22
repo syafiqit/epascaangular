@@ -6,7 +6,8 @@ import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TambahEditPemilikProjekComponent } from './tambah-edit-pemilik-projek/tambah-edit-pemilik-projek.component';
 import { RefPemilikServiceProxy } from 'src/app/shared/proxy/service-proxies';
-import { finalize } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
 	selector: 'app-pemilik-projek',
@@ -21,6 +22,7 @@ export class PemilikProjekComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
 
 	filter: string;
+  terms$ = new Subject<string>();
 
 	constructor(
 		config: NgbModalConfig,
@@ -32,7 +34,18 @@ export class PemilikProjekComponent implements OnInit {
 		config.keyboard = false;
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+    this.terms$.pipe(
+      debounceTime(500), distinctUntilChanged()
+    ).subscribe((filterValue: string) =>{
+      this.filter = filterValue;
+      this.getProject();
+    });
+  }
+
+  applyFilter(filterValue: string){
+    this.terms$.next(filterValue);
+  }
 
 	getProject(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {

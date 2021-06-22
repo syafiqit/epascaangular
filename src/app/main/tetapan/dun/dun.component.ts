@@ -6,7 +6,8 @@ import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { RefDunServiceProxy } from '../../../shared/proxy/service-proxies';
-import { finalize } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
 	selector: 'app-dun',
@@ -19,7 +20,8 @@ export class DunComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 
-	filterDun: string;
+	filter: string;
+  terms$ = new Subject<string>();
 
 	constructor(
 		config: NgbModalConfig,
@@ -31,7 +33,18 @@ export class DunComponent implements OnInit {
 		this.primengTableHelper = new PrimengTableHelper();
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+    this.terms$.pipe(
+      debounceTime(500), distinctUntilChanged()
+    ).subscribe((filterValue: string) =>{
+      this.filter = filterValue;
+      this.getDun();
+    });
+  }
+
+  applyFilter(filterValue: string){
+    this.terms$.next(filterValue);
+  }
 
 	getDun(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
@@ -42,7 +55,7 @@ export class DunComponent implements OnInit {
 		this.primengTableHelper.showLoadingIndicator();
 		this._refDunServiceProxy
 			.getAll(
-				this.filterDun,
+				this.filter,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)

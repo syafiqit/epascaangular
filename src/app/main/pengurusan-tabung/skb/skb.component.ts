@@ -4,7 +4,8 @@ import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
-import { finalize } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { RefAgensiServiceProxy, TabungBayaranSkbServiceProxy, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
 
@@ -21,8 +22,11 @@ export class SkbComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
 	public isCollapsed = false;
 
+  terms$ = new Subject<string>();
   idSkb: any;
 	filter: string;
+  filterAgensi: string;
+  filterTabung: string;
   agencies: any;
   funds: any;
 
@@ -42,6 +46,17 @@ export class SkbComponent implements OnInit {
 	ngOnInit(): void {
     this.getAgensi();
     this.getTabung();
+
+    this.terms$.pipe(
+      debounceTime(500), distinctUntilChanged()
+    ).subscribe((filterValue: string) =>{
+      this.filter = filterValue;
+      this.getSKB();
+    });
+  }
+
+  applyFilter(filterValue: string){
+    this.terms$.next(filterValue);
   }
 
 	getSKB(event?: LazyLoadEvent) {
@@ -54,6 +69,8 @@ export class SkbComponent implements OnInit {
 		this._tabungBayaranSkbServiceProxy
 			.getAll(
 				this.filter,
+        this.filterAgensi,
+        this.filterTabung,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)

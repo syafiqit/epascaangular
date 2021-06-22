@@ -1,4 +1,4 @@
-<app-breadcrumb [title]="'Tetapan Jenis Bencana'" [items]="['Tetapan']" [active_item]="'Jenis Bencana'"></app-breadcrumb>
+<app-breadcrumb [title]="'Tetapan Bencana'" [items]="['Tetapan']" [active_item]="'Bencana'"></app-breadcrumb>
 <div class="content d-flex flex-column flex-column-fluid">
 	<div class="container-fluid">
 		<div class="card card-custom gutter-b">
@@ -12,7 +12,7 @@
                 name="searchBencana"
                 placeholder="Carian..."
                 [(ngModel)]="filter"
-                (keyup.enter)="getDisaster()"
+                (keyup)="applyFilter($event.target.value)"
               />
               <i class="search-icon" data-feather="search"></i>
             </div>
@@ -28,13 +28,12 @@
         </div>
 
 				<div class="row align-items-center">
-					<!--<Primeng-TurboTable-Start>-->
 					<div class="primeng-datatable-container">
 						<p-table
 							#dataTable
 							styleClass="p-datatable-striped"
 							[resizableColumns]="true"
-							(onLazyLoad)="getDisaster($event)"
+							(onLazyLoad)="getBencana($event)"
 							[value]="primengTableHelper.records"
 							rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
 							[paginator]="false"
@@ -96,14 +95,13 @@
 							<p-paginator
 								[rows]="primengTableHelper.defaultRecordsCountPerPage"
 								#paginator
-								(onPageChange)="getDisaster($event)"
+								(onPageChange)="getBencana($event)"
 								[totalRecords]="primengTableHelper.totalRecordsCount"
 								[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
 							></p-paginator>
 							<span class="total-records-count">Jumlah: {{ primengTableHelper.totalRecordsCount}}</span>
 						</div>
 					</div>
-					<!--<Primeng-TurboTable-End>-->
 				</div>
 			</div>
 		</div>
