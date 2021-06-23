@@ -1,5 +1,5 @@
 <div class="login-main">
-	<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid " novalidate>
+	<form class="form theme-form" name="form" #f="ngForm" focusInvalidInput (ngSubmit)="f.form.valid && save()" novalidate>
 		<h4>Pendaftaran Baharu</h4>
     <hr />
     <h6>Maklumat Pemohon</h6>
@@ -34,17 +34,23 @@
 						type="text"
 						name="no_kp"
 						[(ngModel)]="register.no_kp"
-						placeholder="Nama Pemohon"
-						#noKadPengenalan="ngModel"
-						[ngClass]="{ 'is-invalid': f.submitted && noKadPengenalan.invalid }"
-            oninput="this.value=this.value.replace(/\D+/g, '');"
-            minlength="12"
+						placeholder="No Kad Pengenalan"
+						#noKp="ngModel"
+						[class.is-invalid]="((noKp.touched || noKp.dirty) && noKp.errors?.stateCodeInvalid && noKp.errors?.valueInvalid) || f.submitted && noKp.invalid"
             maxlength="12"
-						required
+            onlyNumbers
+            kpValidator
+            required
 					/>
-					<div *ngIf="f.submitted && noKadPengenalan.invalid" class="invalid-feedback">
-						<div *ngIf="noKadPengenalan.errors.required">No Kad Pengenalan Wajib Diisi</div>
-					</div>
+          <div *ngIf="f.submitted && noKp.invalid" class="invalid-feedback">
+            <div *ngIf="noKp.errors.required">No Kad Pengenalan Wajib Diisi</div>
+          </div>
+					<div class="mt-1" *ngIf="(noKp.touched || noKp.dirty) && noKp.errors?.valueInvalid" style="color: #dc3545; font-size: 80%; size: 80%;">
+            No. Kad Pengenalan Kurang Daripada 12
+          </div>
+          <div class="mt-1" *ngIf="(noKp.touched || noKp.dirty) && noKp.errors?.stateCodeInvalid" style="color: #dc3545; font-size: 80%; size: 80%;">
+            Kod Negeri Tidak Sah
+          </div>
 				</div>
 			</div>
 		</div>
@@ -62,11 +68,12 @@
 						placeholder="Emel"
 						#emelPemohon="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && emelPemohon.invalid }"
-            autocomplete="email"
 						required
+            email
 					/>
 					<div *ngIf="f.submitted && emelPemohon.invalid" class="invalid-feedback">
 						<div *ngIf="emelPemohon.errors.required">Emel Wajib Diisi</div>
+            <div *ngIf="emelPemohon.errors.email">Format Emel Tidak Sah</div>
 					</div>
 				</div>
 			</div>
@@ -85,12 +92,12 @@
 						[ngClass]="{ 'is-invalid': f.submitted && telefonBimbit.invalid }"
             oninput="this.value=this.value.replace(/\D+/g, '');"
             minlength="9"
-            maxlength="15"
-            autocomplete="mobile"
+            maxlength="12"
 						required
 					/>
 					<div *ngIf="f.submitted && telefonBimbit.invalid" class="invalid-feedback">
 						<div *ngIf="telefonBimbit.errors.required">Telefon Bimbit Wajib Diisi</div>
+            <div *ngIf="telefonBimbit.errors.minlength">No. Telefon (Bimbit) Mesti Melebihi 9 Digit</div>
 					</div>
 				</div>
 			</div>
@@ -186,10 +193,9 @@
 						placeholder="No Telefon Pejabat"
 						#noTelefonPejabat="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && noTelefonPejabat.invalid }"
-            oninput="this.value=this.value.replace(/\D+/g, '');"
             minlength="9"
-            maxlength="15"
-            autocomplete="tel"
+            maxlength="12"
+            onlyNumbers
 						required
 					/>
 					<div *ngIf="f.submitted && noTelefonPejabat.invalid" class="invalid-feedback">
@@ -283,7 +289,6 @@
             minlength="5"
             maxlength="5"
             oninput="this.value=this.value.replace(/\D+/g, '');"
-            autocomplete="postal-code"
             required
           />
           <div *ngIf="f.submitted && poskodAgensi.invalid" class="invalid-feedback">
@@ -348,7 +353,7 @@
 				<button class="btn btn-light pull-left" type="button" [routerLink]="['/akaun/log-masuk']">
 					Kembali
 				</button>
-				<button class="btn btn-primary pull-right" type="submit" (click)="save()">
+				<button class="btn btn-primary pull-right" type="submit">
           Hantar
         </button>
 			</div>

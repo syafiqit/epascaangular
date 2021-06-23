@@ -30,13 +30,15 @@ import { OnlyAlphabetsDirective } from './directives/only-alphabets.directive';
 import { OnlyNumbersDirective } from './directives/only-numbers.directive';
 import { ShowOptionsDirective } from './directives/show-options.directive';
 import { BusyIfDirective } from './directives/busy-if.directive';
+import { ButtonBusyDirective } from './directives/button-busy.directive';
+import { FocusInvalidInputDirective } from './directives/focus-invalid-input.directives';
+import { KpValidatorDirective } from './directives/kp-validator.directive';
 // Services
 import { LayoutService } from './services/layout.service';
 import { NavService } from './services/nav.service';
 import * as ApiServiceProxies from './proxy/service-proxies';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './services/interceptor.service';
-import { ButtonBusyDirective } from './directives/button-busy.directive';
 
 const NSWAG = [
 	ApiServiceProxies.RefAgamaServiceProxy,
@@ -112,7 +114,9 @@ const NSWAG = [
 		BookmarkComponent,
 		CartComponent,
 		MessageBoxComponent,
-		MyAccountComponent
+		MyAccountComponent,
+    FocusInvalidInputDirective,
+    KpValidatorDirective
 	],
 	imports: [
 		CommonModule,
@@ -121,7 +125,7 @@ const NSWAG = [
 		ReactiveFormsModule,
 		NgbModule,
 		DragulaModule.forRoot(),
-		TranslateModule
+		TranslateModule,
 	],
 	providers: [
     NavService,
@@ -142,7 +146,9 @@ const NSWAG = [
 		OnlyAlphabetsDirective,
 		OnlyNumbersDirective,
 		BusyIfDirective,
-    ButtonBusyDirective
+    ButtonBusyDirective,
+    FocusInvalidInputDirective,
+    KpValidatorDirective
 	]
 })
 export class SharedModule {}
