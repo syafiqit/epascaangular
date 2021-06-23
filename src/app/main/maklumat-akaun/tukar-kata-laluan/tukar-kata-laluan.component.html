@@ -17,7 +17,6 @@
 						[(ngModel)]="newPassword.kata_laluan_lama"
 						#kataLaluanLama="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && kataLaluanLama.invalid }"
-						autocomplete="current-password"
 						required
 					/>
 					<div class="show-hide" (click)="showPassword()" *ngIf="!show">
@@ -43,7 +42,6 @@
 						[(ngModel)]="newPassword.kata_laluan_baru"
 						#kataLaluanBaru="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && kataLaluanBaru.invalid }"
-						autocomplete="new-password"
 						required
 					/>
 					<div class="show-hide" (click)="showNewPassword()" *ngIf="!showNew">
@@ -69,7 +67,6 @@
 						[(ngModel)]="newPassword.ulang_kata_laluan_baru"
 						#ulangKataLaluan="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && ulangKataLaluan.invalid }"
-						autocomplete="new-password"
 						required
 					/>
 					<div class="show-hide" (click)="showRepeatNewPassword()" *ngIf="!showRepeatNew">

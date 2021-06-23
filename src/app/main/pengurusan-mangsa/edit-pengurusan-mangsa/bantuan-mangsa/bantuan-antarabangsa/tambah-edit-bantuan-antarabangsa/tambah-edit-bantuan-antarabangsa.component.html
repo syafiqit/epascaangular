@@ -49,7 +49,6 @@
             placeholder="Negara Penyumbang"
             #negaraPenyumbang="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && negaraPenyumbang.invalid }"
-            autocomplete="name"
             required
           />
           <div *ngIf="f.submitted && negaraPenyumbang.invalid" class="invalid-feedback">
@@ -72,7 +71,6 @@
             placeholder="Nama Bantuan"
             #bantuanAntarabangsa="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && bantuanAntarabangsa.invalid }"
-            autocomplete="name"
             required
           />
           <div *ngIf="f.submitted && bantuanAntarabangsa.invalid" class="invalid-feedback">
@@ -93,7 +91,6 @@
             placeholder="Kos Bantuan"
             #kosBantuan="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && kosBantuan.invalid }"
-            autocomplete="name"
             required
             onlyNumbers
           />

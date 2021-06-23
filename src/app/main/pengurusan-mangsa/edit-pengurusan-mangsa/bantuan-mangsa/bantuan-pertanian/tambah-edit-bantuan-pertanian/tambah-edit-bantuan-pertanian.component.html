@@ -129,7 +129,6 @@
             placeholder="Luas Kawasan Pertanian"
             #luasKawasan="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && luasKawasan.invalid }"
-            autocomplete="name"
             onlyNumbers
           />
           <div *ngIf="f.submitted && luasKawasan.invalid" class="invalid-feedback">
@@ -150,7 +149,6 @@
             placeholder="Luas Kawasan Musnah"
             #luasKawasanMusnah="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && luasKawasanMusnah.invalid }"
-            autocomplete="name"
             onlyNumbers
           />
           <div *ngIf="f.submitted && luasKawasanMusnah.invalid" class="invalid-feedback">
@@ -173,7 +171,6 @@
             placeholder="Bilangan Kawasan"
             #bilKawasan="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && bilKawasan.invalid }"
-            autocomplete="name"
             onlyNumbers
           />
           <div *ngIf="f.submitted && bilKawasan.invalid" class="invalid-feedback">
@@ -194,7 +191,6 @@
             placeholder="Bilangan Kawasan Musnah"
             #bilKawasanMusnah="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && bilKawasanMusnah.invalid }"
-            autocomplete="name"
             onlyNumbers
           />
           <div *ngIf="f.submitted && bilKawasanMusnah.invalid" class="invalid-feedback">
@@ -217,7 +213,6 @@
             placeholder="Kos Bantuan"
             #kosBantuan="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && kosBantuan.invalid }"
-            autocomplete="name"
             required
             onlyNumbers
           />

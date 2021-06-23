@@ -13,7 +13,7 @@
 		<div class="col-sm-12">
 			<div class="card">
 				<div class="card-body">
-					<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
+					<form class="form theme-form" name="form" #f="ngForm" focusInvalidInput (ngSubmit)="f.form.valid && save()" novalidate>
 						<h6>Maklumat Pengguna</h6>
 						<div class="row">
 							<div class="col-lg-6">
@@ -28,7 +28,6 @@
                     placeholder="Nama Pemohon"
                     #namaPemohon="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && namaPemohon.invalid }"
-                    autocomplete="name"
                     required
                   />
                   <div *ngIf="f.submitted && namaPemohon.invalid" class="invalid-feedback">
@@ -47,15 +46,21 @@
                     name="no_kp"
                     [(ngModel)]="edit.pengguna.no_kp"
                     placeholder="No Kad Pengenalan"
-                    #noKadPengenalan="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && noKadPengenalan.invalid }"
-                    oninput="this.value=this.value.replace(/\D+/g, '');"
-                    minlength="12"
+                    #noKp="ngModel"
+                    [class.is-invalid]="((noKp.touched || noKp.dirty) && noKp.errors?.stateCodeInvalid && noKp.errors?.valueInvalid) || f.submitted && noKp.invalid"
                     maxlength="12"
+                    onlyNumbers
+                    kpValidator
                     required
                   />
-                  <div *ngIf="f.submitted && noKadPengenalan.invalid" class="invalid-feedback">
-                    <div *ngIf="noKadPengenalan.errors.required">No Kad Pengenalan Wajib Diisi</div>
+                  <div *ngIf="f.submitted && noKp.invalid" class="invalid-feedback">
+                    <div *ngIf="noKp.errors.required">No Kad Pengenalan Wajib Diisi</div>
+                  </div>
+                  <div class="mt-1" *ngIf="(noKp.touched || noKp.dirty) && noKp.errors?.valueInvalid" style="color: #dc3545; font-size: 80%; size: 80%;">
+                    No. Kad Pengenalan Kurang Daripada 12
+                  </div>
+                  <div class="mt-1" *ngIf="(noKp.touched || noKp.dirty) && noKp.errors?.stateCodeInvalid" style="color: #dc3545; font-size: 80%; size: 80%;">
+                    Kod Negeri Tidak Sah
                   </div>
                 </div>
 							</div>
@@ -101,12 +106,12 @@
                     [ngClass]="{ 'is-invalid': f.submitted && noTelefonPejabat.invalid }"
                     oninput="this.value=this.value.replace(/\D+/g, '');"
                     minlength="9"
-                    maxlength="15"
-                    autocomplete="tel"
+                    maxlength="12"
                     required
                   />
                   <div *ngIf="f.submitted && noTelefonPejabat.invalid" class="invalid-feedback">
                     <div *ngIf="noTelefonPejabat.errors.required">No Telefon Pejabat Wajib Diisi</div>
+                    <div *ngIf="noTelefonPejabat.errors.minlength">No. Telefon Pejabat Mesti Melebihi 9 Digit</div>
                   </div>
                 </div>
 							</div>
@@ -126,7 +131,6 @@
                     oninput="this.value=this.value.replace(/\D+/g, '');"
                     minlength="9"
                     maxlength="15"
-                    autocomplete="mobile"
                     required
                   />
                   <div *ngIf="f.submitted && telefonBimbit.invalid" class="invalid-feedback">
@@ -152,7 +156,6 @@
                     oninput="this.value=this.value.replace(/\D+/g, '');"
                     minlength="8"
                     maxlength="15"
-                    autocomplete="fax"
                     required
                   />
                   <div *ngIf="f.submitted && noFax.invalid" class="invalid-feedback">
@@ -173,11 +176,12 @@
                     placeholder="Emel"
                     #emelPemohon="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && emelPemohon.invalid }"
-                    autocomplete="email"
                     required
+                    email
                   />
                   <div *ngIf="f.submitted && emelPemohon.invalid" class="invalid-feedback">
                     <div *ngIf="emelPemohon.errors.required">Emel Wajib Diisi</div>
+                    <div *ngIf="emelPemohon.errors.email">Format Emel Tidak Sah</div>
                   </div>
                 </div>
 							</div>
@@ -250,7 +254,6 @@
                     placeholder="Alamat 1"
                     #alamat1Agensi="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && alamat1Agensi.invalid }"
-                    autocomplete="address-line1"
                     required
                   />
                   <div *ngIf="f.submitted && alamat1Agensi.invalid" class="invalid-feedback">
@@ -271,7 +274,6 @@
                     placeholder="Alamat 2"
                     #alamat2Agensi="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && alamat2Agensi.invalid }"
-                    autocomplete="address-line2"
                     required
                   />
                   <div *ngIf="f.submitted && alamat2Agensi.invalid" class="invalid-feedback">
@@ -297,7 +299,6 @@
                     minlength="5"
                     maxlength="5"
                     oninput="this.value=this.value.replace(/\D+/g, '');"
-                    autocomplete="postal-code"
                     required
                   />
                   <div *ngIf="f.submitted && poskodAgensi.invalid" class="invalid-feedback">

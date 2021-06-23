@@ -193,7 +193,6 @@
             placeholder="Sumber Dana Lain-lain"
             #sumberDanaLain="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && sumberDanaLain.invalid }"
-            autocomplete="name"
           />
         </div>
       </div>
@@ -241,7 +240,6 @@
             placeholder="Pelaksana Lain-lain"
             #NamaPelaksanaLain="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && NamaPelaksanaLain.invalid }"
-            autocomplete="name"
           />
         </div>
       </div>
@@ -260,7 +258,6 @@
             placeholder="Kontraktor"
             #namaKontraktor="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && namaKontraktor.invalid }"
-            autocomplete="name"
             required
           />
           <div *ngIf="f.submitted && namaKontraktor.invalid" class="invalid-feedback">
@@ -281,7 +278,6 @@
             placeholder="No. PKK"
             #noPkk="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && noPkk.invalid }"
-            autocomplete="name"
             required
           />
           <div *ngIf="f.submitted && noPkk.invalid" class="invalid-feedback">
@@ -304,7 +300,6 @@
             placeholder="Kos Anggaran"
             #kosAnggaran="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && kosAnggaran.invalid }"
-            autocomplete="name"
             required
             onlyNumbers
           />
@@ -326,7 +321,6 @@
             placeholder="Kos Sebenar"
             #kosSebenar="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && kosSebenar.invalid }"
-            autocomplete="name"
             required
             onlyNumbers
           />
@@ -349,7 +343,6 @@
             placeholder="Tarikh Mula"
             #tarikhMula="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && tarikhMula.invalid }"
-            autocomplete="name"
             required
           />
           <div *ngIf="f.submitted && tarikhMula.invalid" class="invalid-feedback">
@@ -370,7 +363,6 @@
             placeholder="Tarikh Siap"
             #tarikhSiap="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && tarikhSiap.invalid }"
-            autocomplete="name"
             required
           />
           <div *ngIf="f.submitted && tarikhSiap.invalid" class="invalid-feedback">
@@ -392,7 +384,6 @@
             placeholder="Peratus Kemajuan (%)"
             #peratusKemajuan="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && peratusKemajuan.invalid }"
-            autocomplete="name"
             required
             onlyNumbers
           />

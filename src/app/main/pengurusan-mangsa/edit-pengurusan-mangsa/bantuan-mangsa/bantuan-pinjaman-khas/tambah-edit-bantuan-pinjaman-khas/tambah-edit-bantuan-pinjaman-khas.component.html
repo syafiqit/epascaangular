@@ -99,7 +99,6 @@
             placeholder="Tempoh Pinjaman"
             #tempohPinjaman="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && tempohPinjaman.invalid }"
-            autocomplete="name"
             required
           />
           <div *ngIf="f.submitted && tempohPinjaman.invalid" class="invalid-feedback">
@@ -150,7 +149,6 @@
             placeholder="Jumlah Pinjaman"
             #jumlahPinjaman="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && jumlahPinjaman.invalid }"
-            autocomplete="name"
             required
             onlyNumbers
           />

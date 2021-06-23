@@ -1,4 +1,4 @@
-<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && uploadImage()">
+<form class="form theme-form" name="form" #f="ngForm" focusInvalidInput (ngSubmit)="f.form.valid && uploadImage()">
   <div class="row">
     <div class="col-lg-4">
       <form [formGroup]="secondFormGroup">
@@ -68,15 +68,21 @@
               name="no_kp"
               [(ngModel)]="getMangsa.mangsa.no_kp"
               placeholder="No Kad Pengenalan"
-              #noKP="ngModel"
-              [ngClass]="{ 'is-invalid': f.submitted && noKP.invalid }"
-              oninput="this.value=this.value.replace(/\D+/g, '');"
-              minlength="12"
+              #noKp="ngModel"
+              [class.is-invalid]="((noKp.touched || noKp.dirty) && noKp.errors?.stateCodeInvalid && noKp.errors?.valueInvalid) || f.submitted && noKp.invalid"
               maxlength="12"
+              onlyNumbers
+              kpValidator
               required
             />
-            <div *ngIf="f.submitted && noKP.invalid" class="invalid-feedback">
-              <div *ngIf="noKP.errors.required">No Kad Pengenalan Wajib Diisi</div>
+            <div *ngIf="f.submitted && noKp.invalid" class="invalid-feedback">
+              <div *ngIf="noKp.errors.required">No Kad Pengenalan Wajib Diisi</div>
+            </div>
+            <div class="mt-1" *ngIf="(noKp.touched || noKp.dirty) && noKp.errors?.valueInvalid" style="color: #dc3545; font-size: 80%; size: 80%;">
+              No. Kad Pengenalan Kurang Daripada 12
+            </div>
+            <div class="mt-1" *ngIf="(noKp.touched || noKp.dirty) && noKp.errors?.stateCodeInvalid" style="color: #dc3545; font-size: 80%; size: 80%;">
+              Kod Negeri Tidak Sah
             </div>
           </div>
         </div>
