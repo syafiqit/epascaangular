@@ -28,7 +28,6 @@
                     placeholder="Nama Pemohon"
                     #namaPemohon="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && namaPemohon.invalid }"
-                    autocomplete="name"
                     required
                   />
                   <div *ngIf="f.submitted && namaPemohon.invalid" class="invalid-feedback">
@@ -132,7 +131,6 @@
                     oninput="this.value=this.value.replace(/\D+/g, '');"
                     minlength="9"
                     maxlength="15"
-                    autocomplete="mobile"
                     required
                   />
                   <div *ngIf="f.submitted && telefonBimbit.invalid" class="invalid-feedback">

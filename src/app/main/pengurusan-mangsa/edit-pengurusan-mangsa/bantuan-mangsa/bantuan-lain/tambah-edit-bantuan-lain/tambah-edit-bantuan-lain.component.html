@@ -49,7 +49,6 @@
             placeholder="Nama Bantuan"
             #namaBantuan="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && namaBantuan.invalid }"
-            autocomplete="name"
             required
           />
           <div *ngIf="f.submitted && namaBantuan.invalid" class="invalid-feedback">
@@ -100,7 +99,6 @@
             placeholder="Sumber Dana Lain-lain"
             #sumberDanaLain="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && sumberDanaLain.invalid }"
-            autocomplete="name"
           />
         </div>
       </div>
@@ -147,7 +145,6 @@
             placeholder="Kos Bantuan"
             #kosBantuan="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && kosBantuan.invalid }"
-            autocomplete="name"
             required
             onlyNumbers
           />

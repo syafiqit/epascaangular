@@ -16,7 +16,6 @@
 						placeholder="Nama Pemohon"
 						#namaPemohon="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && namaPemohon.invalid }"
-						autocomplete="name"
 						required
 					/>
 					<div *ngIf="f.submitted && namaPemohon.invalid" class="invalid-feedback">
@@ -219,7 +218,6 @@
             oninput="this.value=this.value.replace(/\D+/g, '');"
             minlength="8"
             maxlength="15"
-            autocomplete="fax"
 						required
 					/>
 					<div *ngIf="f.submitted && noFax.invalid" class="invalid-feedback">
@@ -242,7 +240,6 @@
 						placeholder="Alamat 1"
 						#alamat1Agensi="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && alamat1Agensi.invalid }"
-            autocomplete="address-line1"
 						required
 					/>
 					<div *ngIf="f.submitted && alamat1Agensi.invalid" class="invalid-feedback">
@@ -263,7 +260,6 @@
 						placeholder="Alamat 2"
 						#alamat2Agensi="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && alamat2Agensi.invalid }"
-            autocomplete="address-line2"
 						required
 					/>
 					<div *ngIf="f.submitted && alamat2Agensi.invalid" class="invalid-feedback">
