@@ -1,16 +1,18 @@
 import { Component, OnInit, ViewEncapsulation, Input, ViewChild } from '@angular/core';
-import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
+import { finalize } from 'rxjs/operators';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
-
+import { CreateOrEditTabungBwiKirDto, TabungBwiKirServiceProxy, TabungBwiServiceProxy } from 'src/app/shared/proxy/service-proxies';
+declare let require;
+const Swal = require('sweetalert2');
 @Component({
 	selector: 'app-tambah-ketua-isi-rumah',
 	templateUrl: './tambah-ketua-isi-rumah.component.html',
 	encapsulation: ViewEncapsulation.None,
-	providers: [NgbModalConfig, NgbModal]
+	providers: [NgbModalConfig]
 })
 export class TambahKetuaIsiRumahComponent implements OnInit {
 	@ViewChild('dataTable', { static: true }) dataTable: Table;
@@ -19,16 +21,22 @@ export class TambahKetuaIsiRumahComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
 
 	@Input() name;
+	@Input() id;
+  @Input() kategori;
+  @Input() id_tabung_bwi;
 
-	modelFooter: NgbDateStruct;
-	today = this.calendar.getToday();
+  kir: CreateOrEditTabungBwiKirDto = new CreateOrEditTabungBwiKirDto();
+  filter: string;
+  saving = false;
 
-	rows = [
-		{ name: 'Abu Bin Ali', totalAir: '5', total: '500', state: 'Johor', area: 'Segamat' },
-		{ name: 'Ramzan Bin Arifin', totalAir: '5', total: '500', state: 'Johor', area: 'Segamat' }
-	];
-
-	constructor(private modalService: NgbModal, public activeModal: NgbActiveModal, private calendar: NgbCalendar) {
+	constructor(
+    config: NgbModalConfig,
+    public activeModal: NgbActiveModal,
+    private _tabungBwiServiceProxy: TabungBwiServiceProxy,
+    private _tabungBwiKirServiceProxy: TabungBwiKirServiceProxy
+  ) {
+		config.backdrop = 'static';
+		config.keyboard = false;
 		this.primengTableHelper = new PrimengTableHelper();
 	}
 
@@ -41,8 +49,47 @@ export class TambahKetuaIsiRumahComponent implements OnInit {
 		}
 
 		this.primengTableHelper.showLoadingIndicator();
-		this.primengTableHelper.totalRecordsCount = this.rows.length;
-		this.primengTableHelper.records = this.rows;
-		this.primengTableHelper.hideLoadingIndicator();
+		this._tabungBwiServiceProxy
+			.getAllKir(
+				this.filter,
+				this.primengTableHelper.getSorting(this.dataTable),
+				this.primengTableHelper.getSkipCount(this.paginator, event),
+				this.primengTableHelper.getMaxResultCount(this.paginator, event)
+			)
+      .pipe(finalize(()=> {
+				this.primengTableHelper.hideLoadingIndicator();
+      }))
+			.subscribe((result) => {
+				this.primengTableHelper.totalRecordsCount = result.total_count;
+				this.primengTableHelper.records = result.items;
+			});
 	}
+
+  select(id_mangsa, nama, nama_daerah, nama_negeri, jumlah_bwi) {
+    if (this.kategori == 1) {
+      this.activeModal.close({
+        id_mangsa: id_mangsa,
+        nama: nama,
+        nama_daerah: nama_daerah,
+        nama_negeri: nama_negeri,
+        jumlah_bwi: jumlah_bwi
+      });
+    }
+    else {
+      this.saving = true;
+
+      this.kir.id_tabung_bwi = this.id_tabung_bwi;
+      this._tabungBwiKirServiceProxy
+        .createOrEdit(this.kir)
+        .pipe()
+        .subscribe(() => {
+          if (this.name == 'add') {
+            Swal.fire('Berjaya!', 'Maklumat Ketua Isi Rumah Berjaya Ditambah.', 'success');
+          } else if (this.name == 'edit') {
+            Swal.fire('Berjaya!', 'Maklumat Ketua Isi Rumah Berjaya Dikemaskini.', 'success');
+          }
+          this.activeModal.close(true);
+        });
+    }
+  }
 }

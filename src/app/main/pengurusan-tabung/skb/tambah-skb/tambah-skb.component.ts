@@ -43,8 +43,6 @@ export class TambahSkbComponent implements OnInit {
   tarikhTamat: string;
   idBulan: number = 0;
   rows = [];
-  rowsId = [];
-  idRows = [];
 
 	constructor(
     config: NgbModalConfig,
@@ -98,7 +96,6 @@ export class TambahSkbComponent implements OnInit {
 			() => {}
 		);
 	}
-
 
   editBulanan(idBulan, tahun, bulan, jumlah) {
 		const modalRef = this.modalService.open(TambahBelanjaBulanan, { size: 'lg' });

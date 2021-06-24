@@ -143,36 +143,32 @@
 							<ng-template pTemplate="header">
 								<tr>
 									<th style="width: 150px">Tindakan</th>
-									<th style="width: 150px" pSortableColumn="negeri">
+									<th style="width: 150px" pSortableColumn="nama_negeri">
 										Negeri
-										<p-sortIcon field="negeri"></p-sortIcon>
+										<p-sortIcon field="nama_negeri"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="daerah">
+									<th style="width: 130px" pSortableColumn="nama_daerah">
 										Daerah
-										<p-sortIcon field="daerah"></p-sortIcon>
+										<p-sortIcon field="nama_daerah"></p-sortIcon>
 									</th>
-									<th style="width: 140px" pSortableColumn="bencana">
+									<th style="width: 150px" pSortableColumn="nama_jenis_bencana">
 										Jenis Bencana
-										<p-sortIcon field="bencana"></p-sortIcon>
+										<p-sortIcon field="nama_jenis_bencana"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="status">
-										Status maklumat Rujukan
-										<p-sortIcon field="status"></p-sortIcon>
-									</th>
-									<th style="width: 120px" pSortableColumn="tahun">
+									<th style="width: 120px" pSortableColumn="tahun_bencana">
 										Tahun
-										<p-sortIcon field="tahun"></p-sortIcon>
+										<p-sortIcon field="tahun_bencana"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="wkir">
-										Wang Ihsan/KIR
-										<p-sortIcon field="wkir"></p-sortIcon>
+									<th style="width: 130px" pSortableColumn="jumlah_setiap_kir">
+										BWI/KIR
+										<p-sortIcon field="jumlah_setiap_kir"></p-sortIcon>
 									</th>
 									<th style="width: 130px" pSortableColumn="jumlah_kir">
 										Jumlah KIR
 										<p-sortIcon field="jumlah_kir"></p-sortIcon>
 									</th>
 									<th style="width: 140px" pSortableColumn="jumlah">
-										Jumlah(RM)
+										Jumlah (RM)
 										<p-sortIcon field="jumlah"></p-sortIcon>
 									</th>
 									<th style="width: 120px" pSortableColumn="tarikh_eft">
@@ -180,8 +176,12 @@
 										<p-sortIcon field="tarikh_eft"></p-sortIcon>
 									</th>
 									<th style="width: 150px" pSortableColumn="baki_pulang">
-										Jumlah Baki Dipulangkan
+										Baki Pulangan
 										<p-sortIcon field="baki_pulang"></p-sortIcon>
+									</th>
+									<th style="width: 155px" pSortableColumn="status">
+										Status Rujukan
+										<p-sortIcon field="status"></p-sortIcon>
 									</th>
 								</tr>
 							</ng-template>
@@ -202,51 +202,52 @@
 											<div ngbDropdownMenu aria-labelledby="action">
 												<button
 													class="dropdown-item"
-													[routerLink]="['/app/tabung/tambah-edit-wang-ihsan']"
+													[routerLink]="['/app/tabung/edit-wang-ihsan']"
+                          [queryParams]="{id: record.id}"
 												>
 													Lihat
 												</button>
-												<button class="dropdown-item">Padam</button>
 											</div>
 										</div>
 									</td>
 									<td style="width: 150px">
 										<span class="p-column-title">Negeri</span>
+                    {{record.nama_negeri}}
 									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">Daerah</span>
-
+                    {{record.nama_daerah}}
 									</td>
-									<td style="width: 140px">
+									<td style="width: 150px">
 										<span class="p-column-title">Jenis Bencana</span>
                     {{record.nama_jenis_bencana}}
-									</td>
-									<td style="width: 130px">
-										<span class="p-column-title">Status Maklumat Rujukan</span>
-
 									</td>
 									<td style="width: 120px">
 										<span class="p-column-title">Tahun</span>
                     {{record.tahun_bencana}}
 									</td>
 									<td style="width: 130px">
-										<span class="p-column-title">Wang Ihsan/KIR</span>
-
+										<span class="p-column-title">BWI/KIR</span>
+                    RM{{record.jumlah_setiap_kir}}
 									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">Jumlah KIR</span>
                     {{record.jumlah_kir}}
 									</td>
 									<td style="width: 140px">
-										<span class="p-column-title">Jumlah(RM)</span>
-
+										<span class="p-column-title">Jumlah</span>
+                    RM{{record.jumlah_setiap_kir * record.jumlah_kir}}
 									</td>
 									<td style="width: 120px">
 										<span class="p-column-title">Tarikh EFT</span>
                     {{record.tarikh_eft | date:'dd-MM-yyyy'}}
 									</td>
 									<td style="width: 150px">
-										<span class="p-column-title">Jumlah Baki Dipulangkan</span>
+										<span class="p-column-title">Baki Pulangan</span>
+
+									</td>
+									<td style="width: 155px">
+										<span class="p-column-title">Status Rujukan</span>
 
 									</td>
 								</tr>

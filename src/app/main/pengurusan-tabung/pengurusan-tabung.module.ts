@@ -10,6 +10,7 @@ import { TabungComponent } from './tabung/tabung.component';
 import { TambahEditTabungComponent } from './tabung/tambah-edit-tabung/tambah-edit-tabung.component';
 import { WangIhsanComponent } from './wang-ihsan/wang-ihsan.component';
 import { TambahEditWangIhsanComponent } from './wang-ihsan/tambah-edit-wang-ihsan/tambah-edit-wang-ihsan.component';
+import { EditWangIhsanComponent } from './wang-ihsan/edit-wang-ihsan/edit-wang-ihsan.component';
 import { MukaHalamanTabungComponent } from './muka-halaman-tabung/muka-halaman-tabung.component';
 import { SkbComponent } from './skb/skb.component';
 import { TambahSkbComponent } from './skb/tambah-skb/tambah-skb.component';
@@ -42,6 +43,7 @@ import { TambahPeruntukanComponent } from './tabung/edit-tabung/tambah-peruntuka
 		TambahEditTabungComponent,
 		WangIhsanComponent,
 		TambahEditWangIhsanComponent,
+    EditWangIhsanComponent,
 		MukaHalamanTabungComponent,
 		SkbComponent,
 		TambahSkbComponent,

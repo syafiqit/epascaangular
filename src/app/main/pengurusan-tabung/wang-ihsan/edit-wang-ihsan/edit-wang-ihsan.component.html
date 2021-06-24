@@ -1,7 +1,7 @@
 <app-breadcrumb
-	[title]="'Tambah Maklumat Bantuan Wang Ihsan'"
+	[title]="'Kemaskini Maklumat Bantuan Wang Ihsan'"
 	[items]="['Bantuan Wang Ihsan']"
-	[active_item]="'Tambah'"
+	[active_item]="'Kemaskini'"
 ></app-breadcrumb>
 <div class="container-fluid">
 	<div class="row">
@@ -128,7 +128,7 @@
 									<hr />
 
                   <div class="row no-gutters justify-content-end mb-3">
-										<button class="btn btn-primary" type="button" (click)="addKirModal()">
+										<button class="btn btn-primary" type="button" (click)="addKirModal(edit.tabung_bwi.id)">
 											<i class="fa fa-plus mr-2"></i>
 											Pilih
 										</button>
@@ -150,7 +150,7 @@
                         ScrollWidth="100%"
                         [responsive]="primengTableHelper.isResponsive"
                         [resizableColumns]="primengTableHelper.resizableColumns"
-											>
+                      >
 												<ng-template pTemplate="header">
 													<tr>
 														<th style="width: 130px">Tindakan</th>
@@ -186,14 +186,9 @@
 																	<span class="caret"></span>
 																	Tindakan
 																</button>
-																<div ngbDropdownMenu aria-labelledby="action">
-																	<button
-                                    class="dropdown-item"
-                                    (click)="deleteKir(record.id)"
-                                  >
-                                    Padam
-                                  </button>
-																</div>
+                                <div ngbDropdownMenu aria-labelledby="action">
+                                  <button class="dropdown-item">Padam</button>
+                                </div>
 															</div>
 														</td>
 														<td style="width: 150px">
@@ -228,7 +223,7 @@
                           [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
                         ></p-paginator>
                         <span class="total-records-count">
-                          Jumlah: {{primengTableHelper.totalRecordsCount}}
+                          Jumlah: {{ primengTableHelper.totalRecordsCount }}
                         </span>
                       </div>
 										</div>
@@ -243,7 +238,7 @@
 													name="wiKir"
 													type="text"
 													placeholder="Jumlah Bayaran (WI/KIR)"
-                          [(ngModel)]="bwi.jumlah_setiap_kir"
+                          [(ngModel)]="edit.tabung_bwi.jumlah_setiap_kir"
                           #perKir="ngModel"
                           [ngClass]="{ 'is-invalid': f.submitted && perKir.invalid }"
                           required
@@ -263,9 +258,6 @@
 													name="totalKir"
 													type="text"
 													placeholder="Jumlah KIR"
-                          value="{{primengTableHelper.totalRecordsCount}}"
-                          [(ngModel)]="jumlahKir"
-                          disabled
 												/>
 											</div>
 										</div>
@@ -315,7 +307,7 @@
                           rows="3"
                           placeholder="Catatan"
                           name="catatan"
-                          [(ngModel)]="bwi.catatan"
+                          [(ngModel)]="edit.tabung_bwi.catatan"
                         ></textarea>
 											</div>
 										</div>
@@ -335,7 +327,7 @@
 													name="rujukan_akuan_kp"
 													type="text"
 													placeholder="No. Rujukan"
-                          [(ngModel)]="bwi.no_rujukan_akuan_kp"
+                          [(ngModel)]="edit.tabung_bwi.no_rujukan_akuan_kp"
                           #refAkuanKp="ngModel"
                           [ngClass]="{ 'is-invalid': f.submitted && refAkuanKp.invalid }"
                           required
@@ -379,7 +371,7 @@
 													name="rujukan_saluran"
 													type="text"
 													placeholder="No. Rujukan"
-                          [(ngModel)]="bwi.no_rujukan_saluran_kpd_bkp"
+                          [(ngModel)]="edit.tabung_bwi.no_rujukan_saluran_kpd_bkp"
                           #refSaluran="ngModel"
                           [ngClass]="{ 'is-invalid': f.submitted && refSaluran.invalid }"
                           required
@@ -422,7 +414,7 @@
 													name="rujukan_laporan"
 													type="text"
 													placeholder="No. Rujukan"
-                          [(ngModel)]="bwi.no_rujukan_laporan_kpd_bkp"
+                          [(ngModel)]="edit.tabung_bwi.no_rujukan_laporan_kpd_bkp"
                           #refLaporan="ngModel"
                           [ngClass]="{ 'is-invalid': f.submitted && refLaporan.invalid }"
                           required
@@ -469,7 +461,7 @@
 													name="rujukan_majlis"
 													type="text"
 													placeholder="No. Rujukan"
-                          [(ngModel)]="bwi.no_rujukan_makluman_majlis"
+                          [(ngModel)]="edit.tabung_bwi.no_rujukan_makluman_majlis"
                           #refMajlis="ngModel"
                           [ngClass]="{ 'is-invalid': f.submitted && refMajlis.invalid }"
                           required
@@ -537,7 +529,7 @@
               >
                 Kembali
               </button>
-              <button class="btn btn-primary pull-right" type="submit">Hantar</button>
+              <button class="btn btn-primary pull-right" type="submit">Simpan</button>
             </div>
 					</form>
 				</div>

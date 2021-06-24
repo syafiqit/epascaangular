@@ -4,9 +4,15 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
-import { RefDaerahServiceProxy, RefJenisBencanaServiceProxy, RefNegeriServiceProxy, TabungBwiServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import {
+  RefDaerahServiceProxy,
+  RefJenisBencanaServiceProxy,
+  RefNegeriServiceProxy,
+  TabungBwiServiceProxy
+} from 'src/app/shared/proxy/service-proxies';
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 @Component({
 	selector: 'app-wang-ihsan',
 	templateUrl: './wang-ihsan.component.html',
@@ -26,14 +32,17 @@ export class WangIhsanComponent implements OnInit {
   jenisBencana: any;
   daerah: any;
   negeri: any;
+  idBwi: any;
 
 	constructor(
     config: NgbModalConfig,
+    private _activatedRoute: ActivatedRoute,
      private tabungBwiServiceProxy: TabungBwiServiceProxy,
      private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy,
      private _refDaerahServiceProxy: RefDaerahServiceProxy,
      private _refNegeriServiceProxy: RefNegeriServiceProxy
-    ) {
+  ) {
+    this.idBwi = this._activatedRoute.snapshot.queryParams['id'];
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
