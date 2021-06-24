@@ -4,14 +4,19 @@ import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { TambahKetuaIsiRumahComponent } from '../tambah-ketua-isi-rumah/tambah-ketua-isi-rumah.component';
-import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TambahNoRujukanComponent } from '../tambah-no-rujukan/tambah-no-rujukan.component';
+import { CreateOrEditTabungBwiDto, InputBwiKirDto, InputCreateTabungBwiDto, TabungBwiServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import { Router } from '@angular/router';
+import * as moment from 'moment';
+declare let require;
+const Swal = require('sweetalert2');
 
 @Component({
 	selector: 'app-tambah-edit-wang-ihsan',
 	templateUrl: './tambah-edit-wang-ihsan.component.html',
 	encapsulation: ViewEncapsulation.None,
-	providers: [NgbModalConfig, NgbModal]
+	providers: [NgbModalConfig, NgbModal, NgbActiveModal]
 })
 export class TambahEditWangIhsanComponent implements OnInit {
 	@ViewChild('dataTable', { static: true }) dataTable: Table;
@@ -19,50 +24,48 @@ export class TambahEditWangIhsanComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 
-	rows = [
-		{ name: 'Abu Bin Ali', total: '500', state: 'Johor', area: 'Segamat' },
-		{ name: 'Ramzan Bin Arifin', total: '500', state: 'Johor', area: 'Segamat' }
-	];
-
-	state = [
-		{ state: 'Johor' },
-		{ state: 'Kedah' },
-		{ state: 'Kelantan' },
-		{ state: 'Melaka' },
-		{ state: 'Negeri Sembilan' },
-		{ state: 'Pahang' },
-		{ state: 'Perak' },
-		{ state: 'Perlis' },
-		{ state: 'Pulau Pinang' },
-		{ state: 'Sabah' },
-		{ state: 'Sarawak' },
-		{ state: 'Selangor' },
-		{ state: 'Terengganu' },
-		{ state: 'Wilayah Persekutuan K.L' }
-	];
-	area = [
-		{ area: 'Segamat' },
-		{ area: 'Labis' },
-		{ area: 'Larkin' },
-		{ area: 'Kluang' },
-		{ area: 'Mersing' },
-		{ area: 'Muar' },
-		{ area: 'Ledang' }
-	];
-	disaster = [{ disaster: 'Banjir' }, { disaster: 'Gempa Bumi' }, { disaster: 'Covid-19' }];
+  tabungBwi: InputCreateTabungBwiDto = new InputCreateTabungBwiDto();
+  bwi: CreateOrEditTabungBwiDto = new CreateOrEditTabungBwiDto();
+  bwiKir: InputBwiKirDto[] = [];
 	active = 1;
 
-	constructor(config: NgbModalConfig, private modalService: NgbModal) {
+  no_rujukan_kelulusan: number;
+  nama_jenis_bencana: string;
+  rujukan_surat: string;
+  nama_tabung: string;
+  perihal_surat: string;
+  idKir: number = 0;
+
+  rows = [];
+  saving = false;
+  jumlahKir = this.rows.length;
+  date = new Date();
+  tarikhEft: string;
+  tarikhAkuanKp: string;
+  tarikhPenyaluran: string;
+  tarikhLaporan: string;
+  tarikhMaklum: string;
+  tarikhMajlis: string;
+
+	constructor(
+    config: NgbModalConfig,
+    private router: Router,
+    private modalService: NgbModal,
+    public activeModal: NgbActiveModal,
+    private _tabungBwiServiceProxy: TabungBwiServiceProxy
+  ) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
 	}
 
-	getDisaster(event?: LazyLoadEvent) {
-		if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
+	ngOnInit(): void {}
+
+	getKir(event?: LazyLoadEvent) {
+		// if (this.primengTableHelper.shouldResetPaging(event)) {
+		// 	this.paginator.changePage(0);
+		// 	return;
+		// }
 
 		this.primengTableHelper.showLoadingIndicator();
 		this.primengTableHelper.totalRecordsCount = this.rows.length;
@@ -70,19 +73,82 @@ export class TambahEditWangIhsanComponent implements OnInit {
 		this.primengTableHelper.hideLoadingIndicator();
 	}
 
-	reloadPage(): void {
-		this.paginator.changePage(this.paginator.getPage());
-	}
-
-	addDisasterModal() {
+  addKirModal() {
 		const modalRef = this.modalService.open(TambahKetuaIsiRumahComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
+    modalRef.componentInstance.kategori = 1;
+
+    modalRef.result.then(
+			(response) => {
+				if (response) {
+          this.idKir = this.idKir + 1;
+					this.rows.push({
+            id: this.idKir,
+            id_mangsa: response.id_mangsa,
+            nama: response.nama,
+            jumlah_bwi: response.jumlah_bwi,
+            nama_daerah: response.nama_daerah,
+            nama_negeri: response.nama_negeri
+          });
+          this.getKir();
+				}
+			},
+			() => {}
+		);
+	}
+
+  deleteKir(id) {
+    const index = this.rows.indexOf(id);
+    this.rows.splice(index, 1);
+    this.getKir();
+	}
+
+	reloadPage(): void {
+		this.paginator.changePage(this.paginator.getPage());
 	}
 
 	addNoReference() {
 		const modalRef = this.modalService.open(TambahNoRujukanComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
+    modalRef.result.then(
+			(response) => {
+				if (response) {
+					this.no_rujukan_kelulusan = response.no_rujukan_kelulusan;
+          this.nama_jenis_bencana = response.nama_jenis_bencana;
+          this.rujukan_surat = response.rujukan_surat;
+          this.nama_tabung = response.nama_tabung;
+          this.perihal_surat = response.perihal_surat;
+          this.bwi.id_tabung_kelulusan = response.id;
+				}
+			},
+			() => {}
+		);
 	}
 
-	ngOnInit(): void {}
+	save() {
+    this.saving = true;
+    for(let i = 0; i < this.rows.length; i++){
+      const ketuaIsiRumah = new InputBwiKirDto();
+      ketuaIsiRumah.id_mangsa = this.rows[i].id_mangsa;
+      this.bwiKir.push(ketuaIsiRumah);
+    }
+
+    this.tabungBwi.bwi = this.bwi;
+    this.tabungBwi.bwi.jumlah_kir = this.jumlahKir;
+    this.tabungBwi.bwi.tarikh_eft = moment(this.tarikhEft);
+    this.tabungBwi.bwi.tarikh_akuan_kp = moment(this.tarikhAkuanKp);
+    this.tabungBwi.bwi.tarikh_saluran_kpd_bkp = moment(this.tarikhPenyaluran);
+    this.tabungBwi.bwi.tarikh_laporan_kpd_bkp = moment(this.tarikhLaporan);
+    this.tabungBwi.bwi.tarikh_makluman_majlis = moment(this.tarikhMaklum);
+    this.tabungBwi.bwi.tarikh_majlis_makluman_majlis = moment(this.tarikhMajlis);
+    this.tabungBwi.bwiKir = this.bwiKir;
+    this._tabungBwiServiceProxy
+			.createOrEdit(this.tabungBwi)
+			.pipe()
+			.subscribe((result) => {
+				Swal.fire('Berjaya!', 'Maklumat Bantuan Wang Ihsan Berjaya Dihantar.', 'success').then(() => {
+          this.router.navigateByUrl('/app/tabung/senarai-wang-ihsan');
+				});
+			});
+	}
 }

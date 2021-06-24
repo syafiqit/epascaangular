@@ -1,16 +1,17 @@
 import { Component, OnInit, ViewEncapsulation, Input, ViewChild } from '@angular/core';
-import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
+import { finalize } from 'rxjs/operators';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
+import { TabungKelulusanServiceProxy } from 'src/app/shared/proxy/service-proxies';
 
 @Component({
 	selector: 'app-tambah-no-rujukan',
 	templateUrl: './tambah-no-rujukan.component.html',
 	encapsulation: ViewEncapsulation.None,
-	providers: [NgbModalConfig, NgbModal]
+	providers: [NgbModalConfig]
 })
 export class TambahNoRujukanComponent implements OnInit {
 	@ViewChild('dataTable', { static: true }) dataTable: Table;
@@ -20,23 +21,15 @@ export class TambahNoRujukanComponent implements OnInit {
 
 	@Input() name;
 
-	modelFooter: NgbDateStruct;
-	today = this.calendar.getToday();
+  filter: string;
 
-	rows = [
-		{
-			reference: 'JPM.APBN(S).600-3/8/2 (1)',
-			description:
-				'Kelulusan Permohonan Tambahan Bina Rumah Baru Dan Baik Pulih Rumah Bagi Mangsa Banjir Tahun 2014'
-		},
-		{
-			reference: 'JPM.APBN(S).600-3/8/2 (2)',
-			description:
-				'Kelulusan Permohonan Tambahan Bina Rumah Baru Dan Baik Pulih Rumah Bagi Mangsa Banjir Tahun 2015'
-		}
-	];
-
-	constructor(private modalService: NgbModal, public activeModal: NgbActiveModal, private calendar: NgbCalendar) {
+	constructor(
+    config: NgbModalConfig,
+    public activeModal: NgbActiveModal,
+    private _tabungKelulusanServiceProxy: TabungKelulusanServiceProxy
+  ) {
+		config.backdrop = 'static';
+		config.keyboard = false;
 		this.primengTableHelper = new PrimengTableHelper();
 	}
 
@@ -49,8 +42,32 @@ export class TambahNoRujukanComponent implements OnInit {
 		}
 
 		this.primengTableHelper.showLoadingIndicator();
-		this.primengTableHelper.totalRecordsCount = this.rows.length;
-		this.primengTableHelper.records = this.rows;
-		this.primengTableHelper.hideLoadingIndicator();
+		this._tabungKelulusanServiceProxy
+			.getAll(
+				this.filter,
+				this.primengTableHelper.getSorting(this.dataTable),
+				this.primengTableHelper.getSkipCount(this.paginator, event),
+				this.primengTableHelper.getMaxResultCount(this.paginator, event)
+			)
+      .pipe(finalize(()=> {
+				this.primengTableHelper.hideLoadingIndicator();
+      }))
+			.subscribe((result) => {
+				this.primengTableHelper.totalRecordsCount = result.total_count;
+				this.primengTableHelper.records = result.items;
+			});
+	}
+
+  select(id, no_rujukan_kelulusan, id_jenis_bencana, id_tabung, nama_jenis_bencana, rujukan_surat, nama_tabung, perihal_surat) {
+		this.activeModal.close({
+      id: id,
+      no_rujukan_kelulusan: no_rujukan_kelulusan,
+      id_jenis_bencana: id_jenis_bencana,
+      id_tabung: id_tabung,
+      nama_jenis_bencana: nama_jenis_bencana,
+      rujukan_surat: rujukan_surat,
+      nama_tabung: nama_tabung,
+      perihal_surat: perihal_surat
+    });
 	}
 }

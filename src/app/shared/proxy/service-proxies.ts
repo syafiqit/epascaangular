@@ -11692,6 +11692,87 @@ export class TabungBwiKirServiceProxy {
     }
 
     /**
+     * Get all TabungBwiKir by Id
+     * @param filter (optional) Filter records with a string
+     * @param filterKir (optional) Filter Id Kir records with a int
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAllKirById(filter: string | undefined, filterKir: any | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungBwiKirForViewDto> {
+        let url_ = this.baseUrl + "/api/tabungBwiKir/getAllKirById?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (filterKir === null)
+            throw new Error("The parameter 'filterKir' cannot be null.");
+        else if (filterKir !== undefined)
+            url_ += "filterKir=" + encodeURIComponent("" + filterKir) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllKirById(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllKirById(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfTabungBwiKirForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfTabungBwiKirForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllKirById(response: HttpResponseBase): Observable<PagedResultDtoOfTabungBwiKirForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfTabungBwiKirForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfTabungBwiKirForViewDto>(<any>null);
+    }
+
+    /**
      * Get TabungBwiKir by id
      * @param id TabungBwiKir Id
      * @return Success
@@ -12048,7 +12129,7 @@ export class TabungBwiServiceProxy {
      * @param body Create or edit object
      * @return Success
      */
-    createOrEdit(body: CreateOrEditTabungBwiDto): Observable<CreateOrEditTabungBwiDto> {
+    createOrEdit(body: InputCreateTabungBwiDto): Observable<InputCreateTabungBwiDto> {
         let url_ = this.baseUrl + "/api/tabungBwi/createOrEdit";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -12071,14 +12152,14 @@ export class TabungBwiServiceProxy {
                 try {
                     return this.processCreateOrEdit(<any>response_);
                 } catch (e) {
-                    return <Observable<CreateOrEditTabungBwiDto>><any>_observableThrow(e);
+                    return <Observable<InputCreateTabungBwiDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<CreateOrEditTabungBwiDto>><any>_observableThrow(response_);
+                return <Observable<InputCreateTabungBwiDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditTabungBwiDto> {
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<InputCreateTabungBwiDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -12089,7 +12170,7 @@ export class TabungBwiServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = CreateOrEditTabungBwiDto.fromJS(resultData200);
+            result200 = InputCreateTabungBwiDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status === 500) {
@@ -12101,7 +12182,7 @@ export class TabungBwiServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<CreateOrEditTabungBwiDto>(<any>null);
+        return _observableOf<InputCreateTabungBwiDto>(<any>null);
     }
 }
 
@@ -25595,6 +25676,12 @@ export class GetTabungBwiKirForViewDto implements IGetTabungBwiKirForViewDto {
     id_pengguna_hapus!: number;
     tarikh_hapus!: moment.Moment;
     sebab_hapus!: string;
+    nama!: string;
+    id_daerah!: number;
+    id_negeri!: number;
+    nama_daerah!: string;
+    nama_negeri!: string;
+    jumlah_bwi!: number;
 
     constructor(data?: IGetTabungBwiKirForViewDto) {
         if (data) {
@@ -25617,6 +25704,12 @@ export class GetTabungBwiKirForViewDto implements IGetTabungBwiKirForViewDto {
             this.id_pengguna_hapus = _data["id_pengguna_hapus"];
             this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
             this.sebab_hapus = _data["sebab_hapus"];
+            this.nama = _data["nama"];
+            this.id_daerah = _data["id_daerah"];
+            this.id_negeri = _data["id_negeri"];
+            this.nama_daerah = _data["nama_daerah"];
+            this.nama_negeri = _data["nama_negeri"];
+            this.jumlah_bwi = _data["jumlah_bwi"];
         }
     }
 
@@ -25639,6 +25732,12 @@ export class GetTabungBwiKirForViewDto implements IGetTabungBwiKirForViewDto {
         data["id_pengguna_hapus"] = this.id_pengguna_hapus;
         data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
+        data["nama"] = this.nama;
+        data["id_daerah"] = this.id_daerah;
+        data["id_negeri"] = this.id_negeri;
+        data["nama_daerah"] = this.nama_daerah;
+        data["nama_negeri"] = this.nama_negeri;
+        data["jumlah_bwi"] = this.jumlah_bwi;
         return data; 
     }
 }
@@ -25654,6 +25753,88 @@ export interface IGetTabungBwiKirForViewDto {
     id_pengguna_hapus: number;
     tarikh_hapus: moment.Moment;
     sebab_hapus: string;
+    nama: string;
+    id_daerah: number;
+    id_negeri: number;
+    nama_daerah: string;
+    nama_negeri: string;
+    jumlah_bwi: number;
+}
+
+export class InputKirJumlahAirDto implements IInputKirJumlahAirDto {
+    jumlah_air!: number;
+
+    constructor(data?: IInputKirJumlahAirDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.jumlah_air = _data["jumlah_air"];
+        }
+    }
+
+    static fromJS(data: any): InputKirJumlahAirDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InputKirJumlahAirDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["jumlah_air"] = this.jumlah_air;
+        return data; 
+    }
+}
+
+export interface IInputKirJumlahAirDto {
+    jumlah_air: number;
+}
+
+export class InputResultKirViewDto implements IInputResultKirViewDto {
+    kir!: GetTabungBwiKirForViewDto;
+    isi_rumah!: InputKirJumlahAirDto;
+
+    constructor(data?: IInputResultKirViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.kir = _data["kir"] ? GetTabungBwiKirForViewDto.fromJS(_data["kir"]) : <any>undefined;
+            this.isi_rumah = _data["isi_rumah"] ? InputKirJumlahAirDto.fromJS(_data["isi_rumah"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): InputResultKirViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InputResultKirViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["kir"] = this.kir ? this.kir.toJSON() : <any>undefined;
+        data["isi_rumah"] = this.isi_rumah ? this.isi_rumah.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IInputResultKirViewDto {
+    kir: GetTabungBwiKirForViewDto;
+    isi_rumah: InputKirJumlahAirDto;
 }
 
 /** TabungBwiKir List in Tabular model */
@@ -25661,7 +25842,7 @@ export class PagedResultDtoOfTabungBwiKirForViewDto implements IPagedResultDtoOf
     /** Total Count */
     total_count!: number;
     /** Items in array of object */
-    items!: GetTabungBwiKirForViewDto[];
+    items!: InputResultKirViewDto[];
 
     constructor(data?: IPagedResultDtoOfTabungBwiKirForViewDto) {
         if (data) {
@@ -25678,7 +25859,7 @@ export class PagedResultDtoOfTabungBwiKirForViewDto implements IPagedResultDtoOf
             if (Array.isArray(_data["items"])) {
                 this.items = [] as any;
                 for (let item of _data["items"])
-                    this.items!.push(GetTabungBwiKirForViewDto.fromJS(item));
+                    this.items!.push(InputResultKirViewDto.fromJS(item));
             }
         }
     }
@@ -25707,14 +25888,16 @@ export interface IPagedResultDtoOfTabungBwiKirForViewDto {
     /** Total Count */
     total_count: number;
     /** Items in array of object */
-    items: GetTabungBwiKirForViewDto[];
+    items: InputResultKirViewDto[];
 }
 
 export class CreateOrEditTabungBwiDto implements ICreateOrEditTabungBwiDto {
     id!: number;
     id_tabung_kelulusan!: number;
+    jumlah_setiap_kir!: number;
     jumlah_kir!: number;
     tarikh_eft!: moment.Moment;
+    catatan!: string;
     no_rujukan_akuan_kp!: string;
     tarikh_akuan_kp!: moment.Moment;
     no_rujukan_saluran_kpd_bkp!: string;
@@ -25745,8 +25928,10 @@ export class CreateOrEditTabungBwiDto implements ICreateOrEditTabungBwiDto {
         if (_data) {
             this.id = _data["id"];
             this.id_tabung_kelulusan = _data["id_tabung_kelulusan"];
+            this.jumlah_setiap_kir = _data["jumlah_setiap_kir"];
             this.jumlah_kir = _data["jumlah_kir"];
             this.tarikh_eft = _data["tarikh_eft"] ? moment(_data["tarikh_eft"].toString()) : <any>undefined;
+            this.catatan = _data["catatan"];
             this.no_rujukan_akuan_kp = _data["no_rujukan_akuan_kp"];
             this.tarikh_akuan_kp = _data["tarikh_akuan_kp"] ? moment(_data["tarikh_akuan_kp"].toString()) : <any>undefined;
             this.no_rujukan_saluran_kpd_bkp = _data["no_rujukan_saluran_kpd_bkp"];
@@ -25777,8 +25962,10 @@ export class CreateOrEditTabungBwiDto implements ICreateOrEditTabungBwiDto {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["id_tabung_kelulusan"] = this.id_tabung_kelulusan;
+        data["jumlah_setiap_kir"] = this.jumlah_setiap_kir;
         data["jumlah_kir"] = this.jumlah_kir;
         data["tarikh_eft"] = this.tarikh_eft ? this.tarikh_eft.toISOString() : <any>undefined;
+        data["catatan"] = this.catatan;
         data["no_rujukan_akuan_kp"] = this.no_rujukan_akuan_kp;
         data["tarikh_akuan_kp"] = this.tarikh_akuan_kp ? this.tarikh_akuan_kp.toISOString() : <any>undefined;
         data["no_rujukan_saluran_kpd_bkp"] = this.no_rujukan_saluran_kpd_bkp;
@@ -25802,8 +25989,10 @@ export class CreateOrEditTabungBwiDto implements ICreateOrEditTabungBwiDto {
 export interface ICreateOrEditTabungBwiDto {
     id: number;
     id_tabung_kelulusan: number;
+    jumlah_setiap_kir: number;
     jumlah_kir: number;
     tarikh_eft: moment.Moment;
+    catatan: string;
     no_rujukan_akuan_kp: string;
     tarikh_akuan_kp: moment.Moment;
     no_rujukan_saluran_kpd_bkp: string;
@@ -25823,15 +26012,8 @@ export interface ICreateOrEditTabungBwiDto {
 }
 
 export class GetAllKirForViewDto implements IGetAllKirForViewDto {
-    id!: number;
-    id_mangsa!: number;
-    jumlah!: number;
-    nama!: string;
-    id_daerah!: number;
-    id_negeri!: number;
-    nama_daerah!: string;
-    nama_negeri!: string;
-    jumlahBwiKir!: number;
+    kir!: InputKirDto;
+    isi_rumah!: InputJumlahAirDto;
 
     constructor(data?: IGetAllKirForViewDto) {
         if (data) {
@@ -25844,15 +26026,8 @@ export class GetAllKirForViewDto implements IGetAllKirForViewDto {
 
     init(_data?: any) {
         if (_data) {
-            this.id = _data["id"];
-            this.id_mangsa = _data["id_mangsa"];
-            this.jumlah = _data["jumlah"];
-            this.nama = _data["nama"];
-            this.id_daerah = _data["id_daerah"];
-            this.id_negeri = _data["id_negeri"];
-            this.nama_daerah = _data["nama_daerah"];
-            this.nama_negeri = _data["nama_negeri"];
-            this.jumlahBwiKir = _data["jumlahBwiKir"];
+            this.kir = _data["kir"] ? InputKirDto.fromJS(_data["kir"]) : <any>undefined;
+            this.isi_rumah = _data["isi_rumah"] ? InputJumlahAirDto.fromJS(_data["isi_rumah"]) : <any>undefined;
         }
     }
 
@@ -25865,33 +26040,67 @@ export class GetAllKirForViewDto implements IGetAllKirForViewDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["id_mangsa"] = this.id_mangsa;
-        data["jumlah"] = this.jumlah;
-        data["nama"] = this.nama;
-        data["id_daerah"] = this.id_daerah;
-        data["id_negeri"] = this.id_negeri;
-        data["nama_daerah"] = this.nama_daerah;
-        data["nama_negeri"] = this.nama_negeri;
-        data["jumlahBwiKir"] = this.jumlahBwiKir;
+        data["kir"] = this.kir ? this.kir.toJSON() : <any>undefined;
+        data["isi_rumah"] = this.isi_rumah ? this.isi_rumah.toJSON() : <any>undefined;
         return data; 
     }
 }
 
 export interface IGetAllKirForViewDto {
-    id: number;
-    id_mangsa: number;
-    jumlah: number;
-    nama: string;
-    id_daerah: number;
-    id_negeri: number;
-    nama_daerah: string;
-    nama_negeri: string;
-    jumlahBwiKir: number;
+    kir: InputKirDto;
+    isi_rumah: InputJumlahAirDto;
+}
+
+export class GetRujukanKelulusanBwiDto implements IGetRujukanKelulusanBwiDto {
+    no_rujukan_kelulusan!: string;
+    id_tabung!: number;
+    id_bencana!: number;
+
+    constructor(data?: IGetRujukanKelulusanBwiDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.no_rujukan_kelulusan = _data["no_rujukan_kelulusan"];
+            this.id_tabung = _data["id_tabung"];
+            this.id_bencana = _data["id_bencana"];
+        }
+    }
+
+    static fromJS(data: any): GetRujukanKelulusanBwiDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetRujukanKelulusanBwiDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["no_rujukan_kelulusan"] = this.no_rujukan_kelulusan;
+        data["id_tabung"] = this.id_tabung;
+        data["id_bencana"] = this.id_bencana;
+        return data; 
+    }
+}
+
+export interface IGetRujukanKelulusanBwiDto {
+    no_rujukan_kelulusan: string;
+    id_tabung: number;
+    id_bencana: number;
 }
 
 export class GetTabungBwiForEditDto implements IGetTabungBwiForEditDto {
     tabung_bwi!: CreateOrEditTabungBwiDto;
+    rujukan_kelulusan_bwi!: GetRujukanKelulusanBwiDto;
+    nama_tabung!: string;
+    id_jenis_bencana!: number;
+    nama_jenis_bencana!: string;
 
     constructor(data?: IGetTabungBwiForEditDto) {
         if (data) {
@@ -25905,6 +26114,10 @@ export class GetTabungBwiForEditDto implements IGetTabungBwiForEditDto {
     init(_data?: any) {
         if (_data) {
             this.tabung_bwi = _data["tabung_bwi"] ? CreateOrEditTabungBwiDto.fromJS(_data["tabung_bwi"]) : <any>undefined;
+            this.rujukan_kelulusan_bwi = _data["rujukan_kelulusan_bwi"] ? GetRujukanKelulusanBwiDto.fromJS(_data["rujukan_kelulusan_bwi"]) : <any>undefined;
+            this.nama_tabung = _data["nama_tabung"];
+            this.id_jenis_bencana = _data["id_jenis_bencana"];
+            this.nama_jenis_bencana = _data["nama_jenis_bencana"];
         }
     }
 
@@ -25918,17 +26131,26 @@ export class GetTabungBwiForEditDto implements IGetTabungBwiForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["tabung_bwi"] = this.tabung_bwi ? this.tabung_bwi.toJSON() : <any>undefined;
+        data["rujukan_kelulusan_bwi"] = this.rujukan_kelulusan_bwi ? this.rujukan_kelulusan_bwi.toJSON() : <any>undefined;
+        data["nama_tabung"] = this.nama_tabung;
+        data["id_jenis_bencana"] = this.id_jenis_bencana;
+        data["nama_jenis_bencana"] = this.nama_jenis_bencana;
         return data; 
     }
 }
 
 export interface IGetTabungBwiForEditDto {
     tabung_bwi: CreateOrEditTabungBwiDto;
+    rujukan_kelulusan_bwi: GetRujukanKelulusanBwiDto;
+    nama_tabung: string;
+    id_jenis_bencana: number;
+    nama_jenis_bencana: string;
 }
 
 export class GetTabungBwiForViewDto implements IGetTabungBwiForViewDto {
     id!: number;
     id_tabung_kelulusan!: number;
+    jumlah_setiap_kir!: number;
     jumlah_kir!: number;
     tarikh_eft!: moment.Moment;
     no_rujukan_akuan_kp!: string;
@@ -25950,6 +26172,8 @@ export class GetTabungBwiForViewDto implements IGetTabungBwiForViewDto {
     nama_tabung!: string;
     nama_jenis_bencana!: string;
     tahun_bencana!: number;
+    nama_daerah!: string;
+    nama_negeri!: string;
 
     constructor(data?: IGetTabungBwiForViewDto) {
         if (data) {
@@ -25964,6 +26188,7 @@ export class GetTabungBwiForViewDto implements IGetTabungBwiForViewDto {
         if (_data) {
             this.id = _data["id"];
             this.id_tabung_kelulusan = _data["id_tabung_kelulusan"];
+            this.jumlah_setiap_kir = _data["jumlah_setiap_kir"];
             this.jumlah_kir = _data["jumlah_kir"];
             this.tarikh_eft = _data["tarikh_eft"] ? moment(_data["tarikh_eft"].toString()) : <any>undefined;
             this.no_rujukan_akuan_kp = _data["no_rujukan_akuan_kp"];
@@ -25985,6 +26210,8 @@ export class GetTabungBwiForViewDto implements IGetTabungBwiForViewDto {
             this.nama_tabung = _data["nama_tabung"];
             this.nama_jenis_bencana = _data["nama_jenis_bencana"];
             this.tahun_bencana = _data["tahun_bencana"];
+            this.nama_daerah = _data["nama_daerah"];
+            this.nama_negeri = _data["nama_negeri"];
         }
     }
 
@@ -25999,6 +26226,7 @@ export class GetTabungBwiForViewDto implements IGetTabungBwiForViewDto {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["id_tabung_kelulusan"] = this.id_tabung_kelulusan;
+        data["jumlah_setiap_kir"] = this.jumlah_setiap_kir;
         data["jumlah_kir"] = this.jumlah_kir;
         data["tarikh_eft"] = this.tarikh_eft ? this.tarikh_eft.toISOString() : <any>undefined;
         data["no_rujukan_akuan_kp"] = this.no_rujukan_akuan_kp;
@@ -26020,6 +26248,8 @@ export class GetTabungBwiForViewDto implements IGetTabungBwiForViewDto {
         data["nama_tabung"] = this.nama_tabung;
         data["nama_jenis_bencana"] = this.nama_jenis_bencana;
         data["tahun_bencana"] = this.tahun_bencana;
+        data["nama_daerah"] = this.nama_daerah;
+        data["nama_negeri"] = this.nama_negeri;
         return data; 
     }
 }
@@ -26027,6 +26257,7 @@ export class GetTabungBwiForViewDto implements IGetTabungBwiForViewDto {
 export interface IGetTabungBwiForViewDto {
     id: number;
     id_tabung_kelulusan: number;
+    jumlah_setiap_kir: number;
     jumlah_kir: number;
     tarikh_eft: moment.Moment;
     no_rujukan_akuan_kp: string;
@@ -26048,6 +26279,194 @@ export interface IGetTabungBwiForViewDto {
     nama_tabung: string;
     nama_jenis_bencana: string;
     tahun_bencana: number;
+    nama_daerah: string;
+    nama_negeri: string;
+}
+
+export class InputBwiKirDto implements IInputBwiKirDto {
+    id_mangsa!: number;
+
+    constructor(data?: IInputBwiKirDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id_mangsa = _data["id_mangsa"];
+        }
+    }
+
+    static fromJS(data: any): InputBwiKirDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InputBwiKirDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id_mangsa"] = this.id_mangsa;
+        return data; 
+    }
+}
+
+export interface IInputBwiKirDto {
+    id_mangsa: number;
+}
+
+export class InputCreateTabungBwiDto implements IInputCreateTabungBwiDto {
+    bwi!: CreateOrEditTabungBwiDto;
+    /** Array of kluster object */
+    bwiKir!: InputBwiKirDto[];
+
+    constructor(data?: IInputCreateTabungBwiDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.bwi = _data["bwi"] ? CreateOrEditTabungBwiDto.fromJS(_data["bwi"]) : <any>undefined;
+            if (Array.isArray(_data["bwiKir"])) {
+                this.bwiKir = [] as any;
+                for (let item of _data["bwiKir"])
+                    this.bwiKir!.push(InputBwiKirDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): InputCreateTabungBwiDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InputCreateTabungBwiDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["bwi"] = this.bwi ? this.bwi.toJSON() : <any>undefined;
+        if (Array.isArray(this.bwiKir)) {
+            data["bwiKir"] = [];
+            for (let item of this.bwiKir)
+                data["bwiKir"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IInputCreateTabungBwiDto {
+    bwi: CreateOrEditTabungBwiDto;
+    /** Array of kluster object */
+    bwiKir: InputBwiKirDto[];
+}
+
+export class InputJumlahAirDto implements IInputJumlahAirDto {
+    jumlah_air!: number;
+
+    constructor(data?: IInputJumlahAirDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.jumlah_air = _data["jumlah_air"];
+        }
+    }
+
+    static fromJS(data: any): InputJumlahAirDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InputJumlahAirDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["jumlah_air"] = this.jumlah_air;
+        return data; 
+    }
+}
+
+export interface IInputJumlahAirDto {
+    jumlah_air: number;
+}
+
+export class InputKirDto implements IInputKirDto {
+    id!: number;
+    id_mangsa!: number;
+    nama!: string;
+    id_daerah!: number;
+    id_negeri!: number;
+    nama_daerah!: string;
+    nama_negeri!: string;
+    jumlah_bwi!: number;
+
+    constructor(data?: IInputKirDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_mangsa = _data["id_mangsa"];
+            this.nama = _data["nama"];
+            this.id_daerah = _data["id_daerah"];
+            this.id_negeri = _data["id_negeri"];
+            this.nama_daerah = _data["nama_daerah"];
+            this.nama_negeri = _data["nama_negeri"];
+            this.jumlah_bwi = _data["jumlah_bwi"];
+        }
+    }
+
+    static fromJS(data: any): InputKirDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InputKirDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_mangsa"] = this.id_mangsa;
+        data["nama"] = this.nama;
+        data["id_daerah"] = this.id_daerah;
+        data["id_negeri"] = this.id_negeri;
+        data["nama_daerah"] = this.nama_daerah;
+        data["nama_negeri"] = this.nama_negeri;
+        data["jumlah_bwi"] = this.jumlah_bwi;
+        return data; 
+    }
+}
+
+export interface IInputKirDto {
+    id: number;
+    id_mangsa: number;
+    nama: string;
+    id_daerah: number;
+    id_negeri: number;
+    nama_daerah: string;
+    nama_negeri: string;
+    jumlah_bwi: number;
 }
 
 /** TabungBwi List in Tabular model */
@@ -26169,6 +26588,8 @@ export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulu
     tarikh_surat!: moment.Moment;
     tarikh_mula_kelulusan!: moment.Moment;
     tarikh_tamat_kelulusan!: moment.Moment;
+    perihal_surat!: string;
+    rujukan!: string;
     id_pengguna_cipta!: number;
     tarikh_cipta!: moment.Moment;
     id_pengguna_kemaskini!: number;
@@ -26177,6 +26598,8 @@ export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulu
     id_pengguna_hapus!: number;
     tarikh_hapus!: moment.Moment;
     sebab_hapus!: string;
+    nama_tabung!: string;
+    nama_jenis_bencana!: string;
 
     constructor(data?: ICreateOrEditTabungKelulusanDto) {
         if (data) {
@@ -26199,6 +26622,8 @@ export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulu
             this.tarikh_surat = _data["tarikh_surat"] ? moment(_data["tarikh_surat"].toString()) : <any>undefined;
             this.tarikh_mula_kelulusan = _data["tarikh_mula_kelulusan"] ? moment(_data["tarikh_mula_kelulusan"].toString()) : <any>undefined;
             this.tarikh_tamat_kelulusan = _data["tarikh_tamat_kelulusan"] ? moment(_data["tarikh_tamat_kelulusan"].toString()) : <any>undefined;
+            this.perihal_surat = _data["perihal_surat"];
+            this.rujukan = _data["rujukan"];
             this.id_pengguna_cipta = _data["id_pengguna_cipta"];
             this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
@@ -26207,6 +26632,8 @@ export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulu
             this.id_pengguna_hapus = _data["id_pengguna_hapus"];
             this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
             this.sebab_hapus = _data["sebab_hapus"];
+            this.nama_tabung = _data["nama_tabung"];
+            this.nama_jenis_bencana = _data["nama_jenis_bencana"];
         }
     }
 
@@ -26229,6 +26656,8 @@ export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulu
         data["tarikh_surat"] = this.tarikh_surat ? this.tarikh_surat.toISOString() : <any>undefined;
         data["tarikh_mula_kelulusan"] = this.tarikh_mula_kelulusan ? this.tarikh_mula_kelulusan.toISOString() : <any>undefined;
         data["tarikh_tamat_kelulusan"] = this.tarikh_tamat_kelulusan ? this.tarikh_tamat_kelulusan.toISOString() : <any>undefined;
+        data["perihal_surat"] = this.perihal_surat;
+        data["rujukan"] = this.rujukan;
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
@@ -26237,6 +26666,8 @@ export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulu
         data["id_pengguna_hapus"] = this.id_pengguna_hapus;
         data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
+        data["nama_tabung"] = this.nama_tabung;
+        data["nama_jenis_bencana"] = this.nama_jenis_bencana;
         return data; 
     }
 }
@@ -26252,6 +26683,8 @@ export interface ICreateOrEditTabungKelulusanDto {
     tarikh_surat: moment.Moment;
     tarikh_mula_kelulusan: moment.Moment;
     tarikh_tamat_kelulusan: moment.Moment;
+    perihal_surat: string;
+    rujukan: string;
     id_pengguna_cipta: number;
     tarikh_cipta: moment.Moment;
     id_pengguna_kemaskini: number;
@@ -26260,6 +26693,8 @@ export interface ICreateOrEditTabungKelulusanDto {
     id_pengguna_hapus: number;
     tarikh_hapus: moment.Moment;
     sebab_hapus: string;
+    nama_tabung: string;
+    nama_jenis_bencana: string;
 }
 
 export class GetTabungKelulusanForEditDto implements IGetTabungKelulusanForEditDto {
@@ -26309,6 +26744,8 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
     tarikh_surat!: moment.Moment;
     tarikh_mula_kelulusan!: moment.Moment;
     tarikh_tamat_kelulusan!: moment.Moment;
+    perihal_surat!: string;
+    rujukan!: string;
     id_pengguna_cipta!: number;
     tarikh_cipta!: moment.Moment;
     id_pengguna_kemaskini!: number;
@@ -26317,6 +26754,8 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
     id_pengguna_hapus!: number;
     tarikh_hapus!: moment.Moment;
     sebab_hapus!: string;
+    nama_tabung!: string;
+    nama_jenis_bencana!: string;
 
     constructor(data?: IGetTabungKelulusanForViewDto) {
         if (data) {
@@ -26339,6 +26778,8 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
             this.tarikh_surat = _data["tarikh_surat"] ? moment(_data["tarikh_surat"].toString()) : <any>undefined;
             this.tarikh_mula_kelulusan = _data["tarikh_mula_kelulusan"] ? moment(_data["tarikh_mula_kelulusan"].toString()) : <any>undefined;
             this.tarikh_tamat_kelulusan = _data["tarikh_tamat_kelulusan"] ? moment(_data["tarikh_tamat_kelulusan"].toString()) : <any>undefined;
+            this.perihal_surat = _data["perihal_surat"];
+            this.rujukan = _data["rujukan"];
             this.id_pengguna_cipta = _data["id_pengguna_cipta"];
             this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
@@ -26347,6 +26788,8 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
             this.id_pengguna_hapus = _data["id_pengguna_hapus"];
             this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
             this.sebab_hapus = _data["sebab_hapus"];
+            this.nama_tabung = _data["nama_tabung"];
+            this.nama_jenis_bencana = _data["nama_jenis_bencana"];
         }
     }
 
@@ -26369,6 +26812,8 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
         data["tarikh_surat"] = this.tarikh_surat ? this.tarikh_surat.toISOString() : <any>undefined;
         data["tarikh_mula_kelulusan"] = this.tarikh_mula_kelulusan ? this.tarikh_mula_kelulusan.toISOString() : <any>undefined;
         data["tarikh_tamat_kelulusan"] = this.tarikh_tamat_kelulusan ? this.tarikh_tamat_kelulusan.toISOString() : <any>undefined;
+        data["perihal_surat"] = this.perihal_surat;
+        data["rujukan"] = this.rujukan;
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
@@ -26377,6 +26822,8 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
         data["id_pengguna_hapus"] = this.id_pengguna_hapus;
         data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
+        data["nama_tabung"] = this.nama_tabung;
+        data["nama_jenis_bencana"] = this.nama_jenis_bencana;
         return data; 
     }
 }
@@ -26392,6 +26839,8 @@ export interface IGetTabungKelulusanForViewDto {
     tarikh_surat: moment.Moment;
     tarikh_mula_kelulusan: moment.Moment;
     tarikh_tamat_kelulusan: moment.Moment;
+    perihal_surat: string;
+    rujukan: string;
     id_pengguna_cipta: number;
     tarikh_cipta: moment.Moment;
     id_pengguna_kemaskini: number;
@@ -26400,6 +26849,8 @@ export interface IGetTabungKelulusanForViewDto {
     id_pengguna_hapus: number;
     tarikh_hapus: moment.Moment;
     sebab_hapus: string;
+    nama_tabung: string;
+    nama_jenis_bencana: string;
 }
 
 /** TabungKelulusan List in Tabular model */

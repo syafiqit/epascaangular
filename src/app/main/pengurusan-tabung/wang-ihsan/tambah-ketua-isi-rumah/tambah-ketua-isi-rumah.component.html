@@ -1,6 +1,6 @@
 <div class="modal-header">
-	<h5 class="modal-title">Pilih Maklumat BWI</h5>
-	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+	<h5 class="modal-title">Pilih Maklumat KIR</h5>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
 		<span aria-hidden="true">&times;</span>
 	</button>
 </div>
@@ -12,19 +12,19 @@
 				Pilih Semua KIR
 			</button>
 		</div>
+
 		<div class="row align-items-center">
-			<!--<Primeng-TurboTable-Start>-->
-			<div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+			<div class="primeng-datatable-container">
 				<p-table
 					#dataTable
 					styleClass="p-datatable-striped"
-					sortMode="multiple"
 					[resizableColumns]="true"
 					(onLazyLoad)="getDisaster($event)"
 					[value]="primengTableHelper.records"
 					rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
 					[paginator]="false"
 					[lazy]="true"
+          [loading]="primengTableHelper.isLoading"
 					[scrollable]="true"
 					ScrollWidth="100%"
 					[responsive]="primengTableHelper.isResponsive"
@@ -32,53 +32,65 @@
 				>
 					<ng-template pTemplate="header">
 						<tr>
-							<th style="width: 130px">Tindakan</th>
-							<th style="width: 150px" pSortableColumn="tarih_bencana">
-								Nama (KIR)
-								<p-sortIcon field="tarih_bencana"></p-sortIcon>
+							<th style="width: 100px">Tindakan</th>
+							<th style="width: 150px" pSortableColumn="nama">
+								Nama KIR
+								<p-sortIcon field="nama"></p-sortIcon>
 							</th>
-							<th style="width: 150px" pSortableColumn="tarih_bencana">
-								Bilangan (AIR)
-								<p-sortIcon field="tarih_bencana"></p-sortIcon>
+							<th style="width: 130px" pSortableColumn="jumlah_air">
+								Bil. AIR
+								<p-sortIcon field="jumlah_air"></p-sortIcon>
 							</th>
-							<th style="width: 130px" pSortableColumn="jenis_bencana">
-								Jumlah WI (RM)
-								<p-sortIcon field="jenis_bencana"></p-sortIcon>
+							<th style="width: 130px" pSortableColumn="jumlah_bwi">
+								Jumlah BWI
+								<p-sortIcon field="jumlah_bwi"></p-sortIcon>
 							</th>
-							<th style="width: 130px" pSortableColumn="catatan">
-								Negeri
-								<p-sortIcon field="catatan"></p-sortIcon>
-							</th>
-							<th style="width: 130px" pSortableColumn="catatan">
+							<th style="width: 130px" pSortableColumn="nama_daerah">
 								Daerah
-								<p-sortIcon field="catatan"></p-sortIcon>
+								<p-sortIcon field="nama_daerah"></p-sortIcon>
+							</th>
+							<th style="width: 130px" pSortableColumn="nama_negeri">
+								Negeri
+								<p-sortIcon field="nama_negeri"></p-sortIcon>
 							</th>
 						</tr>
 					</ng-template>
 					<ng-template pTemplate="body" let-record="$implicit">
 						<tr>
-							<td style="width: 130px">
-								<button class="btn btn-primary" type="button">Pilih</button>
+							<td style="width: 100px">
+								<button
+                  class="btn btn-primary"
+                  type="button"
+                  (click)="select(
+                    record.kir.id_mangsa,
+                    record.kir.nama,
+                    record.kir.nama_daerah,
+                    record.kir.nama_negeri,
+                    record.kir.jumlah_bwi
+                    )"
+                >
+                  Pilih
+                </button>
 							</td>
 							<td style="width: 150px">
-								<span class="p-column-title">Nama (KIR)</span>
-								{{record.name}}
-							</td>
-							<td style="width: 150px">
-								<span class="p-column-title">Bilangan (AIR)</span>
-								{{record.totalAir}}
+								<span class="p-column-title">Nama KIR</span>
+								{{record.kir.nama}}
 							</td>
 							<td style="width: 130px">
-								<span class="p-column-title">Jumlah Bantuan (BWI)</span>
-								{{record.total}}
+								<span class="p-column-title">Bil. AIR</span>
+								{{record.isi_rumah.jumlah_air}}
 							</td>
 							<td style="width: 130px">
-								<span class="p-column-title">Negeri</span>
-								{{record.state}}
+								<span class="p-column-title">Jumlah BWI</span>
+								RM {{record.kir.jumlah_bwi}}
 							</td>
 							<td style="width: 130px">
 								<span class="p-column-title">Daerah</span>
-								{{record.area}}
+								{{record.kir.nama_daerah}}
+							</td>
+							<td style="width: 130px">
+								<span class="p-column-title">Negeri</span>
+								{{record.kir.nama_negeri}}
 							</td>
 						</tr>
 					</ng-template>
@@ -95,7 +107,6 @@
 					<span class="total-records-count">Jumlah: {{ primengTableHelper.totalRecordsCount}}</span>
 				</div>
 			</div>
-			<!--<Primeng-TurboTable-End>-->
 		</div>
 	</div>
 </div>

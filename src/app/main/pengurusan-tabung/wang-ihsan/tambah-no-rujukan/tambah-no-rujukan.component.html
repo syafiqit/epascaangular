@@ -1,24 +1,23 @@
 <div class="modal-header">
 	<h5 class="modal-title">Pilih Maklumat Kelulusan</h5>
-	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
 		<span aria-hidden="true">&times;</span>
 	</button>
 </div>
 <div class="modal-body">
 	<div class="col-lg-12">
 		<div class="row align-items-center">
-			<!--<Primeng-TurboTable-Start>-->
-			<div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+			<div class="primeng-datatable-container">
 				<p-table
 					#dataTable
 					styleClass="p-datatable-striped"
-					sortMode="multiple"
 					[resizableColumns]="true"
 					(onLazyLoad)="getDisaster($event)"
 					[value]="primengTableHelper.records"
 					rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
 					[paginator]="false"
 					[lazy]="true"
+          [loading]="primengTableHelper.isLoading"
 					[scrollable]="true"
 					ScrollWidth="100%"
 					[responsive]="primengTableHelper.isResponsive"
@@ -26,29 +25,68 @@
 				>
 					<ng-template pTemplate="header">
 						<tr>
-							<th style="width: 130px">Tindakan</th>
-							<th style="width: 150px" pSortableColumn="tarih_bencana">
-								No. Rujukan Kelulusan
-								<p-sortIcon field="tarih_bencana"></p-sortIcon>
+							<th style="width: 100px">Tindakan</th>
+							<th style="width: 130px" pSortableColumn="no_rujukan_kelulusan">
+								No. Rujukan
+								<p-sortIcon field="no_rujukan_kelulusan"></p-sortIcon>
 							</th>
-							<th style="width: 150px" pSortableColumn="tarih_bencana">
+							<th style="width: 130px" pSortableColumn="nama_jenis_bencana">
+								Kategori
+								<p-sortIcon field="nama_jenis_bencana"></p-sortIcon>
+							</th>
+							<th style="width: 130px" pSortableColumn="rujukan_surat">
+								Rujukan
+								<p-sortIcon field="rujukan_surat"></p-sortIcon>
+							</th>
+							<th style="width: 130px" pSortableColumn="nama_tabung">
+								Tabung
+								<p-sortIcon field="nama_tabung"></p-sortIcon>
+							</th>
+							<th style="width: 130px" pSortableColumn="perihal_surat">
 								Perihal
-								<p-sortIcon field="tarih_bencana"></p-sortIcon>
+								<p-sortIcon field="perihal_surat"></p-sortIcon>
 							</th>
 						</tr>
 					</ng-template>
 					<ng-template pTemplate="body" let-record="$implicit">
 						<tr>
+							<td style="width: 100px">
+								<button
+                  class="btn btn-primary"
+                  type="button"
+                  (click)="select(
+                    record.id,
+                    record.no_rujukan_kelulusan,
+                    record.id_jenis_bencana,
+                    record.id_tabung,
+                    record.nama_jenis_bencana,
+                    record.rujukan_surat,
+                    record.nama_tabung,
+                    record.perihal_surat
+                    )"
+                >
+                  Pilih
+                </button>
+							</td>
 							<td style="width: 130px">
-								<button class="btn btn-primary" type="button">Pilih</button>
+								<span class="p-column-title">No. Rujukan</span>
+								{{record.no_rujukan_kelulusan}}
 							</td>
-							<td style="width: 150px">
-								<span class="p-column-title">No. Rujukan Kelulusan</span>
-								{{record.reference}}
+							<td style="width: 130px">
+								<span class="p-column-title">Kategori</span>
+								{{record.nama_jenis_bencana}}
 							</td>
-							<td style="width: 150px">
+							<td style="width: 130px">
+								<span class="p-column-title">Rujukan</span>
+								{{record.rujukan_surat}}
+							</td>
+							<td style="width: 130px">
+								<span class="p-column-title">Tabung</span>
+								{{record.nama_tabung}}
+							</td>
+							<td style="width: 130px">
 								<span class="p-column-title">Perihal</span>
-								{{record.description}}
+								{{record.perihal_surat}}
 							</td>
 						</tr>
 					</ng-template>
@@ -65,7 +103,6 @@
 					<span class="total-records-count">Jumlah: {{ primengTableHelper.totalRecordsCount}}</span>
 				</div>
 			</div>
-			<!--<Primeng-TurboTable-End>-->
 		</div>
 	</div>
 </div>

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { TabungComponent } from './tabung/tabung.component';
 import { WangIhsanComponent } from './wang-ihsan/wang-ihsan.component';
 import { TambahEditWangIhsanComponent } from './wang-ihsan/tambah-edit-wang-ihsan/tambah-edit-wang-ihsan.component';
+import { EditWangIhsanComponent } from './wang-ihsan/edit-wang-ihsan/edit-wang-ihsan.component';
 import { MukaHalamanTabungComponent } from './muka-halaman-tabung/muka-halaman-tabung.component';
 import { SkbComponent } from './skb/skb.component';
 import { TambahSkbComponent } from './skb/tambah-skb/tambah-skb.component';
@@ -30,6 +31,10 @@ const routes: Routes = [
 				path: 'tambah-edit-wang-ihsan',
 				component: TambahEditWangIhsanComponent
 			},
+      {
+        path: 'edit-wang-ihsan',
+        component: EditWangIhsanComponent
+      },
 			{
 				path: 'muka-halaman-tabung',
 				component: MukaHalamanTabungComponent
