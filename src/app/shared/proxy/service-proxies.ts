@@ -24843,7 +24843,7 @@ export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayar
     id!: number;
     no_rujukan_skb!: string;
     id_tabung_kelulusan!: number;
-    id_pegawai!: number;
+    nama_pegawai!: string;
     id_agensi!: number;
     perihal!: string;
     tarikh_mula!: moment.Moment;
@@ -24873,7 +24873,7 @@ export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayar
             this.id = _data["id"];
             this.no_rujukan_skb = _data["no_rujukan_skb"];
             this.id_tabung_kelulusan = _data["id_tabung_kelulusan"];
-            this.id_pegawai = _data["id_pegawai"];
+            this.nama_pegawai = _data["nama_pegawai"];
             this.id_agensi = _data["id_agensi"];
             this.perihal = _data["perihal"];
             this.tarikh_mula = _data["tarikh_mula"] ? moment(_data["tarikh_mula"].toString()) : <any>undefined;
@@ -24903,7 +24903,7 @@ export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayar
         data["id"] = this.id;
         data["no_rujukan_skb"] = this.no_rujukan_skb;
         data["id_tabung_kelulusan"] = this.id_tabung_kelulusan;
-        data["id_pegawai"] = this.id_pegawai;
+        data["nama_pegawai"] = this.nama_pegawai;
         data["id_agensi"] = this.id_agensi;
         data["perihal"] = this.perihal;
         data["tarikh_mula"] = this.tarikh_mula ? this.tarikh_mula.toISOString() : <any>undefined;
@@ -24926,7 +24926,7 @@ export interface ICreateOrEditTabungBayaranSkbDto {
     id: number;
     no_rujukan_skb: string;
     id_tabung_kelulusan: number;
-    id_pegawai: number;
+    nama_pegawai: string;
     id_agensi: number;
     perihal: string;
     tarikh_mula: moment.Moment;
@@ -25031,7 +25031,7 @@ export class GetTabungBayaranSkbForViewDto implements IGetTabungBayaranSkbForVie
     id!: number;
     no_rujukan_skb!: string;
     id_tabung_kelulusan!: number;
-    id_pegawai!: number;
+    nama_pegawai!: string;
     id_agensi!: number;
     perihal!: string;
     tarikh_mula!: moment.Moment;
@@ -25064,7 +25064,7 @@ export class GetTabungBayaranSkbForViewDto implements IGetTabungBayaranSkbForVie
             this.id = _data["id"];
             this.no_rujukan_skb = _data["no_rujukan_skb"];
             this.id_tabung_kelulusan = _data["id_tabung_kelulusan"];
-            this.id_pegawai = _data["id_pegawai"];
+            this.nama_pegawai = _data["nama_pegawai"];
             this.id_agensi = _data["id_agensi"];
             this.perihal = _data["perihal"];
             this.tarikh_mula = _data["tarikh_mula"] ? moment(_data["tarikh_mula"].toString()) : <any>undefined;
@@ -25097,7 +25097,7 @@ export class GetTabungBayaranSkbForViewDto implements IGetTabungBayaranSkbForVie
         data["id"] = this.id;
         data["no_rujukan_skb"] = this.no_rujukan_skb;
         data["id_tabung_kelulusan"] = this.id_tabung_kelulusan;
-        data["id_pegawai"] = this.id_pegawai;
+        data["nama_pegawai"] = this.nama_pegawai;
         data["id_agensi"] = this.id_agensi;
         data["perihal"] = this.perihal;
         data["tarikh_mula"] = this.tarikh_mula ? this.tarikh_mula.toISOString() : <any>undefined;
@@ -25123,7 +25123,7 @@ export interface IGetTabungBayaranSkbForViewDto {
     id: number;
     no_rujukan_skb: string;
     id_tabung_kelulusan: number;
-    id_pegawai: number;
+    nama_pegawai: string;
     id_agensi: number;
     perihal: string;
     tarikh_mula: moment.Moment;
@@ -25896,6 +25896,7 @@ export class CreateOrEditTabungBwiDto implements ICreateOrEditTabungBwiDto {
     id_tabung_kelulusan!: number;
     jumlah_setiap_kir!: number;
     jumlah_kir!: number;
+    jumlah_kembali!: number;
     tarikh_eft!: moment.Moment;
     catatan!: string;
     no_rujukan_akuan_kp!: string;
@@ -25930,6 +25931,7 @@ export class CreateOrEditTabungBwiDto implements ICreateOrEditTabungBwiDto {
             this.id_tabung_kelulusan = _data["id_tabung_kelulusan"];
             this.jumlah_setiap_kir = _data["jumlah_setiap_kir"];
             this.jumlah_kir = _data["jumlah_kir"];
+            this.jumlah_kembali = _data["jumlah_kembali"];
             this.tarikh_eft = _data["tarikh_eft"] ? moment(_data["tarikh_eft"].toString()) : <any>undefined;
             this.catatan = _data["catatan"];
             this.no_rujukan_akuan_kp = _data["no_rujukan_akuan_kp"];
@@ -25964,6 +25966,7 @@ export class CreateOrEditTabungBwiDto implements ICreateOrEditTabungBwiDto {
         data["id_tabung_kelulusan"] = this.id_tabung_kelulusan;
         data["jumlah_setiap_kir"] = this.jumlah_setiap_kir;
         data["jumlah_kir"] = this.jumlah_kir;
+        data["jumlah_kembali"] = this.jumlah_kembali;
         data["tarikh_eft"] = this.tarikh_eft ? this.tarikh_eft.toISOString() : <any>undefined;
         data["catatan"] = this.catatan;
         data["no_rujukan_akuan_kp"] = this.no_rujukan_akuan_kp;
@@ -25991,6 +25994,7 @@ export interface ICreateOrEditTabungBwiDto {
     id_tabung_kelulusan: number;
     jumlah_setiap_kir: number;
     jumlah_kir: number;
+    jumlah_kembali: number;
     tarikh_eft: moment.Moment;
     catatan: string;
     no_rujukan_akuan_kp: string;
@@ -26152,6 +26156,7 @@ export class GetTabungBwiForViewDto implements IGetTabungBwiForViewDto {
     id_tabung_kelulusan!: number;
     jumlah_setiap_kir!: number;
     jumlah_kir!: number;
+    jumlah_kembali!: number;
     tarikh_eft!: moment.Moment;
     no_rujukan_akuan_kp!: string;
     tarikh_akuan_kp!: moment.Moment;
@@ -26190,6 +26195,7 @@ export class GetTabungBwiForViewDto implements IGetTabungBwiForViewDto {
             this.id_tabung_kelulusan = _data["id_tabung_kelulusan"];
             this.jumlah_setiap_kir = _data["jumlah_setiap_kir"];
             this.jumlah_kir = _data["jumlah_kir"];
+            this.jumlah_kembali = _data["jumlah_kembali"];
             this.tarikh_eft = _data["tarikh_eft"] ? moment(_data["tarikh_eft"].toString()) : <any>undefined;
             this.no_rujukan_akuan_kp = _data["no_rujukan_akuan_kp"];
             this.tarikh_akuan_kp = _data["tarikh_akuan_kp"] ? moment(_data["tarikh_akuan_kp"].toString()) : <any>undefined;
@@ -26228,6 +26234,7 @@ export class GetTabungBwiForViewDto implements IGetTabungBwiForViewDto {
         data["id_tabung_kelulusan"] = this.id_tabung_kelulusan;
         data["jumlah_setiap_kir"] = this.jumlah_setiap_kir;
         data["jumlah_kir"] = this.jumlah_kir;
+        data["jumlah_kembali"] = this.jumlah_kembali;
         data["tarikh_eft"] = this.tarikh_eft ? this.tarikh_eft.toISOString() : <any>undefined;
         data["no_rujukan_akuan_kp"] = this.no_rujukan_akuan_kp;
         data["tarikh_akuan_kp"] = this.tarikh_akuan_kp ? this.tarikh_akuan_kp.toISOString() : <any>undefined;
@@ -26259,6 +26266,7 @@ export interface IGetTabungBwiForViewDto {
     id_tabung_kelulusan: number;
     jumlah_setiap_kir: number;
     jumlah_kir: number;
+    jumlah_kembali: number;
     tarikh_eft: moment.Moment;
     no_rujukan_akuan_kp: string;
     tarikh_akuan_kp: moment.Moment;
@@ -26588,8 +26596,6 @@ export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulu
     tarikh_surat!: moment.Moment;
     tarikh_mula_kelulusan!: moment.Moment;
     tarikh_tamat_kelulusan!: moment.Moment;
-    perihal_surat!: string;
-    rujukan!: string;
     id_pengguna_cipta!: number;
     tarikh_cipta!: moment.Moment;
     id_pengguna_kemaskini!: number;
@@ -26598,8 +26604,6 @@ export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulu
     id_pengguna_hapus!: number;
     tarikh_hapus!: moment.Moment;
     sebab_hapus!: string;
-    nama_tabung!: string;
-    nama_jenis_bencana!: string;
 
     constructor(data?: ICreateOrEditTabungKelulusanDto) {
         if (data) {
@@ -26622,8 +26626,6 @@ export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulu
             this.tarikh_surat = _data["tarikh_surat"] ? moment(_data["tarikh_surat"].toString()) : <any>undefined;
             this.tarikh_mula_kelulusan = _data["tarikh_mula_kelulusan"] ? moment(_data["tarikh_mula_kelulusan"].toString()) : <any>undefined;
             this.tarikh_tamat_kelulusan = _data["tarikh_tamat_kelulusan"] ? moment(_data["tarikh_tamat_kelulusan"].toString()) : <any>undefined;
-            this.perihal_surat = _data["perihal_surat"];
-            this.rujukan = _data["rujukan"];
             this.id_pengguna_cipta = _data["id_pengguna_cipta"];
             this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
@@ -26632,8 +26634,6 @@ export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulu
             this.id_pengguna_hapus = _data["id_pengguna_hapus"];
             this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
             this.sebab_hapus = _data["sebab_hapus"];
-            this.nama_tabung = _data["nama_tabung"];
-            this.nama_jenis_bencana = _data["nama_jenis_bencana"];
         }
     }
 
@@ -26656,8 +26656,6 @@ export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulu
         data["tarikh_surat"] = this.tarikh_surat ? this.tarikh_surat.toISOString() : <any>undefined;
         data["tarikh_mula_kelulusan"] = this.tarikh_mula_kelulusan ? this.tarikh_mula_kelulusan.toISOString() : <any>undefined;
         data["tarikh_tamat_kelulusan"] = this.tarikh_tamat_kelulusan ? this.tarikh_tamat_kelulusan.toISOString() : <any>undefined;
-        data["perihal_surat"] = this.perihal_surat;
-        data["rujukan"] = this.rujukan;
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
@@ -26666,8 +26664,6 @@ export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulu
         data["id_pengguna_hapus"] = this.id_pengguna_hapus;
         data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
-        data["nama_tabung"] = this.nama_tabung;
-        data["nama_jenis_bencana"] = this.nama_jenis_bencana;
         return data; 
     }
 }
@@ -26683,8 +26679,6 @@ export interface ICreateOrEditTabungKelulusanDto {
     tarikh_surat: moment.Moment;
     tarikh_mula_kelulusan: moment.Moment;
     tarikh_tamat_kelulusan: moment.Moment;
-    perihal_surat: string;
-    rujukan: string;
     id_pengguna_cipta: number;
     tarikh_cipta: moment.Moment;
     id_pengguna_kemaskini: number;
@@ -26693,8 +26687,6 @@ export interface ICreateOrEditTabungKelulusanDto {
     id_pengguna_hapus: number;
     tarikh_hapus: moment.Moment;
     sebab_hapus: string;
-    nama_tabung: string;
-    nama_jenis_bencana: string;
 }
 
 export class GetTabungKelulusanForEditDto implements IGetTabungKelulusanForEditDto {
@@ -26744,8 +26736,6 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
     tarikh_surat!: moment.Moment;
     tarikh_mula_kelulusan!: moment.Moment;
     tarikh_tamat_kelulusan!: moment.Moment;
-    perihal_surat!: string;
-    rujukan!: string;
     id_pengguna_cipta!: number;
     tarikh_cipta!: moment.Moment;
     id_pengguna_kemaskini!: number;
@@ -26754,8 +26744,6 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
     id_pengguna_hapus!: number;
     tarikh_hapus!: moment.Moment;
     sebab_hapus!: string;
-    nama_tabung!: string;
-    nama_jenis_bencana!: string;
 
     constructor(data?: IGetTabungKelulusanForViewDto) {
         if (data) {
@@ -26778,8 +26766,6 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
             this.tarikh_surat = _data["tarikh_surat"] ? moment(_data["tarikh_surat"].toString()) : <any>undefined;
             this.tarikh_mula_kelulusan = _data["tarikh_mula_kelulusan"] ? moment(_data["tarikh_mula_kelulusan"].toString()) : <any>undefined;
             this.tarikh_tamat_kelulusan = _data["tarikh_tamat_kelulusan"] ? moment(_data["tarikh_tamat_kelulusan"].toString()) : <any>undefined;
-            this.perihal_surat = _data["perihal_surat"];
-            this.rujukan = _data["rujukan"];
             this.id_pengguna_cipta = _data["id_pengguna_cipta"];
             this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
@@ -26788,8 +26774,6 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
             this.id_pengguna_hapus = _data["id_pengguna_hapus"];
             this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
             this.sebab_hapus = _data["sebab_hapus"];
-            this.nama_tabung = _data["nama_tabung"];
-            this.nama_jenis_bencana = _data["nama_jenis_bencana"];
         }
     }
 
@@ -26812,8 +26796,6 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
         data["tarikh_surat"] = this.tarikh_surat ? this.tarikh_surat.toISOString() : <any>undefined;
         data["tarikh_mula_kelulusan"] = this.tarikh_mula_kelulusan ? this.tarikh_mula_kelulusan.toISOString() : <any>undefined;
         data["tarikh_tamat_kelulusan"] = this.tarikh_tamat_kelulusan ? this.tarikh_tamat_kelulusan.toISOString() : <any>undefined;
-        data["perihal_surat"] = this.perihal_surat;
-        data["rujukan"] = this.rujukan;
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
@@ -26822,8 +26804,6 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
         data["id_pengguna_hapus"] = this.id_pengguna_hapus;
         data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
-        data["nama_tabung"] = this.nama_tabung;
-        data["nama_jenis_bencana"] = this.nama_jenis_bencana;
         return data; 
     }
 }
@@ -26839,8 +26819,6 @@ export interface IGetTabungKelulusanForViewDto {
     tarikh_surat: moment.Moment;
     tarikh_mula_kelulusan: moment.Moment;
     tarikh_tamat_kelulusan: moment.Moment;
-    perihal_surat: string;
-    rujukan: string;
     id_pengguna_cipta: number;
     tarikh_cipta: moment.Moment;
     id_pengguna_kemaskini: number;
@@ -26849,8 +26827,6 @@ export interface IGetTabungKelulusanForViewDto {
     id_pengguna_hapus: number;
     tarikh_hapus: moment.Moment;
     sebab_hapus: string;
-    nama_tabung: string;
-    nama_jenis_bencana: string;
 }
 
 /** TabungKelulusan List in Tabular model */
