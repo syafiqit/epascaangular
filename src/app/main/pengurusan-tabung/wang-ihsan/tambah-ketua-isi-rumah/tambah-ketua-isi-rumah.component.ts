@@ -3,9 +3,10 @@ import { NgbActiveModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
-import { finalize } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
-import { CreateOrEditTabungBwiKirDto, TabungBwiKirServiceProxy, TabungBwiServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import { CreateOrEditTabungBwiKirDto, RefDaerahServiceProxy, RefNegeriServiceProxy, TabungBwiKirServiceProxy, TabungBwiServiceProxy } from 'src/app/shared/proxy/service-proxies';
 declare let require;
 const Swal = require('sweetalert2');
 @Component({
@@ -19,6 +20,7 @@ export class TambahKetuaIsiRumahComponent implements OnInit {
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
 	primengTableHelper: PrimengTableHelper;
+	public isCollapsed = false;
 
 	@Input() name;
 	@Input() id;
@@ -27,23 +29,44 @@ export class TambahKetuaIsiRumahComponent implements OnInit {
 
   kir: CreateOrEditTabungBwiKirDto = new CreateOrEditTabungBwiKirDto();
   idMangsa: number;
+  terms$ = new Subject<string>();
   filter: string;
+  filterDaerah: number;
+  filterNegeri: string;
+  districts: any;
+  states: any;
   saving = false;
 
 	constructor(
     config: NgbModalConfig,
     public activeModal: NgbActiveModal,
     private _tabungBwiServiceProxy: TabungBwiServiceProxy,
-    private _tabungBwiKirServiceProxy: TabungBwiKirServiceProxy
+    private _tabungBwiKirServiceProxy: TabungBwiKirServiceProxy,
+    private _refDaerahServiceProxy: RefDaerahServiceProxy,
+    private _refNegeriSeviceProxy: RefNegeriServiceProxy
   ) {
 		config.backdrop = 'static';
 		config.keyboard = false;
 		this.primengTableHelper = new PrimengTableHelper();
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+    this.getDaerah();
+    this.getNegeri();
 
-	getDisaster(event?: LazyLoadEvent) {
+    this.terms$.pipe(
+      debounceTime(500), distinctUntilChanged()
+    ).subscribe((filterValue: string) =>{
+      this.filter = filterValue;
+      this.getKirBwi();
+    });
+  }
+
+  applyFilter(filterValue: string){
+    this.terms$.next(filterValue);
+  }
+
+	getKirBwi(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
@@ -53,6 +76,8 @@ export class TambahKetuaIsiRumahComponent implements OnInit {
 		this._tabungBwiServiceProxy
 			.getAllKir(
 				this.filter,
+        this.filterDaerah,
+        this.filterNegeri,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -65,6 +90,25 @@ export class TambahKetuaIsiRumahComponent implements OnInit {
 				this.primengTableHelper.records = result.items;
 			});
 	}
+
+  getDaerah(filter?) {
+		this._refDaerahServiceProxy.getRefDaerahForDropdown(filter).subscribe((result) => {
+			this.districts = result.items;
+		});
+	}
+
+  getNegeri(filter?) {
+		this._refNegeriSeviceProxy.getRefNegeriForDropdown(filter).subscribe((result) => {
+			this.states = result.items;
+		});
+	}
+
+  resetFilter() {
+    this.filter = undefined;
+    this.filterNegeri = undefined;
+
+    this.getKirBwi();
+  }
 
   select(id, nama, nama_daerah, nama_negeri, jumlah_bwi) {
     if (this.kategori == 1) {

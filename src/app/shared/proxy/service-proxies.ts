@@ -11990,17 +11990,27 @@ export class TabungBwiServiceProxy {
     /**
      * Get all TabungBwiKir
      * @param filter (optional) Filter records with a string
+     * @param filterDaerah (optional) Filter records with a string
+     * @param filterNegeri (optional) Filter records with a string
      * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
      * @param skipCount (optional) Skip n-value of a record
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAllKir(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<InputResultKirForViewDto> {
+    getAllKir(filter: string | undefined, filterDaerah: number | undefined, filterNegeri: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<InputResultKirForViewDto> {
         let url_ = this.baseUrl + "/api/tabungBwi/getAllKir?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
             url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (filterDaerah === null)
+            throw new Error("The parameter 'filterDaerah' cannot be null.");
+        else if (filterDaerah !== undefined)
+            url_ += "filterDaerah=" + encodeURIComponent("" + filterDaerah) + "&";
+        if (filterNegeri === null)
+            throw new Error("The parameter 'filterNegeri' cannot be null.");
+        else if (filterNegeri !== undefined)
+            url_ += "filterNegeri=" + encodeURIComponent("" + filterNegeri) + "&";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)

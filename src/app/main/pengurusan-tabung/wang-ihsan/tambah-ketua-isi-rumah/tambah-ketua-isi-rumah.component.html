@@ -5,111 +5,196 @@
 	</button>
 </div>
 <div class="modal-body">
-	<div class="col-lg-12">
-		<div class="row justify-content-end mb-2">
-			<button class="btn btn-primary" type="button">
-				<i class="fa fa-plus mr-2"></i>
-				Pilih Semua KIR
-			</button>
-		</div>
+	<div class="row no-gutters">
+    <div class="col-6 justify-content-start pl-0">
+      <div class="faq-form">
+        <input
+          class="form-control"
+          type="text"
+          name="searchKir"
+          placeholder="Carian..."
+          [(ngModel)]="filter"
+          (keyup)="applyFilter($event.target.value)"
+        />
+        <i class="search-icon" data-feather="search"></i>
+      </div>
+    </div>
 
-		<div class="row align-items-center">
-			<div class="primeng-datatable-container">
-				<p-table
-					#dataTable
-					styleClass="p-datatable-striped"
-					[resizableColumns]="true"
-					(onLazyLoad)="getDisaster($event)"
-					[value]="primengTableHelper.records"
-					rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
-					[paginator]="false"
-					[lazy]="true"
-          [loading]="primengTableHelper.isLoading"
-					[scrollable]="true"
-					ScrollWidth="100%"
-					[responsive]="primengTableHelper.isResponsive"
-					[resizableColumns]="primengTableHelper.resizableColumns"
-				>
-					<ng-template pTemplate="header">
-						<tr>
-							<th style="width: 100px">Tindakan</th>
-							<th style="width: 150px" pSortableColumn="nama">
-								Nama KIR
-								<p-sortIcon field="nama"></p-sortIcon>
-							</th>
-							<th style="width: 130px" pSortableColumn="jumlah_air">
-								Bil. AIR
-								<p-sortIcon field="jumlah_air"></p-sortIcon>
-							</th>
-							<th style="width: 130px" pSortableColumn="jumlah_bwi">
-								Jumlah BWI
-								<p-sortIcon field="jumlah_bwi"></p-sortIcon>
-							</th>
-							<th style="width: 130px" pSortableColumn="nama_daerah">
-								Daerah
-								<p-sortIcon field="nama_daerah"></p-sortIcon>
-							</th>
-							<th style="width: 130px" pSortableColumn="nama_negeri">
-								Negeri
-								<p-sortIcon field="nama_negeri"></p-sortIcon>
-							</th>
-						</tr>
-					</ng-template>
-					<ng-template pTemplate="body" let-record="$implicit">
-						<tr>
-							<td style="width: 100px">
-								<button
-                  class="btn btn-primary"
-                  type="button"
-                  (click)="select(
-                    record.kir.id,
-                    record.kir.nama,
-                    record.kir.nama_daerah,
-                    record.kir.nama_negeri,
-                    record.mangsa_wang_ihsan.jumlah_bwi
-                    )"
+    <div class="col-6 justify-content-end pl-3">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="isCollapsed = !isCollapsed"
+        [attr.aria-expanded]="!isCollapsed"
+        aria-controls="collapseExample"
+        title="Carian Lanjut"
+        style="font-weight: 500"
+      >
+        <i class="fa fa-filter"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="row">
+        <div class="col-lg-12">
+          <div id="collapseExample" [ngbCollapse]="!isCollapsed">
+            <form>
+              <div class="row mt-3">
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <label>Daerah</label>
+                    <ng-select
+                      [items]="districts"
+                      bindLabel="nama_daerah"
+                      bindValue="id"
+                      placeholder="Sila Pilih"
+                      class="js-example-placeholder-multiple"
+                      name="namaDaerah"
+                      [(ngModel)]="filterDaerah"
+                    ></ng-select>
+                  </div>
+                </div>
+
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <label>Negeri</label>
+                    <ng-select
+                      [items]="states"
+                      bindLabel="nama_negeri"
+                      bindValue="nama_negeri"
+                      placeholder="Sila Pilih"
+                      class="js-example-placeholder-multiple"
+                      name="namaNegeri"
+                      [(ngModel)]="filterNegeri"
+                    ></ng-select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row no-gutters justify-content-end mb-2">
+                <button
+                  class="btn btn-light mr-2"
+                  type="reset"
+                  (click)="resetFilter()"
                 >
-                  Pilih
+                <i class="fa fa-refresh mr-2"></i>
+                  <b>Reset</b>
                 </button>
-							</td>
-							<td style="width: 150px">
-								<span class="p-column-title">Nama KIR</span>
-								{{record.kir.nama}}
-							</td>
-							<td style="width: 130px">
-								<span class="p-column-title">Bil. AIR</span>
-								{{record.isi_rumah.jumlah_air}}
-							</td>
-							<td style="width: 130px">
-								<span class="p-column-title">Jumlah BWI</span>
-								RM {{record.mangsa_wang_ihsan.jumlah_bwi}}
-							</td>
-							<td style="width: 130px">
-								<span class="p-column-title">Daerah</span>
-								{{record.kir.nama_daerah}}
-							</td>
-							<td style="width: 130px">
-								<span class="p-column-title">Negeri</span>
-								{{record.kir.nama_negeri}}
-							</td>
-						</tr>
-					</ng-template>
-				</p-table>
-				<div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">No Data</div>
-				<div class="primeng-paging-container justify-content-between">
-					<p-paginator
-						[rows]="primengTableHelper.defaultRecordsCountPerPage"
-						#paginator
-						(onPageChange)="getDisaster($event)"
-						[totalRecords]="primengTableHelper.totalRecordsCount"
-						[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
-					></p-paginator>
-					<span class="total-records-count">Jumlah: {{ primengTableHelper.totalRecordsCount}}</span>
-				</div>
-			</div>
-		</div>
-	</div>
+
+                <button
+                  class="btn btn-primary pull-right"
+                  type="button"
+                  (click)="getKirBwi()"
+                >
+                <i class="fa fa-search mr-2"></i>
+                  <b>Cari</b>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row no-gutters align-items-center mt-3">
+    <div class="primeng-datatable-container">
+      <p-table
+        #dataTable
+        styleClass="p-datatable-striped"
+        [resizableColumns]="true"
+        (onLazyLoad)="getKirBwi($event)"
+        [value]="primengTableHelper.records"
+        rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
+        [paginator]="false"
+        [lazy]="true"
+        [loading]="primengTableHelper.isLoading"
+        [scrollable]="true"
+        ScrollWidth="100%"
+        [responsive]="primengTableHelper.isResponsive"
+        [resizableColumns]="primengTableHelper.resizableColumns"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 100px">Tindakan</th>
+            <th style="width: 150px" pSortableColumn="nama">
+              Nama KIR
+              <p-sortIcon field="nama"></p-sortIcon>
+            </th>
+            <th style="width: 130px" pSortableColumn="jumlah_air">
+              Bil. AIR
+              <p-sortIcon field="jumlah_air"></p-sortIcon>
+            </th>
+            <th style="width: 130px" pSortableColumn="jumlah_bwi">
+              Jumlah BWI
+              <p-sortIcon field="jumlah_bwi"></p-sortIcon>
+            </th>
+            <th style="width: 130px" pSortableColumn="nama_daerah">
+              Daerah
+              <p-sortIcon field="nama_daerah"></p-sortIcon>
+            </th>
+            <th style="width: 130px" pSortableColumn="nama_negeri">
+              Negeri
+              <p-sortIcon field="nama_negeri"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-record="$implicit">
+          <tr>
+            <td style="width: 100px">
+              <button
+                class="btn btn-primary"
+                type="button"
+                (click)="select(
+                  record.kir.id,
+                  record.kir.nama,
+                  record.kir.nama_daerah,
+                  record.kir.nama_negeri,
+                  record.mangsa_wang_ihsan.jumlah_bwi
+                  )"
+              >
+                Pilih
+              </button>
+            </td>
+            <td style="width: 150px">
+              <span class="p-column-title">Nama KIR</span>
+              {{record.kir.nama}}
+            </td>
+            <td style="width: 130px">
+              <span class="p-column-title">Bil. AIR</span>
+              {{record.isi_rumah.jumlah_air}}
+            </td>
+            <td style="width: 130px">
+              <span class="p-column-title">Jumlah BWI</span>
+              RM {{record.mangsa_wang_ihsan.jumlah_bwi}}
+            </td>
+            <td style="width: 130px">
+              <span class="p-column-title">Daerah</span>
+              {{record.kir.nama_daerah}}
+            </td>
+            <td style="width: 130px">
+              <span class="p-column-title">Negeri</span>
+              {{record.kir.nama_negeri}}
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+      <div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">No Data</div>
+      <div class="primeng-paging-container justify-content-between">
+        <p-paginator
+          [rows]="primengTableHelper.defaultRecordsCountPerPage"
+          #paginator
+          (onPageChange)="getKirBwi($event)"
+          [totalRecords]="primengTableHelper.totalRecordsCount"
+          [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
+        ></p-paginator>
+        <span class="total-records-count">Jumlah: {{ primengTableHelper.totalRecordsCount}}</span>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="modal-footer">
-	<button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
+	<button type="button" class="btn btn-light" (click)="activeModal.dismiss()">Tutup</button>
 </div>
