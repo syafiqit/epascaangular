@@ -175,7 +175,7 @@
 													<button
 														class="dropdown-item"
 														[routerLink]="['/app/mangsa/edit-pengurusan-mangsa']"
-                            [queryParams]="{id: record.id }"
+                            [queryParams]="{id: record.mangsa.id }"
 													>
 														Kemaskini
 													</button>
@@ -185,33 +185,31 @@
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">No. Kad Pengenalan</span>
-											{{record.no_kp}}
+											{{record.mangsa.no_kp}}
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Nama KIR</span>
-											{{record.nama}}
+											{{record.mangsa.nama}}
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Bil. AIR</span>
-                      0
-											<!-- {{record.status_mangsa}} -->
+                      {{record.isi_rumah.jumlah_air}}
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Jumlah Bantuan(RM)</span>
-                      0
-											<!-- {{record.catatan}} -->
+                      RM{{record.mangsa_wang_ihsan.bantuan_wang_ihsan}}
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Negeri</span>
-											{{record.nama_negeri}}
+											{{record.mangsa.nama_negeri}}
 										</td>
 										<td style="width: 120px">
 											<span class="p-column-title">Sumber</span>
-											{{record.nama_agensi}}
+											{{record.mangsa.nama_agensi}}
 										</td>
 										<td style="width: 100px">
 											<span class="p-column-title">Varifikasi</span>
-											{{record.status_verifikasi == 1? "Sudah":"Belum"}}
+											{{record.mangsa.status_verifikasi == 1? "Sudah":"Belum"}}
 										</td>
 									</tr>
 								</ng-template>
