@@ -16348,6 +16348,7 @@ export class GetMangsaForViewDto implements IGetMangsaForViewDto {
     catatan!: string;
     status_mangsa!: number;
     status_verifikasi!: number;
+    gambar!: string;
     id_pengguna_cipta!: number;
     tarikh_cipta!: moment.Moment;
     id_pengguna_kemaskini!: number;
@@ -16381,6 +16382,7 @@ export class GetMangsaForViewDto implements IGetMangsaForViewDto {
             this.catatan = _data["catatan"];
             this.status_mangsa = _data["status_mangsa"];
             this.status_verifikasi = _data["status_verifikasi"];
+            this.gambar = _data["gambar"];
             this.id_pengguna_cipta = _data["id_pengguna_cipta"];
             this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
@@ -16414,6 +16416,7 @@ export class GetMangsaForViewDto implements IGetMangsaForViewDto {
         data["catatan"] = this.catatan;
         data["status_mangsa"] = this.status_mangsa;
         data["status_verifikasi"] = this.status_verifikasi;
+        data["gambar"] = this.gambar;
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
@@ -16440,6 +16443,7 @@ export interface IGetMangsaForViewDto {
     catatan: string;
     status_mangsa: number;
     status_verifikasi: number;
+    gambar: string;
     id_pengguna_cipta: number;
     tarikh_cipta: moment.Moment;
     id_pengguna_kemaskini: number;
@@ -16447,6 +16451,186 @@ export interface IGetMangsaForViewDto {
     sebab_hapus: string;
     nama_negeri: string;
     nama_agensi: string;
+}
+
+export class InputBantuanAntarabangsaDto implements IInputBantuanAntarabangsaDto {
+    bantuan_antarabangsa!: number;
+
+    constructor(data?: IInputBantuanAntarabangsaDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.bantuan_antarabangsa = _data["bantuan_antarabangsa"];
+        }
+    }
+
+    static fromJS(data: any): InputBantuanAntarabangsaDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InputBantuanAntarabangsaDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["bantuan_antarabangsa"] = this.bantuan_antarabangsa;
+        return data; 
+    }
+}
+
+export interface IInputBantuanAntarabangsaDto {
+    bantuan_antarabangsa: number;
+}
+
+export class InputBantuanPertanianDto implements IInputBantuanPertanianDto {
+    bantuan_pertanian!: number;
+
+    constructor(data?: IInputBantuanPertanianDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.bantuan_pertanian = _data["bantuan_pertanian"];
+        }
+    }
+
+    static fromJS(data: any): InputBantuanPertanianDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InputBantuanPertanianDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["bantuan_pertanian"] = this.bantuan_pertanian;
+        return data; 
+    }
+}
+
+export interface IInputBantuanPertanianDto {
+    bantuan_pertanian: number;
+}
+
+export class InputBantuanPinjamanDto implements IInputBantuanPinjamanDto {
+    bantuan_pinjaman!: number;
+
+    constructor(data?: IInputBantuanPinjamanDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.bantuan_pinjaman = _data["bantuan_pinjaman"];
+        }
+    }
+
+    static fromJS(data: any): InputBantuanPinjamanDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InputBantuanPinjamanDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["bantuan_pinjaman"] = this.bantuan_pinjaman;
+        return data; 
+    }
+}
+
+export interface IInputBantuanPinjamanDto {
+    bantuan_pinjaman: number;
+}
+
+export class InputBantuanRumahDto implements IInputBantuanRumahDto {
+    bantuan_rumah!: number;
+
+    constructor(data?: IInputBantuanRumahDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.bantuan_rumah = _data["bantuan_rumah"];
+        }
+    }
+
+    static fromJS(data: any): InputBantuanRumahDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InputBantuanRumahDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["bantuan_rumah"] = this.bantuan_rumah;
+        return data; 
+    }
+}
+
+export interface IInputBantuanRumahDto {
+    bantuan_rumah: number;
+}
+
+export class InputBantuanWangIhsanDto implements IInputBantuanWangIhsanDto {
+    bantuan_wang_ihsan!: number;
+
+    constructor(data?: IInputBantuanWangIhsanDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.bantuan_wang_ihsan = _data["bantuan_wang_ihsan"];
+        }
+    }
+
+    static fromJS(data: any): InputBantuanWangIhsanDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InputBantuanWangIhsanDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["bantuan_wang_ihsan"] = this.bantuan_wang_ihsan;
+        return data; 
+    }
+}
+
+export interface IInputBantuanWangIhsanDto {
+    bantuan_wang_ihsan: number;
 }
 
 export class InputBencanaMangsaDto implements IInputBencanaMangsaDto {
@@ -16573,6 +16757,142 @@ export interface IInputCreateMangsaDto {
     bencana: InputBencanaMangsaDto;
 }
 
+export class InputJumlahAirMangsaDto implements IInputJumlahAirMangsaDto {
+    jumlah_air!: number;
+
+    constructor(data?: IInputJumlahAirMangsaDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.jumlah_air = _data["jumlah_air"];
+        }
+    }
+
+    static fromJS(data: any): InputJumlahAirMangsaDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InputJumlahAirMangsaDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["jumlah_air"] = this.jumlah_air;
+        return data; 
+    }
+}
+
+export interface IInputJumlahAirMangsaDto {
+    jumlah_air: number;
+}
+
+export class InputLainBantuanMangsaDto implements IInputLainBantuanMangsaDto {
+    lain_bantuan!: number;
+
+    constructor(data?: IInputLainBantuanMangsaDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.lain_bantuan = _data["lain_bantuan"];
+        }
+    }
+
+    static fromJS(data: any): InputLainBantuanMangsaDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InputLainBantuanMangsaDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["lain_bantuan"] = this.lain_bantuan;
+        return data; 
+    }
+}
+
+export interface IInputLainBantuanMangsaDto {
+    lain_bantuan: number;
+}
+
+export class InputResultMangsaDto implements IInputResultMangsaDto {
+    mangsa!: GetMangsaForViewDto;
+    isi_rumah!: InputJumlahAirMangsaDto;
+    mangsa_wang_ihsan!: InputBantuanWangIhsanDto;
+    mangsa_rumah!: InputBantuanRumahDto;
+    mangsa_pinjaman!: InputBantuanPinjamanDto;
+    mangsa_pertanian!: InputBantuanPertanianDto;
+    mangsa_antarabangsa!: InputBantuanAntarabangsaDto;
+    mangsa_bantuan!: InputLainBantuanMangsaDto;
+
+    constructor(data?: IInputResultMangsaDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.mangsa = _data["mangsa"] ? GetMangsaForViewDto.fromJS(_data["mangsa"]) : <any>undefined;
+            this.isi_rumah = _data["isi_rumah"] ? InputJumlahAirMangsaDto.fromJS(_data["isi_rumah"]) : <any>undefined;
+            this.mangsa_wang_ihsan = _data["mangsa_wang_ihsan"] ? InputBantuanWangIhsanDto.fromJS(_data["mangsa_wang_ihsan"]) : <any>undefined;
+            this.mangsa_rumah = _data["mangsa_rumah"] ? InputBantuanRumahDto.fromJS(_data["mangsa_rumah"]) : <any>undefined;
+            this.mangsa_pinjaman = _data["mangsa_pinjaman"] ? InputBantuanPinjamanDto.fromJS(_data["mangsa_pinjaman"]) : <any>undefined;
+            this.mangsa_pertanian = _data["mangsa_pertanian"] ? InputBantuanPertanianDto.fromJS(_data["mangsa_pertanian"]) : <any>undefined;
+            this.mangsa_antarabangsa = _data["mangsa_antarabangsa"] ? InputBantuanAntarabangsaDto.fromJS(_data["mangsa_antarabangsa"]) : <any>undefined;
+            this.mangsa_bantuan = _data["mangsa_bantuan"] ? InputLainBantuanMangsaDto.fromJS(_data["mangsa_bantuan"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): InputResultMangsaDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InputResultMangsaDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["mangsa"] = this.mangsa ? this.mangsa.toJSON() : <any>undefined;
+        data["isi_rumah"] = this.isi_rumah ? this.isi_rumah.toJSON() : <any>undefined;
+        data["mangsa_wang_ihsan"] = this.mangsa_wang_ihsan ? this.mangsa_wang_ihsan.toJSON() : <any>undefined;
+        data["mangsa_rumah"] = this.mangsa_rumah ? this.mangsa_rumah.toJSON() : <any>undefined;
+        data["mangsa_pinjaman"] = this.mangsa_pinjaman ? this.mangsa_pinjaman.toJSON() : <any>undefined;
+        data["mangsa_pertanian"] = this.mangsa_pertanian ? this.mangsa_pertanian.toJSON() : <any>undefined;
+        data["mangsa_antarabangsa"] = this.mangsa_antarabangsa ? this.mangsa_antarabangsa.toJSON() : <any>undefined;
+        data["mangsa_bantuan"] = this.mangsa_bantuan ? this.mangsa_bantuan.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IInputResultMangsaDto {
+    mangsa: GetMangsaForViewDto;
+    isi_rumah: InputJumlahAirMangsaDto;
+    mangsa_wang_ihsan: InputBantuanWangIhsanDto;
+    mangsa_rumah: InputBantuanRumahDto;
+    mangsa_pinjaman: InputBantuanPinjamanDto;
+    mangsa_pertanian: InputBantuanPertanianDto;
+    mangsa_antarabangsa: InputBantuanAntarabangsaDto;
+    mangsa_bantuan: InputLainBantuanMangsaDto;
+}
+
 export class OutputGambarProfilMangsaDto implements IOutputGambarProfilMangsaDto {
     url!: string;
 
@@ -16614,7 +16934,7 @@ export class PagedResultDtoOfMangsaForViewDto implements IPagedResultDtoOfMangsa
     /** Total Count */
     total_count!: number;
     /** Items in array of object */
-    items!: GetMangsaForViewDto[];
+    items!: InputResultMangsaDto[];
 
     constructor(data?: IPagedResultDtoOfMangsaForViewDto) {
         if (data) {
@@ -16631,7 +16951,7 @@ export class PagedResultDtoOfMangsaForViewDto implements IPagedResultDtoOfMangsa
             if (Array.isArray(_data["items"])) {
                 this.items = [] as any;
                 for (let item of _data["items"])
-                    this.items!.push(GetMangsaForViewDto.fromJS(item));
+                    this.items!.push(InputResultMangsaDto.fromJS(item));
             }
         }
     }
@@ -16660,7 +16980,7 @@ export interface IPagedResultDtoOfMangsaForViewDto {
     /** Total Count */
     total_count: number;
     /** Items in array of object */
-    items: GetMangsaForViewDto[];
+    items: InputResultMangsaDto[];
 }
 
 export class CreateOrEditRefAgamaDto implements ICreateOrEditRefAgamaDto {
@@ -24843,7 +25163,7 @@ export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayar
     id!: number;
     no_rujukan_skb!: string;
     id_tabung_kelulusan!: number;
-    id_pegawai!: number;
+    nama_pegawai!: string;
     id_agensi!: number;
     perihal!: string;
     tarikh_mula!: moment.Moment;
@@ -24873,7 +25193,7 @@ export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayar
             this.id = _data["id"];
             this.no_rujukan_skb = _data["no_rujukan_skb"];
             this.id_tabung_kelulusan = _data["id_tabung_kelulusan"];
-            this.id_pegawai = _data["id_pegawai"];
+            this.nama_pegawai = _data["nama_pegawai"];
             this.id_agensi = _data["id_agensi"];
             this.perihal = _data["perihal"];
             this.tarikh_mula = _data["tarikh_mula"] ? moment(_data["tarikh_mula"].toString()) : <any>undefined;
@@ -24903,7 +25223,7 @@ export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayar
         data["id"] = this.id;
         data["no_rujukan_skb"] = this.no_rujukan_skb;
         data["id_tabung_kelulusan"] = this.id_tabung_kelulusan;
-        data["id_pegawai"] = this.id_pegawai;
+        data["nama_pegawai"] = this.nama_pegawai;
         data["id_agensi"] = this.id_agensi;
         data["perihal"] = this.perihal;
         data["tarikh_mula"] = this.tarikh_mula ? this.tarikh_mula.toISOString() : <any>undefined;
@@ -24926,7 +25246,7 @@ export interface ICreateOrEditTabungBayaranSkbDto {
     id: number;
     no_rujukan_skb: string;
     id_tabung_kelulusan: number;
-    id_pegawai: number;
+    nama_pegawai: string;
     id_agensi: number;
     perihal: string;
     tarikh_mula: moment.Moment;
@@ -25031,7 +25351,7 @@ export class GetTabungBayaranSkbForViewDto implements IGetTabungBayaranSkbForVie
     id!: number;
     no_rujukan_skb!: string;
     id_tabung_kelulusan!: number;
-    id_pegawai!: number;
+    nama_pegawai!: string;
     id_agensi!: number;
     perihal!: string;
     tarikh_mula!: moment.Moment;
@@ -25064,7 +25384,7 @@ export class GetTabungBayaranSkbForViewDto implements IGetTabungBayaranSkbForVie
             this.id = _data["id"];
             this.no_rujukan_skb = _data["no_rujukan_skb"];
             this.id_tabung_kelulusan = _data["id_tabung_kelulusan"];
-            this.id_pegawai = _data["id_pegawai"];
+            this.nama_pegawai = _data["nama_pegawai"];
             this.id_agensi = _data["id_agensi"];
             this.perihal = _data["perihal"];
             this.tarikh_mula = _data["tarikh_mula"] ? moment(_data["tarikh_mula"].toString()) : <any>undefined;
@@ -25097,7 +25417,7 @@ export class GetTabungBayaranSkbForViewDto implements IGetTabungBayaranSkbForVie
         data["id"] = this.id;
         data["no_rujukan_skb"] = this.no_rujukan_skb;
         data["id_tabung_kelulusan"] = this.id_tabung_kelulusan;
-        data["id_pegawai"] = this.id_pegawai;
+        data["nama_pegawai"] = this.nama_pegawai;
         data["id_agensi"] = this.id_agensi;
         data["perihal"] = this.perihal;
         data["tarikh_mula"] = this.tarikh_mula ? this.tarikh_mula.toISOString() : <any>undefined;
@@ -25123,7 +25443,7 @@ export interface IGetTabungBayaranSkbForViewDto {
     id: number;
     no_rujukan_skb: string;
     id_tabung_kelulusan: number;
-    id_pegawai: number;
+    nama_pegawai: string;
     id_agensi: number;
     perihal: string;
     tarikh_mula: moment.Moment;
@@ -25677,11 +25997,8 @@ export class GetTabungBwiKirForViewDto implements IGetTabungBwiKirForViewDto {
     tarikh_hapus!: moment.Moment;
     sebab_hapus!: string;
     nama!: string;
-    id_daerah!: number;
-    id_negeri!: number;
     nama_daerah!: string;
     nama_negeri!: string;
-    jumlah_bwi!: number;
 
     constructor(data?: IGetTabungBwiKirForViewDto) {
         if (data) {
@@ -25705,11 +26022,8 @@ export class GetTabungBwiKirForViewDto implements IGetTabungBwiKirForViewDto {
             this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
             this.sebab_hapus = _data["sebab_hapus"];
             this.nama = _data["nama"];
-            this.id_daerah = _data["id_daerah"];
-            this.id_negeri = _data["id_negeri"];
             this.nama_daerah = _data["nama_daerah"];
             this.nama_negeri = _data["nama_negeri"];
-            this.jumlah_bwi = _data["jumlah_bwi"];
         }
     }
 
@@ -25733,11 +26047,8 @@ export class GetTabungBwiKirForViewDto implements IGetTabungBwiKirForViewDto {
         data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
         data["nama"] = this.nama;
-        data["id_daerah"] = this.id_daerah;
-        data["id_negeri"] = this.id_negeri;
         data["nama_daerah"] = this.nama_daerah;
         data["nama_negeri"] = this.nama_negeri;
-        data["jumlah_bwi"] = this.jumlah_bwi;
         return data; 
     }
 }
@@ -25754,11 +26065,8 @@ export interface IGetTabungBwiKirForViewDto {
     tarikh_hapus: moment.Moment;
     sebab_hapus: string;
     nama: string;
-    id_daerah: number;
-    id_negeri: number;
     nama_daerah: string;
     nama_negeri: string;
-    jumlah_bwi: number;
 }
 
 export class InputKirJumlahAirDto implements IInputKirJumlahAirDto {
@@ -25797,9 +26105,46 @@ export interface IInputKirJumlahAirDto {
     jumlah_air: number;
 }
 
+export class InputKirWangIhsanDto implements IInputKirWangIhsanDto {
+    jumlah_bwi!: number;
+
+    constructor(data?: IInputKirWangIhsanDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.jumlah_bwi = _data["jumlah_bwi"];
+        }
+    }
+
+    static fromJS(data: any): InputKirWangIhsanDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InputKirWangIhsanDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["jumlah_bwi"] = this.jumlah_bwi;
+        return data; 
+    }
+}
+
+export interface IInputKirWangIhsanDto {
+    jumlah_bwi: number;
+}
+
 export class InputResultKirViewDto implements IInputResultKirViewDto {
     kir!: GetTabungBwiKirForViewDto;
     isi_rumah!: InputKirJumlahAirDto;
+    mangsa_wang_ihsan!: InputKirWangIhsanDto;
 
     constructor(data?: IInputResultKirViewDto) {
         if (data) {
@@ -25814,6 +26159,7 @@ export class InputResultKirViewDto implements IInputResultKirViewDto {
         if (_data) {
             this.kir = _data["kir"] ? GetTabungBwiKirForViewDto.fromJS(_data["kir"]) : <any>undefined;
             this.isi_rumah = _data["isi_rumah"] ? InputKirJumlahAirDto.fromJS(_data["isi_rumah"]) : <any>undefined;
+            this.mangsa_wang_ihsan = _data["mangsa_wang_ihsan"] ? InputKirWangIhsanDto.fromJS(_data["mangsa_wang_ihsan"]) : <any>undefined;
         }
     }
 
@@ -25828,6 +26174,7 @@ export class InputResultKirViewDto implements IInputResultKirViewDto {
         data = typeof data === 'object' ? data : {};
         data["kir"] = this.kir ? this.kir.toJSON() : <any>undefined;
         data["isi_rumah"] = this.isi_rumah ? this.isi_rumah.toJSON() : <any>undefined;
+        data["mangsa_wang_ihsan"] = this.mangsa_wang_ihsan ? this.mangsa_wang_ihsan.toJSON() : <any>undefined;
         return data; 
     }
 }
@@ -25835,6 +26182,7 @@ export class InputResultKirViewDto implements IInputResultKirViewDto {
 export interface IInputResultKirViewDto {
     kir: GetTabungBwiKirForViewDto;
     isi_rumah: InputKirJumlahAirDto;
+    mangsa_wang_ihsan: InputKirWangIhsanDto;
 }
 
 /** TabungBwiKir List in Tabular model */
@@ -25896,6 +26244,7 @@ export class CreateOrEditTabungBwiDto implements ICreateOrEditTabungBwiDto {
     id_tabung_kelulusan!: number;
     jumlah_setiap_kir!: number;
     jumlah_kir!: number;
+    jumlah_kembali!: number;
     tarikh_eft!: moment.Moment;
     catatan!: string;
     no_rujukan_akuan_kp!: string;
@@ -25930,6 +26279,7 @@ export class CreateOrEditTabungBwiDto implements ICreateOrEditTabungBwiDto {
             this.id_tabung_kelulusan = _data["id_tabung_kelulusan"];
             this.jumlah_setiap_kir = _data["jumlah_setiap_kir"];
             this.jumlah_kir = _data["jumlah_kir"];
+            this.jumlah_kembali = _data["jumlah_kembali"];
             this.tarikh_eft = _data["tarikh_eft"] ? moment(_data["tarikh_eft"].toString()) : <any>undefined;
             this.catatan = _data["catatan"];
             this.no_rujukan_akuan_kp = _data["no_rujukan_akuan_kp"];
@@ -25964,6 +26314,7 @@ export class CreateOrEditTabungBwiDto implements ICreateOrEditTabungBwiDto {
         data["id_tabung_kelulusan"] = this.id_tabung_kelulusan;
         data["jumlah_setiap_kir"] = this.jumlah_setiap_kir;
         data["jumlah_kir"] = this.jumlah_kir;
+        data["jumlah_kembali"] = this.jumlah_kembali;
         data["tarikh_eft"] = this.tarikh_eft ? this.tarikh_eft.toISOString() : <any>undefined;
         data["catatan"] = this.catatan;
         data["no_rujukan_akuan_kp"] = this.no_rujukan_akuan_kp;
@@ -25991,6 +26342,7 @@ export interface ICreateOrEditTabungBwiDto {
     id_tabung_kelulusan: number;
     jumlah_setiap_kir: number;
     jumlah_kir: number;
+    jumlah_kembali: number;
     tarikh_eft: moment.Moment;
     catatan: string;
     no_rujukan_akuan_kp: string;
@@ -26014,6 +26366,7 @@ export interface ICreateOrEditTabungBwiDto {
 export class GetAllKirForViewDto implements IGetAllKirForViewDto {
     kir!: InputKirDto;
     isi_rumah!: InputJumlahAirDto;
+    mangsa_wang_ihsan!: InputJumlahWangIhsanDto;
 
     constructor(data?: IGetAllKirForViewDto) {
         if (data) {
@@ -26028,6 +26381,7 @@ export class GetAllKirForViewDto implements IGetAllKirForViewDto {
         if (_data) {
             this.kir = _data["kir"] ? InputKirDto.fromJS(_data["kir"]) : <any>undefined;
             this.isi_rumah = _data["isi_rumah"] ? InputJumlahAirDto.fromJS(_data["isi_rumah"]) : <any>undefined;
+            this.mangsa_wang_ihsan = _data["mangsa_wang_ihsan"] ? InputJumlahWangIhsanDto.fromJS(_data["mangsa_wang_ihsan"]) : <any>undefined;
         }
     }
 
@@ -26042,6 +26396,7 @@ export class GetAllKirForViewDto implements IGetAllKirForViewDto {
         data = typeof data === 'object' ? data : {};
         data["kir"] = this.kir ? this.kir.toJSON() : <any>undefined;
         data["isi_rumah"] = this.isi_rumah ? this.isi_rumah.toJSON() : <any>undefined;
+        data["mangsa_wang_ihsan"] = this.mangsa_wang_ihsan ? this.mangsa_wang_ihsan.toJSON() : <any>undefined;
         return data; 
     }
 }
@@ -26049,6 +26404,7 @@ export class GetAllKirForViewDto implements IGetAllKirForViewDto {
 export interface IGetAllKirForViewDto {
     kir: InputKirDto;
     isi_rumah: InputJumlahAirDto;
+    mangsa_wang_ihsan: InputJumlahWangIhsanDto;
 }
 
 export class GetRujukanKelulusanBwiDto implements IGetRujukanKelulusanBwiDto {
@@ -26152,6 +26508,7 @@ export class GetTabungBwiForViewDto implements IGetTabungBwiForViewDto {
     id_tabung_kelulusan!: number;
     jumlah_setiap_kir!: number;
     jumlah_kir!: number;
+    jumlah_kembali!: number;
     tarikh_eft!: moment.Moment;
     no_rujukan_akuan_kp!: string;
     tarikh_akuan_kp!: moment.Moment;
@@ -26190,6 +26547,7 @@ export class GetTabungBwiForViewDto implements IGetTabungBwiForViewDto {
             this.id_tabung_kelulusan = _data["id_tabung_kelulusan"];
             this.jumlah_setiap_kir = _data["jumlah_setiap_kir"];
             this.jumlah_kir = _data["jumlah_kir"];
+            this.jumlah_kembali = _data["jumlah_kembali"];
             this.tarikh_eft = _data["tarikh_eft"] ? moment(_data["tarikh_eft"].toString()) : <any>undefined;
             this.no_rujukan_akuan_kp = _data["no_rujukan_akuan_kp"];
             this.tarikh_akuan_kp = _data["tarikh_akuan_kp"] ? moment(_data["tarikh_akuan_kp"].toString()) : <any>undefined;
@@ -26228,6 +26586,7 @@ export class GetTabungBwiForViewDto implements IGetTabungBwiForViewDto {
         data["id_tabung_kelulusan"] = this.id_tabung_kelulusan;
         data["jumlah_setiap_kir"] = this.jumlah_setiap_kir;
         data["jumlah_kir"] = this.jumlah_kir;
+        data["jumlah_kembali"] = this.jumlah_kembali;
         data["tarikh_eft"] = this.tarikh_eft ? this.tarikh_eft.toISOString() : <any>undefined;
         data["no_rujukan_akuan_kp"] = this.no_rujukan_akuan_kp;
         data["tarikh_akuan_kp"] = this.tarikh_akuan_kp ? this.tarikh_akuan_kp.toISOString() : <any>undefined;
@@ -26259,6 +26618,7 @@ export interface IGetTabungBwiForViewDto {
     id_tabung_kelulusan: number;
     jumlah_setiap_kir: number;
     jumlah_kir: number;
+    jumlah_kembali: number;
     tarikh_eft: moment.Moment;
     no_rujukan_akuan_kp: string;
     tarikh_akuan_kp: moment.Moment;
@@ -26405,15 +26765,47 @@ export interface IInputJumlahAirDto {
     jumlah_air: number;
 }
 
+export class InputJumlahWangIhsanDto implements IInputJumlahWangIhsanDto {
+    jumlah_bwi!: number;
+
+    constructor(data?: IInputJumlahWangIhsanDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.jumlah_bwi = _data["jumlah_bwi"];
+        }
+    }
+
+    static fromJS(data: any): InputJumlahWangIhsanDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InputJumlahWangIhsanDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["jumlah_bwi"] = this.jumlah_bwi;
+        return data; 
+    }
+}
+
+export interface IInputJumlahWangIhsanDto {
+    jumlah_bwi: number;
+}
+
 export class InputKirDto implements IInputKirDto {
     id!: number;
-    id_mangsa!: number;
     nama!: string;
-    id_daerah!: number;
-    id_negeri!: number;
     nama_daerah!: string;
     nama_negeri!: string;
-    jumlah_bwi!: number;
 
     constructor(data?: IInputKirDto) {
         if (data) {
@@ -26427,13 +26819,9 @@ export class InputKirDto implements IInputKirDto {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
-            this.id_mangsa = _data["id_mangsa"];
             this.nama = _data["nama"];
-            this.id_daerah = _data["id_daerah"];
-            this.id_negeri = _data["id_negeri"];
             this.nama_daerah = _data["nama_daerah"];
             this.nama_negeri = _data["nama_negeri"];
-            this.jumlah_bwi = _data["jumlah_bwi"];
         }
     }
 
@@ -26447,26 +26835,18 @@ export class InputKirDto implements IInputKirDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        data["id_mangsa"] = this.id_mangsa;
         data["nama"] = this.nama;
-        data["id_daerah"] = this.id_daerah;
-        data["id_negeri"] = this.id_negeri;
         data["nama_daerah"] = this.nama_daerah;
         data["nama_negeri"] = this.nama_negeri;
-        data["jumlah_bwi"] = this.jumlah_bwi;
         return data; 
     }
 }
 
 export interface IInputKirDto {
     id: number;
-    id_mangsa: number;
     nama: string;
-    id_daerah: number;
-    id_negeri: number;
     nama_daerah: string;
     nama_negeri: string;
-    jumlah_bwi: number;
 }
 
 /** TabungBwi List in Tabular model */

@@ -26,6 +26,7 @@ export class TambahKetuaIsiRumahComponent implements OnInit {
   @Input() id_tabung_bwi;
 
   kir: CreateOrEditTabungBwiKirDto = new CreateOrEditTabungBwiKirDto();
+  idMangsa: number;
   filter: string;
   saving = false;
 
@@ -65,10 +66,10 @@ export class TambahKetuaIsiRumahComponent implements OnInit {
 			});
 	}
 
-  select(id_mangsa, nama, nama_daerah, nama_negeri, jumlah_bwi) {
+  select(id, nama, nama_daerah, nama_negeri, jumlah_bwi) {
     if (this.kategori == 1) {
       this.activeModal.close({
-        id_mangsa: id_mangsa,
+        id: id,
         nama: nama,
         nama_daerah: nama_daerah,
         nama_negeri: nama_negeri,
@@ -79,6 +80,7 @@ export class TambahKetuaIsiRumahComponent implements OnInit {
       this.saving = true;
 
       this.kir.id_tabung_bwi = this.id_tabung_bwi;
+      this.kir.id_mangsa = id;
       this._tabungBwiKirServiceProxy
         .createOrEdit(this.kir)
         .pipe()
