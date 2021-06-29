@@ -123,13 +123,13 @@
               Nama KIR
               <p-sortIcon field="nama"></p-sortIcon>
             </th>
-            <th style="width: 130px" pSortableColumn="jumlah_air">
+            <th style="width: 130px" pSortableColumn="isi_rumah">
               Bil. AIR
-              <p-sortIcon field="jumlah_air"></p-sortIcon>
+              <p-sortIcon field="isi_rumah"></p-sortIcon>
             </th>
-            <th style="width: 130px" pSortableColumn="jumlah_bwi">
+            <th style="width: 130px" pSortableColumn="jumlah_wang_ihsan">
               Jumlah BWI
-              <p-sortIcon field="jumlah_bwi"></p-sortIcon>
+              <p-sortIcon field="jumlah_wang_ihsan"></p-sortIcon>
             </th>
             <th style="width: 130px" pSortableColumn="nama_daerah">
               Daerah
@@ -152,7 +152,7 @@
                   record.kir.nama,
                   record.kir.nama_daerah,
                   record.kir.nama_negeri,
-                  record.mangsa_wang_ihsan.jumlah_bwi
+                  record.jumlah_wang_ihsan
                   )"
               >
                 Pilih
@@ -164,11 +164,11 @@
             </td>
             <td style="width: 130px">
               <span class="p-column-title">Bil. AIR</span>
-              {{record.isi_rumah.jumlah_air}}
+              {{record.isi_rumah}}
             </td>
             <td style="width: 130px">
               <span class="p-column-title">Jumlah BWI</span>
-              RM {{record.mangsa_wang_ihsan.jumlah_bwi}}
+              RM {{record.jumlah_wang_ihsan}}
             </td>
             <td style="width: 130px">
               <span class="p-column-title">Daerah</span>

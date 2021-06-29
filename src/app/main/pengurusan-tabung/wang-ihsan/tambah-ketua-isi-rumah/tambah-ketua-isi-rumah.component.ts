@@ -110,14 +110,14 @@ export class TambahKetuaIsiRumahComponent implements OnInit {
     this.getKirBwi();
   }
 
-  select(id, nama, nama_daerah, nama_negeri, jumlah_bwi) {
+  select(id, nama, nama_daerah, nama_negeri, jumlah_wang_ihsan) {
     if (this.kategori == 1) {
       this.activeModal.close({
         id: id,
         nama: nama,
         nama_daerah: nama_daerah,
         nama_negeri: nama_negeri,
-        jumlah_bwi: jumlah_bwi
+        jumlah_wang_ihsan: jumlah_wang_ihsan
       });
     }
     else {
