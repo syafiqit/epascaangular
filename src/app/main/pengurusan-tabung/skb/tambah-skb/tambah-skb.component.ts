@@ -161,7 +161,7 @@ export class TambahSkbComponent implements OnInit {
     this.bayaranSKB.skb.tarikh_tamat = moment(this.tarikhTamat);
     this.bayaranSKB.skb.no_rujukan_skb = null;
     this.bayaranSKB.skb.perihal = null;
-    this.bayaranSKB.skb.id_pegawai = null;
+    this.bayaranSKB.skb.nama_pegawai = null;
     this.bayaranSKB.skbBulanan = this.bulanan;
 		this._tabungBayaranSkbServiceProxy
 			.createOrEdit(this.bayaranSKB)

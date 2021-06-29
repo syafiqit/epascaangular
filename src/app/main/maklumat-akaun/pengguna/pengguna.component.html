@@ -4,45 +4,20 @@
 	<div class="col-lg-12">
 		<div class="card">
 			<div class="card-body">
-				<form class="form theme-form" name="form" #f="ngForm" focusInvalidInput (ngSubmit)="f.form.valid && save()">
+				<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate autocomplete="off">
 					<div class="row">
-						<div class="col-lg-3">
-							<form [formGroup]="secondFormGroup">
-                <div class="card shadow shadow-showcase" *ngIf="getProfile.pengguna.gambar">
-									<div class="product-box">
-										<div class="product-img image-center">
-											<img class="img-fluid" [src]="getProfile.pengguna.gambar" alt="profile-image" />
-                      <div class="product-hover">
-                        <ngx-dropzone (change)="onSelect($event)">
-                          <ngx-dropzone-label>Kemaskini Gambar</ngx-dropzone-label>
-                        </ngx-dropzone>
-                      </div>
-                      <div *ngFor="let f of files" [file]="f">
-                        <label>{{ f.name }}</label>
-                      </div>
-										</div>
-									</div>
-								</div>
-
-								<div class="card shadow shadow-showcase" *ngIf="!getProfile.pengguna.gambar">
-									<div class="product-box">
-										<div class="product-img image-center">
-											<img class="img-fluid" src="/assets/images/other-images/default-image.jpg" alt="profile-image" />
-											<div class="product-hover">
-												<ngx-dropzone (change)="onSelect($event)">
-													<ngx-dropzone-label>Kemaskini Gambar</ngx-dropzone-label>
-												</ngx-dropzone>
-											</div>
-											<div *ngFor="let f of files" [file]="f">
-												<label>{{ f.name }}</label>
-											</div>
-										</div>
-									</div>
-								</div>
-							</form>
+						<div class="col-lg-4">
+              <label>Gambar Profil<span class="text-danger"> * <i class="flaticon-exclamation-2" placement="right" ngbTooltip="Image size 700 x 234 pixels"></i></span></label>
+              <div></div>
+              <img class="mw-100 mb-2" [src]="getProfile.pengguna.gambar ? getProfile.pengguna.gambar : defaultImageUrl" (error)="getProfile.pengguna.gambar = defaultImageUrl"/>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" name="gambar" (change)="fileChangeEvent($event)" accept=".png, .jpg, .jpeg">
+                <label class="custom-file-label">{{ profilImageTempName ? profilImageTempName : '.png, .jpg, .jpeg sahaja. Max 5MB' }}</label>
+              </div>
+              <image-uploader [imageChangedEvent]="profilImageChangedEvent" [aspectRatio]="1 / 1" [maintainAspectRatio]="true" (change)="assignImage($event)" [apiEndpoint]="endpoint" (success)="refreshProfil($event)"></image-uploader>
 						</div>
 
-						<div class="col-lg-9">
+						<div class="col-lg-8">
 							<div class="row mb-3">
                 <div class="col-lg-6">
                   <h6>Maklumat Pengguna</h6>
