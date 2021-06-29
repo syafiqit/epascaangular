@@ -1,0 +1,10 @@
+<image-cropper [imageChangedEvent]="imageChangedEvent"
+               [maintainAspectRatio]="maintainAspectRatio"
+               [aspectRatio]="aspectRatio"
+               [cropperMinWidth]="cropperMinWidth"
+               [cropperMinHeight]="cropperMinHeight"
+               format="png"
+               (imageCropped)="imageCroppedFile($event)"></image-cropper>
+<div class="form-row justify-content-end" *ngIf="imageChangedEvent">
+  <button class="btn btn-success font-weight-bold" type="button" (click)="upload()">Upload</button>
+</div>
