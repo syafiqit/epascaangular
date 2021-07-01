@@ -25,8 +25,8 @@ export class SkbComponent implements OnInit {
   terms$ = new Subject<string>();
   idSkb: any;
 	filter: string;
-  filterAgensi: string;
-  filterTabung: string;
+  filterAgensi: number;
+  filterTabung: number;
   agencies: any;
   funds: any;
 
