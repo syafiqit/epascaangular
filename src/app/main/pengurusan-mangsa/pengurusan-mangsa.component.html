@@ -56,7 +56,7 @@
                             <ng-select
                               [items]="agencies"
                               bindLabel="nama_agensi"
-                              bindValue="nama_agensi"
+                              bindValue="id"
                               placeholder="Sila Pilih"
                               class="js-example-placeholder-multiple"
                               name="namaAgensi"
@@ -71,7 +71,7 @@
                             <ng-select
                               [items]="states"
                               bindLabel="nama_negeri"
-                              bindValue="nama_negeri"
+                              bindValue="id"
                               placeholder="Sila Pilih"
                               class="js-example-placeholder-multiple"
                               name="namaNegeri"
@@ -135,9 +135,9 @@
 											Nama KIR
 											<p-sortIcon field="nama"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="status_mangsa">
+										<th style="width: 130px" pSortableColumn="isi_rumah">
 											Bil. AIR
-											<p-sortIcon field="status_mangsa"></p-sortIcon>
+											<p-sortIcon field="isi_rumah"></p-sortIcon>
 										</th>
 										<th style="width: 130px" pSortableColumn="jumlah_bantuan">
 											Jumlah Bantuan(RM)
@@ -175,7 +175,7 @@
 													<button
 														class="dropdown-item"
 														[routerLink]="['/app/mangsa/edit-pengurusan-mangsa']"
-                            [queryParams]="{id: record.mangsa.id }"
+                            [queryParams]="{id: record.id }"
 													>
 														Kemaskini
 													</button>
@@ -185,11 +185,11 @@
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">No. Kad Pengenalan</span>
-											{{record.mangsa.no_kp}}
+											{{record.no_kp}}
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Nama KIR</span>
-											{{record.mangsa.nama}}
+											{{record.nama}}
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Bil. AIR</span>
@@ -201,15 +201,15 @@
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Negeri</span>
-											{{record.mangsa.nama_negeri}}
+											{{record.nama_negeri}}
 										</td>
 										<td style="width: 120px">
 											<span class="p-column-title">Sumber</span>
-											{{record.mangsa.nama_agensi}}
+											{{record.nama_agensi}}
 										</td>
 										<td style="width: 100px">
 											<span class="p-column-title">Varifikasi</span>
-											{{record.mangsa.status_verifikasi == 1? "Sudah":"Belum"}}
+											{{record.status_verifikasi == 1? "Sudah":"Belum"}}
 										</td>
 									</tr>
 								</ng-template>
