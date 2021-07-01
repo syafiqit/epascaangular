@@ -1,5 +1,5 @@
 <app-breadcrumb
-	[title]="'Kelulusan Berbelanja Kumpulan Wang Amanah Bantuan Bencana Negara (KWABBN)'"
+	[title]="'Kelulusan Berbelanja KWABBN'"
 	[items]="['Pengurusan Tabung']"
 	[active_item]="['Kelulusan']"
 ></app-breadcrumb>
@@ -8,148 +8,93 @@
 	<div class="container-fluid">
 		<div class="card card-custom gutter-b">
 			<div class="card-body">
-				<div class="row justify-content-end mb-2">
-					<button class="btn btn-primary" type="button" [routerLink]="['/app/tabung/tambah-kelulusan']">
-						<i class="fa fa-plus mr-2"></i>
-						Tambah
-					</button>
-				</div>
-				<div class="row mb-2">
-					<input type="text" class="form-control" placeholder="Carian..." />
-				</div>
-				<div class="row mb-2">
-					<div class="col-lg-12">
-						<div class="row">
-							<button
-								type="button"
-								class="btn btn-xs btn-outline-primary"
-								(click)="isCollapsed = !isCollapsed"
-								[attr.aria-expanded]="!isCollapsed"
-								aria-controls="collapseExample"
-							>
-								Carian Lanjut
-							</button>
-						</div>
-						<div class="row" [ngbCollapse]="!isCollapsed">
-							<div class="col-lg-12">
-								<div class="card mb-0">
-									<div class="card-body">
-										<form>
-											<div class="row">
-												<div class="col-lg-12">
-													<div class="form-group">
-														<label>Tabung</label>
-														<select class="form-control digits">
-															<option>Pilih</option>
-															<option>KWABBN</option>
-															<option>Covid-19</option>
-														</select>
-													</div>
-												</div>
-											</div>
+<!--				<div class="row justify-content-end mb-2">-->
+<!--					<button class="btn btn-primary" type="button" [routerLink]="['/app/tabung/tambah-kelulusan']">-->
+<!--						<i class="fa fa-plus mr-2"></i>-->
+<!--						Tambah-->
+<!--					</button>-->
+<!--				</div>-->
+        <div class="row">
+          <div class="col-6 justify-content-start pl-0">
+            <div class="faq-form">
+              <input
+                class="form-control"
+                type="text"
+                name="searchSKB"
+                placeholder="Carian..."
+                [(ngModel)]="filterText"
+                (keyup.enter)="getTabungKelulusanList()"
+              />
+              <i class="search-icon" data-feather="search"></i>
+            </div>
+          </div>
 
-											<div class="row">
-												<div class="col-lg-6">
-													<div class="form-group">
-														<label>Katakunci</label>
-														<input
-															class="form-control"
-															type="text"
-															placeholder="Katakunci"
-														/>
-													</div>
-												</div>
+          <div class="col-2 justify-content-between pl-0">
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="isCollapsed = !isCollapsed"
+              [attr.aria-expanded]="!isCollapsed"
+              aria-controls="collapseExample"
+              title="Carian Lanjut"
+              style="font-weight: 500"
+            >
+              <i class="fa fa-filter"></i>
+            </button>
+          </div>
 
-												<div class="col-lg-6">
-													<div class="form-group">
-														<label>Kategori Carian</label>
-														<select class="form-control digits">
-															<option>Pilih</option>
-															<option>No Rujukan</option>
-															<option>Tarikh Surat</option>
-															<option>Kategori</option>
-															<option>Tarikh Kelulusan</option>
-															<option>Status</option>
-														</select>
-													</div>
-												</div>
-											</div>
+          <div class="col-4 justify-content-end pr-0">
+            <button
+              [routerLink]="['/app/tabung/tambah-kelulusan']"
+              class="btn btn-primary pull-right"
+            >
+              <i class="fa fa-plus mr-2"></i>
+              <b>Tambah</b>
+            </button>
+          </div>
+        </div>
 
-											<div class="row custom-datepicker custom-datepicker-dropdown">
-												<div class="col-lg-6">
-													<div class="form-group">
-														<label>Tarikh Mula</label>
-														<div class="input-group">
-															<input
-																class="form-control"
-																placeholder="yyyy-mm-dd"
-																name="dp1"
-																[displayMonths]="displayMonths"
-																[navigation]="navigation"
-																[outsideDays]="outsideDays"
-																[showWeekNumbers]="showWeekNumbers"
-																ngbDatepicker
-																#k1="ngbDatepicker"
-															/>
-															<div class="input-group-append">
-																<button
-																	class="btn calendar"
-																	(click)="k1.toggle()"
-																	type="button"
-																>
-																	<i class="fa fa-calendar"></i>
-																</button>
-															</div>
-														</div>
-													</div>
-												</div>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="row">
+              <div class="col-lg-12">
+                <div id="collapseExample" [ngbCollapse]="!isCollapsed">
+                  <form>
+                    <div class="row mt-3">
 
-												<div class="col-lg-6">
-													<div class="form-group">
-														<label>Tarikh Tamat</label>
-														<div class="input-group">
-															<input
-																class="form-control"
-																placeholder="yyyy-mm-dd"
-																name="dp2"
-																[displayMonths]="displayMonths"
-																[navigation]="navigation"
-																[outsideDays]="outsideDays"
-																[showWeekNumbers]="showWeekNumbers"
-																ngbDatepicker
-																#k2="ngbDatepicker"
-															/>
-															<div class="input-group-append">
-																<button
-																	class="btn calendar"
-																	(click)="k2.toggle()"
-																	type="button"
-																>
-																	<i class="fa fa-calendar"></i>
-																</button>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="row justify-content-end">
-												<button
-													class="btn btn-primary mr-3"
-													type="button"
-													(click)="isCollapsed = !isCollapsed"
-													[attr.aria-expanded]="!isCollapsed"
-												>
-													Cari
-												</button>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row align-items-center">
+                      <div class="col-lg-4">
+                        <div class="form-group">
+                          <label>Tabung</label>
+                          <ng-select
+                            [items]="funds"
+                            bindLabel="nama_tabung"
+                            bindValue="id"
+                            placeholder="Sila Pilih"
+                            class="js-example-placeholder-multiple"
+                            name="namaTabung"
+                          ></ng-select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row pr-3 justify-content-end">
+                      <button
+                        class="btn btn-primary pull-right"
+                        type="button"
+                        (click)="getTabungKelulusanList()"
+                      >
+                        <i class="fa fa-search mr-2"></i>
+                        <b>Cari</b>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+				<div class="row mt-3 align-items-center">
 					<!--<Primeng-TurboTable-Start>-->
 					<div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
 						<p-table
@@ -157,7 +102,7 @@
 							styleClass="p-datatable-striped"
 							sortMode="multiple"
 							[resizableColumns]="true"
-							(onLazyLoad)="getApproval($event)"
+							(onLazyLoad)="getTabungKelulusanList($event)"
 							[value]="primengTableHelper.records"
 							rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
 							[paginator]="false"
@@ -170,45 +115,45 @@
 							<ng-template pTemplate="header">
 								<tr>
 									<th style="width: 150px">Tindakan</th>
-									<th style="width: 150px" pSortableColumn="no_ruj">
+									<th style="width: 150px" pSortableColumn="no_rujukan_kelulusan">
 										No. Rujukan
-										<p-sortIcon field="no_ruj"></p-sortIcon>
+										<p-sortIcon field="no_rujukan_kelulusan"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="tabung">
+									<th style="width: 130px" pSortableColumn="nama_tabung">
 										Tabung
-										<p-sortIcon field="tabung"></p-sortIcon>
+										<p-sortIcon field="nama_tabung"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="ketegori">
+									<th style="width: 130px" pSortableColumn="nama_bencana">
 										Kategori
-										<p-sortIcon field="ketegori"></p-sortIcon>
+										<p-sortIcon field="nama_bencana"></p-sortIcon>
 									</th>
 									<th style="width: 140px" pSortableColumn="tarikh_surat">
 										Tarikh Surat
 										<p-sortIcon field="tarikh_surat"></p-sortIcon>
 									</th>
-									<th style="width: 150px" pSortableColumn="ruj_surat">
+									<th style="width: 150px" pSortableColumn="rujukan_surat">
 										Rujukan Surat
-										<p-sortIcon field="ruj_surat"></p-sortIcon>
+										<p-sortIcon field="rujukan_surat"></p-sortIcon>
 									</th>
-									<th style="width: 120px" pSortableColumn="mula_lulus">
+									<th style="width: 120px" pSortableColumn="tarikh_mula_kelulusan">
 										Tarikh Mula Kelulusan
-										<p-sortIcon field="mula_lulus"></p-sortIcon>
+										<p-sortIcon field="tarikh_mula_kelulusan"></p-sortIcon>
 									</th>
-									<th style="width: 120px" pSortableColumn="tamat_lulus">
+									<th style="width: 120px" pSortableColumn="tarikh_tamat_kelulusan">
 										Tarikh Tamat Kelulusan
-										<p-sortIcon field="tamat_lulus"></p-sortIcon>
+										<p-sortIcon field="tarikh_tamat_kelulusan"></p-sortIcon>
 									</th>
-									<th style="width: 150px" pSortableColumn="jumlah_belanja">
-										Jumlah Belanja
-										<p-sortIcon field="jumlah_belanja"></p-sortIcon>
+									<th style="width: 150px" pSortableColumn="jumlah_siling">
+										Jumlah Siling
+										<p-sortIcon field="jumlah_siling"></p-sortIcon>
 									</th>
-									<th style="width: 150px" pSortableColumn="baki_peruntukan">
+									<th style="width: 150px" pSortableColumn="peruntukan">
 										Baki Peruntukan
-										<p-sortIcon field="baki_peruntukan"></p-sortIcon>
+										<p-sortIcon field="peruntukan"></p-sortIcon>
 									</th>
-									<th style="width: 100px" pSortableColumn="status">
+									<th style="width: 100px" >
 										Status
-										<p-sortIcon field="status"></p-sortIcon>
+<!--										<p-sortIcon field="status"></p-sortIcon>-->
 									</th>
 								</tr>
 							</ng-template>
@@ -229,7 +174,8 @@
 											<div ngbDropdownMenu aria-labelledby="action">
 												<button
 													class="dropdown-item"
-													[routerLink]="['/app/tabung/edit-kelulusan']"
+													[routerLink]="['/app/tabung/tambah-kelulusan']"
+                          [queryParams]="{id: record.id}"
 												>
 													Lihat
 												</button>
@@ -251,39 +197,39 @@
 									</td>
 									<td style="width: 150px">
 										<span class="p-column-title">No. Rujukan</span>
-										{{record.refNo}}
+										{{record.no_rujukan_kelulusan}}
 									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">Tabung</span>
-										{{record.funds}}
+										{{record.nama_tabung}}
 									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">Kategori</span>
-										{{record.category}}
+										{{record.nama_bencana}}
 									</td>
 									<td style="width: 140px">
 										<span class="p-column-title">Tarikh Surat</span>
-										{{record.letterDate}}
+										{{record.tarikh_surat}}
 									</td>
 									<td style="width: 150px">
 										<span class="p-column-title">Rujukan Surat</span>
-										{{record.letterRef}}
+										{{record.rujukan_surat}}
 									</td>
 									<td style="width: 120px">
 										<span class="p-column-title">Tarikh Mula Kelulusan</span>
-										{{record.startDate}}
+										{{record.tarikh_mula_kelulusan}}
 									</td>
 									<td style="width: 120px">
 										<span class="p-column-title">Tarikh Tamat Kelulusan</span>
-										{{record.lastDate}}
+										{{record.tarikh_tamat_kelulusan}}
 									</td>
 									<td style="width: 150px">
-										<span class="p-column-title">Jumlah Belanja</span>
-										{{record.total}}
+										<span class="p-column-title">Jumlah Siling</span>
+                    {{record.jumlah_siling}}
 									</td>
 									<td style="width: 150px">
 										<span class="p-column-title">Baki Peruntukan</span>
-										{{record.balance}}
+										{{record.peruntukan}}
 									</td>
 									<td style="width: 100px">
 										<span class="p-column-title">Status</span>
@@ -297,7 +243,7 @@
 							<p-paginator
 								[rows]="primengTableHelper.defaultRecordsCountPerPage"
 								#paginator
-								(onPageChange)="getApproval($event)"
+								(onPageChange)="getTabungKelulusanList($event)"
 								[totalRecords]="primengTableHelper.totalRecordsCount"
 								[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
 							></p-paginator>

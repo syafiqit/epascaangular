@@ -8,30 +8,38 @@
 		<div class="col-sm-12">
 			<div class="card">
 				<div class="card-body">
-					<form>
+					<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
 						<h6>Maklumat Kelulusan</h6>
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Tabung*</label>
-									<select class="form-control digits">
-										<option>Pilih</option>
-										<option>Covid-19</option>
-										<option>KWABBN</option>
+									<select class="form-control digits" name="kelulusan.id_tabung"
+                          [(ngModel)]="kelulusan.id_tabung"
+                          #id_tabung="ngModel"
+                          [ngClass]="{ 'is-invalid': f.submitted && id_tabung.invalid }"
+                          minlength="0"
+                          maxlength="250"
+                          required>
+                    <option selected disabled>Sila Pilih</option>
+                    <option *ngFor="let data of tabung" value="{{data.id}}">
+                      {{data.nama_tabung}}
+                    </option>
 									</select>
+                  <div *ngIf="f.submitted && id_tabung.invalid" class="invalid-feedback">
+                    <div *ngIf="id_tabung.errors.required">Tabung Wajib Dipilih</div>
+                  </div>
 								</div>
 							</div>
 
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Kategori Bencana*</label>
-									<select class="form-control digits">
-										<option>Pilih</option>
-										<option>Banjir</option>
-										<option>Ribut</option>
-										<option>Tanah Runtuh</option>
-										<option>Covid-19</option>
-										<option>Pelbagai</option>
+									<select class="form-control digits" name="kelulusan.id_bencana" [(ngModel)]="kelulusan.id_bencana">
+                    <option selected disabled>Sila Pilih</option>
+                    <option *ngFor="let data of bencana" value="{{data.id}}">
+                      {{data.nama_bencana}}
+                    </option>
 									</select>
 								</div>
 							</div>
@@ -41,8 +49,11 @@
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Jenis Bantuan*</label>
-									<select class="form-control digits">
-										<option>Pilih</option>
+									<select class="form-control digits" name="kelulusan.id_bantuan" [(ngModel)]="kelulusan.id_bantuan">
+                    <option selected disabled>Sila Pilih</option>
+                    <option *ngFor="let data of bantuan" value="{{data.id}}">
+                      {{data.nama_bantuan}}
+                    </option>
 									</select>
 								</div>
 							</div>
@@ -50,10 +61,10 @@
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Komitmen*</label>
-									<select class="form-control digits">
-										<option>Pilih</option>
-										<option>Perolehan Secara Pembelian Terus</option>
-										<option>Perolehan Secara Darurat</option>
+									<select class="form-control digits" name="kelulusan.id_komitmen" [(ngModel)]="kelulusan.id_komitmen">
+										<option [value]="1">Pilih</option>
+										<option [value]="1">Perolehan Secara Pembelian Terus</option>
+										<option [value]="1">Perolehan Secara Darurat</option>
 									</select>
 								</div>
 							</div>
@@ -62,21 +73,22 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Rujukan Bencana</label>
-									<div class="input-group mb-3">
-										<input type="text" class="form-control" placeholder="Rujukan Bencana" />
-										<div class="input-group-append">
-											<button class="btn btn-primary" type="button" (click)="approvalAddModal()">
-												<i class="fa fa-search text-white"></i>
-											</button>
-										</div>
-									</div>
+									<label>No. Rujukan Kelulusan</label>
+                  <input class="form-control" type="text" name="kelulusan.no_rujukan_kelulusan" [(ngModel)]="kelulusan.no_rujukan_kelulusan" placeholder="No. Rujukan Kelulusan" />
+<!--									<div class="input-group mb-3">-->
+<!--										<input type="text" class="form-control" placeholder="Rujukan Bencana" />-->
+<!--										<div class="input-group-append">-->
+<!--											<button class="btn btn-primary" type="button" (click)="approvalAddModal()">-->
+<!--												<i class="fa fa-search text-white"></i>-->
+<!--											</button>-->
+<!--										</div>-->
+<!--									</div>-->
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Rujukan Surat</label>
-									<input class="form-control" type="text" placeholder="JPM.APBN(S).600-3/8/2 (1)" />
+									<input class="form-control" type="text" name="kelulusan.rujukan_surat" [(ngModel)]="kelulusan.rujukan_surat" placeholder="JPM.APBN(S).600-3/8/2 (1)" />
 								</div>
 							</div>
 						</div>
@@ -85,14 +97,14 @@
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Perihal Surat</label>
-									<textarea class="form-control input-air-primary" rows="3"></textarea>
+									<textarea class="form-control input-air-primary" name="kelulusan.perihal_surat" rows="3" [(ngModel)]="kelulusan.perihal_surat"></textarea>
 								</div>
 							</div>
 
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Rujukan</label>
-									<textarea class="form-control input-air-primary" rows="3"></textarea>
+									<textarea class="form-control input-air-primary" name="kelulusan.rujukan" rows="3" [(ngModel)]="kelulusan.rujukan"></textarea>
 								</div>
 							</div>
 						</div>
@@ -102,22 +114,16 @@
 								<div class="form-group">
 									<label>Tarikh Surat</label>
 									<div class="input-group">
-										<input
-											class="form-control"
-											placeholder="yyyy-mm-dd"
-											name="dp1"
-											[displayMonths]="displayMonths"
-											[navigation]="navigation"
-											[outsideDays]="outsideDays"
-											[showWeekNumbers]="showWeekNumbers"
-											ngbDatepicker
-											#k1="ngbDatepicker"
-										/>
-										<div class="input-group-append">
-											<button class="btn calendar" (click)="k1.toggle()" type="button">
-												<i class="fa fa-calendar"></i>
-											</button>
-										</div>
+                    <input
+                      class="form-control"
+                      id="letterDate"
+                      type="date"
+                      name="tarikh_surat"
+                      [(ngModel)]="tarikhSurat"
+                      min="{{ date | date: 'yyyy-MM-dd' }}"
+                      onlyNumbers
+                      onlyAlphabets
+                    />
 									</div>
 								</div>
 							</div>
@@ -126,22 +132,16 @@
 								<div class="form-group">
 									<label>Tarikh Kelulusan (Mula)</label>
 									<div class="input-group">
-										<input
-											class="form-control"
-											placeholder="yyyy-mm-dd"
-											name="dp2"
-											[displayMonths]="displayMonths"
-											[navigation]="navigation"
-											[outsideDays]="outsideDays"
-											[showWeekNumbers]="showWeekNumbers"
-											ngbDatepicker
-											#k2="ngbDatepicker"
-										/>
-										<div class="input-group-append">
-											<button class="btn calendar" (click)="k2.toggle()" type="button">
-												<i class="fa fa-calendar"></i>
-											</button>
-										</div>
+                    <input
+                      class="form-control"
+                      id="startDate"
+                      type="date"
+                      name="tarikh_mula"
+                      [(ngModel)]="tarikhMula"
+                      min="{{ date | date: 'yyyy-MM-dd' }}"
+                      onlyNumbers
+                      onlyAlphabets
+                    />
 									</div>
 								</div>
 							</div>
@@ -152,22 +152,16 @@
 								<div class="form-group">
 									<label>Tarikh Kelulusan (Tamat)</label>
 									<div class="input-group">
-										<input
-											class="form-control"
-											placeholder="yyyy-mm-dd"
-											name="dp2"
-											[displayMonths]="displayMonths"
-											[navigation]="navigation"
-											[outsideDays]="outsideDays"
-											[showWeekNumbers]="showWeekNumbers"
-											ngbDatepicker
-											#k3="ngbDatepicker"
-										/>
-										<div class="input-group-append">
-											<button class="btn calendar" (click)="k3.toggle()" type="button">
-												<i class="fa fa-calendar"></i>
-											</button>
-										</div>
+                    <input
+                      class="form-control"
+                      id="endDate"
+                      type="date"
+                      name="tarikh_tamat"
+                      [(ngModel)]="tarikhTamat"
+                      min="{{ date | date: 'yyyy-MM-dd' }}"
+                      onlyNumbers
+                      onlyAlphabets
+                    />
 									</div>
 								</div>
 							</div>
@@ -177,7 +171,7 @@
 									<label>Jumlah Siling Peruntukan</label>
 									<div class="input-group">
 										<div class="input-group-prepend"><span class="input-group-text">RM</span></div>
-										<input class="form-control" type="number" />
+										<input class="form-control" type="number" name="kelulusan.jumlah_siling" [(ngModel)]="kelulusan.jumlah_siling"/>
 									</div>
 								</div>
 							</div>
@@ -185,8 +179,7 @@
 
 						<button
 							class="btn btn-primary pull-right"
-							[routerLink]="['/app/tabung/senarai-kelulusan']"
-							type="button"
+							type="submit"
 						>
 							Simpan
 						</button>

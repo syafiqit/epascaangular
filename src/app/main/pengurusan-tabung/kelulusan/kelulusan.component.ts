@@ -4,6 +4,11 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
+import {
+  RefAgensiServiceProxy,
+  TabungKelulusanServiceProxy,
+  TabungServiceProxy
+} from "../../../shared/proxy/service-proxies";
 
 @Component({
 	selector: 'app-kelulusan',
@@ -17,59 +22,51 @@ export class KelulusanComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
 
 	public isCollapsed = false;
-	modelFooter: NgbDateStruct;
 	today = this.calendar.getToday();
-	displayMonths = 1;
 	navigation = 'select';
-	showWeekNumbers = false;
-	outsideDays = 'visible';
+  funds:any;
 
-	rows = [
-		{
-			refNo: 'AXXXXX',
-			funds: 'KWABBN',
-			category: 'Banjir',
-			letterDate: '17/12/2019',
-			letterRef: 'JPM.APBN(S).600-3/8/2 Jld.7 (7)',
-			startDate: '30/12/2019',
-			lastDate: '31/12/2020',
-			total: '304,996.00',
-			balance: '695,004.00',
-			status: 'Aktif'
-		},
-		{
-			refNo: 'BXXXXX',
-			funds: 'Covid',
-			category: 'Covid-19',
-			letterDate: '17/12/2019',
-			letterRef: 'JPM.APBN(S).600-3/8/2 Jld.7 (7)',
-			startDate: '30/12/2019',
-			lastDate: '31/12/2020',
-			total: '304,996.00',
-			balance: '695,004.00',
-			status: 'Aktif'
-		}
-	];
+  filterText: any;
 
-	constructor(private calendar: NgbCalendar) {
+	constructor(
+	  private calendar: NgbCalendar,
+    private _tabungKelulusanServiceProxy: TabungKelulusanServiceProxy,
+    private _tabungServiceProxy: TabungServiceProxy
+  ) {
 		this.primengTableHelper = new PrimengTableHelper();
+		this.getTabung();
 	}
 
-	getApproval(event?: LazyLoadEvent) {
-		if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
+  getTabungKelulusanList(event?: LazyLoadEvent) {
+    if (this.primengTableHelper.shouldResetPaging(event)) {
+      this.paginator.changePage(0);
+      return;
+    }
 
-		this.primengTableHelper.showLoadingIndicator();
-		this.primengTableHelper.totalRecordsCount = this.rows.length;
-		this.primengTableHelper.records = this.rows;
-		this.primengTableHelper.hideLoadingIndicator();
-	}
+    this.primengTableHelper.showLoadingIndicator();
+    this._tabungKelulusanServiceProxy
+      .getAll(
+        this.filterText,
+        this.primengTableHelper.getSorting(this.dataTable),
+        this.primengTableHelper.getSkipCount(this.paginator, event),
+        this.primengTableHelper.getMaxResultCount(this.paginator, event)
+      )
+      .subscribe((result) => {
+        this.primengTableHelper.totalRecordsCount = result.total_count;
+        this.primengTableHelper.records = result.items;
+        this.primengTableHelper.hideLoadingIndicator();
+      });
+  }
 
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
 	}
+
+  getTabung(filter?) {
+    this._tabungServiceProxy.getTabungForDropdown(filter).subscribe((result) => {
+      this.funds = result.items;
+    });
+  }
 
 	ngOnInit(): void {}
 }
