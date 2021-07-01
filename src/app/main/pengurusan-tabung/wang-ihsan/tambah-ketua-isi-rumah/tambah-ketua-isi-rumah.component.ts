@@ -32,7 +32,7 @@ export class TambahKetuaIsiRumahComponent implements OnInit {
   terms$ = new Subject<string>();
   filter: string;
   filterDaerah: number;
-  filterNegeri: string;
+  filterNegeri: number;
   districts: any;
   states: any;
   saving = false;
@@ -106,18 +106,17 @@ export class TambahKetuaIsiRumahComponent implements OnInit {
   resetFilter() {
     this.filter = undefined;
     this.filterNegeri = undefined;
-
     this.getKirBwi();
   }
 
-  select(id, nama, nama_daerah, nama_negeri, jumlah_wang_ihsan) {
+  select(id, nama, nama_daerah, nama_negeri, jumlah_bwi) {
     if (this.kategori == 1) {
       this.activeModal.close({
         id: id,
         nama: nama,
         nama_daerah: nama_daerah,
         nama_negeri: nama_negeri,
-        jumlah_wang_ihsan: jumlah_wang_ihsan
+        jumlah_bwi: jumlah_bwi
       });
     }
     else {

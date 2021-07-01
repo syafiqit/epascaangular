@@ -63,7 +63,7 @@
                     <ng-select
                       [items]="states"
                       bindLabel="nama_negeri"
-                      bindValue="nama_negeri"
+                      bindValue="id"
                       placeholder="Sila Pilih"
                       class="js-example-placeholder-multiple"
                       name="namaNegeri"
@@ -127,9 +127,9 @@
               Bil. AIR
               <p-sortIcon field="isi_rumah"></p-sortIcon>
             </th>
-            <th style="width: 130px" pSortableColumn="jumlah_wang_ihsan">
+            <th style="width: 130px" pSortableColumn="jumlah_bwi">
               Jumlah BWI
-              <p-sortIcon field="jumlah_wang_ihsan"></p-sortIcon>
+              <p-sortIcon field="jumlah_bwi"></p-sortIcon>
             </th>
             <th style="width: 130px" pSortableColumn="nama_daerah">
               Daerah
@@ -148,11 +148,11 @@
                 class="btn btn-primary"
                 type="button"
                 (click)="select(
-                  record.kir.id,
-                  record.kir.nama,
-                  record.kir.nama_daerah,
-                  record.kir.nama_negeri,
-                  record.jumlah_wang_ihsan
+                  record.id,
+                  record.nama,
+                  record.nama_daerah,
+                  record.nama_negeri,
+                  record.jumlah_bwi
                   )"
               >
                 Pilih
@@ -160,7 +160,7 @@
             </td>
             <td style="width: 150px">
               <span class="p-column-title">Nama KIR</span>
-              {{record.kir.nama}}
+              {{record.nama}}
             </td>
             <td style="width: 130px">
               <span class="p-column-title">Bil. AIR</span>
@@ -168,15 +168,15 @@
             </td>
             <td style="width: 130px">
               <span class="p-column-title">Jumlah BWI</span>
-              RM {{record.jumlah_wang_ihsan}}
+              RM{{record.jumlah_bwi}}
             </td>
             <td style="width: 130px">
               <span class="p-column-title">Daerah</span>
-              {{record.kir.nama_daerah}}
+              {{record.nama_daerah}}
             </td>
             <td style="width: 130px">
               <span class="p-column-title">Negeri</span>
-              {{record.kir.nama_negeri}}
+              {{record.nama_negeri}}
             </td>
           </tr>
         </ng-template>

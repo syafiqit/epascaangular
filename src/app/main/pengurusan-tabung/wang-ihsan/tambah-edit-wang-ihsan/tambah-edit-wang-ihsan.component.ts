@@ -86,7 +86,7 @@ export class TambahEditWangIhsanComponent implements OnInit {
           this.rows.push({
             id: response.id,
             nama: response.nama,
-            jumlah_wang_ihsan: response.jumlah_wang_ihsan,
+            jumlah_bwi: response.jumlah_bwi,
             nama_daerah: response.nama_daerah,
             nama_negeri: response.nama_negeri
           });

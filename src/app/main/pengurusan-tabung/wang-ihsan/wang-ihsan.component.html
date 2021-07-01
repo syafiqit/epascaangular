@@ -60,10 +60,11 @@
                           <ng-select
                             [items]="daerah"
                             bindLabel="nama_daerah"
-                            bindValue="nama_daerah"
+                            bindValue="id"
                             placeholder="Sila Pilih"
                             class="js-example-placeholder-multiple"
                             name="daerah"
+                            [(ngModel)]="filterDaerah"
                           ></ng-select>
                         </div>
                       </div>
@@ -74,10 +75,11 @@
                           <ng-select
                             [items]="negeri"
                             bindLabel="nama_negeri"
-                            bindValue="nama_negeri"
+                            bindValue="id"
                             placeholder="Sila Pilih"
                             class="js-example-placeholder-multiple"
                             name="negeri"
+                            [(ngModel)]="filterNegeri"
                           ></ng-select>
                         </div>
                       </div>
@@ -88,7 +90,7 @@
                           <ng-select
                             [items]="jenisBencana"
                             bindLabel="nama_jenis_bencana"
-                            bindValue="nama_jenis_bencana"
+                            bindValue="id"
                             placeholder="Sila Pilih"
                             class="js-example-placeholder-multiple"
                             name="jenisBencana"
@@ -175,9 +177,9 @@
 										Tarikh EFT
 										<p-sortIcon field="tarikh_eft"></p-sortIcon>
 									</th>
-									<th style="width: 150px" pSortableColumn="baki_pulang">
+									<th style="width: 150px" pSortableColumn="jumlah_kembali">
 										Baki Pulangan
-										<p-sortIcon field="baki_pulang"></p-sortIcon>
+										<p-sortIcon field="jumlah_kembali"></p-sortIcon>
 									</th>
 									<th style="width: 155px" pSortableColumn="status">
 										Status Rujukan
@@ -244,7 +246,7 @@
 									</td>
 									<td style="width: 150px">
 										<span class="p-column-title">Baki Pulangan</span>
-
+                    RM{{record.jumlah_kembali}}
 									</td>
 									<td style="width: 155px">
 										<span class="p-column-title">Status Rujukan</span>
