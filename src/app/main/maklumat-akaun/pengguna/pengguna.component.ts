@@ -1,6 +1,4 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import {
   GetProfilDto,
   PenggunaProfilDto,
@@ -11,7 +9,7 @@ import {
   SessionServiceProxy,
   UpdateProfilDto
 } from 'src/app/shared/proxy/service-proxies';
-import { environment } from 'src/environments/environment';
+import { AppSessionService } from 'src/app/shared/services/app-session.service';
 declare let require;
 const Swal = require('sweetalert2');
 
@@ -21,15 +19,14 @@ const Swal = require('sweetalert2');
   styleUrls: ['./pengguna.component.scss']
 })
 export class PenggunaComponent implements OnInit {
+  endpoint = '/api/session/uploadGambarProfil';
 
   getProfile: GetProfilDto = new GetProfilDto();
   updateProfile: UpdateProfilDto = new UpdateProfilDto();
 
-  secondFormGroup: FormGroup;
-	files: File[] = [];
-	hasImage: number;
-  url: string;
-	serverUrl = environment.apiUrl + '/api/session/uploadGambarProfil';
+  profilImageChangedEvent = '';
+  profilImageTempName = '';
+  defaultImageUrl = '/assets/images/user/default.jpg';
 
   ministries: any;
   agencies: any;
@@ -46,8 +43,7 @@ export class PenggunaComponent implements OnInit {
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
     private _refDaerahServiceProxy: RefDaerahServiceProxy,
     private _refNegeriServiceProxy: RefNegeriServiceProxy,
-    private _formBuilder: FormBuilder,
-    private httpClient: HttpClient
+    private _appSession: AppSessionService
   ) {
     this.getProfile = new GetProfilDto();
     this.getProfile.pengguna = new PenggunaProfilDto();
@@ -59,9 +55,6 @@ export class PenggunaComponent implements OnInit {
     this.show();
     this.getKementerian();
     this.getNegeri();
-		this.secondFormGroup = this._formBuilder.group({
-			profile: ['']
-		});
   }
 
 	show(): void {
@@ -72,13 +65,37 @@ export class PenggunaComponent implements OnInit {
 		});
 	}
 
-	onSelect(event) {
-		this.files.push(...event.addedFiles);
+	fileChangeEvent(event: any): void {
+    if (event.target.files[0].size > 5242880) { //5MB
+      Swal.fire({
+        title: 'Fail cecah had maksima!',
+        icon: 'error',
+        text: 'Fail melebihi saiz 5MB',
+        showCloseButton: true
+      });
+      return;
+    }
 
-		const image = this.files[0];
-		this.secondFormGroup.get('profile').setValue(image);
-		this.hasImage = 1;
-	}
+    this.profilImageChangedEvent = event;
+      if (event && !event?.target) {
+        this.profilImageTempName = this.getFileName(event);
+      }
+  }
+
+  assignImage(e: string) {
+    this.getProfile.pengguna.gambar = e;
+    this.profilImageTempName = this.getFileName(e);
+  }
+
+  getFileName(url: string) {
+    return url.split('/').pop();
+  }
+
+  refreshProfil(success: boolean){
+    if(success){
+      this._appSession.init();
+    }
+  }
 
   getKementerian(filter?) {
 		this._refKementerianServiceProxy.getRefKementerianForDropdown(filter).subscribe((result) => {
@@ -129,13 +146,5 @@ export class PenggunaComponent implements OnInit {
 				location.reload();
 			});
 		});
-    const formData = new FormData();
-		if (this.files.length > 0) {
-			formData.append('image', this.secondFormGroup.get('profile').value);
-
-			this.httpClient.post<any>(this.serverUrl, formData).subscribe(
-				(res) => (this.url = res.url)
-			);
-		}
 	}
 }

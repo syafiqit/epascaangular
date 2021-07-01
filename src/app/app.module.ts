@@ -1,5 +1,5 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { APP_INITIALIZER, Injector, NgModule } from '@angular/core';
+import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { APP_INITIALIZER, Injectable, Injector, NgModule } from '@angular/core';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -15,6 +15,8 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 // for Core import:
 import { LoadingBarModule } from '@ngx-loading-bar/core';
+// Hammer JS
+import * as Hammer from 'hammerjs';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
@@ -26,6 +28,13 @@ import { AppRouteGuard } from './shared/guards/app-route-guard';
 import { AppAuthService } from './shared/services/app-auth-service';
 import { API_BASE_URL } from './shared/proxy/service-proxies';
 import { DatePipe } from '@angular/common';
+
+@Injectable()
+export class MyHammerConfig extends HammerGestureConfig {
+  overrides = <any>{
+    swipe: { direction: Hammer.DIRECTION_ALL },
+  };
+}
 
 export function getRemoteServiceBaseUrl(): string {
 	return environment.apiUrl;
@@ -99,7 +108,11 @@ export function appInitializerFactory(injector: Injector) {
 			useFactory: appInitializerFactory,
 			deps: [Injector],
 			multi: true
-		}
+		},
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: MyHammerConfig
+    },
 	],
 	bootstrap: [AppComponent]
 })

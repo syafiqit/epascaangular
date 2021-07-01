@@ -15,6 +15,7 @@ import { FullComponent } from './components/layout/full/full.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { TapToTopComponent } from './components/tap-to-top/tap-to-top.component';
+import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
 // Header Elements Components
 import { SearchComponent } from './components/header/elements/search/search.component';
 import { MegaMenuComponent } from './components/header/elements/mega-menu/mega-menu.component';
@@ -39,6 +40,8 @@ import { NavService } from './services/nav.service';
 import * as ApiServiceProxies from './proxy/service-proxies';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './services/interceptor.service';
+import { FileUploadModule } from 'ng2-file-upload';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 const NSWAG = [
 	ApiServiceProxies.RefAgamaServiceProxy,
@@ -115,6 +118,7 @@ const NSWAG = [
 		CartComponent,
 		MessageBoxComponent,
 		MyAccountComponent,
+    ImageUploaderComponent,
     FocusInvalidInputDirective,
     KpValidatorDirective
 	],
@@ -126,6 +130,8 @@ const NSWAG = [
 		NgbModule,
 		DragulaModule.forRoot(),
 		TranslateModule,
+    ImageCropperModule,
+    FileUploadModule
 	],
 	providers: [
     NavService,
@@ -142,6 +148,7 @@ const NSWAG = [
 		BreadcrumbComponent,
 		FeatherIconsComponent,
 		TapToTopComponent,
+    ImageUploaderComponent,
 		DisableKeyPressDirective,
 		OnlyAlphabetsDirective,
 		OnlyNumbersDirective,
