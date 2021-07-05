@@ -49,7 +49,7 @@ export class TambahBelanjaBulanan implements OnInit {
     if (this.kategori == 1 && !this.idBulan) {
       this.activeModal.close({tahun: tahun, bulan: bulan, jumlah: jumlah });
     }
-    else if (this.kategori ==1 && this.idBulan){
+    else if (this.kategori == 1 && this.idBulan){
       this.activeModal.close({ id: this.idBulan, tahun: tahun, bulan: bulan, jumlah: jumlah });
     }
     else {
