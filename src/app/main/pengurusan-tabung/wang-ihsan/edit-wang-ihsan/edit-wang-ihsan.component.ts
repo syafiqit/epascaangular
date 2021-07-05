@@ -86,6 +86,8 @@ export class EditWangIhsanComponent implements OnInit {
       this.no_rujukan_kelulusan = result.rujukan_kelulusan_bwi.no_rujukan_kelulusan;
       this.nama_tabung = result.nama_tabung;
       this.nama_jenis_bencana = result.nama_jenis_bencana;
+      this.rujukan_surat = result.rujukan_kelulusan_bwi.rujukan_surat;
+      this.perihal_surat = result.rujukan_kelulusan_bwi.perihal_surat;
       this.tarikhEft = result.tabung_bwi.tarikh_eft.format('YYYY-MM-DD');
       this.tarikhAkuanKp = result.tabung_bwi.tarikh_akuan_kp.format('YYYY-MM-DD');
       this.tarikhPenyaluran = result.tabung_bwi.tarikh_saluran_kpd_bkp.format('YYYY-MM-DD');

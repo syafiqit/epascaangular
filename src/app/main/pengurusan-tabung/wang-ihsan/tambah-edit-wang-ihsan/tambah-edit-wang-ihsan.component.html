@@ -219,7 +219,7 @@
                 <div class="row">
                   <div class="col-lg-6">
                     <div class="form-group">
-                      <label>Jumlah Bayaran (WI/KIR)</label>
+                      <label>Jumlah Bayaran (WI/KIR) RM</label>
                       <input
                         class="form-control"
                         name="wiKir"
@@ -248,6 +248,22 @@
                         value="{{primengTableHelper.totalRecordsCount}}"
                         [(ngModel)]="jumlahKir"
                         disabled
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Baki Dipulangkan (RM)</label>
+                      <input
+                        class="form-control"
+                        name="bakiPulangan"
+                        type="text"
+                        placeholder="Baki Dipulangkan"
+                        [(ngModel)]="bwi.jumlah_kembali"
+                        onlyNumbers
                       />
                     </div>
                   </div>
