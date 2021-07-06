@@ -102,6 +102,8 @@ export class SkbComponent implements OnInit {
 
   resetFilter() {
     this.filter = undefined;
+    this.filterAgensi = undefined;
+    this.filterTabung = undefined;
     this.getSKB();
   }
 }

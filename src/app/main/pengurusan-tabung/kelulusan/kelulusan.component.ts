@@ -69,6 +69,8 @@ export class KelulusanComponent implements OnInit {
 		this._tabungKelulusanServiceProxy
 			.getAll(
 				this.filter,
+        this.filterTabung,
+        this.filterJenisBencana,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -106,6 +108,7 @@ export class KelulusanComponent implements OnInit {
     this.filter = undefined;
     this.filterTabung = undefined;
     this.filterJenisBencana = undefined;
+
     this.getTabungKelulusanList();
   }
 }

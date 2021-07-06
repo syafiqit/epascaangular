@@ -12200,17 +12200,27 @@ export class TabungKelulusanServiceProxy {
     /**
      * Get all TabungKelulusan
      * @param filter (optional) Filter records with a string
+     * @param filterTabung (optional) Filter records with a integer
+     * @param filterJenisBencana (optional) Filter records with a integer
      * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
      * @param skipCount (optional) Skip n-value of a record
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungKelulusanForViewDto> {
+    getAll(filter: string | undefined, filterTabung: number | undefined, filterJenisBencana: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungKelulusanForViewDto> {
         let url_ = this.baseUrl + "/api/tabungKelulusan/getAll?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
             url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (filterTabung === null)
+            throw new Error("The parameter 'filterTabung' cannot be null.");
+        else if (filterTabung !== undefined)
+            url_ += "filterTabung=" + encodeURIComponent("" + filterTabung) + "&";
+        if (filterJenisBencana === null)
+            throw new Error("The parameter 'filterJenisBencana' cannot be null.");
+        else if (filterJenisBencana !== undefined)
+            url_ += "filterJenisBencana=" + encodeURIComponent("" + filterJenisBencana) + "&";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
