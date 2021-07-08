@@ -60,6 +60,14 @@ export class KelulusanComponent implements OnInit {
   }
 
   getTabungKelulusanList(event?: LazyLoadEvent) {
+    if(this.filterTabung == null){
+      this.filterTabung = undefined;
+    }
+
+    if(this.filterJenisBencana == null){
+      this.filterJenisBencana = undefined;
+    }
+
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;

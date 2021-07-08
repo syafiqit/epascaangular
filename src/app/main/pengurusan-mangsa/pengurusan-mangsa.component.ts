@@ -64,6 +64,14 @@ export class PengurusanMangsaComponent implements OnInit {
   }
 
 	getVictim(event?: LazyLoadEvent) {
+    if(this.filterAgensi == null){
+      this.filterAgensi = undefined;
+    }
+
+    if(this.filterNegeri == null){
+      this.filterNegeri = undefined;
+    }
+
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;

@@ -69,6 +69,18 @@ export class WangIhsanComponent implements OnInit {
   }
 
 	getBantuanWangIhsan(event?: LazyLoadEvent) {
+    if(this.filterDaerah == null){
+      this.filterDaerah = undefined;
+    }
+
+    if(this.filterNegeri == null){
+      this.filterNegeri = undefined;
+    }
+
+    if(this.filterJenisBencana == null){
+      this.filterJenisBencana = undefined;
+    }
+
     if (this.primengTableHelper.shouldResetPaging(event)) {
       this.paginator.changePage(0);
       return;
@@ -117,6 +129,7 @@ export class WangIhsanComponent implements OnInit {
     this.filterDaerah = undefined;
     this.filterNegeri = undefined;
     this.filterJenisBencana = undefined;
+
     this.getBantuanWangIhsan();
   }
 

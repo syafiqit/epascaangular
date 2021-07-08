@@ -67,6 +67,14 @@ export class TambahKetuaIsiRumahComponent implements OnInit {
   }
 
 	getKirBwi(event?: LazyLoadEvent) {
+    if(this.filterDaerah == null){
+      this.filterDaerah = undefined;
+    }
+
+    if(this.filterNegeri == null){
+      this.filterNegeri = undefined;
+    }
+
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;

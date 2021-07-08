@@ -12982,14 +12982,14 @@ export class UserServiceProxy {
     /**
      * Get all User
      * @param filter (optional) Filter records with a string
-     * @param filterAgensi (optional) Filter records with a string
-     * @param filterPeranan (optional) Filter records with a string
+     * @param filterAgensi (optional) Filter records with a integer
+     * @param filterPeranan (optional) Filter records with a integer
      * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
      * @param skipCount (optional) Skip n-value of a record
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAllUser(filter: string | undefined, filterAgensi: string | undefined, filterPeranan: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfUserForViewDto> {
+    getAllUser(filter: string | undefined, filterAgensi: number | undefined, filterPeranan: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfUserForViewDto> {
         let url_ = this.baseUrl + "/api/user/getAllUser?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");

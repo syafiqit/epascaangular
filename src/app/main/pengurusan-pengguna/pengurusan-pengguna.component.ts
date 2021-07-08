@@ -29,8 +29,8 @@ export class PengurusanPenggunaComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
 	public isCollapsed = false;
   filter: string;
-  filterAgensi: string;
-  filterPeranan: string;
+  filterAgensi: number;
+  filterPeranan: number;
   saving = false;
   idPengguna: any;
   agencies: any;
@@ -69,6 +69,14 @@ export class PengurusanPenggunaComponent implements OnInit {
   }
 
 	getUser(event?: LazyLoadEvent) {
+    if(this.filterAgensi == null){
+      this.filterAgensi = undefined;
+    }
+
+    if(this.filterPeranan == null){
+      this.filterPeranan = undefined;
+    }
+
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;

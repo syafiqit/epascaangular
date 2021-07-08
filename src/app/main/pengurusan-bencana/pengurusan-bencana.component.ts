@@ -66,6 +66,18 @@ export class PengurusanBencanaComponent implements OnInit {
   }
 
 	getDisaster(event?: LazyLoadEvent) {
+    if(this.filterTahun == null){
+      this.filterTahun = undefined;
+    }
+
+    if(this.filterBencana == null){
+      this.filterBencana = undefined;
+    }
+
+    if(this.filterJenis == null){
+      this.filterJenis = undefined;
+    }
+
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
