@@ -60,15 +60,7 @@ export class KelulusanComponent implements OnInit {
   }
 
   getTabungKelulusanList(event?: LazyLoadEvent) {
-    if(this.filterTabung == null){
-      this.filterTabung = undefined;
-    }
-
-    if(this.filterJenisBencana == null){
-      this.filterJenisBencana = undefined;
-    }
-
-		if (this.primengTableHelper.shouldResetPaging(event)) {
+    if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
 		}
@@ -77,8 +69,8 @@ export class KelulusanComponent implements OnInit {
 		this._tabungKelulusanServiceProxy
 			.getAll(
 				this.filter,
-        this.filterTabung,
-        this.filterJenisBencana,
+        this.filterTabung ?? undefined,
+        this.filterJenisBencana ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)

@@ -60,15 +60,7 @@ export class SkbComponent implements OnInit {
   }
 
 	getSKB(event?: LazyLoadEvent) {
-    if(this.filterAgensi == null){
-      this.filterAgensi = undefined;
-    }
-
-    if(this.filterTabung == null){
-      this.filterTabung = undefined;
-    }
-
-		if (this.primengTableHelper.shouldResetPaging(event)) {
+    if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
 		}
@@ -77,8 +69,8 @@ export class SkbComponent implements OnInit {
 		this._tabungBayaranSkbServiceProxy
 			.getAll(
 				this.filter,
-        this.filterAgensi,
-        this.filterTabung,
+        this.filterAgensi ?? undefined,
+        this.filterTabung ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)

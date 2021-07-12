@@ -64,15 +64,7 @@ export class PengurusanMangsaComponent implements OnInit {
   }
 
 	getVictim(event?: LazyLoadEvent) {
-    if(this.filterAgensi == null){
-      this.filterAgensi = undefined;
-    }
-
-    if(this.filterNegeri == null){
-      this.filterNegeri = undefined;
-    }
-
-		if (this.primengTableHelper.shouldResetPaging(event)) {
+    if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
 		}
@@ -81,8 +73,8 @@ export class PengurusanMangsaComponent implements OnInit {
 		this._mangsaServiceProxy
 			.getAll(
 				this.filter,
-        this.filterNegeri,
-        this.filterAgensi,
+        this.filterNegeri ?? undefined,
+        this.filterAgensi ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)

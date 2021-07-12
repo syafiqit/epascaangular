@@ -67,15 +67,7 @@ export class TambahKetuaIsiRumahComponent implements OnInit {
   }
 
 	getKirBwi(event?: LazyLoadEvent) {
-    if(this.filterDaerah == null){
-      this.filterDaerah = undefined;
-    }
-
-    if(this.filterNegeri == null){
-      this.filterNegeri = undefined;
-    }
-
-		if (this.primengTableHelper.shouldResetPaging(event)) {
+    if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
 		}
@@ -84,8 +76,8 @@ export class TambahKetuaIsiRumahComponent implements OnInit {
 		this._tabungBwiServiceProxy
 			.getAllKir(
 				this.filter,
-        this.filterDaerah,
-        this.filterNegeri,
+        this.filterDaerah ?? undefined,
+        this.filterNegeri ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)

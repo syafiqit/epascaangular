@@ -69,14 +69,6 @@ export class PengurusanPenggunaComponent implements OnInit {
   }
 
 	getUser(event?: LazyLoadEvent) {
-    if(this.filterAgensi == null){
-      this.filterAgensi = undefined;
-    }
-
-    if(this.filterPeranan == null){
-      this.filterPeranan = undefined;
-    }
-
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
@@ -86,8 +78,8 @@ export class PengurusanPenggunaComponent implements OnInit {
 		this._userServiceProxy
 			.getAllUser(
 				this.filter,
-        this.filterAgensi,
-        this.filterPeranan,
+        this.filterAgensi ?? undefined,
+        this.filterPeranan ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)

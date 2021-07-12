@@ -66,19 +66,7 @@ export class PengurusanBencanaComponent implements OnInit {
   }
 
 	getDisaster(event?: LazyLoadEvent) {
-    if(this.filterTahun == null){
-      this.filterTahun = undefined;
-    }
-
-    if(this.filterBencana == null){
-      this.filterBencana = undefined;
-    }
-
-    if(this.filterJenis == null){
-      this.filterJenis = undefined;
-    }
-
-		if (this.primengTableHelper.shouldResetPaging(event)) {
+    if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
 		}
@@ -87,9 +75,9 @@ export class PengurusanBencanaComponent implements OnInit {
 		this._refBencanaServiceProxy
 			.getAll(
 				this.filter,
-        this.filterTahun,
-        this.filterBencana,
-        this.filterJenis,
+        this.filterTahun ?? undefined,
+        this.filterBencana ?? undefined,
+        this.filterJenis ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
