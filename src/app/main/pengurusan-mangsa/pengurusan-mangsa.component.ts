@@ -27,19 +27,13 @@ export class PengurusanMangsaComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
 
 	filter: string;
-  filterNegeri: string;
-  filterAgensi: string;
-  filterDaerah: number;
-  filterDun: number;
-  filterParlimen: number;
-  filterBencana: number;
+  filterNegeri: number;
+  filterAgensi: number;
   terms$ = new Subject<string>();
 
 	public isCollapsed = false;
   states: any;
   agencies: any;
-
-	items = [{ data: 'Nama' }, { data: 'No Kad Pengenalan' }];
 
 	constructor(
 		config: NgbModalConfig,
@@ -70,7 +64,7 @@ export class PengurusanMangsaComponent implements OnInit {
   }
 
 	getVictim(event?: LazyLoadEvent) {
-		if (this.primengTableHelper.shouldResetPaging(event)) {
+    if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
 		}
@@ -79,13 +73,9 @@ export class PengurusanMangsaComponent implements OnInit {
 		this._mangsaServiceProxy
 			.getAll(
 				this.filter,
+        this.filterNegeri ?? undefined,
+        this.filterAgensi ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
-        this.filterNegeri,
-        this.filterAgensi,
-        this.filterDaerah,
-        this.filterDun,
-        this.filterParlimen,
-        this.filterBencana,
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
 			)

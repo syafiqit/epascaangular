@@ -28,7 +28,7 @@ const routes: Routes = [
 				component: WangIhsanComponent
 			},
 			{
-				path: 'tambah-edit-wang-ihsan',
+				path: 'tambah-wang-ihsan',
 				component: TambahEditWangIhsanComponent
 			},
       {

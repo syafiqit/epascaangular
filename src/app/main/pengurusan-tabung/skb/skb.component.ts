@@ -25,8 +25,8 @@ export class SkbComponent implements OnInit {
   terms$ = new Subject<string>();
   idSkb: any;
 	filter: string;
-  filterAgensi: string;
-  filterTabung: string;
+  filterAgensi: number;
+  filterTabung: number;
   agencies: any;
   funds: any;
 
@@ -60,7 +60,7 @@ export class SkbComponent implements OnInit {
   }
 
 	getSKB(event?: LazyLoadEvent) {
-		if (this.primengTableHelper.shouldResetPaging(event)) {
+    if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
 		}
@@ -69,8 +69,8 @@ export class SkbComponent implements OnInit {
 		this._tabungBayaranSkbServiceProxy
 			.getAll(
 				this.filter,
-        this.filterAgensi,
-        this.filterTabung,
+        this.filterAgensi ?? undefined,
+        this.filterTabung ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -102,6 +102,9 @@ export class SkbComponent implements OnInit {
 
   resetFilter() {
     this.filter = undefined;
+    this.filterAgensi = undefined;
+    this.filterTabung = undefined;
+
     this.getSKB();
   }
 }

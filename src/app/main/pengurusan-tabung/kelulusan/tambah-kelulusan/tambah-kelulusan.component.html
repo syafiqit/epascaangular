@@ -14,13 +14,14 @@
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Tabung*</label>
-									<select class="form-control digits" name="kelulusan.id_tabung"
-                          [(ngModel)]="kelulusan.id_tabung"
-                          #id_tabung="ngModel"
-                          [ngClass]="{ 'is-invalid': f.submitted && id_tabung.invalid }"
-                          minlength="0"
-                          maxlength="250"
-                          required>
+									<select
+                    class="form-control digits"
+                    name="kelulusan.id_tabung"
+                    [(ngModel)]="kelulusan.id_tabung"
+                    #id_tabung="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && id_tabung.invalid }"
+                    required
+                  >
                     <option selected disabled>Sila Pilih</option>
                     <option *ngFor="let data of tabung" value="{{data.id}}">
                       {{data.nama_tabung}}
@@ -35,7 +36,11 @@
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Kategori Bencana*</label>
-									<select class="form-control digits" name="kelulusan.id_bencana" [(ngModel)]="kelulusan.id_bencana">
+									<select
+                    class="form-control digits"
+                    name="kelulusan.id_bencana"
+                    [(ngModel)]="kelulusan.id_bencana"
+                  >
                     <option selected disabled>Sila Pilih</option>
                     <option *ngFor="let data of bencana" value="{{data.id}}">
                       {{data.nama_bencana}}
@@ -49,7 +54,11 @@
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Jenis Bantuan*</label>
-									<select class="form-control digits" name="kelulusan.id_bantuan" [(ngModel)]="kelulusan.id_bantuan">
+									<select
+                    class="form-control digits"
+                    name="kelulusan.id_bantuan"
+                    [(ngModel)]="kelulusan.id_bantuan"
+                  >
                     <option selected disabled>Sila Pilih</option>
                     <option *ngFor="let data of bantuan" value="{{data.id}}">
                       {{data.nama_bantuan}}
@@ -61,7 +70,11 @@
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Komitmen*</label>
-									<select class="form-control digits" name="kelulusan.id_komitmen" [(ngModel)]="kelulusan.id_komitmen">
+									<select
+                    class="form-control digits"
+                    name="kelulusan.id_komitmen"
+                    [(ngModel)]="kelulusan.id_komitmen"
+                  >
 										<option [value]="1">Pilih</option>
 										<option [value]="1">Perolehan Secara Pembelian Terus</option>
 										<option [value]="1">Perolehan Secara Darurat</option>
@@ -74,21 +87,25 @@
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>No. Rujukan Kelulusan</label>
-                  <input class="form-control" type="text" name="kelulusan.no_rujukan_kelulusan" [(ngModel)]="kelulusan.no_rujukan_kelulusan" placeholder="No. Rujukan Kelulusan" />
-<!--									<div class="input-group mb-3">-->
-<!--										<input type="text" class="form-control" placeholder="Rujukan Bencana" />-->
-<!--										<div class="input-group-append">-->
-<!--											<button class="btn btn-primary" type="button" (click)="approvalAddModal()">-->
-<!--												<i class="fa fa-search text-white"></i>-->
-<!--											</button>-->
-<!--										</div>-->
-<!--									</div>-->
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="kelulusan.no_rujukan_kelulusan"
+                    [(ngModel)]="kelulusan.no_rujukan_kelulusan"
+                    placeholder="No. Rujukan Kelulusan"
+                  />
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Rujukan Surat</label>
-									<input class="form-control" type="text" name="kelulusan.rujukan_surat" [(ngModel)]="kelulusan.rujukan_surat" placeholder="JPM.APBN(S).600-3/8/2 (1)" />
+									<input
+                    class="form-control"
+                    type="text"
+                    name="kelulusan.rujukan_surat"
+                    [(ngModel)]="kelulusan.rujukan_surat"
+                    placeholder="JPM.APBN(S).600-3/8/2 (1)"
+                  />
 								</div>
 							</div>
 						</div>
@@ -97,14 +114,24 @@
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Perihal Surat</label>
-									<textarea class="form-control input-air-primary" name="kelulusan.perihal_surat" rows="3" [(ngModel)]="kelulusan.perihal_surat"></textarea>
+									<textarea
+                    class="form-control input-air-primary"
+                    name="kelulusan.perihal_surat"
+                    rows="3"
+                    [(ngModel)]="kelulusan.perihal_surat"
+                  ></textarea>
 								</div>
 							</div>
 
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Rujukan</label>
-									<textarea class="form-control input-air-primary" name="kelulusan.rujukan" rows="3" [(ngModel)]="kelulusan.rujukan"></textarea>
+									<textarea
+                    class="form-control input-air-primary"
+                    name="kelulusan.rujukan"
+                    rows="3"
+                    [(ngModel)]="kelulusan.rujukan"
+                  ></textarea>
 								</div>
 							</div>
 						</div>
@@ -168,11 +195,13 @@
 
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Jumlah Siling Peruntukan</label>
-									<div class="input-group">
-										<div class="input-group-prepend"><span class="input-group-text">RM</span></div>
-										<input class="form-control" type="number" name="kelulusan.jumlah_siling" [(ngModel)]="kelulusan.jumlah_siling"/>
-									</div>
+									<label>Jumlah Siling Peruntukan (RM)</label>
+									<input
+                    class="form-control"
+                    type="number"
+                    name="kelulusan.jumlah_siling"
+                    [(ngModel)]="kelulusan.jumlah_siling"
+                  />
 								</div>
 							</div>
 						</div>

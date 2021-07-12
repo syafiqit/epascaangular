@@ -83,13 +83,15 @@ export class TambahKelulusanComponent implements OnInit {
     } else {
       this._tabungKelulusanServiceProxy.getTabungKelulusanForEdit(this.id).subscribe((result) => {
         this.kelulusan = result.tabung_kelulusan;
+        this.tarikhSurat = result.tabung_kelulusan.tarikh_surat.format('YYYY-MM-DD');
+        this.tarikhMula = result.tabung_kelulusan.tarikh_mula_kelulusan.format('YYYY-MM-DD');
+        this.tarikhTamat = result.tabung_kelulusan.tarikh_tamat_kelulusan.format('YYYY-MM-DD');
       });
     }
   }
 
   save(): void {
     this.saving = true;
-    // this.daerah.id = 1;
     this.kelulusan.tarikh_surat = moment(this.tarikhSurat);
     this.kelulusan.tarikh_mula_kelulusan = moment(this.tarikhMula);
     this.kelulusan.tarikh_tamat_kelulusan = moment(this.tarikhTamat);
@@ -98,7 +100,7 @@ export class TambahKelulusanComponent implements OnInit {
       .createOrEdit(this.kelulusan)
       .pipe()
       .subscribe(() => {
-        Swal.fire('Berjaya!', 'Maklumat Daerah Berjaya Ditambah.', 'success');
+        Swal.fire('Berjaya!', 'Maklumat Tabung Kelulusan Berjaya Disimpan.', 'success');
       });
   }
 }

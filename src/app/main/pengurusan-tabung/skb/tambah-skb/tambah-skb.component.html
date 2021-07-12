@@ -71,7 +71,14 @@
                     type="text"
                     placeholder="Pegawai"
                     name="officer"
+                    [(ngModel)]="skb.nama_pegawai"
+                    #officerName="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && officerName.invalid }"
+                    required
                   />
+                  <div *ngIf="f.submitted && officerName.invalid" class="invalid-feedback">
+                    <div *ngIf="officerName.errors.required">Nama Pegawai Wajib Diisi</div>
+                  </div>
 								</div>
 							</div>
 
@@ -229,7 +236,7 @@
                         </td>
                         <td style="width: 150px">
                           <span class="p-column-title">Jumlah</span>
-                          RM{{record.jumlah}}
+                          RM{{record.jumlah | number: '1.2-2'}}
                         </td>
                       </tr>
                     </ng-template>
@@ -262,6 +269,7 @@
                     type="text"
                     name="jumlah_belanja"
                     placeholder="Jumlah Perbelanjaan"
+                    value="{{belanja | number: '1.2-2'}}"
                     onlyNumbers
                   />
 								</div>

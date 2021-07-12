@@ -5,6 +5,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ArchwizardModule } from 'angular-archwizard';
 import { PengurusanTabungRoutingModule } from './pengurusan-tabung-routing.module';
 import { TabungComponent } from './tabung/tabung.component';
 import { TambahEditTabungComponent } from './tabung/tambah-edit-tabung/tambah-edit-tabung.component';
@@ -36,13 +37,14 @@ import { TambahPeruntukanComponent } from './tabung/edit-tabung/tambah-peruntuka
 		NgxDatatableModule,
 		TableModule,
 		PaginatorModule,
-    NgSelectModule
+    NgSelectModule,
+    ArchwizardModule
 	],
 	declarations: [
 		TabungComponent,
 		TambahEditTabungComponent,
 		WangIhsanComponent,
-		TambahEditWangIhsanComponent,
+    TambahEditWangIhsanComponent,
     EditWangIhsanComponent,
 		MukaHalamanTabungComponent,
 		SkbComponent,

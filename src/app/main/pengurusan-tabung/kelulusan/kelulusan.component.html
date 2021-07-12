@@ -8,22 +8,16 @@
 	<div class="container-fluid">
 		<div class="card card-custom gutter-b">
 			<div class="card-body">
-<!--				<div class="row justify-content-end mb-2">-->
-<!--					<button class="btn btn-primary" type="button" [routerLink]="['/app/tabung/tambah-kelulusan']">-->
-<!--						<i class="fa fa-plus mr-2"></i>-->
-<!--						Tambah-->
-<!--					</button>-->
-<!--				</div>-->
         <div class="row">
           <div class="col-6 justify-content-start pl-0">
             <div class="faq-form">
               <input
                 class="form-control"
                 type="text"
-                name="searchSKB"
+                name="searchKelulusan"
                 placeholder="Carian..."
-                [(ngModel)]="filterText"
-                (keyup.enter)="getTabungKelulusanList()"
+                [(ngModel)]="filter"
+                (keyup)="applyFilter($event.target.value)"
               />
               <i class="search-icon" data-feather="search"></i>
             </div>
@@ -61,7 +55,6 @@
                 <div id="collapseExample" [ngbCollapse]="!isCollapsed">
                   <form>
                     <div class="row mt-3">
-
                       <div class="col-lg-4">
                         <div class="form-group">
                           <label>Tabung</label>
@@ -72,12 +65,37 @@
                             placeholder="Sila Pilih"
                             class="js-example-placeholder-multiple"
                             name="namaTabung"
+                            [(ngModel)]="filterTabung"
+                          ></ng-select>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-4">
+                        <div class="form-group">
+                          <label>Kategori Bencana</label>
+                          <ng-select
+                            [items]="categories"
+                            bindLabel="nama_jenis_bencana"
+                            bindValue="id"
+                            placeholder="Sila Pilih"
+                            class="js-example-placeholder-multiple"
+                            name="namaJenisBencana"
+                            [(ngModel)]="filterJenisBencana"
                           ></ng-select>
                         </div>
                       </div>
                     </div>
 
                     <div class="row pr-3 justify-content-end">
+                      <button
+                        class="btn btn-light mr-2"
+                        type="reset"
+                        (click)="resetFilter()"
+                      >
+                      <i class="fa fa-refresh mr-2"></i>
+                        <b>Reset</b>
+                      </button>
+
                       <button
                         class="btn btn-primary pull-right"
                         type="button"
@@ -95,18 +113,17 @@
         </div>
 
 				<div class="row mt-3 align-items-center">
-					<!--<Primeng-TurboTable-Start>-->
-					<div class="primeng-datatable-container" [busyIf]="primengTableHelper.isLoading">
+					<div class="primeng-datatable-container">
 						<p-table
 							#dataTable
 							styleClass="p-datatable-striped"
-							sortMode="multiple"
 							[resizableColumns]="true"
 							(onLazyLoad)="getTabungKelulusanList($event)"
 							[value]="primengTableHelper.records"
 							rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
 							[paginator]="false"
 							[lazy]="true"
+              [loading]="primengTableHelper.isLoading"
 							[scrollable]="true"
 							ScrollWidth="100%"
 							[responsive]="primengTableHelper.isResponsive"
@@ -123,9 +140,9 @@
 										Tabung
 										<p-sortIcon field="nama_tabung"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="nama_bencana">
+									<th style="width: 130px" pSortableColumn="nama_jenis_bencana">
 										Kategori
-										<p-sortIcon field="nama_bencana"></p-sortIcon>
+										<p-sortIcon field="nama_jenis_bencana"></p-sortIcon>
 									</th>
 									<th style="width: 140px" pSortableColumn="tarikh_surat">
 										Tarikh Surat
@@ -135,25 +152,25 @@
 										Rujukan Surat
 										<p-sortIcon field="rujukan_surat"></p-sortIcon>
 									</th>
-									<th style="width: 120px" pSortableColumn="tarikh_mula_kelulusan">
-										Tarikh Mula Kelulusan
+									<th style="width: 140px" pSortableColumn="tarikh_mula_kelulusan">
+										Tarikh Mula
 										<p-sortIcon field="tarikh_mula_kelulusan"></p-sortIcon>
 									</th>
-									<th style="width: 120px" pSortableColumn="tarikh_tamat_kelulusan">
-										Tarikh Tamat Kelulusan
+									<th style="width: 140px" pSortableColumn="tarikh_tamat_kelulusan">
+										Tarikh Tamat
 										<p-sortIcon field="tarikh_tamat_kelulusan"></p-sortIcon>
 									</th>
 									<th style="width: 150px" pSortableColumn="jumlah_siling">
 										Jumlah Siling
 										<p-sortIcon field="jumlah_siling"></p-sortIcon>
 									</th>
-									<th style="width: 150px" pSortableColumn="peruntukan">
+									<th style="width: 165px" pSortableColumn="peruntukan">
 										Baki Peruntukan
 										<p-sortIcon field="peruntukan"></p-sortIcon>
 									</th>
-									<th style="width: 100px" >
+									<th style="width: 100px" pSortableColumn="status_tabung">
 										Status
-<!--										<p-sortIcon field="status"></p-sortIcon>-->
+										<p-sortIcon field="status_tabung"></p-sortIcon>
 									</th>
 								</tr>
 							</ng-template>
@@ -205,35 +222,35 @@
 									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">Kategori</span>
-										{{record.nama_bencana}}
+										{{record.nama_jenis_bencana}}
 									</td>
 									<td style="width: 140px">
 										<span class="p-column-title">Tarikh Surat</span>
-										{{record.tarikh_surat}}
+										{{record.tarikh_surat | date:'dd-MM-yyyy'}}
 									</td>
 									<td style="width: 150px">
 										<span class="p-column-title">Rujukan Surat</span>
 										{{record.rujukan_surat}}
 									</td>
-									<td style="width: 120px">
-										<span class="p-column-title">Tarikh Mula Kelulusan</span>
-										{{record.tarikh_mula_kelulusan}}
+									<td style="width: 140px">
+										<span class="p-column-title">Tarikh Mula</span>
+										{{record.tarikh_mula_kelulusan | date:'dd-MM-yyyy'}}
 									</td>
-									<td style="width: 120px">
-										<span class="p-column-title">Tarikh Tamat Kelulusan</span>
-										{{record.tarikh_tamat_kelulusan}}
+									<td style="width: 140px">
+										<span class="p-column-title">Tarikh Tamat</span>
+										{{record.tarikh_tamat_kelulusan | date:'dd-MM-yyyy'}}
 									</td>
 									<td style="width: 150px">
 										<span class="p-column-title">Jumlah Siling</span>
-                    {{record.jumlah_siling}}
+                    RM{{record.jumlah_siling}}
 									</td>
-									<td style="width: 150px">
+									<td style="width: 165px">
 										<span class="p-column-title">Baki Peruntukan</span>
-										{{record.peruntukan}}
+										RM{{record.peruntukan}}
 									</td>
 									<td style="width: 100px">
 										<span class="p-column-title">Status</span>
-										{{record.status}}
+										{{record.status_tabung}}
 									</td>
 								</tr>
 							</ng-template>
@@ -250,7 +267,6 @@
 							<span class="total-records-count">Jumlah: {{ primengTableHelper.totalRecordsCount}}</span>
 						</div>
 					</div>
-					<!--<Primeng-TurboTable-End>-->
 				</div>
 			</div>
 		</div>

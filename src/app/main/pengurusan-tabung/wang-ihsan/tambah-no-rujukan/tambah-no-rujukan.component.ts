@@ -22,6 +22,8 @@ export class TambahNoRujukanComponent implements OnInit {
 	@Input() name;
 
   filter: string;
+  filterTabung: number;
+  filterJenisBencana: number;
 
 	constructor(
     config: NgbModalConfig,
@@ -45,6 +47,8 @@ export class TambahNoRujukanComponent implements OnInit {
 		this._tabungKelulusanServiceProxy
 			.getAll(
 				this.filter,
+        this.filterTabung,
+        this.filterJenisBencana,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)

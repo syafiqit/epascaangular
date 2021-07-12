@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
+import { OnInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
+import { finalize } from 'rxjs/operators';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
-import { TambahKetuaIsiRumahComponent } from '../tambah-ketua-isi-rumah/tambah-ketua-isi-rumah.component';
-import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { TambahNoRujukanComponent } from '../tambah-no-rujukan/tambah-no-rujukan.component';
 import {
   CreateOrEditTabungBwiDto,
   GetRujukanKelulusanBwiDto,
@@ -15,12 +15,11 @@ import {
   TabungBwiKirServiceProxy,
   TabungBwiServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
-import { ActivatedRoute, Router } from '@angular/router';
+import { TambahNoRujukanComponent } from '../tambah-no-rujukan/tambah-no-rujukan.component';
+import { TambahKetuaIsiRumahComponent } from '../tambah-ketua-isi-rumah/tambah-ketua-isi-rumah.component';
 import * as moment from 'moment';
-import { finalize } from 'rxjs/operators';
 declare let require;
 const Swal = require('sweetalert2');
-
 @Component({
 	selector: 'app-edit-wang-ihsan',
 	templateUrl: './edit-wang-ihsan.component.html',
@@ -38,7 +37,6 @@ export class EditWangIhsanComponent implements OnInit {
   bwi: CreateOrEditTabungBwiDto = new CreateOrEditTabungBwiDto();
   bwiKir: InputBwiKirDto[] = [];
   kelulusan: GetRujukanKelulusanBwiDto = new GetRujukanKelulusanBwiDto();
-	active = 1;
 
   idBwi: any;
   filter: string;
@@ -47,9 +45,8 @@ export class EditWangIhsanComponent implements OnInit {
   rujukan_surat: string;
   nama_tabung: string;
   perihal_surat: string;
-  idKir: number = 0;
-
   rows = [];
+
   saving = false;
   date = new Date();
   tarikhEft: string;
@@ -60,8 +57,8 @@ export class EditWangIhsanComponent implements OnInit {
   tarikhMajlis: string;
 
 	constructor(
-    config: NgbModalConfig,
     private router: Router,
+    config: NgbModalConfig,
     private modalService: NgbModal,
     public activeModal: NgbActiveModal,
     private _activatedRoute: ActivatedRoute,
@@ -89,56 +86,43 @@ export class EditWangIhsanComponent implements OnInit {
       this.no_rujukan_kelulusan = result.rujukan_kelulusan_bwi.no_rujukan_kelulusan;
       this.nama_tabung = result.nama_tabung;
       this.nama_jenis_bencana = result.nama_jenis_bencana;
-      this.tarikhEft = result.tabung_bwi.tarikh_eft.format('yyyy-MM-DD');
-      this.tarikhAkuanKp = result.tabung_bwi.tarikh_akuan_kp.format('yyyy-MM-DD');
-      this.tarikhPenyaluran = result.tabung_bwi.tarikh_saluran_kpd_bkp.format('yyyy-MM-DD');
-      this.tarikhLaporan = result.tabung_bwi.tarikh_laporan_kpd_bkp.format('yyyy-MM-DD');
-      this.tarikhMaklum = result.tabung_bwi.tarikh_makluman_majlis.format('yyyy-MM-DD');
-      this.tarikhMajlis = result.tabung_bwi.tarikh_majlis_makluman_majlis.format('yyyy-MM-DD');
+      this.rujukan_surat = result.rujukan_kelulusan_bwi.rujukan_surat;
+      this.perihal_surat = result.rujukan_kelulusan_bwi.perihal_surat;
+      this.tarikhEft = result.tabung_bwi.tarikh_eft.format('YYYY-MM-DD');
+      this.tarikhAkuanKp = result.tabung_bwi.tarikh_akuan_kp.format('YYYY-MM-DD');
+      this.tarikhPenyaluran = result.tabung_bwi.tarikh_saluran_kpd_bkp.format('YYYY-MM-DD');
+      this.tarikhLaporan = result.tabung_bwi.tarikh_laporan_kpd_bkp.format('YYYY-MM-DD');
+      this.tarikhMaklum = result.tabung_bwi.tarikh_makluman_majlis.format('YYYY-MM-DD');
+      this.tarikhMajlis = result.tabung_bwi.tarikh_majlis_makluman_majlis.format('YYYY-MM-DD');
     })
   }
 
 	getKir(event?: LazyLoadEvent) {
-		if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
+    if (this.primengTableHelper.shouldResetPaging(event)) {
+      this.paginator.changePage(0);
+      return;
+    }
+    this.primengTableHelper.showLoadingIndicator();
 
-		this.primengTableHelper.showLoadingIndicator();
-		this._tabungBwiKirServiceProxy
-			.getAllKirById(
-				this.filter,
-        this.idBwi,
-				this.primengTableHelper.getSorting(this.dataTable),
-				this.primengTableHelper.getSkipCount(this.paginator, event),
-				this.primengTableHelper.getMaxResultCount(this.paginator, event)
-			)
-      .pipe(finalize(()=> {
-        this.primengTableHelper.hideLoadingIndicator();
-      }))
-			.subscribe((result) => {
-				this.primengTableHelper.totalRecordsCount = result.total_count;
-				this.primengTableHelper.records = result.items;
-			});
-	}
+    this._tabungBwiKirServiceProxy
+    .getAllKirById(
+      this.filter,
+      this.idBwi,
+      this.primengTableHelper.getSorting(this.dataTable),
+      this.primengTableHelper.getSkipCount(this.paginator, event),
+      this.primengTableHelper.getMaxResultCount(this.paginator, event)
+    )
+    .pipe(finalize(()=>{
+      this.primengTableHelper.hideLoadingIndicator();
+    }))
+    .subscribe((result) => {
+      this.primengTableHelper.totalRecordsCount = result.total_count;
+      this.primengTableHelper.records = result.items;
+    });
+  }
 
-  addKirModal(id_tabung_bwi) {
-		const modalRef = this.modalService.open(TambahKetuaIsiRumahComponent, { size: 'lg' });
-		modalRef.componentInstance.name = 'add';
-    modalRef.componentInstance.kategori = 2;
-    modalRef.componentInstance.id_tabung_bwi = id_tabung_bwi;
-    modalRef.result.then(
-			(response) => {
-				if (response) {
-          this.rows.push({ id_mangsa: response.id_mangsa, nama: response.nama, jumlah_bwi: response.jumlah_bwi, nama_daerah: response.nama_daerah, nama_negeri: response.nama_negeri });
-          this.getKir();
-          const ketuaIsiRumah = new InputBwiKirDto();
-          ketuaIsiRumah.id_mangsa = response.tahun;
-          this.bwiKir.push(ketuaIsiRumah);
-				}
-			},
-			() => {}
-		);
+	reloadPage(): void {
+		this.paginator.changePage(this.paginator.getPage());
 	}
 
 	addNoReference() {
@@ -159,8 +143,20 @@ export class EditWangIhsanComponent implements OnInit {
 		);
 	}
 
-	reloadPage(): void {
-		this.paginator.changePage(this.paginator.getPage());
+  addKirModal(id_tabung_bwi) {
+		const modalRef = this.modalService.open(TambahKetuaIsiRumahComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'add';
+    modalRef.componentInstance.kategori = 2;
+    modalRef.componentInstance.id_tabung_bwi = id_tabung_bwi;
+    modalRef.result.then(
+			(response) => {
+				if (response) {
+          this.rows.push({ id: response.id, nama: response.nama, jumlah_bwi: response.jumlah_bwi, nama_daerah: response.nama_daerah, nama_negeri: response.nama_negeri });
+          this.getKir();
+				}
+			},
+			() => {}
+		);
 	}
 
 	save() {

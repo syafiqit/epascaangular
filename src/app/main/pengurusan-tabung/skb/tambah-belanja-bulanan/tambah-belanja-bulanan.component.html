@@ -55,14 +55,13 @@
 					<label class="col-form-label">Jumlah Belanja (RM)</label>
 					<input
 						class="form-control"
-						type="text"
+						type="number"
 						placeholder="Jumlah Belanja"
 						name="jumlah_belanja"
 						[(ngModel)]="bulanan.jumlah"
 						#jumlahBelanja="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && jumlahBelanja.invalid }"
 						required
-            onlyNumbers
 					/>
 					<div *ngIf="f.submitted && jumlahBelanja.invalid" class="invalid-feedback">
 						<div *ngIf="jumlahBelanja.errors.required">Jumlah Belanja Wajib Diisi</div>

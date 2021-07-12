@@ -43,6 +43,7 @@ export class TambahSkbComponent implements OnInit {
   tarikhTamat: string;
   idBulan: number = 0;
   rows = [];
+  belanja: number = 0;
 
 	constructor(
     config: NgbModalConfig,
@@ -91,9 +92,10 @@ export class TambahSkbComponent implements OnInit {
           this.idBulan = this.idBulan + 1;
           this.rows.push({ id: this.idBulan, tahun: response.tahun, bulan: response.bulan, jumlah: response.jumlah });
           this.getAddSKB();
+
+          this.calculateTotal();
 				}
-			},
-			() => {}
+			}
 		);
 	}
 
@@ -114,17 +116,17 @@ export class TambahSkbComponent implements OnInit {
           d.bulan = response.bulan;
           d.jumlah = response.jumlah;
           this.getAddSKB();
+          this.calculateTotal();
 
 				}
-			},
-			() => {}
+			}
 		);
 	}
 
   deleteBulanan(id) {
-    const index = this.rows.indexOf(id);
-    this.rows.splice(index, 1);
+    this.rows.splice(this.rows.findIndex(e=> e.id == id), 1);
     this.getAddSKB();
+    this.calculateTotal();
 	}
 
 	reloadPage(): void {
@@ -141,10 +143,16 @@ export class TambahSkbComponent implements OnInit {
           this.nama_tabung = response.nama_tabung;
           this.skb.id_tabung_kelulusan = response.id;
 				}
-			},
-			() => {}
+			}
 		);
 	}
+
+  calculateTotal(){
+    this.belanja = 0;
+    this.rows.forEach(e=> {
+      this.belanja += parseFloat(e.jumlah);
+    })
+  }
 
 	save() {
     this.saving = true;
@@ -161,7 +169,6 @@ export class TambahSkbComponent implements OnInit {
     this.bayaranSKB.skb.tarikh_tamat = moment(this.tarikhTamat);
     this.bayaranSKB.skb.no_rujukan_skb = null;
     this.bayaranSKB.skb.perihal = null;
-    this.bayaranSKB.skb.nama_pegawai = null;
     this.bayaranSKB.skbBulanan = this.bulanan;
 		this._tabungBayaranSkbServiceProxy
 			.createOrEdit(this.bayaranSKB)

@@ -26,7 +26,9 @@ export class WangIhsanComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
 
   filter: any;
-  filterJenisBencana: string;
+  filterDaerah: number;
+  filterNegeri: number;
+  filterJenisBencana: number;
   terms$ = new Subject<string>();
   public isCollapsed = false;
   jenisBencana: any;
@@ -76,7 +78,9 @@ export class WangIhsanComponent implements OnInit {
     this.tabungBwiServiceProxy
     .getAll(
       this.filter,
-      this.filterJenisBencana,
+      this.filterDaerah ?? undefined,
+      this.filterNegeri ?? undefined,
+      this.filterJenisBencana ?? undefined,
       this.primengTableHelper.getSorting(this.dataTable),
       this.primengTableHelper.getSkipCount(this.paginator, event),
       this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -110,6 +114,9 @@ export class WangIhsanComponent implements OnInit {
 
   resetFilter() {
     this.filter = undefined;
+    this.filterDaerah = undefined;
+    this.filterNegeri = undefined;
+    this.filterJenisBencana = undefined;
 
     this.getBantuanWangIhsan();
   }

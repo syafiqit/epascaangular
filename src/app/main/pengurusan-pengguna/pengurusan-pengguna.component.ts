@@ -29,8 +29,8 @@ export class PengurusanPenggunaComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
 	public isCollapsed = false;
   filter: string;
-  filterAgensi: string;
-  filterPeranan: string;
+  filterAgensi: number;
+  filterPeranan: number;
   saving = false;
   idPengguna: any;
   agencies: any;
@@ -78,8 +78,8 @@ export class PengurusanPenggunaComponent implements OnInit {
 		this._userServiceProxy
 			.getAllUser(
 				this.filter,
-        this.filterAgensi,
-        this.filterPeranan,
+        this.filterAgensi ?? undefined,
+        this.filterPeranan ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)

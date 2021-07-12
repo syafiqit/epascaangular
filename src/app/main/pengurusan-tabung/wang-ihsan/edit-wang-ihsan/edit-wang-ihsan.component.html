@@ -1,537 +1,536 @@
 <app-breadcrumb
-	[title]="'Kemaskini Maklumat Bantuan Wang Ihsan'"
-	[items]="['Bantuan Wang Ihsan']"
-	[active_item]="'Kemaskini'"
+  [title]="'Kemaskini Maklumat Bantuan Wang Ihsan'"
+  [items]="['Bantuan Wang Ihsan']"
+  [active_item]="'Kemaskini'"
 ></app-breadcrumb>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="card">
 				<div class="card-body">
-					<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
-						<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
-							<li [ngbNavItem]="1">
-								<a ngbNavLink>Maklumat Kelulusan</a>
-								<ng-template ngbNavContent>
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="form-group">
-												<label>No. Rujukan Kelulusan</label>
-												<div class="input-group">
-													<input
-														class="form-control"
-														name="approvalRefNo"
-														type="text"
-														placeholder="No. Rujukan Kelulusan"
-                            [(ngModel)]="no_rujukan_kelulusan"
-                            #rujukanKelulusan="ngModel"
-                            [ngClass]="{ 'is-invalid': f.submitted && rujukanKelulusan.invalid }"
-                            required
-                            readonly
-													/>
-													<div class="input-group-append">
-														<button class="btn btn-primary" (click)="addNoReference()" type="button">
-															<i class="fa fa-search text-white"></i>
-														</button>
-													</div>
-                          <div *ngIf="f.submitted && rujukanKelulusan.invalid" class="invalid-feedback">
-                            <div *ngIf="rujukanKelulusan.errors.required">No. Rujukan Kelulusan Wajib Dipilih</div>
-                          </div>
-												</div>
-											</div>
-										</div>
+          <aw-wizard navBarLayout="large-filled-symbols">
+            <aw-wizard-step [navigationSymbol]="{ symbol: '1' }">
+              <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid" novalidate>
+                <ng-template awWizardStepTitle>
+                  <p>Kelulusan</p>
+                </ng-template>
 
-										<div class="col-lg-6">
-											<div class="form-group">
-												<label>Kategori</label>
-												<input
-													class="form-control"
-													name="agency"
-													type="text"
-													placeholder="Kategori Bencana"
-                          [(ngModel)]="nama_jenis_bencana"
-                          #jenisBencana="ngModel"
-                          [ngClass]="{ 'is-invalid': f.submitted && jenisBencana.invalid }"
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>No. Rujukan Kelulusan</label>
+                      <div class="input-group">
+                        <input
+                          class="form-control"
+                          name="approvalRefNo"
+                          type="text"
+                          placeholder="No. Rujukan Kelulusan"
+                          [(ngModel)]="no_rujukan_kelulusan"
+                          #rujukanKelulusan="ngModel"
+                          [ngClass]="{ 'is-invalid': f.submitted && rujukanKelulusan.invalid }"
                           required
                           readonly
-												/>
-											</div>
-                      <div *ngIf="f.submitted && jenisBencana.invalid" class="invalid-feedback">
-                        <div *ngIf="jenisBencana.errors.required">Kategori Bencana Wajib Dipilih</div>
+                        />
+                        <div class="input-group-append">
+                          <button class="btn btn-primary" (click)="addNoReference()" type="button">
+                            <i class="fa fa-search text-white"></i>
+                          </button>
+                        </div>
+                        <div *ngIf="f.submitted && rujukanKelulusan.invalid" class="invalid-feedback">
+                          <div *ngIf="rujukanKelulusan.errors.required">No. Rujukan Kelulusan Wajib Dipilih</div>
+                        </div>
                       </div>
-										</div>
-									</div>
+                    </div>
+                  </div>
 
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="form-group">
-												<label>Rujukan Surat</label>
-												<input
-													class="form-control"
-													name="fund"
-													type="text"
-													placeholder="Rujukan Surat"
-                          [(ngModel)]="rujukan_surat"
-                          #rujukanSurat="ngModel"
-                          [ngClass]="{ 'is-invalid': f.submitted && rujukanSurat.invalid }"
-                          required
-                          readonly
-												/>
-											</div>
-                      <div *ngIf="f.submitted && rujukanSurat.invalid" class="invalid-feedback">
-                        <div *ngIf="rujukanSurat.errors.required">Rujukan Surat Wajib Dipilih</div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Kategori</label>
+                      <input
+                        class="form-control"
+                        name="agency"
+                        type="text"
+                        placeholder="Kategori Bencana"
+                        [(ngModel)]="nama_jenis_bencana"
+                        #jenisBencana="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && jenisBencana.invalid }"
+                        required
+                        readonly
+                      />
+                    </div>
+                    <div *ngIf="f.submitted && jenisBencana.invalid" class="invalid-feedback">
+                      <div *ngIf="jenisBencana.errors.required">Kategori Bencana Wajib Dipilih</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Rujukan Surat</label>
+                      <input
+                        class="form-control"
+                        name="fund"
+                        type="text"
+                        placeholder="Rujukan Surat"
+                        [(ngModel)]="rujukan_surat"
+                        readonly
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Tabung</label>
+                      <input
+                        class="form-control"
+                        name="category"
+                        type="text"
+                        placeholder="Nama Tabung"
+                        [(ngModel)]="nama_tabung"
+                        #namaTabung="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && namaTabung.invalid }"
+                        required
+                        readonly
+                      />
+                    </div>
+                    <div *ngIf="f.submitted && namaTabung.invalid" class="invalid-feedback">
+                      <div *ngIf="namaTabung.errors.required">Nama Tabung Wajib Dipilih</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Perihal Surat</label>
+                      <textarea
+                        class="form-control input-air-primary"
+                        rows="3"
+                        placeholder="Perihal Surat"
+                        name="perihal_surat"
+                        [(ngModel)]="perihal_surat"
+                        readonly
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+                <hr />
+
+                <div class="row no-gutters justify-content-end mb-3">
+                  <button class="btn btn-primary" type="button" (click)="addKirModal(edit.tabung_bwi.id)">
+                    <i class="fa fa-plus mr-2"></i>
+                    Pilih
+                  </button>
+                </div>
+
+                <div class="row no-gutters align-items-center">
+                  <div class="primeng-datatable-container">
+                    <p-table
+                      #dataTable
+                      styleClass="p-datatable-striped"
+                      [resizableColumns]="true"
+                      (onLazyLoad)="getKir($event)"
+                      [value]="primengTableHelper.records"
+                      rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
+                      [paginator]="false"
+                      [lazy]="true"
+                      [loading]="primengTableHelper.isLoading"
+                      [scrollable]="true"
+                      ScrollWidth="100%"
+                      [responsive]="primengTableHelper.isResponsive"
+                      [resizableColumns]="primengTableHelper.resizableColumns"
+                    >
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th style="width: 130px">Tindakan</th>
+                          <th style="width: 150px" pSortableColumn="nama">
+                            Nama KIR
+                            <p-sortIcon field="nama"></p-sortIcon>
+                          </th>
+                          <th style="width: 130px" pSortableColumn="jumlah_bwi">
+                            Jumlah BWI
+                            <p-sortIcon field="jumlah_bwi"></p-sortIcon>
+                          </th>
+                          <th style="width: 130px" pSortableColumn="nama_daerah">
+                            Daerah
+                            <p-sortIcon field="nama_daerah"></p-sortIcon>
+                          </th>
+                          <th style="width: 130px" pSortableColumn="nama_negeri">
+                            Negeri
+                            <p-sortIcon field="nama_negeri"></p-sortIcon>
+                          </th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-record="$implicit">
+                        <tr>
+                          <td style="width: 130px">
+                            <div ngbDropdown class="btn-group" role="group" container="body">
+                              <button
+                                type="button"
+                                class="btn btn-primary btn-primeng dropdown-toggle"
+                                id="action"
+                                ngbDropdownToggle
+                              >
+                                <i class="fa fa-cog"></i>
+                                <span class="caret"></span>
+                                Tindakan
+                              </button>
+                              <div ngbDropdownMenu aria-labelledby="action">
+                                <button class="dropdown-item">Padam</button>
+                              </div>
+                            </div>
+                          </td>
+                          <td style="width: 150px">
+                            <span class="p-column-title">Nama KIR</span>
+                            {{record.nama}}
+                          </td>
+                          <td style="width: 130px">
+                            <span class="p-column-title">Jumlah BWI</span>
+                            RM{{record.jumlah_bwi}}
+                          </td>
+                          <td style="width: 130px">
+                            <span class="p-column-title">Daerah</span>
+                            {{record.nama_daerah}}
+                          </td>
+                          <td style="width: 130px">
+                            <span class="p-column-title">Negeri</span>
+                            {{record.nama_negeri}}
+                          </td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                    <div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">No Data</div>
+                    <div class="primeng-paging-container justify-content-between">
+                      <p-paginator
+                        [rows]="primengTableHelper.defaultRecordsCountPerPage"
+                        #paginator
+                        (onPageChange)="getKir($event)"
+                        [totalRecords]="primengTableHelper.totalRecordsCount"
+                        [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
+                      ></p-paginator>
+                      <span class="total-records-count">
+                        Jumlah: {{ primengTableHelper.totalRecordsCount}}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Jumlah Bayaran (WI/KIR)</label>
+                      <input
+                        class="form-control"
+                        name="wiKir"
+                        type="text"
+                        placeholder="Jumlah Bayaran (WI/KIR)"
+                        [(ngModel)]="edit.tabung_bwi.jumlah_setiap_kir"
+                        #perKir="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && perKir.invalid }"
+                        required
+                        onlyNumbers
+                      />
+                      <div *ngIf="f.submitted && perKir.invalid" class="invalid-feedback">
+                        <div *ngIf="perKir.errors.required">Jumlah Bayaran (WI/KIR) Wajib Diisi</div>
                       </div>
-										</div>
+                    </div>
+                  </div>
 
-										<div class="col-lg-6">
-											<div class="form-group">
-												<label>Tabung</label>
-												<input
-													class="form-control"
-													name="category"
-													type="text"
-													placeholder="Nama Tabung"
-                          [(ngModel)]="nama_tabung"
-                          #namaTabung="ngModel"
-                          [ngClass]="{ 'is-invalid': f.submitted && namaTabung.invalid }"
-                          required
-                          readonly
-												/>
-											</div>
-                      <div *ngIf="f.submitted && namaTabung.invalid" class="invalid-feedback">
-                        <div *ngIf="namaTabung.errors.required">Nama Tabung Wajib Dipilih</div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Jumlah KIR</label>
+                      <input
+                        class="form-control"
+                        name="totalKir"
+                        type="text"
+                        placeholder="Jumlah KIR"
+                        value="{{primengTableHelper.totalRecordsCount}}"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Baki Dipulangkan (RM)</label>
+                      <input
+                        class="form-control"
+                        name="bakiPulangan"
+                        type="text"
+                        placeholder="Baki Dipulangkan"
+                        [(ngModel)]="edit.tabung_bwi.jumlah_kembali"
+                        onlyNumbers
+                      />
+                    </div>
+                  </div>
+                </div>
+                <hr />
+
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Tarikh EFT/Pengeluaran</label>
+                      <input
+                        class="form-control"
+                        name="year"
+                        type="date"
+                        [(ngModel)]="tarikhEft"
+                        min="{{ date | date: 'yyyy-MM-dd' }}"
+                        #eftDate="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && eftDate.invalid }"
+                        required
+                        onlyNumbers
+                        onlyAlphabets
+                      />
+                      <div *ngIf="f.submitted && eftDate.invalid" class="invalid-feedback">
+                        <div *ngIf="eftDate.errors.required">Tarikh Eft/Pengeluaran Wajib Dipilih</div>
                       </div>
-										</div>
-									</div>
+                    </div>
+                  </div>
 
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="form-group">
-												<label>Perihal Surat</label>
-                        <textarea
-                          class="form-control input-air-primary"
-                          rows="3"
-                          placeholder="Perihal Surat"
-                          name="perihal_surat"
-                          [(ngModel)]="perihal_surat"
-                          #perihalSurat="ngModel"
-                          [ngClass]="{ 'is-invalid': f.submitted && perihalSurat.invalid }"
-                          required
-                          readonly
-                        ></textarea>
-											</div>
-                      <div *ngIf="f.submitted && perihalSurat.invalid" class="invalid-feedback">
-                        <div *ngIf="perihalSurat.errors.required">Perihal Surat Wajib Dipilih</div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Catatan</label>
+                      <textarea
+                        class="form-control input-air-primary"
+                        rows="3"
+                        placeholder="Catatan"
+                        name="catatan"
+                        [(ngModel)]="edit.tabung_bwi.catatan"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <button class="btn btn-primary pull-right" type="submit" awNextStep
+                  [disabled]="!f.form.valid">Seterusnya</button>
+                <button class="btn btn-light pull-right mr-2" type="button" [routerLink]="['/app/tabung/senarai-wang-ihsan']">Kembali</button>
+              </form>
+            </aw-wizard-step>
+
+            <aw-wizard-step [navigationSymbol]="{ symbol: '2' }">
+              <form class="form theme-form" name="form" #a="ngForm" (ngSubmit)="a.form.valid" novalidate>
+                <ng-template awWizardStepTitle>
+                  <p>Memo</p>
+                </ng-template>
+
+                <h6>Memo Perakuan KP</h6>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>No. Rujukan</label>
+                      <input
+                        class="form-control"
+                        name="rujukan_akuan_kp"
+                        type="text"
+                        placeholder="No. Rujukan"
+                        [(ngModel)]="edit.tabung_bwi.no_rujukan_akuan_kp"
+                        #refAkuanKp="ngModel"
+                        [ngClass]="{ 'is-invalid': a.submitted && refAkuanKp.invalid }"
+                        required
+                      />
+                      <div *ngIf="a.submitted && refAkuanKp.invalid" class="invalid-feedback">
+                        <div *ngIf="refAkuanKp.errors.required">No. Rujukan Wajib Diisi</div>
                       </div>
-										</div>
-									</div>
-									<hr />
+                    </div>
+                  </div>
 
-                  <div class="row no-gutters justify-content-end mb-3">
-										<button class="btn btn-primary" type="button" (click)="addKirModal(edit.tabung_bwi.id)">
-											<i class="fa fa-plus mr-2"></i>
-											Pilih
-										</button>
-									</div>
-
-									<div class="row no-gutters align-items-center">
-										<div class="primeng-datatable-container">
-											<p-table
-                        #dataTable
-                        styleClass="p-datatable-striped"
-                        [resizableColumns]="true"
-                        (onLazyLoad)="getKir($event)"
-                        [value]="primengTableHelper.records"
-                        rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
-                        [paginator]="false"
-                        [lazy]="true"
-                        [loading]="primengTableHelper.isLoading"
-                        [scrollable]="true"
-                        ScrollWidth="100%"
-                        [responsive]="primengTableHelper.isResponsive"
-                        [resizableColumns]="primengTableHelper.resizableColumns"
-                      >
-												<ng-template pTemplate="header">
-													<tr>
-														<th style="width: 130px">Tindakan</th>
-														<th style="width: 150px" pSortableColumn="nama">
-															Nama KIR
-															<p-sortIcon field="nama"></p-sortIcon>
-														</th>
-														<th style="width: 130px" pSortableColumn="jumlah_bwi">
-															Jumlah BWI
-															<p-sortIcon field="jumlah_bwi"></p-sortIcon>
-														</th>
-														<th style="width: 130px" pSortableColumn="nama_daerah">
-															Daerah
-															<p-sortIcon field="nama_daerah"></p-sortIcon>
-														</th>
-														<th style="width: 130px" pSortableColumn="nama_negeri">
-															Negeri
-															<p-sortIcon field="nama_negeri"></p-sortIcon>
-														</th>
-													</tr>
-												</ng-template>
-												<ng-template pTemplate="body" let-record="$implicit">
-													<tr>
-														<td style="width: 130px">
-															<div ngbDropdown class="btn-group" role="group" container="body">
-																<button
-																	type="button"
-																	class="btn btn-primary btn-primeng dropdown-toggle"
-																	id="action"
-																	ngbDropdownToggle
-																>
-																	<i class="fa fa-cog"></i>
-																	<span class="caret"></span>
-																	Tindakan
-																</button>
-                                <div ngbDropdownMenu aria-labelledby="action">
-                                  <button class="dropdown-item">Padam</button>
-                                </div>
-															</div>
-														</td>
-														<td style="width: 150px">
-															<span class="p-column-title">Nama KIR</span>
-															{{record.nama}}
-														</td>
-														<td style="width: 130px">
-															<span class="p-column-title">Jumlah BWI</span>
-															RM{{record.jumlah_bwi}}
-														</td>
-														<td style="width: 130px">
-															<span class="p-column-title">Daerah</span>
-															{{record.nama_daerah}}
-														</td>
-														<td style="width: 130px">
-															<span class="p-column-title">Negeri</span>
-															{{record.nama_negeri}}
-														</td>
-													</tr>
-												</ng-template>
-											</p-table>
-
-											<div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">
-                        No Data
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Tarikh Perakuan</label>
+                      <input
+                        class="form-control"
+                        type="date"
+                        name="tarikh_perakuan"
+                        [(ngModel)]="tarikhAkuanKp"
+                        min="{{ date | date: 'yyyy-MM-dd' }}"
+                        #akuanKpDate="ngModel"
+                        [ngClass]="{ 'is-invalid': a.submitted && akuanKpDate.invalid }"
+                        required
+                        onlyNumbers
+                        onlyAlphabets
+                      />
+                      <div *ngIf="a.submitted && akuanKpDate.invalid" class="invalid-feedback">
+                        <div *ngIf="akuanKpDate.errors.required">Tarikh Perakuan Wajib Dipilih</div>
                       </div>
-                      <div class="primeng-paging-container justify-content-between">
-                        <p-paginator
-                          [rows]="primengTableHelper.defaultRecordsCountPerPage"
-                          #paginator
-                          (onPageChange)="getKir($event)"
-                          [totalRecords]="primengTableHelper.totalRecordsCount"
-                          [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
-                        ></p-paginator>
-                        <span class="total-records-count">
-                          Jumlah: {{ primengTableHelper.totalRecordsCount }}
-                        </span>
+                    </div>
+                  </div>
+                </div>
+                <hr />
+
+                <h6>Memo Penyaluran KPD BKP</h6>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>No. Rujukan</label>
+                      <input
+                        class="form-control"
+                        name="rujukan_saluran"
+                        type="text"
+                        placeholder="No. Rujukan"
+                        [(ngModel)]="edit.tabung_bwi.no_rujukan_saluran_kpd_bkp"
+                        #refSaluran="ngModel"
+                        [ngClass]="{ 'is-invalid': a.submitted && refSaluran.invalid }"
+                        required
+                      />
+                      <div *ngIf="a.submitted && refSaluran.invalid" class="invalid-feedback">
+                        <div *ngIf="refSaluran.errors.required">No. Rujukan Wajib Diisi</div>
                       </div>
-										</div>
-									</div>
+                    </div>
+                  </div>
 
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="form-group">
-												<label>Jumlah Bayaran (WI/KIR)</label>
-												<input
-													class="form-control"
-													name="wiKir"
-													type="text"
-													placeholder="Jumlah Bayaran (WI/KIR)"
-                          [(ngModel)]="edit.tabung_bwi.jumlah_setiap_kir"
-                          #perKir="ngModel"
-                          [ngClass]="{ 'is-invalid': f.submitted && perKir.invalid }"
-                          required
-                          onlyNumbers
-                        />
-                        <div *ngIf="f.submitted && perKir.invalid" class="invalid-feedback">
-                          <div *ngIf="perKir.errors.required">Jumlah Bayaran (WI/KIR) Wajib Diisi</div>
-                        </div>
-											</div>
-										</div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Tarikh Penyaluran</label>
+                      <input
+                        class="form-control"
+                        type="date"
+                        name="tarikh_penyaluran"
+                        [(ngModel)]="tarikhPenyaluran"
+                        min="{{ date | date: 'yyyy-MM-dd' }}"
+                        #saluranDate="ngModel"
+                        [ngClass]="{ 'is-invalid': a.submitted && saluranDate.invalid }"
+                        required
+                        onlyNumbers
+                        onlyAlphabets
+                      />
+                      <div *ngIf="a.submitted && saluranDate.invalid" class="invalid-feedback">
+                        <div *ngIf="saluranDate.errors.required">Tarikh Penyaluran Wajib Dipilih</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr />
 
-										<div class="col-lg-6">
-											<div class="form-group">
-												<label>Jumlah KIR</label>
-												<input
-													class="form-control"
-													name="totalKir"
-													type="text"
-													placeholder="Jumlah KIR"
-												/>
-											</div>
-										</div>
-									</div>
-                  <hr />
+                <h6>Memo Laporan KPD BKP</h6>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>No. Rujukan</label>
+                      <input
+                        class="form-control"
+                        name="rujukan_laporan"
+                        type="text"
+                        placeholder="No. Rujukan"
+                        [(ngModel)]="edit.tabung_bwi.no_rujukan_laporan_kpd_bkp"
+                        #refLaporan="ngModel"
+                        [ngClass]="{ 'is-invalid': a.submitted && refLaporan.invalid }"
+                        required
+                      />
+                      <div *ngIf="a.submitted && refLaporan.invalid" class="invalid-feedback">
+                        <div *ngIf="refLaporan.errors.required">No. Rujukan Wajib Diisi</div>
+                      </div>
+                    </div>
+                  </div>
 
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="form-group">
-												<label>Tarikh EFT/Pengeluaran</label>
-												<input
-                          class="form-control"
-                          name="year"
-                          type="date"
-                          [(ngModel)]="tarikhEft"
-                          min="{{ date | date: 'yyyy-MM-dd' }}"
-                          #eftDate="ngModel"
-                          [ngClass]="{ 'is-invalid': f.submitted && eftDate.invalid }"
-                          required
-                          onlyNumbers
-                          onlyAlphabets
-                        />
-                        <div *ngIf="f.submitted && eftDate.invalid" class="invalid-feedback">
-                          <div *ngIf="eftDate.errors.required">Tarikh Eft/Pengeluaran Wajib Dipilih</div>
-                        </div>
-											</div>
-										</div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Tarikh Laporan</label>
+                      <input
+                        class="form-control"
+                        type="date"
+                        name="tarikh_laporan"
+                        [(ngModel)]="tarikhLaporan"
+                        min="{{ date | date: 'yyyy-MM-dd' }}"
+                        #laporanDate="ngModel"
+                        [ngClass]="{ 'is-invalid': a.submitted && laporanDate.invalid }"
+                        required
+                        onlyNumbers
+                        onlyAlphabets
+                      />
+                      <div *ngIf="a.submitted && laporanDate.invalid" class="invalid-feedback">
+                        <div *ngIf="laporanDate.errors.required">Tarikh Laporan Wajib Dipilih</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-										<div class="col-lg-6">
-											<div class="form-group">
-												<label>Due Report (21hr)</label>
-												<input
-                          class="form-control"
-                          name="year"
-                          type="date"
-                        />
-											</div>
-										</div>
-									</div>
+                <button class="btn btn-primary pull-right" type="submit" awNextStep
+                  [disabled]="!a.form.valid">Seterusnya</button>
+                <button class="btn btn-light pull-right mr-2" type="button" awPreviousStep>Kembali</button>
+              </form>
+            </aw-wizard-step>
 
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="form-group">
-												<label>Catatan</label>
-                        <textarea
-                          class="form-control input-air-primary"
-                          rows="3"
-                          placeholder="Catatan"
-                          name="catatan"
-                          [(ngModel)]="edit.tabung_bwi.catatan"
-                        ></textarea>
-											</div>
-										</div>
-									</div>
-								</ng-template>
-							</li>
-							<li [ngbNavItem]="2">
-								<a ngbNavLink>Memo</a>
-								<ng-template ngbNavContent>
-									<h6>Memo Perakuan KP</h6>
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="form-group">
-												<label>No. Rujukan</label>
-												<input
-													class="form-control"
-													name="rujukan_akuan_kp"
-													type="text"
-													placeholder="No. Rujukan"
-                          [(ngModel)]="edit.tabung_bwi.no_rujukan_akuan_kp"
-                          #refAkuanKp="ngModel"
-                          [ngClass]="{ 'is-invalid': f.submitted && refAkuanKp.invalid }"
-                          required
-                        />
-                        <div *ngIf="f.submitted && refAkuanKp.invalid" class="invalid-feedback">
-                          <div *ngIf="refAkuanKp.errors.required">No. Rujukan Wajib Diisi</div>
-                        </div>
-											</div>
-										</div>
+            <aw-wizard-completion-step awEnableBackLinks [navigationSymbol]="{ symbol: '3' }">
+              <form class="form theme-form" name="form" #k="ngForm" (ngSubmit)="k.form.valid && save()" novalidate>
+                <ng-template awWizardStepTitle>
+                  <p>Surat</p>
+                </ng-template>
 
-										<div class="col-lg-6">
-											<div class="form-group">
-												<label>Tarikh Perakuan</label>
-                        <input
-                          class="form-control"
-                          type="date"
-                          name="tarikh_perakuan"
-                          [(ngModel)]="tarikhAkuanKp"
-                          min="{{ date | date: 'yyyy-MM-dd' }}"
-                          #akuanKpDate="ngModel"
-                          [ngClass]="{ 'is-invalid': f.submitted && akuanKpDate.invalid }"
-                          required
-                          onlyNumbers
-                          onlyAlphabets
-                        />
-                        <div *ngIf="f.submitted && akuanKpDate.invalid" class="invalid-feedback">
-                          <div *ngIf="akuanKpDate.errors.required">Tarikh Perakuan Wajib Dipilih</div>
-                        </div>
-											</div>
-										</div>
-									</div>
-									<hr />
+                <h6>Surat Makluman Tarikh Majlis</h6>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>No. Rujukan</label>
+                      <input
+                        class="form-control"
+                        name="rujukan_majlis"
+                        type="text"
+                        placeholder="No. Rujukan"
+                        [(ngModel)]="edit.tabung_bwi.no_rujukan_makluman_majlis"
+                        #refMajlis="ngModel"
+                        [ngClass]="{ 'is-invalid': k.submitted && refMajlis.invalid }"
+                        required
+                      />
+                      <div *ngIf="k.submitted && refMajlis.invalid" class="invalid-feedback">
+                        <div *ngIf="refMajlis.errors.required">No. Rujukan Wajib Diisi</div>
+                      </div>
+                    </div>
+                  </div>
 
-									<h6>Memo Penyaluran KPD BKP</h6>
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="form-group">
-												<label>No. Rujukan</label>
-												<input
-													class="form-control"
-													name="rujukan_saluran"
-													type="text"
-													placeholder="No. Rujukan"
-                          [(ngModel)]="edit.tabung_bwi.no_rujukan_saluran_kpd_bkp"
-                          #refSaluran="ngModel"
-                          [ngClass]="{ 'is-invalid': f.submitted && refSaluran.invalid }"
-                          required
-                        />
-                        <div *ngIf="f.submitted && refSaluran.invalid" class="invalid-feedback">
-                          <div *ngIf="refSaluran.errors.required">No. Rujukan Wajib Diisi</div>
-                        </div>
-											</div>
-										</div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Tarikh Makluman Majlis</label>
+                      <input
+                        class="form-control"
+                        type="date"
+                        name="tarikh_maklum_majlis"
+                        [(ngModel)]="tarikhMaklum"
+                        min="{{ date | date: 'yyyy-MM-dd' }}"
+                        #maklumDate="ngModel"
+                        [ngClass]="{ 'is-invalid': k.submitted && maklumDate.invalid }"
+                        required
+                        onlyNumbers
+                        onlyAlphabets
+                      />
+                      <div *ngIf="k.submitted && maklumDate.invalid" class="invalid-feedback">
+                        <div *ngIf="maklumDate.errors.required">Tarikh Makluman Majlis Wajib Dipilih</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-										<div class="col-lg-6">
-											<div class="form-group">
-												<label>Tarikh Penyaluran</label>
-                        <input
-                          class="form-control"
-                          type="date"
-                          name="tarikh_penyaluran"
-                          [(ngModel)]="tarikhPenyaluran"
-                          min="{{ date | date: 'yyyy-MM-dd' }}"
-                          #saluranDate="ngModel"
-                          [ngClass]="{ 'is-invalid': f.submitted && saluranDate.invalid }"
-                          required
-                          onlyNumbers
-                          onlyAlphabets
-                        />
-                        <div *ngIf="f.submitted && saluranDate.invalid" class="invalid-feedback">
-                          <div *ngIf="saluranDate.errors.required">Tarikh Penyaluran Wajib Dipilih</div>
-                        </div>
-											</div>
-										</div>
-									</div>
-									<hr />
-									<h6>Memo Laporan KPD BKP</h6>
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="form-group">
-												<label>No. Rujukan</label>
-												<input
-													class="form-control"
-													name="rujukan_laporan"
-													type="text"
-													placeholder="No. Rujukan"
-                          [(ngModel)]="edit.tabung_bwi.no_rujukan_laporan_kpd_bkp"
-                          #refLaporan="ngModel"
-                          [ngClass]="{ 'is-invalid': f.submitted && refLaporan.invalid }"
-                          required
-                        />
-                        <div *ngIf="f.submitted && refLaporan.invalid" class="invalid-feedback">
-                          <div *ngIf="refLaporan.errors.required">No. Rujukan Wajib Diisi</div>
-                        </div>
-											</div>
-										</div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Tarikh Majlis</label>
+                      <input
+                        class="form-control"
+                        type="date"
+                        name="tarikh_majlis"
+                        [(ngModel)]="tarikhMajlis"
+                        min="{{ date | date: 'yyyy-MM-dd' }}"
+                        #majlisDate="ngModel"
+                        [ngClass]="{ 'is-invalid': k.submitted && majlisDate.invalid }"
+                        required
+                        onlyNumbers
+                        onlyAlphabets
+                      />
+                      <div *ngIf="k.submitted && majlisDate.invalid" class="invalid-feedback">
+                        <div *ngIf="majlisDate.errors.required">Tarikh Majlis Wajib Dipilih</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-										<div class="col-lg-6">
-											<div class="form-group">
-												<label>Tarikh Laporan</label>
-                        <input
-                          class="form-control"
-                          type="date"
-                          name="tarikh_laporan"
-                          [(ngModel)]="tarikhLaporan"
-                          min="{{ date | date: 'yyyy-MM-dd' }}"
-                          #laporanDate="ngModel"
-                          [ngClass]="{ 'is-invalid': f.submitted && laporanDate.invalid }"
-                          required
-                          onlyNumbers
-                          onlyAlphabets
-                        />
-                        <div *ngIf="f.submitted && laporanDate.invalid" class="invalid-feedback">
-                          <div *ngIf="laporanDate.errors.required">Tarikh Laporan Wajib Dipilih</div>
-                        </div>
-											</div>
-										</div>
-									</div>
-								</ng-template>
-							</li>
-							<li [ngbNavItem]="3">
-								<a ngbNavLink>Surat</a>
-								<ng-template ngbNavContent>
-									<h6>Surat Makluman Tarikh Majlis</h6>
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="form-group">
-												<label>No. Rujukan</label>
-												<input
-													class="form-control"
-													name="rujukan_majlis"
-													type="text"
-													placeholder="No. Rujukan"
-                          [(ngModel)]="edit.tabung_bwi.no_rujukan_makluman_majlis"
-                          #refMajlis="ngModel"
-                          [ngClass]="{ 'is-invalid': f.submitted && refMajlis.invalid }"
-                          required
-                        />
-                        <div *ngIf="f.submitted && refMajlis.invalid" class="invalid-feedback">
-                          <div *ngIf="refMajlis.errors.required">No. Rujukan Wajib Diisi</div>
-                        </div>
-											</div>
-										</div>
-
-										<div class="col-lg-6">
-											<div class="form-group">
-												<label>Tarikh Makluman Majlis</label>
-                        <input
-                          class="form-control"
-                          type="date"
-                          name="tarikh_maklum_majlis"
-                          [(ngModel)]="tarikhMaklum"
-                          min="{{ date | date: 'yyyy-MM-dd' }}"
-                          #maklumDate="ngModel"
-                          [ngClass]="{ 'is-invalid': f.submitted && maklumDate.invalid }"
-                          required
-                          onlyNumbers
-                          onlyAlphabets
-                        />
-                        <div *ngIf="f.submitted && maklumDate.invalid" class="invalid-feedback">
-                          <div *ngIf="maklumDate.errors.required">Tarikh Makluman Majlis Wajib Dipilih</div>
-                        </div>
-											</div>
-										</div>
-									</div>
-
-									<div class="row">
-										<div class="col-lg-6">
-											<div class="form-group">
-												<label>Tarikh Majlis</label>
-                        <input
-                          class="form-control"
-                          type="date"
-                          name="tarikh_majlis"
-                          [(ngModel)]="tarikhMajlis"
-                          min="{{ date | date: 'yyyy-MM-dd' }}"
-                          #majlisDate="ngModel"
-                          [ngClass]="{ 'is-invalid': f.submitted && majlisDate.invalid }"
-                          required
-                          onlyNumbers
-                          onlyAlphabets
-                        />
-                        <div *ngIf="f.submitted && majlisDate.invalid" class="invalid-feedback">
-                          <div *ngIf="majlisDate.errors.required">Tarikh Majlis Wajib Dipilih</div>
-                        </div>
-											</div>
-										</div>
-									</div>
-								</ng-template>
-							</li>
-						</ul>
-						<div [ngbNavOutlet]="nav" class="mt-2"></div>
-
-						<div class="row no-gutters justify-content-end">
-              <button
-                class="btn btn-light mr-2"
-                [routerLink]="['/app/tabung/senarai-wang-ihsan']"
-                type="button"
-              >
-                Kembali
-              </button>
-              <button class="btn btn-primary pull-right" type="submit">Simpan</button>
-            </div>
-					</form>
+                <button class="btn btn-primary pull-right" type="submit"
+                  [disabled]="!k.form.valid">Simpan</button>
+                <button class="btn btn-light pull-right mr-2" id="prevBtn" type="button" awPreviousStep>Kembali</button>
+              </form>
+            </aw-wizard-completion-step>
+          </aw-wizard>
 				</div>
 			</div>
 		</div>

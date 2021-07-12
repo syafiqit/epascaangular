@@ -1,17 +1,21 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
+import { OnInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
-import { TambahKetuaIsiRumahComponent } from '../tambah-ketua-isi-rumah/tambah-ketua-isi-rumah.component';
-import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TambahNoRujukanComponent } from '../tambah-no-rujukan/tambah-no-rujukan.component';
-import { CreateOrEditTabungBwiDto, InputBwiKirDto, InputCreateTabungBwiDto, TabungBwiServiceProxy } from 'src/app/shared/proxy/service-proxies';
-import { Router } from '@angular/router';
-import * as moment from 'moment';
+import { TambahKetuaIsiRumahComponent } from '../tambah-ketua-isi-rumah/tambah-ketua-isi-rumah.component';
+import {
+  CreateOrEditTabungBwiDto,
+  InputBwiKirDto,
+  InputCreateTabungBwiDto,
+  TabungBwiServiceProxy
+} from 'src/app/shared/proxy/service-proxies';
 declare let require;
 const Swal = require('sweetalert2');
-
 @Component({
 	selector: 'app-tambah-edit-wang-ihsan',
 	templateUrl: './tambah-edit-wang-ihsan.component.html',
@@ -27,14 +31,12 @@ export class TambahEditWangIhsanComponent implements OnInit {
   tabungBwi: InputCreateTabungBwiDto = new InputCreateTabungBwiDto();
   bwi: CreateOrEditTabungBwiDto = new CreateOrEditTabungBwiDto();
   bwiKir: InputBwiKirDto[] = [];
-	active = 1;
 
   no_rujukan_kelulusan: number;
   nama_jenis_bencana: string;
   rujukan_surat: string;
   nama_tabung: string;
   perihal_surat: string;
-  idKir: number = 0;
 
   rows = [];
   saving = false;
@@ -48,24 +50,24 @@ export class TambahEditWangIhsanComponent implements OnInit {
   tarikhMajlis: string;
 
 	constructor(
-    config: NgbModalConfig,
     private router: Router,
+    config: NgbModalConfig,
     private modalService: NgbModal,
     public activeModal: NgbActiveModal,
     private _tabungBwiServiceProxy: TabungBwiServiceProxy
   ) {
-		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
+		this.primengTableHelper = new PrimengTableHelper();
 	}
 
 	ngOnInit(): void {}
 
 	getKir(event?: LazyLoadEvent) {
-		// if (this.primengTableHelper.shouldResetPaging(event)) {
-		// 	this.paginator.changePage(0);
-		// 	return;
-		// }
+		if (this.primengTableHelper.shouldResetPaging(event)) {
+			this.paginator.changePage(0);
+			return;
+		}
 
 		this.primengTableHelper.showLoadingIndicator();
 		this.primengTableHelper.totalRecordsCount = this.rows.length;
@@ -81,10 +83,8 @@ export class TambahEditWangIhsanComponent implements OnInit {
     modalRef.result.then(
 			(response) => {
 				if (response) {
-          this.idKir = this.idKir + 1;
-					this.rows.push({
-            id: this.idKir,
-            id_mangsa: response.id_mangsa,
+          this.rows.push({
+            id: response.id,
             nama: response.nama,
             jumlah_bwi: response.jumlah_bwi,
             nama_daerah: response.nama_daerah,
@@ -129,7 +129,7 @@ export class TambahEditWangIhsanComponent implements OnInit {
     this.saving = true;
     for(let i = 0; i < this.rows.length; i++){
       const ketuaIsiRumah = new InputBwiKirDto();
-      ketuaIsiRumah.id_mangsa = this.rows[i].id_mangsa;
+      ketuaIsiRumah.id_mangsa = this.rows[i].id;
       this.bwiKir.push(ketuaIsiRumah);
     }
 

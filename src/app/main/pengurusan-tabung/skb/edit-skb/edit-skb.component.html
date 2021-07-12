@@ -100,7 +100,14 @@
                     type="text"
                     placeholder="Pegawai"
                     name="officer"
+                    [(ngModel)]="edit.tabung_bayaran_skb.nama_pegawai"
+                    #officerName="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && officerName.invalid }"
+                    required
                   />
+                  <div *ngIf="f.submitted && officerName.invalid" class="invalid-feedback">
+                    <div *ngIf="officerName.errors.required">Nama Pegawai Wajib Diisi</div>
+                  </div>
 								</div>
 							</div>
 
