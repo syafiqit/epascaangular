@@ -42,7 +42,7 @@ export class LogMasukComponent implements OnInit {
 					this.redirect(result.tukar_kata_laluan);
 				},
 				() => {
-				  Swal.fire('', 'Email/Kata Laluan Anda Salah, Sila Cuba Lagi', 'error');
+				  Swal.fire('', 'Kad Pengenalan/Kata Laluan Anda Salah, Sila Cuba Lagi', 'error');
 				}
 			);
 	}

@@ -16,11 +16,11 @@ const routes: Routes = [
 			{ path: '', redirectTo: 'log-masuk', pathMatch: 'full' },
 			{ path: 'log-masuk', component: LogMasukComponent, canActivate: [AccountRouteGuard] },
 			{ path: 'lupa-katalaluan', component: LupaKataLaluanComponent, canActivate: [AccountRouteGuard] },
-			{ path: 'daftar', component: DaftarAkaunComponent, canActivate: [AccountRouteGuard] },
       { path: 'reset', component: ResetKataLaluanComponent, canActivate: [AccountRouteGuard] },
 			{ path: 'tukar', component: TukarKataLaluanComponent}
 		]
-	}
+	},
+  { path: 'daftar', component: DaftarAkaunComponent, canActivate: [AccountRouteGuard] }
 ];
 
 @NgModule({

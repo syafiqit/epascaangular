@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthServiceProxy, RefAgensiServiceProxy, RefDaerahServiceProxy, RefKementerianServiceProxy, RefNegeriServiceProxy, RefPerananServiceProxy, RegisterPenggunaDto } from 'src/app/shared/proxy/service-proxies';
+import { Router } from '@angular/router';
+import {
+  AuthServiceProxy,
+  RefAgensiServiceProxy,
+  RefDaerahServiceProxy,
+  RefKementerianServiceProxy,
+  RefNegeriServiceProxy,
+  RefPerananServiceProxy,
+  RegisterPenggunaDto
+} from 'src/app/shared/proxy/service-proxies';
 declare let require;
 const Swal = require('sweetalert2');
 
 @Component({
 	selector: 'app-daftar-akaun',
-	templateUrl: './daftar-akaun.component.html',
-	styles: [
-		`
-			.login-main {
-				width: initial !important;
-			}
-		`
-	]
+	templateUrl: './daftar-akaun.component.html'
 })
 
 export class DaftarAkaunComponent implements OnInit {
@@ -33,7 +35,8 @@ export class DaftarAkaunComponent implements OnInit {
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
     private _refKementerianServiceProxy: RefKementerianServiceProxy,
     private _refDaerahServiceProxy: RefDaerahServiceProxy,
-    private _refNegeriServiceProxy: RefNegeriServiceProxy
+    private _refNegeriServiceProxy: RefNegeriServiceProxy,
+    private _router: Router
 	) {}
 
 	ngOnInit(): void {
@@ -42,6 +45,10 @@ export class DaftarAkaunComponent implements OnInit {
     this.getKementerian();
     this.getDaerah();
     this.getNegeri();
+  }
+
+  reset(){
+    this.register = new RegisterPenggunaDto();
   }
 
   getPeranan(filter?) {
@@ -91,7 +98,7 @@ export class DaftarAkaunComponent implements OnInit {
 			.pipe()
 			.subscribe((result) => {
 				Swal.fire('Berjaya!', 'Maklumat Berjaya Didaftarkan.', 'success').then(() => {
-					location.href = '/akaun/log-masuk';
+					this._router.navigateByUrl('akaun/log-masuk');
 				});
 			});
 	}
