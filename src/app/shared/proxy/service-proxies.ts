@@ -13414,6 +13414,7 @@ export class OutputLoginDto implements IOutputLoginDto {
     token_type!: string;
     tukar_kata_laluan!: boolean;
     expires_in!: number;
+    message!: string;
 
     constructor(data?: IOutputLoginDto) {
         if (data) {
@@ -13430,6 +13431,7 @@ export class OutputLoginDto implements IOutputLoginDto {
             this.token_type = _data["token_type"];
             this.tukar_kata_laluan = _data["tukar_kata_laluan"];
             this.expires_in = _data["expires_in"];
+            this.message = _data["message"];
         }
     }
 
@@ -13446,6 +13448,7 @@ export class OutputLoginDto implements IOutputLoginDto {
         data["token_type"] = this.token_type;
         data["tukar_kata_laluan"] = this.tukar_kata_laluan;
         data["expires_in"] = this.expires_in;
+        data["message"] = this.message;
         return data; 
     }
 }
@@ -13455,6 +13458,7 @@ export interface IOutputLoginDto {
     token_type: string;
     tukar_kata_laluan: boolean;
     expires_in: number;
+    message: string;
 }
 
 export class RegisterPenggunaDto implements IRegisterPenggunaDto {
