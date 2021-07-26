@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { finalize } from 'rxjs/operators';
-import { AuthServiceProxy, InputLoginDto } from 'src/app/shared/proxy/service-proxies';
+import { AuthServiceProxy, InputLoginDto, OutputLoginDto } from 'src/app/shared/proxy/service-proxies';
 declare let require;
 const Swal = require('sweetalert2');
 
@@ -12,6 +12,7 @@ const Swal = require('sweetalert2');
 export class LogMasukComponent implements OnInit {
 	public show = false;
   login: InputLoginDto = new InputLoginDto();
+  output: OutputLoginDto = new OutputLoginDto();
   loading = false;
   saving = false;
 
@@ -37,14 +38,15 @@ export class LogMasukComponent implements OnInit {
 			)
 			.subscribe(
 				(result) => {
-					const validity = new Date(new Date().getTime() + (result.expires_in + 28800) * 1000);
-					this._cookieService.set('token', result.access_token, validity, '/');
-					this.redirect(result.tukar_kata_laluan);
-				},
-				() => {
-				  Swal.fire('', 'Kad Pengenalan/Kata Laluan Anda Salah, Sila Cuba Lagi', 'error');
-				}
-			);
+          this.output = result;
+          if(result.message){
+            Swal.fire('Tidak Berjaya!', this.output.message, 'error');
+          }else{
+            const validity = new Date(new Date().getTime() + (result.expires_in + 28800) * 1000);
+            this._cookieService.set('token', result.access_token, validity, '/');
+            this.redirect(result.tukar_kata_laluan);
+          }
+				});
 	}
 
   redirect(changePassword: boolean){
