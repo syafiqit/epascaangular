@@ -2,18 +2,20 @@
 	<form class="theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && userlogin()" novalidate>
 		<h4>Log Masuk</h4>
 		<div class="form-group">
-			<label class="col-form-label">No Kad Pengenalan</label>
+			<label class="col-form-label">Emel Pengguna</label>
 			<input
 				class="form-control"
-				name="no_kp"
-				[(ngModel)]="login.no_kp"
-				type="text"
+				type="email"
+				name="email"
+				[(ngModel)]="login.emel"
+				#email="ngModel"
+				[ngClass]="{ 'is-invalid': f.submitted && email.invalid }"
 				required
-				#no_kp="ngModel"
-				[ngClass]="{ 'is-invalid': f.submitted && no_kp.invalid }"
+        email
 			/>
-			<div *ngIf="f.submitted && no_kp.invalid" class="invalid-feedback">
-				<div *ngIf="no_kp.errors.required">No Kad Pengenalan Wajib Di Isi</div>
+			<div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
+				<div *ngIf="email.errors.required">Emel Wajib Diisi</div>
+        <div *ngIf="email.errors.email">Format Emel Tidak Sah</div>
 			</div>
 		</div>
 		<div class="form-group">
@@ -35,7 +37,7 @@
 				<div style="margin-top: 4px; margin-right: -10px; color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-off-outline fa-lg"></i></div>
 			</div>
 			<div *ngIf="f.submitted && password.invalid" class="invalid-feedback">
-				<div *ngIf="password.errors.required">Kata Laluan Di Isi</div>
+				<div *ngIf="password.errors.required">Kata Laluan Wajib Diisi</div>
 			</div>
 		</div>
 		<div class="form-group mb-0">
