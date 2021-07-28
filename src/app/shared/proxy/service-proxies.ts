@@ -13383,7 +13383,7 @@ export interface IInputForgotPasswordDto {
 }
 
 export class InputLoginDto implements IInputLoginDto {
-    no_kp!: string;
+    emel!: string;
     kata_laluan!: string;
 
     constructor(data?: IInputLoginDto) {
@@ -13397,7 +13397,7 @@ export class InputLoginDto implements IInputLoginDto {
 
     init(_data?: any) {
         if (_data) {
-            this.no_kp = _data["no_kp"];
+            this.emel = _data["emel"];
             this.kata_laluan = _data["kata_laluan"];
         }
     }
@@ -13411,14 +13411,14 @@ export class InputLoginDto implements IInputLoginDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["no_kp"] = this.no_kp;
+        data["emel"] = this.emel;
         data["kata_laluan"] = this.kata_laluan;
         return data; 
     }
 }
 
 export interface IInputLoginDto {
-    no_kp: string;
+    emel: string;
     kata_laluan: string;
 }
 
