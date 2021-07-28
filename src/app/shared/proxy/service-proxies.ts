@@ -12785,6 +12785,67 @@ export class TabungServiceProxy {
     }
 
     /**
+     * Get all Jumlah Tabung
+     * @param month (optional) Filter records with a string
+     * @return Success
+     */
+    getTotalTabungCard(month: string | undefined): Observable<GetTotalTabungCardForViewDto> {
+        let url_ = this.baseUrl + "/api/tabung/getTotalTabungCard?";
+        if (month === null)
+            throw new Error("The parameter 'month' cannot be null.");
+        else if (month !== undefined)
+            url_ += "month=" + encodeURIComponent("" + month) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTotalTabungCard(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTotalTabungCard(<any>response_);
+                } catch (e) {
+                    return <Observable<GetTotalTabungCardForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetTotalTabungCardForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTotalTabungCard(response: HttpResponseBase): Observable<GetTotalTabungCardForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetTotalTabungCardForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetTotalTabungCardForViewDto>(<any>null);
+    }
+
+    /**
      * Get Tabung by id
      * @param id Tabung Id
      * @return Success
@@ -15926,7 +15987,7 @@ export class CreateOrEditMangsaWangIhsanDto implements ICreateOrEditMangsaWangIh
     id_bencana!: number;
     id_mangsa!: number;
     id_agensi_bantuan!: number;
-    tarikh_serahan!: string;
+    tarikh_serahan!: moment.Moment;
     id_sumber_dana!: number;
     status_mangsa_wang_ihsan!: number;
     id_pengguna_cipta!: number;
@@ -15951,7 +16012,7 @@ export class CreateOrEditMangsaWangIhsanDto implements ICreateOrEditMangsaWangIh
             this.id_bencana = _data["id_bencana"];
             this.id_mangsa = _data["id_mangsa"];
             this.id_agensi_bantuan = _data["id_agensi_bantuan"];
-            this.tarikh_serahan = _data["tarikh_serahan"];
+            this.tarikh_serahan = _data["tarikh_serahan"] ? moment(_data["tarikh_serahan"].toString()) : <any>undefined;
             this.id_sumber_dana = _data["id_sumber_dana"];
             this.status_mangsa_wang_ihsan = _data["status_mangsa_wang_ihsan"];
             this.id_pengguna_cipta = _data["id_pengguna_cipta"];
@@ -15976,7 +16037,7 @@ export class CreateOrEditMangsaWangIhsanDto implements ICreateOrEditMangsaWangIh
         data["id_bencana"] = this.id_bencana;
         data["id_mangsa"] = this.id_mangsa;
         data["id_agensi_bantuan"] = this.id_agensi_bantuan;
-        data["tarikh_serahan"] = this.tarikh_serahan;
+        data["tarikh_serahan"] = this.tarikh_serahan ? this.tarikh_serahan.toISOString() : <any>undefined;
         data["id_sumber_dana"] = this.id_sumber_dana;
         data["status_mangsa_wang_ihsan"] = this.status_mangsa_wang_ihsan;
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
@@ -15994,7 +16055,7 @@ export interface ICreateOrEditMangsaWangIhsanDto {
     id_bencana: number;
     id_mangsa: number;
     id_agensi_bantuan: number;
-    tarikh_serahan: string;
+    tarikh_serahan: moment.Moment;
     id_sumber_dana: number;
     status_mangsa_wang_ihsan: number;
     id_pengguna_cipta: number;
@@ -26991,6 +27052,54 @@ export interface IGetTabungForViewDto {
     tarikh_kemaskini: moment.Moment;
 }
 
+/** Total Tabung in Tabular model */
+export class GetTotalTabungCardForViewDto implements IGetTotalTabungCardForViewDto {
+    /** Items in array of object */
+    items!: TotalTabungCardForViewDto[];
+
+    constructor(data?: IGetTotalTabungCardForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(TotalTabungCardForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): GetTotalTabungCardForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTotalTabungCardForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** Total Tabung in Tabular model */
+export interface IGetTotalTabungCardForViewDto {
+    /** Items in array of object */
+    items: TotalTabungCardForViewDto[];
+}
+
 /** Tabung List in Tabular model */
 export class PagedResultDtoOfTabungForViewDto implements IPagedResultDtoOfTabungForViewDto {
     /** Total Count */
@@ -27043,6 +27152,54 @@ export interface IPagedResultDtoOfTabungForViewDto {
     total_count: number;
     /** Items in array of object */
     items: GetTabungForViewDto[];
+}
+
+export class TotalTabungCardForViewDto implements ITotalTabungCardForViewDto {
+    total_keseluruhan_semasa!: string;
+    total_peruntukan!: string;
+    total_baki_semasa!: string;
+    total_baki_bawaan!: string;
+
+    constructor(data?: ITotalTabungCardForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_keseluruhan_semasa = _data["total_keseluruhan_semasa"];
+            this.total_peruntukan = _data["total_peruntukan"];
+            this.total_baki_semasa = _data["total_baki_semasa"];
+            this.total_baki_bawaan = _data["total_baki_bawaan"];
+        }
+    }
+
+    static fromJS(data: any): TotalTabungCardForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new TotalTabungCardForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_keseluruhan_semasa"] = this.total_keseluruhan_semasa;
+        data["total_peruntukan"] = this.total_peruntukan;
+        data["total_baki_semasa"] = this.total_baki_semasa;
+        data["total_baki_bawaan"] = this.total_baki_bawaan;
+        return data; 
+    }
+}
+
+export interface ITotalTabungCardForViewDto {
+    total_keseluruhan_semasa: string;
+    total_peruntukan: string;
+    total_baki_semasa: string;
+    total_baki_bawaan: string;
 }
 
 export class CreateOrEditPenggunaDto implements ICreateOrEditPenggunaDto {
