@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import { CreateOrEditMangsaRumahDto, GetMangsaRumahForEditDto, MangsaRumahServiceProxy, RefBantuanServiceProxy, RefBencanaServiceProxy, RefKerosakanServiceProxy, RefPelaksanaServiceProxy, RefPemilikServiceProxy, RefStatusKemajuanServiceProxy, RefSumberDanaServiceProxy, RefTapakRumahServiceProxy } from 'src/app/shared/proxy/service-proxies';
 declare let require;
@@ -29,8 +29,13 @@ export class TambahEditBantuanRumahComponent implements OnInit {
   sumberDana: any;
   pelaksana: any;
   statusKemajuan: any;
+  date = new Date();
+  modelMula: NgbDateStruct;
+  modelSiap: NgbDateStruct;
+  today = this.calendar.getToday();
   tarikh_mula: string;
   tarikh_siap: string;
+  readonly DELIMITER = '-';
 
 	constructor(
     public activeModal: NgbActiveModal,
@@ -42,7 +47,8 @@ export class TambahEditBantuanRumahComponent implements OnInit {
     private _refTapakRumahServiceProxy: RefTapakRumahServiceProxy,
     private _refSumberDanaServiceProxy: RefSumberDanaServiceProxy,
     private _refPelaksanaServiceProxy: RefPelaksanaServiceProxy,
-    private _refStatusKemajuanServiceProxy: RefStatusKemajuanServiceProxy
+    private _refStatusKemajuanServiceProxy: RefStatusKemajuanServiceProxy,
+    private calendar: NgbCalendar
     ) {
     this.editBantuanRumah.mangsa_rumah = new CreateOrEditMangsaRumahDto();
 	}
@@ -59,12 +65,34 @@ export class TambahEditBantuanRumahComponent implements OnInit {
     this.getStatusKemajuan();
   }
 
+  fromModel(value: string | null): NgbDateStruct | null {
+    if (value) {
+      let date = value.split(this.DELIMITER);
+      return {
+        year : parseInt(date[0], 10),
+        month : parseInt(date[1], 10),
+        day : parseInt(date[2], 10)
+      };
+    }
+    return null;
+  }
+
+  toModel(date: NgbDateStruct | null): string | null {
+    return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
+  }
+
   show() {
     if (!this.id) {
       this.bantuanRumah = new CreateOrEditMangsaRumahDto();
     } else {
       this._mangsaRumahServiceProxy.getMangsaRumahForEdit(this.id).subscribe((result) => {
         this.bantuanRumah = result.mangsa_rumah;
+        if(result.mangsa_rumah.tarikh_mula){
+          this.modelMula = this.fromModel(result.mangsa_rumah.tarikh_mula.format('YYYY-MM-DD'));
+        }
+        if(result.mangsa_rumah.tarikh_siap){
+          this.modelSiap = this.fromModel(result.mangsa_rumah.tarikh_siap.format('YYYY-MM-DD'));
+        }
       });
     }
   }
@@ -119,8 +147,14 @@ export class TambahEditBantuanRumahComponent implements OnInit {
 
   save() {
     this.saving = true;
-    this.bantuanRumah.tarikh_mula = moment(this.tarikh_mula);
-    this.bantuanRumah.tarikh_siap = moment(this.tarikh_siap);
+    if(this.modelMula){
+      this.tarikh_mula = this.toModel(this.modelMula);
+      this.bantuanRumah.tarikh_mula = moment(this.tarikh_mula, "YYYY-MM-DD");
+    }
+    if(this.modelSiap){
+      this.tarikh_siap = this.toModel(this.modelSiap);
+      this.bantuanRumah.tarikh_siap = moment(this.tarikh_siap, "YYYY-MM-DD");
+    }
     this.bantuanRumah.id_mangsa = this.idMangsa;
     this._mangsaRumahServiceProxy
       .createOrEdit(this.bantuanRumah)

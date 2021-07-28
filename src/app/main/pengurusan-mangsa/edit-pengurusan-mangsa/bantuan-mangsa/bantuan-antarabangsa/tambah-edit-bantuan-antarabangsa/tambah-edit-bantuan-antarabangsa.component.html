@@ -102,25 +102,36 @@
 		</div>
 
     <div class="row">
-      <div class="col-lg-6">
-				<div class="form-group">
-					<label>Tarikh Mula Bantuan</label>
-					<input
-						class="form-control"
-						id="tarikhMulaBantuan"
-						type="date"
-						name="antarabangsa.tarikh_bantuan"
-						[(ngModel)]="antarabangsa.tarikh_bantuan"
-						placeholder="Tarikh Bantuan"
+      <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
+        <label class="col-form-label">Tarikh Bantuan</label>
+        <div class="input-group">
+          <input
+            class="form-control"
+            placeholder="yyyy-mm-dd"
+            name="dp"
+            [(ngModel)]="model"
+            ngbDatepicker
+            [footerTemplate]="footerTemplate"
+            #d="ngbDatepicker"
+            style="border: 1px solid #efefef !important;"
 						#tarikhBantuan="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && tarikhBantuan.invalid }"
 						required
-					/>
+          >
+          <div class="input-group-append">
+            <button class="btn btn-light" (click)="d.toggle()" type="button"><i
+              class="fa fa-calendar"></i></button>
+          </div>
 					<div *ngIf="f.submitted && tarikhBantuan.invalid" class="invalid-feedback">
-						<div *ngIf="tarikhBantuan.errors.required">Tarikh Bantuan Wajib Diisi</div>
+						<div *ngIf="tarikhBantuan.errors.required">Tarikh Bantuan Wajib Dipilih</div>
 					</div>
-				</div>
-			</div>
+        </div>
+      </div>
+      <ng-template #footerTemplate>
+        <hr class="my-0">
+        <button class="btn btn-primary btn-sm m-2 float-left" (click)="model = today; d.close()">Hari Ini</button>
+        <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Tutup</button>
+      </ng-template>
 		</div>
 
 		<div class="row">

@@ -18,11 +18,13 @@ export class TambahEditTabungComponent implements OnInit {
 
   createTabung: CreateOrEditTabungDto = new CreateOrEditTabungDto();
 
-
-	modelFooter: NgbDateStruct;
-	today = this.calendar.getToday();
-  tarikhBaki: string;
+	tarikhBaki: string;
   idTabung: any;
+
+  date = new Date();
+  model: NgbDateStruct;
+  today = this.calendar.getToday();
+  readonly DELIMITER = '-';
 
 	constructor(
     private modalService: NgbModal,
@@ -38,8 +40,15 @@ export class TambahEditTabungComponent implements OnInit {
 
 	ngOnInit(): void {}
 
+  toModel(date: NgbDateStruct | null): string | null {
+    return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
+  }
+
   save() {
-    this.createTabung.tarikh_baki = moment(this.tarikhBaki);
+    if(this.model){
+      this.tarikhBaki = this.toModel(this.model);
+      this.createTabung.tarikh_baki = moment(this.tarikhBaki, "YYYY-MM-DD");
+    }
     this.tabungServiceProxy.createOrEdit(this.createTabung).subscribe(()=>{
       Swal.fire('Berjaya', 'Maklumat Tabung Berjaya Ditambah').then(() => {
 				this.activeModal.close(true);
