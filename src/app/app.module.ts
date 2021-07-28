@@ -28,11 +28,21 @@ import { AppRouteGuard } from './shared/guards/app-route-guard';
 import { AppAuthService } from './shared/services/app-auth-service';
 import { API_BASE_URL } from './shared/proxy/service-proxies';
 import { DatePipe } from '@angular/common';
+import * as moment from 'moment';
 
 @Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
     swipe: { direction: Hammer.DIRECTION_ALL },
+  };
+}
+
+export function configureMomentTimezone(){
+  moment.fn.toJSON = function () {
+    return this.locale('en').format();
+  };
+  moment.fn.toISOString = function () {
+      return this.locale('en').format();
   };
 }
 
@@ -45,6 +55,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 export function appInitializerFactory(injector: Injector) {
+  configureMomentTimezone();
 	return (): Promise<boolean> => {
 		return new Promise<boolean>((resolve, reject) => {
 			const appSessionService: AppSessionService = injector.get(AppSessionService);

@@ -3,7 +3,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
-import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { PilihanRujukanKelulusanComponent } from '../pilihan-rujukan-kelulusan/pilihan-rujukan-kelulusan.component';
 import {
   CreateOrEditTabungBayaranSkbDto,
@@ -36,7 +36,6 @@ export class TambahSkbComponent implements OnInit {
   agencies: any;
   no_rujukan_kelulusan: number;
   nama_tabung: string;
-  date = new Date();
   filter: string;
   saving = false;
   tarikhMula: string;
@@ -45,13 +44,20 @@ export class TambahSkbComponent implements OnInit {
   rows = [];
   belanja: number = 0;
 
+  date = new Date();
+  modelMula: NgbDateStruct;
+  modelTamat: NgbDateStruct;
+  today = this.calendar.getToday();
+  readonly DELIMITER = '-';
+
 	constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,
     public activeModal: NgbActiveModal,
     private _tabungBayaranSkbServiceProxy: TabungBayaranSkbServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
-    private router: Router
+    private router: Router,
+    private calendar: NgbCalendar
   ) {
     this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
@@ -61,6 +67,10 @@ export class TambahSkbComponent implements OnInit {
 	ngOnInit(): void {
     this.getAgensi();
     this.getAddSKB();
+  }
+
+  toModel(date: NgbDateStruct | null): string | null {
+    return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
   }
 
   getAgensi(filter?) {
@@ -165,8 +175,14 @@ export class TambahSkbComponent implements OnInit {
     }
 
     this.bayaranSKB.skb = this.skb;
-    this.bayaranSKB.skb.tarikh_mula = moment(this.tarikhMula);
-    this.bayaranSKB.skb.tarikh_tamat = moment(this.tarikhTamat);
+    if(this.modelMula){
+      this.tarikhMula = this.toModel(this.modelMula);
+      this.bayaranSKB.skb.tarikh_mula = moment(this.tarikhMula, "YYYY-MM-DD");
+    }
+    if(this.modelTamat){
+      this.tarikhTamat = this.toModel(this.modelTamat);
+      this.bayaranSKB.skb.tarikh_tamat = moment(this.tarikhTamat, "YYYY-MM-DD");
+    }
     this.bayaranSKB.skb.no_rujukan_skb = null;
     this.bayaranSKB.skb.perihal = null;
     this.bayaranSKB.skbBulanan = this.bulanan;

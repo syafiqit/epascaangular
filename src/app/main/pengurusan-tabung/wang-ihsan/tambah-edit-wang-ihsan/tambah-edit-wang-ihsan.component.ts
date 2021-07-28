@@ -1,6 +1,6 @@
 import { OnInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
@@ -41,7 +41,6 @@ export class TambahEditWangIhsanComponent implements OnInit {
   rows = [];
   saving = false;
   jumlahKir = this.rows.length;
-  date = new Date();
   tarikhEft: string;
   tarikhAkuanKp: string;
   tarikhPenyaluran: string;
@@ -49,9 +48,20 @@ export class TambahEditWangIhsanComponent implements OnInit {
   tarikhMaklum: string;
   tarikhMajlis: string;
 
+  date = new Date();
+  modelEft: NgbDateStruct;
+  modelPerakuan: NgbDateStruct;
+  modelPenyaluran: NgbDateStruct;
+  modelLaporan: NgbDateStruct;
+  modelMakluman: NgbDateStruct;
+  modelMajlis: NgbDateStruct;
+  today = this.calendar.getToday();
+  readonly DELIMITER = '-';
+
 	constructor(
     private router: Router,
     config: NgbModalConfig,
+    private calendar: NgbCalendar,
     private modalService: NgbModal,
     public activeModal: NgbActiveModal,
     private _tabungBwiServiceProxy: TabungBwiServiceProxy
@@ -62,6 +72,10 @@ export class TambahEditWangIhsanComponent implements OnInit {
 	}
 
 	ngOnInit(): void {}
+
+  toModel(date: NgbDateStruct | null): string | null {
+    return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
+  }
 
 	getKir(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
@@ -135,12 +149,30 @@ export class TambahEditWangIhsanComponent implements OnInit {
 
     this.tabungBwi.bwi = this.bwi;
     this.tabungBwi.bwi.jumlah_kir = this.jumlahKir;
-    this.tabungBwi.bwi.tarikh_eft = moment(this.tarikhEft);
-    this.tabungBwi.bwi.tarikh_akuan_kp = moment(this.tarikhAkuanKp);
-    this.tabungBwi.bwi.tarikh_saluran_kpd_bkp = moment(this.tarikhPenyaluran);
-    this.tabungBwi.bwi.tarikh_laporan_kpd_bkp = moment(this.tarikhLaporan);
-    this.tabungBwi.bwi.tarikh_makluman_majlis = moment(this.tarikhMaklum);
-    this.tabungBwi.bwi.tarikh_majlis_makluman_majlis = moment(this.tarikhMajlis);
+    if(this.modelEft){
+      this.tarikhEft = this.toModel(this.modelEft);
+      this.tabungBwi.bwi.tarikh_eft = moment(this.tarikhEft, "YYYY-MM-DD");
+    }
+    if(this.modelPerakuan){
+      this.tarikhAkuanKp = this.toModel(this.modelPerakuan);
+      this.tabungBwi.bwi.tarikh_akuan_kp = moment(this.tarikhAkuanKp, "YYYY-MM-DD");
+    }
+    if(this.modelPenyaluran){
+      this.tarikhPenyaluran = this.toModel(this.modelPenyaluran);
+      this.tabungBwi.bwi.tarikh_saluran_kpd_bkp = moment(this.tarikhPenyaluran, "YYYY-MM-DD");
+    }
+    if(this.modelLaporan){
+      this.tarikhLaporan = this.toModel(this.modelLaporan);
+      this.tabungBwi.bwi.tarikh_laporan_kpd_bkp = moment(this.tarikhLaporan, "YYYY-MM-DD");
+    }
+    if(this.modelMakluman){
+      this.tarikhMaklum = this.toModel(this.modelMakluman);
+      this.tabungBwi.bwi.tarikh_makluman_majlis = moment(this.tarikhMaklum, "YYYY-MM-DD");
+    }
+    if(this.modelMajlis){
+      this.tarikhMajlis = this.toModel(this.modelMajlis);
+      this.tabungBwi.bwi.tarikh_majlis_makluman_majlis = moment(this.tarikhMajlis, "YYYY-MM-DD");
+    }
     this.tabungBwi.bwiKir = this.bwiKir;
     this._tabungBwiServiceProxy
 			.createOrEdit(this.tabungBwi)

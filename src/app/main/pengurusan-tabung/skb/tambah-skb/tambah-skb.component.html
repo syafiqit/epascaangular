@@ -105,47 +105,67 @@
 						</div>
 
 						<div class="row">
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Tarikh Mula</label>
-									<input
+              <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
+                <label class="col-form-label">Tarikh Mula</label>
+                <div class="input-group">
+                  <input
                     class="form-control"
-                    type="date"
-                    name="tarikh_mula"
-                    [(ngModel)]="tarikhMula"
-                    min="{{ date | date: 'yyyy-MM-dd' }}"
+                    placeholder="yyyy-mm-dd"
+                    name="dp"
+                    [(ngModel)]="modelMula"
+                    ngbDatepicker
+                    [footerTemplate]="footerTemplate"
+                    #d="ngbDatepicker"
+                    style="border: 1px solid #efefef !important;"
                     #startDate="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && startDate.invalid }"
                     required
-                    onlyNumbers
-                    onlyAlphabets
-                  />
+                  >
+                  <div class="input-group-append">
+                    <button class="btn btn-light" (click)="d.toggle()" type="button"><i
+                      class="fa fa-calendar"></i></button>
+                  </div>
                   <div *ngIf="f.submitted && startDate.invalid" class="invalid-feedback">
                     <div *ngIf="startDate.errors.required">Tarikh Mula Wajib Dipilih</div>
                   </div>
-								</div>
-							</div>
+                </div>
+              </div>
+              <ng-template #footerTemplate>
+                <hr class="my-0">
+                <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelMula = today; d.close()">Hari Ini</button>
+                <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Tutup</button>
+              </ng-template>
 
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Tarikh Tamat</label>
-									<input
+              <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
+                <label class="col-form-label">Tarikh Tamat</label>
+                <div class="input-group">
+                  <input
                     class="form-control"
-                    type="date"
-                    name="tarikh_tamat"
-                    [(ngModel)]="tarikhTamat"
-                    min="{{ date | date: 'yyyy-MM-dd' }}"
-                    #endDate="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && endDate.invalid }"
+                    placeholder="yyyy-mm-dd"
+                    name="dp2"
+                    [(ngModel)]="modelTamat"
+                    ngbDatepicker
+                    [footerTemplate]="footerTemplate"
+                    #d2="ngbDatepicker"
+                    style="border: 1px solid #efefef !important;"
+                    #startDate="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && startDate.invalid }"
                     required
-                    onlyNumbers
-                    onlyAlphabets
-                  />
-                  <div *ngIf="f.submitted && endDate.invalid" class="invalid-feedback">
-                    <div *ngIf="endDate.errors.required">Tarikh Tamat Wajib Dipilih</div>
+                  >
+                  <div class="input-group-append">
+                    <button class="btn btn-light" (click)="d2.toggle()" type="button"><i
+                      class="fa fa-calendar"></i></button>
                   </div>
-								</div>
-							</div>
+                  <div *ngIf="f.submitted && startDate.invalid" class="invalid-feedback">
+                    <div *ngIf="startDate.errors.required">Tarikh Tamat Wajib Dipilih</div>
+                  </div>
+                </div>
+              </div>
+              <ng-template #footerTemplate>
+                <hr class="my-0">
+                <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelTamat = today; d2.close()">Hari Ini</button>
+                <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d2.close()">Tutup</button>
+              </ng-template>
 						</div>
 						<hr />
 

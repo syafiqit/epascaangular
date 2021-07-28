@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TambahRujukanBencanaComponent } from './tambah-rujukan-bencana/tambah-rujukan-bencana.component';
 import {
   CreateOrEditTabungKelulusanDto, RefBantuanServiceProxy, RefBencanaServiceProxy,
@@ -23,7 +23,6 @@ export class TambahKelulusanComponent implements OnInit {
 	showWeekNumbers = false;
 	outsideDays = 'visible';
   saving = true;
-  date = new Date().toISOString();
   tarikhSurat:string;
   tarikhMula:string;
   tarikhTamat:string;
@@ -32,7 +31,19 @@ export class TambahKelulusanComponent implements OnInit {
   bencana:any;
   bantuan:any;
 
+  date = new Date();
+  modelSurat: NgbDateStruct;
+  modelMula: NgbDateStruct;
+  modelTamat: NgbDateStruct;
+  today = this.calendar.getToday();
+  readonly DELIMITER = '-';
+
   kelulusan: CreateOrEditTabungKelulusanDto = new CreateOrEditTabungKelulusanDto();
+
+  komitmen = [
+    { id: 1, nama_komitmen: "Perolehan Secara Pembelian Terus" },
+    { id: 2, nama_komitmen: "Perolehan Secara Darurat" }
+  ]
 
 	constructor(
 	  config: NgbModalConfig,
@@ -41,7 +52,8 @@ export class TambahKelulusanComponent implements OnInit {
     private _tabungKelulusanServiceProxy: TabungKelulusanServiceProxy,
     private _tabungServiceProxy: TabungServiceProxy,
     private _refBencanaServiceProxy: RefBencanaServiceProxy,
-    private _refBantuanServiceProxy: RefBantuanServiceProxy
+    private _refBantuanServiceProxy: RefBantuanServiceProxy,
+    private calendar: NgbCalendar
   ) {
     this.id = this._activatedRoute.snapshot.queryParams['id'];
 		config.backdrop = 'static';
@@ -53,6 +65,41 @@ export class TambahKelulusanComponent implements OnInit {
     this.getTabung();
     this.getBencana();
     this.getBantuan();
+  }
+
+  fromModel(value: string | null): NgbDateStruct | null {
+    if (value) {
+      let date = value.split(this.DELIMITER);
+      return {
+        year : parseInt(date[0], 10),
+        month : parseInt(date[1], 10),
+        day : parseInt(date[2], 10)
+      };
+    }
+    return null;
+  }
+
+  toModel(date: NgbDateStruct | null): string | null {
+    return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
+  }
+
+  show() {
+    if (!this.id) {
+      this.kelulusan = new CreateOrEditTabungKelulusanDto();
+    } else {
+      this._tabungKelulusanServiceProxy.getTabungKelulusanForEdit(this.id).subscribe((result) => {
+        this.kelulusan = result.tabung_kelulusan;
+        if(result.tabung_kelulusan.tarikh_surat){
+          this.modelSurat = this.fromModel(result.tabung_kelulusan.tarikh_surat.format('YYYY-MM-DD'));
+        }
+        if(result.tabung_kelulusan.tarikh_mula_kelulusan){
+          this.modelMula = this.fromModel(result.tabung_kelulusan.tarikh_mula_kelulusan.format('YYYY-MM-DD'));
+        }
+        if(result.tabung_kelulusan.tarikh_tamat_kelulusan){
+          this.modelTamat = this.fromModel(result.tabung_kelulusan.tarikh_tamat_kelulusan.format('YYYY-MM-DD'));
+        }
+      });
+    }
   }
 
 	approvalAddModal() {
@@ -77,25 +124,20 @@ export class TambahKelulusanComponent implements OnInit {
     });
   }
 
-  show() {
-    if (!this.id) {
-      this.kelulusan = new CreateOrEditTabungKelulusanDto();
-    } else {
-      this._tabungKelulusanServiceProxy.getTabungKelulusanForEdit(this.id).subscribe((result) => {
-        this.kelulusan = result.tabung_kelulusan;
-        this.tarikhSurat = result.tabung_kelulusan.tarikh_surat.format('YYYY-MM-DD');
-        this.tarikhMula = result.tabung_kelulusan.tarikh_mula_kelulusan.format('YYYY-MM-DD');
-        this.tarikhTamat = result.tabung_kelulusan.tarikh_tamat_kelulusan.format('YYYY-MM-DD');
-      });
-    }
-  }
-
   save(): void {
     this.saving = true;
-    this.kelulusan.tarikh_surat = moment(this.tarikhSurat);
-    this.kelulusan.tarikh_mula_kelulusan = moment(this.tarikhMula);
-    this.kelulusan.tarikh_tamat_kelulusan = moment(this.tarikhTamat);
-
+    if(this.modelSurat){
+      this.tarikhSurat = this.toModel(this.modelSurat);
+      this.kelulusan.tarikh_surat = moment(this.tarikhSurat, "YYYY-MM-DD");
+    }
+    if(this.modelMula){
+      this.tarikhMula = this.toModel(this.modelMula);
+      this.kelulusan.tarikh_mula_kelulusan = moment(this.tarikhMula, "YYYY-MM-DD");
+    }
+    if(this.modelTamat){
+      this.tarikhTamat = this.toModel(this.modelTamat);
+      this.kelulusan.tarikh_tamat_kelulusan = moment(this.tarikhTamat, "YYYY-MM-DD");
+    }
     this._tabungKelulusanServiceProxy
       .createOrEdit(this.kelulusan)
       .pipe()

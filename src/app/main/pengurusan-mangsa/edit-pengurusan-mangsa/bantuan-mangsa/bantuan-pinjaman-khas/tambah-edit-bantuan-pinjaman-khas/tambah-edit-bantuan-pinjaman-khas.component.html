@@ -67,25 +67,36 @@
 		</div>
 
 		<div class="row">
-			<div class="col-lg-6">
-				<div class="form-group">
-					<label>Tarikh Mula Pinjaman</label>
-					<input
-						class="form-control"
-						id="tarikhMulaPinjaman"
-						type="date"
-						name="pinjamanKhas.tarikh_mula"
-						[(ngModel)]="pinjamanKhas.tarikh_mula"
-						placeholder="Tarikh Mula Pinjaman"
-						#tarikhmula="ngModel"
-						[ngClass]="{ 'is-invalid': f.submitted && tarikhmula.invalid }"
-						required
-					/>
-					<div *ngIf="f.submitted && tarikhmula.invalid" class="invalid-feedback">
-						<div *ngIf="tarikhmula.errors.required">Tarikh Mula Pinjaman Wajib Diisi</div>
-					</div>
-				</div>
-			</div>
+      <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
+        <label class="col-form-label">Tarikh Mula Pinjaman</label>
+        <div class="input-group">
+          <input
+            class="form-control"
+            placeholder="yyyy-mm-dd"
+            name="dp"
+            [(ngModel)]="model"
+            ngbDatepicker
+            [footerTemplate]="footerTemplate"
+            #d="ngbDatepicker"
+            style="border: 1px solid #efefef !important;"
+            #tarikhPinjam="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && tarikhPinjam.invalid }"
+            required
+          >
+          <div class="input-group-append">
+            <button class="btn btn-light" (click)="d.toggle()" type="button"><i
+              class="fa fa-calendar"></i></button>
+          </div>
+					<div *ngIf="f.submitted && tarikhPinjam.invalid" class="invalid-feedback">
+            <div *ngIf="tarikhPinjam.errors.required">Tarikh Mula Pinjaman Wajib Dipilih</div>
+          </div>
+        </div>
+      </div>
+      <ng-template #footerTemplate>
+        <hr class="my-0">
+        <button class="btn btn-primary btn-sm m-2 float-left" (click)="model = today; d.close()">Hari Ini</button>
+        <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Tutup</button>
+      </ng-template>
 
       <div class="col-lg-6">
         <div class="form-group">

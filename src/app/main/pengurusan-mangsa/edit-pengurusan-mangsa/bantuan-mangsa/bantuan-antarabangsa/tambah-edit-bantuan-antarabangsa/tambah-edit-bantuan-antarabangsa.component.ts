@@ -1,7 +1,13 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
-import { CreateOrEditMangsaAntarabangsaDto, GetMangsaAntarabangsaForEditDto, MangsaAntarabangsaServiceProxy, RefAgensiServiceProxy, RefBencanaServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import {
+  CreateOrEditMangsaAntarabangsaDto,
+  GetMangsaAntarabangsaForEditDto,
+  MangsaAntarabangsaServiceProxy,
+  RefAgensiServiceProxy,
+  RefBencanaServiceProxy
+} from 'src/app/shared/proxy/service-proxies';
 declare let require;
 const Swal = require('sweetalert2');
 
@@ -25,12 +31,18 @@ export class TambahEditBantuanAntarabangsaComponent implements OnInit {
   bencana: any;
   tarikh_bantuan: string;
 
+  date = new Date();
+  model: NgbDateStruct;
+  today = this.calendar.getToday();
+  readonly DELIMITER = '-';
+
   constructor
   (
     public activeModal: NgbActiveModal,
 		private _mangsaAntarabangsaServiceProxy: MangsaAntarabangsaServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
-    private _refBencanaServiceProxy: RefBencanaServiceProxy
+    private _refBencanaServiceProxy: RefBencanaServiceProxy,
+    private calendar: NgbCalendar
   ) {
     this.editAntarabangsa.mangsa_antarabangsa = new CreateOrEditMangsaAntarabangsaDto();
    }
@@ -41,12 +53,31 @@ export class TambahEditBantuanAntarabangsaComponent implements OnInit {
     this.getAgensi();
   }
 
+  fromModel(value: string | null): NgbDateStruct | null {
+    if (value) {
+      let date = value.split(this.DELIMITER);
+      return {
+        year : parseInt(date[0], 10),
+        month : parseInt(date[1], 10),
+        day : parseInt(date[2], 10)
+      };
+    }
+    return null;
+  }
+
+  toModel(date: NgbDateStruct | null): string | null {
+    return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
+  }
+
   show() {
     if (!this.id) {
       this.antarabangsa = new CreateOrEditMangsaAntarabangsaDto();
     } else {
       this._mangsaAntarabangsaServiceProxy.getMangsaAntarabangsaForEdit(this.id).subscribe((result) => {
         this.antarabangsa = result.mangsa_antarabangsa;
+        if(result.mangsa_antarabangsa.tarikh_bantuan){
+          this.model = this.fromModel(result.mangsa_antarabangsa.tarikh_bantuan.format('YYYY-MM-DD'));
+        }
       });
     }
   }
@@ -65,7 +96,10 @@ export class TambahEditBantuanAntarabangsaComponent implements OnInit {
 
   save() {
     this.saving = true;
-    this.antarabangsa.tarikh_bantuan = moment(this.tarikh_bantuan);
+    if(this.model){
+      this.tarikh_bantuan = this.toModel(this.model);
+      this.antarabangsa.tarikh_bantuan = moment(this.tarikh_bantuan, "YYYY-MM-DD");
+    }
     this.antarabangsa.id_mangsa = this.idMangsa;
     this._mangsaAntarabangsaServiceProxy
       .createOrEdit(this.antarabangsa)

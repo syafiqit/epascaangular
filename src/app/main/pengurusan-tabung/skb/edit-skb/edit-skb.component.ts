@@ -3,7 +3,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
-import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { PilihanRujukanKelulusanComponent } from '../pilihan-rujukan-kelulusan/pilihan-rujukan-kelulusan.component';
 import {
   CreateOrEditTabungBayaranSkbDto,
@@ -43,12 +43,17 @@ export class EditSkbComponent implements OnInit {
   agencies: any;
   no_rujukan_kelulusan: string;
   nama_tabung: string;
-  date = new Date();
   filter: string;
   saving = false;
   tarikhMula: string;
   tarikhTamat: string;
   rows = [];
+
+  date = new Date();
+  modelMula: NgbDateStruct;
+  modelTamat: NgbDateStruct;
+  today = this.calendar.getToday();
+  readonly DELIMITER = '-';
 
 	constructor(
     config: NgbModalConfig,
@@ -58,6 +63,7 @@ export class EditSkbComponent implements OnInit {
     private _tabungBayaranSkbServiceProxy: TabungBayaranSkbServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
     private _tabungBayaranSkbBulananServiceProxy: TabungBayaranSkbBulananServiceProxy,
+    private calendar: NgbCalendar,
     private router: Router
   ) {
     this.idSkb = this._activatedRoute.snapshot.queryParams['id'];
@@ -75,14 +81,34 @@ export class EditSkbComponent implements OnInit {
     this.show();
   }
 
+  fromModel(value: string | null): NgbDateStruct | null {
+    if (value) {
+      let date = value.split(this.DELIMITER);
+      return {
+        year : parseInt(date[0], 10),
+        month : parseInt(date[1], 10),
+        day : parseInt(date[2], 10)
+      };
+    }
+    return null;
+  }
+
+  toModel(date: NgbDateStruct | null): string | null {
+    return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
+  }
+
   show() {
     this._tabungBayaranSkbServiceProxy.getTabungBayaranSkbForEdit(this.idSkb).subscribe((result)=>{
       this.edit = result;
       this.edit.tabung_bayaran_skb = result.tabung_bayaran_skb;
       this.no_rujukan_kelulusan = result.rujukan_kelulusan_skb.no_rujukan_kelulusan;
       this.nama_tabung = result.nama_tabung;
-      this.tarikhMula = result.tabung_bayaran_skb.tarikh_mula.format('yyyy-MM-DD');
-      this.tarikhTamat = result.tabung_bayaran_skb.tarikh_tamat.format('yyyy-MM-DD');
+      if(result.tabung_bayaran_skb.tarikh_mula){
+        this.modelMula = this.fromModel(result.tabung_bayaran_skb.tarikh_mula.format('YYYY-MM-DD'));
+      }
+      if(result.tabung_bayaran_skb.tarikh_tamat){
+        this.modelTamat = this.fromModel(result.tabung_bayaran_skb.tarikh_tamat.format('YYYY-MM-DD'));
+      }
     })
   }
 
@@ -180,8 +206,14 @@ export class EditSkbComponent implements OnInit {
 	save() {
     this.saving = true;
     this.bayaranSKB.skb = this.edit.tabung_bayaran_skb;
-    this.bayaranSKB.skb.tarikh_mula = moment(this.tarikhMula);
-    this.bayaranSKB.skb.tarikh_tamat = moment(this.tarikhTamat);
+    if(this.modelMula){
+      this.tarikhMula = this.toModel(this.modelMula);
+      this.bayaranSKB.skb.tarikh_mula = moment(this.tarikhMula, "YYYY-MM-DD");
+    }
+    if(this.modelTamat){
+      this.tarikhTamat = this.toModel(this.modelTamat);
+      this.bayaranSKB.skb.tarikh_tamat = moment(this.tarikhTamat, "YYYY-MM-DD");
+    }
 		this._tabungBayaranSkbServiceProxy
 			.createOrEdit(this.bayaranSKB)
 			.pipe()

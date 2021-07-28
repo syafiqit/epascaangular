@@ -1,6 +1,6 @@
 import { OnInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
@@ -48,7 +48,6 @@ export class EditWangIhsanComponent implements OnInit {
   rows = [];
 
   saving = false;
-  date = new Date();
   tarikhEft: string;
   tarikhAkuanKp: string;
   tarikhPenyaluran: string;
@@ -56,9 +55,20 @@ export class EditWangIhsanComponent implements OnInit {
   tarikhMaklum: string;
   tarikhMajlis: string;
 
+  date = new Date();
+  modelEft: NgbDateStruct;
+  modelPerakuan: NgbDateStruct;
+  modelPenyaluran: NgbDateStruct;
+  modelLaporan: NgbDateStruct;
+  modelMakluman: NgbDateStruct;
+  modelMajlis: NgbDateStruct;
+  today = this.calendar.getToday();
+  readonly DELIMITER = '-';
+
 	constructor(
     private router: Router,
     config: NgbModalConfig,
+    private calendar: NgbCalendar,
     private modalService: NgbModal,
     public activeModal: NgbActiveModal,
     private _activatedRoute: ActivatedRoute,
@@ -79,6 +89,22 @@ export class EditWangIhsanComponent implements OnInit {
     this.show();
   }
 
+  fromModel(value: string | null): NgbDateStruct | null {
+    if (value) {
+      let date = value.split(this.DELIMITER);
+      return {
+        year : parseInt(date[0], 10),
+        month : parseInt(date[1], 10),
+        day : parseInt(date[2], 10)
+      };
+    }
+    return null;
+  }
+
+  toModel(date: NgbDateStruct | null): string | null {
+    return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
+  }
+
   show() {
     this._tabungBwiServiceProxy.getTabungBwiForEdit(this.idBwi).subscribe((result)=>{
       this.edit = result;
@@ -88,12 +114,24 @@ export class EditWangIhsanComponent implements OnInit {
       this.nama_jenis_bencana = result.nama_jenis_bencana;
       this.rujukan_surat = result.rujukan_kelulusan_bwi.rujukan_surat;
       this.perihal_surat = result.rujukan_kelulusan_bwi.perihal_surat;
-      this.tarikhEft = result.tabung_bwi.tarikh_eft.format('YYYY-MM-DD');
-      this.tarikhAkuanKp = result.tabung_bwi.tarikh_akuan_kp.format('YYYY-MM-DD');
-      this.tarikhPenyaluran = result.tabung_bwi.tarikh_saluran_kpd_bkp.format('YYYY-MM-DD');
-      this.tarikhLaporan = result.tabung_bwi.tarikh_laporan_kpd_bkp.format('YYYY-MM-DD');
-      this.tarikhMaklum = result.tabung_bwi.tarikh_makluman_majlis.format('YYYY-MM-DD');
-      this.tarikhMajlis = result.tabung_bwi.tarikh_majlis_makluman_majlis.format('YYYY-MM-DD');
+      if(result.tabung_bwi.tarikh_eft){
+        this.modelEft = this.fromModel(result.tabung_bwi.tarikh_eft.format('YYYY-MM-DD'));
+      }
+      if(result.tabung_bwi.tarikh_akuan_kp){
+        this.modelPerakuan = this.fromModel(result.tabung_bwi.tarikh_akuan_kp.format('YYYY-MM-DD'));
+      }
+      if(result.tabung_bwi.tarikh_saluran_kpd_bkp){
+        this.modelPenyaluran = this.fromModel(result.tabung_bwi.tarikh_saluran_kpd_bkp.format('YYYY-MM-DD'));
+      }
+      if(result.tabung_bwi.tarikh_laporan_kpd_bkp){
+        this.modelLaporan = this.fromModel(result.tabung_bwi.tarikh_laporan_kpd_bkp.format('YYYY-MM-DD'));
+      }
+      if(result.tabung_bwi.tarikh_makluman_majlis){
+        this.modelMakluman = this.fromModel(result.tabung_bwi.tarikh_makluman_majlis.format('YYYY-MM-DD'));
+      }
+      if(result.tabung_bwi.tarikh_majlis_makluman_majlis){
+        this.modelMajlis = this.fromModel(result.tabung_bwi.tarikh_majlis_makluman_majlis.format('YYYY-MM-DD'));
+      }
     })
   }
 
@@ -162,12 +200,30 @@ export class EditWangIhsanComponent implements OnInit {
 	save() {
     this.saving = true;
     this.tabungBwi.bwi = this.edit.tabung_bwi;
-    this.tabungBwi.bwi.tarikh_eft = moment(this.tarikhEft);
-    this.tabungBwi.bwi.tarikh_akuan_kp = moment(this.tarikhAkuanKp);
-    this.tabungBwi.bwi.tarikh_saluran_kpd_bkp = moment(this.tarikhPenyaluran);
-    this.tabungBwi.bwi.tarikh_laporan_kpd_bkp = moment(this.tarikhLaporan);
-    this.tabungBwi.bwi.tarikh_makluman_majlis = moment(this.tarikhMaklum);
-    this.tabungBwi.bwi.tarikh_majlis_makluman_majlis = moment(this.tarikhMajlis);
+    if(this.modelEft){
+      this.tarikhEft = this.toModel(this.modelEft);
+      this.tabungBwi.bwi.tarikh_eft = moment(this.tarikhEft, "YYYY-MM-DD");
+    }
+    if(this.modelPerakuan){
+      this.tarikhAkuanKp = this.toModel(this.modelPerakuan);
+      this.tabungBwi.bwi.tarikh_akuan_kp = moment(this.tarikhAkuanKp, "YYYY-MM-DD");
+    }
+    if(this.modelPenyaluran){
+      this.tarikhPenyaluran = this.toModel(this.modelPenyaluran);
+      this.tabungBwi.bwi.tarikh_saluran_kpd_bkp = moment(this.tarikhPenyaluran, "YYYY-MM-DD");
+    }
+    if(this.modelLaporan){
+      this.tarikhLaporan = this.toModel(this.modelLaporan);
+      this.tabungBwi.bwi.tarikh_laporan_kpd_bkp = moment(this.tarikhLaporan, "YYYY-MM-DD");
+    }
+    if(this.modelMakluman){
+      this.tarikhMaklum = this.toModel(this.modelMakluman);
+      this.tabungBwi.bwi.tarikh_makluman_majlis = moment(this.tarikhMaklum, "YYYY-MM-DD");
+    }
+    if(this.modelMajlis){
+      this.tarikhMajlis = this.toModel(this.modelMajlis);
+      this.tabungBwi.bwi.tarikh_majlis_makluman_majlis = moment(this.tarikhMajlis, "YYYY-MM-DD");
+    }
     this._tabungBwiServiceProxy
 			.createOrEdit(this.tabungBwi)
 			.pipe()

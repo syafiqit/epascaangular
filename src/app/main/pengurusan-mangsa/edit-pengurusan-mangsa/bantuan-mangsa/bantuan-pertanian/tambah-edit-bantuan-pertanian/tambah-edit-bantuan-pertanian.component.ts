@@ -1,7 +1,14 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
-import { CreateOrEditMangsaPertanianDto, GetMangsaPertanianForEditDto, MangsaPertanianServiceProxy, RefAgensiServiceProxy, RefBencanaServiceProxy, RefJenisPertanianServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import {
+  CreateOrEditMangsaPertanianDto,
+  GetMangsaPertanianForEditDto,
+  MangsaPertanianServiceProxy,
+  RefAgensiServiceProxy,
+  RefBencanaServiceProxy,
+  RefJenisPertanianServiceProxy
+} from 'src/app/shared/proxy/service-proxies';
 declare let require;
 const Swal = require('sweetalert2');
 
@@ -26,12 +33,18 @@ export class TambahEditBantuanPertanianComponent implements OnInit {
   jenisPertanian: any;
   tarikh_bantuan: string;
 
+  date = new Date();
+  model: NgbDateStruct;
+  today = this.calendar.getToday();
+  readonly DELIMITER = '-';
+
   constructor(
     public activeModal: NgbActiveModal,
 		private _mangsaPertanianServiceProxy: MangsaPertanianServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
     private _refBencanaServiceProxy: RefBencanaServiceProxy,
-    private _refJenisPertanianServiceProxy: RefJenisPertanianServiceProxy
+    private _refJenisPertanianServiceProxy: RefJenisPertanianServiceProxy,
+    private calendar: NgbCalendar
     ) {
       this.editBantuanPertanian.mangsa_pertanian = new CreateOrEditMangsaPertanianDto();
     }
@@ -43,12 +56,31 @@ export class TambahEditBantuanPertanianComponent implements OnInit {
     this.getJenisPertanian();
   }
 
+  fromModel(value: string | null): NgbDateStruct | null {
+    if (value) {
+      let date = value.split(this.DELIMITER);
+      return {
+        year : parseInt(date[0], 10),
+        month : parseInt(date[1], 10),
+        day : parseInt(date[2], 10)
+      };
+    }
+    return null;
+  }
+
+  toModel(date: NgbDateStruct | null): string | null {
+    return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
+  }
+
   show() {
     if (!this.id) {
       this.bantuanPertanian = new CreateOrEditMangsaPertanianDto();
     } else {
       this._mangsaPertanianServiceProxy.getMangsaPertanianForEdit(this.id).subscribe((result) => {
         this.bantuanPertanian = result.mangsa_pertanian;
+        if(result.mangsa_pertanian.tarikh_bantuan){
+          this.model = this.fromModel(result.mangsa_pertanian.tarikh_bantuan.format('YYYY-MM-DD'));
+        }
       });
     }
   }
@@ -73,7 +105,10 @@ export class TambahEditBantuanPertanianComponent implements OnInit {
 
   save() {
     this.saving = true;
-    this.bantuanPertanian.tarikh_bantuan = moment(this.tarikh_bantuan);
+    if(this.model){
+      this.tarikh_bantuan = this.toModel(this.model);
+      this.bantuanPertanian.tarikh_bantuan = moment(this.tarikh_bantuan, "YYYY-MM-DD");
+    }
     this.bantuanPertanian.id_mangsa = this.idMangsa;
     this._mangsaPertanianServiceProxy
       .createOrEdit(this.bantuanPertanian)

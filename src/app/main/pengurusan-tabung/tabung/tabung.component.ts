@@ -22,6 +22,12 @@ export class TabungComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
   filterText: string;
   terms$ = new Subject<string>();
+  monthCard: string;
+
+  jumlahKeseluruhan: any;
+  jumlahPeruntukan: any;
+  jumlahBakiSemasa: any;
+  jumlahBakiBawaan: any;
 
 	report = [
 		{ title: 'Jumlah Keseluruhan Semasa (RM)', total_kos: '491,081,927.21' },
@@ -34,6 +40,20 @@ export class TabungComponent implements OnInit {
     private modalService: NgbModal,
     private tabungServiceProxy: TabungServiceProxy
     ) {
+    this.tabungServiceProxy.getTotalTabungCard(this.monthCard).subscribe((result) => {
+      this.jumlahKeseluruhan = result.items.map((data) => {
+        return data.total_keseluruhan_semasa;
+      });
+      this.jumlahPeruntukan = result.items.map((data) => {
+        return data.total_peruntukan;
+      });
+      this.jumlahBakiSemasa = result.items.map((data) => {
+        return data.total_baki_semasa;
+      });
+      this.jumlahBakiBawaan = result.items.map((data) => {
+        return data.total_baki_bawaan;
+      });
+    })
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;

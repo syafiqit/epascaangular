@@ -7,7 +7,7 @@
 <div class="content d-flex flex-column flex-column-fluid">
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-lg-4" *ngFor="let report of report">
+			<div class="col-lg-4">
 				<div class="card bg-primary shadow-sm shadow-showcase">
 					<div class="card-body">
 						<div class="media static-top-widget">
@@ -15,26 +15,59 @@
 								<i
 									class="icon-bg"
 									data-feather="dollar-sign"
-									*ngIf="report.title === 'Jumlah Keseluruhan Semasa (RM)'"
-								></i>
-								<i
-									class="icon-bg"
-									data-feather="credit-card"
-									*ngIf="report.title === 'Jumlah Bayaran Semasa (RM)'"
-								></i>
-								<i
-									class="icon-bg"
-									data-feather="inbox"
-									*ngIf="report.title === 'Jumlah Tanggung Semasa (RM)'"
 								></i>
 							</div>
 						</div>
 						<div class="row justify-content-center">
-							<label>{{report.title}}</label>
+							<label>Jumlah Keseluruhan Semasa (RM)</label>
 						</div>
 
 						<div class="row justify-content-center">
-							<h4>RM{{report.total_kos}}</h4>
+							<h4>RM{{jumlahKeseluruhan}}</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-4">
+				<div class="card bg-primary shadow-sm shadow-showcase">
+					<div class="card-body">
+						<div class="media static-top-widget">
+							<div class="media-body">
+								<i
+									class="icon-bg"
+									data-feather="credit-card"
+								></i>
+							</div>
+						</div>
+						<div class="row justify-content-center">
+							<label>Jumlah Bayaran Semasa (RM)</label>
+						</div>
+
+						<div class="row justify-content-center">
+							<h4>RM{{jumlahPeruntukan}}</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-4">
+				<div class="card bg-primary shadow-sm shadow-showcase">
+					<div class="card-body">
+						<div class="media static-top-widget">
+							<div class="media-body">
+								<i
+									class="icon-bg"
+									data-feather="inbox"
+								></i>
+							</div>
+						</div>
+						<div class="row justify-content-center">
+							<label>Jumlah Tanggung Semasa (RM)</label>
+						</div>
+
+						<div class="row justify-content-center">
+							<h4>RM{{jumlahBakiSemasa}}</h4>
 						</div>
 					</div>
 				</div>

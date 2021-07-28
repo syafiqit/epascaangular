@@ -269,28 +269,38 @@
                 <hr />
 
                 <div class="row">
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <label>Tarikh EFT/Pengeluaran</label>
+                  <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
+                    <label class="col-form-label">Tarikh EFT/Pengeluaran</label>
+                    <div class="input-group">
                       <input
                         class="form-control"
-                        name="year"
-                        type="date"
-                        [(ngModel)]="tarikhEft"
-                        min="{{ date | date: 'yyyy-MM-dd' }}"
+                        placeholder="yyyy-mm-dd"
+                        name="dp"
+                        [(ngModel)]="modelEft"
+                        ngbDatepicker
+                        [footerTemplate]="footerTemplate"
+                        #d="ngbDatepicker"
+                        style="border: 1px solid #efefef !important;"
                         #eftDate="ngModel"
                         [ngClass]="{ 'is-invalid': f.submitted && eftDate.invalid }"
                         required
-                        onlyNumbers
-                        onlyAlphabets
-                      />
+                      >
+                      <div class="input-group-append">
+                        <button class="btn btn-light" (click)="d.toggle()" type="button"><i
+                          class="fa fa-calendar"></i></button>
+                      </div>
                       <div *ngIf="f.submitted && eftDate.invalid" class="invalid-feedback">
                         <div *ngIf="eftDate.errors.required">Tarikh Eft/Pengeluaran Wajib Dipilih</div>
                       </div>
                     </div>
                   </div>
+                  <ng-template #footerTemplate>
+                    <hr class="my-0">
+                    <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelEft = today; d.close()">Hari Ini</button>
+                    <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Tutup</button>
+                  </ng-template>
 
-                  <div class="col-lg-6">
+                  <div class="col-lg-6 mt-2">
                     <div class="form-group">
                       <label>Catatan</label>
                       <textarea
@@ -318,7 +328,7 @@
 
                 <h6>Memo Perakuan KP</h6>
                 <div class="row">
-                  <div class="col-lg-6">
+                  <div class="col-lg-6 mt-2">
                     <div class="form-group">
                       <label>No. Rujukan</label>
                       <input
@@ -337,32 +347,42 @@
                     </div>
                   </div>
 
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <label>Tarikh Perakuan</label>
+                  <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
+                    <label class="col-form-label">Tarikh Perakuan</label>
+                    <div class="input-group">
                       <input
                         class="form-control"
-                        type="date"
-                        name="tarikh_perakuan"
-                        [(ngModel)]="tarikhAkuanKp"
-                        min="{{ date | date: 'yyyy-MM-dd' }}"
+                        placeholder="yyyy-mm-dd"
+                        name="dp1"
+                        [(ngModel)]="modelPerakuan"
+                        ngbDatepicker
+                        [footerTemplate]="footerTemplate"
+                        #d1="ngbDatepicker"
+                        style="border: 1px solid #efefef !important;"
                         #akuanKpDate="ngModel"
                         [ngClass]="{ 'is-invalid': a.submitted && akuanKpDate.invalid }"
                         required
-                        onlyNumbers
-                        onlyAlphabets
-                      />
+                      >
+                      <div class="input-group-append">
+                        <button class="btn btn-light" (click)="d1.toggle()" type="button"><i
+                          class="fa fa-calendar"></i></button>
+                      </div>
                       <div *ngIf="a.submitted && akuanKpDate.invalid" class="invalid-feedback">
                         <div *ngIf="akuanKpDate.errors.required">Tarikh Perakuan Wajib Dipilih</div>
                       </div>
                     </div>
                   </div>
+                  <ng-template #footerTemplate>
+                    <hr class="my-0">
+                    <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelPerakuan = today; d1.close()">Hari Ini</button>
+                    <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d1.close()">Tutup</button>
+                  </ng-template>
                 </div>
                 <hr />
 
                 <h6>Memo Penyaluran KPD BKP</h6>
                 <div class="row">
-                  <div class="col-lg-6">
+                  <div class="col-lg-6 mt-2">
                     <div class="form-group">
                       <label>No. Rujukan</label>
                       <input
@@ -381,32 +401,42 @@
                     </div>
                   </div>
 
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <label>Tarikh Penyaluran</label>
+                  <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
+                    <label class="col-form-label">Tarikh Penyaluran</label>
+                    <div class="input-group">
                       <input
                         class="form-control"
-                        type="date"
-                        name="tarikh_penyaluran"
-                        [(ngModel)]="tarikhPenyaluran"
-                        min="{{ date | date: 'yyyy-MM-dd' }}"
+                        placeholder="yyyy-mm-dd"
+                        name="dp2"
+                        [(ngModel)]="modelPenyaluran"
+                        ngbDatepicker
+                        [footerTemplate]="footerTemplate"
+                        #d2="ngbDatepicker"
+                        style="border: 1px solid #efefef !important;"
                         #saluranDate="ngModel"
                         [ngClass]="{ 'is-invalid': a.submitted && saluranDate.invalid }"
                         required
-                        onlyNumbers
-                        onlyAlphabets
-                      />
+                      >
+                      <div class="input-group-append">
+                        <button class="btn btn-light" (click)="d2.toggle()" type="button"><i
+                          class="fa fa-calendar"></i></button>
+                      </div>
                       <div *ngIf="a.submitted && saluranDate.invalid" class="invalid-feedback">
                         <div *ngIf="saluranDate.errors.required">Tarikh Penyaluran Wajib Dipilih</div>
                       </div>
                     </div>
                   </div>
+                  <ng-template #footerTemplate>
+                    <hr class="my-0">
+                    <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelPenyaluran = today; d2.close()">Hari Ini</button>
+                    <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d2.close()">Tutup</button>
+                  </ng-template>
                 </div>
                 <hr />
 
                 <h6>Memo Laporan KPD BKP</h6>
                 <div class="row">
-                  <div class="col-lg-6">
+                  <div class="col-lg-6 mt-2">
                     <div class="form-group">
                       <label>No. Rujukan</label>
                       <input
@@ -425,26 +455,36 @@
                     </div>
                   </div>
 
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <label>Tarikh Laporan</label>
+                  <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
+                    <label class="col-form-label">Tarikh Laporan</label>
+                    <div class="input-group">
                       <input
                         class="form-control"
-                        type="date"
-                        name="tarikh_laporan"
-                        [(ngModel)]="tarikhLaporan"
-                        min="{{ date | date: 'yyyy-MM-dd' }}"
+                        placeholder="yyyy-mm-dd"
+                        name="dp3"
+                        [(ngModel)]="modelLaporan"
+                        ngbDatepicker
+                        [footerTemplate]="footerTemplate"
+                        #d3="ngbDatepicker"
+                        style="border: 1px solid #efefef !important;"
                         #laporanDate="ngModel"
                         [ngClass]="{ 'is-invalid': a.submitted && laporanDate.invalid }"
                         required
-                        onlyNumbers
-                        onlyAlphabets
-                      />
+                      >
+                      <div class="input-group-append">
+                        <button class="btn btn-light" (click)="d3.toggle()" type="button"><i
+                          class="fa fa-calendar"></i></button>
+                      </div>
                       <div *ngIf="a.submitted && laporanDate.invalid" class="invalid-feedback">
                         <div *ngIf="laporanDate.errors.required">Tarikh Laporan Wajib Dipilih</div>
                       </div>
                     </div>
                   </div>
+                  <ng-template #footerTemplate>
+                    <hr class="my-0">
+                    <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelLaporan = today; d3.close()">Hari Ini</button>
+                    <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d3.close()">Tutup</button>
+                  </ng-template>
                 </div>
 
                 <button class="btn btn-primary pull-right" type="submit" awNextStep
@@ -461,7 +501,7 @@
 
                 <h6>Surat Makluman Tarikh Majlis</h6>
                 <div class="row">
-                  <div class="col-lg-6">
+                  <div class="col-lg-6 mt-2">
                     <div class="form-group">
                       <label>No. Rujukan</label>
                       <input
@@ -480,49 +520,69 @@
                     </div>
                   </div>
 
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <label>Tarikh Makluman Majlis</label>
+                  <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
+                    <label class="col-form-label">Tarikh Makluman Majlis</label>
+                    <div class="input-group">
                       <input
                         class="form-control"
-                        type="date"
-                        name="tarikh_maklum_majlis"
-                        [(ngModel)]="tarikhMaklum"
-                        min="{{ date | date: 'yyyy-MM-dd' }}"
+                        placeholder="yyyy-mm-dd"
+                        name="dp4"
+                        [(ngModel)]="modelMakluman"
+                        ngbDatepicker
+                        [footerTemplate]="footerTemplate"
+                        #d4="ngbDatepicker"
+                        style="border: 1px solid #efefef !important;"
                         #maklumDate="ngModel"
                         [ngClass]="{ 'is-invalid': k.submitted && maklumDate.invalid }"
                         required
-                        onlyNumbers
-                        onlyAlphabets
-                      />
+                      >
+                      <div class="input-group-append">
+                        <button class="btn btn-light" (click)="d4.toggle()" type="button"><i
+                          class="fa fa-calendar"></i></button>
+                      </div>
                       <div *ngIf="k.submitted && maklumDate.invalid" class="invalid-feedback">
                         <div *ngIf="maklumDate.errors.required">Tarikh Makluman Majlis Wajib Dipilih</div>
                       </div>
                     </div>
                   </div>
+                  <ng-template #footerTemplate>
+                    <hr class="my-0">
+                    <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelMakluman = today; d4.close()">Hari Ini</button>
+                    <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d4.close()">Tutup</button>
+                  </ng-template>
                 </div>
 
                 <div class="row">
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <label>Tarikh Majlis</label>
+                  <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
+                    <label class="col-form-label">Tarikh Majlis</label>
+                    <div class="input-group">
                       <input
                         class="form-control"
-                        type="date"
-                        name="tarikh_majlis"
-                        [(ngModel)]="tarikhMajlis"
-                        min="{{ date | date: 'yyyy-MM-dd' }}"
+                        placeholder="yyyy-mm-dd"
+                        name="dp5"
+                        [(ngModel)]="modelMajlis"
+                        ngbDatepicker
+                        [footerTemplate]="footerTemplate"
+                        #d5="ngbDatepicker"
+                        style="border: 1px solid #efefef !important;"
                         #majlisDate="ngModel"
                         [ngClass]="{ 'is-invalid': k.submitted && majlisDate.invalid }"
                         required
-                        onlyNumbers
-                        onlyAlphabets
-                      />
+                      >
+                      <div class="input-group-append">
+                        <button class="btn btn-light" (click)="d5.toggle()" type="button"><i
+                          class="fa fa-calendar"></i></button>
+                      </div>
                       <div *ngIf="k.submitted && majlisDate.invalid" class="invalid-feedback">
                         <div *ngIf="majlisDate.errors.required">Tarikh Majlis Wajib Dipilih</div>
                       </div>
                     </div>
                   </div>
+                  <ng-template #footerTemplate>
+                    <hr class="my-0">
+                    <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelMajlis = today; d5.close()">Hari Ini</button>
+                    <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d5.close()">Tutup</button>
+                  </ng-template>
                 </div>
 
                 <button class="btn btn-primary pull-right" type="submit"
