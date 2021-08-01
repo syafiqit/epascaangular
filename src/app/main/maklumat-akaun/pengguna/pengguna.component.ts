@@ -76,6 +76,16 @@ export class PenggunaComponent implements OnInit {
       return;
     }
 
+    if (event.target.files[0].type != "image/png" && event.target.files[0].type != "image/jpg" && event.target.files[0].type != "image/jpeg") {
+      Swal.fire({
+        title: 'Format tidak sesuai!',
+        icon: 'error',
+        text: 'Format JPG, JPEG dan PNG sahaja diterima',
+        showCloseButton: true
+      });
+      return;
+    }
+
     this.profilImageChangedEvent = event;
       if (event && !event?.target) {
         this.profilImageTempName = this.getFileName(event);

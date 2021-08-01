@@ -7,7 +7,7 @@
             <div class="product-img image-center">
               <img class="img-fluid" [src]="getMangsa.mangsa.gambar" alt="profile-image" />
               <div class="product-hover">
-                <ngx-dropzone (change)="onSelect($event)">
+                <ngx-dropzone (change)="onSelect($event)" accept="image/jpeg,image/jpg,image/png">
                   <ngx-dropzone-label>Kemaskini Gambar</ngx-dropzone-label>
                 </ngx-dropzone>
               </div>
@@ -23,7 +23,7 @@
             <div class="product-img image-center">
               <img class="img-fluid" src="/assets/images/other-images/default-image.jpg" alt="profile-image" />
               <div class="product-hover">
-                <ngx-dropzone (change)="onSelect($event)">
+                <ngx-dropzone (change)="onSelect($event)" accept="image/jpeg,image/jpg,image/png">
                   <ngx-dropzone-label>Kemaskini Gambar</ngx-dropzone-label>
                 </ngx-dropzone>
               </div>
@@ -60,14 +60,14 @@
 
         <div class="col-lg-6">
           <div class="form-group">
-            <label>No Kad Pengenalan*</label>
+            <label>No. Kad Pengenalan*</label>
             <input
               class="form-control"
               id="noKP"
               type="text"
               name="no_kp"
               [(ngModel)]="getMangsa.mangsa.no_kp"
-              placeholder="No Kad Pengenalan"
+              placeholder="No. Kad Pengenalan"
               #noKp="ngModel"
               [class.is-invalid]="((noKp.touched || noKp.dirty) && noKp.errors?.stateCodeInvalid && noKp.errors?.valueInvalid) || f.submitted && noKp.invalid"
               maxlength="12"
@@ -76,7 +76,7 @@
               required
             />
             <div *ngIf="f.submitted && noKp.invalid" class="invalid-feedback">
-              <div *ngIf="noKp.errors.required">No Kad Pengenalan Wajib Diisi</div>
+              <div *ngIf="noKp.errors.required">No. Kad Pengenalan Wajib Diisi</div>
             </div>
             <div class="mt-1" *ngIf="(noKp.touched || noKp.dirty) && noKp.errors?.valueInvalid" style="color: #dc3545; font-size: 80%; size: 80%;">
               No. Kad Pengenalan Kurang Daripada 12
@@ -113,17 +113,16 @@
         <div class="col-lg-6">
           <div class="form-group">
             <label>Parlimen*</label>
-            <select
-              class="form-control"
+            <ng-select
+              [items]="parliaments"
+              bindLabel="nama_parlimen"
+              bindValue="id"
+              placeholder="Sila Pilih"
+              class="js-example-placeholder-multiple"
               name="id_parlimen"
               [(ngModel)]="getMangsa.mangsa.id_parlimen"
               disabled
-            >
-              <option [ngValue]="undefined" disabled>Sila Pilih</option>
-              <option *ngFor="let parliament of parliaments" value="{{parliament.id}}">
-                {{parliament.nama_parlimen}}
-              </option>
-            </select>
+            ></ng-select>
           </div>
         </div>
       </div>
@@ -216,30 +215,29 @@
     <div class="col-lg-6">
       <div class="form-group">
         <label>Negeri*</label>
-        <select
-          class="form-control"
+        <ng-select
+          [items]="states"
+          bindLabel="nama_negeri"
+          bindValue="id"
+          placeholder="Sila Pilih"
+          class="js-example-placeholder-multiple"
           name="id_negeri"
           [(ngModel)]="getMangsa.mangsa.id_negeri"
           disabled
-        >
-          <option [ngValue]="undefined" disabled>Sila Pilih</option>
-          <option *ngFor="let state of states" value="{{state.id}}">
-            {{state.nama_negeri}}
-          </option>
-        </select>
+        ></ng-select>
       </div>
     </div>
 
     <div class="col-lg-6">
       <div class="form-group">
-        <label>No Telefon*</label>
+        <label>No. Telefon*</label>
         <input
           class="form-control"
           id="noTel"
           type="text"
           name="telefon"
           [(ngModel)]="getMangsa.mangsa.telefon"
-          placeholder="No Telefon"
+          placeholder="No. Telefon"
           #noTel="ngModel"
           [ngClass]="{ 'is-invalid': f.submitted && noTel.invalid }"
           oninput="this.value=this.value.replace(/\D+/g, '');"
@@ -248,7 +246,7 @@
           required
         />
         <div *ngIf="f.submitted && noTel.invalid" class="invalid-feedback">
-          <div *ngIf="noTel.errors.required">No Telefon Wajib Diisi</div>
+          <div *ngIf="noTel.errors.required">No. Telefon Wajib Diisi</div>
         </div>
       </div>
     </div>
