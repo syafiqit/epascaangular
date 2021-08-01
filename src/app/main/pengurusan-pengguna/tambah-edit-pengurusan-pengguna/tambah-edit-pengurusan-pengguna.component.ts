@@ -162,6 +162,13 @@ export class TambahEditPengurusanPenggunaComponent implements AfterViewInit {
 		this.edit.pengguna.id_negeri = this.daerah.id_negeri;
   }
 
+  reset() {
+    this.edit = new GetUserForEditDto();
+    this.edit.pengguna = new EditUserDto();
+    this.agensi = undefined;
+    this.daerah = undefined;
+  }
+
   save() {
 		this.saving = true;
     this.daftar.pengguna = this.edit.pengguna;

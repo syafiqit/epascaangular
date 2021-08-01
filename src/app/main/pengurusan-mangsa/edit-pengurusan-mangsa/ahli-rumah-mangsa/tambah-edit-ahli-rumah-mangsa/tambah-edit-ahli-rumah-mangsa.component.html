@@ -31,20 +31,20 @@
 
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label>No Kad Pengenalan</label>
+					<label>No. Kad Pengenalan</label>
 					<input
 						class="form-control"
             id="noKP"
 						type="text"
 						name="no_kp"
 						[(ngModel)]="addAhli.no_kp"
-						placeholder="No Kad Pengenalan"
+						placeholder="No. Kad Pengenalan"
 						#kadPengenalan="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && kadPengenalan.invalid }"
 						required
 					/>
 					<div *ngIf="f.submitted && kadPengenalan.invalid" class="invalid-feedback">
-						<div *ngIf="kadPengenalan.errors.required">No Kad Pengenalan Wajib Diisi</div>
+						<div *ngIf="kadPengenalan.errors.required">No. Kad Pengenalan Wajib Diisi</div>
 					</div>
 				</div>
 			</div>

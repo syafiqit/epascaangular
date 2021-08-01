@@ -34,23 +34,29 @@
 
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>No Kad Pengenalan*</label>
+									<label>No. Kad Pengenalan*</label>
 									<input
 										class="form-control"
                     id="noKP"
 										type="text"
                     name="no_kp"
                     [(ngModel)]="addMangsa.mangsa.no_kp"
-										placeholder="No Kad Pengenalan"
-                    #noKP="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && noKP.invalid }"
-                    oninput="this.value=this.value.replace(/\D+/g, '');"
-                    minlength="12"
+										placeholder="No. Kad Pengenalan"
+                    #noKp="ngModel"
+                    [class.is-invalid]="((noKp.touched || noKp.dirty) && noKp.errors?.stateCodeInvalid && noKp.errors?.valueInvalid) || f.submitted && noKp.invalid"
                     maxlength="12"
+                    onlyNumbers
+                    kpValidator
                     required
                   />
-                  <div *ngIf="f.submitted && noKP.invalid" class="invalid-feedback">
-                    <div *ngIf="noKP.errors.required">No Kad Pengenalan Wajib Diisi</div>
+                  <div *ngIf="f.submitted && noKp.invalid" class="invalid-feedback">
+                    <div *ngIf="noKp.errors.required">No. Kad Pengenalan Wajib Diisi</div>
+                  </div>
+                  <div class="mt-1" *ngIf="(noKp.touched || noKp.dirty) && noKp.errors?.valueInvalid" style="color: #dc3545; font-size: 80%; size: 80%;">
+                    No. Kad Pengenalan Kurang Daripada 12
+                  </div>
+                  <div class="mt-1" *ngIf="(noKp.touched || noKp.dirty) && noKp.errors?.stateCodeInvalid" style="color: #dc3545; font-size: 80%; size: 80%;">
+                    Kod Negeri Tidak Sah
                   </div>
 								</div>
 							</div>
@@ -81,17 +87,16 @@
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Parlimen*</label>
-									<select
-                    class="form-control"
+                  <ng-select
+                    [items]="parliaments"
+                    bindLabel="nama_parlimen"
+                    bindValue="id"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
                     name="id_parlimen"
                     [(ngModel)]="addMangsa.mangsa.id_parlimen"
                     disabled
-                  >
-                    <option [ngValue]="undefined" disabled>Sila Pilih</option>
-                    <option *ngFor="let parliament of parliaments" value="{{parliament.id}}">
-                      {{parliament.nama_parlimen}}
-                    </option>
-                  </select>
+                  ></ng-select>
 								</div>
 							</div>
 						</div>
@@ -182,30 +187,29 @@
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Negeri*</label>
-									<select
-                    class="form-control"
+                  <ng-select
+                    [items]="states"
+                    bindLabel="nama_negeri"
+                    bindValue="id"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
                     name="id_negeri"
                     [(ngModel)]="addMangsa.mangsa.id_negeri"
                     disabled
-                  >
-                    <option [ngValue]="undefined" disabled>Sila Pilih</option>
-                    <option *ngFor="let state of states" value="{{state.id}}">
-                      {{state.nama_negeri}}
-                    </option>
-                  </select>
+                  ></ng-select>
 								</div>
 							</div>
 
               <div class="col-lg-6">
 								<div class="form-group">
-									<label>No Telefon*</label>
+									<label>No. Telefon*</label>
 									<input
 										class="form-control"
                     id="noTel"
 										type="text"
                     name="telefon"
                     [(ngModel)]="addMangsa.mangsa.telefon"
-										placeholder="No Telefon"
+										placeholder="No. Telefon"
                     #noTel="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && noTel.invalid }"
                     oninput="this.value=this.value.replace(/\D+/g, '');"
@@ -214,7 +218,7 @@
                     required
                   />
                   <div *ngIf="f.submitted && noTel.invalid" class="invalid-feedback">
-                    <div *ngIf="noTel.errors.required">No Telefon Wajib Diisi</div>
+                    <div *ngIf="noTel.errors.required">No. Telefon Wajib Diisi</div>
                   </div>
 								</div>
 							</div>
@@ -269,19 +273,18 @@
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Nama Bencana*</label>
-									<select
-                    class="form-control"
+									<ng-select
+                    [items]="disasters"
+                    bindLabel="nama_bencana"
+                    bindValue="id"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
                     name="id_bencana"
                     [(ngModel)]="addMangsa.bencana.id_bencana"
                     #disaster="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && disaster.invalid }"
                     required
-                  >
-                    <option [ngValue]="undefined" disabled>Sila Pilih</option>
-                    <option *ngFor="let disaster of disasters" value="{{disaster.id}}">
-                      {{disaster.nama_bencana}}
-                    </option>
-                  </select>
+                  ></ng-select>
                   <div *ngIf="f.submitted && disaster.invalid" class="invalid-feedback">
                     <div *ngIf="disaster.errors.required">Nama Bencana Wajib Dipilih</div>
                   </div>
@@ -291,19 +294,18 @@
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Status Berpindah*</label>
-									<select
-                    class="form-control"
+									<ng-select
+                    [items]="evacuates"
+                    bindLabel="pindah"
+                    bindValue="id"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
                     name="id_pindah"
                     [(ngModel)]="addMangsa.bencana.id_pindah"
                     #pindah="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && pindah.invalid }"
                     required
-                  >
-                    <option [ngValue]="undefined" disabled>Sila Pilih</option>
-                    <option *ngFor="let evacuate of evacuates" value="{{evacuate.id}}">
-                      {{evacuate.pindah}}
-                    </option>
-                  </select>
+                  ></ng-select>
                   <div *ngIf="f.submitted && pindah.invalid" class="invalid-feedback">
                     <div *ngIf="pindah.errors.required">Status Berpindah Wajib Dipilih</div>
                   </div>

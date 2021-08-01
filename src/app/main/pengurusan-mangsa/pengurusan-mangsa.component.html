@@ -127,20 +127,20 @@
 								<ng-template pTemplate="header">
 									<tr>
 										<th style="width: 130px">Tindakan</th>
-										<th style="width: 130px" pSortableColumn="no_kp">
-											No. Kad Pengenalan
+										<th style="width: 159px" pSortableColumn="no_kp">
+											Kad Pengenalan
 											<p-sortIcon field="no_kp"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="nama">
+										<th style="width: 150px" pSortableColumn="nama">
 											Nama KIR
 											<p-sortIcon field="nama"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="isi_rumah">
+										<th style="width: 100px" pSortableColumn="isi_rumah">
 											Bil. AIR
 											<p-sortIcon field="isi_rumah"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="jumlah_bantuan">
-											Jumlah Bantuan(RM)
+										<th style="width: 158px" pSortableColumn="jumlah_bantuan">
+											Jumlah Bantuan
 											<p-sortIcon field="jumlah_bantuan"></p-sortIcon>
 										</th>
 										<th style="width: 130px" pSortableColumn="nama_negeri">
@@ -151,7 +151,7 @@
 											Sumber
 											<p-sortIcon field="nama_agensi"></p-sortIcon>
 										</th>
-										<th style="width: 100px" pSortableColumn="status_verifikasi">
+										<th style="width: 112px" pSortableColumn="status_verifikasi">
 											Varifikasi
 											<p-sortIcon field="status_verifikasi"></p-sortIcon>
 										</th>
@@ -183,21 +183,21 @@
 												</div>
 											</div>
 										</td>
-										<td style="width: 130px">
-											<span class="p-column-title">No. Kad Pengenalan</span>
+										<td style="width: 159px">
+											<span class="p-column-title">Kad Pengenalan</span>
 											{{record.no_kp}}
 										</td>
-										<td style="width: 130px">
+										<td style="width: 150px">
 											<span class="p-column-title">Nama KIR</span>
 											{{record.nama}}
 										</td>
-										<td style="width: 130px">
+										<td style="width: 100px">
 											<span class="p-column-title">Bil. AIR</span>
                       {{record.isi_rumah}}
 										</td>
-										<td style="width: 130px">
-											<span class="p-column-title">Jumlah Bantuan(RM)</span>
-                      RM{{record.jumlah_bantuan}}
+										<td style="width: 158px">
+											<span class="p-column-title">Jumlah Bantuan</span>
+                      RM {{record.jumlah_bantuan}}
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Negeri</span>
@@ -207,7 +207,7 @@
 											<span class="p-column-title">Sumber</span>
 											{{record.nama_agensi}}
 										</td>
-										<td style="width: 100px">
+										<td style="width: 112px">
 											<span class="p-column-title">Varifikasi</span>
 											{{record.status_verifikasi == 1? "Sudah":"Belum"}}
 										</td>
