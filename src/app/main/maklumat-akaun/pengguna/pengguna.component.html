@@ -50,12 +50,12 @@
 
 								<div class="col-lg-6">
 									<div class="form-group">
-										<label>No Kad Pengenalan</label>
+										<label>No. Kad Pengenalan</label>
 										<input
 											class="form-control"
 											name="no_kp"
 											type="text"
-											placeholder="No Kad Pengenalan"
+											placeholder="No. Kad Pengenalan"
 											[(ngModel)]="getProfile.pengguna.no_kp"
                       #noKp="ngModel"
                       [class.is-invalid]="(noKp.touched || noKp.dirty) && noKp.errors?.stateCodeInvalid && noKp.errors?.valueInvalid"
@@ -162,17 +162,16 @@
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label>Kementerian</label>
-                <select
-                  class="form-control"
+                <ng-select
+                  [items]="ministries"
+                  bindLabel="nama_kementerian"
+                  bindValue="id"
+                  placeholder="Sila Pilih"
+                  class="js-example-placeholder-multiple"
                   name="id_kementerian"
                   [(ngModel)]="getProfile.pengguna.id_kementerian"
                   disabled
-                >
-                  <option [ngValue]="undefined" disabled>Sila Pilih</option>
-                  <option *ngFor="let ministry of ministries" value="{{ministry.id}}">
-                    {{ministry.nama_kementerian}}
-                  </option>
-                </select>
+                ></ng-select>
 							</div>
 						</div>
 					</div>
@@ -312,22 +311,21 @@
             <div class="col-lg-6">
               <div class="form-group">
                 <label>Negeri</label>
-                <select
-                  class="form-control"
+                <ng-select
+                  [items]="states"
+                  bindLabel="nama_negeri"
+                  bindValue="id"
+                  placeholder="Sila Pilih"
+                  class="js-example-placeholder-multiple"
                   name="id_negeri"
                   [(ngModel)]="getProfile.pengguna.id_negeri"
                   disabled
-                >
-                  <option [ngValue]="undefined" disabled>Sila Pilih</option>
-                  <option *ngFor="let state of states" value="{{state.id}}">
-                    {{state.nama_negeri}}
-                  </option>
-                </select>
+                ></ng-select>
               </div>
             </div>
           </div>
 
-					<div class="row justify-content-end mr-1">
+					<div class="row justify-content-end mr-2">
 						<button class="btn btn-light mr-2" type="button" [routerLink]="['/app/muka-halaman']">
 							Kembali
 						</button>
