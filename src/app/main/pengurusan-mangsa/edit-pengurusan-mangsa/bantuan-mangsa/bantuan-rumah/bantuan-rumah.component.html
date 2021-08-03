@@ -37,6 +37,10 @@
           Kos Sebenar
           <p-sortIcon field="kos_sebenar"></p-sortIcon>
         </th>
+        <th style="width: 130px" pSortableColumn="status_mangsa_rumah">
+          Status
+          <p-sortIcon field="status_mangsa_rumah"></p-sortIcon>
+        </th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-record="$implicit">
@@ -46,7 +50,6 @@
             <button
               type="button"
               class="btn btn-primary btn-primeng dropdown-toggle"
-              id="action"
               ngbDropdownToggle
             >
               <i class="fa fa-cog"></i>
@@ -72,6 +75,11 @@
         <td style="width: 130px">
           <span class="p-column-title">Kos Sebenar</span>
           {{record.kos_sebenar}}
+        </td>
+        <td style="width: 130px">
+          <span class="p-column-title">Status</span>
+          <label *ngIf="record.status_mangsa_rumah == 2">Aktif</label>
+          <label *ngIf="record.status_mangsa_rumah == 1">Tidak Aktif</label>
         </td>
       </tr>
     </ng-template>

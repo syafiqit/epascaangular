@@ -37,6 +37,11 @@ export class TambahEditBantuanWangIhsanComponent implements OnInit {
   tarikhSerahan: string;
   readonly DELIMITER = '-';
 
+  status=[
+    {id: 1, nama_status: "Tidak Aktif"},
+    {id: 2, nama_status: "Aktif"}
+  ]
+
   constructor(
 		public activeModal: NgbActiveModal,
 		private _mangsaWangIhsanServiceProxy: MangsaWangIhsanServiceProxy,

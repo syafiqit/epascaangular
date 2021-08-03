@@ -232,6 +232,34 @@
           </div>
         </div>
       </div>
+
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label class="col-form-label">Status</label>
+          <div>
+            <ng-select
+              [items]="status"
+              bindLabel="nama_status"
+              bindValue="id"
+              placeholder="Sila Pilih"
+              class="js-example-placeholder-multiple"
+              name="id_status"
+              [(ngModel)]="bantuanPertanian.status_mangsa_pertanian"
+              #namaStatus="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && namaStatus.invalid }"
+              required
+            ></ng-select>
+            <div
+              *ngIf="f.submitted && namaStatus.invalid"
+              class="invalid-feedback"
+            >
+              <div *ngIf="namaStatus.errors.required">
+                Nama Status Wajib Dipilih
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 		</div>
 
     <div class="row">
