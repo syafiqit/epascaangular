@@ -11,19 +11,20 @@
 			<div class="col-6">
 				<div class="form-group">
 					<label class="col-form-label">Bulan</label>
-					<input
-						class="form-control"
-						type="text"
-						placeholder="Bulan"
-						name="bulan_belanja"
-						[(ngModel)]="bulanan.bulan"
+          <ng-select
+            [items]="months"
+            bindLabel="bulan"
+            bindValue="bulan"
+            placeholder="Sila Pilih"
+            class="js-example-placeholder-multiple"
+            name="bulan_belanja"
+            [(ngModel)]="bulanan.bulan"
 						#bulanBelanja="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && bulanBelanja.invalid }"
 						required
-            onlyAlphabets
-					/>
+          ></ng-select>
 					<div *ngIf="f.submitted && bulanBelanja.invalid" class="invalid-feedback">
-						<div *ngIf="bulanBelanja.errors.required">Bulan Wajib Diisi</div>
+						<div *ngIf="bulanBelanja.errors.required">Bulan Wajib Dipilih</div>
 					</div>
 				</div>
 			</div>
@@ -31,19 +32,18 @@
 			<div class="col-6">
 				<div class="form-group">
 					<label class="col-form-label">Tahun</label>
-					<input
-						class="form-control"
-						type="text"
-						placeholder="Tahun"
-						name="tahun_belanja"
-						[(ngModel)]="bulanan.tahun"
+          <ng-select
+            [items]="arrayYear"
+            placeholder="Sila Pilih"
+            class="js-example-placeholder-multiple"
+            name="tahun_belanja"
+            [(ngModel)]="bulanan.tahun"
 						#tahunBelanja="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && tahunBelanja.invalid }"
 						required
-            onlyNumbers
-					/>
+          ></ng-select>
 					<div *ngIf="f.submitted && tahunBelanja.invalid" class="invalid-feedback">
-						<div *ngIf="tahunBelanja.errors.required">Tahun Wajib Diisi</div>
+						<div *ngIf="tahunBelanja.errors.required">Tahun Wajib Dipilih</div>
 					</div>
 				</div>
 			</div>
