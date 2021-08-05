@@ -92,7 +92,7 @@ export class TambahKetuaIsiRumahComponent implements OnInit {
 	}
 
   getDaerah(filter?) {
-		this._refDaerahServiceProxy.getRefDaerahForDropdown(filter).subscribe((result) => {
+		this._refDaerahServiceProxy.getRefDaerahForDropdown(filter, this.filterNegeri ?? undefined).subscribe((result) => {
 			this.districts = result.items;
 		});
 	}
@@ -106,6 +106,7 @@ export class TambahKetuaIsiRumahComponent implements OnInit {
   resetFilter() {
     this.filter = undefined;
     this.filterNegeri = undefined;
+    this.filterDaerah = undefined;
     this.getKirBwi();
   }
 

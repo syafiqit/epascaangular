@@ -28,6 +28,7 @@ export class DaftarAkaunComponent implements OnInit {
 	saving = false;
   agensi: any;
   daerah: any;
+  filterIdNegeri: number;
 
 	constructor(
 		private _authServiceProxy: AuthServiceProxy,
@@ -70,7 +71,7 @@ export class DaftarAkaunComponent implements OnInit {
 	}
 
   getDaerah(filter?) {
-		this._refDaerahServiceProxy.getRefDaerahForDropdown(filter).subscribe((result) => {
+		this._refDaerahServiceProxy.getRefDaerahForDropdown(filter, this.filterIdNegeri).subscribe((result) => {
 			this.districts = result.items;
 		});
 	}

@@ -101,7 +101,7 @@ export class WangIhsanComponent implements OnInit {
 	}
 
   getDaerah(filter?) {
-		this._refDaerahServiceProxy.getRefDaerahForDropdown(filter).subscribe((result) => {
+		this._refDaerahServiceProxy.getRefDaerahForDropdown(filter, this.filterNegeri ?? undefined).subscribe((result) => {
 			this.daerah = result.items;
 		});
 	}
