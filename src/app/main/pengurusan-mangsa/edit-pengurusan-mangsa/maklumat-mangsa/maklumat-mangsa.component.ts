@@ -43,6 +43,7 @@ export class MaklumatMangsaComponent implements OnInit {
   evacuates: any;
   setDun: any;
   setDaerah: any;
+  filterIdNegeri: number;
 
 	constructor(
     private _activatedRoute: ActivatedRoute,
@@ -107,7 +108,7 @@ export class MaklumatMangsaComponent implements OnInit {
 	}
 
   getDaerah(idDaerah, filter?) {
-		this._refDaerahServiceProxy.getRefDaerahForDropdown(filter).subscribe((result) => {
+		this._refDaerahServiceProxy.getRefDaerahForDropdown(filter, this.filterIdNegeri).subscribe((result) => {
 			this.districts = result.items;
       this.setDaerah = this.districts.find((data)=>{
         return data.id == idDaerah;

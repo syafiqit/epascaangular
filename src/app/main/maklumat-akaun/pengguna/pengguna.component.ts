@@ -36,6 +36,7 @@ export class PenggunaComponent implements OnInit {
   daerahAgensi: any;
   kementerian: any;
   agensi: any;
+  filterIdNegeri: number;
 
 	constructor(
     private _sessionServiceProxy: SessionServiceProxy,
@@ -124,7 +125,7 @@ export class PenggunaComponent implements OnInit {
 	}
 
   getDaerah(idDaerah, filter?) {
-		this._refDaerahServiceProxy.getRefDaerahForDropdown(filter).subscribe((result) => {
+		this._refDaerahServiceProxy.getRefDaerahForDropdown(filter, this.filterIdNegeri).subscribe((result) => {
 			this.districts = result.items;
       this.daerahAgensi = this.districts.find((data)=>{
         return data.id == idDaerah;

@@ -4532,14 +4532,19 @@ export class RefDaerahServiceProxy {
     /**
      * Get all RefDaerah in dropdown list
      * @param filter (optional) Filter records with a string
+     * @param id_negeri (optional) Filter records with Negeri
      * @return Success
      */
-    getRefDaerahForDropdown(filter: string | undefined): Observable<GetRefDaerahForListDto> {
+    getRefDaerahForDropdown(filter: string | undefined, id_negeri: number | undefined): Observable<GetRefDaerahForListDto> {
         let url_ = this.baseUrl + "/api/refDaerah/getRefDaerahForDropdown?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
             url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (id_negeri === null)
+            throw new Error("The parameter 'id_negeri' cannot be null.");
+        else if (id_negeri !== undefined)
+            url_ += "id_negeri=" + encodeURIComponent("" + id_negeri) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -25861,8 +25866,10 @@ export interface ICreateOrEditTabungBwiDto {
 export class GetAllKirForViewDto implements IGetAllKirForViewDto {
     id!: number;
     nama!: string;
-    nama_daerah!: string;
+    id_negeri!: number;
+    id_daerah!: number;
     nama_negeri!: string;
+    nama_daerah!: string;
     isi_rumah!: number;
     jumlah_bwi!: string;
 
@@ -25879,8 +25886,10 @@ export class GetAllKirForViewDto implements IGetAllKirForViewDto {
         if (_data) {
             this.id = _data["id"];
             this.nama = _data["nama"];
-            this.nama_daerah = _data["nama_daerah"];
+            this.id_negeri = _data["id_negeri"];
+            this.id_daerah = _data["id_daerah"];
             this.nama_negeri = _data["nama_negeri"];
+            this.nama_daerah = _data["nama_daerah"];
             this.isi_rumah = _data["isi_rumah"];
             this.jumlah_bwi = _data["jumlah_bwi"];
         }
@@ -25897,8 +25906,10 @@ export class GetAllKirForViewDto implements IGetAllKirForViewDto {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["nama"] = this.nama;
-        data["nama_daerah"] = this.nama_daerah;
+        data["id_negeri"] = this.id_negeri;
+        data["id_daerah"] = this.id_daerah;
         data["nama_negeri"] = this.nama_negeri;
+        data["nama_daerah"] = this.nama_daerah;
         data["isi_rumah"] = this.isi_rumah;
         data["jumlah_bwi"] = this.jumlah_bwi;
         return data; 
@@ -25908,8 +25919,10 @@ export class GetAllKirForViewDto implements IGetAllKirForViewDto {
 export interface IGetAllKirForViewDto {
     id: number;
     nama: string;
-    nama_daerah: string;
+    id_negeri: number;
+    id_daerah: number;
     nama_negeri: string;
+    nama_daerah: string;
     isi_rumah: number;
     jumlah_bwi: string;
 }

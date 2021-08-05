@@ -56,21 +56,6 @@
                     <div class="row mt-2">
                       <div class="col-lg-4">
                         <div class="form-group">
-                          <label>Daerah</label>
-                          <ng-select
-                            [items]="daerah"
-                            bindLabel="nama_daerah"
-                            bindValue="id"
-                            placeholder="Sila Pilih"
-                            class="js-example-placeholder-multiple"
-                            name="daerah"
-                            [(ngModel)]="filterDaerah"
-                          ></ng-select>
-                        </div>
-                      </div>
-
-                      <div class="col-lg-4">
-                        <div class="form-group">
                           <label>Negeri</label>
                           <ng-select
                             [items]="negeri"
@@ -80,6 +65,22 @@
                             class="js-example-placeholder-multiple"
                             name="negeri"
                             [(ngModel)]="filterNegeri"
+                            (ngModelChange)="getDaerah()"
+                          ></ng-select>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-4">
+                        <div class="form-group">
+                          <label>Daerah</label>
+                          <ng-select
+                            [items]="daerah"
+                            bindLabel="nama_daerah"
+                            bindValue="id"
+                            placeholder="Sila Pilih"
+                            class="js-example-placeholder-multiple"
+                            name="daerah"
+                            [(ngModel)]="filterDaerah"
                           ></ng-select>
                         </div>
                       </div>

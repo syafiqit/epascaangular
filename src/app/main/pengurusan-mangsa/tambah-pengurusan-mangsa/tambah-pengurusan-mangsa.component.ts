@@ -40,6 +40,7 @@ export class TambahPengurusanMangsaComponent implements OnInit {
   setDun: any;
   setDaerah: any;
   verify: number;
+  filterIdNegeri: number;
 
 	constructor(
     public datePipe: DatePipe,
@@ -89,7 +90,7 @@ export class TambahPengurusanMangsaComponent implements OnInit {
 	}
 
   getDaerah(filter?) {
-		this._refDaerahServiceProxy.getRefDaerahForDropdown(filter).subscribe((result) => {
+		this._refDaerahServiceProxy.getRefDaerahForDropdown(filter, this.filterIdNegeri).subscribe((result) => {
 			this.districts = result.items;
 		});
 	}

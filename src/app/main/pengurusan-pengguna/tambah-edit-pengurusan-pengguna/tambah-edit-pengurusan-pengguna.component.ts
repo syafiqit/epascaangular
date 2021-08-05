@@ -40,6 +40,7 @@ export class TambahEditPengurusanPenggunaComponent implements AfterViewInit {
   districts: any;
   states: any;
   ministries: any;
+  filterIdNegeri: number;
 
 
 	primengTableHelper: PrimengTableHelper;
@@ -125,7 +126,7 @@ export class TambahEditPengurusanPenggunaComponent implements AfterViewInit {
 	}
 
   getDaerahForEdit(idDaerah, filter?) {
-      this._refDaerahServiceProxy.getRefDaerahForDropdown(filter).subscribe((result) => {
+      this._refDaerahServiceProxy.getRefDaerahForDropdown(filter, this.filterIdNegeri).subscribe((result) => {
 			this.districts = result.items;
       this.daerah = this.districts.find((data)=>{
         return data.id == idDaerah;
@@ -135,7 +136,7 @@ export class TambahEditPengurusanPenggunaComponent implements AfterViewInit {
 	}
 
   getDaerahForCreate(filter?) {
-      this._refDaerahServiceProxy.getRefDaerahForDropdown(filter).subscribe((result) => {
+      this._refDaerahServiceProxy.getRefDaerahForDropdown(filter, this.filterIdNegeri).subscribe((result) => {
         this.districts = result.items;
       });
 	}
