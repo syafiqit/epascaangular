@@ -37,6 +37,11 @@ export class TambahEditBantuanRumahComponent implements OnInit {
   tarikh_siap: string;
   readonly DELIMITER = '-';
 
+  status=[
+    {id: 1, nama_status: "Tidak Aktif"},
+    {id: 2, nama_status: "Aktif"}
+  ]
+
 	constructor(
     public activeModal: NgbActiveModal,
 		private _mangsaRumahServiceProxy: MangsaRumahServiceProxy,

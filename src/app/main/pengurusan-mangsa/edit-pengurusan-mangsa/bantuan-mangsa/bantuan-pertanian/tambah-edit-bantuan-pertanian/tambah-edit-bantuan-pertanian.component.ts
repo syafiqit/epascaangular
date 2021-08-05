@@ -38,6 +38,11 @@ export class TambahEditBantuanPertanianComponent implements OnInit {
   today = this.calendar.getToday();
   readonly DELIMITER = '-';
 
+  status=[
+    {id: 1, nama_status: "Tidak Aktif"},
+    {id: 2, nama_status: "Aktif"}
+  ]
+
   constructor(
     public activeModal: NgbActiveModal,
 		private _mangsaPertanianServiceProxy: MangsaPertanianServiceProxy,

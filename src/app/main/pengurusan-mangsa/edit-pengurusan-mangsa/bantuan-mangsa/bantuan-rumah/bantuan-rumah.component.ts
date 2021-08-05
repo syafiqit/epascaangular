@@ -69,7 +69,7 @@ export class BantuanRumahComponent implements OnInit {
 
 
   addRumahModal(mangsaId) {
-		const modalRef = this.modalService.open(TambahEditBantuanRumahComponent, { size: 'lg' });
+		const modalRef = this.modalService.open(TambahEditBantuanRumahComponent, { size: 'xl' });
 		modalRef.componentInstance.name = 'add';
 		modalRef.componentInstance.idMangsa = mangsaId;
 
@@ -81,7 +81,7 @@ export class BantuanRumahComponent implements OnInit {
 	}
 
 	editRumahModal(id, mangsaId) {
-		const modalRef = this.modalService.open(TambahEditBantuanRumahComponent, { size: 'lg' });
+		const modalRef = this.modalService.open(TambahEditBantuanRumahComponent, { size: 'xl' });
 		modalRef.componentInstance.name = 'edit';
 		modalRef.componentInstance.id = id;
 		modalRef.componentInstance.idMangsa = mangsaId;

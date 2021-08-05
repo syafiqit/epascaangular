@@ -37,6 +37,10 @@
           Kos Bantuan
           <p-sortIcon field="kos_bantuan"></p-sortIcon>
         </th>
+        <th style="width: 130px" pSortableColumn="status_mangsa_pertanian">
+          Status
+          <p-sortIcon field="status_mangsa_pertanian"></p-sortIcon>
+        </th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-record="$implicit">
@@ -46,7 +50,6 @@
             <button
               type="button"
               class="btn btn-primary btn-primeng dropdown-toggle"
-              id="action"
               ngbDropdownToggle
             >
               <i class="fa fa-cog"></i>
@@ -72,6 +75,11 @@
         <td style="width: 130px">
           <span class="p-column-title">Kos Bantuan</span>
           {{record.kos_bantuan}}
+        </td>
+        <td style="width: 130px">
+          <span class="p-column-title">Status</span>
+          <label *ngIf="record.status_mangsa_pertanian == 2">Aktif</label>
+          <label *ngIf="record.status_mangsa_pertanian == 1">Tidak Aktif</label>
         </td>
       </tr>
     </ng-template>
