@@ -26461,6 +26461,7 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
     tarikh_tamat_kelulusan!: moment.Moment;
     peruntukan!: string;
     status_tabung!: number;
+    perihal_surat!: string;
 
     constructor(data?: IGetTabungKelulusanForViewDto) {
         if (data) {
@@ -26484,6 +26485,7 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
             this.tarikh_tamat_kelulusan = _data["tarikh_tamat_kelulusan"] ? moment(_data["tarikh_tamat_kelulusan"].toString()) : <any>undefined;
             this.peruntukan = _data["peruntukan"];
             this.status_tabung = _data["status_tabung"];
+            this.perihal_surat = _data["perihal_surat"];
         }
     }
 
@@ -26507,6 +26509,7 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
         data["tarikh_tamat_kelulusan"] = this.tarikh_tamat_kelulusan ? this.tarikh_tamat_kelulusan.toISOString() : <any>undefined;
         data["peruntukan"] = this.peruntukan;
         data["status_tabung"] = this.status_tabung;
+        data["perihal_surat"] = this.perihal_surat;
         return data; 
     }
 }
@@ -26523,6 +26526,7 @@ export interface IGetTabungKelulusanForViewDto {
     tarikh_tamat_kelulusan: moment.Moment;
     peruntukan: string;
     status_tabung: number;
+    perihal_surat: string;
 }
 
 /** TabungKelulusan List in Tabular model */
