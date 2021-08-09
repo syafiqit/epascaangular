@@ -1,0 +1,398 @@
+<app-breadcrumb
+	[title]="'Laporan Belanja Secara Kuasa Berbelanja KWABBN'"
+	[items]="['Laporan']"
+	[active_item]="'SKB'"
+></app-breadcrumb>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="card">
+				<div class="card-body">
+					<div class="row mb-1">
+            <div class="col-lg-6 col-sm-10 justify-content-start pl-0">
+              <div class="faq-form">
+                <input
+                  class="form-control"
+                  type="text"
+                  name="searchReportSkb"
+                  placeholder="Carian..."
+                />
+                <i class="search-icon" data-feather="search"></i>
+              </div>
+            </div>
+
+            <div class="col-lg-2 col-sm-2 justify-content-between pl-0">
+              <button
+                type="button"
+                class="btn btn-primary"
+                (click)="isCollapsed = !isCollapsed"
+                [attr.aria-expanded]="!isCollapsed"
+                aria-controls="collapseExample"
+                ngbTooltip="Carian Lanjut"
+                style="font-weight: 500"
+              >
+                <i class="fa fa-filter"></i>
+              </button>
+            </div>
+
+            <div class="col-lg-4 col-sm-12 justify-content-end p-0">
+              <button type="button" class="btn btn-outline-success pull-right">
+                <i class="fa fa-file-excel-o fa-lg mr-2"></i>
+                <b>Excel</b>
+              </button>
+            </div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-lg-12">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div id="collapseExample" [ngbCollapse]="!isCollapsed">
+                    <form>
+                      <div class="row mt-2">
+                        <div class="col-lg-4">
+                          <div class="form-group">
+                            <label>Tabung</label>
+                            <ng-select
+                              [items]="funds"
+                              bindLabel="nama_tabung"
+                              bindValue="id"
+                              placeholder="Sila Pilih"
+                              class="js-example-placeholder-multiple"
+                              name="namaTabung"
+                            ></ng-select>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                          <div class="form-group">
+                            <label>Agensi</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              name="agensi"
+                              placeholder="Nama Agensi"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                          <div class="form-group">
+                            <label>Status</label>
+                            <ng-select
+                              [items]="statusSKB"
+                              bindLabel="status"
+                              bindValue="id"
+                              placeholder="Sila Pilih"
+                              class="js-example-placeholder-multiple"
+                              name="status_skb"
+                            ></ng-select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-2 pr-1">
+                          <div class="form-group custom-datepicker custom-datepicker-dropdown">
+                            <label>Tarikh SKB</label>
+                            <div class="input-group">
+                              <input
+                                class="form-control"
+                                placeholder="yyyy-mm-dd"
+                                name="dp1"
+                                [(ngModel)]="modelMula"
+                                ngbDatepicker
+                                #d="ngbDatepicker"
+                                style="border: 1px solid #efefef !important;"
+                              >
+                              <div class="input-group-append">
+                                <button class="btn btn-light pr-2 pl-2" (click)="d.toggle()" type="button"><i
+                                  class="fa fa-calendar"></i></button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-2 pl-1">
+                          <div class="form-group custom-datepicker custom-datepicker-dropdown">
+                            <div class="input-group pt-4 mt-1">
+                              <input
+                                class="form-control"
+                                placeholder="yyyy-mm-dd"
+                                name="dp2"
+                                [(ngModel)]="modelTamat"
+                                ngbDatepicker
+                                #a="ngbDatepicker"
+                                style="border: 1px solid #efefef !important;"
+                              >
+                              <div class="input-group-append">
+                                <button class="btn btn-light pr-2 pl-2" (click)="a.toggle()" type="button"><i
+                                  class="fa fa-calendar"></i></button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row justify-content-end mb-3 pr-2">
+                        <button
+                          class="btn btn-light mr-2"
+                          type="button"
+                        >
+                        <i class="fa fa-refresh mr-2"></i>
+                          <b>Reset</b>
+                        </button>
+
+                        <button
+                          class="btn btn-primary pull-right mr-2"
+                          type="button"
+                        >
+                        <i class="fa fa-search mr-2"></i>
+                          <b>Cari</b>
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+					<div class="row align-items-center">
+						<div class="primeng-datatable-container">
+							<p-table
+								#dataTable
+								styleClass="p-datatable-striped"
+								[resizableColumns]="true"
+								(onLazyLoad)="getSkbReport($event)"
+								[value]="primengTableHelper.records"
+								rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
+								[paginator]="false"
+								[lazy]="true"
+                [loading]="primengTableHelper.isLoading"
+								[scrollable]="true"
+								ScrollWidth="100%"
+								[responsive]="primengTableHelper.isResponsive"
+								[resizableColumns]="primengTableHelper.resizableColumns"
+							>
+								<ng-template pTemplate="header">
+									<tr>
+										<th style="width: 130px" pSortableColumn="no_rujukan_skb">
+											No. Rujukan SKB
+											<p-sortIcon field="no_rujukan_skb"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="no_kelulusan">
+											No. Kelulusan
+											<p-sortIcon field="no_kelulusan"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="tarikh_mula">
+											Tarikh Mula
+											<p-sortIcon field="tarikh_mula"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="tarikh_tamat">
+											Tarikh Tamat
+											<p-sortIcon field="tarikh_tamat"></p-sortIcon>
+										</th>
+										<th style="width: 100px" pSortableColumn="status">
+											Status
+											<p-sortIcon field="status"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="perihal">
+											Perihal
+											<p-sortIcon field="perihal"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="nama_pegawai">
+											Pegawai
+											<p-sortIcon field="nama_pegawai"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="nama_agensi">
+											Agensi
+											<p-sortIcon field="nama_agensi"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="siling_peruntukan">
+											Siling Peruntukan
+											<p-sortIcon field="siling_peruntukan"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="baki_peruntukan">
+											Baki Peruntukan
+											<p-sortIcon field="baki_peruntukan"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="kategori_tabung">
+											Tabung
+											<p-sortIcon field="kategori_tabung"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="bulan_januari">
+											Januari
+											<p-sortIcon field="bulan_januari"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="bulan_februari">
+											Februari
+											<p-sortIcon field="bulan_februari"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="bulan_mac">
+											Mac
+											<p-sortIcon field="bulan_mac"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="bulan_april">
+											April
+											<p-sortIcon field="bulan_april"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="bulan_mei">
+											Mei
+											<p-sortIcon field="bulan_mei"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="bulan_jun">
+											Jun
+											<p-sortIcon field="bulan_jun"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="bulan_julai">
+											Julai
+											<p-sortIcon field="bulan_julai"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="bulan_ogos">
+											Ogos
+											<p-sortIcon field="bulan_ogos"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="bulan_september">
+											September
+											<p-sortIcon field="bulan_september"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="bulan_oktober">
+											Oktober
+											<p-sortIcon field="bulan_oktober"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="bulan_november">
+											November
+											<p-sortIcon field="bulan_november"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="bulan_disember">
+											Disember
+											<p-sortIcon field="bulan_disember"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="jumlah_belanja">
+											Jumlah Belanja
+											<p-sortIcon field="jumlah_belanja"></p-sortIcon>
+										</th>
+									</tr>
+								</ng-template>
+								<ng-template pTemplate="body" let-record="$implicit">
+									<tr>
+										<td style="width: 130px">
+											<span class="p-column-title">No. Rujukan SKB</span>
+											{{record.no_rujukan_skb}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">No. Kelulusan</span>
+											{{record.no_kelulusan}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Tarikh Mula</span>
+											{{record.tarikh_mula}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Tarikh Tamat</span>
+											{{record.tarikh_tamat}}
+										</td>
+										<td style="width: 100px">
+											<span class="p-column-title">Status</span>
+											{{record.status}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Perihal</span>
+											{{record.perihal}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Pegawai</span>
+											{{record.nama_pegawai}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Agensi</span>
+											{{record.nama_agensi}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Siling Peruntukan</span>
+											RM {{record.siling_peruntukan}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Baki Peruntukan</span>
+											RM {{record.baki_peruntukan}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Tabung</span>
+											{{record.kategori_tabung}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Januari</span>
+											{{record.bulan_januari}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Februari</span>
+											{{record.bulan_februari}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Mac</span>
+											{{record.bulan_mac}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">April</span>
+											{{record.bulan_april}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Mei</span>
+											{{record.bulan_mei}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Jun</span>
+											{{record.bulan_jun}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Julai</span>
+											{{record.bulan_julai}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Ogos</span>
+											{{record.bulan_ogos}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">September</span>
+											{{record.bulan_september}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Oktober</span>
+											{{record.bulan_oktober}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">November</span>
+											{{record.bulan_november}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Disember</span>
+											{{record.bulan_disember}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Jumlah Belanja</span>
+											RM {{record.jumlah_belanja}}
+										</td>
+									</tr>
+								</ng-template>
+							</p-table>
+							<div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">No Data</div>
+							<div class="primeng-paging-container justify-content-between">
+								<p-paginator
+									[rows]="primengTableHelper.defaultRecordsCountPerPage"
+									#paginator
+									(onPageChange)="getSkbReport($event)"
+									[totalRecords]="primengTableHelper.totalRecordsCount"
+									[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
+								></p-paginator>
+								<span class="total-records-count">
+									Jumlah: {{ primengTableHelper.totalRecordsCount}}
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

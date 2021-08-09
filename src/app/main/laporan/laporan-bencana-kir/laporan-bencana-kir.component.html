@@ -1,0 +1,185 @@
+<app-breadcrumb
+	[title]="'Laporan BWI Mengikut Jenis Bencana & Bilangan KIR'"
+	[items]="['Laporan / BWI']"
+	[active_item]="'Bencana-KIR'"
+></app-breadcrumb>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="card">
+				<div class="card-body">
+					<div class="row mb-1">
+            <div class="col-lg-6 col-sm-10 justify-content-start pl-0">
+              <div class="faq-form">
+                <input
+                  class="form-control"
+                  type="text"
+                  name="searchReportSkb"
+                  placeholder="Carian..."
+                />
+                <i class="search-icon" data-feather="search"></i>
+              </div>
+            </div>
+
+            <div class="col-lg-2 col-sm-2 justify-content-between pl-0">
+              <button
+                type="button"
+                class="btn btn-primary"
+                (click)="isCollapsed = !isCollapsed"
+                [attr.aria-expanded]="!isCollapsed"
+                aria-controls="collapseExample"
+                ngbTooltip="Carian Lanjut"
+                style="font-weight: 500"
+              >
+                <i class="fa fa-filter"></i>
+              </button>
+            </div>
+
+            <div class="col-lg-4 col-sm-12 justify-content-end p-0">
+              <button type="button" class="btn btn-outline-success pull-right">
+                <i class="fa fa-file-excel-o fa-lg mr-2"></i>
+                <b>Excel</b>
+              </button>
+            </div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-lg-12">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div id="collapseExample" [ngbCollapse]="!isCollapsed">
+                    <form>
+                      <div class="row mt-2">
+                        <div class="col-lg-4">
+                          <div class="form-group">
+                            <label>Jenis Bencana</label>
+                            <ng-select
+                              [items]="disasters"
+                              bindLabel="nama_jenis_bencana"
+                              bindValue="id"
+                              placeholder="Sila Pilih"
+                              class="js-example-placeholder-multiple"
+                              name="jenisBencana"
+                            ></ng-select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row justify-content-end mb-3 pr-2">
+                        <button
+                          class="btn btn-light mr-2"
+                          type="button"
+                        >
+                        <i class="fa fa-refresh mr-2"></i>
+                          <b>Reset</b>
+                        </button>
+
+                        <button
+                          class="btn btn-primary pull-right mr-2"
+                          type="button"
+                        >
+                        <i class="fa fa-search mr-2"></i>
+                          <b>Cari</b>
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+					<div class="row align-items-center">
+						<div class="primeng-datatable-container">
+							<p-table
+								#dataTable
+								styleClass="p-datatable-striped"
+								[resizableColumns]="true"
+								(onLazyLoad)="getBencanaKirReport($event)"
+								[value]="primengTableHelper.records"
+								rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
+								[paginator]="false"
+								[lazy]="true"
+                [loading]="primengTableHelper.isLoading"
+								[scrollable]="true"
+								ScrollWidth="100%"
+								[responsive]="primengTableHelper.isResponsive"
+								[resizableColumns]="primengTableHelper.resizableColumns"
+							>
+								<ng-template pTemplate="header">
+									<tr>
+										<th style="width: 130px" pSortableColumn="jenis_bencana">
+											Jenis Bencana
+											<p-sortIcon field="jenis_bencana"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="bwi_kir">
+											BWI/KIR
+											<p-sortIcon field="bwi_kir"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="jumlah_kir">
+											Jumlah KIR
+											<p-sortIcon field="jumlah_kir"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="jumlah_peruntukan">
+											Jumlah Peruntukan
+											<p-sortIcon field="jumlah_peruntukan"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="baki_pulangan">
+											Baki Dipulangkan
+											<p-sortIcon field="baki_pulangan"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="jumlah_agihan">
+											Jumlah Diagihkan
+											<p-sortIcon field="jumlah_agihan"></p-sortIcon>
+										</th>
+									</tr>
+								</ng-template>
+								<ng-template pTemplate="body" let-record="$implicit">
+									<tr>
+										<td style="width: 130px">
+											<span class="p-column-title">Jenis Bencana</span>
+											{{record.jenis_bencana}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">BWI/KIR</span>
+											RM {{record.bwi_kir}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Jumlah KIR</span>
+											{{record.jumlah_kir}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Jumlah Peruntukan</span>
+											RM {{record.jumlah_peruntukan}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Baki Dipulangkan</span>
+											RM {{record.baki_pulangan}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Jumlah Diagihkan</span>
+											RM {{record.jumlah_agihan}}
+										</td>
+									</tr>
+								</ng-template>
+							</p-table>
+							<div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">No Data</div>
+							<div class="primeng-paging-container justify-content-between">
+								<p-paginator
+									[rows]="primengTableHelper.defaultRecordsCountPerPage"
+									#paginator
+									(onPageChange)="getBencanaKirReport($event)"
+									[totalRecords]="primengTableHelper.totalRecordsCount"
+									[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
+								></p-paginator>
+								<span class="total-records-count">
+									Jumlah: {{ primengTableHelper.totalRecordsCount}}
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

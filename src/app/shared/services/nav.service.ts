@@ -119,6 +119,24 @@ export class NavService implements OnDestroy {
         ]
       },
       {
+        title: 'Laporan',
+        icon: 'trending-up',
+        type: 'sub',
+        active: false,
+        children: [
+          { path: '/app/laporan/ringkasan', title: 'Ringkasan Laporan', type: 'link' },
+          { path: '/app/laporan/kelulusan', title: 'Laporan Tabung Kelulusan', type: 'link' },
+          { path: '/app/laporan/bayaran/skb', title: 'Laporan Surat Kuasa Belanja (SKB)', type: 'link' },
+          { path: '/app/laporan/bayaran/skb/bulan', title: 'Laporan SKB Mengikut Bulan', type: 'link' },
+          { path: '/app/laporan/bayaran/terus', title: 'Laporan Bayaran Terus', type: 'link' },
+          { path: '/app/laporan/bwi', title: 'Laporan Bantuan Wang Ihsan (BWI)', type: 'link' },
+          { path: '/app/laporan/bwi/bencana-kir', title: 'Laporan BWI Mengikut Bencana-KIR', type: 'link' },
+          { path: '/app/laporan/bwi/bencana-kelulusan', title: 'Laporan BWI Mengikut Bencana-Kelulusan', type: 'link' },
+          { path: '/app/laporan/bwi/negeri', title: 'Laporan BWI Mengikut Negeri', type: 'link' },
+          { path: '/app/laporan/bwi/kematian', title: 'Laporan BWI (Pengurusan Kematian)', type: 'link' }
+        ]
+      },
+      {
         title: 'Tetapan',
         icon: 'settings',
         type: 'sub',
