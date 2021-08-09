@@ -1,0 +1,285 @@
+<app-breadcrumb
+	[title]="'Laporan BWI yang Telah Diperuntukan'"
+	[items]="['Laporan']"
+	[active_item]="'BWI'"
+></app-breadcrumb>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="card">
+				<div class="card-body">
+					<div class="row mb-1">
+            <div class="col-lg-6 col-sm-10 justify-content-start pl-0">
+              <div class="faq-form">
+                <input
+                  class="form-control"
+                  type="text"
+                  name="searchReportSkb"
+                  placeholder="Carian..."
+                />
+                <i class="search-icon" data-feather="search"></i>
+              </div>
+            </div>
+
+            <div class="col-lg-2 col-sm-2 justify-content-between pl-0">
+              <button
+                type="button"
+                class="btn btn-primary"
+                (click)="isCollapsed = !isCollapsed"
+                [attr.aria-expanded]="!isCollapsed"
+                aria-controls="collapseExample"
+                ngbTooltip="Carian Lanjut"
+                style="font-weight: 500"
+              >
+                <i class="fa fa-filter"></i>
+              </button>
+            </div>
+
+            <div class="col-lg-4 col-sm-12 justify-content-end p-0">
+              <button type="button" class="btn btn-outline-success pull-right">
+                <i class="fa fa-file-excel-o fa-lg mr-2"></i>
+                <b>Excel</b>
+              </button>
+            </div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-lg-12">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div id="collapseExample" [ngbCollapse]="!isCollapsed">
+                    <form>
+                      <div class="row mt-2">
+                        <div class="col-lg-4">
+                          <div class="form-group">
+                            <label>Negeri</label>
+                            <ng-select
+                              [items]="states"
+                              bindLabel="nama_negeri"
+                              bindValue="id"
+                              placeholder="Sila Pilih"
+                              class="js-example-placeholder-multiple"
+                              name="negeri"
+                            ></ng-select>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                          <div class="form-group">
+                            <label>Daerah</label>
+                            <ng-select
+                              [items]="districts"
+                              bindLabel="nama_daerah"
+                              bindValue="id"
+                              placeholder="Sila Pilih"
+                              class="js-example-placeholder-multiple"
+                              name="daerah"
+                            ></ng-select>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                          <div class="form-group">
+                            <label>Jenis Bencana</label>
+                            <ng-select
+                              [items]="disasters"
+                              bindLabel="nama_jenis_bencana"
+                              bindValue="id"
+                              placeholder="Sila Pilih"
+                              class="js-example-placeholder-multiple"
+                              name="jenisBencana"
+                            ></ng-select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row justify-content-end mb-3 pr-2">
+                        <button
+                          class="btn btn-light mr-2"
+                          type="button"
+                        >
+                        <i class="fa fa-refresh mr-2"></i>
+                          <b>Reset</b>
+                        </button>
+
+                        <button
+                          class="btn btn-primary pull-right mr-2"
+                          type="button"
+                        >
+                        <i class="fa fa-search mr-2"></i>
+                          <b>Cari</b>
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+					<div class="row align-items-center">
+						<div class="primeng-datatable-container">
+							<p-table
+								#dataTable
+								styleClass="p-datatable-striped"
+								[resizableColumns]="true"
+								(onLazyLoad)="getBwiReport($event)"
+								[value]="primengTableHelper.records"
+								rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
+								[paginator]="false"
+								[lazy]="true"
+                [loading]="primengTableHelper.isLoading"
+								[scrollable]="true"
+								ScrollWidth="100%"
+								[responsive]="primengTableHelper.isResponsive"
+								[resizableColumns]="primengTableHelper.resizableColumns"
+							>
+								<ng-template pTemplate="header">
+									<tr>
+										<th style="width: 130px" pSortableColumn="nama_negeri">
+											Negeri
+											<p-sortIcon field="nama_negeri"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="nama_daerah">
+											Daerah
+											<p-sortIcon field="nama_daerah"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="jenis_bencana">
+											Jenis Bencana
+											<p-sortIcon field="jenis_bencana"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="bwi_kir">
+											BWI/KIR
+											<p-sortIcon field="bwi_kir"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="jumlah_kir">
+											Jumlah KIR
+											<p-sortIcon field="jumlah_kir"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="jumlah_bantuan">
+											Jumlah
+											<p-sortIcon field="jumlah_bantuan"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="perakuan_kp">
+											Memo Perakuan KP
+											<p-sortIcon field="perakuan_kp"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="penyaluran_bkp">
+											Memo Penyaluran BKP
+											<p-sortIcon field="penyaluran_bkp"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="tarikh_majlis">
+											Tarikh Majlis
+											<p-sortIcon field="tarikh_majlis"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="makluman_majlis">
+											Surat Makluman Majlis
+											<p-sortIcon field="makluman_majlis"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="tarikh_eft">
+											Tarikh EFT/Pengeluaran
+											<p-sortIcon field="tarikh_eft"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="baki_pulangan">
+											Baki Dipulangkan
+											<p-sortIcon field="baki_pulangan"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="laporan_majlis">
+											Surat Laporan Majlis
+											<p-sortIcon field="laporan_majlis"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="laporan_bkp">
+											Memo Laporan BKP
+											<p-sortIcon field="laporan_bkp"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="catatan">
+											Catatan
+											<p-sortIcon field="catatan"></p-sortIcon>
+										</th>
+									</tr>
+								</ng-template>
+								<ng-template pTemplate="body" let-record="$implicit">
+									<tr>
+										<td style="width: 130px">
+											<span class="p-column-title">Negeri</span>
+											{{record.nama_negeri}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Daerah</span>
+											{{record.nama_daerah}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Jenis Bencana</span>
+											{{record.jenis_bencana}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">BWI/KIR</span>
+											RM {{record.bwi_kir}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Jumlah KIR</span>
+											{{record.jumlah_kir}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Jumlah</span>
+											RM {{record.jumlah_bantuan}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Memo Perakuan KP</span>
+											{{record.perakuan_kp}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Memo Penyaluran BKP</span>
+											{{record.penyaluran_bkp}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Tarikh Majlis</span>
+											{{record.tarikh_majlis}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Surat Makluman Majlis</span>
+											{{record.makluman_majlis}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Tarikh EFT/Pengeluaran</span>
+											{{record.tarikh_eft}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Baki Dipulangkan</span>
+											RM {{record.baki_pulangan}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Surat Laporan Majlis</span>
+											{{record.laporan_majlis}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Memo Laporan BKP</span>
+											{{record.laporan_bkp}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Catatan</span>
+											{{record.catatan}}
+										</td>
+									</tr>
+								</ng-template>
+							</p-table>
+							<div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">No Data</div>
+							<div class="primeng-paging-container justify-content-between">
+								<p-paginator
+									[rows]="primengTableHelper.defaultRecordsCountPerPage"
+									#paginator
+									(onPageChange)="getBwiReport($event)"
+									[totalRecords]="primengTableHelper.totalRecordsCount"
+									[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
+								></p-paginator>
+								<span class="total-records-count">
+									Jumlah: {{ primengTableHelper.totalRecordsCount}}
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

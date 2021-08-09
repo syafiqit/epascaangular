@@ -55,6 +55,14 @@ export const content: Routes = [
 				data: { preload: true }
 			},
 			{
+				path: 'laporan',
+				loadChildren: () =>
+					import('../../main/laporan/laporan.module').then(
+						(m) => m.LaporanModule
+					),
+				data: { preload: true }
+			},
+			{
 				path: 'tetapan',
 				loadChildren: () => import('../../main/tetapan/tetapan.module').then((m) => m.TetapanModule),
 				data: { preload: true }
