@@ -81,44 +81,256 @@
 		</div>
 	</div>
 
+<!--  here-->
+
 	<div class="row">
-		<div class="col-lg-3" *ngFor="let report of report">
-			<div class="card bg-primary">
-				<div class="media static-top-widget">
-					<div class="media-body">
-						<i class="icon-bg" data-feather="user" *ngIf="report.title === 'Jumlah Keseluruhan Mangsa'"></i>
-						<i class="icon-bg" data-feather="send" *ngIf="report.title === 'Jumlah Bantuan Antarabangsa'"></i>
-						<i class="icon-bg" data-feather="home" *ngIf="report.title === 'Jumlah Bina Rumah Kekal'"></i>
-						<i class="icon-bg" data-feather="triangle" *ngIf="report.title === 'Jumlah Rumah Dibaik Pulih'"></i>
-						<i class="icon-bg" data-feather="box" *ngIf="report.title === 'Jumlah Pinjaman Khas'"></i>
-						<i class="icon-bg" data-feather="dollar-sign" *ngIf="report.title === 'Jumlah Penerima Wang Ihsan'"></i>
-						<i class="icon-bg" data-feather="droplet" *ngIf="report.title === 'Jumlah Bantuan Pertanian'"></i>
-						<i class="icon-bg" data-feather="file-text" *ngIf="report.title === 'Jumlah Lain-Lain Bantuan'"></i>
-					</div>
-				</div>
-				<div class="card-body" style="background-color:#145DB7;text-align:start; padding:20px; border-radius:8px">
-					<div class="row">
-						<div class="col-12">
-							<label style="color:#BBD9FF;">{{report.title}}</label>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-12">
-							<h5 style="font-weight:500">{{report.total}}</h5>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-12">
-							<label style="color:#BBD9FF;">{{report.title2}}</label>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-12">
-							<h5 style="font-weight:500">RM{{report.total_kos}}</h5>
-						</div>
-					</div>
-				</div>
-			</div>
-			</div>
-		</div>
-	</div>
+    <div class="col-lg-3">
+      <div class="card bg-primary">
+        <div class="media static-top-widget">
+          <div class="media-body">
+            <i class="icon-bg" data-feather="user"></i>
+          </div>
+        </div>
+        <div class="card-body" style="background-color:#145DB7;text-align:start; padding:20px; border-radius:8px">
+          <div class="row">
+            <div class="col-12">
+              <label style="color:#BBD9FF;">Jumlah Keseluruhan Mangsa</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <h5 style="font-weight:500">{{jumlahMangsa.penerima}}</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <label style="color:#BBD9FF;">Kos Bantuan Keseluruhan</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <h5 style="font-weight:500">RM {{jumlahMangsa.jumlah}}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card bg-primary">
+        <div class="media static-top-widget">
+          <div class="media-body">
+            <i class="icon-bg" data-feather="dollar-sign"></i>
+          </div>
+        </div>
+        <div class="card-body" style="background-color:#145DB7;text-align:start; padding:20px; border-radius:8px">
+          <div class="row">
+            <div class="col-12">
+              <label style="color:#BBD9FF;">Jumlah Penerima Wang Ihsan</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <h5 style="font-weight:500">{{jumlahIhsan.penerima}} orang</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <label style="color:#BBD9FF;">Jumlah Bantuan Wang Ihsan</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <h5 style="font-weight:500">RM {{jumlahIhsan.jumlah}}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card bg-primary">
+        <div class="media static-top-widget">
+          <div class="media-body">
+            <i class="icon-bg" data-feather="box"></i>
+          </div>
+        </div>
+        <div class="card-body" style="background-color:#145DB7;text-align:start; padding:20px; border-radius:8px">
+          <div class="row">
+            <div class="col-12">
+              <label style="color:#BBD9FF;">Jumlah Pinjaman Khas</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <h5 style="font-weight:500">{{jumlahPinjaman.penerima}} orang</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <label style="color:#BBD9FF;">Jumlah Bantuan Pinjaman Khas</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <h5 style="font-weight:500">RM {{jumlahPinjaman.jumlah}}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card bg-primary">
+        <div class="media static-top-widget">
+          <div class="media-body">
+            <i class="icon-bg" data-feather="send"></i>
+          </div>
+        </div>
+        <div class="card-body" style="background-color:#145DB7;text-align:start; padding:20px; border-radius:8px">
+          <div class="row">
+            <div class="col-12">
+              <label style="color:#BBD9FF;">Jumlah Bantuan Antarabangsa</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <h5 style="font-weight:500">{{jumlahAntarabangsa.penerima}} orang</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <label style="color:#BBD9FF;">Jumlah Bantuan Antarabangsa</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <h5 style="font-weight:500">RM {{jumlahAntarabangsa.jumlah}}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card bg-primary">
+        <div class="media static-top-widget">
+          <div class="media-body">
+            <i class="icon-bg" data-feather="triangle"></i>
+          </div>
+        </div>
+        <div class="card-body" style="background-color:#145DB7;text-align:start; padding:20px; border-radius:8px">
+          <div class="row">
+            <div class="col-12">
+              <label style="color:#BBD9FF;">Jumlah Rumah Dibaik Pulih</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <h5 style="font-weight:500">{{jumlahRumahBaikPulih.penerima}} buah</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <label style="color:#BBD9FF;">Kos Baik Pulih Rumah</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <h5 style="font-weight:500">RM {{jumlahRumahBaikPulih.jumlah}}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card bg-primary">
+        <div class="media static-top-widget">
+          <div class="media-body">
+            <i class="icon-bg" data-feather="home"></i>
+          </div>
+        </div>
+        <div class="card-body" style="background-color:#145DB7;text-align:start; padding:20px; border-radius:8px">
+          <div class="row">
+            <div class="col-12">
+              <label style="color:#BBD9FF;">Jumlah Bina Rumah Kekal</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <h5 style="font-weight:500">{{jumlahRumahKekal.penerima}} buah</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <label style="color:#BBD9FF;">Kos Bina Rumah Kekal</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <h5 style="font-weight:500">RM {{jumlahRumahKekal.jumlah}}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card bg-primary">
+        <div class="media static-top-widget">
+          <div class="media-body">
+            <i class="icon-bg" data-feather="droplet"></i>
+          </div>
+        </div>
+        <div class="card-body" style="background-color:#145DB7;text-align:start; padding:20px; border-radius:8px">
+          <div class="row">
+            <div class="col-12">
+              <label style="color:#BBD9FF;">Jumlah Bantuan Pertanian</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <h5 style="font-weight:500">{{jumlahPertanian.penerima}} bantuan</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <label style="color:#BBD9FF;">Kos Bantuan</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <h5 style="font-weight:500">RM {{jumlahPertanian.jumlah}}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card bg-primary">
+        <div class="media static-top-widget">
+          <div class="media-body">
+            <i class="icon-bg" data-feather="file-text"></i>
+          </div>
+        </div>
+        <div class="card-body" style="background-color:#145DB7;text-align:start; padding:20px; border-radius:8px">
+          <div class="row">
+            <div class="col-12">
+              <label style="color:#BBD9FF;">Jumlah Lain-Lain Bantuan</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <h5 style="font-weight:500">{{jumlahLain.penerima}} bantuan</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <label style="color:#BBD9FF;">Kos Bantuan</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <h5 style="font-weight:500">RM {{jumlahLain.jumlah}}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
