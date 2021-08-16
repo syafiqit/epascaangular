@@ -21,8 +21,6 @@
 						#nama_sumber_dana="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && nama_sumber_dana.invalid }"
 						name="dana.nama_sumber_dana"
-						minlength="0"
-						maxlength="250"
 						required
 					/>
 					<div *ngIf="f.submitted && nama_sumber_dana.invalid" class="invalid-feedback">
@@ -43,7 +41,7 @@
 						[ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
 						required
 					>
-						<option [ngValue]="undefined" disabled>Sila Pilih</option>
+						<option selected disabled [value]="undefined">Sila Pilih</option>
 						<option [value]="1">Aktif</option>
 						<option [value]="0">Tidak Aktif</option>
 					</select>

@@ -177,7 +177,7 @@ export class TambahEditPengurusanPenggunaComponent implements AfterViewInit {
 			.createOrEdit(this.daftar)
 			.pipe()
 			.subscribe((result) => {
-				Swal.fire('Berjaya!', 'Maklumat Berjaya Didaftarkan.', 'success').then(() => {
+				Swal.fire('Berjaya!', 'Maklumat Berjaya Dikemaskini.', 'success').then(() => {
 					this.router.navigateByUrl('/app/pengguna/senarai-pengurusan-pengguna');
 				});
 			});

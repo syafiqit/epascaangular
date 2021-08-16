@@ -250,7 +250,7 @@
 
 							<div class="col-lg-6">
 								<div class="form-group">
-                  <label class="col-form-label">Alamat 2*</label>
+                  <label class="col-form-label">Alamat 2</label>
                   <input
                     class="form-control"
                     id="alamat2Agensi"
@@ -258,13 +258,7 @@
                     name="alamat2"
                     [(ngModel)]="edit.pengguna.alamat_2"
                     placeholder="Alamat 2"
-                    #alamat2Agensi="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && alamat2Agensi.invalid }"
-                    required
                   />
-                  <div *ngIf="f.submitted && alamat2Agensi.invalid" class="invalid-feedback">
-                    <div *ngIf="alamat2Agensi.errors.required">Alamat 2 Agensi Wajib Diisi</div>
-                  </div>
                 </div>
 							</div>
 						</div>

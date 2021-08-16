@@ -20,8 +20,6 @@
 						#namaDaerah="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && namaDaerah.invalid }"
 						name="daerah.nama_daerah"
-						minlength="0"
-						maxlength="250"
 						required
 					/>
 					<div *ngIf="f.submitted && namaDaerah.invalid" class="invalid-feedback">
@@ -33,25 +31,21 @@
 			<div class="col-lg-6">
 				<div class="form-group">
 					<label>Negeri</label>
-					<div>
-						<ng-select
-							[items]="states"
-							bindLabel="nama_negeri"
-							bindValue="id"
-							placeholder="Sila Pilih"
-							class="js-example-placeholder-multiple"
-							name="daerah.id_negeri"
-							[(ngModel)]="daerah.id_negeri"
-							#negeri="ngModel"
-							[ngClass]="{ 'is-invalid': f.submitted && negeri.invalid }"
-							minlength="0"
-							maxlength="250"
-							required
-						></ng-select>
-						<div *ngIf="f.submitted && negeri.invalid" class="invalid-feedback">
-							<div *ngIf="negeri.errors.required">Negeri Wajib Dipilih</div>
-						</div>
-					</div>
+					<ng-select
+            [items]="states"
+            bindLabel="nama_negeri"
+            bindValue="id"
+            placeholder="Sila Pilih"
+            class="js-example-placeholder-multiple"
+            name="daerah.id_negeri"
+            [(ngModel)]="daerah.id_negeri"
+            #negeri="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && negeri.invalid }"
+            required
+          ></ng-select>
+          <div *ngIf="f.submitted && negeri.invalid" class="invalid-feedback">
+            <div *ngIf="negeri.errors.required">Negeri Wajib Dipilih</div>
+          </div>
 				</div>
 			</div>
 		</div>
@@ -65,11 +59,9 @@
 						[(ngModel)]="daerah.status_daerah"
 						#status="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
-						minlength="0"
-						maxlength="250"
 						required
 					>
-						<option [ngValue]="undefined" disabled>Sila Pilih</option>
+						<option selected disabled [value]="undefined">Sila Pilih</option>
 						<option [value]="1">Aktif</option>
 						<option [value]="0">Tidak Aktif</option>
 					</select>
