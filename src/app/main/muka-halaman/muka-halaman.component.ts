@@ -41,29 +41,21 @@ export class MukaHalamanComponent implements OnInit, AfterViewInit {
     this._dashboardServiceProxy.getJumlahBantuan(
       this.filter
     ).subscribe((result) => {
-      let stringJumlah = JSON.stringify(result.jumlahMangsa);
-      this.jumlahMangsa = JSON.parse(stringJumlah);
+      this.jumlahMangsa = result.jumlahMangsa;
 
-      let stringIhsan = JSON.stringify(result.bantuanBwi);
-      this.jumlahIhsan = JSON.parse(stringIhsan);
+      this.jumlahIhsan = result.bantuanBwi;
 
-      let stringPinjaman = JSON.stringify(result.bantuanPinjaman);
-      this.jumlahPinjaman = JSON.parse(stringPinjaman);
+      this.jumlahPinjaman = result.bantuanPinjaman;
 
-      let stringAntarabangsa = JSON.stringify(result.bantuanAntarabangsa);
-      this.jumlahAntarabangsa = JSON.parse(stringAntarabangsa);
+      this.jumlahAntarabangsa = result.bantuanAntarabangsa;
 
-      let stringRumahBaikPulih = JSON.stringify(result.bantuanRumahBaikPulih);
-      this.jumlahRumahBaikPulih = JSON.parse(stringRumahBaikPulih);
+      this.jumlahRumahBaikPulih = result.bantuanRumahBaikPulih;
 
-      let stringRumahKekal = JSON.stringify(result.bantuanRumahKekal);
-      this.jumlahRumahKekal = JSON.parse(stringRumahKekal);
+      this.jumlahRumahKekal = result.bantuanRumahKekal;
 
-      let stringPertanian = JSON.stringify(result.bantuanPertanian);
-      this.jumlahPertanian = JSON.parse(stringPertanian);
+      this.jumlahPertanian = result.bantuanPertanian;
 
-      let stringLain = JSON.stringify(result.bantuanLain);
-      this.jumlahLain = JSON.parse(stringLain);
+      this.jumlahLain = result.bantuanLain;
 
     });
   }
