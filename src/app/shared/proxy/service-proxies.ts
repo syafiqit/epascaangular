@@ -380,6 +380,140 @@ export class AuthServiceProxy {
 }
 
 @Injectable()
+export class DashboardServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Get all getJumlahBantuan
+     * @param filterYear (optional) Filter records with a string
+     * @return Success
+     */
+    getJumlahBantuan(filterYear: string | undefined): Observable<TotalJumlahBantuanForViewDto> {
+        let url_ = this.baseUrl + "/api/dashboard/getJumlahBantuan?";
+        if (filterYear === null)
+            throw new Error("The parameter 'filterYear' cannot be null.");
+        else if (filterYear !== undefined)
+            url_ += "filterYear=" + encodeURIComponent("" + filterYear) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetJumlahBantuan(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetJumlahBantuan(<any>response_);
+                } catch (e) {
+                    return <Observable<TotalJumlahBantuanForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<TotalJumlahBantuanForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetJumlahBantuan(response: HttpResponseBase): Observable<TotalJumlahBantuanForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = TotalJumlahBantuanForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<TotalJumlahBantuanForViewDto>(<any>null);
+    }
+
+    /**
+     * Get all getJumlahBantuanByNegeri
+     * @param filterYear (optional) Filter records with a string
+     * @return Success
+     */
+    getJumlahBantuanByNegeri(filterYear: string | undefined): Observable<TotalBantuanByNegeriForViewDto> {
+        let url_ = this.baseUrl + "/api/dashboard/getJumlahBantuanByNegeri?";
+        if (filterYear === null)
+            throw new Error("The parameter 'filterYear' cannot be null.");
+        else if (filterYear !== undefined)
+            url_ += "filterYear=" + encodeURIComponent("" + filterYear) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetJumlahBantuanByNegeri(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetJumlahBantuanByNegeri(<any>response_);
+                } catch (e) {
+                    return <Observable<TotalBantuanByNegeriForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<TotalBantuanByNegeriForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetJumlahBantuanByNegeri(response: HttpResponseBase): Observable<TotalBantuanByNegeriForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = TotalBantuanByNegeriForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<TotalBantuanByNegeriForViewDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class MangsaAirServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -13625,6 +13759,214 @@ export interface IRegisterPenggunaDto {
     poskod: string;
     id_daerah: number;
     id_negeri: number;
+}
+
+/** Jumlah Bantuan Data For Card */
+export class GetJumlahBantuanDto implements IGetJumlahBantuanDto {
+    penerima!: number;
+    jumlah!: number;
+
+    constructor(data?: IGetJumlahBantuanDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.penerima = _data["penerima"];
+            this.jumlah = _data["jumlah"];
+        }
+    }
+
+    static fromJS(data: any): GetJumlahBantuanDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetJumlahBantuanDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["penerima"] = this.penerima;
+        data["jumlah"] = this.jumlah;
+        return data; 
+    }
+}
+
+/** Jumlah Bantuan Data For Card */
+export interface IGetJumlahBantuanDto {
+    penerima: number;
+    jumlah: number;
+}
+
+export class GetTotalBantuanByNegeriDto implements IGetTotalBantuanByNegeriDto {
+    id!: number;
+    bilMangsa!: number;
+    jumlahBantuan!: number;
+    year!: number;
+    nama_negeri!: string;
+
+    constructor(data?: IGetTotalBantuanByNegeriDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.bilMangsa = _data["bilMangsa"];
+            this.jumlahBantuan = _data["jumlahBantuan"];
+            this.year = _data["year"];
+            this.nama_negeri = _data["nama_negeri"];
+        }
+    }
+
+    static fromJS(data: any): GetTotalBantuanByNegeriDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTotalBantuanByNegeriDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["bilMangsa"] = this.bilMangsa;
+        data["jumlahBantuan"] = this.jumlahBantuan;
+        data["year"] = this.year;
+        data["nama_negeri"] = this.nama_negeri;
+        return data; 
+    }
+}
+
+export interface IGetTotalBantuanByNegeriDto {
+    id: number;
+    bilMangsa: number;
+    jumlahBantuan: number;
+    year: number;
+    nama_negeri: string;
+}
+
+/** Jumlah Bantuan By Negeri */
+export class TotalBantuanByNegeriForViewDto implements ITotalBantuanByNegeriForViewDto {
+    /** Items in array of object */
+    items!: GetTotalBantuanByNegeriDto[];
+
+    constructor(data?: ITotalBantuanByNegeriForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetTotalBantuanByNegeriDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): TotalBantuanByNegeriForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new TotalBantuanByNegeriForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** Jumlah Bantuan By Negeri */
+export interface ITotalBantuanByNegeriForViewDto {
+    /** Items in array of object */
+    items: GetTotalBantuanByNegeriDto[];
+}
+
+/** Jumlah Bantuan Data For Card */
+export class TotalJumlahBantuanForViewDto implements ITotalJumlahBantuanForViewDto {
+    jumlahMangsa!: GetJumlahBantuanDto;
+    bantuanBwi!: GetJumlahBantuanDto;
+    bantuanPinjaman!: GetJumlahBantuanDto;
+    bantuanAntarabangsa!: GetJumlahBantuanDto;
+    bantuanPertanian!: GetJumlahBantuanDto;
+    bantuanLain!: GetJumlahBantuanDto;
+    bantuanRumahBaikPulih!: GetJumlahBantuanDto;
+    bantuanRumahKekal!: GetJumlahBantuanDto;
+
+    constructor(data?: ITotalJumlahBantuanForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.jumlahMangsa = _data["jumlahMangsa"] ? GetJumlahBantuanDto.fromJS(_data["jumlahMangsa"]) : <any>undefined;
+            this.bantuanBwi = _data["bantuanBwi"] ? GetJumlahBantuanDto.fromJS(_data["bantuanBwi"]) : <any>undefined;
+            this.bantuanPinjaman = _data["bantuanPinjaman"] ? GetJumlahBantuanDto.fromJS(_data["bantuanPinjaman"]) : <any>undefined;
+            this.bantuanAntarabangsa = _data["bantuanAntarabangsa"] ? GetJumlahBantuanDto.fromJS(_data["bantuanAntarabangsa"]) : <any>undefined;
+            this.bantuanPertanian = _data["bantuanPertanian"] ? GetJumlahBantuanDto.fromJS(_data["bantuanPertanian"]) : <any>undefined;
+            this.bantuanLain = _data["bantuanLain"] ? GetJumlahBantuanDto.fromJS(_data["bantuanLain"]) : <any>undefined;
+            this.bantuanRumahBaikPulih = _data["bantuanRumahBaikPulih"] ? GetJumlahBantuanDto.fromJS(_data["bantuanRumahBaikPulih"]) : <any>undefined;
+            this.bantuanRumahKekal = _data["bantuanRumahKekal"] ? GetJumlahBantuanDto.fromJS(_data["bantuanRumahKekal"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): TotalJumlahBantuanForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new TotalJumlahBantuanForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["jumlahMangsa"] = this.jumlahMangsa ? this.jumlahMangsa.toJSON() : <any>undefined;
+        data["bantuanBwi"] = this.bantuanBwi ? this.bantuanBwi.toJSON() : <any>undefined;
+        data["bantuanPinjaman"] = this.bantuanPinjaman ? this.bantuanPinjaman.toJSON() : <any>undefined;
+        data["bantuanAntarabangsa"] = this.bantuanAntarabangsa ? this.bantuanAntarabangsa.toJSON() : <any>undefined;
+        data["bantuanPertanian"] = this.bantuanPertanian ? this.bantuanPertanian.toJSON() : <any>undefined;
+        data["bantuanLain"] = this.bantuanLain ? this.bantuanLain.toJSON() : <any>undefined;
+        data["bantuanRumahBaikPulih"] = this.bantuanRumahBaikPulih ? this.bantuanRumahBaikPulih.toJSON() : <any>undefined;
+        data["bantuanRumahKekal"] = this.bantuanRumahKekal ? this.bantuanRumahKekal.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+/** Jumlah Bantuan Data For Card */
+export interface ITotalJumlahBantuanForViewDto {
+    jumlahMangsa: GetJumlahBantuanDto;
+    bantuanBwi: GetJumlahBantuanDto;
+    bantuanPinjaman: GetJumlahBantuanDto;
+    bantuanAntarabangsa: GetJumlahBantuanDto;
+    bantuanPertanian: GetJumlahBantuanDto;
+    bantuanLain: GetJumlahBantuanDto;
+    bantuanRumahBaikPulih: GetJumlahBantuanDto;
+    bantuanRumahKekal: GetJumlahBantuanDto;
 }
 
 export class CreateOrEditMangsaAirDto implements ICreateOrEditMangsaAirDto {

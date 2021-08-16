@@ -21,8 +21,6 @@
 						#namaDun="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && namaDun.invalid }"
 						name="dun.nama_dun"
-						minlength="0"
-						maxlength="250"
 						required
 					/>
 					<div *ngIf="f.submitted && namaDun.invalid" class="invalid-feedback">
@@ -44,8 +42,6 @@
 						[(ngModel)]="dun.id_parlimen"
 						#parlimen="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && parlimen.invalid }"
-						minlength="0"
-						maxlength="250"
 						required
 					></ng-select>
 					<div *ngIf="f.submitted && parlimen.invalid" class="invalid-feedback">
@@ -69,8 +65,6 @@
 						[(ngModel)]="dun.id_negeri"
 						#negeri="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && negeri.invalid }"
-						minlength="0"
-						maxlength="250"
 						required
 					></ng-select>
 					<div *ngIf="f.submitted && negeri.invalid" class="invalid-feedback">
@@ -88,11 +82,9 @@
 						[(ngModel)]="dun.status_dun"
 						#status="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
-						minlength="0"
-						maxlength="250"
 						required
 					>
-						<option [ngValue]="undefined" disabled>Sila Pilih</option>
+						<option selected disabled [value]="undefined">Sila Pilih</option>
 						<option [value]="1">Aktif</option>
 						<option [value]="0">Tidak Aktif</option>
 					</select>

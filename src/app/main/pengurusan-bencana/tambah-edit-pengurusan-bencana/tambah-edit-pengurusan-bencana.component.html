@@ -65,22 +65,20 @@
       <div class="col-lg-6">
         <div class="form-group">
           <label>Jenis Bencana</label>
-          <div>
-            <ng-select
-              [items]="disasters"
-              bindLabel="nama_jenis_bencana"
-              bindValue="id"
-              placeholder="Sila Pilih"
-              class="js-example-placeholder-multiple"
-              name="pengurusan_bencana.id_jenis_bencana"
-              [(ngModel)]="pengurusan_bencana.id_jenis_bencana"
-              #jenisBencana="ngModel"
-              [ngClass]="{ 'is-invalid': f.submitted && jenisBencana.invalid }"
-              required
-            ></ng-select>
-            <div *ngIf="f.submitted && jenisBencana.invalid" class="invalid-feedback">
-              <div *ngIf="jenisBencana.errors.required">Kategori Bencana Wajib diIsi</div>
-            </div>
+          <ng-select
+            [items]="disasters"
+            bindLabel="nama_jenis_bencana"
+            bindValue="id"
+            placeholder="Sila Pilih"
+            class="js-example-placeholder-multiple"
+            name="pengurusan_bencana.id_jenis_bencana"
+            [(ngModel)]="pengurusan_bencana.id_jenis_bencana"
+            #jenisBencana="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && jenisBencana.invalid }"
+            required
+          ></ng-select>
+          <div *ngIf="f.submitted && jenisBencana.invalid" class="invalid-feedback">
+            <div *ngIf="jenisBencana.errors.required">Kategori Bencana Wajib diIsi</div>
           </div>
         </div>
       </div>
@@ -110,22 +108,20 @@
       <div class="col-lg-6">
         <div class="form-group">
           <label>Negeri</label>
-          <div>
-            <ng-select
-              [items]="states"
-              bindLabel="nama_negeri"
-              bindValue="id"
-              placeholder="Sila Pilih"
-              class="js-example-placeholder-multiple"
-              name="pengurusan_bencana.id_negeri"
-              [(ngModel)]="pengurusan_bencana.id_negeri"
-              #negeri="ngModel"
-              [ngClass]="{ 'is-invalid': f.submitted && negeri.invalid }"
-              required
-            ></ng-select>
-            <div *ngIf="f.submitted && negeri.invalid" class="invalid-feedback">
-              <div *ngIf="negeri.errors.required">Negeri Wajib diIsi</div>
-            </div>
+          <ng-select
+            [items]="states"
+            bindLabel="nama_negeri"
+            bindValue="id"
+            placeholder="Sila Pilih"
+            class="js-example-placeholder-multiple"
+            name="pengurusan_bencana.id_negeri"
+            [(ngModel)]="pengurusan_bencana.id_negeri"
+            #negeri="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && negeri.invalid }"
+            required
+          ></ng-select>
+          <div *ngIf="f.submitted && negeri.invalid" class="invalid-feedback">
+            <div *ngIf="negeri.errors.required">Negeri Wajib diIsi</div>
           </div>
         </div>
       </div>
@@ -139,11 +135,9 @@
 						[(ngModel)]="pengurusan_bencana.status_bencana"
 						#status="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
-						minlength="0"
-						maxlength="250"
 						required
 					>
-						<option [ngValue]="undefined" disabled>Sila Pilih</option>
+						<option selected disabled [value]="undefined">Sila Pilih</option>
 						<option [value]="1">Aktif</option>
 						<option [value]="0">Tidak Aktif</option>
 					</select>

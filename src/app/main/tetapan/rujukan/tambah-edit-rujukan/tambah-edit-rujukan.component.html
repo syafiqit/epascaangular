@@ -18,8 +18,6 @@
             #nama_rujukan="ngModel"
             [ngClass]="{ 'is-invalid': nama_rujukan.invalid && (nama_rujukan.dirty || nama_rujukan.touched) }"
             name="nama_rujukan"
-            minlength="0"
-            maxlength="250"
             required
           />
           <div *ngIf="nama_rujukan.invalid && (nama_rujukan.dirty || nama_rujukan.touched)" class="invalid-feedback">
