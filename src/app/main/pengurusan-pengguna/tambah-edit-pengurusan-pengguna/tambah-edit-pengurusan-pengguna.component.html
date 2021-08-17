@@ -1,44 +1,42 @@
-<app-breadcrumb *ngIf="idPengguna"
-	[title]="'Kemaskini Maklumat Pengguna'"
-	[items]="['Pengurusan Pengguna']"
-	[active_item]="['Kemaskini Pengguna']"
+<app-breadcrumb *ngIf="idPengguna" [title]="'Kemaskini Maklumat Pengguna'" [items]="['Pengurusan Pengguna']"
+	[active_item]="['Kemaskini']"
 ></app-breadcrumb>
-<app-breadcrumb *ngIf="!idPengguna"
-	[title]="'Tambah Maklumat Pengguna'"
-	[items]="['Pengurusan Pengguna']"
-	[active_item]="['Tambah Pengguna']"
+<app-breadcrumb *ngIf="!idPengguna" [title]="'Tambah Maklumat Pengguna'" [items]="['Pengurusan Pengguna']"
+	[active_item]="['Tambah']"
 ></app-breadcrumb>
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-sm-12">
-			<div class="card">
-				<div class="card-body">
-					<form class="form theme-form" name="form" #f="ngForm" focusInvalidInput (ngSubmit)="f.form.valid && save()" novalidate>
-						<h6>Maklumat Pengguna</h6>
+
+<div class="card">
+  <div class="card-body">
+    <ul ngbNav #nav="ngbNav" animation="true" [(activeId)]="active" class="nav-tabs">
+      <li [ngbNavItem]="1" [destroyOnHide]="true">
+        <a ngbNavLink>Pengguna</a>
+        <ng-template ngbNavContent>
+          <form class="form theme-form" name="form" #f="ngForm" focusInvalidInput (ngSubmit)="f.form.valid && preSave()" autocomplete="off" novalidate>
+            <h6>Maklumat Pengguna</h6>
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
-                  <label class="col-form-label">Nama Pemohon*</label>
+                  <label>Nama*</label>
                   <input
                     class="form-control"
                     id="namaPemohon"
                     type="text"
                     name="nama"
                     [(ngModel)]="edit.pengguna.nama"
-                    placeholder="Nama Pemohon"
+                    placeholder="Nama Pengguna"
                     #namaPemohon="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && namaPemohon.invalid }"
                     required
                   />
                   <div *ngIf="f.submitted && namaPemohon.invalid" class="invalid-feedback">
-                    <div *ngIf="namaPemohon.errors.required">Nama Pemohon Wajib Diisi</div>
+                    <div *ngIf="namaPemohon.errors.required">Nama Wajib Diisi</div>
                   </div>
                 </div>
 							</div>
 
 							<div class="col-lg-6">
 								<div class="form-group">
-                  <label class="col-form-label">No. Kad Pengenalan*</label>
+                  <label>No. Kad Pengenalan*</label>
                   <input
                     class="form-control"
                     id="noKadPengenalan"
@@ -69,7 +67,7 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
-                  <label class="col-form-label">Jawatan*</label>
+                  <label>Jawatan*</label>
                   <input
                     class="form-control"
                     id="jawatanPemohon"
@@ -93,7 +91,7 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
-                  <label class="col-form-label">No. Telefon Pejabat*</label>
+                  <label>No. Telefon Pejabat*</label>
                   <input
                     class="form-control"
                     id="noTelefonPejabat"
@@ -117,7 +115,7 @@
 
 							<div class="col-lg-6">
 								<div class="form-group">
-                  <label class="col-form-label">Telefon Bimbit*</label>
+                  <label>Telefon Bimbit*</label>
                   <input
                     class="form-control"
                     id="telefonBimbit"
@@ -142,7 +140,7 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
-                  <label class="col-form-label">Fax*</label>
+                  <label>Fax*</label>
                   <input
                     class="form-control"
                     id="noFax"
@@ -165,7 +163,7 @@
 
 							<div class="col-lg-6">
 								<div class="form-group">
-                  <label class="col-form-label">Emel*</label>
+                  <label>Emel*</label>
                   <input
                     class="form-control"
                     id="emelPemohon"
@@ -191,7 +189,7 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
-                  <label class="col-form-label">Nama Agensi*</label>
+                  <label>Nama Agensi*</label>
                   <ng-select
                     [items]="agency"
                     bindLabel="nama_agensi"
@@ -212,7 +210,7 @@
 
               <div class="col-lg-6">
 								<div class="form-group">
-                  <label class="col-form-label">Nama Kementerian*</label>
+                  <label>Nama Kementerian*</label>
                   <ng-select
                     [items]="ministries"
                     bindLabel="nama_kementerian"
@@ -230,7 +228,7 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
-                  <label class="col-form-label">Alamat 1*</label>
+                  <label>Alamat 1*</label>
                   <input
                     class="form-control"
                     id="alamat1Agensi"
@@ -250,7 +248,7 @@
 
 							<div class="col-lg-6">
 								<div class="form-group">
-                  <label class="col-form-label">Alamat 2</label>
+                  <label>Alamat 2</label>
                   <input
                     class="form-control"
                     id="alamat2Agensi"
@@ -325,61 +323,77 @@
                   ></ng-select>
                 </div>
 							</div>
-						</div>
 
-            <div *ngIf="idPengguna">
-              <hr>
-              <h6>Tetap Semula Kata Laluan</h6>
-              <div>
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <label class="col-form-label">Kata Laluan Baru*</label>
-                      <input
-                        class="form-control"
-                        [type]="show ? 'text' : 'password'"
-                        name="kata_laluan"
-                        [(ngModel)]="edit.pengguna.kata_laluan"
-                      />
-                      <div class="show-hide" (click)="showPassword()" *ngIf="!show">
-                        <div style="margin-top: 5px; color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-outline fa-lg"></i></div>
-                      </div>
-                      <div class="show-hide" (click)="showPassword()" *ngIf="show">
-                        <div style="margin-top: 5px; color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-off-outline fa-lg"></i></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <label class="col-form-label">Ulang Kata Laluan*</label>
-                      <input
-                        class="form-control"
-                        [type]="showNew ? 'text' : 'password'"
-                        name="ulang_kata_laluan"
-                        [(ngModel)]="ulang_kata_laluan"
-                      />
-                      <div class="show-hide" (click)="showNewPassword()" *ngIf="!showNew">
-                        <div style="margin-top: 5px; color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-outline fa-lg"></i></div>
-                      </div>
-                      <div class="show-hide" (click)="showNewPassword()" *ngIf="showNew">
-                        <div style="margin-top: 5px; color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-off-outline fa-lg"></i></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div *ngIf="edit.pengguna.kata_laluan != ulang_kata_laluan" style="font-size: 80%; color: #dc3545; margin-top: -15px;">
-                  Kata Laluan Tidak Sepadan
+              <div class="col-lg-6" *ngIf="statusId == 1" [@fadeVerticalAnimation]>
+                <div class="form-group">
+                  <label>Status Pengguna</label>
+                  <select
+                    class="form-control"
+                    name="status_pengesahan"
+                    [(ngModel)]="edit.pengguna.status_pengguna"
+                  >
+                    <option *ngFor="let item of statusPengesahan" value="{{item.id}}">{{item.nama}}</option>
+                  </select>
                 </div>
               </div>
-            </div>
-            <hr />
+
+              <div class="col-lg-6" *ngIf="statusId == 2 || statusId == 3" [@fadeVerticalAnimation]>
+                <div class="form-group">
+                  <label>Status Pengguna</label>
+                  <select
+                    class="form-control"
+                    name="status_berdaftar"
+                    [(ngModel)]="edit.pengguna.status_pengguna"
+                  >
+                    <option *ngFor="let item of statusBerdaftar" value="{{item.id}}">{{item.nama}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-lg-6" *ngIf="statusId == 4" [@fadeVerticalAnimation]>
+                <div class="form-group">
+                  <label>Status Pengguna</label>
+                  <select
+                    class="form-control"
+                    name="status_tidak_aktif"
+                    [(ngModel)]="edit.pengguna.status_pengguna"
+                  >
+                    <option *ngFor="let item of statusDitolak" value="{{item.id}}">{{item.nama}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-lg-6" *ngIf="edit.pengguna.status_pengguna == 3 || edit.pengguna.status_pengguna == 4" [@fadeVerticalAnimation]>
+                <div class="form-group">
+                  <label *ngIf="edit.pengguna.status_pengguna == 3">Sebab Tidak Aktif</label>
+                  <label *ngIf="edit.pengguna.status_pengguna == 4">Sebab Penolakan</label>
+                  <textarea
+                    class="form-control"
+                    placeholder=""
+                    name="note"
+                    [(ngModel)]="edit.pengguna.catatan"
+                    #catatan="ngModel"
+                    [ngClass]="{ 'is-invalid': (f.submitted || catatan.touched) && catatan.invalid }"
+                    required
+                  >
+                  </textarea>
+                  <div *ngIf="(f.submitted || catatan.touched) && catatan.invalid" class="invalid-feedback">
+                    <div *ngIf="catatan.errors.required">Catatan Wajib Diisi</div>
+                  </div>
+                </div>
+              </div>
+						</div>
 
             <div class="row no-gutters justify-content-end mt-3">
               <button
-                type="button"
-                class="btn btn-light mr-2"
-                [routerLink]="['/app/pengguna/senarai-pengurusan-pengguna']"
+                *ngIf="edit.pengguna.status_pengguna == 1"
+                type="button" class="btn btn-light mr-2" [routerLink]="['/app/pengguna/permohonan']"
+              >
+                Kembali
+              </button>
+              <button
+                *ngIf="edit.pengguna.status_pengguna != 1"
+                type="button" class="btn btn-light mr-2" [routerLink]="['/app/pengguna/senarai']"
               >
                 Kembali
               </button>
@@ -390,9 +404,85 @@
                 Simpan
               </button>
             </div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+          </form>
+        </ng-template>
+      </li>
+
+      <li [ngbNavItem]="2" [destroyOnHide]="true" [hidden]="viewTab == false">
+        <a ngbNavLink>Emel & Kata Laluan</a>
+        <ng-template ngbNavContent>
+          <form class="form theme-form" (ngSubmit)="new_password == repeat_new_password && saveEmelPassword()" novalidate autocomplete="off">
+            <h6>Kemaskini Emel & Kata Laluan</h6>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Emel Baru</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="Emel Baru"
+                    name="new_emel"
+                    [(ngModel)]="new_email"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label>Kata Laluan Baru</label>
+                    <input
+                      placeholder="Kata Laluan Baru"
+                      class="form-control"
+                      [type]="showNew ? 'text' : 'password'"
+                      name="kata_laluan_baharu"
+                      [(ngModel)]="new_password"
+                    />
+                    <div class="show-hide-3" (click)="showNewPassword()" *ngIf="!showNew">
+                      <div style="color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-outline fa-lg"></i></div>
+                    </div>
+                    <div class="show-hide-3" (click)="showNewPassword()" *ngIf="showNew">
+                      <div style="color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-off-outline fa-lg"></i></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label>Ulang Kata Laluan</label>
+                    <input
+                      placeholder="Ulang Kata Laluan"
+                      class="form-control"
+                      [type]="showRepeatNew ? 'text' : 'password'"
+                      name="ulang_kata_laluan"
+                      [(ngModel)]="repeat_new_password"
+                    />
+                    <div class="show-hide-3" (click)="showRepeatNewPassword()" *ngIf="!showRepeatNew">
+                      <div style="color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-outline fa-lg"></i></div>
+                    </div>
+                    <div class="show-hide-3" (click)="showRepeatNewPassword()" *ngIf="showRepeatNew">
+                      <div style="color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-off-outline fa-lg"></i></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="new_password != repeat_new_password" style="font-size: 80%; color: #dc3545; margin-top: -15px;">
+                Kata Laluan Tidak Sepadan
+              </div>
+            </div>
+
+            <div class="row mt-3 no-gutters justify-content-end">
+              <button class="btn btn-light mr-2" type="button" [routerLink]="['/app/pengguna/senarai']">
+                Kembali
+              </button>
+              <button class="btn btn-primary" type="submit">Simpan</button>
+            </div>
+          </form>
+        </ng-template>
+      </li>
+    </ul>
+    <div class="row no-gutters mt-2" [ngbNavOutlet]="nav"></div>
+  </div>
 </div>

@@ -1,4 +1,4 @@
-<app-breadcrumb [title]="'Senarai Pengguna'" [items]="['Pengurusan Pengguna']" [active_item]="['Senarai']"></app-breadcrumb>
+<app-breadcrumb [title]="'Senarai Permohonan Pengguna'" [items]="['Pengurusan Pengguna']" [active_item]="['Permohonan']"></app-breadcrumb>
 <div class="content d-flex flex-column flex-column-fluid">
 	<div class="container-fluid">
 		<div class="card card-custom gutter-b">
@@ -75,21 +75,6 @@
                             class="js-example-placeholder-multiple"
                             name="namaPeranan"
                             [(ngModel)]="filterPeranan"
-                          ></ng-select>
-                        </div>
-                      </div>
-
-                      <div class="col-lg-4">
-                        <div class="form-group">
-                          <label>Status</label>
-                          <ng-select
-                            [items]="statusPengguna"
-                            bindLabel="nama"
-                            bindValue="id"
-                            placeholder="Sila Pilih"
-                            class="js-example-placeholder-multiple"
-                            name="userStatus"
-                            [(ngModel)]="filterStatus"
                           ></ng-select>
                         </div>
                       </div>

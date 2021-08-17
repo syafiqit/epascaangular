@@ -13184,12 +13184,13 @@ export class UserServiceProxy {
      * @param filter (optional) Filter records with a string
      * @param filterAgensi (optional) Filter records with a integer
      * @param filterPeranan (optional) Filter records with a integer
+     * @param filterStatus (optional) Filter records with a integer
      * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
      * @param skipCount (optional) Skip n-value of a record
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAllUser(filter: string | undefined, filterAgensi: number | undefined, filterPeranan: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfUserForViewDto> {
+    getAllUser(filter: string | undefined, filterAgensi: number | undefined, filterPeranan: number | undefined, filterStatus: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfUserForViewDto> {
         let url_ = this.baseUrl + "/api/user/getAllUser?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -13203,6 +13204,10 @@ export class UserServiceProxy {
             throw new Error("The parameter 'filterPeranan' cannot be null.");
         else if (filterPeranan !== undefined)
             url_ += "filterPeranan=" + encodeURIComponent("" + filterPeranan) + "&";
+        if (filterStatus === null)
+            throw new Error("The parameter 'filterStatus' cannot be null.");
+        else if (filterStatus !== undefined)
+            url_ += "filterStatus=" + encodeURIComponent("" + filterStatus) + "&";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
@@ -13240,6 +13245,92 @@ export class UserServiceProxy {
     }
 
     protected processGetAllUser(response: HttpResponseBase): Observable<PagedResultDtoOfUserForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfUserForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfUserForViewDto>(<any>null);
+    }
+
+    /**
+     * Get all Permohonan User
+     * @param filter (optional) Filter records with a string
+     * @param filterAgensi (optional) Filter records with a integer
+     * @param filterPeranan (optional) Filter records with a integer
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAllPermohonanUser(filter: string | undefined, filterAgensi: number | undefined, filterPeranan: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfUserForViewDto> {
+        let url_ = this.baseUrl + "/api/user/getAllPermohonanUser?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (filterAgensi === null)
+            throw new Error("The parameter 'filterAgensi' cannot be null.");
+        else if (filterAgensi !== undefined)
+            url_ += "filterAgensi=" + encodeURIComponent("" + filterAgensi) + "&";
+        if (filterPeranan === null)
+            throw new Error("The parameter 'filterPeranan' cannot be null.");
+        else if (filterPeranan !== undefined)
+            url_ += "filterPeranan=" + encodeURIComponent("" + filterPeranan) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllPermohonanUser(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllPermohonanUser(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfUserForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfUserForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllPermohonanUser(response: HttpResponseBase): Observable<PagedResultDtoOfUserForViewDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -13442,6 +13533,67 @@ export class UserServiceProxy {
             }));
         }
         return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * Change User emel or paswword
+     * @param body Create or edit object
+     * @return Success
+     */
+    changeEmelAndPassword(body: ChangeEmelPasswordDto): Observable<OutputChangeEmelPasswordDto> {
+        let url_ = this.baseUrl + "/api/user/changeEmelAndPassword";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processChangeEmelAndPassword(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processChangeEmelAndPassword(<any>response_);
+                } catch (e) {
+                    return <Observable<OutputChangeEmelPasswordDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<OutputChangeEmelPasswordDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processChangeEmelAndPassword(response: HttpResponseBase): Observable<OutputChangeEmelPasswordDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = OutputChangeEmelPasswordDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<OutputChangeEmelPasswordDto>(<any>null);
     }
 }
 
@@ -27561,6 +27713,50 @@ export interface ITotalTabungCardForViewDto {
     total_baki_bawaan: string;
 }
 
+export class ChangeEmelPasswordDto implements IChangeEmelPasswordDto {
+    id!: number;
+    changeEmel!: string;
+    changePassword!: string;
+
+    constructor(data?: IChangeEmelPasswordDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.changeEmel = _data["changeEmel"];
+            this.changePassword = _data["changePassword"];
+        }
+    }
+
+    static fromJS(data: any): ChangeEmelPasswordDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ChangeEmelPasswordDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["changeEmel"] = this.changeEmel;
+        data["changePassword"] = this.changePassword;
+        return data; 
+    }
+}
+
+export interface IChangeEmelPasswordDto {
+    id: number;
+    changeEmel: string;
+    changePassword: string;
+}
+
 export class CreateOrEditPenggunaDto implements ICreateOrEditPenggunaDto {
     pengguna!: CreatePenggunaDto;
 
@@ -27617,6 +27813,8 @@ export class CreatePenggunaDto implements ICreatePenggunaDto {
     id_negeri!: number;
     nama_daerah!: string;
     nama_negeri!: string;
+    status_pengguna!: number;
+    catatan!: string;
 
     constructor(data?: ICreatePenggunaDto) {
         if (data) {
@@ -27648,6 +27846,8 @@ export class CreatePenggunaDto implements ICreatePenggunaDto {
             this.id_negeri = _data["id_negeri"];
             this.nama_daerah = _data["nama_daerah"];
             this.nama_negeri = _data["nama_negeri"];
+            this.status_pengguna = _data["status_pengguna"];
+            this.catatan = _data["catatan"];
         }
     }
 
@@ -27679,6 +27879,8 @@ export class CreatePenggunaDto implements ICreatePenggunaDto {
         data["id_negeri"] = this.id_negeri;
         data["nama_daerah"] = this.nama_daerah;
         data["nama_negeri"] = this.nama_negeri;
+        data["status_pengguna"] = this.status_pengguna;
+        data["catatan"] = this.catatan;
         return data; 
     }
 }
@@ -27703,6 +27905,8 @@ export interface ICreatePenggunaDto {
     id_negeri: number;
     nama_daerah: string;
     nama_negeri: string;
+    status_pengguna: number;
+    catatan: string;
 }
 
 export class EditUserDto implements IEditUserDto {
@@ -27726,6 +27930,7 @@ export class EditUserDto implements IEditUserDto {
     nama_daerah!: string;
     nama_negeri!: string;
     kata_laluan!: string;
+    catatan!: string;
 
     constructor(data?: IEditUserDto) {
         if (data) {
@@ -27758,6 +27963,7 @@ export class EditUserDto implements IEditUserDto {
             this.nama_daerah = _data["nama_daerah"];
             this.nama_negeri = _data["nama_negeri"];
             this.kata_laluan = _data["kata_laluan"];
+            this.catatan = _data["catatan"];
         }
     }
 
@@ -27790,6 +27996,7 @@ export class EditUserDto implements IEditUserDto {
         data["nama_daerah"] = this.nama_daerah;
         data["nama_negeri"] = this.nama_negeri;
         data["kata_laluan"] = this.kata_laluan;
+        data["catatan"] = this.catatan;
         return data; 
     }
 }
@@ -27815,6 +28022,7 @@ export interface IEditUserDto {
     nama_daerah: string;
     nama_negeri: string;
     kata_laluan: string;
+    catatan: string;
 }
 
 export class GetUserForEditDto implements IGetUserForEditDto {
@@ -27868,6 +28076,7 @@ export class GetUserForViewDto implements IGetUserForViewDto {
     nama_daerah!: string;
     nama_negeri!: string;
     no_kp!: string;
+    emel!: string;
 
     constructor(data?: IGetUserForViewDto) {
         if (data) {
@@ -27894,6 +28103,7 @@ export class GetUserForViewDto implements IGetUserForViewDto {
             this.nama_daerah = _data["nama_daerah"];
             this.nama_negeri = _data["nama_negeri"];
             this.no_kp = _data["no_kp"];
+            this.emel = _data["emel"];
         }
     }
 
@@ -27920,6 +28130,7 @@ export class GetUserForViewDto implements IGetUserForViewDto {
         data["nama_daerah"] = this.nama_daerah;
         data["nama_negeri"] = this.nama_negeri;
         data["no_kp"] = this.no_kp;
+        data["emel"] = this.emel;
         return data; 
     }
 }
@@ -27939,6 +28150,43 @@ export interface IGetUserForViewDto {
     nama_daerah: string;
     nama_negeri: string;
     no_kp: string;
+    emel: string;
+}
+
+export class OutputChangeEmelPasswordDto implements IOutputChangeEmelPasswordDto {
+    message!: string;
+
+    constructor(data?: IOutputChangeEmelPasswordDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.message = _data["message"];
+        }
+    }
+
+    static fromJS(data: any): OutputChangeEmelPasswordDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new OutputChangeEmelPasswordDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["message"] = this.message;
+        return data; 
+    }
+}
+
+export interface IOutputChangeEmelPasswordDto {
+    message: string;
 }
 
 /** Ngo List in Tabular model */

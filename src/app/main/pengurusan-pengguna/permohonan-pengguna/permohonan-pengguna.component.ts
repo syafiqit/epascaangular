@@ -15,12 +15,12 @@ declare let require;
 const Swal = require('sweetalert2');
 
 @Component({
-	selector: 'app-pengurusan-pengguna',
-	templateUrl: './pengurusan-pengguna.component.html',
+	selector: 'app-permohonan-pengguna',
+	templateUrl: './permohonan-pengguna.component.html',
 	encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig]
 })
-export class PengurusanPenggunaComponent implements OnInit {
+export class PermohonanPenggunaComponent implements OnInit {
 	@ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
@@ -29,15 +29,14 @@ export class PengurusanPenggunaComponent implements OnInit {
   filter: string;
   filterAgensi: number;
   filterPeranan: number;
-  filterStatus: number;
   saving = false;
-  idPengguna: any;
   agencies: any;
   roles: any;
   statuses: any;
   terms$ = new Subject<string>();
 
   statusPengguna = [
+    { id: 1, nama: "Permohonan" },
     { id: 2, nama: "Berdaftar" },
     { id: 3, nama: "Tidak Aktif" },
     { id: 4, nama: "Ditolak" }
@@ -49,7 +48,7 @@ export class PengurusanPenggunaComponent implements OnInit {
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
     private _refPerananServiceProxy: RefPerananServiceProxy
   ) {
-		this.primengTableHelper = new PrimengTableHelper();
+    this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
 	}
@@ -79,11 +78,10 @@ export class PengurusanPenggunaComponent implements OnInit {
 
 		this.primengTableHelper.showLoadingIndicator();
 		this._userServiceProxy
-			.getAllUser(
+			.getAllPermohonanUser(
 				this.filter,
         this.filterAgensi ?? undefined,
         this.filterPeranan ?? undefined,
-        this.filterStatus ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -103,7 +101,6 @@ export class PengurusanPenggunaComponent implements OnInit {
     this.filter = undefined;
     this.filterAgensi = undefined;
     this.filterPeranan = undefined;
-    this.filterStatus = undefined;
 
     this.getUser();
   }
@@ -124,7 +121,7 @@ export class PengurusanPenggunaComponent implements OnInit {
     this.statuses = this.statusPengguna.map((data) => {
       return data.nama;
     });
-    return this.statuses[id - 2];
+    return this.statuses[id - 1];
   }
 
 	reloadPage(): void {

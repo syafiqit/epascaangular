@@ -1,39 +1,41 @@
-import { AfterViewInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { LazyLoadEvent } from 'primeng/api';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
-import { ColumnMode, id, SortType } from '@swimlane/ngx-datatable';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
+  ChangeEmelPasswordDto,
   CreateOrEditPenggunaDto,
-  CreatePenggunaDto,
   EditUserDto,
   GetUserForEditDto,
+  OutputChangeEmelPasswordDto,
   RefAgensiServiceProxy,
   RefDaerahServiceProxy,
   RefKementerianServiceProxy,
   RefNegeriServiceProxy,
   UserServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
+import { finalize } from 'rxjs/operators';
+import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { fadeVerticalAnimation } from 'src/app/shared/data/router-animation/fade-vertical-animation';
 declare let require;
 const Swal = require('sweetalert2');
 
 @Component({
 	selector: 'app-tambah-edit-pengurusan-pengguna',
 	templateUrl: './tambah-edit-pengurusan-pengguna.component.html',
-	encapsulation: ViewEncapsulation.None
+	encapsulation: ViewEncapsulation.None,
+	providers: [NgbModalConfig],
+  animations: [fadeVerticalAnimation]
 })
-export class TambahEditPengurusanPenggunaComponent implements AfterViewInit {
+export class TambahEditPengurusanPenggunaComponent implements OnInit {
 	@ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
-	active = 1;
+	active;
   idPengguna: any;
+  statusId: any;
   saving = false;
-  show = false;
-  showNew = false;
-  ulang_kata_laluan: any;
   agensi: any;
   agency: any;
   daerah: any;
@@ -41,28 +43,38 @@ export class TambahEditPengurusanPenggunaComponent implements AfterViewInit {
   states: any;
   ministries: any;
   filterIdNegeri: number;
+  viewTab = false;
 
+  new_email: string;
+  new_password: string;
+  repeat_new_password: string;
+	public showNew = false;
+	public showRepeatNew = false;
 
 	primengTableHelper: PrimengTableHelper;
   edit: GetUserForEditDto = new GetUserForEditDto();
   daftar: CreateOrEditPenggunaDto = new CreateOrEditPenggunaDto();
+  editEmailPassword: ChangeEmelPasswordDto = new ChangeEmelPasswordDto();
+  outputEmailPassword: OutputChangeEmelPasswordDto = new OutputChangeEmelPasswordDto();
 
-	rows = [
-		{ category: 'Profil Mangsa' },
-		{ category: 'Bantuan Wang Ehsan' },
-		{ category: 'Bantuan Rumah' },
-		{ category: 'Bantuan Pinjaman' },
-		{ category: 'Bantuan Pertanian' },
-		{ category: 'Bantuan Antarabangsa' },
-		{ category: 'Bantuan Lain' },
-		{ category: 'Carian' },
-		{ category: 'Laporan' }
-	];
+  statusPengesahan = [
+    { id: 1, nama: "Permohonan" },
+    { id: 2, nama: "Berdaftar" },
+    { id: 4, nama: "Ditolak" }
+  ]
 
-	ColumnMode = ColumnMode;
-	SortType = SortType;
+  statusBerdaftar = [
+    { id: 2, nama: "Berdaftar" },
+    { id: 3, nama: "Tidak Aktif" }
+  ]
+
+  statusDitolak = [
+    { id: 4, nama: "Ditolak" },
+    { id: 2, nama: "Berdaftar" }
+  ]
 
 	constructor(
+    config: NgbModalConfig,
     private _activatedRoute: ActivatedRoute,
     private _userServiceProxy: UserServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
@@ -76,7 +88,7 @@ export class TambahEditPengurusanPenggunaComponent implements AfterViewInit {
     this.edit.pengguna = new EditUserDto();
 	}
 
-	ngAfterViewInit(): void {
+	ngOnInit(): void {
     this.shows();
 	}
 
@@ -89,6 +101,10 @@ export class TambahEditPengurusanPenggunaComponent implements AfterViewInit {
 		} else {
 			this._userServiceProxy.getUserForEdit(this.idPengguna).subscribe((result) => {
 				this.edit = result;
+        this.statusId = result.pengguna.status_pengguna;
+        if(result.pengguna.status_pengguna != 1) {
+          this.viewTab = true;
+        }
         this.getAgensiForEdit(result.pengguna.id_kementerian);
         this.getKementerian();
         this.getDaerahForEdit(result.pengguna.id_daerah);
@@ -99,14 +115,6 @@ export class TambahEditPengurusanPenggunaComponent implements AfterViewInit {
 
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
-	}
-
-  showPassword() {
-		this.show = !this.show;
-	}
-
-	showNewPassword() {
-		this.showNew = !this.showNew;
 	}
 
   getAgensiForEdit(idAgensi, filter?) {
@@ -170,6 +178,23 @@ export class TambahEditPengurusanPenggunaComponent implements AfterViewInit {
     this.daerah = undefined;
   }
 
+	showNewPassword() {
+		this.showNew = !this.showNew;
+	}
+
+	showRepeatNewPassword() {
+		this.showRepeatNew = !this.showRepeatNew;
+	}
+
+  preSave() {
+    if(this.edit.pengguna.status_pengguna == 1) {
+      this.savePermohonan();
+    }
+    if(this.edit.pengguna.status_pengguna != 1) {
+      this.save();
+    }
+  }
+
   save() {
 		this.saving = true;
     this.daftar.pengguna = this.edit.pengguna;
@@ -177,10 +202,43 @@ export class TambahEditPengurusanPenggunaComponent implements AfterViewInit {
 			.createOrEdit(this.daftar)
 			.pipe()
 			.subscribe((result) => {
-				Swal.fire('Berjaya!', 'Maklumat Berjaya Dikemaskini.', 'success').then(() => {
-					this.router.navigateByUrl('/app/pengguna/senarai-pengurusan-pengguna');
+				Swal.fire('Berjaya!', 'Maklumat Pengguna Berjaya Dikemaskini.', 'success').then(() => {
+					this.router.navigateByUrl('/app/pengguna/senarai');
 				});
 			});
-	  }
+	}
+
+  savePermohonan() {
+		this.saving = true;
+    this.daftar.pengguna = this.edit.pengguna;
+		this._userServiceProxy
+			.createOrEdit(this.daftar)
+			.pipe()
+			.subscribe((result) => {
+				Swal.fire('Berjaya!', 'Maklumat Pengguna Berjaya Dikemaskini.', 'success').then(() => {
+					this.router.navigateByUrl('/app/pengguna/permohonan');
+				});
+			});
+	}
+
+  saveEmelPassword() {
+		this.saving = true;
+    this.editEmailPassword.id = this.idPengguna;
+    this.editEmailPassword.changeEmel = this.new_email ?? null;
+    this.editEmailPassword.changePassword = this.new_password ?? null;
+
+    this._userServiceProxy
+      .changeEmelAndPassword(this.editEmailPassword)
+      .pipe(finalize(() => {this.saving = false;})).subscribe((result) => {
+        this.outputEmailPassword = result;
+        if(this.outputEmailPassword.message == "Emel atau Kata Laluan Berjaya Ditukar") {
+          Swal.fire('Berjaya!', this.outputEmailPassword.message, 'success').then(() => {
+            this.router.navigateByUrl('/app/pengguna/senarai');
+          });
+        }else{
+          Swal.fire('Tidak Berjaya!', this.outputEmailPassword.message, 'error');
+        }
+			});
+  }
 
 }

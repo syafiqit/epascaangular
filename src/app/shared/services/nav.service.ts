@@ -76,12 +76,16 @@ export class NavService implements OnDestroy {
 				icon: 'home',
 				type: 'link'
 			},
-			{
-				title: 'Pengurusan Pengguna',
-				path: '/app/pengguna/senarai-pengurusan-pengguna',
-				icon: 'check-square',
-				type: 'link'
-			},
+      {
+        title: 'Pengurusan Pengguna',
+        icon: 'check-square',
+        type: 'sub',
+        active: false,
+        children: [
+          { path: '/app/pengguna/senarai', title: 'Senarai Pengguna', type: 'link' },
+          { path: '/app/pengguna/permohonan', title: 'Permohonan Pengguna', type: 'link' }
+        ]
+      },
 			{
 				title: 'Pengurusan Mangsa',
 				path: '/app/mangsa/senarai-pengurusan-mangsa',
