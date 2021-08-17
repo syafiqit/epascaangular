@@ -111,8 +111,4 @@ export class PengurusanMangsaComponent implements OnInit {
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
 	}
-
-	delete() {
-		Swal.fire('Berjaya!', 'Barangan Berjaya Dibuang.', 'success');
-	}
 }
