@@ -7,7 +7,7 @@
 }
 
 .txt-linkedin {
-  color: #0077B5 !important; 
+  color: #0077B5 !important;
 }
 
 .txt-fb {
@@ -125,6 +125,29 @@
   position: absolute;
   top: 52px;
   right: 20px;
+  transform: translateY(-50%);
+
+  span {
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--theme-deafult);
+
+    &.show {
+      &:before {
+        content: "show";
+      }
+    }
+
+    &:before {
+      content: "hide";
+    }
+  }
+}
+
+.show-hide-3 {
+  position: absolute;
+  top: 47px;
+  right: 25px;
   transform: translateY(-50%);
 
   span {

@@ -10,7 +10,7 @@
 		<div class="row">
 			<div class="col-6">
 				<div class="form-group">
-					<label class="col-form-label">Nama Agensi</label>
+					<label>Nama Agensi</label>
 					<input
 						class="form-control"
 						id="agency"
@@ -30,7 +30,7 @@
 
 			<div class="col-6">
 				<div class="form-group">
-					<label class="col-form-label">Kod Agensi</label>
+					<label>Kod Agensi</label>
 					<input
 						class="form-control"
 						id="agency_code"
@@ -52,24 +52,22 @@
 		<div class="row">
 			<div class="col-6">
 				<div class="form-group">
-					<label class="col-form-label">Kementerian</label>
-					<div>
-						<ng-select
-							[items]="ministries"
-							bindLabel="nama_kementerian"
-							bindValue="id"
-							placeholder="Sila Pilih"
-							class="js-example-placeholder-multiple"
-							name="agensi.id_kementerian"
-							[(ngModel)]="agensi.id_kementerian"
-							#kementerian="ngModel"
-							[ngClass]="{ 'is-invalid': f.submitted && kementerian.invalid }"
-							required
-						></ng-select>
-						<div *ngIf="f.submitted && kementerian.invalid" class="invalid-feedback">
-							<div *ngIf="kementerian.errors.required">Kementerian Wajib Dipilih</div>
-						</div>
-					</div>
+					<label>Kementerian</label>
+          <ng-select
+            [items]="ministries"
+            bindLabel="nama_kementerian"
+            bindValue="id"
+            placeholder="Sila Pilih"
+            class="js-example-placeholder-multiple"
+            name="agensi.id_kementerian"
+            [(ngModel)]="agensi.id_kementerian"
+            #kementerian="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && kementerian.invalid }"
+            required
+          ></ng-select>
+          <div *ngIf="f.submitted && kementerian.invalid" class="invalid-feedback">
+            <div *ngIf="kementerian.errors.required">Kementerian Wajib Dipilih</div>
+          </div>
 				</div>
 			</div>
 

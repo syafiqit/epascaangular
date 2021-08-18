@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
-import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { TambahEditPengurusanPenggunaComponent } from './tambah-edit-pengurusan-pengguna/tambah-edit-pengurusan-pengguna.component';
+import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
@@ -10,7 +9,6 @@ import {
   RefPerananServiceProxy,
   UserServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
-import { ActivatedRoute } from '@angular/router';
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 declare let require;
@@ -20,7 +18,7 @@ const Swal = require('sweetalert2');
 	selector: 'app-pengurusan-pengguna',
 	templateUrl: './pengurusan-pengguna.component.html',
 	encapsulation: ViewEncapsulation.None,
-	providers: [NgbModalConfig, NgbModal]
+	providers: [NgbModalConfig]
 })
 export class PengurusanPenggunaComponent implements OnInit {
 	@ViewChild('dataTable', { static: true }) dataTable: Table;
@@ -31,21 +29,26 @@ export class PengurusanPenggunaComponent implements OnInit {
   filter: string;
   filterAgensi: number;
   filterPeranan: number;
+  filterStatus: number;
   saving = false;
   idPengguna: any;
   agencies: any;
   roles: any;
+  statuses: any;
   terms$ = new Subject<string>();
 
+  statusPengguna = [
+    { id: 2, nama: "Berdaftar" },
+    { id: 3, nama: "Tidak Aktif" },
+    { id: 4, nama: "Ditolak" }
+  ]
+
 	constructor(
-    private _activatedRoute: ActivatedRoute,
     config: NgbModalConfig,
-    private modalService: NgbModal,
     private _userServiceProxy: UserServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
     private _refPerananServiceProxy: RefPerananServiceProxy
   ) {
-    this.idPengguna = this._activatedRoute.snapshot.queryParams['id'];
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
@@ -80,6 +83,7 @@ export class PengurusanPenggunaComponent implements OnInit {
 				this.filter,
         this.filterAgensi ?? undefined,
         this.filterPeranan ?? undefined,
+        this.filterStatus ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -99,6 +103,7 @@ export class PengurusanPenggunaComponent implements OnInit {
     this.filter = undefined;
     this.filterAgensi = undefined;
     this.filterPeranan = undefined;
+    this.filterStatus = undefined;
 
     this.getUser();
   }
@@ -115,41 +120,15 @@ export class PengurusanPenggunaComponent implements OnInit {
 		});
 	}
 
-  approveUser(id){
-    this._userServiceProxy.approvedUser(id).subscribe(() => {
-			Swal.fire('Berjaya!', 'Pengguna Berjaya Disahkan.', 'success').then(() => {
-				this.getUser();
-			});
-		});
+  getStatus (id){
+    this.statuses = this.statusPengguna.map((data) => {
+      return data.nama;
+    });
+    return this.statuses[id - 2];
   }
 
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
-	}
-
-	addUserModal() {
-		this.modalService.open(TambahEditPengurusanPenggunaComponent, { size: 'lg' });
-	}
-
-  approveConfirmation(id) {
-    Swal.fire({
-			title: 'Anda Pasti?',
-			text: 'Adakah anda pasti ingin sahkan pengguna ini?',
-			type: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			cancelButtonText: 'Tidak',
-			confirmButtonText: 'Ya!'
-		}).then((result) => {
-      if (result.value) {
-        this._userServiceProxy.approvedUser(id).subscribe(() => {
-          Swal.fire('Berjaya!', 'Pengguna berjaya disahkan.', 'success').then(() => {
-            this.getUser();
-          });
-        });
-      }
-    });
 	}
 
 }

@@ -1,4 +1,4 @@
-<app-breadcrumb [title]="'Pengurusan Pengguna'" [active_item]="['Pengurusan Pengguna']"></app-breadcrumb>
+<app-breadcrumb [title]="'Senarai Pengguna'" [items]="['Pengurusan Pengguna']" [active_item]="['Senarai']"></app-breadcrumb>
 <div class="content d-flex flex-column flex-column-fluid">
 	<div class="container-fluid">
 		<div class="card card-custom gutter-b">
@@ -33,7 +33,7 @@
 
           <div class="col-4 justify-content-end pr-0">
             <button
-                [routerLink]="['/app/pengguna/tambah-edit-pengurusan-pengguna']"
+                [routerLink]="['/app/pengguna/tambah-edit']"
                 class="btn btn-primary pull-right"
               >
                 <i class="fa fa-plus mr-2"></i>
@@ -75,6 +75,21 @@
                             class="js-example-placeholder-multiple"
                             name="namaPeranan"
                             [(ngModel)]="filterPeranan"
+                          ></ng-select>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-4">
+                        <div class="form-group">
+                          <label>Status</label>
+                          <ng-select
+                            [items]="statusPengguna"
+                            bindLabel="nama"
+                            bindValue="id"
+                            placeholder="Sila Pilih"
+                            class="js-example-placeholder-multiple"
+                            name="userStatus"
+                            [(ngModel)]="filterStatus"
                           ></ng-select>
                         </div>
                       </div>
@@ -126,19 +141,23 @@
 							<ng-template pTemplate="header">
 								<tr>
 									<th style="width: 130px">Tindakan</th>
-									<th style="width: 100px" pSortableColumn="nama">
+									<th style="width: 130px" pSortableColumn="nama">
 										Nama
 										<p-sortIcon field="nama"></p-sortIcon>
+									</th>
+									<th style="width: 150px" pSortableColumn="emel">
+										Emel
+										<p-sortIcon field="emel"></p-sortIcon>
 									</th>
 									<th style="width: 130px" pSortableColumn="nama_agensi">
 										Agensi
 										<p-sortIcon field="nama_agensi"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="peranan">
+									<th style="width: 100px" pSortableColumn="peranan">
 										Peranan
 										<p-sortIcon field="peranan"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="status_pengguna">
+									<th style="width: 100px" pSortableColumn="status_pengguna">
 										Status
 										<p-sortIcon field="jawatan_pengguna"></p-sortIcon>
 									</th>
@@ -161,48 +180,34 @@
 											<div ngbDropdownMenu aria-labelledby="action">
 												<button
 													class="dropdown-item"
-													[routerLink]="['/app/pengguna/tambah-edit-pengurusan-pengguna']"
+													[routerLink]="['/app/pengguna/tambah-edit']"
                           [queryParams]="{id: record.id}"
 												>
-													Kemaskini
-												</button>
-                        <button
-                          *ngIf="record.status_pengguna == 1"
-													class="dropdown-item"
-													(click)="approveConfirmation(record.id)"
-												>
-													Sahkan
+													Lihat
 												</button>
 												<button class="dropdown-item">Padam</button>
 											</div>
 										</div>
 									</td>
-									<td style="width: 100px">
+									<td style="width: 130px">
 										<span class="p-column-title">Nama</span>
 										{{record.nama}}
+									</td>
+									<td style="width: 150px">
+										<span class="p-column-title">Emel</span>
+										{{record.emel}}
 									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">Agensi</span>
 										{{record.nama_agensi}}
 									</td>
-									<td style="width: 130px">
+									<td style="width: 100px">
 										<span class="p-column-title">Peranan</span>
 										{{record.peranan}}
 									</td>
-									<td style="width: 130px">
+									<td style="width: 100px">
 										<span class="p-column-title">Status</span>
-										<div *ngIf="record.status_pengguna == 1">
-                      <label>Permohonan</label>
-                    </div>
-                    <div *ngIf="record.status_pengguna == 2">
-                      <label>Berdaftar</label>
-                    </div>
-                    <div *ngIf="record.status_pengguna == 3">
-                      <label>Tidak Aktif</label>
-                    </div>
-                    <div *ngIf="record.status_pengguna == 4">
-                      <label>Ditolak</label>
-                    </div>
+										{{getStatus(record.status_pengguna)}}
 									</td>
 								</tr>
 							</ng-template>

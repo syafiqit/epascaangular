@@ -98,7 +98,7 @@ export class DaftarAkaunComponent implements OnInit {
 			.registerUser(this.register)
 			.pipe()
 			.subscribe((result) => {
-				Swal.fire('Berjaya!', 'Maklumat Berjaya Didaftarkan.', 'success').then(() => {
+				Swal.fire('Berjaya!', 'Maklumat Pengguna Berjaya Didaftarkan.', 'success').then(() => {
 					this._router.navigateByUrl('akaun/log-masuk');
 				});
 			});
