@@ -13,6 +13,8 @@ import { LaporanBwiKematianComponent } from './laporan-bwi-kematian/laporan-bwi-
 import { LaporanPinjamanComponent } from './laporan-pinjaman/laporan-pinjaman.component';
 import { LaporanPertanianComponent } from './laporan-pertanian/laporan-pertanian.component';
 import { LaporanRumahBaruComponent } from './laporan-rumah-baru/laporan-rumah-baru.component';
+import { LaporanBaikPulihRumahComponent } from './laporan-baik-pulih-rumah/laporan-baik-pulih-rumah.component';
+import { LaporanBwiPenerimaBantuanComponent } from './laporan-bwi-penerima-bantuan/laporan-bwi-penerima-bantuan.component';
 
 const routes: Routes = [
 	{
@@ -69,6 +71,14 @@ const routes: Routes = [
 			{
 				path: 'rumah-baru',
 				component: LaporanRumahBaruComponent
+			},
+      {
+				path: 'baik-pulih-rumah',
+				component: LaporanBaikPulihRumahComponent
+			},
+      {
+				path: 'bwi-penerima-bantuan',
+				component: LaporanBwiPenerimaBantuanComponent
 			}
 		]
 	}
