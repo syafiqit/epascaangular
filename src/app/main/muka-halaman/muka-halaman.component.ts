@@ -148,7 +148,9 @@ export class MukaHalamanComponent implements OnInit, AfterViewInit {
 		const hs = polygonTemplate.states.create('hover');
 		hs.properties.fill = chart.colors.getIndex(1).brighten(-0.5);
 
+		//chart
 		this.chartDashboard();
+		// this.tests();
 	}
 
 	chartDashboard(){
@@ -159,97 +161,163 @@ export class MukaHalamanComponent implements OnInit, AfterViewInit {
         let stringData = JSON.stringify(result.items);
         this.chartData = JSON.parse(stringData);
 
-      const chart2 = am4core.create('chartdiv2', am4charts.XYChart);
-      chart2.colors.step = 2;
+      // Create chart instance
+      var chart = am4core.create("chartdiv2", am4charts.XYChart);
 
-      chart2.legend = new am4charts.Legend();
-      chart2.legend.position = 'top';
-      chart2.legend.paddingBottom = 20;
-      chart2.legend.labels.template.maxWidth = 95;
+// Add data
+      chart.data = this.chartData;
 
-      const xAxis = chart2.xAxes.push(new am4charts.CategoryAxis());
-      xAxis.dataFields.category = 'nama_negeri';
-      xAxis.renderer.cellStartLocation = 0.1;
-      xAxis.renderer.cellEndLocation = 0.9;
-      xAxis.renderer.grid.template.location = 0;
-      xAxis.renderer.minGridDistance = 30;
+// Create axes
+      let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+      categoryAxis.dataFields.category = "nama_negeri";
+      categoryAxis.renderer.minGridDistance = 30;
+      categoryAxis.renderer.grid.template.disabled = true;
+      // categoryAxis.renderer.grid.template.location = 1;
+      // categoryAxis.renderer.labels.template.horizontalCenter = "right";
+      // categoryAxis.renderer.labels.template.verticalCenter = "middle";
+      // categoryAxis.renderer.labels.template.rotation = 25;
 
-      // Setting up label rotation
-      // xAxis.renderer.labels.template.rotation = 60;
-      // xAxis.renderer.labels.template.verticalCenter = "middle";
-      // xAxis.renderer.labels.template.horizontalCenter = "left";
+// First value axis
+      let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+      valueAxis.title.text = "Bilangan Mangsa";
+      valueAxis.renderer.grid.template.disabled = true;
 
-      const yAxis = chart2.yAxes.push(new am4charts.ValueAxis());
-      yAxis.min = 0;
+// Second value axis
+      let valueAxis2 = chart.yAxes.push(new am4charts.ValueAxis());
+      valueAxis2.title.text = "Jumlah Bantuan";
+      valueAxis2.renderer.opposite = true;
+      valueAxis2.renderer.grid.template.disabled = true;
 
-      function createSeries(value, name) {
-        const series = chart2.series.push(new am4charts.ColumnSeries());
-        series.dataFields.valueY = value;
-        series.dataFields.categoryX = 'nama_negeri';
-        series.dataFields.categoryX.fontsize('5');
-        series.name = name;
+// First series
+      let series = chart.series.push(new am4charts.ColumnSeries());
+      series.dataFields.valueY = "bilMangsa";
+      series.dataFields.categoryX = "nama_negeri";
+      series.name = "Bilangan";
+      series.tooltipText = "{name}: [bold]{valueY}[/]";
 
-        series.columns.template.tooltipText = "{nama_negeri}\n Bil. Mangsa: [bold]{bilMangsa} Orang[/]\n Kos Bantuan: [bold]RM {jumlahBantuan}[/]";
+// Second series
+      let series2 = chart.series.push(new am4charts.LineSeries());
+      series2.dataFields.valueY = "jumlahBantuan";
+      series2.dataFields.categoryX = "nama_negeri";
+      series2.name = "Jumlah Bantuan (RM)";
+      series2.tooltipText = "{name}: [bold]{valueY}[/]";
+      series2.strokeWidth = 3;
+      series2.yAxis = valueAxis2;
 
-        series.events.on('hidden', arrangeColumns);
-        series.events.on('shown', arrangeColumns);
+// Add legend
+      chart.legend = new am4charts.Legend();
 
-        const bullet = series.bullets.push(new am4charts.LabelBullet());
-        bullet.interactionsEnabled = false;
-        bullet.dy = 30;
-        bullet.label.text = '{valueY}';
-        bullet.label.fill = am4core.color('#ffffff');
-
-        return series;
-      }
-
-      chart2.data = this.chartData;
-
-      createSeries('bilMangsa', 'Bilangan Mangsa');
-
-      function arrangeColumns() {
-        const series = chart2.series.getIndex(0);
-
-        const w = 1 - xAxis.renderer.cellStartLocation - (1 - xAxis.renderer.cellEndLocation);
-        if (series.dataItems.length > 1) {
-          const x0 = xAxis.getX(series.dataItems.getIndex(0), 'categoryX');
-          const x1 = xAxis.getX(series.dataItems.getIndex(1), 'categoryX');
-          const delta = ((x1 - x0) / chart2.series.length) * w;
-          if (am4core.isNumber(delta)) {
-            const middle = chart2.series.length / 2;
-
-            let newIndex = 0;
-            chart2.series.each(function (series) {
-              if (!series.isHidden && !series.isHiding) {
-                series.dummyData = newIndex;
-                newIndex++;
-              } else {
-                series.dummyData = chart2.series.indexOf(series);
-              }
-            });
-            const visibleCount = newIndex;
-            const newMiddle = visibleCount / 2;
-
-            chart2.series.each(function (series) {
-              const trueIndex = chart2.series.indexOf(series);
-              const newIndex = series.dummyData;
-
-              const dx = (newIndex - trueIndex + middle - newMiddle) * delta;
-
-              series.animate(
-                { property: 'dx', to: dx },
-                series.interpolationDuration,
-                series.interpolationEasing
-              );
-              series.bulletsContainer.animate(
-                { property: 'dx', to: dx },
-                series.interpolationDuration,
-                series.interpolationEasing
-              );
-            });
-          }
-        }
-      }
+      // Add cursor
+      chart.cursor = new am4charts.XYCursor();
     });
   }
+
+  chartTest(){
+    this._dashboardServiceProxy.getJumlahBantuanByNegeri(
+      this.year
+    ).subscribe((result) => {
+      let stringData = JSON.stringify(result.items);
+      this.chartData = JSON.parse(stringData);
+
+      // am4core.useTheme(am4themes_animated);
+
+      // Create chart instance
+      let chart = am4core.create("chartdivTest", am4charts.XYChart);
+
+      // Export
+      chart.exporting.menu = new am4core.ExportMenu();
+
+      // Data for both series
+      let data = [ {
+        "nama_negeri": "2009",
+        "bilMangsa": 23.5,
+        "jumlahBantuan": 54651
+      }, {
+        "nama_negeri": "2010",
+        "bilMangsa": 26.2,
+        "jumlahBantuan": 12098
+      }, {
+        "nama_negeri": "2011",
+        "bilMangsa": 30.1,
+        "jumlahBantuan": 6541
+      }, {
+        "nama_negeri": "2012",
+        "bilMangsa": 29.5,
+        "jumlahBantuan": 28100
+      }, {
+        "nama_negeri": "2013",
+        "bilMangsa": 30.6,
+        "jumlahBantuan": 23100
+      }];
+
+      /* Create axes */
+      let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+      categoryAxis.dataFields.category = "nama_negeri";
+      categoryAxis.renderer.minGridDistance = 30;
+
+      /* Create value axis */
+      let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+
+      /* Create series */
+      let columnSeries = chart.series.push(new am4charts.ColumnSeries());
+      columnSeries.name = "bil Mangsa";
+      columnSeries.dataFields.valueY = "bilMangsa";
+      columnSeries.dataFields.categoryX = "nama_negeri";
+
+      columnSeries.columns.template.tooltipText = "[#fff font-size: 15px]{name} in {categoryX}:\n[/][#fff font-size: 20px]{valueY}[/] [#fff]{additional}[/]";
+      columnSeries.tooltip.label.textAlign = "middle";
+
+      let lineSeries = chart.series.push(new am4charts.LineSeries());
+      lineSeries.name = "jumlah Bantuan";
+      lineSeries.dataFields.valueY = "jumlahBantuan";
+      lineSeries.dataFields.categoryX = "nama_negeri";
+
+      lineSeries.stroke = am4core.color("#fdd400");
+      lineSeries.strokeWidth = 3;
+      lineSeries.tooltip.label.textAlign = "middle";
+
+      let bullet = lineSeries.bullets.push(new am4charts.Bullet());
+      bullet.fill = am4core.color("#fdd400"); // tooltips grab fill from parent by default
+      bullet.tooltipText = "[#fff font-size: 15px]{name} in {categoryX}:\n[/][#fff font-size: 20px]{valueY}[/] [#fff]{additional}[/]"
+      let circle = bullet.createChild(am4core.Circle);
+      circle.radius = 4;
+      circle.fill = am4core.color("#fff");
+      circle.strokeWidth = 3;
+
+      chart.data = data;
+    });
+  }
+
+  tests(){
+
+
+    //---------------------------------------------------------------------------------------
+
+//     // First value axis
+//     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+//     valueAxis.title.text = "Litres sold (M)";
+//
+// // Second value axis
+//     let valueAxis2 = chart.yAxes.push(new am4charts.ValueAxis());
+//     valueAxis2.title.text = "Units sold";
+//     valueAxis2.renderer.opposite = true;
+//
+// // First series
+//     let series = chart.series.push(new am4charts.ColumnSeries());
+//     series.dataFields.valueY = "litres";
+//     series.dataFields.categoryX = "country";
+//     series.name = "Sales";
+//     series.tooltipText = "{name}: [bold]{valueY}[/]";
+//
+// // Second series
+//     let series2 = chart.series.push(new am4charts.LineSeries());
+//     series2.dataFields.valueY = "units";
+//     series2.dataFields.categoryX = "country";
+//     series2.name = "Units";
+//     series2.tooltipText = "{name}: [bold]{valueY}[/]";
+//     series2.strokeWidth = 3;
+//     series2.yAxis = valueAxis2;
+
+  }
 }
+
