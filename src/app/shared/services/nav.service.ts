@@ -140,7 +140,9 @@ export class NavService implements OnDestroy {
           { path: '/app/laporan/bwi/kematian', title: 'Laporan BWI (Pengurusan Kematian)', type: 'link' },
           { path: '/app/laporan/pinjaman', title: 'Laporan Pinjaman Khas', type: 'link' },
           { path: '/app/laporan/pertanian', title: 'Laporan Bantuan Pertanian', type: 'link' },
-          { path: '/app/laporan/rumah-baru', title: 'Laporan Bantuan Bina Rumah Baru', type: 'link' }
+          { path: '/app/laporan/rumah-baru', title: 'Laporan Bantuan Bina Rumah Baru', type: 'link' },
+          { path: '/app/laporan/baik-pulih-rumah', title: 'Laporan Bantuan Baik Pulih Rumah', type: 'link' },
+          { path: '/app/laporan/bwi-penerima-bantuan', title: 'Laporan Penerima Bantuan BWI', type: 'link' }
         ]
       },
       {
