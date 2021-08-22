@@ -103,5 +103,10 @@ export class TabungComponent implements OnInit {
 	addFundModal() {
 		const modalRef = this.modalService.open(TambahEditTabungComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
+    modalRef.result.then((response) => {
+			if (response) {
+				this.getTabung();
+			}
+		});
 	}
 }

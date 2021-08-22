@@ -7,7 +7,7 @@
 <div class="content d-flex flex-column flex-column-fluid">
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-lg-4">
+			<div class="col-lg-3">
 				<div class="card bg-primary shadow-sm shadow-showcase">
 					<div class="card-body">
 						<div class="media static-top-widget">
@@ -19,17 +19,17 @@
 							</div>
 						</div>
 						<div class="row justify-content-center">
-							<label>Jumlah Keseluruhan Semasa (RM)</label>
+							<label>Jumlah Keseluruhan Semasa</label>
 						</div>
 
 						<div class="row justify-content-center">
-							<h4>RM{{jumlahKeseluruhan}}</h4>
+							<h4>RM {{jumlahKeseluruhan}}</h4>
 						</div>
 					</div>
 				</div>
 			</div>
 
-			<div class="col-lg-4">
+			<div class="col-lg-3">
 				<div class="card bg-primary shadow-sm shadow-showcase">
 					<div class="card-body">
 						<div class="media static-top-widget">
@@ -41,17 +41,17 @@
 							</div>
 						</div>
 						<div class="row justify-content-center">
-							<label>Jumlah Bayaran Semasa (RM)</label>
+							<label>Jumlah Bayaran Semasa</label>
 						</div>
 
 						<div class="row justify-content-center">
-							<h4>RM{{jumlahPeruntukan}}</h4>
+							<h4>RM {{jumlahPeruntukan}}</h4>
 						</div>
 					</div>
 				</div>
 			</div>
 
-			<div class="col-lg-4">
+			<div class="col-lg-3">
 				<div class="card bg-primary shadow-sm shadow-showcase">
 					<div class="card-body">
 						<div class="media static-top-widget">
@@ -63,11 +63,35 @@
 							</div>
 						</div>
 						<div class="row justify-content-center">
-							<label>Jumlah Tanggung Semasa (RM)</label>
+							<label>Jumlah Tanggung Semasa</label>
 						</div>
 
 						<div class="row justify-content-center">
-							<h4>RM{{jumlahBakiSemasa}}</h4>
+							<h4>RM {{jumlahBakiSemasa}}</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+
+      <div class="col-lg-3">
+				<div class="card bg-primary shadow-sm shadow-showcase">
+					<div class="card-body">
+						<div class="media static-top-widget">
+							<div class="media-body">
+								<i
+									class="icon-bg"
+									data-feather="inbox"
+								></i>
+							</div>
+						</div>
+						<div class="row justify-content-center">
+							<label>Tabung Memerlukan Tindakan</label>
+						</div>
+            <div class="row justify-content-center">
+							<h4>2</h4>
+						</div>
+
+						<div class="row justify-content-center">
 						</div>
 					</div>
 				</div>
@@ -122,7 +146,7 @@
 							<ng-template pTemplate="header">
 								<tr>
 									<th style="width: 130px">Tindakan</th>
-									<th style="width: 100px" pSortableColumn="nama_tabung">
+									<th style="width: 120px" pSortableColumn="nama_tabung">
 										Nama
 										<p-sortIcon field="nama_tabung"></p-sortIcon>
 									</th>
@@ -135,7 +159,7 @@
 										<p-sortIcon field="baki_bawaan"></p-sortIcon>
 									</th>
 									<th style="width: 130px" pSortableColumn="tarikh_akhir_peruntukan">
-										Tarikh Akhir Peruntukan
+										Tarikh Kemaskini
 										<p-sortIcon field="tarikh_akhir_peruntukan"></p-sortIcon>
 									</th>
 									<th style="width: 130px" pSortableColumn="peruntukan">
@@ -146,8 +170,16 @@
 										Jumlah Keseluruhan
 										<p-sortIcon field="jumlah_keseluruhan"></p-sortIcon>
 									</th>
+                  <th style="width: 120px" pSortableColumn="jumlah_keseluruhan">
+										Jumlah Perbelanjaan
+										<p-sortIcon field="jumlah_keseluruhan"></p-sortIcon>
+									</th>
 									<th style="width: 100px" pSortableColumn="jumlah_baki_semasa">
 										Baki Semasa
+										<p-sortIcon field="jumlah_baki_semasa"></p-sortIcon>
+									</th>
+                  <th style="width: 100px" pSortableColumn="jumlah_baki_semasa">
+										Status
 										<p-sortIcon field="jumlah_baki_semasa"></p-sortIcon>
 									</th>
 								</tr>
@@ -178,7 +210,7 @@
 											</div>
 										</div>
 									</td>
-									<td style="width: 100px">
+									<td style="width: 120px">
 										<span class="p-column-title">Nama</span>
 										{{record.nama_tabung}}
 									</td>
@@ -191,7 +223,7 @@
                     {{record.baki_bawaan}}
 									</td>
 									<td style="width: 130px">
-										<span class="p-column-title">Tarikh Akhir Peruntukan</span>
+										<span class="p-column-title">Tarikh Kemaskini</span>
                     {{record.tarikh_akhir_peruntukan | date:'dd-MM-yyyy'}}
 									</td>
 									<td style="width: 130px">
@@ -202,9 +234,17 @@
 										<span class="p-column-title">Jumlah Keseluruhan (RM)</span>
                     {{record.jumlah_keseluruhan}}
 									</td>
+                  <td style="width: 120px">
+										<span class="p-column-title">Perbelanjaan (RM)</span>
+
+									</td>
 									<td style="width: 100px">
 										<span class="p-column-title">Jumlah Baki Semasa (RM)</span>
                     {{record.jumlah_baki_semasa}}
+									</td>
+                  <td style="width: 100px">
+										<span class="p-column-title">Status</span>
+
 									</td>
 								</tr>
 							</ng-template>

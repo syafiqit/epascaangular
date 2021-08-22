@@ -26,6 +26,12 @@ export class TambahEditTabungComponent implements OnInit {
   today = this.calendar.getToday();
   readonly DELIMITER = '-';
 
+  tabung = [
+    { id: 1, nama_tabung: 'Covid-19' },
+    { id: 2, nama_tabung: 'Banjir' },
+    { id: 3, nama_tabung: 'Amal' },
+  ];
+
 	constructor(
     private modalService: NgbModal,
     public activeModal: NgbActiveModal,
