@@ -20,6 +20,7 @@ const Swal = require('sweetalert2');
 export class DaftarAkaunComponent implements OnInit {
 
  	register: RegisterPenggunaDto = new RegisterPenggunaDto();
+  emailPattern = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}";
   roles: any;
   agency: any;
   ministries: any;

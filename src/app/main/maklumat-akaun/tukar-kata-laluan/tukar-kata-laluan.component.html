@@ -19,10 +19,10 @@
 						[ngClass]="{ 'is-invalid': f.submitted && kataLaluanLama.invalid }"
 						required
 					/>
-					<div class="show-hide" (click)="showPassword()" *ngIf="!show">
+					<div class="show-hide-3" (click)="showPassword()" *ngIf="!show">
             <div style="color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-outline fa-lg"></i></div>
           </div>
-          <div class="show-hide" (click)="showPassword()" *ngIf="show">
+          <div class="show-hide-3" (click)="showPassword()" *ngIf="show">
             <div style="color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-off-outline fa-lg"></i></div>
           </div>
 					<div *ngIf="f.submitted && kataLaluanLama.invalid" class="invalid-feedback">
@@ -34,7 +34,15 @@
 		<div class="row">
 			<div class="col">
 				<div class="form-group">
-					<label>Kata Laluan Baru</label>
+					<label>
+            Kata Laluan Baru
+            <i
+              class="fa fa-info-circle ml-2"
+              placement="right"
+              ngbTooltip="Minimum 8 Aksara Terdiri Daripada 1 Huruf Besar, 1 Huruf Kecil, 1 Nombor dan 1 Aksara Khas"
+              style="cursor: pointer; color: var(--theme-deafult);"
+            ></i>
+          </label>
 					<input
 						class="form-control"
 						[type]="showNew ? 'text' : 'password'"
@@ -42,16 +50,18 @@
 						[(ngModel)]="newPassword.kata_laluan_baru"
 						#kataLaluanBaru="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && kataLaluanBaru.invalid }"
+            [pattern]="passwordPattern"
 						required
 					/>
-					<div class="show-hide" (click)="showNewPassword()" *ngIf="!showNew">
+					<div class="show-hide-3" (click)="showNewPassword()" *ngIf="!showNew">
             <div style="color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-outline fa-lg"></i></div>
           </div>
-          <div class="show-hide" (click)="showNewPassword()" *ngIf="showNew">
+          <div class="show-hide-3" (click)="showNewPassword()" *ngIf="showNew">
             <div style="color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-off-outline fa-lg"></i></div>
           </div>
 					<div *ngIf="f.submitted && kataLaluanBaru.invalid" class="invalid-feedback">
 						<div *ngIf="kataLaluanBaru.errors.required">Kata Laluan Baru Wajib Diisi</div>
+            <div *ngIf="kataLaluanBaru.errors.pattern">Format Kata Laluan Tidak Sesuai</div>
 					</div>
 				</div>
 			</div>
@@ -69,10 +79,10 @@
 						[ngClass]="{ 'is-invalid': f.submitted && ulangKataLaluan.invalid }"
 						required
 					/>
-					<div class="show-hide" (click)="showRepeatNewPassword()" *ngIf="!showRepeatNew">
+					<div class="show-hide-3" (click)="showRepeatNewPassword()" *ngIf="!showRepeatNew">
 						<div style="color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-outline fa-lg"></i></div>
 					</div>
-					<div class="show-hide" (click)="showRepeatNewPassword()" *ngIf="showRepeatNew">
+					<div class="show-hide-3" (click)="showRepeatNewPassword()" *ngIf="showRepeatNew">
 						<div style="color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-off-outline fa-lg"></i></div>
 					</div>
 					<div *ngIf="f.submitted && ulangKataLaluan.invalid" class="invalid-feedback">
@@ -82,7 +92,7 @@
 			</div>
 		</div>
 		<div class="modal-footer pr-0">
-			<button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Kembali</button>
+			<button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
 			<button type="submit" class="btn btn-primary">Simpan</button>
 		</div>
 	</form>

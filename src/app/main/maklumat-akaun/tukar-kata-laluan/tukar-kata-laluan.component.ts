@@ -19,6 +19,7 @@ export class TukarKataLaluanComponent implements OnInit {
 	public showRepeatNew = false;
 
   newPassword: ChangePasswordDto = new ChangePasswordDto();
+  passwordPattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
 
 	constructor(
     private modalService: NgbModal,
