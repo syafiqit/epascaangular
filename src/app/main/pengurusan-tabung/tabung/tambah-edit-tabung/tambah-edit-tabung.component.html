@@ -28,6 +28,22 @@
 				</div>
 			</div>
 
+      <div class="col-lg-6 mt-2">
+        <div class="form-group">
+          <label>Tabung Sebelum</label>
+          <ng-select
+            [items]="tabung"
+            bindLabel="nama_tabung"
+            bindValue="id"
+            placeholder="Sila Pilih"
+            class="js-example-placeholder-multiple"
+            name="senarai_tabung"
+          ></ng-select>
+        </div>
+      </div>
+		</div>
+
+		<div class="row">
       <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
         <label>Tarikh Baki Semasa</label>
         <div class="input-group">
@@ -58,12 +74,10 @@
         <button class="btn btn-primary btn-sm m-2 float-left" (click)="model = today; d.close()">Hari Ini</button>
         <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Tutup</button>
       </ng-template>
-		</div>
 
-		<div class="row">
       <div class="col-lg-6">
         <div class="form-group">
-          <label>Jumlah Baki Semasa</label>
+          <label>Jumlah Baki Bawaan (RM)</label>
           <input
             class="form-control"
             type="text"
