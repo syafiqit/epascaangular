@@ -45,6 +45,9 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
   filterIdNegeri: number;
   viewTab = false;
   inputEmail = false;
+  agensiNadma = true;
+  idAgensi: number = 6;
+  idKementerian: number = 1;
 
   new_email: string;
   new_password: string;
@@ -76,6 +79,21 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
     { id: 2, nama: "Berdaftar" }
   ]
 
+  tambahPeranan = [
+    { id: 1, nama_peranan: "Admin Sekretariat" },
+    { id: 3, nama_peranan: "Penyelia" },
+    { id: 4, nama_peranan: "Sekretariat" },
+    { id: 5, nama_peranan: "Kewangan" }
+  ]
+
+  viewPeranan = [
+    { id: 1, nama_peranan: "Admin Sekretariat" },
+    { id: 2, nama_peranan: "Agensi/Jabatan" },
+    { id: 3, nama_peranan: "Penyelia" },
+    { id: 4, nama_peranan: "Sekretariat" },
+    { id: 5, nama_peranan: "Kewangan" }
+  ]
+
 	constructor(
     config: NgbModalConfig,
     private _activatedRoute: ActivatedRoute,
@@ -98,10 +116,7 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
   shows(){
     if (!this.idPengguna) {
       this.inputEmail = true;
-      this.getKementerian();
-      this.getAgensiForCreate();
-      this.getDaerahForCreate();
-      this.getNegeri();
+      this.agensiNadma = true;
 		} else {
 			this._userServiceProxy.getUserForEdit(this.idPengguna).subscribe((result) => {
 				this.edit = result;
@@ -109,9 +124,12 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
         if(result.pengguna.status_pengguna != 1) {
           this.viewTab = true;
         }
-        this.getAgensiForEdit(result.pengguna.id_kementerian);
+        if(result.pengguna.id_peranan == 2) {
+          this.agensiNadma = false;
+        }
+        this.getAgensi(result.pengguna.id_kementerian ?? undefined);
         this.getKementerian();
-        this.getDaerahForEdit(result.pengguna.id_daerah);
+        this.getDaerah(result.pengguna.id_daerah ?? undefined);
         this.getNegeri();
 			});
 		}
@@ -121,7 +139,7 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
 		this.paginator.changePage(this.paginator.getPage());
 	}
 
-  getAgensiForEdit(idAgensi, filter?) {
+  getAgensi(idAgensi, filter?) {
 		this._refAgensiServiceProxy.getRefAgensiForDropdown(filter).subscribe((result) => {
 			this.agency = result.items;
       this.agensi = this.agency.find((data)=>{
@@ -131,26 +149,16 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
 		});
 	}
 
-  getAgensiForCreate(filter?) {
-		this._refAgensiServiceProxy.getRefAgensiForDropdown(filter).subscribe((result) => {
-			this.agency = result.items;
-		});
-	}
-
-  getDaerahForEdit(idDaerah, filter?) {
-      this._refDaerahServiceProxy.getRefDaerahForDropdown(filter, this.filterIdNegeri).subscribe((result) => {
+  getDaerah(idDaerah, filter?) {
+      this._refDaerahServiceProxy.getRefDaerahForDropdown(filter, this.filterIdNegeri ?? undefined).subscribe((result) => {
 			this.districts = result.items;
-      this.daerah = this.districts.find((data)=>{
-        return data.id == idDaerah;
-      })
-        return this.daerah.nama_daerah;
+      if(this.edit.pengguna.id_peranan == 2) {
+        this.daerah = this.districts.find((data)=>{
+          return data.id == idDaerah;
+        })
+          return this.daerah.nama_daerah;
+      }
 		  });
-	}
-
-  getDaerahForCreate(filter?) {
-      this._refDaerahServiceProxy.getRefDaerahForDropdown(filter, this.filterIdNegeri).subscribe((result) => {
-        this.districts = result.items;
-      });
 	}
 
   getNegeri(filter?) {
@@ -202,7 +210,21 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
   save() {
 		this.saving = true;
     this.daftar.pengguna = this.edit.pengguna;
-		this._userServiceProxy
+    if(this.daftar.pengguna.id_peranan != 2) {
+      this.daftar.pengguna.id_agensi = this.idAgensi;
+      this.daftar.pengguna.id_kementerian = this.idKementerian;
+    }
+		if(!this.idPengguna) {
+      this._userServiceProxy
+			.createOrEdit(this.daftar)
+			.pipe()
+			.subscribe((result) => {
+				Swal.fire('Berjaya!', 'Pengguna Baru Berjaya Didaftarkan.', 'success').then(() => {
+					this.router.navigateByUrl('/app/pengguna/senarai');
+				});
+			});
+    } else {
+      this._userServiceProxy
 			.createOrEdit(this.daftar)
 			.pipe()
 			.subscribe((result) => {
@@ -210,6 +232,7 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
 					this.router.navigateByUrl('/app/pengguna/senarai');
 				});
 			});
+    }
 	}
 
   savePermohonan() {

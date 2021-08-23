@@ -28072,9 +28072,6 @@ export class GetUserForViewDto implements IGetUserForViewDto {
     nama_agensi!: string;
     nama_kementerian!: string;
     peranan!: string;
-    poskod!: string;
-    nama_daerah!: string;
-    nama_negeri!: string;
     no_kp!: string;
     emel!: string;
 
@@ -28099,9 +28096,6 @@ export class GetUserForViewDto implements IGetUserForViewDto {
             this.nama_agensi = _data["nama_agensi"];
             this.nama_kementerian = _data["nama_kementerian"];
             this.peranan = _data["peranan"];
-            this.poskod = _data["poskod"];
-            this.nama_daerah = _data["nama_daerah"];
-            this.nama_negeri = _data["nama_negeri"];
             this.no_kp = _data["no_kp"];
             this.emel = _data["emel"];
         }
@@ -28126,9 +28120,6 @@ export class GetUserForViewDto implements IGetUserForViewDto {
         data["nama_agensi"] = this.nama_agensi;
         data["nama_kementerian"] = this.nama_kementerian;
         data["peranan"] = this.peranan;
-        data["poskod"] = this.poskod;
-        data["nama_daerah"] = this.nama_daerah;
-        data["nama_negeri"] = this.nama_negeri;
         data["no_kp"] = this.no_kp;
         data["emel"] = this.emel;
         return data; 
@@ -28146,9 +28137,6 @@ export interface IGetUserForViewDto {
     nama_agensi: string;
     nama_kementerian: string;
     peranan: string;
-    poskod: string;
-    nama_daerah: string;
-    nama_negeri: string;
     no_kp: string;
     emel: string;
 }

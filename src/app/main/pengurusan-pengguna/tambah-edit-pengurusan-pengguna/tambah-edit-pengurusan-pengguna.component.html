@@ -1,7 +1,7 @@
 <app-breadcrumb *ngIf="idPengguna" [title]="'Kemaskini Maklumat Pengguna'" [items]="['Pengurusan Pengguna']"
 	[active_item]="['Kemaskini']"
 ></app-breadcrumb>
-<app-breadcrumb *ngIf="!idPengguna" [title]="'Tambah Maklumat Pengguna'" [items]="['Pengurusan Pengguna']"
+<app-breadcrumb *ngIf="!idPengguna" [title]="'Tambah Pengguna Baru'" [items]="['Pengurusan Pengguna']"
 	[active_item]="['Tambah']"
 ></app-breadcrumb>
 
@@ -64,104 +64,8 @@
 							</div>
 						</div>
 
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="form-group">
-                  <label>Jawatan*</label>
-                  <input
-                    class="form-control"
-                    id="jawatanPemohon"
-                    type="text"
-                    name="jawatan"
-                    [(ngModel)]="edit.pengguna.jawatan"
-                    placeholder="Jawatan"
-                    #jawatanPemohon="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && jawatanPemohon.invalid }"
-                    required
-                  />
-                  <div *ngIf="f.submitted && jawatanPemohon.invalid" class="invalid-feedback">
-                    <div *ngIf="jawatanPemohon.errors.required">Jawatan Wajib Diisi</div>
-                  </div>
-                </div>
-							</div>
-						</div>
-						<hr />
-
-						<h6>Maklumat Berhubung</h6>
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="form-group">
-                  <label>No. Telefon Pejabat*</label>
-                  <input
-                    class="form-control"
-                    id="noTelefonPejabat"
-                    type="text"
-                    name="telefon_pejabat"
-                    [(ngModel)]="edit.pengguna.telefon_pejabat"
-                    placeholder="No. Telefon Pejabat"
-                    #noTelefonPejabat="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && noTelefonPejabat.invalid }"
-                    oninput="this.value=this.value.replace(/\D+/g, '');"
-                    minlength="9"
-                    maxlength="12"
-                    required
-                  />
-                  <div *ngIf="f.submitted && noTelefonPejabat.invalid" class="invalid-feedback">
-                    <div *ngIf="noTelefonPejabat.errors.required">No. Telefon Pejabat Wajib Diisi</div>
-                    <div *ngIf="noTelefonPejabat.errors.minlength">No. Telefon Pejabat Mesti Melebihi 9 Digit</div>
-                  </div>
-                </div>
-							</div>
-
-							<div class="col-lg-6">
-								<div class="form-group">
-                  <label>Telefon Bimbit*</label>
-                  <input
-                    class="form-control"
-                    id="telefonBimbit"
-                    type="text"
-                    name="telefon_bimbit"
-                    [(ngModel)]="edit.pengguna.telefon_bimbit"
-                    placeholder="Telefon Bimbit"
-                    #telefonBimbit="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && telefonBimbit.invalid }"
-                    oninput="this.value=this.value.replace(/\D+/g, '');"
-                    minlength="9"
-                    maxlength="15"
-                    required
-                  />
-                  <div *ngIf="f.submitted && telefonBimbit.invalid" class="invalid-feedback">
-                    <div *ngIf="telefonBimbit.errors.required">Telefon Bimbit Wajib Diisi</div>
-                  </div>
-                </div>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="form-group">
-                  <label>Fax*</label>
-                  <input
-                    class="form-control"
-                    id="noFax"
-                    type="text"
-                    name="fax"
-                    [(ngModel)]="edit.pengguna.fax"
-                    placeholder="Fax"
-                    #noFax="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && noFax.invalid }"
-                    oninput="this.value=this.value.replace(/\D+/g, '');"
-                    minlength="8"
-                    maxlength="15"
-                    required
-                  />
-                  <div *ngIf="f.submitted && noFax.invalid" class="invalid-feedback">
-                    <div *ngIf="noFax.errors.required">Fax Wajib Diisi</div>
-                  </div>
-                </div>
-							</div>
-
-							<div class="col-lg-6" *ngIf="inputEmail == true" [@fadeVerticalAnimation]>
+            <div class="row">
+              <div class="col-lg-6" *ngIf="inputEmail == true" [@fadeVerticalAnimation]>
 								<div class="form-group">
                   <label>
                     Emel*
@@ -204,28 +108,122 @@
                   />
                 </div>
 							</div>
+
+							<div class="col-lg-6">
+								<div class="form-group">
+                  <label>Telefon Bimbit*</label>
+                  <input
+                    class="form-control"
+                    id="telefonBimbit"
+                    type="text"
+                    name="telefon_bimbit"
+                    [(ngModel)]="edit.pengguna.telefon_bimbit"
+                    placeholder="Telefon Bimbit"
+                    #telefonBimbit="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && telefonBimbit.invalid }"
+                    oninput="this.value=this.value.replace(/\D+/g, '');"
+                    minlength="9"
+                    maxlength="15"
+                    required
+                  />
+                  <div *ngIf="f.submitted && telefonBimbit.invalid" class="invalid-feedback">
+                    <div *ngIf="telefonBimbit.errors.required">Telefon Bimbit Wajib Diisi</div>
+                  </div>
+                </div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+                  <label>Jawatan*</label>
+                  <input
+                    class="form-control"
+                    id="jawatanPemohon"
+                    type="text"
+                    name="jawatan"
+                    [(ngModel)]="edit.pengguna.jawatan"
+                    placeholder="Jawatan"
+                    #jawatanPemohon="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && jawatanPemohon.invalid }"
+                    required
+                  />
+                  <div *ngIf="f.submitted && jawatanPemohon.invalid" class="invalid-feedback">
+                    <div *ngIf="jawatanPemohon.errors.required">Jawatan Wajib Diisi</div>
+                  </div>
+                </div>
+							</div>
+
+              <div class="col-lg-6" *ngIf="!idPengguna" [@fadeVerticalAnimation]>
+								<div class="form-group">
+                  <label>Peranan*</label>
+                  <ng-select
+                    [items]="tambahPeranan"
+                    bindLabel="nama_peranan"
+                    bindValue="id"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
+                    name="id_peranan"
+                    [(ngModel)]="edit.pengguna.id_peranan"
+                    #peranan="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && peranan.invalid }"
+                    required
+                  ></ng-select>
+                  <div *ngIf="f.submitted && peranan.invalid" class="invalid-feedback">
+                    <div *ngIf="peranan.errors.required">Peranan Wajib Dipilih</div>
+                  </div>
+                </div>
+							</div>
+
+              <div class="col-lg-6" *ngIf="idPengguna" [@fadeVerticalAnimation]>
+								<div class="form-group">
+                  <label>Peranan*</label>
+                  <ng-select
+                    [items]="viewPeranan"
+                    bindLabel="nama_peranan"
+                    bindValue="id"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
+                    name="id_peranan"
+                    [(ngModel)]="edit.pengguna.id_peranan"
+                    disabled
+                  ></ng-select>
+                </div>
+							</div>
 						</div>
 						<hr />
 
 						<h6>Maklumat Agensi</h6>
-						<div class="row">
+            <div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
                   <label>Nama Agensi*</label>
-                  <ng-select
-                    [items]="agency"
-                    bindLabel="nama_agensi"
-                    placeholder="Sila Pilih"
-                    class="js-example-placeholder-multiple"
-                    name="namaAgensi"
-                    (change)="setAgensi()"
-                    [(ngModel)]="agensi"
-                    #namaAgensi="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && namaAgensi.invalid }"
-                    required
-                  ></ng-select>
-                  <div *ngIf="f.submitted && namaAgensi.invalid" class="invalid-feedback">
-                    <div *ngIf="namaAgensi.errors.required">Nama Agensi Wajib Dipilih</div>
+                  <div *ngIf="agensiNadma == true" [@fadeVerticalAnimation]>
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="agensi"
+                      placeholder="Nama Agensi"
+                      value="AGENSI PENGURUSAN BENCANA NEGARA"
+                      disabled
+                    />
+                  </div>
+                  <div *ngIf="agensiNadma == false" [@fadeVerticalAnimation]>
+                    <ng-select
+                      [items]="agency"
+                      bindLabel="nama_agensi"
+                      placeholder="Sila Pilih"
+                      class="js-example-placeholder-multiple"
+                      name="namaAgensi"
+                      (change)="setAgensi()"
+                      [(ngModel)]="agensi"
+                      #namaAgensi="ngModel"
+                      [ngClass]="{ 'is-invalid': f.submitted && namaAgensi.invalid }"
+                      required
+                    ></ng-select>
+                    <div *ngIf="f.submitted && namaAgensi.invalid" class="invalid-feedback">
+                      <div *ngIf="namaAgensi.errors.required">Nama Agensi Wajib Dipilih</div>
+                    </div>
                   </div>
                 </div>
 							</div>
@@ -233,23 +231,78 @@
               <div class="col-lg-6">
 								<div class="form-group">
                   <label>Nama Kementerian*</label>
-                  <ng-select
-                    [items]="ministries"
-                    bindLabel="nama_kementerian"
-                    bindValue="id"
-                    placeholder="Sila Pilih"
-                    class="js-example-placeholder-multiple"
-                    name="id_kementerian"
-                    [(ngModel)]="edit.pengguna.id_kementerian"
-                    disabled
-                  ></ng-select>
+                  <div *ngIf="agensiNadma == true" [@fadeVerticalAnimation]>
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="kementerian"
+                      placeholder="Nama Kementerian"
+                      value="JABATAN PERDANA MENTERI"
+                      disabled
+                    />
+                  </div>
+                  <div *ngIf="agensiNadma == false" [@fadeVerticalAnimation]>
+                    <ng-select
+                      [items]="ministries"
+                      bindLabel="nama_kementerian"
+                      bindValue="id"
+                      placeholder="Sila Pilih"
+                      class="js-example-placeholder-multiple"
+                      name="id_kementerian"
+                      [(ngModel)]="edit.pengguna.id_kementerian"
+                      disabled
+                    ></ng-select>
+                  </div>
                 </div>
 							</div>
 						</div>
 
 						<div class="row">
+              <div class="col-lg-6">
+								<div class="form-group">
+                  <label>No. Telefon Pejabat*</label>
+                  <input
+                    class="form-control"
+                    id="noTelefonPejabat"
+                    type="text"
+                    name="telefon_pejabat"
+                    [(ngModel)]="edit.pengguna.telefon_pejabat"
+                    placeholder="No. Telefon Pejabat"
+                    #noTelefonPejabat="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && noTelefonPejabat.invalid }"
+                    oninput="this.value=this.value.replace(/\D+/g, '');"
+                    minlength="9"
+                    maxlength="12"
+                    required
+                  />
+                  <div *ngIf="f.submitted && noTelefonPejabat.invalid" class="invalid-feedback">
+                    <div *ngIf="noTelefonPejabat.errors.required">No. Telefon Pejabat Wajib Diisi</div>
+                    <div *ngIf="noTelefonPejabat.errors.minlength">No. Telefon Pejabat Mesti Melebihi 9 Digit</div>
+                  </div>
+                </div>
+							</div>
+
 							<div class="col-lg-6">
 								<div class="form-group">
+                  <label>Fax</label>
+                  <input
+                    class="form-control"
+                    id="noFax"
+                    type="text"
+                    name="fax"
+                    [(ngModel)]="edit.pengguna.fax"
+                    placeholder="Fax"
+                    oninput="this.value=this.value.replace(/\D+/g, '');"
+                    minlength="8"
+                    maxlength="15"
+                  />
+                </div>
+							</div>
+						</div>
+
+            <div class="row" *ngIf="agensiNadma == false" [@fadeVerticalAnimation]>
+              <div class="col-lg-6">
+                <div class="form-group">
                   <label>Alamat 1*</label>
                   <input
                     class="form-control"
@@ -266,10 +319,10 @@
                     <div *ngIf="alamat1Agensi.errors.required">Alamat 1 Agensi Wajib Diisi</div>
                   </div>
                 </div>
-							</div>
+              </div>
 
-							<div class="col-lg-6">
-								<div class="form-group">
+              <div class="col-lg-6">
+                <div class="form-group">
                   <label>Alamat 2</label>
                   <input
                     class="form-control"
@@ -280,12 +333,12 @@
                     placeholder="Alamat 2"
                   />
                 </div>
-							</div>
-						</div>
+              </div>
+            </div>
 
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="form-group">
+            <div class="row" *ngIf="agensiNadma == false" [@fadeVerticalAnimation]>
+              <div class="col-lg-6">
+                <div class="form-group">
                   <label>Poskod*</label>
                   <input
                     class="form-control"
@@ -305,10 +358,10 @@
                     <div *ngIf="poskodAgensi.errors.required">Poskod Wajib Diisi</div>
                   </div>
                 </div>
-							</div>
+              </div>
 
-							<div class="col-lg-6">
-								<div class="form-group">
+              <div class="col-lg-6">
+                <div class="form-group">
                   <label>Daerah*</label>
                   <ng-select
                     [items]="districts"
@@ -326,12 +379,12 @@
                     <div *ngIf="namaDaerah.errors.required">Daerah Wajib Diisi</div>
                   </div>
                 </div>
-							</div>
-						</div>
+              </div>
+            </div>
 
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="form-group">
+            <div class="row">
+              <div class="col-lg-6" *ngIf="agensiNadma == false" [@fadeVerticalAnimation]>
+                <div class="form-group">
                   <label>Negeri*</label>
                   <ng-select
                     [items]="states"
@@ -344,7 +397,7 @@
                     disabled
                   ></ng-select>
                 </div>
-							</div>
+              </div>
 
               <div class="col-lg-6" *ngIf="statusId == 1" [@fadeVerticalAnimation]>
                 <div class="form-group">
@@ -404,7 +457,7 @@
                   </div>
                 </div>
               </div>
-						</div>
+            </div>
 
             <div class="row no-gutters justify-content-end mt-3">
               <button

@@ -218,7 +218,7 @@
 
                   <div class="col-lg-6">
                     <div class="form-group">
-                      <label>Fax*</label>
+                      <label>Fax</label>
                       <input
                         class="form-control"
                         id="noFax"
@@ -226,16 +226,10 @@
                         name="fax"
                         [(ngModel)]="register.fax"
                         placeholder="Fax"
-                        #noFax="ngModel"
-                        [ngClass]="{ 'is-invalid': f.submitted && noFax.invalid }"
                         oninput="this.value=this.value.replace(/\D+/g, '');"
                         minlength="8"
                         maxlength="15"
-                        required
                       />
-                      <div *ngIf="f.submitted && noFax.invalid" class="invalid-feedback">
-                        <div *ngIf="noFax.errors.required">Fax Wajib Diisi</div>
-                      </div>
                     </div>
                   </div>
                 </div>
