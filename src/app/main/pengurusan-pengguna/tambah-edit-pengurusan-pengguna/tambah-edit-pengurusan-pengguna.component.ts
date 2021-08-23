@@ -44,6 +44,7 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
   ministries: any;
   filterIdNegeri: number;
   viewTab = false;
+  inputEmail = false;
 
   new_email: string;
   new_password: string;
@@ -56,6 +57,8 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
   daftar: CreateOrEditPenggunaDto = new CreateOrEditPenggunaDto();
   editEmailPassword: ChangeEmelPasswordDto = new ChangeEmelPasswordDto();
   outputEmailPassword: OutputChangeEmelPasswordDto = new OutputChangeEmelPasswordDto();
+  passwordPattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
+  emailPattern = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}";
 
   statusPengesahan = [
     { id: 1, nama: "Permohonan" },
@@ -94,10 +97,11 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
 
   shows(){
     if (!this.idPengguna) {
-        this.getKementerian();
-        this.getAgensiForCreate();
-        this.getDaerahForCreate();
-        this.getNegeri();
+      this.inputEmail = true;
+      this.getKementerian();
+      this.getAgensiForCreate();
+      this.getDaerahForCreate();
+      this.getNegeri();
 		} else {
 			this._userServiceProxy.getUserForEdit(this.idPengguna).subscribe((result) => {
 				this.edit = result;
@@ -227,7 +231,8 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
     this.editEmailPassword.changeEmel = this.new_email ?? null;
     this.editEmailPassword.changePassword = this.new_password ?? null;
 
-    this._userServiceProxy
+    if(this.new_password == this.repeat_new_password) {
+      this._userServiceProxy
       .changeEmelAndPassword(this.editEmailPassword)
       .pipe(finalize(() => {this.saving = false;})).subscribe((result) => {
         this.outputEmailPassword = result;
@@ -239,6 +244,9 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
           Swal.fire('Tidak Berjaya!', this.outputEmailPassword.message, 'error');
         }
 			});
+    } else {
+			Swal.fire('Tidak Berjaya!', 'Kata Laluan Baru Dan Ulang Kata Laluan Tidak Sepadan ', 'error');
+		}
   }
 
 }

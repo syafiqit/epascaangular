@@ -64,7 +64,15 @@
                 <div class="row">
                   <div class="col-lg-6">
                     <div class="form-group">
-                      <label>Emel*</label>
+                      <label>
+                        Emel*
+												<i
+													class="fa fa-info-circle ml-2"
+													placement="right"
+													ngbTooltip="Emel ini akan digunakan untuk Log Masuk di e-Pasca Bencana"
+													style="cursor: pointer; color: var(--theme-deafult);"
+												></i>
+                      </label>
                       <input
                         class="form-control"
                         id="emelPemohon"
@@ -74,12 +82,12 @@
                         placeholder="Emel"
                         #emelPemohon="ngModel"
                         [ngClass]="{ 'is-invalid': f.submitted && emelPemohon.invalid }"
+                        [pattern]="emailPattern"
                         required
-                        email
                       />
                       <div *ngIf="f.submitted && emelPemohon.invalid" class="invalid-feedback">
                         <div *ngIf="emelPemohon.errors.required">Emel Wajib Diisi</div>
-                        <div *ngIf="emelPemohon.errors.email">Format Emel Tidak Sah</div>
+                        <div *ngIf="emelPemohon.errors.pattern">Format Emel Tidak Sesuai</div>
                       </div>
                     </div>
                   </div>
