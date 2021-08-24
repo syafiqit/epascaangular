@@ -33,6 +33,7 @@ export class TambahPeruntukanComponent implements OnInit {
     ) {}
 
 	ngOnInit(): void {
+    this.getSumberPeruntukan();
     this.show();
   }
 
