@@ -7,7 +7,7 @@ import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
 import { NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TambahPeruntukanComponent } from '../edit-tabung/tambah-peruntukan/tambah-peruntukan.component';
 import { ActivatedRoute } from '@angular/router';
-import { CreateOrEditTabungDto, GetTabungForEditDto, TabungPeruntukanServiceProxy, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import { CreateOrEditTabungDto, GetTabungForEditDto, RefSumberPeruntukanServiceProxy, TabungPeruntukanServiceProxy, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import * as moment from 'moment';
 import { finalize } from 'rxjs/operators';
 declare let require;
@@ -32,8 +32,10 @@ export class EditTabungComponent implements OnInit {
 
   idTabung: any;
   tarikhBaki: string;
-  tarikhAkhirPeruntukan: string;
+  tarikh_cipta: string;
   filterText: string;
+  statuses: any;
+  sumberPeruntukan: any;
 
 	ColumnMode = ColumnMode;
 	SortType = SortType;
@@ -44,12 +46,25 @@ export class EditTabungComponent implements OnInit {
   today = this.calendar.getToday();
   readonly DELIMITER = '-';
 
+  rows = [
+		{
+      bil: '1', tarikh_cipta: '01/01/2021', no_rujukan: 'A09219', aktiviti: 'Kelulusan', jumlah: 'RM 100000.00', dikemaskini_oleh: 'Mohd Rahimi'
+		},
+    {
+      bil: '2', tarikh_cipta: '01/01/2021', no_rujukan: 'B09281', aktiviti: 'SKB', jumlah: 'RM 100000.00', dikemaskini_oleh: 'Mohd Rahimi'
+		},
+    {
+      bil: '3', tarikh_cipta: '01/01/2021', no_rujukan: 'C09237', aktiviti: 'Terus', jumlah: 'RM 100000.00', dikemaskini_oleh: 'Mohd Rahimi'
+		}
+	];
+
 	constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,
     private _activatedRoute: ActivatedRoute,
     private tabungServiceProxy: TabungServiceProxy,
     private tabungPeruntukanServiceProxy: TabungPeruntukanServiceProxy,
+    private _refSumberPeruntukanServiceProxy: RefSumberPeruntukanServiceProxy,
     private calendar: NgbCalendar
     ) {
 		this.primengTableHelper = new PrimengTableHelper();
@@ -63,6 +78,7 @@ export class EditTabungComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+    this.getSumberPeruntukan();
     this.show()
   }
 
@@ -88,8 +104,8 @@ export class EditTabungComponent implements OnInit {
       if(result.tabung.tarikh_baki){
         this.modelBaki = this.fromModel(result.tabung.tarikh_baki.format('YYYY-MM-DD'));
       }
-      if(result.tabung.tarikh_akhir_peruntukan){
-        this.modelAkhir = this.fromModel(result.tabung.tarikh_akhir_peruntukan.format('YYYY-MM-DD'));
+      if(result.tabung.tarikh_cipta){
+        this.modelAkhir = this.fromModel(result.tabung.tarikh_cipta.format('YYYY-MM-DD'));
       }
     })
   }
@@ -117,11 +133,29 @@ export class EditTabungComponent implements OnInit {
     });
   }
 
+  getSumberPeruntukan(filter?) {
+		this._refSumberPeruntukanServiceProxy.getRefSumberPeruntukanForDropdown(filter).subscribe((result) => {
+			this.sumberPeruntukan = result.items;
+		});
+	}
+
+  getStatus(id){
+    this.statuses = this.sumberPeruntukan.map((data) => {
+      return data.nama_sumber_peruntukan;
+    });
+    return this.statuses[id - 1];
+  }
+
 	getSejarahKemaskini(event?: LazyLoadEvent) {
 		if (this.primengTableHelperSejarah.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
 		}
+
+    this.primengTableHelperSejarah.showLoadingIndicator();
+		this.primengTableHelperSejarah.totalRecordsCount = this.rows.length;
+		this.primengTableHelperSejarah.records = this.rows;
+		this.primengTableHelperSejarah.hideLoadingIndicator();
 	}
 
 	addTabungPeruntukan(idTabung) {
@@ -130,6 +164,7 @@ export class EditTabungComponent implements OnInit {
     modalRef.componentInstance.id = idTabung;
     modalRef.result.then((response) => {
 			if (response) {
+        this.show();
 				this.getTabungPeruntukan();
 			}
 		});
@@ -158,8 +193,8 @@ export class EditTabungComponent implements OnInit {
       this.editTabung.tarikh_baki = moment(this.tarikhBaki, "YYYY-MM-DD");
     }
     if(this.modelAkhir){
-      this.tarikhAkhirPeruntukan = this.toModel(this.modelAkhir);
-      this.editTabung.tarikh_akhir_peruntukan = moment(this.tarikhAkhirPeruntukan, "YYYY-MM-DD");
+      this.tarikh_cipta = this.toModel(this.modelAkhir);
+      this.editTabung.tarikh_cipta = moment(this.tarikh_cipta, "YYYY-MM-DD");
     }
     this.tabungServiceProxy.createOrEdit(this.editTabung).subscribe(()=>{
       Swal.fire('Berjaya', 'Maklumat Tabung Berjaya Dikemaskini')
