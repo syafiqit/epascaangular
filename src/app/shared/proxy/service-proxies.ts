@@ -25618,6 +25618,7 @@ export class GetTabungBayaranSkbForViewDto implements IGetTabungBayaranSkbForVie
     nama_agensi!: string;
     nama_tabung!: string;
     no_rujukan_kelulusan!: string;
+    jumlah_belanja!: number;
 
     constructor(data?: IGetTabungBayaranSkbForViewDto) {
         if (data) {
@@ -25640,6 +25641,7 @@ export class GetTabungBayaranSkbForViewDto implements IGetTabungBayaranSkbForVie
             this.nama_agensi = _data["nama_agensi"];
             this.nama_tabung = _data["nama_tabung"];
             this.no_rujukan_kelulusan = _data["no_rujukan_kelulusan"];
+            this.jumlah_belanja = _data["jumlah_belanja"];
         }
     }
 
@@ -25662,6 +25664,7 @@ export class GetTabungBayaranSkbForViewDto implements IGetTabungBayaranSkbForVie
         data["nama_agensi"] = this.nama_agensi;
         data["nama_tabung"] = this.nama_tabung;
         data["no_rujukan_kelulusan"] = this.no_rujukan_kelulusan;
+        data["jumlah_belanja"] = this.jumlah_belanja;
         return data; 
     }
 }
@@ -25677,6 +25680,7 @@ export interface IGetTabungBayaranSkbForViewDto {
     nama_agensi: string;
     nama_tabung: string;
     no_rujukan_kelulusan: string;
+    jumlah_belanja: number;
 }
 
 export class InputCreateBayaranSkbDto implements IInputCreateBayaranSkbDto {
@@ -25963,8 +25967,51 @@ export interface ICreateOrEditTabungBayaranTerusDto {
     jumlah: number;
 }
 
+export class GetRujukanKelulusanTerusDto implements IGetRujukanKelulusanTerusDto {
+    no_rujukan_kelulusan!: string;
+    id_tabung!: number;
+
+    constructor(data?: IGetRujukanKelulusanTerusDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.no_rujukan_kelulusan = _data["no_rujukan_kelulusan"];
+            this.id_tabung = _data["id_tabung"];
+        }
+    }
+
+    static fromJS(data: any): GetRujukanKelulusanTerusDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetRujukanKelulusanTerusDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["no_rujukan_kelulusan"] = this.no_rujukan_kelulusan;
+        data["id_tabung"] = this.id_tabung;
+        return data; 
+    }
+}
+
+export interface IGetRujukanKelulusanTerusDto {
+    no_rujukan_kelulusan: string;
+    id_tabung: number;
+}
+
 export class GetTabungBayaranTerusForEditDto implements IGetTabungBayaranTerusForEditDto {
     tabung_bayaran_terus!: CreateOrEditTabungBayaranTerusDto;
+    rujukan_kelulusan_terus!: GetRujukanKelulusanTerusDto;
+    nama_tabung!: string;
+    nama_bencana!: string;
 
     constructor(data?: IGetTabungBayaranTerusForEditDto) {
         if (data) {
@@ -25978,6 +26025,9 @@ export class GetTabungBayaranTerusForEditDto implements IGetTabungBayaranTerusFo
     init(_data?: any) {
         if (_data) {
             this.tabung_bayaran_terus = _data["tabung_bayaran_terus"] ? CreateOrEditTabungBayaranTerusDto.fromJS(_data["tabung_bayaran_terus"]) : <any>undefined;
+            this.rujukan_kelulusan_terus = _data["rujukan_kelulusan_terus"] ? GetRujukanKelulusanTerusDto.fromJS(_data["rujukan_kelulusan_terus"]) : <any>undefined;
+            this.nama_tabung = _data["nama_tabung"];
+            this.nama_bencana = _data["nama_bencana"];
         }
     }
 
@@ -25991,12 +26041,18 @@ export class GetTabungBayaranTerusForEditDto implements IGetTabungBayaranTerusFo
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["tabung_bayaran_terus"] = this.tabung_bayaran_terus ? this.tabung_bayaran_terus.toJSON() : <any>undefined;
+        data["rujukan_kelulusan_terus"] = this.rujukan_kelulusan_terus ? this.rujukan_kelulusan_terus.toJSON() : <any>undefined;
+        data["nama_tabung"] = this.nama_tabung;
+        data["nama_bencana"] = this.nama_bencana;
         return data; 
     }
 }
 
 export interface IGetTabungBayaranTerusForEditDto {
     tabung_bayaran_terus: CreateOrEditTabungBayaranTerusDto;
+    rujukan_kelulusan_terus: GetRujukanKelulusanTerusDto;
+    nama_tabung: string;
+    nama_bencana: string;
 }
 
 export class GetTabungBayaranTerusForViewDto implements IGetTabungBayaranTerusForViewDto {
@@ -26014,6 +26070,9 @@ export class GetTabungBayaranTerusForViewDto implements IGetTabungBayaranTerusFo
     id_pengguna_hapus!: number;
     tarikh_hapus!: moment.Moment;
     sebab_hapus!: string;
+    no_rujukan_terus!: string;
+    no_rujukan_kelulusan!: string;
+    nama_bencana!: string;
 
     constructor(data?: IGetTabungBayaranTerusForViewDto) {
         if (data) {
@@ -26040,6 +26099,9 @@ export class GetTabungBayaranTerusForViewDto implements IGetTabungBayaranTerusFo
             this.id_pengguna_hapus = _data["id_pengguna_hapus"];
             this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
             this.sebab_hapus = _data["sebab_hapus"];
+            this.no_rujukan_terus = _data["no_rujukan_terus"];
+            this.no_rujukan_kelulusan = _data["no_rujukan_kelulusan"];
+            this.nama_bencana = _data["nama_bencana"];
         }
     }
 
@@ -26066,6 +26128,9 @@ export class GetTabungBayaranTerusForViewDto implements IGetTabungBayaranTerusFo
         data["id_pengguna_hapus"] = this.id_pengguna_hapus;
         data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
+        data["no_rujukan_terus"] = this.no_rujukan_terus;
+        data["no_rujukan_kelulusan"] = this.no_rujukan_kelulusan;
+        data["nama_bencana"] = this.nama_bencana;
         return data; 
     }
 }
@@ -26085,6 +26150,9 @@ export interface IGetTabungBayaranTerusForViewDto {
     id_pengguna_hapus: number;
     tarikh_hapus: moment.Moment;
     sebab_hapus: string;
+    no_rujukan_terus: string;
+    no_rujukan_kelulusan: string;
+    nama_bencana: string;
 }
 
 export class OutputCreateBayaranTerusDto implements IOutputCreateBayaranTerusDto {
