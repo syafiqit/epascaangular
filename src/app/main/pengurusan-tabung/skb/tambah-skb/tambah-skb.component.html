@@ -42,23 +42,80 @@
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Tabung</label>
-									<input
-                    class="form-control"
-                    type="text"
-                    placeholder="Nama Tabung"
-                    name="nama_tabung"
-                    [(ngModel)]="nama_tabung"
-                    #namaTabung="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && namaTabung.invalid }"
+									<div class="input-group">
+										<input
+                      class="form-control"
+                      type="text"
+                      placeholder="Nama Tabung"
+                      name="tabung"
+                      [(ngModel)]="nama_tabung"
+                      #namaTabung="ngModel"
+                      [ngClass]="{ 'is-invalid': f.submitted && namaTabung.invalid }"
+                      required
+                      readonly
+										/>
+										<div class="input-group-append">
+											<button class="btn btn-primary" (click)="pilihTabung()" type="button">
+												<i class="fa fa-search text-white"></i>
+											</button>
+										</div>
+									</div>
+                  <div *ngIf="f.submitted && namaTabung.invalid" class="invalid-feedback">
+                    <div *ngIf="namaTabung.errors.required">Tabung Wajib Dipilih</div>
+                  </div>
+							  </div>
+						  </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6">
+								<div class="form-group">
+									<label>Bencana</label>
+									<div class="input-group">
+										<input
+                      class="form-control"
+                      type="text"
+                      placeholder="Nama Bencana"
+                      name="bencana"
+                      [(ngModel)]="nama_bencana"
+                      #namaBencana="ngModel"
+                      [ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
+                      required
+                      readonly
+										/>
+										<div class="input-group-append">
+											<button class="btn btn-primary" (click)="pilihBencana()" type="button">
+												<i class="fa fa-search text-white"></i>
+											</button>
+										</div>
+									</div>
+                  <div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
+                    <div *ngIf="namaBencana.errors.required">Bencana Wajib Dipilih</div>
+                  </div>
+							  </div>
+						  </div>
+
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Kategori Bencana</label>
+                  <ng-select
+                    [items]="categories"
+                    bindLabel="nama_jenis_bencana"
+                    bindValue="id"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
+                    name="nama_jenis_bencana"
+                    [(ngModel)]="id_jenis_bencana"
+                    #jenisBencana="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && jenisBencana.invalid }"
                     required
-                    readonly
-                  />
+                  ></ng-select>
+                  <div *ngIf="f.submitted && jenisBencana.invalid" class="invalid-feedback">
+                    <div *ngIf="jenisBencana.errors.required">Kategori Bencana Wajib Dipilih</div>
+                  </div>
 								</div>
-                <div *ngIf="f.submitted && namaTabung.invalid" class="invalid-feedback">
-                  <div *ngIf="namaTabung.errors.required">Nama Tabung Wajib Dipilih</div>
-                </div>
 							</div>
-						</div>
+            </div>
 						<hr />
 
 						<h6>Maklumat Diberi Kuasa</h6>
@@ -167,9 +224,75 @@
                 <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d2.close()">Tutup</button>
               </ng-template>
 						</div>
+
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Status</label>
+                  <select
+                    class="form-control digits"
+                    name="status_skb"
+                    disabled
+                  >
+                    <option [value]="1">Aktif</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Perihal</label>
+                  <textarea
+                    class="form-control"
+                    placeholder="Perihal"
+                    name="perihalSkb"
+                    [(ngModel)]="skb.perihal"
+                  >
+                  </textarea>
+                </div>
+              </div>
+            </div>
 						<hr />
 
 						<h6>Maklumat Belanja Bulanan</h6>
+            <div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Siling Peruntukan (RM)</label>
+									<input
+                    class="form-control"
+                    type="text"
+                    name="siling_peruntukan"
+                    placeholder="Jumlah Siling Peruntukan"
+                    [(ngModel)]="skb.jumlah_siling_peruntukan"
+                    (ngModelChange)="calculateBalance()"
+                    #silingPeruntukan="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && silingPeruntukan.invalid }"
+                    required
+                    onlyNumbers
+                  />
+                  <div *ngIf="f.submitted && silingPeruntukan.invalid" class="invalid-feedback">
+                    <div *ngIf="silingPeruntukan.errors.required">Jumlah Siling Peruntukan Wajib Diisi</div>
+                  </div>
+								</div>
+							</div>
+
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Baki Peruntukan (RM)</label>
+									<input
+                    class="form-control"
+                    type="text"
+                    name="baki_peruntukan"
+                    placeholder="Jumlah Baki Peruntukan"
+                    value="{{balance_peruntukan | number: '1.2-2'}}"
+                    onlyNumbers
+                    disabled
+                  />
+								</div>
+							</div>
+						</div>
+
             <div class="row no-gutters justify-content-end">
               <button
                 type="button"
@@ -256,7 +379,7 @@
                         </td>
                         <td style="width: 150px">
                           <span class="p-column-title">Jumlah</span>
-                          RM{{record.jumlah | number: '1.2-2'}}
+                          RM {{record.jumlah | number: '1.2-2'}}
                         </td>
                       </tr>
                     </ng-template>
@@ -291,52 +414,11 @@
                     placeholder="Jumlah Perbelanjaan"
                     value="{{belanja | number: '1.2-2'}}"
                     onlyNumbers
+                    disabled
                   />
-								</div>
-							</div>
-
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Siling Peruntukan (RM)</label>
-									<input
-                    class="form-control"
-                    type="text"
-                    name="siling_peruntukan"
-                    placeholder="Jumlah Siling Peruntukan"
-                    [(ngModel)]="skb.jumlah_siling_peruntukan"
-                    #silingPeruntukan="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && silingPeruntukan.invalid }"
-                    required
-                    onlyNumbers
-                  />
-                  <div *ngIf="f.submitted && silingPeruntukan.invalid" class="invalid-feedback">
-                    <div *ngIf="silingPeruntukan.errors.required">Jumlah Siling Peruntukan Wajib Diisi</div>
-                  </div>
 								</div>
 							</div>
             </div>
-
-            <div class="row">
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Baki Peruntukan (RM)</label>
-									<input
-                    class="form-control"
-                    type="text"
-                    name="baki_peruntukan"
-                    placeholder="Jumlah Baki Peruntukan"
-                    [(ngModel)]="skb.jumlah_baki_peruntukan"
-                    #bakiPeruntukan="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && bakiPeruntukan.invalid }"
-                    required
-                    onlyNumbers
-                  />
-                  <div *ngIf="f.submitted && bakiPeruntukan.invalid" class="invalid-feedback">
-                    <div *ngIf="bakiPeruntukan.errors.required">Jumlah Baki Peruntukan Wajib Diisi</div>
-                  </div>
-								</div>
-							</div>
-						</div>
 
 						<button class="btn btn-primary pull-right" type="submit">Hantar</button>
 						<button

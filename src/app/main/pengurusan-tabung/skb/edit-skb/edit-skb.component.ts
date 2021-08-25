@@ -10,15 +10,14 @@ import {
   GetRujukanKelulusanSkbDto,
   GetTabungBayaranSkbForEditDto,
   InputCreateBayaranSkbDto,
-  InputSkbBulananDto,
   RefAgensiServiceProxy,
-  TabungBayaranSkbBulananServiceProxy,
   TabungBayaranSkbServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
-import { TambahBelanjaBulanan } from '../tambah-belanja-bulanan/tambah-belanja-bulanan.component';
 import * as moment from 'moment';
-import { finalize } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PilihanTabungComponent } from '../pilihan-tabung/pilihan-tabung.component';
+import { PilihanBencanaComponent } from '../pilihan-bencana/pilihan-bencana.component';
+import { PaparBulananComponent } from '../papar-bulanan/papar-bulanan.component';
 declare let require;
 const Swal = require('sweetalert2');
 @Component({
@@ -36,24 +35,42 @@ export class EditSkbComponent implements OnInit {
   edit: GetTabungBayaranSkbForEditDto = new GetTabungBayaranSkbForEditDto();
   bayaranSKB: InputCreateBayaranSkbDto =  new InputCreateBayaranSkbDto();
   skb: CreateOrEditTabungBayaranSkbDto = new CreateOrEditTabungBayaranSkbDto();
-  bulanan: InputSkbBulananDto[] = [];
-  kelulusan: GetRujukanKelulusanSkbDto = new GetRujukanKelulusanSkbDto();
 
   idSkb: any;
   agencies: any;
   no_rujukan_kelulusan: string;
   nama_tabung: string;
+  nama_bencana: string;
   filter: string;
   saving = false;
   tarikhMula: string;
   tarikhTamat: string;
   rows = [];
+  id_jenis_bencana: number;
 
   date = new Date();
   modelMula: NgbDateStruct;
   modelTamat: NgbDateStruct;
   today = this.calendar.getToday();
   readonly DELIMITER = '-';
+
+  categories = [
+    { id: 1, nama_jenis_bencana: "Covid" },
+    { id: 2, nama_jenis_bencana: "Bukan Covid" },
+    { id: 3, nama_jenis_bencana: "KWABBN" },
+    { id: 4, nama_jenis_bencana: "Pelbagai" }
+  ]
+
+	skbList = [
+		{
+      tarikh_mula: '06-01-2020', tarikh_tamat: '16-12-2020', jumlah_siling_peruntukan: '30000.00',
+      jumlah_baki_peruntukan: '10000.00', jumlah_perbelanjaan: '20000.00', status_skb: 'Tamat'
+		},
+		{
+      tarikh_mula: '16-12-2020', tarikh_tamat: '25-08-2021', jumlah_siling_peruntukan: '15000.00',
+      jumlah_baki_peruntukan: '5000.00', jumlah_perbelanjaan: '10000.00', status_skb: 'Aktif'
+		}
+	]
 
 	constructor(
     config: NgbModalConfig,
@@ -62,7 +79,6 @@ export class EditSkbComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private _tabungBayaranSkbServiceProxy: TabungBayaranSkbServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
-    private _tabungBayaranSkbBulananServiceProxy: TabungBayaranSkbBulananServiceProxy,
     private calendar: NgbCalendar,
     private router: Router
   ) {
@@ -77,7 +93,7 @@ export class EditSkbComponent implements OnInit {
 
 	ngOnInit(): void {
     this.getAgensi();
-    this.getAddSKB();
+    this.getBulan();
     this.show();
   }
 
@@ -103,6 +119,7 @@ export class EditSkbComponent implements OnInit {
       this.edit.tabung_bayaran_skb = result.tabung_bayaran_skb;
       this.no_rujukan_kelulusan = result.rujukan_kelulusan_skb.no_rujukan_kelulusan;
       this.nama_tabung = result.nama_tabung;
+      this.nama_bencana = result.nama_bencana;
       if(result.tabung_bayaran_skb.tarikh_mula){
         this.modelMula = this.fromModel(result.tabung_bayaran_skb.tarikh_mula.format('YYYY-MM-DD'));
       }
@@ -118,70 +135,16 @@ export class EditSkbComponent implements OnInit {
 		});
 	}
 
-	getAddSKB(event?: LazyLoadEvent) {
+	getBulan(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
 		}
 
 		this.primengTableHelper.showLoadingIndicator();
-		this._tabungBayaranSkbBulananServiceProxy
-			.getAllBulananbyIdSkb(
-				this.filter,
-        this.idSkb,
-				this.primengTableHelper.getSorting(this.dataTable),
-				this.primengTableHelper.getSkipCount(this.paginator, event),
-				this.primengTableHelper.getMaxResultCount(this.paginator, event)
-			)
-      .pipe(finalize(()=> {
-        this.primengTableHelper.hideLoadingIndicator();
-      }))
-			.subscribe((result) => {
-				this.primengTableHelper.totalRecordsCount = result.total_count;
-				this.primengTableHelper.records = result.items;
-			});
-	}
-
-  addBulanan(id_tabung_bayaran_skb) {
-		const modalRef = this.modalService.open(TambahBelanjaBulanan, { size: 'lg' });
-		modalRef.componentInstance.name = 'add';
-    modalRef.componentInstance.kategori = 2;
-    modalRef.componentInstance.id_tabung_bayaran_skb = id_tabung_bayaran_skb;
-    modalRef.result.then(
-			(response) => {
-				if (response) {
-          this.rows.push({ tahun: response.tahun, bulan: response.bulan, jumlah: response.jumlah });
-          this.getAddSKB();
-          const monthly = new InputSkbBulananDto();
-          monthly.tahun = response.tahun;
-          monthly.bulan = response.bulan;
-          monthly.jumlah = response.jumlah;
-          this.bulanan.push(monthly);
-				}
-			},
-			() => {}
-		);
-	}
-
-  editBulanan(id, id_tabung_bayaran_skb) {
-		const modalRef = this.modalService.open(TambahBelanjaBulanan, { size: 'lg' });
-		modalRef.componentInstance.name = 'edit';
-		modalRef.componentInstance.id = id;
-		modalRef.componentInstance.id_tabung_bayaran_skb = id_tabung_bayaran_skb;
-    modalRef.result.then(
-			(response) => {
-				if (response) {
-          this.rows.push({ tahun: response.tahun, bulan: response.bulan, jumlah: response.jumlah });
-          this.getAddSKB();
-          const monthly = new InputSkbBulananDto();
-          monthly.tahun = response.tahun;
-          monthly.bulan = response.bulan;
-          monthly.jumlah = response.jumlah;
-          this.bulanan.push(monthly);
-				}
-			},
-			() => {}
-		);
+		this.primengTableHelper.totalRecordsCount = this.skbList.length;
+		this.primengTableHelper.records = this.skbList;
+		this.primengTableHelper.hideLoadingIndicator();
 	}
 
 	reloadPage(): void {
@@ -194,14 +157,43 @@ export class EditSkbComponent implements OnInit {
     modalRef.result.then(
 			(response) => {
 				if (response) {
-					this.no_rujukan_kelulusan = response.no_rujukan_kelulusan;
-          this.nama_tabung = response.nama_tabung;
           this.skb.id_tabung_kelulusan = response.id;
+					this.no_rujukan_kelulusan = response.no_rujukan_kelulusan;
 				}
 			},
 			() => {}
 		);
 	}
+
+	pilihTabung() {
+		const modalRef = this.modalService.open(PilihanTabungComponent, { size: 'xl' });
+		modalRef.componentInstance.name = 'add';
+    modalRef.result.then(
+			(response) => {
+				if (response) {
+          this.skb.id_tabung = response.id;
+          this.nama_tabung = response.nama_tabung;
+				}
+			}
+		);
+	}
+
+	pilihBencana() {
+		const modalRef = this.modalService.open(PilihanBencanaComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'add';
+    modalRef.result.then(
+			(response) => {
+				if (response) {
+          this.skb.id_bencana = response.id;
+          this.nama_bencana = response.nama_bencana;
+				}
+			}
+		);
+	}
+
+  skbBulanan() {
+		this.modalService.open(PaparBulananComponent, { size: 'lg' });
+  }
 
 	save() {
     this.saving = true;

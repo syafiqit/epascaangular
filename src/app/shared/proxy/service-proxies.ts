@@ -25567,6 +25567,7 @@ export class GetTabungBayaranSkbForEditDto implements IGetTabungBayaranSkbForEdi
     tabung_bayaran_skb!: CreateOrEditTabungBayaranSkbDto;
     rujukan_kelulusan_skb!: GetRujukanKelulusanSkbDto;
     nama_tabung!: string;
+    nama_bencana!: string;
 
     constructor(data?: IGetTabungBayaranSkbForEditDto) {
         if (data) {
@@ -25582,6 +25583,7 @@ export class GetTabungBayaranSkbForEditDto implements IGetTabungBayaranSkbForEdi
             this.tabung_bayaran_skb = _data["tabung_bayaran_skb"] ? CreateOrEditTabungBayaranSkbDto.fromJS(_data["tabung_bayaran_skb"]) : <any>undefined;
             this.rujukan_kelulusan_skb = _data["rujukan_kelulusan_skb"] ? GetRujukanKelulusanSkbDto.fromJS(_data["rujukan_kelulusan_skb"]) : <any>undefined;
             this.nama_tabung = _data["nama_tabung"];
+            this.nama_bencana = _data["nama_bencana"];
         }
     }
 
@@ -25597,6 +25599,7 @@ export class GetTabungBayaranSkbForEditDto implements IGetTabungBayaranSkbForEdi
         data["tabung_bayaran_skb"] = this.tabung_bayaran_skb ? this.tabung_bayaran_skb.toJSON() : <any>undefined;
         data["rujukan_kelulusan_skb"] = this.rujukan_kelulusan_skb ? this.rujukan_kelulusan_skb.toJSON() : <any>undefined;
         data["nama_tabung"] = this.nama_tabung;
+        data["nama_bencana"] = this.nama_bencana;
         return data; 
     }
 }
@@ -25605,6 +25608,7 @@ export interface IGetTabungBayaranSkbForEditDto {
     tabung_bayaran_skb: CreateOrEditTabungBayaranSkbDto;
     rujukan_kelulusan_skb: GetRujukanKelulusanSkbDto;
     nama_tabung: string;
+    nama_bencana: string;
 }
 
 export class GetTabungBayaranSkbForViewDto implements IGetTabungBayaranSkbForViewDto {

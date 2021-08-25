@@ -9,12 +9,15 @@ import {
   CreateOrEditTabungBayaranSkbDto,
   InputCreateBayaranSkbDto,
   InputSkbBulananDto,
+  OutputCreateBayaranSkbDto,
   RefAgensiServiceProxy,
   TabungBayaranSkbServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { TambahBelanjaBulanan } from '../tambah-belanja-bulanan/tambah-belanja-bulanan.component';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
+import { PilihanTabungComponent } from '../pilihan-tabung/pilihan-tabung.component';
+import { PilihanBencanaComponent } from '../pilihan-bencana/pilihan-bencana.component';
 declare let require;
 const Swal = require('sweetalert2');
 @Component({
@@ -31,11 +34,13 @@ export class TambahSkbComponent implements OnInit {
 
   bayaranSKB: InputCreateBayaranSkbDto =  new InputCreateBayaranSkbDto();
   skb: CreateOrEditTabungBayaranSkbDto = new CreateOrEditTabungBayaranSkbDto();
+  output: OutputCreateBayaranSkbDto = new OutputCreateBayaranSkbDto();
   bulanan: InputSkbBulananDto[] = [];
 
   agencies: any;
   no_rujukan_kelulusan: number;
   nama_tabung: string;
+  nama_bencana: string;
   filter: string;
   saving = false;
   tarikhMula: string;
@@ -43,12 +48,21 @@ export class TambahSkbComponent implements OnInit {
   idBulan: number = 0;
   rows = [];
   belanja: number = 0;
+  balance_peruntukan: number = 0;
+  id_jenis_bencana: number;
 
   date = new Date();
   modelMula: NgbDateStruct;
   modelTamat: NgbDateStruct;
   today = this.calendar.getToday();
   readonly DELIMITER = '-';
+
+  categories = [
+    { id: 1, nama_jenis_bencana: "Covid" },
+    { id: 2, nama_jenis_bencana: "Bukan Covid" },
+    { id: 3, nama_jenis_bencana: "KWABBN" },
+    { id: 4, nama_jenis_bencana: "Pelbagai" }
+  ]
 
 	constructor(
     config: NgbModalConfig,
@@ -92,7 +106,7 @@ export class TambahSkbComponent implements OnInit {
 	}
 
   addBulanan() {
-		const modalRef = this.modalService.open(TambahBelanjaBulanan, { size: 'lg' });
+		const modalRef = this.modalService.open(TambahBelanjaBulanan, { size: 'md' });
 		modalRef.componentInstance.name = 'add';
     modalRef.componentInstance.kategori = 1;
 
@@ -102,15 +116,15 @@ export class TambahSkbComponent implements OnInit {
           this.idBulan = this.idBulan + 1;
           this.rows.push({ id: this.idBulan, tahun: response.tahun, bulan: response.bulan, jumlah: response.jumlah });
           this.getAddSKB();
-
           this.calculateTotal();
+          this.calculateBalance();
 				}
 			}
 		);
 	}
 
   editBulanan(idBulan, tahun, bulan, jumlah) {
-		const modalRef = this.modalService.open(TambahBelanjaBulanan, { size: 'lg' });
+		const modalRef = this.modalService.open(TambahBelanjaBulanan, { size: 'md' });
 		modalRef.componentInstance.name = 'edit';
     modalRef.componentInstance.kategori = 1;
 		modalRef.componentInstance.idBulan = idBulan;
@@ -127,7 +141,7 @@ export class TambahSkbComponent implements OnInit {
           d.jumlah = response.jumlah;
           this.getAddSKB();
           this.calculateTotal();
-
+          this.calculateBalance();
 				}
 			}
 		);
@@ -137,6 +151,7 @@ export class TambahSkbComponent implements OnInit {
     this.rows.splice(this.rows.findIndex(e=> e.id == id), 1);
     this.getAddSKB();
     this.calculateTotal();
+    this.calculateBalance();
 	}
 
 	reloadPage(): void {
@@ -149,15 +164,44 @@ export class TambahSkbComponent implements OnInit {
     modalRef.result.then(
 			(response) => {
 				if (response) {
-					this.no_rujukan_kelulusan = response.no_rujukan_kelulusan;
-          this.nama_tabung = response.nama_tabung;
           this.skb.id_tabung_kelulusan = response.id;
+					this.no_rujukan_kelulusan = response.no_rujukan_kelulusan;
 				}
 			}
 		);
 	}
 
-  calculateTotal(){
+	pilihTabung() {
+		const modalRef = this.modalService.open(PilihanTabungComponent, { size: 'xl' });
+		modalRef.componentInstance.name = 'add';
+    modalRef.result.then(
+			(response) => {
+				if (response) {
+          this.skb.id_tabung = response.id;
+          this.nama_tabung = response.nama_tabung;
+				}
+			}
+		);
+	}
+
+	pilihBencana() {
+		const modalRef = this.modalService.open(PilihanBencanaComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'add';
+    modalRef.result.then(
+			(response) => {
+				if (response) {
+          this.skb.id_bencana = response.id;
+          this.nama_bencana = response.nama_bencana;
+				}
+			}
+		);
+	}
+
+  calculateBalance() {
+    this.balance_peruntukan = this.skb.jumlah_siling_peruntukan - this.belanja;
+  }
+
+  calculateTotal() {
     this.belanja = 0;
     this.rows.forEach(e=> {
       this.belanja += parseFloat(e.jumlah);
@@ -185,14 +229,20 @@ export class TambahSkbComponent implements OnInit {
     }
     this.bayaranSKB.skb.no_rujukan_skb = null;
     this.bayaranSKB.skb.perihal = null;
+    this.bayaranSKB.skb.jumlah_baki_peruntukan = this.balance_peruntukan;
     this.bayaranSKB.skbBulanan = this.bulanan;
 		this._tabungBayaranSkbServiceProxy
 			.createOrEdit(this.bayaranSKB)
 			.pipe()
 			.subscribe((result) => {
-				Swal.fire('Berjaya!', 'Maklumat Surat Kuasa Belanja Berjaya Dihantar.', 'success').then(() => {
-          this.router.navigateByUrl('/app/tabung/senarai-skb');
-				});
+        this.output = result;
+        if(this.output.message == "Maklumat Berjaya Ditambah!"){
+          Swal.fire('Berjaya!', 'Maklumat Surat Kuasa Belanja Berjaya Dihantar.', 'success').then(() => {
+            this.router.navigateByUrl('/app/tabung/senarai-skb');
+          });
+        }else{
+          Swal.fire('Tidak Berjaya!', this.output.message, 'error');
+        }
 			});
 	}
 }
