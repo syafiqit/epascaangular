@@ -1,7 +1,7 @@
 <div class="modal-header">
 	<h5 class="modal-title" *ngIf="name === 'add'">Tambah Maklumat Tabung</h5>
 	<h5 class="modal-title" *ngIf="name === 'edit'">Kemaskini Maklumat Tabung</h5>
-	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
 		<span aria-hidden="true">&times;</span>
 	</button>
 </div>
@@ -29,28 +29,30 @@
 			</div>
 
       <div class="col-lg-6 mt-2">
-        <div class="form-group">
-          <label>Tabung Sebelum</label>
+				<div class="form-group">
+					<label>Tabung Sebelum</label>
           <ng-select
-            [items]="tabung"
+            [items]="dropdownTabungSebelum"
             bindLabel="nama_tabung"
             bindValue="id"
             placeholder="Sila Pilih"
             class="js-example-placeholder-multiple"
-            name="senarai_tabung"
+            name="dropdown_tabung_sebelum"
+            [(ngModel)]="id_tabung_sebelum"
+            (ngModelChange)="pilihTabungSebelum(id_tabung_sebelum)"
           ></ng-select>
-        </div>
-      </div>
+				</div>
+			</div>
 		</div>
 
 		<div class="row">
       <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
-        <label>Tarikh Baki Semasa</label>
+        <label>Tarikh Baki</label>
         <div class="input-group">
           <input
             class="form-control"
             placeholder="yyyy-mm-dd"
-            name="dp"
+            name="tarikhBakiSemasa"
             [(ngModel)]="model"
             ngbDatepicker
             [footerTemplate]="footerTemplate"
@@ -75,23 +77,17 @@
         <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Tutup</button>
       </ng-template>
 
-      <div class="col-lg-6">
+      <div class="col-lg-6" *ngIf="tabungSebelumCheck">
         <div class="form-group">
           <label>Jumlah Baki Bawaan (RM)</label>
           <input
             class="form-control"
             type="text"
-            name="jumlah_baki_semasa"
-            [(ngModel)]="createTabung.jumlah_baki_semasa"
-            placeholder="Jumlah Baki"
-            #jumlahBakiSemasa="ngModel"
-            [ngClass]="{ 'is-invalid': f.submitted && jumlahBakiSemasa.invalid }"
-            required
-            onlyNumbers
+            name="jumlah_baki_bawaan"
+            [(ngModel)]="tabungSebelum.jumlah_baki_semasa"
+            placeholder="Jumlah Baki Bawaan"
+            disabled
           />
-          <div *ngIf="f.submitted && jumlahBakiSemasa.invalid" class="invalid-feedback">
-            <div *ngIf="jumlahBakiSemasa.errors.required">Jumlah Baki Semasa Wajib Diisi</div>
-          </div>
         </div>
       </div>
 		</div>

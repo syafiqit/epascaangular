@@ -1,33 +1,38 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
-import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, ViewEncapsulation, Input, ViewChild } from '@angular/core';
+import { NgbActiveModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
-import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
-import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
-import { TabungBayaranTerusServiceProxy, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
+import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
+import { RefBencanaServiceProxy } from 'src/app/shared/proxy/service-proxies';
 
 @Component({
-	selector: 'app-bayaran-secara-terus',
-	templateUrl: './bayaran-secara-terus.component.html',
+	selector: 'app-pilih-bencana',
+	templateUrl: './pilih-bencana.component.html',
 	encapsulation: ViewEncapsulation.None,
-	providers: [NgbModalConfig, NgbModal]
+	providers: [NgbModalConfig]
 })
-export class BayaranSecaraTerusComponent implements OnInit {
+export class PilihBencanaComponent implements OnInit {
 	@ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
 	primengTableHelper: PrimengTableHelper;
 
+	@Input() name;
+
   filter: string;
+  filterTahun: number;
+  filterBencana: string;
+  filterJenis: number;
   terms$ = new Subject<string>();
 
 	constructor(
     config: NgbModalConfig,
-    private modalService: NgbModal,
-    private _tabungBayaranTerusServiceProxy: TabungBayaranTerusServiceProxy
-    ) {
+    public activeModal: NgbActiveModal,
+    private _refBencanaServiceProxy: RefBencanaServiceProxy
+  ) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
@@ -38,7 +43,7 @@ export class BayaranSecaraTerusComponent implements OnInit {
       debounceTime(500), distinctUntilChanged()
     ).subscribe((filterValue: string) =>{
       this.filter = filterValue;
-      this.getBayaranTerus();
+      this.getBencana();
     });
   }
 
@@ -46,22 +51,25 @@ export class BayaranSecaraTerusComponent implements OnInit {
     this.terms$.next(filterValue);
   }
 
-	getBayaranTerus(event?: LazyLoadEvent) {
-    if (this.primengTableHelper.shouldResetPaging(event)) {
+	getBencana(event?: LazyLoadEvent) {
+		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
 		}
 
 		this.primengTableHelper.showLoadingIndicator();
-		this._tabungBayaranTerusServiceProxy
+		this._refBencanaServiceProxy
 			.getAll(
 				this.filter,
+        this.filterTahun,
+        this.filterBencana,
+        this.filterJenis,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
 			)
       .pipe(finalize(()=> {
-        this.primengTableHelper.hideLoadingIndicator();
+				this.primengTableHelper.hideLoadingIndicator();
       }))
 			.subscribe((result) => {
 				this.primengTableHelper.totalRecordsCount = result.total_count;
@@ -69,7 +77,10 @@ export class BayaranSecaraTerusComponent implements OnInit {
 			});
 	}
 
-	reloadPage(): void {
-		this.paginator.changePage(this.paginator.getPage());
+  select(id, nama_bencana) {
+		this.activeModal.close({
+      id: id,
+      nama_bencana: nama_bencana
+    });
 	}
 }

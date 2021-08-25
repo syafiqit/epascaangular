@@ -43,16 +43,11 @@
                     [footerTemplate]="footerTemplate"
                     #d="ngbDatepicker"
                     style="border: 1px solid #efefef !important;"
-                    #tarikhBakiSemasa="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && tarikhBakiSemasa.invalid }"
-                    required
+                    disabled
                   >
                   <div class="input-group-append">
-                    <button class="btn btn-light" (click)="d.toggle()" type="button"><i
+                    <button class="btn btn-light" (click)="d.toggle()" type="button" disabled><i
                       class="fa fa-calendar"></i></button>
-                  </div>
-                  <div *ngIf="f.submitted && tarikhBakiSemasa.invalid" class="invalid-feedback">
-                    <div *ngIf="tarikhBakiSemasa.errors.required">Tarikh Baki Bawaan Wajib Dipilih</div>
                   </div>
                 </div>
               </div>
@@ -70,29 +65,27 @@
                     name="jumlahBaki"
                     type="text"
                     [(ngModel)]="getTabung.tabung.baki_bawaan"
+                    disabled
                   />
 								</div>
 							</div>
 
               <div class="form-group col-lg-4 custom-datepicker custom-datepicker-dropdown">
-                <label>Tarikh Terimaan Sehingga</label>
+                <label>Tarikh Kemaskini</label>
                 <div class="input-group">
                   <input
                     class="form-control"
                     placeholder="yyyy-mm-dd"
-                    name="dp"
+                    name="tarikh_kemaskini"
+                    [(ngModel)]="modelAkhir"
                     ngbDatepicker
                     #e="ngbDatepicker"
                     style="border: 1px solid #efefef !important;"
-                    [ngClass]="{ 'is-invalid': f.submitted && tarikhBakiSemasa.invalid }"
-                    required
+                    disabled
                   >
                   <div class="input-group-append">
-                    <button class="btn btn-light" (click)="e.toggle()" type="button"><i
+                    <button class="btn btn-light" (click)="e.toggle()" type="button" disabled><i
                       class="fa fa-calendar"></i></button>
-                  </div>
-                  <div *ngIf="f.submitted && tarikhBakiSemasa.invalid" class="invalid-feedback">
-                    <div *ngIf="tarikhBakiSemasa.errors.required">Tarikh Terimaan Sehingga Wajib Dipilih</div>
                   </div>
                 </div>
               </div>
@@ -114,6 +107,8 @@
                     name="jumlah_peruntukan"
                     type="text"
                     [(ngModel)]="getTabung.tabung.peruntukan"
+                    placeholder="0.00"
+                    disabled
                   />
 								</div>
 							</div>
@@ -123,9 +118,11 @@
 									<label>Jumlah Perbelanjaan (RM)</label>
 									<input
                     class="form-control"
-                    name="jumlah_peruntukan"
+                    name="jumlah_perbelanjaan"
                     type="text"
-                    [(ngModel)]="getTabung.tabung.peruntukan"
+                    [(ngModel)]="getTabung.tabung.jumlah_perbelanjaan_semasa"
+                    placeholder="0.00"
+                    disabled
                   />
 								</div>
 							</div>
@@ -138,6 +135,8 @@
                     name="jumlah_keseluruhan"
                     type="text"
                     [(ngModel)]="getTabung.tabung.jumlah_keseluruhan"
+                    placeholder="0.00"
+                    disabled
                   />
 								</div>
 							</div>
@@ -150,13 +149,9 @@
                     name="jumlah_baki_semasa"
                     type="text"
                     [(ngModel)]="getTabung.tabung.jumlah_baki_semasa"
-                    #jumlahBakiSemasa="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && jumlahBakiSemasa.invalid }"
-                    required
+                    placeholder="0.00"
+                    disabled
                   />
-                  <div *ngIf="f.submitted && jumlahBakiSemasa.invalid" class="invalid-feedback">
-                    <div *ngIf="jumlahBakiSemasa.errors.required">Jumlah Baki Semasa Wajib Diisi</div>
-                  </div>
 								</div>
 							</div>
 						</div>
@@ -197,7 +192,7 @@
 									>
 										<ng-template pTemplate="header">
 											<tr>
-                        <th style="width: 130px">Tindakan</th>
+                        <th style="width: 160px">Tindakan</th>
                         <th style="width: 100px" pSortableColumn="tarikh_peruntukan">
                           Tarikh
                           <p-sortIcon field="tarikh_peruntukan"></p-sortIcon>
@@ -230,7 +225,7 @@
 										</ng-template>
 										<ng-template pTemplate="body" let-record="$implicit">
 											<tr>
-                        <td style="width: 130px">
+                        <td style="width: 160px">
                           <div ngbDropdown class="btn-group" role="group" container="body">
                             <button
                               type="button"
@@ -263,7 +258,7 @@
                         </td>
                         <td style="width: 130px">
                           <span class="p-column-title">Sumber</span>
-                          {{record.id_sumber_peruntukan}}
+                          {{getStatus(record.id_sumber_peruntukan)}}
                         </td>
                         <td style="width: 130px">
                           <span class="p-column-title">Nama</span>
@@ -310,7 +305,7 @@
 										[resizableColumns]="true"
 										(onLazyLoad)="getSejarahKemaskini($event)"
                     [loading]="primengTableHelperSejarah.isLoading"
-										[value]="primengTableHelperSejarah.records2"
+										[value]="primengTableHelperSejarah.records"
 										rows="{{primengTableHelperSejarah.defaultRecordsCountPerPage}}"
 										[paginator]="false"
 										[lazy]="true"
@@ -325,9 +320,9 @@
 													Bil
 													<p-sortIcon field="bil"></p-sortIcon>
 												</th>
-                        <th style="width: 130px" pSortableColumn="tarikh_kemaskini">
-													Tarikh Kemaskini
-													<p-sortIcon field="tarikh_kemaskini"></p-sortIcon>
+                        <th style="width: 130px" pSortableColumn="tarikh_cipta">
+													Tarikh Cipta
+													<p-sortIcon field="tarikh_cipta"></p-sortIcon>
 												</th>
                         <th style="width: 130px" pSortableColumn="no_rujukan">
 													No. Rujukan
@@ -337,10 +332,9 @@
 													Aktiviti
 													<p-sortIcon field="aktiviti"></p-sortIcon>
 												</th>
-
-												<th style="width: 130px" pSortableColumn="jumlah_baki">
-													Jumlah Baki Akhir(RM)
-													<p-sortIcon field="jumlah_baki"></p-sortIcon>
+												<th style="width: 130px" pSortableColumn="jumlah">
+													Jumlah
+													<p-sortIcon field="jumlah"></p-sortIcon>
 												</th>
 												<th style="width: 130px" pSortableColumn="dikemaskini_oleh">
 													Dikemaskini Oleh
@@ -355,24 +349,24 @@
 													{{records.bil}}
 												</td>
                         <td style="width: 130px">
-													<span class="p-column-title">Tarikh Kemaskini</span>
-													{{records.date_modified}}
+													<span class="p-column-title">Tarikh Cipta</span>
+													{{records.tarikh_cipta}}
 												</td>
-                        <td style="width: 70px">
+                        <td style="width: 130px">
 													<span class="p-column-title">No. Rujukan</span>
 													{{records.no_rujukan}}
 												</td>
-                        <td style="width: 70px">
+                        <td style="width: 130px">
 													<span class="p-column-title">Aktiviti</span>
 													{{records.aktiviti}}
 												</td>
 												<td style="width: 130px">
-													<span class="p-column-title">Jumlah Baki Akhir(RM)</span>
-													{{records.total_bal}}
+													<span class="p-column-title">Jumlah</span>
+													{{records.jumlah}}
 												</td>
 												<td style="width: 130px">
 													<span class="p-column-title">Dikemaskini Oleh</span>
-													{{records.modified_by}}
+													{{records.dikemaskini_oleh}}
 												</td>
 											</tr>
 										</ng-template>
@@ -382,7 +376,7 @@
                     <p-paginator
                       [rows]="primengTableHelperSejarah.defaultRecordsCountPerPage"
                       #paginator
-                      (onPageChange)="getTabungPeruntukan($event)"
+                      (onPageChange)="getSejarahKemaskini($event)"
                       [totalRecords]="primengTableHelperSejarah.totalRecordsCount"
                       [rowsPerPageOptions]="primengTableHelperSejarah.predefinedRecordsCountPerPage"
                     ></p-paginator>

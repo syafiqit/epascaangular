@@ -31,6 +31,9 @@ import { TambahPeruntukanComponent } from './tabung/edit-tabung/tambah-peruntuka
 import { PilihanTabungComponent } from './skb/pilihan-tabung/pilihan-tabung.component';
 import { PilihanBencanaComponent } from './skb/pilihan-bencana/pilihan-bencana.component';
 import { PaparBulananComponent } from './skb/papar-bulanan/papar-bulanan.component';
+import { PilihRujukanKelulusanComponent } from './bayaran-secara-terus/pilih-rujukan-kelulusan/pilih-rujukan-kelulusan.component';
+import { PilihTabungComponent } from './bayaran-secara-terus/pilih-tabung/pilih-tabung.component';
+import { PilihBencanaComponent } from './bayaran-secara-terus/pilih-bencana/pilih-bencana.component';
 
 @NgModule({
 	imports: [
@@ -67,7 +70,10 @@ import { PaparBulananComponent } from './skb/papar-bulanan/papar-bulanan.compone
 		TambahPeruntukanComponent,
     PilihanTabungComponent,
     PilihanBencanaComponent,
-    PaparBulananComponent
+    PaparBulananComponent,
+		PilihRujukanKelulusanComponent,
+		PilihTabungComponent,
+		PilihBencanaComponent
 	]
 })
 export class PengurusanTabungModule {}
