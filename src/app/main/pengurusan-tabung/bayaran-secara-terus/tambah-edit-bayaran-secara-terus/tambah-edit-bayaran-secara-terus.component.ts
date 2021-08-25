@@ -18,7 +18,7 @@ const Swal = require('sweetalert2');
 export class TambahEditBayaranSecaraTerusComponent implements OnInit {
 
   bayaranTerus: CreateOrEditTabungBayaranTerusDto = new CreateOrEditTabungBayaranTerusDto();
-  outputBayaranTerus: OutputCreateBayaranTerusDto = new OutputCreateBayaranTerusDto();
+  output: OutputCreateBayaranTerusDto = new OutputCreateBayaranTerusDto();
 
 	displayMonths = 1;
 	navigation = 'select';
@@ -148,18 +148,34 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
       this.bayaranTerus.tarikh = moment(this.tarikhBayaran, "YYYY-MM-DD");
     }
 
-    this.tabungBayaranTerusServiceProxy.createOrEdit(this.bayaranTerus).subscribe((result)=>{
-      this.outputBayaranTerus.message = result.message;
-      if(this.outputBayaranTerus.message == "Jumlah Bayaran Terus Melebihi Jumlah Baki Kelulusan" ||
-         this.outputBayaranTerus.message == "Jumlah Peruntukan Melebihi Jumlah Keseluruhan Tabung") {
-        Swal.fire('Tidak Berjaya!', this.outputBayaranTerus.message, 'error');
-      }else{
-        Swal.fire('Berjaya', 'Maklumat Tabung Berjaya Ditambah').then(() => {
-          this.router.navigateByUrl('/app/tabung/senarai-bayaran-secara-terus');
-        });
-      }
-
-
-    })
+    if(!this.idBayaranTerus) {
+      this.tabungBayaranTerusServiceProxy
+			.createOrEdit(this.bayaranTerus)
+			.pipe()
+			.subscribe((result) => {
+        this.output.message = result.message;
+        if(this.output.message == "Tabung Bayaran Terus Berjaya Ditambah"){
+          Swal.fire('Berjaya!', 'Maklumat Bayaran Secara Terus Berjaya Ditambah.', 'success').then(() => {
+            this.router.navigateByUrl('/app/tabung/senarai-bayaran-secara-terus');
+          });
+        }else{
+          Swal.fire('Tidak Berjaya!', this.output.message, 'error');
+        }
+			});
+    } else {
+      this.tabungBayaranTerusServiceProxy
+			.createOrEdit(this.bayaranTerus)
+			.pipe()
+			.subscribe((result) => {
+        this.output.message = result.message;
+        if(this.output.message == "Tabung Bayaran Terus Berjaya Ditambah"){
+          Swal.fire('Berjaya!', 'Maklumat Bayaran Secara Terus Berjaya Dikemaskini.', 'success').then(() => {
+            this.router.navigateByUrl('/app/tabung/senarai-bayaran-secara-terus');
+          });
+        }else{
+          Swal.fire('Tidak Berjaya!', this.output.message, 'error');
+        }
+			});
+    }
   }
 }
