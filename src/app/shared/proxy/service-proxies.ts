@@ -11456,7 +11456,7 @@ export class TabungBayaranSkbServiceProxy {
      * @param body Create or edit object
      * @return Success
      */
-    createOrEdit(body: InputCreateBayaranSkbDto): Observable<InputCreateBayaranSkbDto> {
+    createOrEdit(body: InputCreateBayaranSkbDto): Observable<OutputCreateBayaranSkbDto> {
         let url_ = this.baseUrl + "/api/tabungBayaranSkb/createOrEdit";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -11479,14 +11479,14 @@ export class TabungBayaranSkbServiceProxy {
                 try {
                     return this.processCreateOrEdit(<any>response_);
                 } catch (e) {
-                    return <Observable<InputCreateBayaranSkbDto>><any>_observableThrow(e);
+                    return <Observable<OutputCreateBayaranSkbDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<InputCreateBayaranSkbDto>><any>_observableThrow(response_);
+                return <Observable<OutputCreateBayaranSkbDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processCreateOrEdit(response: HttpResponseBase): Observable<InputCreateBayaranSkbDto> {
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<OutputCreateBayaranSkbDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -11497,7 +11497,7 @@ export class TabungBayaranSkbServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = InputCreateBayaranSkbDto.fromJS(resultData200);
+            result200 = OutputCreateBayaranSkbDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status === 500) {
@@ -11509,7 +11509,7 @@ export class TabungBayaranSkbServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<InputCreateBayaranSkbDto>(<any>null);
+        return _observableOf<OutputCreateBayaranSkbDto>(<any>null);
     }
 }
 
@@ -11666,7 +11666,7 @@ export class TabungBayaranTerusServiceProxy {
      * @param body Create or edit object
      * @return Success
      */
-    createOrEdit(body: CreateOrEditTabungBayaranTerusDto): Observable<CreateOrEditTabungBayaranTerusDto> {
+    createOrEdit(body: CreateOrEditTabungBayaranTerusDto): Observable<OutputCreateBayaranTerusDto> {
         let url_ = this.baseUrl + "/api/tabungBayaranTerus/createOrEdit";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -11689,14 +11689,14 @@ export class TabungBayaranTerusServiceProxy {
                 try {
                     return this.processCreateOrEdit(<any>response_);
                 } catch (e) {
-                    return <Observable<CreateOrEditTabungBayaranTerusDto>><any>_observableThrow(e);
+                    return <Observable<OutputCreateBayaranTerusDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<CreateOrEditTabungBayaranTerusDto>><any>_observableThrow(response_);
+                return <Observable<OutputCreateBayaranTerusDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditTabungBayaranTerusDto> {
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<OutputCreateBayaranTerusDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -11707,7 +11707,7 @@ export class TabungBayaranTerusServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = CreateOrEditTabungBayaranTerusDto.fromJS(resultData200);
+            result200 = OutputCreateBayaranTerusDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status === 500) {
@@ -11719,7 +11719,7 @@ export class TabungBayaranTerusServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<CreateOrEditTabungBayaranTerusDto>(<any>null);
+        return _observableOf<OutputCreateBayaranTerusDto>(<any>null);
     }
 }
 
@@ -13081,6 +13081,72 @@ export class TabungServiceProxy {
     }
 
     protected processGetTabungForDropdown(response: HttpResponseBase): Observable<GetTabungForListDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetTabungForListDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetTabungForListDto>(<any>null);
+    }
+
+    /**
+     * Get all Tabung by Year in dropdown list
+     * @param filter (optional) Filter records with a string
+     * @param filterYear (optional) Filter year records with a string
+     * @return Success
+     */
+    getTabungByYearForDropdown(filter: string | undefined, filterYear: string | undefined): Observable<GetTabungForListDto> {
+        let url_ = this.baseUrl + "/api/tabung/getTabungByYearForDropdown?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (filterYear === null)
+            throw new Error("The parameter 'filterYear' cannot be null.");
+        else if (filterYear !== undefined)
+            url_ += "filterYear=" + encodeURIComponent("" + filterYear) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTabungByYearForDropdown(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTabungByYearForDropdown(<any>response_);
+                } catch (e) {
+                    return <Observable<GetTabungForListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetTabungForListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTabungByYearForDropdown(response: HttpResponseBase): Observable<GetTabungForListDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -25364,6 +25430,8 @@ export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayar
     id_pengguna_hapus!: number;
     tarikh_hapus!: moment.Moment;
     sebab_hapus!: string;
+    id_tabung!: number;
+    id_bencana!: number;
 
     constructor(data?: ICreateOrEditTabungBayaranSkbDto) {
         if (data) {
@@ -25394,6 +25462,8 @@ export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayar
             this.id_pengguna_hapus = _data["id_pengguna_hapus"];
             this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
             this.sebab_hapus = _data["sebab_hapus"];
+            this.id_tabung = _data["id_tabung"];
+            this.id_bencana = _data["id_bencana"];
         }
     }
 
@@ -25424,6 +25494,8 @@ export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayar
         data["id_pengguna_hapus"] = this.id_pengguna_hapus;
         data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
+        data["id_tabung"] = this.id_tabung;
+        data["id_bencana"] = this.id_bencana;
         return data; 
     }
 }
@@ -25447,6 +25519,8 @@ export interface ICreateOrEditTabungBayaranSkbDto {
     id_pengguna_hapus: number;
     tarikh_hapus: moment.Moment;
     sebab_hapus: string;
+    id_tabung: number;
+    id_bencana: number;
 }
 
 export class GetRujukanKelulusanSkbDto implements IGetRujukanKelulusanSkbDto {
@@ -25493,6 +25567,7 @@ export class GetTabungBayaranSkbForEditDto implements IGetTabungBayaranSkbForEdi
     tabung_bayaran_skb!: CreateOrEditTabungBayaranSkbDto;
     rujukan_kelulusan_skb!: GetRujukanKelulusanSkbDto;
     nama_tabung!: string;
+    nama_bencana!: string;
 
     constructor(data?: IGetTabungBayaranSkbForEditDto) {
         if (data) {
@@ -25508,6 +25583,7 @@ export class GetTabungBayaranSkbForEditDto implements IGetTabungBayaranSkbForEdi
             this.tabung_bayaran_skb = _data["tabung_bayaran_skb"] ? CreateOrEditTabungBayaranSkbDto.fromJS(_data["tabung_bayaran_skb"]) : <any>undefined;
             this.rujukan_kelulusan_skb = _data["rujukan_kelulusan_skb"] ? GetRujukanKelulusanSkbDto.fromJS(_data["rujukan_kelulusan_skb"]) : <any>undefined;
             this.nama_tabung = _data["nama_tabung"];
+            this.nama_bencana = _data["nama_bencana"];
         }
     }
 
@@ -25523,6 +25599,7 @@ export class GetTabungBayaranSkbForEditDto implements IGetTabungBayaranSkbForEdi
         data["tabung_bayaran_skb"] = this.tabung_bayaran_skb ? this.tabung_bayaran_skb.toJSON() : <any>undefined;
         data["rujukan_kelulusan_skb"] = this.rujukan_kelulusan_skb ? this.rujukan_kelulusan_skb.toJSON() : <any>undefined;
         data["nama_tabung"] = this.nama_tabung;
+        data["nama_bencana"] = this.nama_bencana;
         return data; 
     }
 }
@@ -25531,6 +25608,7 @@ export interface IGetTabungBayaranSkbForEditDto {
     tabung_bayaran_skb: CreateOrEditTabungBayaranSkbDto;
     rujukan_kelulusan_skb: GetRujukanKelulusanSkbDto;
     nama_tabung: string;
+    nama_bencana: string;
 }
 
 export class GetTabungBayaranSkbForViewDto implements IGetTabungBayaranSkbForViewDto {
@@ -25544,6 +25622,7 @@ export class GetTabungBayaranSkbForViewDto implements IGetTabungBayaranSkbForVie
     nama_agensi!: string;
     nama_tabung!: string;
     no_rujukan_kelulusan!: string;
+    jumlah_belanja!: number;
 
     constructor(data?: IGetTabungBayaranSkbForViewDto) {
         if (data) {
@@ -25566,6 +25645,7 @@ export class GetTabungBayaranSkbForViewDto implements IGetTabungBayaranSkbForVie
             this.nama_agensi = _data["nama_agensi"];
             this.nama_tabung = _data["nama_tabung"];
             this.no_rujukan_kelulusan = _data["no_rujukan_kelulusan"];
+            this.jumlah_belanja = _data["jumlah_belanja"];
         }
     }
 
@@ -25588,6 +25668,7 @@ export class GetTabungBayaranSkbForViewDto implements IGetTabungBayaranSkbForVie
         data["nama_agensi"] = this.nama_agensi;
         data["nama_tabung"] = this.nama_tabung;
         data["no_rujukan_kelulusan"] = this.no_rujukan_kelulusan;
+        data["jumlah_belanja"] = this.jumlah_belanja;
         return data; 
     }
 }
@@ -25603,6 +25684,7 @@ export interface IGetTabungBayaranSkbForViewDto {
     nama_agensi: string;
     nama_tabung: string;
     no_rujukan_kelulusan: string;
+    jumlah_belanja: number;
 }
 
 export class InputCreateBayaranSkbDto implements IInputCreateBayaranSkbDto {
@@ -25699,6 +25781,42 @@ export interface IInputSkbBulananDto {
     jumlah: number;
 }
 
+export class OutputCreateBayaranSkbDto implements IOutputCreateBayaranSkbDto {
+    message!: string;
+
+    constructor(data?: IOutputCreateBayaranSkbDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.message = _data["message"];
+        }
+    }
+
+    static fromJS(data: any): OutputCreateBayaranSkbDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new OutputCreateBayaranSkbDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["message"] = this.message;
+        return data; 
+    }
+}
+
+export interface IOutputCreateBayaranSkbDto {
+    message: string;
+}
+
 /** TabungBayaranSkb List in Tabular model */
 export class PagedResultDtoOfTabungBayaranSkbForViewDto implements IPagedResultDtoOfTabungBayaranSkbForViewDto {
     /** Total Count */
@@ -25768,6 +25886,9 @@ export class CreateOrEditTabungBayaranTerusDto implements ICreateOrEditTabungBay
     id_pengguna_hapus!: number;
     tarikh_hapus!: moment.Moment;
     sebab_hapus!: string;
+    id_tabung!: number;
+    id_bencana!: number;
+    jumlah!: number;
 
     constructor(data?: ICreateOrEditTabungBayaranTerusDto) {
         if (data) {
@@ -25794,6 +25915,9 @@ export class CreateOrEditTabungBayaranTerusDto implements ICreateOrEditTabungBay
             this.id_pengguna_hapus = _data["id_pengguna_hapus"];
             this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
             this.sebab_hapus = _data["sebab_hapus"];
+            this.id_tabung = _data["id_tabung"];
+            this.id_bencana = _data["id_bencana"];
+            this.jumlah = _data["jumlah"];
         }
     }
 
@@ -25820,6 +25944,9 @@ export class CreateOrEditTabungBayaranTerusDto implements ICreateOrEditTabungBay
         data["id_pengguna_hapus"] = this.id_pengguna_hapus;
         data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
+        data["id_tabung"] = this.id_tabung;
+        data["id_bencana"] = this.id_bencana;
+        data["jumlah"] = this.jumlah;
         return data; 
     }
 }
@@ -25839,6 +25966,9 @@ export interface ICreateOrEditTabungBayaranTerusDto {
     id_pengguna_hapus: number;
     tarikh_hapus: moment.Moment;
     sebab_hapus: string;
+    id_tabung: number;
+    id_bencana: number;
+    jumlah: number;
 }
 
 export class GetTabungBayaranTerusForEditDto implements IGetTabungBayaranTerusForEditDto {
@@ -25963,6 +26093,42 @@ export interface IGetTabungBayaranTerusForViewDto {
     id_pengguna_hapus: number;
     tarikh_hapus: moment.Moment;
     sebab_hapus: string;
+}
+
+export class OutputCreateBayaranTerusDto implements IOutputCreateBayaranTerusDto {
+    message!: string;
+
+    constructor(data?: IOutputCreateBayaranTerusDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.message = _data["message"];
+        }
+    }
+
+    static fromJS(data: any): OutputCreateBayaranTerusDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new OutputCreateBayaranTerusDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["message"] = this.message;
+        return data; 
+    }
+}
+
+export interface IOutputCreateBayaranTerusDto {
+    message: string;
 }
 
 /** TabungBayaranTerus List in Tabular model */
@@ -27318,6 +27484,8 @@ export class CreateOrEditTabungDto implements ICreateOrEditTabungDto {
     tarikh_cipta!: moment.Moment;
     id_pengguna_kemaskini!: number;
     tarikh_kemaskini!: moment.Moment;
+    id_tabung_sebelum!: number;
+    jumlah_perbelanjaan_semasa!: number;
 
     constructor(data?: ICreateOrEditTabungDto) {
         if (data) {
@@ -27344,6 +27512,8 @@ export class CreateOrEditTabungDto implements ICreateOrEditTabungDto {
             this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
             this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.id_tabung_sebelum = _data["id_tabung_sebelum"];
+            this.jumlah_perbelanjaan_semasa = _data["jumlah_perbelanjaan_semasa"];
         }
     }
 
@@ -27370,6 +27540,8 @@ export class CreateOrEditTabungDto implements ICreateOrEditTabungDto {
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["id_tabung_sebelum"] = this.id_tabung_sebelum;
+        data["jumlah_perbelanjaan_semasa"] = this.jumlah_perbelanjaan_semasa;
         return data; 
     }
 }
@@ -27389,6 +27561,8 @@ export interface ICreateOrEditTabungDto {
     tarikh_cipta: moment.Moment;
     id_pengguna_kemaskini: number;
     tarikh_kemaskini: moment.Moment;
+    id_tabung_sebelum: number;
+    jumlah_perbelanjaan_semasa: number;
 }
 
 export class GetTabungForEditDto implements IGetTabungForEditDto {

@@ -1,5 +1,5 @@
 <div class="modal-header">
-	<h5 class="modal-title">Pilih Maklumat Kelulusan</h5>
+	<h5 class="modal-title">Pilih Maklumat Bencana</h5>
 	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
 		<span aria-hidden="true">&times;</span>
 	</button>
@@ -11,7 +11,7 @@
         <input
           class="form-control"
           type="text"
-          name="searchKelulusan"
+          name="searchBencana"
           placeholder="Carian..."
           [(ngModel)]="filter"
           (keyup)="applyFilter($event.target.value)"
@@ -28,7 +28,7 @@
 					#dataTable
 					styleClass="p-datatable-striped"
 					[resizableColumns]="true"
-					(onLazyLoad)="getKelulusan($event)"
+					(onLazyLoad)="getBencana($event)"
 					[value]="primengTableHelper.records"
 					rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
 					[paginator]="false"
@@ -42,13 +42,21 @@
 					<ng-template pTemplate="header">
 						<tr>
 							<th style="width: 100px">Tindakan</th>
-							<th style="width: 130px" pSortableColumn="no_rujukan_kelulusan">
-								No. Kelulusan
-								<p-sortIcon field="no_rujukan_kelulusan"></p-sortIcon>
+							<th style="width: 130px" pSortableColumn="tarikh_bencana">
+								Tarikh Kejadian
+								<p-sortIcon field="tarikh_bencana"></p-sortIcon>
 							</th>
-							<th style="width: 150px" pSortableColumn="perihal_surat">
-								Perihal
-								<p-sortIcon field="perihal_surat"></p-sortIcon>
+							<th style="width: 135px" pSortableColumn="nama_jenis_bencana">
+								Kategori Bencana
+								<p-sortIcon field="nama_jenis_bencana"></p-sortIcon>
+							</th>
+							<th style="width: 130px" pSortableColumn="nama_bencana">
+								Nama Bencana
+								<p-sortIcon field="nama_bencana"></p-sortIcon>
+							</th>
+							<th style="width: 150px" pSortableColumn="catatan">
+								Catatan
+								<p-sortIcon field="catatan"></p-sortIcon>
 							</th>
 						</tr>
 					</ng-template>
@@ -60,19 +68,27 @@
                   type="button"
                   (click)="select(
                     record.id,
-                    record.no_rujukan_kelulusan
+                    record.nama_bencana
                     )"
                 >
                   Pilih
                 </button>
 							</td>
 							<td style="width: 130px">
-								<span class="p-column-title">No. Kelulusan</span>
-								{{record.no_rujukan_kelulusan}}
+								<span class="p-column-title">Tarikh Kejadian</span>
+								{{record.tarikh_bencana | date:'dd-MM-yyyy'}}
+							</td>
+							<td style="width: 135px">
+								<span class="p-column-title">Kategori Bencana</span>
+								{{record.nama_jenis_bencana}}
+							</td>
+							<td style="width: 130px">
+								<span class="p-column-title">Nama Bencana</span>
+								{{record.nama_bencana}}
 							</td>
 							<td style="width: 150px">
-								<span class="p-column-title">Perihal</span>
-								{{record.perihal_surat}}
+								<span class="p-column-title">Catatan</span>
+								{{record.catatan}}
 							</td>
 						</tr>
 					</ng-template>
@@ -82,7 +98,7 @@
 					<p-paginator
 						[rows]="primengTableHelper.defaultRecordsCountPerPage"
 						#paginator
-						(onPageChange)="getKelulusan($event)"
+						(onPageChange)="getBencana($event)"
 						[totalRecords]="primengTableHelper.totalRecordsCount"
 						[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
 					></p-paginator>

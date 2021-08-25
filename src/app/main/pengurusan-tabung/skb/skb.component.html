@@ -131,11 +131,11 @@
 							<ng-template pTemplate="header">
 								<tr>
 									<th style="width: 150px">Tindakan</th>
-									<th style="width: 150px" pSortableColumn="no_rujukan_kelulusan">
-										No. Rujukan Kelulusan
+									<th style="width: 144px" pSortableColumn="no_rujukan_kelulusan">
+										No. Kelulusan
 										<p-sortIcon field="no_rujukan_kelulusan"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="no_rujukan_skb">
+									<th style="width: 164px" pSortableColumn="no_rujukan_skb">
 										No. Rujukan SKB
 										<p-sortIcon field="no_rujukan_skb"></p-sortIcon>
 									</th>
@@ -151,11 +151,11 @@
 										Tabung
 										<p-sortIcon field="nama_tabung"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="jumlah_siling_peruntukan">
+									<th style="width: 170px" pSortableColumn="jumlah_siling_peruntukan">
 										Siling Peruntukan
 										<p-sortIcon field="jumlah_siling_peruntukan"></p-sortIcon>
 									</th>
-									<th style="width: 160px" pSortableColumn="jumlah_baki_peruntukan">
+									<th style="width: 161px" pSortableColumn="jumlah_baki_peruntukan">
 										Baki Peruntukan
 										<p-sortIcon field="jumlah_baki_peruntukan"></p-sortIcon>
 									</th>
@@ -163,11 +163,11 @@
 										Jumlah Belanja
 										<p-sortIcon field="jumlah_belanja"></p-sortIcon>
 									</th>
-									<th style="width: 100px" pSortableColumn="tarikh_mula">
+									<th style="width: 129px" pSortableColumn="tarikh_mula">
 										Tarikh Mula
 										<p-sortIcon field="tarikh_mula"></p-sortIcon>
 									</th>
-									<th style="width: 100px" pSortableColumn="tarikh_tamat">
+									<th style="width: 136px" pSortableColumn="tarikh_tamat">
 										Tarikh Tamat
 										<p-sortIcon field="tarikh_tamat"></p-sortIcon>
 									</th>
@@ -198,11 +198,11 @@
 											</div>
 										</div>
 									</td>
-									<td style="width: 150px">
-										<span class="p-column-title">No. Rujukan Kelulusan</span>
+									<td style="width: 144px">
+										<span class="p-column-title">No. Kelulusan</span>
 										{{record.no_rujukan_kelulusan}}
 									</td>
-									<td style="width: 130px">
+									<td style="width: 164px">
 										<span class="p-column-title">No. Rujukan SKB</span>
 										{{record.no_rujukan_skb}}
 									</td>
@@ -218,23 +218,23 @@
 										<span class="p-column-title">Tabung</span>
 										{{record.nama_tabung}}
 									</td>
-									<td style="width: 130px">
+									<td style="width: 170px">
 										<span class="p-column-title">Siling Peruntukan</span>
-										RM{{record.jumlah_siling_peruntukan}}
+										RM {{record.jumlah_siling_peruntukan}}
 									</td>
-									<td style="width: 160px">
+									<td style="width: 161px">
 										<span class="p-column-title">Baki Peruntukan</span>
-										RM{{record.jumlah_baki_peruntukan}}
+										RM {{record.jumlah_baki_peruntukan}}
 									</td>
 									<td style="width: 160px">
 										<span class="p-column-title">Jumlah Belanja</span>
-										RM{{record.jumlah_siling_peruntukan - record.jumlah_baki_peruntukan | number: '1.2-2'}}
+										RM {{record.jumlah_belanja}}
 									</td>
-									<td style="width: 100px">
+									<td style="width: 129px">
 										<span class="p-column-title">Tarikh Mula</span>
 										{{record.tarikh_mula | date:'dd-MM-yyyy'}}
 									</td>
-									<td style="width: 100px">
+									<td style="width: 136px">
 										<span class="p-column-title">Tarikh Tamat</span>
 										{{record.tarikh_tamat | date:'dd-MM-yyyy'}}
 									</td>
