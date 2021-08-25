@@ -28,6 +28,9 @@ import { TambahKetuaIsiRumahComponent } from './wang-ihsan/tambah-ketua-isi-ruma
 import { TambahNoRujukanComponent } from './wang-ihsan/tambah-no-rujukan/tambah-no-rujukan.component';
 import { EditTabungComponent } from './tabung/edit-tabung/edit-tabung.component';
 import { TambahPeruntukanComponent } from './tabung/edit-tabung/tambah-peruntukan/tambah-peruntukan.component';
+import { PilihRujukanKelulusanComponent } from './bayaran-secara-terus/pilih-rujukan-kelulusan/pilih-rujukan-kelulusan.component';
+import { PilihTabungComponent } from './bayaran-secara-terus/pilih-tabung/pilih-tabung.component';
+import { PilihBencanaComponent } from './bayaran-secara-terus/pilih-bencana/pilih-bencana.component';
 
 @NgModule({
 	imports: [
@@ -61,7 +64,10 @@ import { TambahPeruntukanComponent } from './tabung/edit-tabung/tambah-peruntuka
 		TambahKetuaIsiRumahComponent,
 		TambahNoRujukanComponent,
 		EditTabungComponent,
-		TambahPeruntukanComponent
+		TambahPeruntukanComponent,
+		PilihRujukanKelulusanComponent,
+		PilihTabungComponent,
+		PilihBencanaComponent
 	]
 })
 export class PengurusanTabungModule {}
