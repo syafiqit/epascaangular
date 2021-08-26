@@ -40,15 +40,15 @@ const routes: Routes = [
 				component: MukaHalamanTabungComponent
 			},
 			{
-				path: 'senarai-skb',
+				path: 'skb/senarai',
 				component: SkbComponent
 			},
 			{
-				path: 'tambah-skb',
+				path: 'skb/tambah',
 				component: TambahSkbComponent
 			},
 			{
-				path: 'edit-skb',
+				path: 'skb/edit',
 				component: EditSkbComponent
 			},
 			{

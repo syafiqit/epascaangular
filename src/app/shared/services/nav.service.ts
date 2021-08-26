@@ -111,7 +111,7 @@ export class NavService implements OnDestroy {
             title: 'Pembayaran',
             type: 'sub',
             children: [
-              { path: '/app/tabung/senarai-skb', title: 'Surat Kuasa Belanja', type: 'link' },
+              { path: '/app/tabung/skb/senarai', title: 'Surat Kuasa Belanja', type: 'link' },
               {
                 path: '/app/tabung/senarai-bayaran-secara-terus',
                 title: 'Bayaran Secara Terus',
@@ -250,7 +250,7 @@ export class NavService implements OnDestroy {
 					title: 'Pembayaran',
 					type: 'sub',
 					children: [
-						{ path: '/app/tabung/senarai-skb', title: 'Surat Kuasa Belanja', type: 'link' },
+						{ path: '/app/tabung/skb/senarai', title: 'Surat Kuasa Belanja', type: 'link' },
 						{
 							path: '/app/tabung/senarai-bayaran-secara-terus',
 							title: 'Bayaran Secara Terus',

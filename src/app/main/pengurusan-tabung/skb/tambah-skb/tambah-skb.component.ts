@@ -238,7 +238,7 @@ export class TambahSkbComponent implements OnInit {
         this.output = result;
         if(this.output.message == "Maklumat Berjaya Ditambah!"){
           Swal.fire('Berjaya!', 'Maklumat Surat Kuasa Belanja Berjaya Dihantar.', 'success').then(() => {
-            this.router.navigateByUrl('/app/tabung/senarai-skb');
+            this.router.navigateByUrl('/app/tabung/skb/senarai');
           });
         }else{
           Swal.fire('Tidak Berjaya!', this.output.message, 'error');
