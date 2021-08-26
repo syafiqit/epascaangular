@@ -211,7 +211,7 @@ export class EditSkbComponent implements OnInit {
 			.pipe()
 			.subscribe((result) => {
 				Swal.fire('Berjaya!', 'Maklumat Surat Kuasa Belanja Berjaya Dikemaskini.', 'success').then(() => {
-					this.router.navigateByUrl('/app/tabung/senarai-skb');
+					this.router.navigateByUrl('/app/tabung/skb/senarai');
 				});
 			});
 	}
