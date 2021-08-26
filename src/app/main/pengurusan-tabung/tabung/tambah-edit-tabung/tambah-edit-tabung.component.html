@@ -46,37 +46,6 @@
 		</div>
 
 		<div class="row">
-      <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
-        <label>Tarikh Baki</label>
-        <div class="input-group">
-          <input
-            class="form-control"
-            placeholder="yyyy-mm-dd"
-            name="tarikhBakiSemasa"
-            [(ngModel)]="model"
-            ngbDatepicker
-            [footerTemplate]="footerTemplate"
-            #d="ngbDatepicker"
-            style="border: 1px solid #efefef !important;"
-            #tarikhBakiSemasa="ngModel"
-				    [ngClass]="{ 'is-invalid': f.submitted && tarikhBakiSemasa.invalid }"
-						required
-          >
-          <div class="input-group-append">
-            <button class="btn btn-light" (click)="d.toggle()" type="button"><i
-              class="fa fa-calendar"></i></button>
-          </div>
-          <div *ngIf="f.submitted && tarikhBakiSemasa.invalid" class="invalid-feedback">
-            <div *ngIf="tarikhBakiSemasa.errors.required">Tarikh Baki Semasa Wajib Dipilih</div>
-          </div>
-        </div>
-      </div>
-      <ng-template #footerTemplate>
-        <hr class="my-0">
-        <button class="btn btn-primary btn-sm m-2 float-left" (click)="model = today; d.close()">Hari Ini</button>
-        <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Tutup</button>
-      </ng-template>
-
       <div class="col-lg-6" *ngIf="tabungSebelumCheck">
         <div class="form-group">
           <label>Jumlah Baki Bawaan (RM)</label>
