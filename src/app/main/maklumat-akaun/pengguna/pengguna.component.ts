@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { fadeVerticalAnimation } from 'src/app/shared/data/router-animation/fade-vertical-animation';
 import {
   GetProfilDto,
   PenggunaProfilDto,
@@ -16,7 +17,8 @@ const Swal = require('sweetalert2');
 @Component({
 	selector: 'app-pengguna',
 	templateUrl: './pengguna.component.html',
-  styleUrls: ['./pengguna.component.scss']
+  styleUrls: ['./pengguna.component.scss'],
+  animations: [fadeVerticalAnimation]
 })
 export class PenggunaComponent implements OnInit {
   endpoint = '/api/session/uploadGambarProfil';
@@ -37,6 +39,7 @@ export class PenggunaComponent implements OnInit {
   kementerian: any;
   agensi: any;
   filterIdNegeri: number;
+  showAddress = false;
 
 	constructor(
     private _sessionServiceProxy: SessionServiceProxy,
@@ -61,8 +64,11 @@ export class PenggunaComponent implements OnInit {
 	show(): void {
 		this._sessionServiceProxy.getProfil().subscribe((result) => {
 			this.getProfile = result;
+      if(result.pengguna.id_peranan == 2) {
+        this.showAddress = true;
+        this.getDaerah(result.pengguna.id_daerah);
+      }
       this.getAgensi(result.pengguna.id_agensi);
-      this.getDaerah(result.pengguna.id_daerah);
 		});
 	}
 

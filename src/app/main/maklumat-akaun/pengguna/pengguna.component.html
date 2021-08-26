@@ -24,7 +24,7 @@
                 </div>
 
 								<div class="col-lg-6" *ngFor="let item of getProfile.peranan | keyvalue">
-									<label>Peranan Pengguna : {{item.value}}</label>
+									<label>Peranan Pengguna : {{item.value | uppercase}}</label>
 								</div>
 							</div>
 
@@ -50,7 +50,7 @@
 
 								<div class="col-lg-6">
 									<div class="form-group">
-										<label>No. Kad Pengenalan</label>
+										<label>No. Kad Pengenalan*</label>
 										<input
 											class="form-control"
 											name="no_kp"
@@ -76,7 +76,7 @@
 							<div class="row">
 								<div class="col-lg-6">
 									<div class="form-group">
-										<label>Emel</label>
+										<label>Emel*</label>
 										<input
 											class="form-control"
 											name="emel"
@@ -99,9 +99,9 @@
 											[(ngModel)]="getProfile.pengguna.telefon_bimbit"
                       #mobile="ngModel"
                       [ngClass]="{ 'is-invalid': f.submitted && mobile.invalid }"
-                      oninput="this.value=this.value.replace(/\D+/g, '');"
                       minlength="9"
                       maxlength="12"
+                      onlyNumbers
                       required
 										/>
                     <div *ngIf="f.submitted && mobile.invalid" class="invalid-feedback">
@@ -140,28 +140,42 @@
 					<div class="row">
             <div class="col-lg-6">
 							<div class="form-group">
-								<label>Agensi</label>
-								<ng-select
-                  [items]="agencies"
-                  bindLabel="nama_agensi"
-                  placeholder="Sila Pilih"
-                  class="js-example-placeholder-multiple"
-                  name="nama_agensi"
-                  (change)="setKementerian()"
-                  [(ngModel)]="agensi"
-                  #namaAgensi="ngModel"
-                  [ngClass]="{ 'is-invalid': f.submitted && namaAgensi.invalid }"
-                  required
-                ></ng-select>
-                <div *ngIf="f.submitted && namaAgensi.invalid" class="invalid-feedback">
-                  <div *ngIf="namaAgensi.errors.required">Agensi Wajib Diisi</div>
+								<label>Agensi*</label>
+								<div *ngIf="showAddress == false" [@fadeVerticalAnimation]>
+                  <ng-select
+                    [items]="agencies"
+                    bindLabel="nama_agensi"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
+                    name="nama_agensi"
+                    (change)="setKementerian()"
+                    [(ngModel)]="agensi"
+                    disabled
+                  ></ng-select>
+                </div>
+                <div *ngIf="showAddress == true" [@fadeVerticalAnimation]>
+                  <ng-select
+                    [items]="agencies"
+                    bindLabel="nama_agensi"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
+                    name="nama_agensi"
+                    (change)="setKementerian()"
+                    [(ngModel)]="agensi"
+                    #namaAgensi="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && namaAgensi.invalid }"
+                    required
+                  ></ng-select>
+                  <div *ngIf="f.submitted && namaAgensi.invalid" class="invalid-feedback">
+                    <div *ngIf="namaAgensi.errors.required">Agensi Wajib Diisi</div>
+                  </div>
                 </div>
 							</div>
 						</div>
 
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label>Kementerian</label>
+								<label>Kementerian*</label>
                 <ng-select
                   [items]="ministries"
                   bindLabel="nama_kementerian"
@@ -179,7 +193,7 @@
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-							  <label>Telefon Pejabat</label>
+							  <label>Telefon Pejabat*</label>
 								<input
 									class="form-control"
 									name="telefon_pejabat"
@@ -188,9 +202,9 @@
 									[(ngModel)]="getProfile.pengguna.telefon_pejabat"
                   #noTel="ngModel"
                   [ngClass]="{ 'is-invalid': f.submitted && noTel.invalid }"
-                  oninput="this.value=this.value.replace(/\D+/g, '');"
                   minlength="9"
                   maxlength="15"
+                  onlyNumbers
                   required
 								/>
                 <div *ngIf="f.submitted && noTel.invalid" class="invalid-feedback">
@@ -208,24 +222,18 @@
 									type="text"
 									placeholder="Fax"
 									[(ngModel)]="getProfile.pengguna.fax"
-                  #noFax="ngModel"
-                  [ngClass]="{ 'is-invalid': f.submitted && noFax.invalid }"
-                  oninput="this.value=this.value.replace(/\D+/g, '');"
                   minlength="9"
                   maxlength="15"
-                  required
+                  onlyNumbers
 								/>
-                <div *ngIf="f.submitted && noFax.invalid" class="invalid-feedback">
-                  <div *ngIf="noFax.errors.required">Fax Wajib Diisi</div>
-                </div>
 							</div>
 						</div>
 					</div>
 
-          <div class="row">
+          <div class="row" *ngIf="showAddress == true" [@fadeVerticalAnimation]>
             <div class="col-lg-6">
               <div class="form-group">
-                <label>Alamat 1</label>
+                <label>Alamat 1*</label>
                 <input
 									class="form-control"
 									name="alamat_1"
@@ -251,21 +259,15 @@
 									type="text"
 									placeholder="Alamat 2"
 									[(ngModel)]="getProfile.pengguna.alamat_2"
-                  #add2="ngModel"
-                  [ngClass]="{ 'is-invalid': f.submitted && add2.invalid }"
-                  required
 							  />
-                <div *ngIf="f.submitted && add2.invalid" class="invalid-feedback">
-                  <div *ngIf="add2.errors.required">Alamat 2 Agensi Wajib Diisi</div>
-                </div>
               </div>
             </div>
           </div>
 
-          <div class="row">
+          <div class="row" *ngIf="showAddress == true" [@fadeVerticalAnimation]>
             <div class="col-lg-6">
               <div class="form-group">
-                <label>Poskod</label>
+                <label>Poskod*</label>
                 <input
 									class="form-control"
 									name="poskod"
@@ -274,9 +276,9 @@
 									[(ngModel)]="getProfile.pengguna.poskod"
                   #postcode="ngModel"
                   [ngClass]="{ 'is-invalid': f.submitted && postcode.invalid }"
-                  oninput="this.value=this.value.replace(/\D+/g, '');"
                   minlength="5"
                   maxlength="5"
+                  onlyNumbers
                   required
 								/>
                 <div *ngIf="f.submitted && postcode.invalid" class="invalid-feedback">
@@ -287,7 +289,7 @@
 
             <div class="col-lg-6">
               <div class="form-group">
-                <label>Daerah</label>
+                <label>Daerah*</label>
                 <ng-select
                   [items]="districts"
                   bindLabel="nama_daerah"
@@ -307,10 +309,10 @@
             </div>
           </div>
 
-          <div class="row">
+          <div class="row" *ngIf="showAddress == true" [@fadeVerticalAnimation]>
             <div class="col-lg-6">
               <div class="form-group">
-                <label>Negeri</label>
+                <label>Negeri*</label>
                 <ng-select
                   [items]="states"
                   bindLabel="nama_negeri"

@@ -104,9 +104,9 @@
                         placeholder="Telefon Bimbit"
                         #telefonBimbit="ngModel"
                         [ngClass]="{ 'is-invalid': f.submitted && telefonBimbit.invalid }"
-                        oninput="this.value=this.value.replace(/\D+/g, '');"
                         minlength="9"
                         maxlength="12"
+                        onlyNumbers
                         required
                       />
                       <div *ngIf="f.submitted && telefonBimbit.invalid" class="invalid-feedback">
@@ -226,9 +226,9 @@
                         name="fax"
                         [(ngModel)]="register.fax"
                         placeholder="Fax"
-                        oninput="this.value=this.value.replace(/\D+/g, '');"
                         minlength="8"
                         maxlength="15"
+                        onlyNumbers
                       />
                     </div>
                   </div>
@@ -285,7 +285,7 @@
                         [ngClass]="{ 'is-invalid': f.submitted && poskodAgensi.invalid }"
                         minlength="5"
                         maxlength="5"
-                        oninput="this.value=this.value.replace(/\D+/g, '');"
+                        onlyNumbers
                         required
                       />
                       <div *ngIf="f.submitted && poskodAgensi.invalid" class="invalid-feedback">
