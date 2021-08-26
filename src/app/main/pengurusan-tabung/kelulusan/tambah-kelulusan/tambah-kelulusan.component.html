@@ -29,8 +29,8 @@
 									<label>Komitmen</label>
                   <select [(ngModel)]="kelulusan.id_komitmen" class="form-control digits">
 										<option>Pilih</option>
-										<option value='1'>Komitmen 1</option>
-										<option value='2'>Komitmen 2</option>
+                    <option value='1'>Perolehan Secara Pembelian Terus</option>
+                    <option value='2'>Perolehan Secara Darurat</option>
 									</select>
 								</div>
 							</div>
@@ -124,9 +124,9 @@
                   <input
                     class="form-control"
                     type="text"
-                    name="kelulusan.no_rujukan_kelulusan"
-                    [(ngModel)]="kelulusan.no_rujukan_kelulusan"
-                    placeholder="No. Rujukan Kelulusan"
+                    name="kelulusan.rujukan_surat"
+                    [(ngModel)]="kelulusan.rujukan_surat"
+                    placeholder="Rujukan Surat"
                   />
 								</div>
 							</div>

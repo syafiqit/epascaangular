@@ -6,7 +6,7 @@ import {
 } from "../../../../shared/proxy/service-proxies";
 import {finalize} from "rxjs/operators";
 import * as moment from "moment";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import { TambahRujukanBencanaComponent } from '../tambah-kelulusan/tambah-rujukan-bencana/tambah-rujukan-bencana.component';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { LazyLoadEvent } from 'primeng/api';
@@ -105,6 +105,7 @@ export class EditKelulusanComponent implements OnInit {
 	constructor(
 	  config: NgbModalConfig,
     private modalService: NgbModal,
+    private router: Router,
     private _activatedRoute: ActivatedRoute,
     private _tabungKelulusanServiceProxy: TabungKelulusanServiceProxy,
     private _tabungServiceProxy: TabungServiceProxy,
@@ -204,6 +205,7 @@ export class EditKelulusanComponent implements OnInit {
       .pipe()
       .subscribe(() => {
         Swal.fire('Berjaya!', 'Maklumat Tabung Kelulusan Berjaya Disimpan.', 'success');
+        this.router.navigate(['/app/tabung/senarai-kelulusan']);
       });
   }
 
