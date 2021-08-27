@@ -11,8 +11,7 @@ import {
   MangsaServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { finalize } from 'rxjs/operators';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-ahli-rumah-mangsa',
@@ -83,7 +82,7 @@ export class AhliRumahMangsaComponent implements OnInit {
 	}
 
 	delete() {
-		Swal.fire('Berjaya!', 'Barangan Berjaya Dibuang.', 'success');
+		swalSuccess.fire('Berjaya!', 'Barangan Berjaya Dibuang.', 'success');
 	}
 
 	addAhliRumahModal() {

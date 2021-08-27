@@ -15,8 +15,7 @@ import {
   RefPindahServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { environment } from 'src/environments/environment';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 @Component({
 	selector: 'app-maklumat-mangsa',
 	templateUrl: './maklumat-mangsa.component.html',
@@ -165,7 +164,7 @@ export class MaklumatMangsaComponent implements OnInit {
     this.getMangsa.mangsa.gambar = this.url;
     this.editMangsa.mangsa = this.getMangsa.mangsa;
 		this._mangsaServiceProxy.createOrEdit(this.editMangsa).subscribe((result) => {
-			Swal.fire('Berjaya!', 'Maklumat Mangsa Berjaya Dikemaskini.', 'success').then(() => {
+			swalSuccess.fire('Berjaya!', 'Maklumat Mangsa Berjaya Dikemaskini.', 'success').then(() => {
 				location.reload();
 			});
 		});

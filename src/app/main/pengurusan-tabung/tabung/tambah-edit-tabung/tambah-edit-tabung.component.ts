@@ -5,8 +5,7 @@ import { CreateOrEditTabungDto, GetTabungForViewDto, TabungServiceProxy } from '
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { DatePipe } from '@angular/common';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-tambah-edit-tabung',
@@ -86,7 +85,7 @@ export class TambahEditTabungComponent implements OnInit {
     this.createTabung.tarikh_baki = moment(this.tarikhBaki, "YYYY-MM-DD");
 
     this.tabungServiceProxy.createOrEdit(this.createTabung).subscribe(()=>{
-      Swal.fire('Berjaya', 'Maklumat Tabung Berjaya Ditambah').then(() => {
+      swalSuccess.fire('Berjaya', 'Maklumat Tabung Berjaya Ditambah').then(() => {
 				this.activeModal.close(true);
       });
     })

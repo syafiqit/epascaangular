@@ -18,8 +18,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PilihanTabungComponent } from '../pilihan-tabung/pilihan-tabung.component';
 import { PilihanBencanaComponent } from '../pilihan-bencana/pilihan-bencana.component';
 import { PaparBulananComponent } from '../papar-bulanan/papar-bulanan.component';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 @Component({
 	selector: 'app-edit-skb',
 	templateUrl: './edit-skb.component.html',
@@ -210,7 +209,7 @@ export class EditSkbComponent implements OnInit {
 			.createOrEdit(this.bayaranSKB)
 			.pipe()
 			.subscribe((result) => {
-				Swal.fire('Berjaya!', 'Maklumat Surat Kuasa Belanja Berjaya Dikemaskini.', 'success').then(() => {
+				swalSuccess.fire('Berjaya!', 'Maklumat Surat Kuasa Belanja Berjaya Dikemaskini.', 'success').then(() => {
 					this.router.navigateByUrl('/app/tabung/skb/senarai');
 				});
 			});

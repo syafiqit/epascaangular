@@ -7,8 +7,7 @@ import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { CreateOrEditTabungBwiKirDto, RefDaerahServiceProxy, RefNegeriServiceProxy, TabungBwiKirServiceProxy, TabungBwiServiceProxy } from 'src/app/shared/proxy/service-proxies';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 @Component({
 	selector: 'app-tambah-ketua-isi-rumah',
 	templateUrl: './tambah-ketua-isi-rumah.component.html',
@@ -130,9 +129,9 @@ export class TambahKetuaIsiRumahComponent implements OnInit {
         .pipe()
         .subscribe(() => {
           if (this.name == 'add') {
-            Swal.fire('Berjaya!', 'Maklumat Ketua Isi Rumah Berjaya Ditambah.', 'success');
+            swalSuccess.fire('Berjaya!', 'Maklumat Ketua Isi Rumah Berjaya Ditambah.', 'success');
           } else if (this.name == 'edit') {
-            Swal.fire('Berjaya!', 'Maklumat Ketua Isi Rumah Berjaya Dikemaskini.', 'success');
+            swalSuccess.fire('Berjaya!', 'Maklumat Ketua Isi Rumah Berjaya Dikemaskini.', 'success');
           }
           this.activeModal.close(true);
         });

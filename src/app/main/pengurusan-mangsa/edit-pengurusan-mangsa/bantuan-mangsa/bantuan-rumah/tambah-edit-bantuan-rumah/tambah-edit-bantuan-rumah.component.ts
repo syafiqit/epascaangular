@@ -2,8 +2,7 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgbActiveModal, NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import { CreateOrEditMangsaRumahDto, GetMangsaRumahForEditDto, MangsaRumahServiceProxy, RefBantuanServiceProxy, RefBencanaServiceProxy, RefKerosakanServiceProxy, RefPelaksanaServiceProxy, RefPemilikServiceProxy, RefStatusKemajuanServiceProxy, RefSumberDanaServiceProxy, RefTapakRumahServiceProxy } from 'src/app/shared/proxy/service-proxies';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
   selector: 'app-tambah-edit-bantuan-rumah',
@@ -166,9 +165,9 @@ export class TambahEditBantuanRumahComponent implements OnInit {
       .pipe()
       .subscribe((result) => {
         if (this.name == 'add') {
-          Swal.fire('Berjaya!', 'Maklumat Bantuan Rumah Berjaya Ditambah.', 'success');
+          swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Rumah Berjaya Ditambah.', 'success');
         } else if (this.name == 'edit') {
-          Swal.fire('Berjaya!', 'Maklumat Bantuan Rumah Berjaya Dikemaskini.', 'success');
+          swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Rumah Berjaya Dikemaskini.', 'success');
         }
         this.activeModal.close(true);
       });

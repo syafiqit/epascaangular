@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthServiceProxy, InputResetPasswordDto } from 'src/app/shared/proxy/service-proxies';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
   selector: 'app-reset-kata-laluan',
@@ -61,7 +60,7 @@ export class ResetKataLaluanComponent implements OnInit {
 		if (this.resetPassword.kata_laluan === this.resetPassword.ulang_kata_laluan) {
 			this._authServiceProxy.resetPassword(this.resetPassword).subscribe(
 				() => {
-					Swal.fire(
+					swalSuccess.fire(
 						'',
 						'Kata Laluan Telah Ditetapkan Semula. Sila Log Masuk Dengan Kata Laluan Baru Anda',
 						'success'
@@ -70,7 +69,7 @@ export class ResetKataLaluanComponent implements OnInit {
 					});
 				},
 				() => {
-					Swal.fire(
+					swalError.fire(
 						'',
 						'Kod Akses Tidak Sah & Telah Tamat Tampoh. Sila Minta Kod Akses Yang Baharu ',
 						'error'
@@ -78,7 +77,7 @@ export class ResetKataLaluanComponent implements OnInit {
 				}
 			);
 		} else {
-			Swal.fire('', 'Kata Laluan Dan Ulang Kata Laluan Tidak Sama ', 'error');
+			swalError.fire('', 'Kata Laluan Dan Ulang Kata Laluan Tidak Sama ', 'error');
 		}
 	}
 

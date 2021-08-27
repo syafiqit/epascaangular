@@ -7,8 +7,6 @@ import { LazyLoadEvent } from 'primeng/api';
 import { finalize } from 'rxjs/operators';
 import { MangsaPertanianServiceProxy, MangsaPinjamanServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import { TambahEditBantuanPertanianComponent } from './tambah-edit-bantuan-pertanian/tambah-edit-bantuan-pertanian.component';
-declare let require;
-const Swal = require('sweetalert2');
 
 @Component({
 	selector: 'app-bantuan-pertanian',

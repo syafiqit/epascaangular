@@ -10,8 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CreateOrEditTabungDto, GetTabungForEditDto, RefSumberPeruntukanServiceProxy, TabungPeruntukanServiceProxy, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import * as moment from 'moment';
 import { finalize } from 'rxjs/operators';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-edit-tabung',
@@ -227,7 +226,7 @@ export class EditTabungComponent implements OnInit {
       this.editTabung.tarikh_cipta = moment(this.tarikh_cipta, "YYYY-MM-DD");
     }
     this.tabungServiceProxy.createOrEdit(this.editTabung).subscribe(()=>{
-      Swal.fire('Berjaya', 'Maklumat Tabung Berjaya Dikemaskini').then(() => {
+      swalSuccess.fire('Berjaya', 'Maklumat Tabung Berjaya Dikemaskini').then(() => {
         this.router.navigateByUrl('/app/tabung/senarai-tabung');
       });
     })

@@ -7,8 +7,7 @@ import {
   MangsaAirServiceProxy,
   RefHubunganServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-tambah-edit-ahli-rumah-mangsa',
@@ -66,9 +65,9 @@ export class TambahEditAhliRumahMangsaComponent implements OnInit {
 			)
 			.subscribe(() => {
 				if (this.name == 'add') {
-					Swal.fire('Berjaya!', 'Maklumat Ahli Isi Rumah Berjaya Ditambah.', 'success');
+					swalSuccess.fire('Berjaya!', 'Maklumat Ahli Isi Rumah Berjaya Ditambah.', 'success');
 				} else if (this.name == 'edit') {
-					Swal.fire('Berjaya!', 'Maklumat Ahli Isi Rumah Berjaya Dikemaskini.', 'success');
+					swalSuccess.fire('Berjaya!', 'Maklumat Ahli Isi Rumah Berjaya Dikemaskini.', 'success');
 				}
 				this.activeModal.close(true);
 			});

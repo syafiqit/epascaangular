@@ -8,8 +8,7 @@ import {
   RefJenisBencanaServiceProxy,
   RefNegeriServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
   selector: 'app-tambah-edit-pengurusan-bencana',
@@ -106,9 +105,9 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 			)
 			.subscribe(() => {
 				if (this.name == 'add') {
-					Swal.fire('Berjaya!', 'Maklumat Agensi Berjaya diTambah.', 'success');
+					swalSuccess.fire('Berjaya!', 'Maklumat Agensi Berjaya disimpan.', 'success');
 				} else if (this.name == 'edit') {
-					Swal.fire('Berjaya!', 'Maklumat Agensi Berjaya diUbah.', 'success');
+					swalSuccess.fire('Berjaya!', 'Maklumat Agensi Berjaya dikemaskini.', 'success');
 				}
 				this.activeModal.close(true);
 			});

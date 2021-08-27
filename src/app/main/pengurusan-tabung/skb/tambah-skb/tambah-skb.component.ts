@@ -18,8 +18,7 @@ import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { PilihanTabungComponent } from '../pilihan-tabung/pilihan-tabung.component';
 import { PilihanBencanaComponent } from '../pilihan-bencana/pilihan-bencana.component';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 @Component({
 	selector: 'app-tambah-skb',
 	templateUrl: './tambah-skb.component.html',
@@ -237,11 +236,11 @@ export class TambahSkbComponent implements OnInit {
 			.subscribe((result) => {
         this.output = result;
         if(this.output.message == "Maklumat Berjaya Ditambah!"){
-          Swal.fire('Berjaya!', 'Maklumat Surat Kuasa Belanja Berjaya Dihantar.', 'success').then(() => {
+          swalSuccess.fire('Berjaya!', 'Maklumat Surat Kuasa Belanja Berjaya Dihantar.', 'success').then(() => {
             this.router.navigateByUrl('/app/tabung/skb/senarai');
           });
         }else{
-          Swal.fire('Tidak Berjaya!', this.output.message, 'error');
+          swalError.fire('Tidak Berjaya!', this.output.message, 'error');
         }
 			});
 	}

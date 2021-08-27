@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { NgbActiveModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { CreateOrEditTabungBayaranSkbBulananDto, TabungBayaranSkbBulananServiceProxy } from 'src/app/shared/proxy/service-proxies';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 @Component({
 	selector: 'app-tambah-belanja-bulanan',
 	templateUrl: './tambah-belanja-bulanan.component.html',
@@ -80,9 +79,9 @@ export class TambahBelanjaBulanan implements OnInit {
         .pipe()
         .subscribe(() => {
           if (this.name == 'add') {
-            Swal.fire('Berjaya!', 'Maklumat Belanja Bulanan SKB Berjaya Ditambah.', 'success');
+            swalSuccess.fire('Berjaya!', 'Maklumat Belanja Bulanan SKB Berjaya Ditambah.', 'success');
           } else if (this.name == 'edit') {
-            Swal.fire('Berjaya!', 'Maklumat Belanja Bulanan SKB Berjaya Dikemaskini.', 'success');
+            swalSuccess.fire('Berjaya!', 'Maklumat Belanja Bulanan SKB Berjaya Dikemaskini.', 'success');
           }
           this.activeModal.close(true);
         });

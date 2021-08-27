@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { AuthChangePasswordDto, AuthServiceProxy } from 'src/app/shared/proxy/service-proxies';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-tukar-kata-laluan',
@@ -38,12 +37,12 @@ export class TukarKataLaluanComponent implements OnInit {
       this._authService.changePassword(this.input)
       .pipe(finalize(()=>{ this.loading = false; }))
       .subscribe(() => {
-        Swal.fire('', 'Kata Laluan Berjaya Ditukar', 'success').then(()=>{
+        swalSuccess.fire('', 'Kata Laluan Berjaya Ditukar', 'success').then(()=>{
           this._router.navigateByUrl('akaun/log-masuk');
         })
       });
     }else {
-			Swal.fire('', 'Kata Laluan Baru Dan Ulang Kata Laluan Tidak Sepadan ', 'error');
+			swalError.fire('', 'Kata Laluan Baru Dan Ulang Kata Laluan Tidak Sepadan ', 'error');
       this.loading = false;
 		}
   }
