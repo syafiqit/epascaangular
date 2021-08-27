@@ -146,6 +146,10 @@
 							<ng-template pTemplate="header">
 								<tr>
 									<th style="width: 150px">Tindakan</th>
+                  <th style="width: 150px" pSortableColumn="nama_jenis_bencana">
+										Jenis Bencana
+										<p-sortIcon field="nama_jenis_bencana"></p-sortIcon>
+									</th>
 									<th style="width: 150px" pSortableColumn="nama_negeri">
 										Negeri
 										<p-sortIcon field="nama_negeri"></p-sortIcon>
@@ -154,17 +158,13 @@
 										Daerah
 										<p-sortIcon field="nama_daerah"></p-sortIcon>
 									</th>
-									<th style="width: 150px" pSortableColumn="nama_jenis_bencana">
-										Jenis Bencana
-										<p-sortIcon field="nama_jenis_bencana"></p-sortIcon>
+                  <th style="width: 155px" pSortableColumn="status">
+										Status Rujukan
+										<p-sortIcon field="status"></p-sortIcon>
 									</th>
 									<th style="width: 120px" pSortableColumn="tahun_bencana">
 										Tahun
 										<p-sortIcon field="tahun_bencana"></p-sortIcon>
-									</th>
-									<th style="width: 130px" pSortableColumn="jumlah_setiap_kir">
-										BWI/KIR
-										<p-sortIcon field="jumlah_setiap_kir"></p-sortIcon>
 									</th>
 									<th style="width: 130px" pSortableColumn="jumlah_kir">
 										Jumlah KIR
@@ -174,17 +174,9 @@
 										Jumlah (RM)
 										<p-sortIcon field="jumlah"></p-sortIcon>
 									</th>
-									<th style="width: 120px" pSortableColumn="tarikh_eft">
-										Tarikh EFT
-										<p-sortIcon field="tarikh_eft"></p-sortIcon>
-									</th>
 									<th style="width: 150px" pSortableColumn="jumlah_kembali">
 										Baki Pulangan
 										<p-sortIcon field="jumlah_kembali"></p-sortIcon>
-									</th>
-									<th style="width: 155px" pSortableColumn="status">
-										Status Rujukan
-										<p-sortIcon field="status"></p-sortIcon>
 									</th>
 								</tr>
 							</ng-template>
@@ -213,6 +205,10 @@
 											</div>
 										</div>
 									</td>
+                  <td style="width: 150px">
+										<span class="p-column-title">Jenis Bencana</span>
+                    {{record.nama_jenis_bencana}}
+									</td>
 									<td style="width: 150px">
 										<span class="p-column-title">Negeri</span>
                     {{record.nama_negeri}}
@@ -221,17 +217,13 @@
 										<span class="p-column-title">Daerah</span>
                     {{record.nama_daerah}}
 									</td>
-									<td style="width: 150px">
-										<span class="p-column-title">Jenis Bencana</span>
-                    {{record.nama_jenis_bencana}}
+									<td style="width: 155px">
+										<span class="p-column-title">Status Rujukan</span>
+                    <label>-</label>
 									</td>
 									<td style="width: 120px">
 										<span class="p-column-title">Tahun</span>
                     {{record.tahun_bencana}}
-									</td>
-									<td style="width: 130px">
-										<span class="p-column-title">BWI/KIR</span>
-                    RM{{record.jumlah_setiap_kir}}
 									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">Jumlah KIR</span>
@@ -241,17 +233,9 @@
 										<span class="p-column-title">Jumlah</span>
                     RM{{record.jumlah_setiap_kir * record.jumlah_kir}}
 									</td>
-									<td style="width: 120px">
-										<span class="p-column-title">Tarikh EFT</span>
-                    {{record.tarikh_eft | date:'dd-MM-yyyy'}}
-									</td>
 									<td style="width: 150px">
 										<span class="p-column-title">Baki Pulangan</span>
                     RM{{record.jumlah_kembali}}
-									</td>
-									<td style="width: 155px">
-										<span class="p-column-title">Status Rujukan</span>
-
 									</td>
 								</tr>
 							</ng-template>
