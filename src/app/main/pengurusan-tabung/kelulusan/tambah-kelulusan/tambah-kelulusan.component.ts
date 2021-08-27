@@ -7,7 +7,7 @@ import {
 } from "../../../../shared/proxy/service-proxies";
 import {finalize} from "rxjs/operators";
 import * as moment from "moment";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 declare let require;
 const Swal = require('sweetalert2');
 
@@ -48,6 +48,7 @@ export class TambahKelulusanComponent implements OnInit {
 	constructor(
 	  config: NgbModalConfig,
     private modalService: NgbModal,
+    private router: Router,
     private _activatedRoute: ActivatedRoute,
     private _tabungKelulusanServiceProxy: TabungKelulusanServiceProxy,
     private _tabungServiceProxy: TabungServiceProxy,
@@ -143,6 +144,7 @@ export class TambahKelulusanComponent implements OnInit {
       .pipe()
       .subscribe(() => {
         Swal.fire('Berjaya!', 'Maklumat Tabung Kelulusan Berjaya Disimpan.', 'success');
+        this.router.navigate(['/app/tabung/senarai-kelulusan']);
       });
   }
 }

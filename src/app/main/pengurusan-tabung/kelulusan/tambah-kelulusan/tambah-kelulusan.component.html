@@ -13,43 +13,71 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Tabung*</label>
-                  <ng-select
-                    [items]="tabung"
-                    bindLabel="nama_tabung"
-                    bindValue="id"
-                    placeholder="Sila Pilih"
-                    class="js-example-placeholder-multiple"
-                    name="tabung"
-                    [(ngModel)]="kelulusan.id_tabung"
-                    #id_tabung="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && id_tabung.invalid }"
-                    required
-                  ></ng-select>
-                  <div *ngIf="f.submitted && id_tabung.invalid" class="invalid-feedback">
-                    <div *ngIf="id_tabung.errors.required">Tabung Wajib Dipilih</div>
+									<label>No. Rujukan Kelulusan</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="kelulusan.no_rujukan_kelulusan"
+                      [(ngModel)]="kelulusan.no_rujukan_kelulusan"
+                      placeholder="No. Rujukan Kelulusan"
+                    />
+								</div>
+							</div>
+
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Komitmen</label>
+                  <select [(ngModel)]="kelulusan.id_komitmen" class="form-control digits">
+										<option>Pilih</option>
+                    <option value='1'>Perolehan Secara Pembelian Terus</option>
+                    <option value='2'>Perolehan Secara Darurat</option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Tarikh Kelulusan (Mula)</label>
+                  <div class="input-group">
+                    <input
+                      class="form-control"
+                      placeholder="yyyy-mm-dd"
+                      name="dp2"
+                      [(ngModel)]="modelMula"
+                      ngbDatepicker
+                      [footerTemplate]="footerTemplate"
+                      #d2="ngbDatepicker"
+                      style="border: 1px solid #efefef !important;"
+                    >
+                    <div class="input-group-append">
+                      <button class="btn btn-light" (click)="d2.toggle()" type="button"><i
+                        class="fa fa-calendar"></i></button>
+                    </div>
                   </div>
 								</div>
 							</div>
 
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Kategori Bencana*</label>
-                  <ng-select
-                    [items]="bencana"
-                    bindLabel="nama_bencana"
-                    bindValue="id"
-                    placeholder="Sila Pilih"
-                    class="js-example-placeholder-multiple"
-                    name="bencana"
-                    [(ngModel)]="kelulusan.id_bencana"
-                    #kategoriBencana="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && kategoriBencana.invalid }"
-                    required
-                  ></ng-select>
-                  <div *ngIf="f.submitted && kategoriBencana.invalid" class="invalid-feedback">
-                    <div *ngIf="kategoriBencana.errors.required">Kategori Bencana wajib Dipilih</div>
+									<label>Tarikh Kelulusan (Tamat)</label>
+                <div class="input-group">
+                  <input
+                    class="form-control"
+                    placeholder="yyyy-mm-dd"
+                    name="dp3"
+                    [(ngModel)]="modelTamat"
+                    ngbDatepicker
+                    [footerTemplate]="footerTemplate"
+                    #d3="ngbDatepicker"
+                    style="border: 1px solid #efefef !important;"
+                  >
+                  <div class="input-group-append">
+                    <button class="btn btn-light" (click)="d3.toggle()" type="button"><i
+                      class="fa fa-calendar"></i></button>
                   </div>
+                </div>
 								</div>
 							</div>
 						</div>
@@ -75,161 +103,7 @@
                   </div>
 								</div>
 							</div>
-
 							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Komitmen*</label>
-                  <ng-select
-                    [items]="komitmen"
-                    bindLabel="nama_komitmen"
-                    bindValue="id"
-                    placeholder="Sila Pilih"
-                    class="js-example-placeholder-multiple"
-                    name="komitmen"
-                    [(ngModel)]="kelulusan.id_komitmen"
-                    #commitment="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && commitment.invalid }"
-                    required
-                  ></ng-select>
-                  <div *ngIf="f.submitted && commitment.invalid" class="invalid-feedback">
-                    <div *ngIf="commitment.errors.required">Komitmen wajib Dipilih</div>
-                  </div>
-								</div>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>No. Rujukan Kelulusan</label>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="kelulusan.no_rujukan_kelulusan"
-                    [(ngModel)]="kelulusan.no_rujukan_kelulusan"
-                    placeholder="No. Rujukan Kelulusan"
-                  />
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Rujukan Surat</label>
-									<input
-                    class="form-control"
-                    type="text"
-                    name="kelulusan.rujukan_surat"
-                    [(ngModel)]="kelulusan.rujukan_surat"
-                    placeholder="JPM.APBN(S).600-3/8/2 (1)"
-                  />
-								</div>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Perihal Surat</label>
-									<textarea
-                    class="form-control input-air-primary"
-                    name="kelulusan.perihal_surat"
-                    rows="3"
-                    [(ngModel)]="kelulusan.perihal_surat"
-                  ></textarea>
-								</div>
-							</div>
-
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Rujukan</label>
-									<textarea
-                    class="form-control input-air-primary"
-                    name="kelulusan.rujukan"
-                    rows="3"
-                    [(ngModel)]="kelulusan.rujukan"
-                  ></textarea>
-								</div>
-							</div>
-						</div>
-
-						<div class="row">
-              <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
-                <label>Tarikh Surat</label>
-                <div class="input-group">
-                  <input
-                    class="form-control"
-                    placeholder="yyyy-mm-dd"
-                    name="dp"
-                    [(ngModel)]="modelSurat"
-                    ngbDatepicker
-                    [footerTemplate]="footerTemplate"
-                    #d="ngbDatepicker"
-                    style="border: 1px solid #efefef !important;"
-                  >
-                  <div class="input-group-append">
-                    <button class="btn btn-light" (click)="d.toggle()" type="button"><i
-                      class="fa fa-calendar"></i></button>
-                  </div>
-                </div>
-              </div>
-              <ng-template #footerTemplate>
-                <hr class="my-0">
-                <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelSurat = today; d.close()">Hari Ini</button>
-                <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Tutup</button>
-              </ng-template>
-
-              <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
-                <label>Tarikh Kelulusan (Mula)</label>
-                <div class="input-group">
-                  <input
-                    class="form-control"
-                    placeholder="yyyy-mm-dd"
-                    name="dp2"
-                    [(ngModel)]="modelMula"
-                    ngbDatepicker
-                    [footerTemplate]="footerTemplate"
-                    #d2="ngbDatepicker"
-                    style="border: 1px solid #efefef !important;"
-                  >
-                  <div class="input-group-append">
-                    <button class="btn btn-light" (click)="d2.toggle()" type="button"><i
-                      class="fa fa-calendar"></i></button>
-                  </div>
-                </div>
-              </div>
-              <ng-template #footerTemplate>
-                <hr class="my-0">
-                <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelMula = today; d2.close()">Hari Ini</button>
-                <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d2.close()">Tutup</button>
-              </ng-template>
-						</div>
-
-						<div class="row">
-              <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
-                <label>Tarikh Kelulusan (Tamat)</label>
-                <div class="input-group">
-                  <input
-                    class="form-control"
-                    placeholder="yyyy-mm-dd"
-                    name="dp3"
-                    [(ngModel)]="modelTamat"
-                    ngbDatepicker
-                    [footerTemplate]="footerTemplate"
-                    #d3="ngbDatepicker"
-                    style="border: 1px solid #efefef !important;"
-                  >
-                  <div class="input-group-append">
-                    <button class="btn btn-light" (click)="d3.toggle()" type="button"><i
-                      class="fa fa-calendar"></i></button>
-                  </div>
-                </div>
-              </div>
-              <ng-template #footerTemplate>
-                <hr class="my-0">
-                <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelTamat = today; d3.close()">Hari Ini</button>
-                <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d3.close()">Tutup</button>
-              </ng-template>
-
-							<div class="col-lg-6 mt-2">
 								<div class="form-group">
 									<label>Jumlah Siling Peruntukan (RM)</label>
 									<input
@@ -241,7 +115,75 @@
 								</div>
 							</div>
 						</div>
+            <hr />
 
+            <div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Rujukan Surat</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="kelulusan.rujukan_surat"
+                    [(ngModel)]="kelulusan.rujukan_surat"
+                    placeholder="Rujukan Surat"
+                  />
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Tarikh Surat</label>
+                  <div class="input-group">
+                    <input
+                      class="form-control"
+                      placeholder="yyyy-mm-dd"
+                      name="dp"
+                      [(ngModel)]="modelSurat"
+                      ngbDatepicker
+                      [footerTemplate]="footerTemplate"
+                      #d="ngbDatepicker"
+                      style="border: 1px solid #efefef !important;"
+                    >
+                    <div class="input-group-append">
+                      <button class="btn btn-light" (click)="d.toggle()" type="button"><i
+                        class="fa fa-calendar"></i></button>
+                    </div>
+                  </div>
+								</div>
+                <ng-template #footerTemplate>
+                  <hr class="my-0">
+                  <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelTamat = today; d3.close()">Hari Ini</button>
+                  <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d3.close()">Tutup</button>
+                </ng-template>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="form-group">
+									<label>Perihal Surat</label>
+									<textarea
+                    class="form-control input-air-primary"
+                    name="kelulusan.perihal_surat"
+                    rows="3"
+                    [(ngModel)]="kelulusan.perihal_surat"
+                  ></textarea>
+								</div>
+							</div>
+						</div>
+
+            <div class="row">
+							<div class="col-lg-12">
+								<div class="form-group">
+									<label>Rujukan</label>
+									<textarea
+                    class="form-control input-air-primary"
+                    name="kelulusan.rujukan"
+                    rows="3"
+                    [(ngModel)]="kelulusan.rujukan"
+                  ></textarea>
+								</div>
+							</div>
+						</div>
 						<button
 							class="btn btn-primary pull-right"
 							type="submit"

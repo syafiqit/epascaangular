@@ -191,8 +191,8 @@
 											<div ngbDropdownMenu aria-labelledby="action">
 												<button
 													class="dropdown-item"
-													[routerLink]="['/app/tabung/tambah-kelulusan']"
-                          [queryParams]="{id: record.id}"
+													[routerLink]="['/app/tabung/edit-kelulusan']"
+                          							[queryParams]="{id: record.id}"
 												>
 													Lihat
 												</button>
@@ -250,7 +250,7 @@
 									</td>
 									<td style="width: 100px">
 										<span class="p-column-title">Status</span>
-										{{record.status_tabung}}
+										{{record.status_tabung == 1? "Aktif":"Tidak Aktif"}}
 									</td>
 								</tr>
 							</ng-template>
