@@ -17,6 +17,7 @@ import {
 } from 'src/app/shared/proxy/service-proxies';
 import { TambahNoRujukanComponent } from '../tambah-no-rujukan/tambah-no-rujukan.component';
 import { TambahKetuaIsiRumahComponent } from '../tambah-ketua-isi-rumah/tambah-ketua-isi-rumah.component';
+import { PilihPembayaranComponent } from '../pilih-pembayaran/pilih-pembayaran.component';
 import * as moment from 'moment';
 declare let require;
 const Swal = require('sweetalert2');
@@ -38,6 +39,7 @@ export class EditWangIhsanComponent implements OnInit {
   bwiKir: InputBwiKirDto[] = [];
   kelulusan: GetRujukanKelulusanBwiDto = new GetRujukanKelulusanBwiDto();
 
+  nama_pembayaran:string;
   idBwi: any;
   filter: string;
   no_rujukan_kelulusan: string;
@@ -56,12 +58,14 @@ export class EditWangIhsanComponent implements OnInit {
   tarikhMajlis: string;
 
   date = new Date();
+  modelDueReport: NgbDateStruct;
   modelEft: NgbDateStruct;
   modelPerakuan: NgbDateStruct;
   modelPenyaluran: NgbDateStruct;
   modelLaporan: NgbDateStruct;
   modelMakluman: NgbDateStruct;
   modelMajlis: NgbDateStruct;
+  modelSuratLaporan: NgbDateStruct;
   today = this.calendar.getToday();
   readonly DELIMITER = '-';
 
@@ -163,18 +167,13 @@ export class EditWangIhsanComponent implements OnInit {
 		this.paginator.changePage(this.paginator.getPage());
 	}
 
-	addNoReference() {
-		const modalRef = this.modalService.open(TambahNoRujukanComponent, { size: 'lg' });
+	pilihPembayaran() {
+		const modalRef = this.modalService.open(PilihPembayaranComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
     modalRef.result.then(
 			(response) => {
 				if (response) {
-					this.no_rujukan_kelulusan = response.no_rujukan_kelulusan;
-          this.nama_jenis_bencana = response.nama_jenis_bencana;
-          this.rujukan_surat = response.rujukan_surat;
-          this.nama_tabung = response.nama_tabung;
-          this.perihal_surat = response.perihal_surat;
-          this.bwi.id_tabung_kelulusan = response.id;
+					this.nama_pembayaran = response.nama_pembayaran;
 				}
 			},
 			() => {}

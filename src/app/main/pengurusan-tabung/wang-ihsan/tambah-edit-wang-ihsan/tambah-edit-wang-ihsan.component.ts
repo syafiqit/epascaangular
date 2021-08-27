@@ -14,6 +14,7 @@ import {
   InputCreateTabungBwiDto,
   TabungBwiServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
+import { PilihPembayaranComponent } from '../pilih-pembayaran/pilih-pembayaran.component';
 declare let require;
 const Swal = require('sweetalert2');
 @Component({
@@ -32,11 +33,7 @@ export class TambahEditWangIhsanComponent implements OnInit {
   bwi: CreateOrEditTabungBwiDto = new CreateOrEditTabungBwiDto();
   bwiKir: InputBwiKirDto[] = [];
 
-  no_rujukan_kelulusan: number;
-  nama_jenis_bencana: string;
-  rujukan_surat: string;
-  nama_tabung: string;
-  perihal_surat: string;
+  nama_pembayaran:string;
 
   rows = [];
   saving = false;
@@ -50,11 +47,13 @@ export class TambahEditWangIhsanComponent implements OnInit {
 
   date = new Date();
   modelEft: NgbDateStruct;
+  modelDueReport: NgbDateStruct;
   modelPerakuan: NgbDateStruct;
   modelPenyaluran: NgbDateStruct;
   modelLaporan: NgbDateStruct;
   modelMakluman: NgbDateStruct;
   modelMajlis: NgbDateStruct;
+  modelSuratLaporan: NgbDateStruct;
   today = this.calendar.getToday();
   readonly DELIMITER = '-';
 
@@ -121,18 +120,13 @@ export class TambahEditWangIhsanComponent implements OnInit {
 		this.paginator.changePage(this.paginator.getPage());
 	}
 
-	addNoReference() {
-		const modalRef = this.modalService.open(TambahNoRujukanComponent, { size: 'lg' });
+	pilihPembayaran() {
+		const modalRef = this.modalService.open(PilihPembayaranComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
     modalRef.result.then(
 			(response) => {
 				if (response) {
-					this.no_rujukan_kelulusan = response.no_rujukan_kelulusan;
-          this.nama_jenis_bencana = response.nama_jenis_bencana;
-          this.rujukan_surat = response.rujukan_surat;
-          this.nama_tabung = response.nama_tabung;
-          this.perihal_surat = response.perihal_surat;
-          this.bwi.id_tabung_kelulusan = response.id;
+					this.nama_pembayaran = response.nama_pembayaran;
 				}
 			},
 			() => {}

@@ -1,0 +1,94 @@
+<div class="modal-header">
+	<h5 class="modal-title">Pilih Pembayaran</h5>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+<div class="modal-body">
+	<div class="col-lg-12">
+		<div class="row align-items-center">
+			<div class="primeng-datatable-container">
+				<p-table
+					#dataTable
+					styleClass="p-datatable-striped"
+					[resizableColumns]="true"
+					(onLazyLoad)="getPembayaran($event)"
+					[value]="primengTableHelper.records"
+					rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
+					[paginator]="false"
+					[lazy]="true"
+          [loading]="primengTableHelper.isLoading"
+					[scrollable]="true"
+					ScrollWidth="100%"
+					[responsive]="primengTableHelper.isResponsive"
+					[resizableColumns]="primengTableHelper.resizableColumns"
+				>
+					<ng-template pTemplate="header">
+						<tr>
+							<th style="width: 100px">Tindakan</th>
+							<th style="width: 130px" pSortableColumn="jenis_bayaran">
+								Jenis Bayaran
+								<p-sortIcon field="jenis_bayaran"></p-sortIcon>
+							</th>
+							<th style="width: 130px" pSortableColumn="no_rujukan_bayaran">
+								No. Rujukan Bayaran
+								<p-sortIcon field="no_rujukan_bayaran"></p-sortIcon>
+							</th>
+							<th style="width: 130px" pSortableColumn="perihal">
+								Perihal
+								<p-sortIcon field="perihal"></p-sortIcon>
+							</th>
+							<th style="width: 130px" pSortableColumn="jumlah">
+								Jumlah
+								<p-sortIcon field="jumlah"></p-sortIcon>
+							</th>
+						</tr>
+					</ng-template>
+					<ng-template pTemplate="body" let-record="$implicit">
+						<tr>
+							<td style="width: 100px">
+								<button
+                  class="btn btn-primary"
+                  type="button"
+                  (click)="select(record.jenis_bayaran)"
+                >
+                  Pilih
+                </button>
+							</td>
+							<td style="width: 130px">
+								<span class="p-column-title">Jenis Bayaran</span>
+								{{record.jenis_bayaran}}
+							</td>
+							<td style="width: 130px">
+								<span class="p-column-title">No. Rujukan Bayaran</span>
+								{{record.no_rujukan_bayaran}}
+							</td>
+							<td style="width: 130px">
+								<span class="p-column-title">Perihal</span>
+								{{record.perihal}}
+							</td>
+							<td style="width: 130px">
+								<span class="p-column-title">Jumlah</span>
+								{{record.jumlah}}
+							</td>
+						</tr>
+					</ng-template>
+				</p-table>
+				<div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">No Data</div>
+				<div class="primeng-paging-container justify-content-between">
+					<p-paginator
+						[rows]="primengTableHelper.defaultRecordsCountPerPage"
+						#paginator
+						(onPageChange)="getPembayaran($event)"
+						[totalRecords]="primengTableHelper.totalRecordsCount"
+						[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
+					></p-paginator>
+					<span class="total-records-count">Jumlah: {{ primengTableHelper.totalRecordsCount}}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
+</div>
