@@ -9,8 +9,7 @@ import {
   RefPerananServiceProxy,
   RegisterPenggunaDto
 } from 'src/app/shared/proxy/service-proxies';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-daftar-akaun',
@@ -99,7 +98,7 @@ export class DaftarAkaunComponent implements OnInit {
 			.registerUser(this.register)
 			.pipe()
 			.subscribe((result) => {
-				Swal.fire('Berjaya!', 'Maklumat Pengguna Berjaya Didaftarkan.', 'success').then(() => {
+				swalSuccess.fire('Berjaya!', 'Maklumat Pengguna Berjaya Didaftarkan.', 'success').then(() => {
 					this._router.navigateByUrl('akaun/log-masuk');
 				});
 			});

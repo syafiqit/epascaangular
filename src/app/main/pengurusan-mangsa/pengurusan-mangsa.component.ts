@@ -11,8 +11,6 @@ import {
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
-declare let require;
-const Swal = require('sweetalert2');
 
 @Component({
 	selector: 'app-pengurusan-mangsa',

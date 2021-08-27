@@ -8,9 +8,6 @@ import { finalize } from 'rxjs/operators';
 import { TambahEditBantuanPinjamanKhasComponent } from './tambah-edit-bantuan-pinjaman-khas/tambah-edit-bantuan-pinjaman-khas.component';
 import { MangsaPinjamanServiceProxy } from 'src/app/shared/proxy/service-proxies';
 
-declare let require;
-const Swal = require('sweetalert2');
-
 @Component({
 	selector: 'app-bantuan-pinjaman-khas',
 	templateUrl: './bantuan-pinjaman-khas.component.html',

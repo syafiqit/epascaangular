@@ -8,8 +8,7 @@ import {
   RefBencanaServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import * as moment from 'moment';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
   selector: 'app-tambah-edit-bantuan-wang-ihsan',
@@ -111,9 +110,9 @@ export class TambahEditBantuanWangIhsanComponent implements OnInit {
         .pipe()
         .subscribe((result) => {
           if (this.name == 'add') {
-            Swal.fire('Berjaya!', 'Maklumat Bantuan Wang Ihsan Berjaya Ditambah.', 'success');
+            swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Wang Ihsan Berjaya Ditambah.', 'success');
           } else if (this.name == 'edit') {
-            Swal.fire('Berjaya!', 'Maklumat Bantuan Wang Ihsan Berjaya Dikemaskini.', 'success');
+            swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Wang Ihsan Berjaya Dikemaskini.', 'success');
           }
           this.activeModal.close(true);
         });

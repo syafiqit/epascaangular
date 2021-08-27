@@ -18,8 +18,7 @@ import {
 import { finalize } from 'rxjs/operators';
 import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { fadeVerticalAnimation } from 'src/app/shared/data/router-animation/fade-vertical-animation';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-tambah-edit-pengurusan-pengguna',
@@ -219,7 +218,7 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
 			.createOrEdit(this.daftar)
 			.pipe()
 			.subscribe((result) => {
-				Swal.fire('Berjaya!', 'Pengguna Baru Berjaya Didaftarkan.', 'success').then(() => {
+				swalSuccess.fire('Berjaya!', 'Pengguna Baru Berjaya Didaftarkan.', 'success').then(() => {
 					this.router.navigateByUrl('/app/pengguna/senarai');
 				});
 			});
@@ -228,7 +227,7 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
 			.createOrEdit(this.daftar)
 			.pipe()
 			.subscribe((result) => {
-				Swal.fire('Berjaya!', 'Maklumat Pengguna Berjaya Dikemaskini.', 'success').then(() => {
+				swalSuccess.fire('Berjaya!', 'Maklumat Pengguna Berjaya Dikemaskini.', 'success').then(() => {
 					this.router.navigateByUrl('/app/pengguna/senarai');
 				});
 			});
@@ -242,7 +241,7 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
 			.createOrEdit(this.daftar)
 			.pipe()
 			.subscribe((result) => {
-				Swal.fire('Berjaya!', 'Maklumat Pengguna Berjaya Dikemaskini.', 'success').then(() => {
+				swalSuccess.fire('Berjaya!', 'Maklumat Pengguna Berjaya Dikemaskini.', 'success').then(() => {
 					this.router.navigateByUrl('/app/pengguna/permohonan');
 				});
 			});
@@ -260,15 +259,15 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
       .pipe(finalize(() => {this.saving = false;})).subscribe((result) => {
         this.outputEmailPassword = result;
         if(this.outputEmailPassword.message == "Emel atau Kata Laluan Berjaya Ditukar") {
-          Swal.fire('Berjaya!', this.outputEmailPassword.message, 'success').then(() => {
+          swalSuccess.fire('Berjaya!', this.outputEmailPassword.message, 'success').then(() => {
             this.router.navigateByUrl('/app/pengguna/senarai');
           });
         }else{
-          Swal.fire('Tidak Berjaya!', this.outputEmailPassword.message, 'error');
+          swalError.fire('Tidak Berjaya!', this.outputEmailPassword.message, 'error');
         }
 			});
     } else {
-			Swal.fire('Tidak Berjaya!', 'Kata Laluan Baru Dan Ulang Kata Laluan Tidak Sepadan ', 'error');
+			swalError.fire('Tidak Berjaya!', 'Kata Laluan Baru Dan Ulang Kata Laluan Tidak Sepadan ', 'error');
 		}
   }
 

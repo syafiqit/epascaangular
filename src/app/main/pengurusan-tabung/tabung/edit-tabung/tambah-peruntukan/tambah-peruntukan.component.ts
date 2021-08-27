@@ -3,8 +3,7 @@ import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-boots
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { CreateOrEditTabungPeruntukanDto, RefSumberPeruntukanServiceProxy, TabungPeruntukanServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import * as moment from 'moment';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-tambah-peruntukan',
@@ -58,7 +57,7 @@ export class TambahPeruntukanComponent implements OnInit {
     this.peruntukan.id_tabung = this.id;
     this.peruntukan.tarikh_peruntukan = moment(this.tarikhPeruntukan);
     this.tabungPeruntukanServiceProxy.createOrEdit(this.peruntukan).subscribe(()=>{
-      Swal.fire('Berjaya', 'Tabung Peruntukan Berjaya Dikemaskini').then(() => {
+      swalSuccess.fire('Berjaya', 'Tabung Peruntukan Berjaya Dikemaskini').then(() => {
 				this.activeModal.close(true);
       });
     })

@@ -9,8 +9,7 @@ import {
   RefBencanaServiceProxy,
   RefSumberDanaServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
   selector: 'app-tambah-edit-bantuan-lain',
@@ -120,9 +119,9 @@ export class TambahEditBantuanLainComponent implements OnInit {
       .pipe()
       .subscribe((result) => {
         if (this.name == 'add') {
-          Swal.fire('Berjaya!', 'Maklumat Bantuan Lain Berjaya Ditambah.', 'success');
+          swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Lain Berjaya Ditambah.', 'success');
         } else if (this.name == 'edit') {
-          Swal.fire('Berjaya!', 'Maklumat Bantuan Lain Berjaya Dikemaskini.', 'success');
+          swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Lain Berjaya Dikemaskini.', 'success');
         }
         this.activeModal.close(true);
       });

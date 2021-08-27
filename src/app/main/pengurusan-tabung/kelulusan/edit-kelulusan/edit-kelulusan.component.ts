@@ -12,8 +12,7 @@ import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-edit-kelulusan',
@@ -204,7 +203,7 @@ export class EditKelulusanComponent implements OnInit {
       .createOrEdit(this.kelulusan)
       .pipe()
       .subscribe(() => {
-        Swal.fire('Berjaya!', 'Maklumat Tabung Kelulusan Berjaya Disimpan.', 'success');
+        swalSuccess.fire('Berjaya!', 'Maklumat Tabung Kelulusan Berjaya Disimpan.', 'success');
         this.router.navigate(['/app/tabung/senarai-kelulusan']);
       });
   }

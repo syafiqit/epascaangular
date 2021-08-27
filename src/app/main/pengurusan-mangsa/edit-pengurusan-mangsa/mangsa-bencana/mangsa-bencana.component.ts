@@ -11,8 +11,7 @@ import {
   MangsaServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { finalize } from 'rxjs/operators';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-mangsa-bencana',
@@ -79,7 +78,7 @@ export class MangsaBencanaComponent implements OnInit {
 	}
 
 	delete() {
-		Swal.fire('Berjaya!', 'Barangan Berjaya Di Buang.', 'success');
+		swalSuccess.fire('Berjaya!', 'Barangan Berjaya Di Buang.', 'success');
 	}
 
 	addVictimDisasterModal() {

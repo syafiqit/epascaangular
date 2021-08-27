@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ChangePasswordDto, SessionServiceProxy } from 'src/app/shared/proxy/service-proxies';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-tukar-kata-laluan',
@@ -53,16 +52,14 @@ export class TukarKataLaluanComponent implements OnInit {
 		if (this.newPassword.kata_laluan_baru === this.newPassword.ulang_kata_laluan_baru) {
 			this._sessionServiceProxy.changePassword(this.newPassword).subscribe(
 				() => {
-					Swal.fire('Berjaya!', 'Kata Laluan Berjaya Dikemaskini.', 'success').then(
-						this.activeModal.close('Close click')
-					);
+					swalSuccess.fire('Berjaya!', 'Kata Laluan Berjaya Dikemaskini.', 'success');
 				},
 				() => {
-					Swal.fire('', 'Kata Laluan Lama Tidak Sepadan', 'error');
+					swalError.fire('', 'Kata Laluan Lama Tidak Sepadan', 'error');
 				}
 			);
 		} else {
-			Swal.fire('', 'Kata Laluan Baru dan Ulang Kata Laluan Tidak Sepadan', 'error');
+			swalError.fire('', 'Kata Laluan Baru dan Ulang Kata Laluan Tidak Sepadan', 'error');
 		}
 	}
 }

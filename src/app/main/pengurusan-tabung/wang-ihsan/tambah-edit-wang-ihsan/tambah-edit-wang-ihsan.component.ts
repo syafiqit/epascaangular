@@ -15,8 +15,7 @@ import {
   TabungBwiServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { PilihPembayaranComponent } from '../pilih-pembayaran/pilih-pembayaran.component';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 @Component({
 	selector: 'app-tambah-edit-wang-ihsan',
 	templateUrl: './tambah-edit-wang-ihsan.component.html',
@@ -172,7 +171,7 @@ export class TambahEditWangIhsanComponent implements OnInit {
 			.createOrEdit(this.tabungBwi)
 			.pipe()
 			.subscribe((result) => {
-				Swal.fire('Berjaya!', 'Maklumat Bantuan Wang Ihsan Berjaya Dihantar.', 'success').then(() => {
+				swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Wang Ihsan Berjaya Dihantar.', 'success').then(() => {
           this.router.navigateByUrl('/app/tabung/senarai-wang-ihsan');
 				});
 			});

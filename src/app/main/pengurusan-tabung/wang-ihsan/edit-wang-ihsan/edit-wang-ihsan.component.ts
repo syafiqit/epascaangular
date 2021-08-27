@@ -19,8 +19,7 @@ import { TambahNoRujukanComponent } from '../tambah-no-rujukan/tambah-no-rujukan
 import { TambahKetuaIsiRumahComponent } from '../tambah-ketua-isi-rumah/tambah-ketua-isi-rumah.component';
 import { PilihPembayaranComponent } from '../pilih-pembayaran/pilih-pembayaran.component';
 import * as moment from 'moment';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 @Component({
 	selector: 'app-edit-wang-ihsan',
 	templateUrl: './edit-wang-ihsan.component.html',
@@ -227,7 +226,7 @@ export class EditWangIhsanComponent implements OnInit {
 			.createOrEdit(this.tabungBwi)
 			.pipe()
 			.subscribe((result) => {
-				Swal.fire('Berjaya!', 'Maklumat Bantuan Wang Ihsan Berjaya Disimpan.', 'success').then(() => {
+				swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Wang Ihsan Berjaya Disimpan.', 'success').then(() => {
           this.router.navigateByUrl('/app/tabung/senarai-wang-ihsan');
 				});
 			});

@@ -11,8 +11,6 @@ import {
 } from 'src/app/shared/proxy/service-proxies';
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-declare let require;
-const Swal = require('sweetalert2');
 
 @Component({
 	selector: 'app-permohonan-pengguna',

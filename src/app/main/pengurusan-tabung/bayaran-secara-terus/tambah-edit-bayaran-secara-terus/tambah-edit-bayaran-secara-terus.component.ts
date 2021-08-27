@@ -7,8 +7,7 @@ import { PilihRujukanKelulusanComponent } from '../pilih-rujukan-kelulusan/pilih
 import { PilihTabungComponent } from '../pilih-tabung/pilih-tabung.component';
 import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 @Component({
 	selector: 'app-tambah-edit-bayaran-secara-terus',
 	templateUrl: './tambah-edit-bayaran-secara-terus.component.html',
@@ -155,11 +154,11 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
 			.subscribe((result) => {
         this.output.message = result.message;
         if(this.output.message == "Tabung Bayaran Terus Berjaya Ditambah"){
-          Swal.fire('Berjaya!', 'Maklumat Bayaran Secara Terus Berjaya Ditambah.', 'success').then(() => {
+          swalSuccess.fire('Berjaya!', 'Maklumat Bayaran Secara Terus Berjaya Ditambah.', 'success').then(() => {
             this.router.navigateByUrl('/app/tabung/senarai-bayaran-secara-terus');
           });
         }else{
-          Swal.fire('Tidak Berjaya!', this.output.message, 'error');
+          swalError.fire('Tidak Berjaya!', this.output.message, 'error');
         }
 			});
     } else {
@@ -169,11 +168,11 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
 			.subscribe((result) => {
         this.output.message = result.message;
         if(this.output.message == "Tabung Bayaran Terus Berjaya Ditambah"){
-          Swal.fire('Berjaya!', 'Maklumat Bayaran Secara Terus Berjaya Dikemaskini.', 'success').then(() => {
+          swalSuccess.fire('Berjaya!', 'Maklumat Bayaran Secara Terus Berjaya Dikemaskini.', 'success').then(() => {
             this.router.navigateByUrl('/app/tabung/senarai-bayaran-secara-terus');
           });
         }else{
-          Swal.fire('Tidak Berjaya!', this.output.message, 'error');
+          swalError.fire('Tidak Berjaya!', this.output.message, 'error');
         }
 			});
     }

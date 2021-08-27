@@ -16,8 +16,7 @@ import {
   GetProfilDto
 } from 'src/app/shared/proxy/service-proxies';
 import { Router } from '@angular/router';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-tambah-pengurusan-mangsa',
@@ -144,13 +143,13 @@ export class TambahPengurusanMangsaComponent implements OnInit {
 				})
 			)
 			.subscribe(() => {
-				Swal.fire('Berjaya!', 'Pendaftaran Mangsa Berjaya Disimpan!', 'success').then(() => {
+				swalSuccess.fire('Berjaya!', 'Pendaftaran Mangsa Berjaya Disimpan!', 'success').then(() => {
 					this.router.navigateByUrl('/app/mangsa/senarai-pengurusan-mangsa');
 				});
 			});
     }
     else {
-      Swal.fire('Tidak Berjaya!', 'Pengesahan Perakuan Diperlukan!', 'error');
+      swalError.fire('Tidak Berjaya!', 'Pengesahan Perakuan Diperlukan!', 'error');
     }
 	}
 }

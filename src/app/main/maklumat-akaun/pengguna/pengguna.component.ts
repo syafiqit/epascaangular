@@ -11,8 +11,7 @@ import {
   UpdateProfilDto
 } from 'src/app/shared/proxy/service-proxies';
 import { AppSessionService } from 'src/app/shared/services/app-session.service';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-pengguna',
@@ -74,7 +73,7 @@ export class PenggunaComponent implements OnInit {
 
 	fileChangeEvent(event: any): void {
     if (event.target.files[0].size > 5242880) { //5MB
-      Swal.fire({
+      swalError.fire({
         title: 'Fail cecah had maksima!',
         icon: 'error',
         text: 'Fail melebihi saiz 5MB',
@@ -84,7 +83,7 @@ export class PenggunaComponent implements OnInit {
     }
 
     if (event.target.files[0].type != "image/png" && event.target.files[0].type != "image/jpg" && event.target.files[0].type != "image/jpeg") {
-      Swal.fire({
+      swalError.fire({
         title: 'Format tidak sesuai!',
         icon: 'error',
         text: 'Format JPG, JPEG dan PNG sahaja diterima',
@@ -159,7 +158,7 @@ export class PenggunaComponent implements OnInit {
 	save() {
     this.updateProfile.pengguna = this.getProfile.pengguna;
 		this._sessionServiceProxy.updateProfil(this.updateProfile).subscribe((result) => {
-			Swal.fire('Berjaya!', 'Maklumat Profil Berjaya Dikemaskini.', 'success').then(() => {
+			swalSuccess.fire('Berjaya!', 'Maklumat Profil Berjaya Dikemaskini.', 'success').then(() => {
 				location.reload();
 			});
 		});

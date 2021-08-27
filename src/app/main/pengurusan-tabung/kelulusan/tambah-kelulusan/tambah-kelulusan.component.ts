@@ -8,8 +8,7 @@ import {
 import {finalize} from "rxjs/operators";
 import * as moment from "moment";
 import {ActivatedRoute, Router} from "@angular/router";
-declare let require;
-const Swal = require('sweetalert2');
+import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-tambah-kelulusan',
@@ -143,7 +142,7 @@ export class TambahKelulusanComponent implements OnInit {
       .createOrEdit(this.kelulusan)
       .pipe()
       .subscribe(() => {
-        Swal.fire('Berjaya!', 'Maklumat Tabung Kelulusan Berjaya Disimpan.', 'success');
+        swalSuccess.fire('Berjaya!', 'Maklumat Tabung Kelulusan Berjaya Disimpan.', 'success');
         this.router.navigate(['/app/tabung/senarai-kelulusan']);
       });
   }

@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { finalize } from 'rxjs/operators';
 import { AuthServiceProxy, InputLoginDto, OutputLoginDto } from 'src/app/shared/proxy/service-proxies';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-log-masuk',
@@ -40,7 +39,7 @@ export class LogMasukComponent implements OnInit {
 				(result) => {
           this.output = result;
           if(result.message){
-            Swal.fire('Tidak Berjaya!', this.output.message, 'error');
+            swalSuccess.fire('Tidak Berjaya!', this.output.message, 'error');
           }else{
             const validity = new Date(new Date().getTime() + (result.expires_in + 28800) * 1000);
             this._cookieService.set('token', result.access_token, validity, '/');
