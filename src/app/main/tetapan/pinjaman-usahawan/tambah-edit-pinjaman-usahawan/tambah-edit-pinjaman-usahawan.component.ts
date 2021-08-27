@@ -4,8 +4,7 @@ import {
 	CreateOrEditRefPinjamanPerniagaanDto,
 	RefPinjamanPerniagaanServiceProxy
 } from '../../../../shared/proxy/service-proxies';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-tambah-edit-pinjaman-usahawan',
@@ -50,9 +49,9 @@ export class TambahEditPinjamanUsahawanComponent implements OnInit {
 			.pipe()
 			.subscribe(() => {
 				if (this.name == 'add') {
-					Swal.fire('Berjaya!', 'Maklumat Pinjaman Usahawan Berjaya Ditambah.', 'success');
+					swalSuccess.fire('Berjaya!', 'Maklumat Pinjaman Usahawan Berjaya Ditambah.', 'success');
 				} else if (this.name == 'edit') {
-					Swal.fire('Berjaya!', 'Maklumat Pinjaman Usahawan Berjaya Dikemaskini.', 'success');
+					swalSuccess.fire('Berjaya!', 'Maklumat Pinjaman Usahawan Berjaya Dikemaskini.', 'success');
 				}
 				this.activeModal.close(true);
 			});

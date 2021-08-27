@@ -2,8 +2,7 @@ import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { CreateOrEditRefPerananDto, RefPerananServiceProxy } from '../../../../shared/proxy/service-proxies';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-tambah-edit-peranan',
@@ -48,9 +47,9 @@ export class TambahEditPerananComponent implements OnInit {
 			.pipe()
 			.subscribe(() => {
 				if (this.name == 'add') {
-					Swal.fire('Berjaya!', 'Maklumat Peranan Berjaya Ditambah.', 'success');
+					swalSuccess.fire('Berjaya!', 'Maklumat Peranan Berjaya Ditambah.', 'success');
 				} else if (this.name == 'edit') {
-					Swal.fire('Berjaya!', 'Maklumat Peranan Berjaya Dikemaskini.', 'success');
+					swalSuccess.fire('Berjaya!', 'Maklumat Peranan Berjaya Dikemaskini.', 'success');
 				}
 				this.activeModal.close(true);
 			});

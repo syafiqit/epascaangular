@@ -6,8 +6,7 @@ import {
 	RefAgensiServiceProxy,
 	RefKementerianServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-tambah-edit-agensi',
@@ -63,9 +62,9 @@ export class TambahEditAgensiComponent implements OnInit {
 			)
 			.subscribe(() => {
 				if (this.name == 'add') {
-					Swal.fire('Berjaya!', 'Maklumat Agensi Berjaya Ditambah.', 'success');
+					swalSuccess.fire('Berjaya!', 'Maklumat Agensi Berjaya Ditambah.', 'success');
 				} else if (this.name == 'edit') {
-					Swal.fire('Berjaya!', 'Maklumat Agensi Berjaya Dikemaskini.', 'success');
+					swalSuccess.fire('Berjaya!', 'Maklumat Agensi Berjaya Dikemaskini.', 'success');
 				}
 				this.activeModal.close(true);
 			});
