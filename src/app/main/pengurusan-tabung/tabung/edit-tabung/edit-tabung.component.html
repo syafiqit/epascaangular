@@ -12,7 +12,7 @@
 						<div class="row">
 							<div class="col-lg-8">
 								<div class="form-group">
-									<label>Nama Tabung</label>
+									<label>Nama Tabung*</label>
 									<input
                     class="form-control"
                     type="text"
@@ -31,63 +31,21 @@
 						</div>
 
 						<div class="row">
-							<div class="form-group col-lg-4 custom-datepicker custom-datepicker-dropdown">
-                <label>Tarikh Baki Bawaan</label>
-                <div class="input-group">
-                  <input
-                    class="form-control"
-                    placeholder="yyyy-mm-dd"
-                    name="dp"
-                    [(ngModel)]="modelBaki"
-                    ngbDatepicker
-                    [footerTemplate]="footerTemplate"
-                    #d="ngbDatepicker"
-                    style="border: 1px solid #efefef !important;"
-                    disabled
-                  >
-                  <div class="input-group-append">
-                    <button class="btn btn-light" (click)="d.toggle()" type="button" disabled><i
-                      class="fa fa-calendar"></i></button>
-                  </div>
-                </div>
+							<div class="col-lg-4">
+                <label>Tarikh Baki Bawaan:&nbsp;</label>
+                <label>{{getTabung.tabung.tarikh_baki | date:'yyyy-MM-dd'}}</label>
               </div>
-              <ng-template #footerTemplate>
-                <hr class="my-0">
-                <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelBaki = today; d.close()">Hari Ini</button>
-                <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Tutup</button>
-              </ng-template>
 
-							<div class="col-lg-4 mt-2">
+							<div class="col-lg-4">
 								<div class="form-group">
-									<label>Jumlah Baki Bawaan(RM)</label>
-									<input
-                    class="form-control"
-                    name="jumlahBaki"
-                    type="text"
-                    [(ngModel)]="getTabung.tabung.baki_bawaan"
-                    disabled
-                  />
+									<label>Jumlah Baki Bawaan:&nbsp;</label>
+                  <label>RM{{getTabung.tabung.baki_bawaan}}</label>
 								</div>
 							</div>
 
-              <div class="form-group col-lg-4 custom-datepicker custom-datepicker-dropdown">
-                <label>Tarikh Kemaskini</label>
-                <div class="input-group">
-                  <input
-                    class="form-control"
-                    placeholder="yyyy-mm-dd"
-                    name="tarikh_kemaskini"
-                    [(ngModel)]="modelAkhir"
-                    ngbDatepicker
-                    #e="ngbDatepicker"
-                    style="border: 1px solid #efefef !important;"
-                    disabled
-                  >
-                  <div class="input-group-append">
-                    <button class="btn btn-light" (click)="e.toggle()" type="button" disabled><i
-                      class="fa fa-calendar"></i></button>
-                  </div>
-                </div>
+              <div class="col-lg-4" hidden>
+                <label>Tarikh Terimaan Sehingga:&nbsp;</label>
+                <label>{{getTabung.tabung.tarikh_cipta | date:'yyyy-MM-dd'}}</label>
               </div>
 						</div>
             <hr />
@@ -99,62 +57,49 @@
             </div>
 
 						<div class="row">
-							<div class="col-lg-3 mt-2">
+							<div class="col-lg-4">
 								<div class="form-group">
-									<label>Jumlah Peruntukan (RM)</label>
-									<input
-                    class="form-control"
-                    name="jumlah_peruntukan"
-                    type="text"
-                    [(ngModel)]="getTabung.tabung.peruntukan"
-                    placeholder="0.00"
-                    disabled
-                  />
+									<label>Jumlah Peruntukan:&nbsp;</label>
+									<label *ngIf="getTabung.tabung.peruntukan">RM {{getTabung.tabung.peruntukan}}</label>
+                  <label *ngIf="!getTabung.tabung.peruntukan">RM 0.00</label>
 								</div>
 							</div>
 
-              <div class="col-lg-3 mt-2">
+              <div class="col-lg-4">
 								<div class="form-group">
-									<label>Jumlah Perbelanjaan (RM)</label>
-									<input
-                    class="form-control"
-                    name="jumlah_perbelanjaan"
-                    type="text"
-                    [(ngModel)]="getTabung.tabung.jumlah_perbelanjaan_semasa"
-                    placeholder="0.00"
-                    disabled
-                  />
+									<label>Jumlah Keseluruhan:&nbsp;</label>
+                  <label *ngIf="getTabung.tabung.jumlah_keseluruhan">RM {{getTabung.tabung.jumlah_keseluruhan}}</label>
+                  <label *ngIf="!getTabung.tabung.jumlah_keseluruhan">RM 0.00</label>
 								</div>
 							</div>
 
-							<div class="col-lg-3">
+              <div class="col-lg-4">
 								<div class="form-group">
-									<label>Jumlah Keseluruhan (RM)</label>
-									<input
-                    class="form-control"
-                    name="jumlah_keseluruhan"
-                    type="text"
-                    [(ngModel)]="getTabung.tabung.jumlah_keseluruhan"
-                    placeholder="0.00"
-                    disabled
-                  />
+									<label>Jumlah Perbelanjaan:&nbsp;</label>
+                  <label *ngIf="getTabung.tabung.jumlah_perbelanjaan_semasa">RM {{getTabung.tabung.jumlah_perbelanjaan_semasa}}</label>
+                  <label *ngIf="!getTabung.tabung.jumlah_perbelanjaan_semasa">RM 0.00</label>
+								</div>
+							</div>
+            </div>
+
+            <div class="row">
+							<div class="col-lg-4">
+								<div class="form-group">
+									<label>Jumlah Baki Semasa:&nbsp;</label>
+                  <label *ngIf="getTabung.tabung.jumlah_baki_semasa">RM {{getTabung.tabung.jumlah_baki_semasa}}</label>
+                  <label *ngIf="!getTabung.tabung.jumlah_baki_semasa">RM 0.00</label>
 								</div>
 							</div>
 
-							<div class="col-lg-3">
+              <div class="col-lg-4">
 								<div class="form-group">
-									<label>Jumlah Baki Semasa (RM)</label>
-									<input
-                    class="form-control"
-                    name="jumlah_baki_semasa"
-                    type="text"
-                    [(ngModel)]="getTabung.tabung.jumlah_baki_semasa"
-                    placeholder="0.00"
-                    disabled
-                  />
+									<label>Jumlah (Kelulusan):&nbsp;</label>
+                  <label *ngIf="getTabung.tabung.peruntukan">RM {{getTabung.tabung.peruntukan}}</label>
+                  <label *ngIf="!getTabung.tabung.peruntukan">RM 0.00</label>
 								</div>
 							</div>
-						</div>
+            </div>
+
 
 						<div class="row">
 							<div class="col">
@@ -381,6 +326,113 @@
                       [rowsPerPageOptions]="primengTableHelperSejarah.predefinedRecordsCountPerPage"
                     ></p-paginator>
                     <span class="total-records-count">Jumlah: {{ primengTableHelperSejarah.totalRecordsCount}}</span>
+                  </div>
+								</div>
+							</div>
+						</div>
+
+            <h6>Sejarah BWI</h6>
+						<div class="card-body">
+							<div class="row align-items-center">
+								<div class="primeng-datatable-container">
+									<p-table
+										#dataTable
+										styleClass="p-datatable-striped"
+										[resizableColumns]="true"
+										(onLazyLoad)="getSejarahBWI($event)"
+                    [loading]="primengTableHelperBWI.isLoading"
+										[value]="primengTableHelperBWI.records"
+										rows="{{primengTableHelperBWI.defaultRecordsCountPerPage}}"
+										[paginator]="false"
+										[lazy]="true"
+										[scrollable]="true"
+										ScrollWidth="100%"
+										[responsive]="primengTableHelperBWI.isResponsive"
+										[resizableColumns]="primengTableHelperBWI.resizableColumns"
+									>
+										<ng-template pTemplate="header">
+											<tr>
+												<th style="width: 70px" pSortableColumn="bil">
+													Bil
+													<p-sortIcon field="bil"></p-sortIcon>
+												</th>
+                        <th style="width: 130px" pSortableColumn="jenis_bencana">
+													Jenis Bencana
+													<p-sortIcon field="jenis_bencana"></p-sortIcon>
+												</th>
+                        <th style="width: 130px" pSortableColumn="negeri">
+													Negeri
+													<p-sortIcon field="negeri"></p-sortIcon>
+												</th>
+                        <th style="width: 130px" pSortableColumn="daerah">
+													Daerah
+													<p-sortIcon field="daerah"></p-sortIcon>
+												</th>
+												<th style="width: 130px" pSortableColumn="tahun">
+													Tahun
+													<p-sortIcon field="tahun"></p-sortIcon>
+												</th>
+												<th style="width: 130px" pSortableColumn="jumlah_kir">
+													Jumlah KIR
+													<p-sortIcon field="jumlah_kir"></p-sortIcon>
+												</th>
+                        <th style="width: 130px" pSortableColumn="jumlah_keseluruhan">
+													Jumlah Keseluruhan (RM)
+													<p-sortIcon field="jumlah_keseluruhan"></p-sortIcon>
+												</th>
+                        <th style="width: 130px" pSortableColumn="baki_dipulangkan">
+													Baki Dipulangkan (RM)
+													<p-sortIcon field="baki_dipulangkan"></p-sortIcon>
+												</th>
+											</tr>
+										</ng-template>
+										<ng-template pTemplate="body" let-records="$implicit">
+											<tr>
+												<td style="width: 70px">
+													<span class="p-column-title">Bil</span>
+													{{records.bil}}
+												</td>
+                        <td style="width: 130px">
+													<span class="p-column-title">Jenis Bencana</span>
+													{{records.jenis_bencana}}
+												</td>
+                        <td style="width: 130px">
+													<span class="p-column-title">Negeri</span>
+													{{records.negeri}}
+												</td>
+                        <td style="width: 130px">
+													<span class="p-column-title">Daerah</span>
+													{{records.daerah}}
+												</td>
+												<td style="width: 130px">
+													<span class="p-column-title">Tahun</span>
+													{{records.tahun}}
+												</td>
+												<td style="width: 130px">
+													<span class="p-column-title">Jumlah KIR</span>
+													{{records.jumlah_kir}}
+												</td>
+                        <td style="width: 130px">
+													<span class="p-column-title">Jumlah Keseluruhan</span>
+													{{records.jumlah_keseluruhan}}
+												</td>
+                        <td style="width: 130px">
+													<span class="p-column-title">Baki Dipulangkan (RM)</span>
+													{{records.baki_dipulangkan}}
+												</td>
+											</tr>
+										</ng-template>
+									</p-table>
+                  <div class="primeng-no-data" *ngIf="primengTableHelperBWI.totalRecordsCount == 0">No Data</div>
+                  <div class="primeng-paging-container justify-content-between">
+                    <p-paginator
+                      [rows]="primengTableHelperBWI.defaultRecordsCountPerPage"
+                      #paginator
+                      (onPageChange)="getSejarahBWI($event)"
+                      [totalRecords]="primengTableHelperBWI.totalRecordsCount"
+                      [rowsPerPageOptions]="primengTableHelperBWI.predefinedRecordsCountPerPage"
+                    ></p-paginator>
+                    <span class="total-records-count">Jumlah: {{ primengTableHelperBWI.totalRecordsCount}}</span>
                   </div>
 								</div>
 							</div>

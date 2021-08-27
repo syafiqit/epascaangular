@@ -6,7 +6,7 @@ import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
 import { NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TambahPeruntukanComponent } from '../edit-tabung/tambah-peruntukan/tambah-peruntukan.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CreateOrEditTabungDto, GetTabungForEditDto, RefSumberPeruntukanServiceProxy, TabungPeruntukanServiceProxy, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import * as moment from 'moment';
 import { finalize } from 'rxjs/operators';
@@ -26,6 +26,7 @@ export class EditTabungComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
   primengTableHelperSejarah: PrimengTableHelper;
+  primengTableHelperBWI: PrimengTableHelper;
 
   getTabung: GetTabungForEditDto = new GetTabungForEditDto();
   editTabung: CreateOrEditTabungDto = new CreateOrEditTabungDto();
@@ -46,7 +47,7 @@ export class EditTabungComponent implements OnInit {
   today = this.calendar.getToday();
   readonly DELIMITER = '-';
 
-  rows = [
+  sejarah = [
 		{
       bil: '1', tarikh_cipta: '01/01/2021', no_rujukan: 'A09219', aktiviti: 'Kelulusan', jumlah: 'RM 100000.00', dikemaskini_oleh: 'Mohd Rahimi'
 		},
@@ -58,6 +59,21 @@ export class EditTabungComponent implements OnInit {
 		}
 	];
 
+  bwi = [
+		{
+      bil: '1', jenis_bencana: 'BANJIR', negeri: 'PENANG', daerah: 'SPT', tahun: '2020', jumlah_kir: '76', jumlah_keseluruhan: '38000.00', baki_dipulangkan: '2000.00'
+		},
+    {
+      bil: '2', jenis_bencana: 'BANJIR', negeri: 'PAHANG', daerah: 'KUANTAN', tahun: '2020', jumlah_kir: '50', jumlah_keseluruhan: '18000.00', baki_dipulangkan: '-'
+		},
+    {
+      bil: '3', jenis_bencana: 'BANJIR', negeri: 'PAHANG', daerah: 'BERA', tahun: '2020', jumlah_kir: '10', jumlah_keseluruhan: '10000.00', baki_dipulangkan: '-'
+		},
+    {
+      bil: '4', jenis_bencana: 'RIBUT', negeri: 'PAHANG', daerah: 'SPT', tahun: '2019', jumlah_kir: '10', jumlah_keseluruhan: '32100.00', baki_dipulangkan: '-'
+		}
+	];
+
 	constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,
@@ -65,10 +81,12 @@ export class EditTabungComponent implements OnInit {
     private tabungServiceProxy: TabungServiceProxy,
     private tabungPeruntukanServiceProxy: TabungPeruntukanServiceProxy,
     private _refSumberPeruntukanServiceProxy: RefSumberPeruntukanServiceProxy,
-    private calendar: NgbCalendar
+    private calendar: NgbCalendar,
+    private router: Router
     ) {
 		this.primengTableHelper = new PrimengTableHelper();
     this.primengTableHelperSejarah = new PrimengTableHelper();
+    this.primengTableHelperBWI = new PrimengTableHelper();
     this.getTabung.tabung = new CreateOrEditTabungDto;
     this._activatedRoute.queryParams.subscribe((p) => {
       this.idTabung = p['id'];
@@ -153,9 +171,21 @@ export class EditTabungComponent implements OnInit {
 		}
 
     this.primengTableHelperSejarah.showLoadingIndicator();
-		this.primengTableHelperSejarah.totalRecordsCount = this.rows.length;
-		this.primengTableHelperSejarah.records = this.rows;
+		this.primengTableHelperSejarah.totalRecordsCount = this.sejarah.length;
+		this.primengTableHelperSejarah.records = this.sejarah;
 		this.primengTableHelperSejarah.hideLoadingIndicator();
+	}
+
+  getSejarahBWI(event?: LazyLoadEvent) {
+		if (this.primengTableHelperBWI.shouldResetPaging(event)) {
+			this.paginator.changePage(0);
+			return;
+		}
+
+    this.primengTableHelperBWI.showLoadingIndicator();
+		this.primengTableHelperBWI.totalRecordsCount = this.bwi.length;
+		this.primengTableHelperBWI.records = this.bwi;
+		this.primengTableHelperBWI.hideLoadingIndicator();
 	}
 
 	addTabungPeruntukan(idTabung) {
@@ -197,7 +227,9 @@ export class EditTabungComponent implements OnInit {
       this.editTabung.tarikh_cipta = moment(this.tarikh_cipta, "YYYY-MM-DD");
     }
     this.tabungServiceProxy.createOrEdit(this.editTabung).subscribe(()=>{
-      Swal.fire('Berjaya', 'Maklumat Tabung Berjaya Dikemaskini')
+      Swal.fire('Berjaya', 'Maklumat Tabung Berjaya Dikemaskini').then(() => {
+        this.router.navigateByUrl('/app/tabung/senarai-tabung');
+      });
     })
   }
 }

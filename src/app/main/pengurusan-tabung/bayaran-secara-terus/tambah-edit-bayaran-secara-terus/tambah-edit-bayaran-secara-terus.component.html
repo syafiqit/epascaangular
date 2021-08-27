@@ -32,9 +32,10 @@
                       [ngClass]="{ 'is-invalid': f.submitted && rujukanKelulusan.invalid }"
                       required
                       readonly
+                      [disabled]="idBayaranTerus"
 										/>
 										<div class="input-group-append">
-											<button class="btn btn-primary" (click)="addRujukanKelulusan()" type="button">
+											<button class="btn btn-primary" (click)="addRujukanKelulusan()" type="button" [disabled]="idBayaranTerus">
 												<i class="fa fa-search text-white"></i>
 											</button>
 										</div>
@@ -184,6 +185,7 @@
                     type="text"
                     [(ngModel)]="bayaranTerus.jumlah"
                     placeholder="Belanja"
+                    [disabled]="idBayaranTerus"
                   />
 									</div>
 								</div>

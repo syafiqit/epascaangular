@@ -4,6 +4,7 @@ import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { CreateOrEditTabungDto, GetTabungForViewDto, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
+import { DatePipe } from '@angular/common';
 declare let require;
 const Swal = require('sweetalert2');
 
@@ -19,6 +20,8 @@ export class TambahEditTabungComponent implements OnInit {
   createTabung: CreateOrEditTabungDto = new CreateOrEditTabungDto();
 
 	tarikhBakiSemasa: string;
+  tarikhBaki: Date;
+  firstDate: Date;
   idTabung: any;
   filter: string;
   tabungSebelum: any;
@@ -35,6 +38,7 @@ export class TambahEditTabungComponent implements OnInit {
 
 	constructor(
     private modalService: NgbModal,
+    private datePipe: DatePipe,
     public activeModal: NgbActiveModal,
     private calendar: NgbCalendar,
     private _activatedRoute: ActivatedRoute,
@@ -47,6 +51,7 @@ export class TambahEditTabungComponent implements OnInit {
     }
 
 	ngOnInit(): void {
+    this.tarikhBaki = new Date(new Date().getFullYear(), 0, 1);
     this.getTabungSebelum();
   }
 
@@ -78,11 +83,7 @@ export class TambahEditTabungComponent implements OnInit {
   save() {
     this.createTabung.id_tabung_sebelum = this.id_tabung_sebelum;
     this.createTabung.baki_bawaan = this.tabungSebelum.jumlah_baki_semasa;
-
-    if(this.model){
-      this.tarikhBakiSemasa = this.toModel(this.model);
-      this.createTabung.tarikh_baki = moment(this.tarikhBakiSemasa, "YYYY-MM-DD");
-    }
+    this.createTabung.tarikh_baki = moment(this.tarikhBaki, "YYYY-MM-DD");
 
     this.tabungServiceProxy.createOrEdit(this.createTabung).subscribe(()=>{
       Swal.fire('Berjaya', 'Maklumat Tabung Berjaya Ditambah').then(() => {
