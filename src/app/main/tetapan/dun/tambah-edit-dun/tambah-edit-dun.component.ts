@@ -6,8 +6,7 @@ import {
 	RefNegeriServiceProxy,
 	RefParlimenServiceProxy
 } from '../../../../shared/proxy/service-proxies';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-tambah-edit-dun',
@@ -66,9 +65,9 @@ export class TambahEditDunComponent implements OnInit {
 			.pipe()
 			.subscribe(() => {
 				if (this.name == 'add') {
-					Swal.fire('Berjaya!', 'Maklumat Dun Berjaya Ditambah.', 'success');
+					swalSuccess.fire('Berjaya!', 'Maklumat Dun Berjaya Ditambah.', 'success');
 				} else if (this.name == 'edit') {
-					Swal.fire('Berjaya!', 'Maklumat Dun Berjaya Dikemaskini.', 'success');
+					swalSuccess.fire('Berjaya!', 'Maklumat Dun Berjaya Dikemaskini.', 'success');
 				}
 				this.activeModal.close(true);
 			});

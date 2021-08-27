@@ -8,8 +8,7 @@ import {
 import { environment } from 'src/environments/environment';
 import {HttpClient} from "@angular/common/http";
 import {FormBuilder, FormGroup} from "@angular/forms";
-declare let require;
-const Swal = require('sweetalert2');
+import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-tambah-edit-rujukan',
@@ -88,9 +87,9 @@ export class TambahEditRujukanComponent implements OnInit {
               .pipe()
               .subscribe(() => {
                 if (this.name == 'add') {
-                  Swal.fire('Berjaya!', 'Maklumat Rujukan Berjaya Ditambah.', 'success');
+                  swalSuccess.fire('Berjaya!', 'Maklumat Rujukan Berjaya Ditambah.', 'success');
                 } else if (this.name == 'edit') {
-                  Swal.fire('Berjaya!', 'Maklumat Rujukan Berjaya Dikemaskini.', 'success');
+                  swalSuccess.fire('Berjaya!', 'Maklumat Rujukan Berjaya Dikemaskini.', 'success');
                 }
                 this.activeModal.close(true);
               });
@@ -104,9 +103,9 @@ export class TambahEditRujukanComponent implements OnInit {
         .pipe()
         .subscribe(() => {
           if (this.name == 'add') {
-            Swal.fire('Berjaya!', 'Maklumat Rujukan Berjaya Ditambah.', 'success');
+            swalSuccess.fire('Berjaya!', 'Maklumat Rujukan Berjaya Ditambah.', 'success');
           } else if (this.name == 'edit') {
-            Swal.fire('Berjaya!', 'Maklumat Rujukan Berjaya Dikemaskini.', 'success');
+            swalSuccess.fire('Berjaya!', 'Maklumat Rujukan Berjaya Dikemaskini.', 'success');
           }
           this.activeModal.close(true);
         });

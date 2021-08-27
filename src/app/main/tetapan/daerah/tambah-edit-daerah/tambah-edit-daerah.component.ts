@@ -6,8 +6,7 @@ import {
 	RefNegeriServiceProxy
 } from '../../../../shared/proxy/service-proxies';
 import { finalize } from 'rxjs/operators';
-declare let require;
-const Swal = require('sweetalert2');
+import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-tambah-edit-daerah',
@@ -67,9 +66,9 @@ export class TambahEditDaerahComponent implements OnInit {
 			)
 			.subscribe(() => {
 				if (this.name == 'add') {
-					Swal.fire('Berjaya!', 'Maklumat Daerah Berjaya Ditambah.', 'success');
+					swalSuccess.fire('Berjaya!', 'Maklumat Daerah Berjaya Ditambah.', 'success');
 				} else if (this.name == 'edit') {
-					Swal.fire('Berjaya!', 'Maklumat Daerah Berjaya Dikemaskini.', 'success');
+					swalSuccess.fire('Berjaya!', 'Maklumat Daerah Berjaya Dikemaskini.', 'success');
 				}
 				this.activeModal.close(true);
 			});
