@@ -15,11 +15,16 @@ import { LaporanPertanianComponent } from './laporan-pertanian/laporan-pertanian
 import { LaporanRumahBaruComponent } from './laporan-rumah-baru/laporan-rumah-baru.component';
 import { LaporanBaikPulihRumahComponent } from './laporan-baik-pulih-rumah/laporan-baik-pulih-rumah.component';
 import { LaporanBwiPenerimaBantuanComponent } from './laporan-bwi-penerima-bantuan/laporan-bwi-penerima-bantuan.component';
+import { LaporanComponent } from './laporan.component';
 
 const routes: Routes = [
 	{
 		path: '',
 		children: [
+			{
+				path: 'senarai',
+				component: LaporanComponent
+			},
 			{
 				path: 'ringkasan',
 				component: LaporanRingkasanComponent
@@ -69,15 +74,15 @@ const routes: Routes = [
 				component: LaporanPertanianComponent
 			},
 			{
-				path: 'rumah-baru',
+				path: 'rumah/bina',
 				component: LaporanRumahBaruComponent
 			},
       {
-				path: 'baik-pulih-rumah',
+				path: 'rumah/baik-pulih',
 				component: LaporanBaikPulihRumahComponent
 			},
       {
-				path: 'bwi-penerima-bantuan',
+				path: 'bwi/penerima',
 				component: LaporanBwiPenerimaBantuanComponent
 			}
 		]

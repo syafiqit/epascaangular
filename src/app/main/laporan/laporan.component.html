@@ -1,0 +1,277 @@
+<app-breadcrumb
+	[title]="'Senarai Laporan'"
+	[items]="['Laporan']"
+	[active_item]="'Senarai'"
+></app-breadcrumb>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="card">
+				<div class="card-body">
+					<div class="row">
+            <div class="col-lg-3">
+              <div class="card bg-primary">
+                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/ringkasan'">
+                  <div class="row">
+                    <div class="col-lg-12" style="font-size:17px; line-height: 19pt;">
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">Ringkasan</a>
+                      </div>
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">Laporan</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3">
+              <div class="card bg-primary">
+                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/kelulusan'">
+                  <div class="row">
+                    <div class="col-lg-12" style="font-size:17px; line-height: 19pt;">
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">Laporan Tabung</a>
+                      </div>
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">Kelulusan</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3">
+              <div class="card bg-primary">
+                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/bayaran/skb'">
+                  <div class="row">
+                    <div class="col-lg-12" style="font-size:16px; line-height: 19pt;">
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">Laporan Surat</a>
+                      </div>
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">Kuasa Belanja (SKB)</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3">
+              <div class="card bg-primary">
+                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/bayaran/skb/bulan'">
+                  <div class="row">
+                    <div class="col-lg-12" style="font-size:17px; line-height: 19pt;">
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">Laporan SKB</a>
+                      </div>
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">Mengikut Bulan</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-3">
+              <div class="card bg-primary">
+                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/bayaran/terus'">
+                  <div class="row">
+                    <div class="col-lg-12" style="font-size:17px; line-height: 19pt;">
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">Laporan</a>
+                      </div>
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">Bayaran Terus</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3">
+              <div class="card bg-primary">
+                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/bwi'">
+                  <div class="row">
+                    <div class="col-lg-12" style="font-size:17px; line-height: 19pt;">
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">Laporan Bantuan</a>
+                      </div>
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">Wang Ihsan (BWI)</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3">
+              <div class="card bg-primary">
+                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/bwi/bencana-kir'">
+                  <div class="row">
+                    <div class="col-lg-12" style="font-size:17px; line-height: 19pt;">
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">Laporan BWI</a>
+                      </div>
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">(Bencana-KIR)</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3">
+              <div class="card bg-primary">
+                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/bwi/bencana-kelulusan'">
+                  <div class="row">
+                    <div class="col-lg-12" style="font-size:15px; line-height: 19pt;">
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">Laporan BWI</a>
+                      </div>
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">(Bencana-Kelulusan)</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-3">
+              <div class="card bg-primary">
+                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/bwi/negeri'">
+                  <div class="row">
+                    <div class="col-lg-12" style="font-size:17px; line-height: 19pt;">
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">Laporan BWI</a>
+                      </div>
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">(Negeri)</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3">
+              <div class="card bg-primary">
+                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/bwi/kematian'">
+                  <div class="row">
+                    <div class="col-lg-12" style="font-size:17px; line-height: 19pt;">
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">Laporan BWI</a>
+                      </div>
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">(Kematian)</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3">
+              <div class="card bg-primary">
+                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/pinjaman'">
+                  <div class="row">
+                    <div class="col-lg-12" style="font-size:17px; line-height: 19pt;">
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">Laporan</a>
+                      </div>
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">Pinjaman Khas</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3">
+              <div class="card bg-primary">
+                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/pertanian'">
+                  <div class="row">
+                    <div class="col-lg-12" style="font-size:17px; line-height: 19pt;">
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">Laporan</a>
+                      </div>
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">Bantuan Pertanian</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-3">
+              <div class="card bg-primary">
+                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/rumah/bina'">
+                  <div class="row">
+                    <div class="col-lg-12" style="font-size:17px; line-height: 19pt;">
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">Laporan Bantuan</a>
+                      </div>
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">Bina Rumah Baru</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3">
+              <div class="card bg-primary">
+                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/rumah/baik-pulih'">
+                  <div class="row">
+                    <div class="col-lg-12" style="font-size:17px; line-height: 19pt;">
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">Laporan Bantuan</a>
+                      </div>
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">Baik Pulih Rumah</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3">
+              <div class="card bg-primary">
+                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/bwi/penerima'">
+                  <div class="row">
+                    <div class="col-lg-12" style="font-size:17px; line-height: 19pt;">
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">Laporan Penerima</a>
+                      </div>
+                      <div class="row no-gutters">
+                        <a style="font-weight:400">Bantuan BWI</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
