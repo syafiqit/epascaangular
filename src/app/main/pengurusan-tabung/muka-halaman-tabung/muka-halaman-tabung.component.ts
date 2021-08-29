@@ -12,7 +12,10 @@ am4core.useTheme(am4themes_animated);
 })
 export class MukaHalamanTabungComponent implements OnInit {
 	public isCollapsed = false;
-	modelFooter: NgbDateStruct;
+	public isCollapsedGraph = false;
+  chooseFromDate = false;
+	tarikhMula: NgbDateStruct;
+  tarikhTamat: NgbDateStruct;
 	today = this.calendar.getToday();
 
 	report = [
@@ -199,4 +202,12 @@ export class MukaHalamanTabungComponent implements OnInit {
 			}
 		}
 	}
+
+  pilihTarikhMula(){
+    this.chooseFromDate = true;
+    if(this.tarikhMula == null){
+      this.chooseFromDate = false;
+      this.tarikhTamat = null;
+    }
+  }
 }
