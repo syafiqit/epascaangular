@@ -43,6 +43,7 @@ export class MaklumatMangsaComponent implements OnInit {
   setDun: any;
   setDaerah: any;
   filterIdNegeri: number;
+  showDun = false;
 
 	constructor(
     private _activatedRoute: ActivatedRoute,
@@ -77,7 +78,10 @@ export class MaklumatMangsaComponent implements OnInit {
 	show(): void {
 		this._mangsaServiceProxy.getMangsaForEdit(this.idMangsa).subscribe((result) => {
 			this.getMangsa = result;
-      this.getDun(result.mangsa.id_dun);
+      if (result.mangsa.id_dun != null) {
+        this.getDun(result.mangsa.id_dun);
+        this.showDun = true;
+      }
       this.getDaerah(result.mangsa.id_daerah);
 		});
 	}
