@@ -65,45 +65,6 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>DUN*</label>
-									<ng-select
-                    [items]="dun"
-                    bindLabel="nama_dun"
-                    placeholder="Sila Pilih"
-                    class="js-example-placeholder-multiple"
-                    name="namaDun"
-                    (change)="setParlimen()"
-                    [(ngModel)]="setDun"
-                    #dunMangsa="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && dunMangsa.invalid }"
-                    required
-                  ></ng-select>
-                  <div *ngIf="f.submitted && dunMangsa.invalid" class="invalid-feedback">
-                    <div *ngIf="dunMangsa.errors.required">DUN Wajib Dipilih</div>
-                  </div>
-								</div>
-							</div>
-
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Parlimen*</label>
-                  <ng-select
-                    [items]="parliaments"
-                    bindLabel="nama_parlimen"
-                    bindValue="id"
-                    placeholder="Sila Pilih"
-                    class="js-example-placeholder-multiple"
-                    name="id_parlimen"
-                    [(ngModel)]="addMangsa.mangsa.id_parlimen"
-                    disabled
-                  ></ng-select>
-								</div>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="form-group">
 									<label>Alamat 1*</label>
 									<input
 										class="form-control"
@@ -220,6 +181,39 @@
                   <div *ngIf="f.submitted && noTel.invalid" class="invalid-feedback">
                     <div *ngIf="noTel.errors.required">No. Telefon Wajib Diisi</div>
                   </div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Dun</label>
+									<ng-select
+                    [items]="dun"
+                    bindLabel="nama_dun"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
+                    name="namaDun"
+                    (change)="setParlimen()"
+                    [(ngModel)]="setDun"
+                  ></ng-select>
+								</div>
+							</div>
+
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Parlimen</label>
+                  <ng-select
+                    [items]="parliaments"
+                    bindLabel="nama_parlimen"
+                    bindValue="id"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
+                    name="id_parlimen"
+                    [(ngModel)]="addMangsa.mangsa.id_parlimen"
+                    disabled
+                  ></ng-select>
 								</div>
 							</div>
 						</div>
