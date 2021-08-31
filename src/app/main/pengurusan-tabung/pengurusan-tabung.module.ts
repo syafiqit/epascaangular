@@ -35,6 +35,7 @@ import { PilihRujukanKelulusanComponent } from './bayaran-secara-terus/pilih-ruj
 import { PilihTabungComponent } from './bayaran-secara-terus/pilih-tabung/pilih-tabung.component';
 import { PilihBencanaComponent } from './bayaran-secara-terus/pilih-bencana/pilih-bencana.component';
 import { PilihPembayaranComponent } from './wang-ihsan/pilih-pembayaran/pilih-pembayaran.component';
+import { TambahEditKirComponent } from './wang-ihsan/edit-wang-ihsan/tambah-edit-kir/tambah-edit-kir.component';
 
 @NgModule({
 	imports: [
@@ -75,7 +76,8 @@ import { PilihPembayaranComponent } from './wang-ihsan/pilih-pembayaran/pilih-pe
 		PilihRujukanKelulusanComponent,
 		PilihTabungComponent,
 		PilihBencanaComponent,
-		PilihPembayaranComponent
+		PilihPembayaranComponent,
+		TambahEditKirComponent
 	]
 })
 export class PengurusanTabungModule {}
