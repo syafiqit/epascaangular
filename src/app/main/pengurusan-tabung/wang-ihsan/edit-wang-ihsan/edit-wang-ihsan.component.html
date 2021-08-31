@@ -8,8 +8,12 @@
 		<div class="col-sm-12">
 			<div class="card">
 				<div class="card-body">
-              <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
 
+          <ul ngbNav #nav="ngbNav" animation="true" [(activeId)]="active" (navChange)="validate($event)" class="nav-tabs">
+            <li [ngbNavItem]="1" [destroyOnHide]="true">
+              <a ngbNavLink>Kelulusan</a>
+              <ng-template ngbNavContent>
+              <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate focusInvalidInput>
                 <div class="row">
                   <div class="col-lg-6">
                     <div class="form-group">
@@ -23,7 +27,6 @@
                           [(ngModel)]="nama_pembayaran"
                           #jenisPembayaran="ngModel"
                           [ngClass]="{ 'is-invalid': f.submitted && jenisPembayaran.invalid }"
-                          required
                           readonly
                         />
                         <div class="input-group-append">
@@ -31,9 +34,9 @@
                             <i class="fa fa-search text-white"></i>
                           </button>
                         </div>
-                        <div *ngIf="f.submitted && jenisPembayaran.invalid" class="invalid-feedback">
+                        <!-- <div *ngIf="f.submitted && jenisPembayaran.invalid" class="invalid-feedback">
                           <div *ngIf="jenisPembayaran.errors.required">Pembayaran Wajib Dipilih</div>
-                        </div>
+                        </div> -->
                       </div>
                     </div>
                   </div>
@@ -68,104 +71,7 @@
                 </div>
                 <hr />
 
-                <div class="row no-gutters justify-content-end mb-3">
-                  <button class="btn btn-primary" type="button" (click)="addKirModal(edit.tabung_bwi.id)">
-                    <i class="fa fa-plus mr-2"></i>
-                    Pilih
-                  </button>
-                </div>
-
-                <div class="row no-gutters align-items-center">
-                  <div class="primeng-datatable-container">
-                    <p-table
-                      #dataTable
-                      styleClass="p-datatable-striped"
-                      [resizableColumns]="true"
-                      (onLazyLoad)="getKir($event)"
-                      [value]="primengTableHelper.records"
-                      rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
-                      [paginator]="false"
-                      [lazy]="true"
-                      [loading]="primengTableHelper.isLoading"
-                      [scrollable]="true"
-                      ScrollWidth="100%"
-                      [responsive]="primengTableHelper.isResponsive"
-                      [resizableColumns]="primengTableHelper.resizableColumns"
-                    >
-                      <ng-template pTemplate="header">
-                        <tr>
-                          <th style="width: 130px">Tindakan</th>
-                          <th style="width: 150px" pSortableColumn="nama">
-                            Nama KIR
-                            <p-sortIcon field="nama"></p-sortIcon>
-                          </th>
-                          <th style="width: 130px" pSortableColumn="jumlah_bwi">
-                            Jumlah BWI
-                            <p-sortIcon field="jumlah_bwi"></p-sortIcon>
-                          </th>
-                          <th style="width: 130px" pSortableColumn="nama_daerah">
-                            Daerah
-                            <p-sortIcon field="nama_daerah"></p-sortIcon>
-                          </th>
-                          <th style="width: 130px" pSortableColumn="nama_negeri">
-                            Negeri
-                            <p-sortIcon field="nama_negeri"></p-sortIcon>
-                          </th>
-                        </tr>
-                      </ng-template>
-                      <ng-template pTemplate="body" let-record="$implicit">
-                        <tr>
-                          <td style="width: 130px">
-                            <div ngbDropdown class="btn-group" role="group" container="body">
-                              <button
-                                type="button"
-                                class="btn btn-primary btn-primeng dropdown-toggle"
-                                id="action"
-                                ngbDropdownToggle
-                              >
-                                <i class="fa fa-cog"></i>
-                                <span class="caret"></span>
-                                Tindakan
-                              </button>
-                              <div ngbDropdownMenu aria-labelledby="action">
-                                <button class="dropdown-item">Padam</button>
-                              </div>
-                            </div>
-                          </td>
-                          <td style="width: 150px">
-                            <span class="p-column-title">Nama KIR</span>
-                            {{record.nama}}
-                          </td>
-                          <td style="width: 130px">
-                            <span class="p-column-title">Jumlah BWI</span>
-                            RM{{record.jumlah_bwi}}
-                          </td>
-                          <td style="width: 130px">
-                            <span class="p-column-title">Daerah</span>
-                            {{record.nama_daerah}}
-                          </td>
-                          <td style="width: 130px">
-                            <span class="p-column-title">Negeri</span>
-                            {{record.nama_negeri}}
-                          </td>
-                        </tr>
-                      </ng-template>
-                    </p-table>
-                    <div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">No Data</div>
-                    <div class="primeng-paging-container justify-content-between">
-                      <p-paginator
-                        [rows]="primengTableHelper.defaultRecordsCountPerPage"
-                        #paginator
-                        (onPageChange)="getKir($event)"
-                        [totalRecords]="primengTableHelper.totalRecordsCount"
-                        [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
-                      ></p-paginator>
-                      <span class="total-records-count">
-                        Jumlah: {{ primengTableHelper.totalRecordsCount}}
-                      </span>
-                    </div>
-                  </div>
-                </div>
+                <app-tambah-edit-kir [idBwi]="idBwi"></app-tambah-edit-kir>
 
                 <div class="row">
                   <div class="col-lg-6">
@@ -179,12 +85,11 @@
                         [(ngModel)]="edit.tabung_bwi.jumlah_setiap_kir"
                         #perKir="ngModel"
                         [ngClass]="{ 'is-invalid': f.submitted && perKir.invalid }"
-                        required
                         onlyNumbers
                       />
-                      <div *ngIf="f.submitted && perKir.invalid" class="invalid-feedback">
+                      <!-- <div *ngIf="f.submitted && perKir.invalid" class="invalid-feedback">
                         <div *ngIf="perKir.errors.required">Jumlah Bayaran (WI/KIR) Wajib Diisi</div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
 
@@ -234,15 +139,14 @@
                         style="border: 1px solid #efefef !important;"
                         #eftDate="ngModel"
                         [ngClass]="{ 'is-invalid': f.submitted && eftDate.invalid }"
-                        required
                       >
                       <div class="input-group-append">
                         <button class="btn btn-light" (click)="d.toggle()" type="button"><i
                           class="fa fa-calendar"></i></button>
                       </div>
-                      <div *ngIf="f.submitted && eftDate.invalid" class="invalid-feedback">
+                      <!-- <div *ngIf="f.submitted && eftDate.invalid" class="invalid-feedback">
                         <div *ngIf="eftDate.errors.required">Tarikh Eft/Pengeluaran Wajib Dipilih</div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                   <ng-template #footerTemplate>
@@ -265,15 +169,14 @@
                         style="border: 1px solid #efefef !important;"
                         #dueReport="ngModel"
                         [ngClass]="{ 'is-invalid': f.submitted && dueReport.invalid }"
-                        required
                       >
                       <div class="input-group-append">
                         <button class="btn btn-light" (click)="e.toggle()" type="button"><i
                           class="fa fa-calendar"></i></button>
                       </div>
-                      <div *ngIf="f.submitted && dueReport.invalid" class="invalid-feedback">
+                      <!-- <div *ngIf="f.submitted && dueReport.invalid" class="invalid-feedback">
                         <div *ngIf="dueReport.errors.required">Tarikh Due Report Wajib Dipilih</div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                   <ng-template #footerTemplate>
@@ -298,6 +201,17 @@
                   </div>
                 </div>
 
+                <div class="row no-gutters justify-content-end">
+                  <button class="btn btn-primary" type="submit">Simpan</button>
+                </div>
+              </form>
+            </ng-template>
+          </li>
+
+          <li [ngbNavItem]="2" [destroyOnHide]="true">
+            <a ngbNavLink>Memo</a>
+            <ng-template ngbNavContent>
+              <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate focusInvalidInput>
                 <h6>Memo Perakuan KP</h6>
                 <div class="row">
                   <div class="col-lg-6 mt-2">
@@ -459,6 +373,17 @@
                   </ng-template>
                 </div>
 
+                <div class="row mt-3 no-gutters justify-content-end">
+                  <button class="btn btn-primary" type="submit">Simpan</button>
+                </div>
+              </form>
+            </ng-template>
+          </li>
+
+          <li [ngbNavItem]="3" [destroyOnHide]="true">
+            <a ngbNavLink>Surat</a>
+            <ng-template ngbNavContent>
+              <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate focusInvalidInput>
                 <h6>Surat Makluman Tarikh Majlis</h6>
                 <div class="row">
                   <div class="col-lg-6 mt-2">
@@ -587,6 +512,10 @@
 
                 <button class="btn btn-primary pull-right" type="submit">Simpan</button>
               </form>
+            </ng-template>
+          </li>
+        </ul>
+        <div class="row no-gutters mt-2" [ngbNavOutlet]="nav"></div>
 				</div>
 			</div>
 		</div>

@@ -1,6 +1,6 @@
 import { OnInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbActiveModal, NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig, NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
@@ -20,6 +20,7 @@ import { TambahKetuaIsiRumahComponent } from '../tambah-ketua-isi-rumah/tambah-k
 import { PilihPembayaranComponent } from '../pilih-pembayaran/pilih-pembayaran.component';
 import * as moment from 'moment';
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { NgForm } from '@angular/forms';
 @Component({
 	selector: 'app-edit-wang-ihsan',
 	templateUrl: './edit-wang-ihsan.component.html',
@@ -29,6 +30,7 @@ import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 export class EditWangIhsanComponent implements OnInit {
 	@ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
+  @ViewChild('f') public f: NgForm;
 
 	primengTableHelper: PrimengTableHelper;
 
@@ -38,6 +40,7 @@ export class EditWangIhsanComponent implements OnInit {
   bwiKir: InputBwiKirDto[] = [];
   kelulusan: GetRujukanKelulusanBwiDto = new GetRujukanKelulusanBwiDto();
 
+  active;
   nama_pembayaran:string;
   idBwi: any;
   filter: string;
@@ -194,6 +197,16 @@ export class EditWangIhsanComponent implements OnInit {
 			() => {}
 		);
 	}
+
+  validate(changeEvent: NgbNavChangeEvent){
+    if(this.f.invalid){
+      for (var i in this.f.controls) {
+        this.f.controls[i].markAllAsTouched();
+        this.f.controls[i].markAsTouched();
+      }
+      changeEvent.preventDefault();
+    }
+  }
 
 	save() {
     this.saving = true;
