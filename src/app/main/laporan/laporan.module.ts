@@ -23,6 +23,10 @@ import { LaporanRumahBaruComponent } from './laporan-rumah-baru/laporan-rumah-ba
 import { LaporanBaikPulihRumahComponent } from './laporan-baik-pulih-rumah/laporan-baik-pulih-rumah.component';
 import { LaporanBwiPenerimaBantuanComponent } from './laporan-bwi-penerima-bantuan/laporan-bwi-penerima-bantuan.component';
 import { LaporanComponent } from './laporan.component';
+import { LaporanBelumTerimaBantuanComponent } from './laporan-belum-terima-bantuan/laporan-belum-terima-bantuan.component';
+import { LaporanPendaftaranMangsaComponent } from './laporan-pendaftaran-mangsa/laporan-pendaftaran-mangsa.component';
+import { LaporanBantuanLainComponent } from './laporan-bantuan-lain/laporan-bantuan-lain.component';
+import { LaporanBantuanAntarabangsaComponent } from './laporan-bantuan-antarabangsa/laporan-bantuan-antarabangsa.component';
 
 @NgModule({
 	imports: [
@@ -51,7 +55,11 @@ import { LaporanComponent } from './laporan.component';
     LaporanRumahBaruComponent,
     LaporanBaikPulihRumahComponent,
     LaporanBwiPenerimaBantuanComponent,
-    LaporanComponent
+    LaporanComponent,
+    LaporanBelumTerimaBantuanComponent,
+    LaporanPendaftaranMangsaComponent,
+    LaporanBantuanLainComponent,
+    LaporanBantuanAntarabangsaComponent
 	]
 })
 export class LaporanModule {}

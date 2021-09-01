@@ -16,6 +16,10 @@ import { LaporanRumahBaruComponent } from './laporan-rumah-baru/laporan-rumah-ba
 import { LaporanBaikPulihRumahComponent } from './laporan-baik-pulih-rumah/laporan-baik-pulih-rumah.component';
 import { LaporanBwiPenerimaBantuanComponent } from './laporan-bwi-penerima-bantuan/laporan-bwi-penerima-bantuan.component';
 import { LaporanComponent } from './laporan.component';
+import { LaporanPendaftaranMangsaComponent } from './laporan-pendaftaran-mangsa/laporan-pendaftaran-mangsa.component';
+import { LaporanBelumTerimaBantuanComponent } from './laporan-belum-terima-bantuan/laporan-belum-terima-bantuan.component';
+import { LaporanBantuanLainComponent } from './laporan-bantuan-lain/laporan-bantuan-lain.component';
+import { LaporanBantuanAntarabangsaComponent } from './laporan-bantuan-antarabangsa/laporan-bantuan-antarabangsa.component';
 
 const routes: Routes = [
 	{
@@ -84,7 +88,26 @@ const routes: Routes = [
       {
 				path: 'bwi/penerima',
 				component: LaporanBwiPenerimaBantuanComponent
-			}
+			},
+			{
+				path: 'pendaftaran-mangsa',
+				component: LaporanPendaftaranMangsaComponent
+			},
+
+			{
+				path: 'belum-terima-bantuan',
+				component: LaporanBelumTerimaBantuanComponent
+			},
+
+			{
+				path: 'bantuan-lain',
+				component: LaporanBantuanLainComponent
+			},
+
+			{
+				path: 'bantuan-antarabangsa',
+				component: LaporanBantuanAntarabangsaComponent
+			},
 		]
 	}
 ];
