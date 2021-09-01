@@ -1,6 +1,6 @@
 <form class="form theme-form" name="form" #f="ngForm" focusInvalidInput (ngSubmit)="f.form.valid && uploadImage()">
   <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-3">
       <form [formGroup]="secondFormGroup">
         <div class="card shadow shadow-showcase" *ngIf="getMangsa.mangsa.gambar">
           <div class="product-box">
@@ -36,9 +36,9 @@
       </form>
     </div>
 
-    <div class="col-lg-6">
+    <div class="col-lg-9">
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
           <div class="form-group">
             <label>Nama*</label>
             <input
@@ -57,10 +57,8 @@
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
           <div class="form-group">
             <label>No. Kad Pengenalan*</label>
             <input
@@ -89,86 +87,86 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="col-lg-6">
-      <div class="form-group">
-        <label>Alamat 1*</label>
-        <input
-          class="form-control"
-          id="alamat1"
-          type="text"
-          name="alamat_1"
-          [(ngModel)]="getMangsa.mangsa.alamat_1"
-          placeholder="Alamat 1"
-          #alamat1="ngModel"
-          [ngClass]="{ 'is-invalid': f.submitted && alamat1.invalid }"
-          required
-        />
-        <div *ngIf="f.submitted && alamat1.invalid" class="invalid-feedback">
-          <div *ngIf="alamat1.errors.required">Alamat 1 Mangsa Wajib Diisi</div>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label>Alamat 1*</label>
+            <input
+              class="form-control"
+              id="alamat1"
+              type="text"
+              name="alamat_1"
+              [(ngModel)]="getMangsa.mangsa.alamat_1"
+              placeholder="Alamat 1"
+              #alamat1="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && alamat1.invalid }"
+              required
+            />
+            <div *ngIf="f.submitted && alamat1.invalid" class="invalid-feedback">
+              <div *ngIf="alamat1.errors.required">Alamat 1 Mangsa Wajib Diisi</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label>Alamat 2</label>
+            <input
+              class="form-control"
+              id="alamat2"
+              type="text"
+              name="alamat_2"
+              [(ngModel)]="getMangsa.mangsa.alamat_2"
+              placeholder="Alamat 2"
+            />
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="col-lg-6">
-      <div class="form-group">
-        <label>Alamat 2</label>
-        <input
-          class="form-control"
-          id="alamat2"
-          type="text"
-          name="alamat_2"
-          [(ngModel)]="getMangsa.mangsa.alamat_2"
-          placeholder="Alamat 2"
-        />
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-lg-6">
-      <div class="form-group">
-        <label>Poskod*</label>
-        <input
-          class="form-control"
-          id="poskodMangsa"
-          type="text"
-          name="poskod"
-          [(ngModel)]="getMangsa.mangsa.poskod"
-          placeholder="Poskod"
-          #postcode="ngModel"
-          [ngClass]="{ 'is-invalid': f.submitted && postcode.invalid }"
-          oninput="this.value=this.value.replace(/\D+/g, '');"
-          minlength="5"
-          maxlength="5"
-          required
-        />
-        <div *ngIf="f.submitted && postcode.invalid" class="invalid-feedback">
-          <div *ngIf="postcode.errors.required">Poskod Wajib Diisi</div>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label>Poskod*</label>
+            <input
+              class="form-control"
+              id="poskodMangsa"
+              type="text"
+              name="poskod"
+              [(ngModel)]="getMangsa.mangsa.poskod"
+              placeholder="Poskod"
+              #postcode="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && postcode.invalid }"
+              oninput="this.value=this.value.replace(/\D+/g, '');"
+              minlength="5"
+              maxlength="5"
+              required
+            />
+            <div *ngIf="f.submitted && postcode.invalid" class="invalid-feedback">
+              <div *ngIf="postcode.errors.required">Poskod Wajib Diisi</div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="col-lg-6">
-      <div class="form-group">
-        <label>Daerah*</label>
-        <ng-select
-          [items]="districts"
-          bindLabel="nama_daerah"
-          placeholder="Sila Pilih"
-          class="js-example-placeholder-multiple"
-          name="namaDaerah"
-          (change)="setNegeri()"
-          [(ngModel)]="setDaerah"
-          #daerah="ngModel"
-          [ngClass]="{ 'is-invalid': f.submitted && daerah.invalid }"
-          required
-        ></ng-select>
-        <div *ngIf="f.submitted && daerah.invalid" class="invalid-feedback">
-          <div *ngIf="daerah.errors.required">Daerah Wajib Dipilih</div>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label>Daerah*</label>
+            <ng-select
+              [items]="districts"
+              bindLabel="nama_daerah"
+              placeholder="Sila Pilih"
+              class="js-example-placeholder-multiple"
+              name="namaDaerah"
+              (change)="setNegeri()"
+              [(ngModel)]="setDaerah"
+              #daerah="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && daerah.invalid }"
+              required
+            ></ng-select>
+            <div *ngIf="f.submitted && daerah.invalid" class="invalid-feedback">
+              <div *ngIf="daerah.errors.required">Daerah Wajib Dipilih</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

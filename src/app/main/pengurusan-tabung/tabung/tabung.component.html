@@ -121,8 +121,8 @@
 						>
 							<ng-template pTemplate="header">
 								<tr>
-									<th style="width: 160px">Tindakan</th>
-									<th style="width: 120px" pSortableColumn="nama_tabung">
+									<th style="width: 150px">Tindakan</th>
+									<th style="width: 130px" pSortableColumn="nama_tabung">
 										Nama
 										<p-sortIcon field="nama_tabung"></p-sortIcon>
 									</th>
@@ -130,11 +130,11 @@
 										Tarikh Baki
 										<p-sortIcon field="tarikh_baki"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="baki_bawaan">
+									<th style="width: 135px" pSortableColumn="baki_bawaan">
 										Baki Bawaan
 										<p-sortIcon field="baki_bawaan"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="tarikh_cipta">
+									<th style="width: 164px" pSortableColumn="tarikh_cipta">
 										Tarikh Kemaskini
 										<p-sortIcon field="tarikh_cipta"></p-sortIcon>
 									</th>
@@ -142,15 +142,15 @@
 										Peruntukan
 										<p-sortIcon field="peruntukan"></p-sortIcon>
 									</th>
-									<th style="width: 120px" pSortableColumn="jumlah_keseluruhan">
-										Jumlah Keseluruhan
+									<th style="width: 135px" pSortableColumn="jumlah_keseluruhan">
+										Keseluruhan
 										<p-sortIcon field="jumlah_keseluruhan"></p-sortIcon>
 									</th>
-                  <th style="width: 120px" pSortableColumn="jumlah_perbelanjaan_semasa">
-										Jumlah Perbelanjaan
+                  <th style="width: 137px" pSortableColumn="jumlah_perbelanjaan_semasa">
+										Perbelanjaan
 										<p-sortIcon field="jumlah_perbelanjaan_semasa"></p-sortIcon>
 									</th>
-									<th style="width: 100px" pSortableColumn="jumlah_baki_semasa">
+									<th style="width: 135px" pSortableColumn="jumlah_baki_semasa">
 										Baki Semasa
 										<p-sortIcon field="jumlah_baki_semasa"></p-sortIcon>
 									</th>
@@ -162,7 +162,7 @@
 							</ng-template>
 							<ng-template pTemplate="body" let-record="$implicit">
 								<tr>
-									<td style="width: 160px">
+									<td style="width: 150px">
 										<div ngbDropdown class="btn-group" role="group" container="body">
 											<button
 												type="button"
@@ -186,7 +186,7 @@
 											</div>
 										</div>
 									</td>
-									<td style="width: 120px">
+									<td style="width: 130px">
 										<span class="p-column-title">Nama</span>
 										{{record.nama_tabung}}
 									</td>
@@ -194,34 +194,34 @@
 										<span class="p-column-title">Tarikh Baki</span>
                     {{record.tarikh_baki | date:'dd-MM-yyyy'}}
 									</td>
-									<td style="width: 130px">
-										<span class="p-column-title">Jumlah Baki Bawaan (RM)</span>
-                    <label *ngIf="record.baki_bawaan">{{record.baki_bawaan}}</label>
-                    <label *ngIf="!record.baki_bawaan">0.00</label>
+									<td style="width: 135px">
+										<span class="p-column-title">Baki Bawaan</span>
+                    <label *ngIf="record.baki_bawaan">RM {{record.baki_bawaan}}</label>
+                    <label *ngIf="!record.baki_bawaan">RM 0.00</label>
 									</td>
-									<td style="width: 130px">
+									<td style="width: 164px">
 										<span class="p-column-title">Tarikh Kemaskini</span>
                     {{record.tarikh_cipta | date:'dd-MM-yyyy'}}
 									</td>
 									<td style="width: 130px">
-										<span class="p-column-title">Jumlah Peruntukan (RM)</span>
-                    <label *ngIf="record.peruntukan">{{record.peruntukan}}</label>
-                    <label *ngIf="!record.peruntukan">0.00</label>
+										<span class="p-column-title">Peruntukan</span>
+                    <label *ngIf="record.peruntukan">RM {{record.peruntukan}}</label>
+                    <label *ngIf="!record.peruntukan">RM 0.00</label>
 									</td>
-									<td style="width: 120px">
-										<span class="p-column-title">Jumlah Keseluruhan (RM)</span>
-                    <label *ngIf="record.jumlah_keseluruhan">{{record.jumlah_keseluruhan}}</label>
-                    <label *ngIf="!record.jumlah_keseluruhan">0.00</label>
+									<td style="width: 135px">
+										<span class="p-column-title">Keseluruhan</span>
+                    <label *ngIf="record.jumlah_keseluruhan">RM {{record.jumlah_keseluruhan}}</label>
+                    <label *ngIf="!record.jumlah_keseluruhan">RM 0.00</label>
 									</td>
-                  <td style="width: 120px">
-										<span class="p-column-title">Perbelanjaan (RM)</span>
-                    <label *ngIf="record.jumlah_perbelanjaan_semasa">{{record.jumlah_perbelanjaan_semasa}}</label>
-                    <label *ngIf="!record.jumlah_perbelanjaan_semasa">0.00</label>
+                  <td style="width: 137px">
+										<span class="p-column-title">Perbelanjaan</span>
+                    <label *ngIf="record.jumlah_perbelanjaan_semasa">RM {{record.jumlah_perbelanjaan_semasa}}</label>
+                    <label *ngIf="!record.jumlah_perbelanjaan_semasa">RM 0.00</label>
 									</td>
-									<td style="width: 100px">
-										<span class="p-column-title">Jumlah Baki Semasa (RM)</span>
-                    <label *ngIf="record.jumlah_baki_semasa">{{record.jumlah_baki_semasa}}</label>
-                    <label *ngIf="!record.jumlah_baki_semasa">0.00</label>
+									<td style="width: 135px">
+										<span class="p-column-title">Baki Semasa</span>
+                    <label *ngIf="record.jumlah_baki_semasa">RM {{record.jumlah_baki_semasa}}</label>
+                    <label *ngIf="!record.jumlah_baki_semasa">RM 0.00</label>
 									</td>
                   <td style="width: 100px">
 										<span class="p-column-title">Status</span>

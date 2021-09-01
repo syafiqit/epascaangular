@@ -142,7 +142,7 @@
                           Tarikh
                           <p-sortIcon field="tarikh_peruntukan"></p-sortIcon>
                         </th>
-                        <th style="width: 130px" pSortableColumn="no_rujukan">
+                        <th style="width: 135px" pSortableColumn="no_rujukan">
                           No. Rujukan
                           <p-sortIcon field="no_rujukan"></p-sortIcon>
                         </th>
@@ -158,11 +158,11 @@
                           Jumlah
                           <p-sortIcon field="jumlah"></p-sortIcon>
                         </th>
-                        <th style="width: 120px" pSortableColumn="catatan">
+                        <th style="width: 130px" pSortableColumn="catatan">
                           Catatan
                           <p-sortIcon field="catatan"></p-sortIcon>
                         </th>
-                        <th style="width: 120px" pSortableColumn="kemaskini">
+                        <th style="width: 170px" pSortableColumn="kemaskini">
                           Dikemaskini Oleh
                           <p-sortIcon field="kemaskini"></p-sortIcon>
                         </th>
@@ -197,7 +197,7 @@
                           <span class="p-column-title">tarikh</span>
                           {{record.tarikh_peruntukan | date:'dd-MM-yyyy'}}
                         </td>
-                        <td style="width: 130px">
+                        <td style="width: 135px">
                           <span class="p-column-title">No. Rujukan</span>
                           {{record.no_rujukan}}
                         </td>
@@ -213,11 +213,11 @@
                           <span class="p-column-title">Jumlah</span>
                           {{record.jumlah}}
                         </td>
-                        <td style="width: 120px">
+                        <td style="width: 130px">
                           <span class="p-column-title">Catatan</span>
                           {{record.catatan}}
                         </td>
-                        <td style="width: 120px">
+                        <td style="width: 170px">
                           <span class="p-column-title">Dikemaskini Oleh</span>
                           Abu
                         </td>
@@ -281,7 +281,7 @@
 													Jumlah
 													<p-sortIcon field="jumlah"></p-sortIcon>
 												</th>
-												<th style="width: 130px" pSortableColumn="dikemaskini_oleh">
+												<th style="width: 170px" pSortableColumn="dikemaskini_oleh">
 													Dikemaskini Oleh
 													<p-sortIcon field="dikemaskini_oleh"></p-sortIcon>
 												</th>
@@ -309,7 +309,7 @@
 													<span class="p-column-title">Jumlah</span>
 													{{records.jumlah}}
 												</td>
-												<td style="width: 130px">
+												<td style="width: 170px">
 													<span class="p-column-title">Dikemaskini Oleh</span>
 													{{records.dikemaskini_oleh}}
 												</td>
@@ -356,7 +356,7 @@
 													Bil
 													<p-sortIcon field="bil"></p-sortIcon>
 												</th>
-                        <th style="width: 130px" pSortableColumn="jenis_bencana">
+                        <th style="width: 144px" pSortableColumn="jenis_bencana">
 													Jenis Bencana
 													<p-sortIcon field="jenis_bencana"></p-sortIcon>
 												</th>
@@ -376,12 +376,12 @@
 													Jumlah KIR
 													<p-sortIcon field="jumlah_kir"></p-sortIcon>
 												</th>
-                        <th style="width: 130px" pSortableColumn="jumlah_keseluruhan">
-													Jumlah Keseluruhan (RM)
+                        <th style="width: 186px" pSortableColumn="jumlah_keseluruhan">
+													Jumlah Keseluruhan
 													<p-sortIcon field="jumlah_keseluruhan"></p-sortIcon>
 												</th>
-                        <th style="width: 130px" pSortableColumn="baki_dipulangkan">
-													Baki Dipulangkan (RM)
+                        <th style="width: 170px" pSortableColumn="baki_dipulangkan">
+													Baki Dipulangkan
 													<p-sortIcon field="baki_dipulangkan"></p-sortIcon>
 												</th>
 											</tr>
@@ -392,7 +392,7 @@
 													<span class="p-column-title">Bil</span>
 													{{records.bil}}
 												</td>
-                        <td style="width: 130px">
+                        <td style="width: 144px">
 													<span class="p-column-title">Jenis Bencana</span>
 													{{records.jenis_bencana}}
 												</td>
@@ -412,13 +412,13 @@
 													<span class="p-column-title">Jumlah KIR</span>
 													{{records.jumlah_kir}}
 												</td>
-                        <td style="width: 130px">
+                        <td style="width: 186px">
 													<span class="p-column-title">Jumlah Keseluruhan</span>
-													{{records.jumlah_keseluruhan}}
+													RM {{records.jumlah_keseluruhan}}
 												</td>
-                        <td style="width: 130px">
-													<span class="p-column-title">Baki Dipulangkan (RM)</span>
-													{{records.baki_dipulangkan}}
+                        <td style="width: 170px">
+													<span class="p-column-title">Baki Dipulangkan</span>
+													RM {{records.baki_dipulangkan}}
 												</td>
 											</tr>
 										</ng-template>
