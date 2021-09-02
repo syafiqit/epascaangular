@@ -1,7 +1,7 @@
 <app-breadcrumb
-	[title]="'Laporan Penerima Bantuan Pertanian'"
-	[items]="['Laporan / Bantuan']"
-	[active_item]="'Pertanian'"
+	[title]="'Laporan Penerima Bantuan Wang Ihsan'"
+	[items]="['Laporan / BWI']"
+	[active_item]="'Penerima Bantuan'"
 ></app-breadcrumb>
 <div class="container-fluid">
 	<div class="row">
@@ -14,7 +14,7 @@
                 <input
                   class="form-control"
                   type="text"
-                  name="searchPertanian"
+                  name="searchPenerimaBWI"
                   placeholder="Carian..."
                   (keyup)="applyFilter($event.target.value)"
                 />
@@ -96,7 +96,7 @@
                         <button
                           class="btn btn-primary pull-right mr-2"
                           type="button"
-                          (click)="getPertanianReport()"
+                          (click)="getPenerimaBwi()"
                         >
                         <i class="fa fa-search mr-2"></i>
                           <b>Cari</b>
@@ -115,7 +115,7 @@
 								#dataTable
 								styleClass="p-datatable-striped"
 								[resizableColumns]="true"
-								(onLazyLoad)="getPertanianReport($event)"
+								(onLazyLoad)="getPenerimaBwi($event)"
 								[value]="primengTableHelper.records"
 								rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
 								[paginator]="false"
@@ -152,49 +152,13 @@
 											Negeri
 											<p-sortIcon field="nama_negeri"></p-sortIcon>
 										</th>
-										<th style="width: 166px" pSortableColumn="nama_agensi">
-											Pemberi Bantuan
-											<p-sortIcon field="nama_agensi"></p-sortIcon>
+										<th style="width: 150px" pSortableColumn="tarikh_serahan">
+											Tarikh Serahan
+											<p-sortIcon field="tarikh_serahan"></p-sortIcon>
 										</th>
-										<th style="width: 153px" pSortableColumn="nama_jenis_pertanian">
-											Jenis Pertanian
-											<p-sortIcon field="nama_jenis_pertanian"></p-sortIcon>
-										</th>
-										<th style="width: 140px" pSortableColumn="luas">
-											Luas Sebenar
-											<p-sortIcon field="luas"></p-sortIcon>
-										</th>
-										<th style="width: 140px" pSortableColumn="luas_musnah">
-											Luas Musnah
-											<p-sortIcon field="luas_musnah"></p-sortIcon>
-										</th>
-										<th style="width: 110px" pSortableColumn="bilangan">
-											Bil. Asal
-											<p-sortIcon field="bilangan"></p-sortIcon>
-										</th>
-										<th style="width: 152px" pSortableColumn="bilangan_rosak">
-											Bil. Rosak/Mati
-											<p-sortIcon field="bilangan_rosak"></p-sortIcon>
-										</th>
-										<th style="width: 190px" pSortableColumn="anggaran_nilai_rosak">
-											Anggaran Kerosakan
-											<p-sortIcon field="anggaran_nilai_rosak"></p-sortIcon>
-										</th>
-										<th style="width: 177px" pSortableColumn="anggaran_nilai_bantuan">
-											Anggaran Bantuan
-											<p-sortIcon field="anggaran_nilai_bantuan"></p-sortIcon>
-										</th>
-										<th style="width: 151px" pSortableColumn="tarikh_bantuan">
-											Tarikh Bantuan
-											<p-sortIcon field="tarikh_bantuan"></p-sortIcon>
-										</th>
-										<th style="width: 158px" pSortableColumn="kos_bantuan">
-											Jumlah Bantuan
-											<p-sortIcon field="kos_bantuan"></p-sortIcon>
-										</th>
-										<th style="width: 130px" pSortableColumn="catatan">
-											Catatan
-											<p-sortIcon field="catatan"></p-sortIcon>
+										<th style="width: 130px" pSortableColumn="jumlah">
+											Jumlah
+											<p-sortIcon field="jumlah"></p-sortIcon>
 										</th>
 									</tr>
 								</ng-template>
@@ -225,58 +189,14 @@
 											<span class="p-column-title">Negeri</span>
 											{{record.nama_negeri}}
 										</td>
-										<td style="width: 166px">
-											<span class="p-column-title">Pemberi Bantuan</span>
-											{{record.nama_agensi}}
-										</td>
-										<td style="width: 153px">
-											<span class="p-column-title">Jenis Pertanian</span>
-											{{record.nama_jenis_pertanian}}
-										</td>
-										<td style="width: 140px">
-											<span class="p-column-title">Luas Sebenar</span>
-                      <label *ngIf="record.luas">{{record.luas}} Hektar</label>
-                      <label *ngIf="!record.luas">0 Hektar</label>
-										</td>
-										<td style="width: 140px">
-											<span class="p-column-title">Luas Musnah</span>
-                      <label *ngIf="record.luas_musnah">{{record.luas_musnah}} Hektar</label>
-                      <label *ngIf="!record.luas_musnah">0 Hektar</label>
-										</td>
-										<td style="width: 110px">
-											<span class="p-column-title">Bil. Asal</span>
-                      <label *ngIf="record.bilangan">{{record.bilangan}}</label>
-                      <label *ngIf="!record.bilangan">-</label>
-										</td>
-										<td style="width: 152px">
-											<span class="p-column-title">Bil. Rosak/Mati</span>
-                      <label *ngIf="record.bilangan_rosak">{{record.bilangan_rosak}}</label>
-                      <label *ngIf="!record.bilangan_rosak">-</label>
-										</td>
-										<td style="width: 190px">
-											<span class="p-column-title">Anggaran Kerosakan</span>
-                      <label *ngIf="record.anggaran_nilai_rosak">RM {{record.anggaran_nilai_rosak}}</label>
-                      <label *ngIf="!record.anggaran_nilai_rosak">RM 0.00</label>
-										</td>
-										<td style="width: 177px">
-											<span class="p-column-title">Anggaran Bantuan</span>
-                      <label *ngIf="record.anggaran_nilai_bantuan">RM {{record.anggaran_nilai_bantuan}}</label>
-                      <label *ngIf="!record.anggaran_nilai_bantuan">RM 0.00</label>
-										</td>
-										<td style="width: 151px">
-											<span class="p-column-title">Tarikh Bantuan</span>
-                      <label *ngIf="record.tarikh_bantuan">{{record.tarikh_bantuan | date:'dd-MM-yyyy'}}</label>
-                      <label *ngIf="!record.tarikh_bantuan">-</label>
-										</td>
-										<td style="width: 158px">
-											<span class="p-column-title">Jumlah Bantuan</span>
-                      <label *ngIf="record.kos_bantuan">RM {{record.kos_bantuan}}</label>
-                      <label *ngIf="!record.kos_bantuan">RM 0.00</label>
+										<td style="width: 150px">
+											<span class="p-column-title">Tarikh Serahan</span>
+											{{record.tarikh_serahan | date:'dd-MM-yyyy'}}
 										</td>
 										<td style="width: 130px">
-											<span class="p-column-title">Catatan</span>
-                      <label *ngIf="record.catatan">{{record.catatan}}</label>
-                      <label *ngIf="!record.catatan">-</label>
+											<span class="p-column-title">Jumlah</span>
+                      <label *ngIf="record.jumlah">RM {{record.jumlah}}</label>
+                      <label *ngIf="!record.jumlah">RM 0.00</label>
 										</td>
 									</tr>
 								</ng-template>
@@ -286,7 +206,7 @@
 								<p-paginator
 									[rows]="primengTableHelper.defaultRecordsCountPerPage"
 									#paginator
-									(onPageChange)="getPertanianReport($event)"
+									(onPageChange)="getPenerimaBwi($event)"
 									[totalRecords]="primengTableHelper.totalRecordsCount"
 									[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
 								></p-paginator>

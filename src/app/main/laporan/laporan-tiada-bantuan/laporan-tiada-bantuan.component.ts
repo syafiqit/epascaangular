@@ -13,17 +13,18 @@ import {
 } from 'src/app/shared/proxy/service-proxies';
 
 @Component({
-	selector: 'app-laporan-pinjaman',
-	templateUrl: './laporan-pinjaman.component.html',
+  selector: 'app-laporan-tiada-bantuan',
+  templateUrl: './laporan-tiada-bantuan.component.html',
 	encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig]
 })
-export class LaporanPinjamanComponent implements OnInit {
-	@ViewChild('dataTable', { static: true }) dataTable: Table;
-	@ViewChild('paginator', { static: true }) paginator: Paginator;
+export class LaporanTiadaBantuanComponent implements OnInit {
 
-	primengTableHelper: PrimengTableHelper;
-	public isCollapsed = false;
+  @ViewChild('dataTable', { static: true }) dataTable: Table;
+  @ViewChild('paginator', { static: true }) paginator: Paginator;
+
+  primengTableHelper: PrimengTableHelper;
+  public isCollapsed = false;
   terms$ = new Subject<string>();
 
   states: any;
@@ -51,7 +52,7 @@ export class LaporanPinjamanComponent implements OnInit {
       debounceTime(500), distinctUntilChanged()
     ).subscribe((filterValue: string) =>{
       this.filter = filterValue;
-      this.getPinjamanReport();
+      this.getBelumTerimaBantuan();
     });
   }
 
@@ -59,7 +60,7 @@ export class LaporanPinjamanComponent implements OnInit {
     this.terms$.next(filterValue);
   }
 
-	getPinjamanReport(event?: LazyLoadEvent) {
+	getBelumTerimaBantuan(event?: LazyLoadEvent) {
     if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
@@ -67,7 +68,7 @@ export class LaporanPinjamanComponent implements OnInit {
 
 		this.primengTableHelper.showLoadingIndicator();
 		this._laporanServiceProxy
-			.getAllMangsaBantuanPinjaman(
+			.getAllMangsaBelumTerimaBantuan(
 				this.filter,
         this.filterNegeri ?? undefined,
         this.filterDaerah ?? undefined,
@@ -105,7 +106,8 @@ export class LaporanPinjamanComponent implements OnInit {
     this.filterNegeri = undefined;
     this.filterDaerah = undefined;
 
-    this.getPinjamanReport();
+    this.getBelumTerimaBantuan();
     this.getDaerah();
   }
+
 }

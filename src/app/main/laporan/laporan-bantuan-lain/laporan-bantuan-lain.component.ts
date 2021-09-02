@@ -3,17 +3,20 @@ import { NgbDateStruct, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import {
-  RefBencanaServiceProxy,
+  LaporanServiceProxy,
   RefDaerahServiceProxy,
-  RefJenisBencanaServiceProxy,
   RefNegeriServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 
 @Component({
   selector: 'app-laporan-bantuan-lain',
-  templateUrl: './laporan-bantuan-lain.component.html'
+  templateUrl: './laporan-bantuan-lain.component.html',
+	encapsulation: ViewEncapsulation.None,
+	providers: [NgbModalConfig]
 })
 export class LaporanBantuanLainComponent implements OnInit {
 
@@ -22,36 +25,19 @@ export class LaporanBantuanLainComponent implements OnInit {
 
   primengTableHelper: PrimengTableHelper;
   public isCollapsed = false;
-  categories: any;
-  disasters: any;
+  terms$ = new Subject<string>();
+
   states: any;
   districts: any;
-  filterIdNegeri: number;
-
-  date = new Date();
-  modelMula: NgbDateStruct;
-  modelTamat: NgbDateStruct;
-  readonly DELIMITER = '-';
-
-	rows = [
-		{
-      no_kp: '910906043073', nama_kir: 'Wahadi Bin Mohamed', alamat: 'Residensi Mawar',
-      daerah: 'SEPANG', negeri: 'SELANGOR', nama_bantuan: '', pemberi_bantuan: '', 
-      sumber_dana: '', tarikh_bantuan: '', kos_bantuan: '', catatan: ''
-		},
-		{
-      no_kp: '890901077075', nama_kir: 'Burhanuddin Bin Borhan', alamat: 'Taman Permata, Jalan Pegawai',
-      daerah: 'KOTA SETAR', negeri: 'KEDAH', nama_bantuan: '', pemberi_bantuan: '', 
-      sumber_dana: '', tarikh_bantuan: '', kos_bantuan: '', catatan: ''
-		}
-	];
+  filter: string;
+  filterNegeri: number;
+  filterDaerah: number;
 
 	constructor(
     config: NgbModalConfig,
-    private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy,
-    private _refBencanaServiceProxy: RefBencanaServiceProxy,
     private _refDaerahServiceProxy: RefDaerahServiceProxy,
-    private _refNegeriServiceProxy: RefNegeriServiceProxy
+    private _refNegeriServiceProxy: RefNegeriServiceProxy,
+    private _laporanServiceProxy: LaporanServiceProxy
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
@@ -59,43 +45,49 @@ export class LaporanBantuanLainComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-    this.getJenisBencana();
-    this.getBencana();
     this.getDaerah();
     this.getNegeri();
+
+    this.terms$.pipe(
+      debounceTime(500), distinctUntilChanged()
+    ).subscribe((filterValue: string) =>{
+      this.filter = filterValue;
+      this.getBantuanLain();
+    });
   }
 
-  toModel(date: NgbDateStruct | null): string | null {
-    return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
+  applyFilter(filterValue: string){
+    this.terms$.next(filterValue);
   }
 
 	getBantuanLain(event?: LazyLoadEvent) {
-		if (this.primengTableHelper.shouldResetPaging(event)) {
+    if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
 		}
 
 		this.primengTableHelper.showLoadingIndicator();
-		this.primengTableHelper.totalRecordsCount = this.rows.length;
-		this.primengTableHelper.records = this.rows;
-		this.primengTableHelper.hideLoadingIndicator();
-	}
-
-  getJenisBencana(filter?) {
-		this._refJenisBencanaServiceProxy.getRefJenisBencanaForDropdown(filter).subscribe((result) => {
-			this.categories = result.items;
-		});
-	}
-
-  getBencana(filter?) {
-		this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
-			this.disasters = result.items;
-		});
+		this._laporanServiceProxy
+			.getAllMangsaBantuanLain(
+				this.filter,
+        this.filterNegeri ?? undefined,
+        this.filterDaerah ?? undefined,
+				this.primengTableHelper.getSorting(this.dataTable),
+				this.primengTableHelper.getSkipCount(this.paginator, event),
+				this.primengTableHelper.getMaxResultCount(this.paginator, event)
+			)
+      .pipe(finalize(()=> {
+        this.primengTableHelper.hideLoadingIndicator();
+      }))
+			.subscribe((result) => {
+				this.primengTableHelper.totalRecordsCount = result.total_count;
+				this.primengTableHelper.records = result.items;
+			});
 	}
 
   getDaerah(filter?) {
-		this._refDaerahServiceProxy.getRefDaerahForDropdown(filter, this.filterIdNegeri).subscribe((result) => {
-			this.categories = result.items;
+		this._refDaerahServiceProxy.getRefDaerahForDropdown(filter, this.filterNegeri ?? undefined).subscribe((result) => {
+			this.districts = result.items;
 		});
 	}
 
@@ -108,4 +100,13 @@ export class LaporanBantuanLainComponent implements OnInit {
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
 	}
+
+  resetFilter() {
+    this.filter = undefined;
+    this.filterNegeri = undefined;
+    this.filterDaerah = undefined;
+
+    this.getBantuanLain();
+    this.getDaerah();
+  }
 }
