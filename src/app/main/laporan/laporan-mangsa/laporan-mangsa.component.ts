@@ -8,34 +8,35 @@ import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import {
   LaporanServiceProxy,
-  RefDaerahServiceProxy,
-  RefNegeriServiceProxy
+  RefAgensiServiceProxy,
+  RefKementerianServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 
 @Component({
-	selector: 'app-laporan-pinjaman',
-	templateUrl: './laporan-pinjaman.component.html',
+  selector: 'app-laporan-mangsa',
+  templateUrl: './laporan-mangsa.component.html',
 	encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig]
 })
-export class LaporanPinjamanComponent implements OnInit {
-	@ViewChild('dataTable', { static: true }) dataTable: Table;
-	@ViewChild('paginator', { static: true }) paginator: Paginator;
+export class LaporanMangsaComponent implements OnInit {
 
-	primengTableHelper: PrimengTableHelper;
-	public isCollapsed = false;
+  @ViewChild('dataTable', { static: true }) dataTable: Table;
+  @ViewChild('paginator', { static: true }) paginator: Paginator;
+
+  primengTableHelper: PrimengTableHelper;
+  public isCollapsed = false;
   terms$ = new Subject<string>();
 
-  states: any;
-  districts: any;
+  agencies: any;
+  ministries: any;
   filter: string;
-  filterNegeri: number;
-  filterDaerah: number;
+  filterAgensi: number;
+  filterKementerian: number;
 
 	constructor(
     config: NgbModalConfig,
-    private _refDaerahServiceProxy: RefDaerahServiceProxy,
-    private _refNegeriServiceProxy: RefNegeriServiceProxy,
+    private _refKementerianServiceProxy: RefKementerianServiceProxy,
+    private _refAgensiServiceProxy: RefAgensiServiceProxy,
     private _laporanServiceProxy: LaporanServiceProxy
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
@@ -44,14 +45,14 @@ export class LaporanPinjamanComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-    this.getDaerah();
-    this.getNegeri();
+    this.getKementerian();
+    this.getAgensi();
 
     this.terms$.pipe(
       debounceTime(500), distinctUntilChanged()
     ).subscribe((filterValue: string) =>{
       this.filter = filterValue;
-      this.getPinjamanReport();
+      this.getMangsaDaftar();
     });
   }
 
@@ -59,7 +60,7 @@ export class LaporanPinjamanComponent implements OnInit {
     this.terms$.next(filterValue);
   }
 
-	getPinjamanReport(event?: LazyLoadEvent) {
+	getMangsaDaftar(event?: LazyLoadEvent) {
     if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
@@ -67,10 +68,10 @@ export class LaporanPinjamanComponent implements OnInit {
 
 		this.primengTableHelper.showLoadingIndicator();
 		this._laporanServiceProxy
-			.getAllMangsaBantuanPinjaman(
+			.getAllMangsa(
 				this.filter,
-        this.filterNegeri ?? undefined,
-        this.filterDaerah ?? undefined,
+        this.filterAgensi ?? undefined,
+        this.filterKementerian ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -84,15 +85,15 @@ export class LaporanPinjamanComponent implements OnInit {
 			});
 	}
 
-  getDaerah(filter?) {
-		this._refDaerahServiceProxy.getRefDaerahForDropdown(filter, this.filterNegeri ?? undefined).subscribe((result) => {
-			this.districts = result.items;
+  getKementerian(filter?) {
+		this._refKementerianServiceProxy.getRefKementerianForDropdown(filter).subscribe((result) => {
+			this.ministries = result.items;
 		});
 	}
 
-  getNegeri(filter?) {
-		this._refNegeriServiceProxy.getRefNegeriForDropdown(filter).subscribe((result) => {
-			this.states = result.items;
+  getAgensi(filter?) {
+		this._refAgensiServiceProxy.getRefAgensiForDropdown(filter).subscribe((result) => {
+			this.agencies = result.items;
 		});
 	}
 
@@ -102,10 +103,10 @@ export class LaporanPinjamanComponent implements OnInit {
 
   resetFilter() {
     this.filter = undefined;
-    this.filterNegeri = undefined;
-    this.filterDaerah = undefined;
+    this.filterAgensi = undefined;
+    this.filterKementerian = undefined;
 
-    this.getPinjamanReport();
-    this.getDaerah();
+    this.getMangsaDaftar();
   }
+
 }

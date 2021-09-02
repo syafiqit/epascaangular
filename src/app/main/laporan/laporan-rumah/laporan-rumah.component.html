@@ -1,7 +1,14 @@
 <app-breadcrumb
+  *ngIf="filterBantuan == 2"
+	[title]="'Laporan Penerima Bantuan Bina Rumah Baru'"
+	[items]="['Laporan / Bantuan Rumah']"
+	[active_item]="'Bina Baru'"
+></app-breadcrumb>
+<app-breadcrumb
+  *ngIf="filterBantuan == 3"
 	[title]="'Laporan Penerima Bantuan Baik Pulih Rumah'"
-	[items]="['Laporan']"
-	[active_item]="'Baik Pulih Rumah'"
+	[items]="['Laporan / Bantuan Rumah']"
+	[active_item]="'Baik Pulih'"
 ></app-breadcrumb>
 <div class="container-fluid">
 	<div class="row">
@@ -14,8 +21,9 @@
                 <input
                   class="form-control"
                   type="text"
-                  name="searchPertanian"
+                  name="searchRumah"
                   placeholder="Carian..."
+                  (keyup)="applyFilter($event.target.value)"
                 />
                 <i class="search-icon" data-feather="search"></i>
               </div>
@@ -52,34 +60,6 @@
                       <div class="row mt-2">
                         <div class="col-lg-4">
                           <div class="form-group">
-                            <label>Kategori Bencana</label>
-                            <ng-select
-                              [items]="categories"
-                              bindLabel="nama_jenis_bencana"
-                              bindValue="id"
-                              placeholder="Sila Pilih"
-                              class="js-example-placeholder-multiple"
-                              name="namaJenisBencana"
-                            ></ng-select>
-                          </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                          <div class="form-group">
-                            <label>Bencana</label>
-                            <ng-select
-                              [items]="disasters"
-                              bindLabel="nama_bencana"
-                              bindValue="id"
-                              placeholder="Sila Pilih"
-                              class="js-example-placeholder-multiple"
-                              name="namaBencana"
-                            ></ng-select>
-                          </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                          <div class="form-group">
                             <label>Negeri</label>
                             <ng-select
                               [items]="states"
@@ -88,12 +68,12 @@
                               placeholder="Sila Pilih"
                               class="js-example-placeholder-multiple"
                               name="namaNegeri"
+                              [(ngModel)]="filterNegeri"
+                              (ngModelChange)="getDaerah()"
                             ></ng-select>
                           </div>
                         </div>
-                      </div>
 
-                      <div class="row">
                         <div class="col-lg-4">
                           <div class="form-group">
                             <label>Daerah</label>
@@ -104,48 +84,8 @@
                               placeholder="Sila Pilih"
                               class="js-example-placeholder-multiple"
                               name="namaDaerah"
+                              [(ngModel)]="filterDaerah"
                             ></ng-select>
-                          </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                          <div class="form-group custom-datepicker custom-datepicker-dropdown">
-                            <label>Tarikh Bencana</label>
-                            <div class="input-group">
-                              <input
-                                class="form-control"
-                                placeholder="yyyy-mm-dd"
-                                name="dp1"
-                                [(ngModel)]="modelMula"
-                                ngbDatepicker
-                                #d="ngbDatepicker"
-                                style="border: 1px solid #efefef !important;"
-                              >
-                              <div class="input-group-append">
-                                <button class="btn btn-light" (click)="d.toggle()" type="button"><i
-                                  class="fa fa-calendar"></i></button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                          <div class="form-group custom-datepicker custom-datepicker-dropdown">
-                            <div class="input-group pt-4 mt-1">
-                              <input
-                                class="form-control"
-                                placeholder="yyyy-mm-dd"
-                                name="dp2"
-                                [(ngModel)]="modelTamat"
-                                ngbDatepicker
-                                #a="ngbDatepicker"
-                                style="border: 1px solid #efefef !important;"
-                              >
-                              <div class="input-group-append">
-                                <button class="btn btn-light" (click)="a.toggle()" type="button"><i
-                                  class="fa fa-calendar"></i></button>
-                              </div>
-                            </div>
                           </div>
                         </div>
                       </div>
@@ -153,7 +93,8 @@
                       <div class="row justify-content-end mb-3 pr-2">
                         <button
                           class="btn btn-light mr-2"
-                          type="button"
+                          type="reset"
+                          (click)="resetFilter()"
                         >
                         <i class="fa fa-refresh mr-2"></i>
                           <b>Reset</b>
@@ -162,6 +103,7 @@
                         <button
                           class="btn btn-primary pull-right mr-2"
                           type="button"
+                          (click)="getRumahReport()"
                         >
                         <i class="fa fa-search mr-2"></i>
                           <b>Cari</b>
@@ -180,7 +122,7 @@
 								#dataTable
 								styleClass="p-datatable-striped"
 								[resizableColumns]="true"
-								(onLazyLoad)="getBaikPulihRumah($event)"
+								(onLazyLoad)="getRumahReport($event)"
 								[value]="primengTableHelper.records"
 								rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
 								[paginator]="false"
@@ -193,11 +135,11 @@
 							>
 								<ng-template pTemplate="header">
 									<tr>
-										<th style="width: 130px" pSortableColumn="nama">
-											Nama
+										<th style="width: 184px" pSortableColumn="nama">
+											Nama Mangsa (KIR)
 											<p-sortIcon field="nama"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="no_kp">
+										<th style="width: 159px" pSortableColumn="no_kp">
 											Kad Pengenalan
 											<p-sortIcon field="no_kp"></p-sortIcon>
 										</th>
@@ -217,17 +159,17 @@
 											Negeri
 											<p-sortIcon field="nama_negeri"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="pemilik">
+										<th style="width: 130px" pSortableColumn="nama_pemilik">
 											Pemilik
-											<p-sortIcon field="pemilik"></p-sortIcon>
+											<p-sortIcon field="nama_pemilik"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="sumber_dana">
+										<th style="width: 141px" pSortableColumn="nama_sumber_dana">
 											Sumber Dana
-											<p-sortIcon field="sumber_dana"></p-sortIcon>
+											<p-sortIcon field="nama_sumber_dana"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="pelaksana">
+										<th style="width: 130px" pSortableColumn="nama_pelaksana">
 											Pelaksana
-											<p-sortIcon field="pelaksana"></p-sortIcon>
+											<p-sortIcon field="nama_pelaksana"></p-sortIcon>
 										</th>
 										<th style="width: 130px" pSortableColumn="tarikh_mula">
 											Tarikh Mula
@@ -237,19 +179,19 @@
 											Tarikh Siap
 											<p-sortIcon field="tarikh_siap"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="peratusan_kemajuan">
-											Peratusan Kemajuan (%)
-											<p-sortIcon field="peratusan_kemajuan"></p-sortIcon>
+										<th style="width: 189px" pSortableColumn="peratus_kemajuan">
+											Peratusan Kemajuan
+											<p-sortIcon field="peratus_kemajuan"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="status_kemajuan">
+										<th style="width: 163px" pSortableColumn="status_kemajuan">
 											Status Kemajuan
 											<p-sortIcon field="status_kemajuan"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="kos_anggaran">
+										<th style="width: 145px" pSortableColumn="kos_anggaran">
 											Kos Anggaran
 											<p-sortIcon field="kos_anggaran"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="kos_sebenar">
+										<th style="width: 133px" pSortableColumn="kos_sebenar">
 											Kos Sebenar
 											<p-sortIcon field="kos_sebenar"></p-sortIcon>
 										</th>
@@ -257,11 +199,11 @@
 								</ng-template>
 								<ng-template pTemplate="body" let-record="$implicit">
 									<tr>
-										<td style="width: 130px">
-											<span class="p-column-title">Nama</span>
+										<td style="width: 184px">
+											<span class="p-column-title">Nama Mangsa (KIR)</span>
 											{{record.nama}}
 										</td>
-										<td style="width: 130px">
+										<td style="width: 159px">
 											<span class="p-column-title">Kad Pengenalan</span>
 											{{record.no_kp}}
 										</td>
@@ -271,7 +213,8 @@
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Alamat 2</span>
-											{{record.alamat_2}}
+                      <label *ngIf="record.alamat_2">{{record.alamat_2}}</label>
+                      <label *ngIf="!record.alamat_2">-</label>
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Daerah</span>
@@ -283,39 +226,42 @@
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Pemilik</span>
-											{{record.pemilik}}
+											{{record.nama_pemilik}}
 										</td>
-										<td style="width: 130px">
+										<td style="width: 141px">
 											<span class="p-column-title">Sumber Dana</span>
-											{{record.sumber_dana}}
+											{{record.nama_sumber_dana}}
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Pelaksana</span>
-											{{record.pelaksana}}
+											{{record.nama_pelaksana}}
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Tarikh Mula</span>
-											{{record.tarikh_mula}}
+											{{record.tarikh_mula | date:'dd-MM-yyyy'}}
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Tarikh Siap</span>
-											{{record.tarikh_siap}}
+											{{record.tarikh_siap | date:'dd-MM-yyyy'}}
 										</td>
-										<td style="width: 130px">
-											<span class="p-column-title">Peratusan Kemajuan (%)</span>
-											{{record.peratusan_kemajuan}}
+										<td style="width: 189px">
+											<span class="p-column-title">Peratusan Kemajuan</span>
+                      <label *ngIf="record.peratus_kemajuan">{{record.peratus_kemajuan}} %</label>
+                      <label *ngIf="!record.peratus_kemajuan">0 %</label>
 										</td>
-										<td style="width: 130px">
+										<td style="width: 163px">
 											<span class="p-column-title">Status Kemajuan</span>
 											{{record.status_kemajuan}}
 										</td>
-										<td style="width: 130px">
+										<td style="width: 145px">
 											<span class="p-column-title">Kos Anggaran</span>
-											RM {{record.kos_anggaran}}
+                      <label *ngIf="record.kos_anggaran">RM {{record.kos_anggaran}}</label>
+                      <label *ngIf="!record.kos_anggaran">RM 0.00</label>
 										</td>
-										<td style="width: 130px">
+										<td style="width: 133px">
 											<span class="p-column-title">Kos Sebenar</span>
-											RM {{record.kos_sebenar}}
+                      <label *ngIf="record.kos_sebenar">RM {{record.kos_sebenar}}</label>
+                      <label *ngIf="!record.kos_sebenar">RM 0.00</label>
 										</td>
 									</tr>
 								</ng-template>
@@ -325,7 +271,7 @@
 								<p-paginator
 									[rows]="primengTableHelper.defaultRecordsCountPerPage"
 									#paginator
-									(onPageChange)="getBaikPulihRumah($event)"
+									(onPageChange)="getRumahReport($event)"
 									[totalRecords]="primengTableHelper.totalRecordsCount"
 									[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
 								></p-paginator>

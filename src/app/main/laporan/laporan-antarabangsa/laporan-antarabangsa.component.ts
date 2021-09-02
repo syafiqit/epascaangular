@@ -1,5 +1,5 @@
 import { OnInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
@@ -8,22 +8,23 @@ import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import {
   LaporanServiceProxy,
+  RefBencanaServiceProxy,
   RefDaerahServiceProxy,
+  RefJenisBencanaServiceProxy,
   RefNegeriServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 
 @Component({
-	selector: 'app-laporan-pinjaman',
-	templateUrl: './laporan-pinjaman.component.html',
-	encapsulation: ViewEncapsulation.None,
-	providers: [NgbModalConfig]
+  selector: 'app-laporan-antarabangsa',
+  templateUrl: './laporan-antarabangsa.component.html'
 })
-export class LaporanPinjamanComponent implements OnInit {
-	@ViewChild('dataTable', { static: true }) dataTable: Table;
-	@ViewChild('paginator', { static: true }) paginator: Paginator;
+export class LaporanAntarabangsaComponent implements OnInit {
 
-	primengTableHelper: PrimengTableHelper;
-	public isCollapsed = false;
+  @ViewChild('dataTable', { static: true }) dataTable: Table;
+  @ViewChild('paginator', { static: true }) paginator: Paginator;
+
+  primengTableHelper: PrimengTableHelper;
+  public isCollapsed = false;
   terms$ = new Subject<string>();
 
   states: any;
@@ -51,7 +52,7 @@ export class LaporanPinjamanComponent implements OnInit {
       debounceTime(500), distinctUntilChanged()
     ).subscribe((filterValue: string) =>{
       this.filter = filterValue;
-      this.getPinjamanReport();
+      this.getBantuanAntarabangsa();
     });
   }
 
@@ -59,7 +60,7 @@ export class LaporanPinjamanComponent implements OnInit {
     this.terms$.next(filterValue);
   }
 
-	getPinjamanReport(event?: LazyLoadEvent) {
+	getBantuanAntarabangsa(event?: LazyLoadEvent) {
     if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
@@ -67,7 +68,7 @@ export class LaporanPinjamanComponent implements OnInit {
 
 		this.primengTableHelper.showLoadingIndicator();
 		this._laporanServiceProxy
-			.getAllMangsaBantuanPinjaman(
+			.getAllMangsaBantuanAntarabangsa(
 				this.filter,
         this.filterNegeri ?? undefined,
         this.filterDaerah ?? undefined,
@@ -105,7 +106,8 @@ export class LaporanPinjamanComponent implements OnInit {
     this.filterNegeri = undefined;
     this.filterDaerah = undefined;
 
-    this.getPinjamanReport();
+    this.getBantuanAntarabangsa();
     this.getDaerah();
   }
+
 }

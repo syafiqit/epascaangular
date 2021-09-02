@@ -1,7 +1,7 @@
 <app-breadcrumb
 	[title]="'Laporan Penerima Bantuan Pinjaman Khas'"
-	[items]="['Laporan']"
-	[active_item]="'Pinjaman Khas'"
+	[items]="['Laporan / Bantuan']"
+	[active_item]="'Pinjaman'"
 ></app-breadcrumb>
 <div class="container-fluid">
 	<div class="row">
@@ -16,6 +16,7 @@
                   type="text"
                   name="searchPinjaman"
                   placeholder="Carian..."
+                  (keyup)="applyFilter($event.target.value)"
                 />
                 <i class="search-icon" data-feather="search"></i>
               </div>
@@ -52,34 +53,6 @@
                       <div class="row mt-2">
                         <div class="col-lg-4">
                           <div class="form-group">
-                            <label>Kategori Bencana</label>
-                            <ng-select
-                              [items]="categories"
-                              bindLabel="nama_jenis_bencana"
-                              bindValue="id"
-                              placeholder="Sila Pilih"
-                              class="js-example-placeholder-multiple"
-                              name="namaJenisBencana"
-                            ></ng-select>
-                          </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                          <div class="form-group">
-                            <label>Bencana</label>
-                            <ng-select
-                              [items]="disasters"
-                              bindLabel="nama_bencana"
-                              bindValue="id"
-                              placeholder="Sila Pilih"
-                              class="js-example-placeholder-multiple"
-                              name="namaBencana"
-                            ></ng-select>
-                          </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                          <div class="form-group">
                             <label>Negeri</label>
                             <ng-select
                               [items]="states"
@@ -88,12 +61,12 @@
                               placeholder="Sila Pilih"
                               class="js-example-placeholder-multiple"
                               name="namaNegeri"
+                              [(ngModel)]="filterNegeri"
+                              (ngModelChange)="getDaerah()"
                             ></ng-select>
                           </div>
                         </div>
-                      </div>
 
-                      <div class="row">
                         <div class="col-lg-4">
                           <div class="form-group">
                             <label>Daerah</label>
@@ -104,48 +77,8 @@
                               placeholder="Sila Pilih"
                               class="js-example-placeholder-multiple"
                               name="namaDaerah"
+                              [(ngModel)]="filterDaerah"
                             ></ng-select>
-                          </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                          <div class="form-group custom-datepicker custom-datepicker-dropdown">
-                            <label>Tarikh Bencana</label>
-                            <div class="input-group">
-                              <input
-                                class="form-control"
-                                placeholder="yyyy-mm-dd"
-                                name="dp1"
-                                [(ngModel)]="modelMula"
-                                ngbDatepicker
-                                #d="ngbDatepicker"
-                                style="border: 1px solid #efefef !important;"
-                              >
-                              <div class="input-group-append">
-                                <button class="btn btn-light" (click)="d.toggle()" type="button"><i
-                                  class="fa fa-calendar"></i></button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                          <div class="form-group custom-datepicker custom-datepicker-dropdown">
-                            <div class="input-group pt-4 mt-1">
-                              <input
-                                class="form-control"
-                                placeholder="yyyy-mm-dd"
-                                name="dp2"
-                                [(ngModel)]="modelTamat"
-                                ngbDatepicker
-                                #a="ngbDatepicker"
-                                style="border: 1px solid #efefef !important;"
-                              >
-                              <div class="input-group-append">
-                                <button class="btn btn-light" (click)="a.toggle()" type="button"><i
-                                  class="fa fa-calendar"></i></button>
-                              </div>
-                            </div>
                           </div>
                         </div>
                       </div>
@@ -153,7 +86,8 @@
                       <div class="row justify-content-end mb-3 pr-2">
                         <button
                           class="btn btn-light mr-2"
-                          type="button"
+                          type="reset"
+                          (click)="resetFilter()"
                         >
                         <i class="fa fa-refresh mr-2"></i>
                           <b>Reset</b>
@@ -162,6 +96,7 @@
                         <button
                           class="btn btn-primary pull-right mr-2"
                           type="button"
+                          (click)="getPinjamanReport()"
                         >
                         <i class="fa fa-search mr-2"></i>
                           <b>Cari</b>
@@ -193,11 +128,11 @@
 							>
 								<ng-template pTemplate="header">
 									<tr>
-										<th style="width: 130px" pSortableColumn="nama">
-											Nama
+										<th style="width: 184px" pSortableColumn="nama">
+											Nama Mangsa (KIR)
 											<p-sortIcon field="nama"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="no_kp">
+										<th style="width: 159px" pSortableColumn="no_kp">
 											Kad Pengenalan
 											<p-sortIcon field="no_kp"></p-sortIcon>
 										</th>
@@ -217,23 +152,23 @@
 											Negeri
 											<p-sortIcon field="nama_negeri"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="pemberi_pinjaman">
-											Peminjam
-											<p-sortIcon field="pemberi_pinjaman"></p-sortIcon>
+										<th style="width: 173px" pSortableColumn="nama_agensi">
+											Pemberi Pinjaman
+											<p-sortIcon field="nama_agensi"></p-sortIcon>
 										</th>
 										<th style="width: 130px" pSortableColumn="sektor">
 											Sektor
 											<p-sortIcon field="sektor"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="tarikh_mula_pinjaman">
-											Tarikh Mula Pinjaman
-											<p-sortIcon field="tarikh_mula_pinjaman"></p-sortIcon>
+										<th style="width: 158px" pSortableColumn="tarikh_mula">
+											Tarikh Pinjaman
+											<p-sortIcon field="tarikh_mula"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="tempoh_pinjaman">
+										<th style="width: 171px" pSortableColumn="tempoh_pinjaman">
 											Tempoh Pinjaman
 											<p-sortIcon field="tempoh_pinjaman"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="jumlah_pinjaman">
+										<th style="width: 165px" pSortableColumn="jumlah_pinjaman">
 											Jumlah Pinjaman
 											<p-sortIcon field="jumlah_pinjaman"></p-sortIcon>
 										</th>
@@ -241,11 +176,11 @@
 								</ng-template>
 								<ng-template pTemplate="body" let-record="$implicit">
 									<tr>
-										<td style="width: 130px">
-											<span class="p-column-title">Nama</span>
+										<td style="width: 184px">
+											<span class="p-column-title">Nama Mangsa (KIR)</span>
 											{{record.nama}}
 										</td>
-										<td style="width: 130px">
+										<td style="width: 159px">
 											<span class="p-column-title">Kad Pengenalan</span>
 											{{record.no_kp}}
 										</td>
@@ -255,7 +190,8 @@
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Alamat 2</span>
-											{{record.alamat_2}}
+                      <label *ngIf="record.alamat_2">{{record.alamat_2}}</label>
+                      <label *ngIf="!record.alamat_2">-</label>
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Daerah</span>
@@ -265,25 +201,27 @@
 											<span class="p-column-title">Negeri</span>
 											{{record.nama_negeri}}
 										</td>
-										<td style="width: 130px">
-											<span class="p-column-title">Peminjam</span>
-											{{record.pemberi_pinjaman}}
+										<td style="width: 173px">
+											<span class="p-column-title">Pemberi Pinjaman</span>
+											{{record.nama_agensi}}
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Sektor</span>
-											{{record.sektor}}
+                      <label *ngIf="record.sektor">{{record.sektor}}</label>
+                      <label *ngIf="!record.sektor">-</label>
 										</td>
-										<td style="width: 130px">
-											<span class="p-column-title">Tarikh Mula Pinjaman</span>
-											{{record.tarikh_mula_pinjaman}}
+										<td style="width: 158px">
+											<span class="p-column-title">Tarikh Pinjaman</span>
+											{{record.tarikh_mula | date:'dd-MM-yyyy'}}
 										</td>
-										<td style="width: 130px">
+										<td style="width: 171px">
 											<span class="p-column-title">Tempoh Pinjaman</span>
 											{{record.tempoh_pinjaman}}
 										</td>
-										<td style="width: 130px">
+										<td style="width: 165px">
 											<span class="p-column-title">Jumlah Pinjaman</span>
-											RM {{record.jumlah_pinjaman}}
+                      <label *ngIf="record.jumlah_pinjaman">RM {{record.jumlah_pinjaman}}</label>
+                      <label *ngIf="!record.jumlah_pinjaman">RM 0.00</label>
 										</td>
 									</tr>
 								</ng-template>

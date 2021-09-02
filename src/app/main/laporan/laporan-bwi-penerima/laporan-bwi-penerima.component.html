@@ -1,7 +1,7 @@
 <app-breadcrumb
-	[title]="'Laporan Senarai Penerima Bantuan Antarabangsa'"
-	[items]="['Laporan']"
-	[active_item]="'Penerima Bantuan Antarabangsa'"
+	[title]="'Laporan Penerima Bantuan Wang Ihsan'"
+	[items]="['Laporan / BWI']"
+	[active_item]="'Penerima Bantuan'"
 ></app-breadcrumb>
 <div class="container-fluid">
 	<div class="row">
@@ -14,8 +14,9 @@
                 <input
                   class="form-control"
                   type="text"
-                  name="searchPinjaman"
+                  name="searchPenerimaBWI"
                   placeholder="Carian..."
+                  (keyup)="applyFilter($event.target.value)"
                 />
                 <i class="search-icon" data-feather="search"></i>
               </div>
@@ -52,34 +53,6 @@
                       <div class="row mt-2">
                         <div class="col-lg-4">
                           <div class="form-group">
-                            <label>Kategori Bencana</label>
-                            <ng-select
-                              [items]="categories"
-                              bindLabel="nama_jenis_bencana"
-                              bindValue="id"
-                              placeholder="Sila Pilih"
-                              class="js-example-placeholder-multiple"
-                              name="namaJenisBencana"
-                            ></ng-select>
-                          </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                          <div class="form-group">
-                            <label>Bencana</label>
-                            <ng-select
-                              [items]="disasters"
-                              bindLabel="nama_bencana"
-                              bindValue="id"
-                              placeholder="Sila Pilih"
-                              class="js-example-placeholder-multiple"
-                              name="namaBencana"
-                            ></ng-select>
-                          </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                          <div class="form-group">
                             <label>Negeri</label>
                             <ng-select
                               [items]="states"
@@ -88,12 +61,12 @@
                               placeholder="Sila Pilih"
                               class="js-example-placeholder-multiple"
                               name="namaNegeri"
+                              [(ngModel)]="filterNegeri"
+                              (ngModelChange)="getDaerah()"
                             ></ng-select>
                           </div>
                         </div>
-                      </div>
 
-                      <div class="row">
                         <div class="col-lg-4">
                           <div class="form-group">
                             <label>Daerah</label>
@@ -104,48 +77,8 @@
                               placeholder="Sila Pilih"
                               class="js-example-placeholder-multiple"
                               name="namaDaerah"
+                              [(ngModel)]="filterDaerah"
                             ></ng-select>
-                          </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                          <div class="form-group custom-datepicker custom-datepicker-dropdown">
-                            <label>Tarikh Bencana</label>
-                            <div class="input-group">
-                              <input
-                                class="form-control"
-                                placeholder="yyyy-mm-dd"
-                                name="dp1"
-                                [(ngModel)]="modelMula"
-                                ngbDatepicker
-                                #d="ngbDatepicker"
-                                style="border: 1px solid #efefef !important;"
-                              >
-                              <div class="input-group-append">
-                                <button class="btn btn-light" (click)="d.toggle()" type="button"><i
-                                  class="fa fa-calendar"></i></button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                          <div class="form-group custom-datepicker custom-datepicker-dropdown">
-                            <div class="input-group pt-4 mt-1">
-                              <input
-                                class="form-control"
-                                placeholder="yyyy-mm-dd"
-                                name="dp2"
-                                [(ngModel)]="modelTamat"
-                                ngbDatepicker
-                                #a="ngbDatepicker"
-                                style="border: 1px solid #efefef !important;"
-                              >
-                              <div class="input-group-append">
-                                <button class="btn btn-light" (click)="a.toggle()" type="button"><i
-                                  class="fa fa-calendar"></i></button>
-                              </div>
-                            </div>
                           </div>
                         </div>
                       </div>
@@ -153,7 +86,8 @@
                       <div class="row justify-content-end mb-3 pr-2">
                         <button
                           class="btn btn-light mr-2"
-                          type="button"
+                          type="reset"
+                          (click)="resetFilter()"
                         >
                         <i class="fa fa-refresh mr-2"></i>
                           <b>Reset</b>
@@ -162,6 +96,7 @@
                         <button
                           class="btn btn-primary pull-right mr-2"
                           type="button"
+                          (click)="getPenerimaBwi()"
                         >
                         <i class="fa fa-search mr-2"></i>
                           <b>Cari</b>
@@ -180,7 +115,7 @@
 								#dataTable
 								styleClass="p-datatable-striped"
 								[resizableColumns]="true"
-								(onLazyLoad)="getBantuanAntarabangsa($event)"
+								(onLazyLoad)="getPenerimaBwi($event)"
 								[value]="primengTableHelper.records"
 								rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
 								[paginator]="false"
@@ -193,17 +128,21 @@
 							>
 								<ng-template pTemplate="header">
 									<tr>
-										<th style="width: 130px" pSortableColumn="nama">
-											Kad Pengenalan
+										<th style="width: 184px" pSortableColumn="nama">
+											Nama Mangsa (KIR)
 											<p-sortIcon field="nama"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="no_kp">
-											Nama Mangsa (KIR)
+										<th style="width: 159px" pSortableColumn="no_kp">
+											Kad Pengenalan
 											<p-sortIcon field="no_kp"></p-sortIcon>
 										</th>
 										<th style="width: 130px" pSortableColumn="alamat_1">
-											Alamat
+											Alamat 1
 											<p-sortIcon field="alamat_1"></p-sortIcon>
+										</th>
+										<th style="width: 130px" pSortableColumn="alamat_2">
+											Alamat 2
+											<p-sortIcon field="alamat_2"></p-sortIcon>
 										</th>
 										<th style="width: 130px" pSortableColumn="nama_daerah">
 											Daerah
@@ -213,69 +152,51 @@
 											Negeri
 											<p-sortIcon field="nama_negeri"></p-sortIcon>
 										</th>
-                                        <th style="width: 130px" pSortableColumn="nama_negeri">
-											Nama Bantuan
-											<p-sortIcon field="nama_negeri"></p-sortIcon>
+										<th style="width: 150px" pSortableColumn="tarikh_serahan">
+											Tarikh Serahan
+											<p-sortIcon field="tarikh_serahan"></p-sortIcon>
 										</th>
-                                        <th style="width: 130px" pSortableColumn="nama_negeri">
-											Negara
-											<p-sortIcon field="nama_negeri"></p-sortIcon>
-										</th>
-                                        <th style="width: 130px" pSortableColumn="">
-											Tarikh Bantuan
-											<p-sortIcon field=""></p-sortIcon>
-										</th>
-                                        <th style="width: 130px" pSortableColumn="">
-											Kos Bantuan (RM)
-											<p-sortIcon field=""></p-sortIcon>
-										</th>
-                                        <th style="width: 130px" pSortableColumn="">
-											Catatan
-											<p-sortIcon field=""></p-sortIcon>
+										<th style="width: 130px" pSortableColumn="jumlah">
+											Jumlah
+											<p-sortIcon field="jumlah"></p-sortIcon>
 										</th>
 									</tr>
 								</ng-template>
 								<ng-template pTemplate="body" let-record="$implicit">
 									<tr>
-										<td style="width: 130px">
-											<span class="p-column-title">Nama</span>
+										<td style="width: 184px">
+											<span class="p-column-title">Nama Mangsa (KIR)</span>
+											{{record.nama}}
+										</td>
+										<td style="width: 159px">
+											<span class="p-column-title">Kad Pengenalan</span>
 											{{record.no_kp}}
 										</td>
 										<td style="width: 130px">
-											<span class="p-column-title">Kad Pengenalan</span>
-											{{record.nama_kir}}
-										</td>
-										<td style="width: 130px">
 											<span class="p-column-title">Alamat 1</span>
-											{{record.alamat}}
+											{{record.alamat_1}}
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Alamat 2</span>
-											{{record.daerah}}
+                      <label *ngIf="record.alamat_2">{{record.alamat_2}}</label>
+                      <label *ngIf="!record.alamat_2">-</label>
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Daerah</span>
-											{{record.negeri}}
+											{{record.nama_daerah}}
 										</td>
-                                        <td style="width: 130px">
-											<span class="p-column-title"></span>
-											{{record.nama_bantuan}}
+										<td style="width: 130px">
+											<span class="p-column-title">Negeri</span>
+											{{record.nama_negeri}}
 										</td>
-                                        <td style="width: 130px">
-											<span class="p-column-title"></span>
-											{{record.negara}}
+										<td style="width: 150px">
+											<span class="p-column-title">Tarikh Serahan</span>
+											{{record.tarikh_serahan | date:'dd-MM-yyyy'}}
 										</td>
-                                        <td style="width: 130px">
-											<span class="p-column-title"></span>
-											{{record.tarikh_bantuan}}
-										</td>
-                                        <td style="width: 130px">
-											<span class="p-column-title"></span>
-											{{record.kos_bantuan}}
-										</td>
-                                        <td style="width: 130px">
-											<span class="p-column-title"></span>
-											{{record.catatan}}
+										<td style="width: 130px">
+											<span class="p-column-title">Jumlah</span>
+                      <label *ngIf="record.jumlah">RM {{record.jumlah}}</label>
+                      <label *ngIf="!record.jumlah">RM 0.00</label>
 										</td>
 									</tr>
 								</ng-template>
@@ -285,7 +206,7 @@
 								<p-paginator
 									[rows]="primengTableHelper.defaultRecordsCountPerPage"
 									#paginator
-									(onPageChange)="getBantuanAntarabangsa($event)"
+									(onPageChange)="getPenerimaBwi($event)"
 									[totalRecords]="primengTableHelper.totalRecordsCount"
 									[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
 								></p-paginator>

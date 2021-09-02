@@ -1,4 +1,5 @@
 import { OnInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
@@ -13,12 +14,12 @@ import {
 } from 'src/app/shared/proxy/service-proxies';
 
 @Component({
-	selector: 'app-laporan-pinjaman',
-	templateUrl: './laporan-pinjaman.component.html',
+	selector: 'app-laporan-rumah',
+	templateUrl: './laporan-rumah.component.html',
 	encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig]
 })
-export class LaporanPinjamanComponent implements OnInit {
+export class LaporanRumahComponent implements OnInit {
 	@ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
@@ -31,13 +32,16 @@ export class LaporanPinjamanComponent implements OnInit {
   filter: string;
   filterNegeri: number;
   filterDaerah: number;
+  filterBantuan: number;
 
 	constructor(
     config: NgbModalConfig,
+		private _activatedRoute: ActivatedRoute,
     private _refDaerahServiceProxy: RefDaerahServiceProxy,
     private _refNegeriServiceProxy: RefNegeriServiceProxy,
     private _laporanServiceProxy: LaporanServiceProxy
   ) {
+		this.filterBantuan = this._activatedRoute.snapshot.queryParams['id'];
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
@@ -51,7 +55,7 @@ export class LaporanPinjamanComponent implements OnInit {
       debounceTime(500), distinctUntilChanged()
     ).subscribe((filterValue: string) =>{
       this.filter = filterValue;
-      this.getPinjamanReport();
+      this.getRumahReport();
     });
   }
 
@@ -59,7 +63,7 @@ export class LaporanPinjamanComponent implements OnInit {
     this.terms$.next(filterValue);
   }
 
-	getPinjamanReport(event?: LazyLoadEvent) {
+	getRumahReport(event?: LazyLoadEvent) {
     if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
@@ -67,10 +71,11 @@ export class LaporanPinjamanComponent implements OnInit {
 
 		this.primengTableHelper.showLoadingIndicator();
 		this._laporanServiceProxy
-			.getAllMangsaBantuanPinjaman(
+			.getAllMangsaBantuanRumah(
 				this.filter,
         this.filterNegeri ?? undefined,
         this.filterDaerah ?? undefined,
+        this.filterBantuan,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -105,7 +110,7 @@ export class LaporanPinjamanComponent implements OnInit {
     this.filterNegeri = undefined;
     this.filterDaerah = undefined;
 
-    this.getPinjamanReport();
+    this.getRumahReport();
     this.getDaerah();
   }
 }

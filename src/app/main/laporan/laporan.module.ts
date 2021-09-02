@@ -19,14 +19,13 @@ import { LaporanBwiNegeriComponent } from './laporan-bwi-negeri/laporan-bwi-nege
 import { LaporanBwiKematianComponent } from './laporan-bwi-kematian/laporan-bwi-kematian.component';
 import { LaporanPinjamanComponent } from './laporan-pinjaman/laporan-pinjaman.component';
 import { LaporanPertanianComponent } from './laporan-pertanian/laporan-pertanian.component';
-import { LaporanRumahBaruComponent } from './laporan-rumah-baru/laporan-rumah-baru.component';
-import { LaporanBaikPulihRumahComponent } from './laporan-baik-pulih-rumah/laporan-baik-pulih-rumah.component';
-import { LaporanBwiPenerimaBantuanComponent } from './laporan-bwi-penerima-bantuan/laporan-bwi-penerima-bantuan.component';
+import { LaporanRumahComponent } from './laporan-rumah/laporan-rumah.component';
+import { LaporanBwiPenerimaComponent } from './laporan-bwi-penerima/laporan-bwi-penerima.component';
 import { LaporanComponent } from './laporan.component';
-import { LaporanBelumTerimaBantuanComponent } from './laporan-belum-terima-bantuan/laporan-belum-terima-bantuan.component';
-import { LaporanPendaftaranMangsaComponent } from './laporan-pendaftaran-mangsa/laporan-pendaftaran-mangsa.component';
+import { LaporanTiadaBantuanComponent } from './laporan-tiada-bantuan/laporan-tiada-bantuan.component';
+import { LaporanMangsaComponent } from './laporan-mangsa/laporan-mangsa.component';
 import { LaporanBantuanLainComponent } from './laporan-bantuan-lain/laporan-bantuan-lain.component';
-import { LaporanBantuanAntarabangsaComponent } from './laporan-bantuan-antarabangsa/laporan-bantuan-antarabangsa.component';
+import { LaporanAntarabangsaComponent } from './laporan-antarabangsa/laporan-antarabangsa.component';
 
 @NgModule({
 	imports: [
@@ -52,14 +51,13 @@ import { LaporanBantuanAntarabangsaComponent } from './laporan-bantuan-antaraban
     LaporanBwiKematianComponent,
     LaporanPinjamanComponent,
     LaporanPertanianComponent,
-    LaporanRumahBaruComponent,
-    LaporanBaikPulihRumahComponent,
-    LaporanBwiPenerimaBantuanComponent,
+    LaporanRumahComponent,
+    LaporanBwiPenerimaComponent,
     LaporanComponent,
-    LaporanBelumTerimaBantuanComponent,
-    LaporanPendaftaranMangsaComponent,
+    LaporanTiadaBantuanComponent,
+    LaporanMangsaComponent,
     LaporanBantuanLainComponent,
-    LaporanBantuanAntarabangsaComponent
+    LaporanAntarabangsaComponent
 	]
 })
 export class LaporanModule {}

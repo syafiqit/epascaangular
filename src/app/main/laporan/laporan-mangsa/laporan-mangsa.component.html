@@ -1,7 +1,7 @@
 <app-breadcrumb
-	[title]="'Laporan Mangsa Belum Terima Bantuan'"
-	[items]="['Laporan']"
-	[active_item]="'Pinjaman Khas'"
+	[title]="'Senarai Pendaftaran Mangsa Bencana'"
+	[items]="['Laporan / Mangsa']"
+	[active_item]="'Pendaftaran'"
 ></app-breadcrumb>
 <div class="container-fluid">
 	<div class="row">
@@ -14,8 +14,9 @@
                 <input
                   class="form-control"
                   type="text"
-                  name="searchPinjaman"
+                  name="searchMangsaDaftar"
                   placeholder="Carian..."
+                  (keyup)="applyFilter($event.target.value)"
                 />
                 <i class="search-icon" data-feather="search"></i>
               </div>
@@ -52,100 +53,31 @@
                       <div class="row mt-2">
                         <div class="col-lg-4">
                           <div class="form-group">
-                            <label>Kategori Bencana</label>
+                            <label>Kementerian</label>
                             <ng-select
-                              [items]="categories"
-                              bindLabel="nama_jenis_bencana"
-                              bindValue="id"
-                              placeholder="Sila Pilih"
-                              class="js-example-placeholder-multiple"
-                              name="namaJenisBencana"
-                            ></ng-select>
-                          </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                          <div class="form-group">
-                            <label>Bencana</label>
-                            <ng-select
-                              [items]="disasters"
-                              bindLabel="nama_bencana"
-                              bindValue="id"
-                              placeholder="Sila Pilih"
-                              class="js-example-placeholder-multiple"
-                              name="namaBencana"
-                            ></ng-select>
-                          </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                          <div class="form-group">
-                            <label>Negeri</label>
-                            <ng-select
-                              [items]="states"
-                              bindLabel="nama_negeri"
+                              [items]="ministries"
+                              bindLabel="nama_kementerian"
                               bindValue="id"
                               placeholder="Sila Pilih"
                               class="js-example-placeholder-multiple"
                               name="namaNegeri"
+                              [(ngModel)]="filterKementerian"
                             ></ng-select>
                           </div>
                         </div>
-                      </div>
 
-                      <div class="row">
                         <div class="col-lg-4">
                           <div class="form-group">
-                            <label>Daerah</label>
+                            <label>Agensi</label>
                             <ng-select
-                              [items]="districts"
-                              bindLabel="nama_daerah"
+                              [items]="agencies"
+                              bindLabel="nama_agensi"
                               bindValue="id"
                               placeholder="Sila Pilih"
                               class="js-example-placeholder-multiple"
                               name="namaDaerah"
+                              [(ngModel)]="filterAgensi"
                             ></ng-select>
-                          </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                          <div class="form-group custom-datepicker custom-datepicker-dropdown">
-                            <label>Tarikh Bencana</label>
-                            <div class="input-group">
-                              <input
-                                class="form-control"
-                                placeholder="yyyy-mm-dd"
-                                name="dp1"
-                                [(ngModel)]="modelMula"
-                                ngbDatepicker
-                                #d="ngbDatepicker"
-                                style="border: 1px solid #efefef !important;"
-                              >
-                              <div class="input-group-append">
-                                <button class="btn btn-light" (click)="d.toggle()" type="button"><i
-                                  class="fa fa-calendar"></i></button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                          <div class="form-group custom-datepicker custom-datepicker-dropdown">
-                            <div class="input-group pt-4 mt-1">
-                              <input
-                                class="form-control"
-                                placeholder="yyyy-mm-dd"
-                                name="dp2"
-                                [(ngModel)]="modelTamat"
-                                ngbDatepicker
-                                #a="ngbDatepicker"
-                                style="border: 1px solid #efefef !important;"
-                              >
-                              <div class="input-group-append">
-                                <button class="btn btn-light" (click)="a.toggle()" type="button"><i
-                                  class="fa fa-calendar"></i></button>
-                              </div>
-                            </div>
                           </div>
                         </div>
                       </div>
@@ -153,7 +85,8 @@
                       <div class="row justify-content-end mb-3 pr-2">
                         <button
                           class="btn btn-light mr-2"
-                          type="button"
+                          type="reset"
+                          (click)="resetFilter()"
                         >
                         <i class="fa fa-refresh mr-2"></i>
                           <b>Reset</b>
@@ -162,6 +95,7 @@
                         <button
                           class="btn btn-primary pull-right mr-2"
                           type="button"
+                          (click)="getMangsaDaftar()"
                         >
                         <i class="fa fa-search mr-2"></i>
                           <b>Cari</b>
@@ -180,7 +114,7 @@
 								#dataTable
 								styleClass="p-datatable-striped"
 								[resizableColumns]="true"
-								(onLazyLoad)="getBelumTerimaBantuan($event)"
+								(onLazyLoad)="getMangsaDaftar($event)"
 								[value]="primengTableHelper.records"
 								rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
 								[paginator]="false"
@@ -194,48 +128,48 @@
 								<ng-template pTemplate="header">
 									<tr>
 										<th style="width: 130px" pSortableColumn="nama">
-											Kad Pengenalan
+											Nama Mangsa (KIR)
 											<p-sortIcon field="nama"></p-sortIcon>
 										</th>
 										<th style="width: 130px" pSortableColumn="no_kp">
-											Nama Mangsa (KIR)
+											Kad Pengenalan
 											<p-sortIcon field="no_kp"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="alamat_1">
-											Alamat
-											<p-sortIcon field="alamat_1"></p-sortIcon>
+										<th style="width: 130px" pSortableColumn="nama_kementerian">
+											Kementerian
+											<p-sortIcon field="nama_kementerian"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="nama_daerah">
-											Daerah
-											<p-sortIcon field="nama_daerah"></p-sortIcon>
+										<th style="width: 130px" pSortableColumn="nama_agensi">
+											Agensi
+											<p-sortIcon field="nama_agensi"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="nama_negeri">
-											Negeri
-											<p-sortIcon field="nama_negeri"></p-sortIcon>
+										<th style="width: 100px" pSortableColumn="tarikh_cipta">
+											Tarikh Daftar
+											<p-sortIcon field="tarikh_cipta"></p-sortIcon>
 										</th>
 									</tr>
 								</ng-template>
 								<ng-template pTemplate="body" let-record="$implicit">
 									<tr>
 										<td style="width: 130px">
-											<span class="p-column-title">Nama</span>
-											{{record.no_kp}}
+											<span class="p-column-title">Nama Mangsa (KIR)</span>
+											{{record.nama}}
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Kad Pengenalan</span>
-											{{record.nama_kir}}
+											{{record.no_kp}}
 										</td>
 										<td style="width: 130px">
-											<span class="p-column-title">Alamat 1</span>
-											{{record.alamat}}
+											<span class="p-column-title">Kementerian</span>
+											{{record.nama_kementerian}}
 										</td>
 										<td style="width: 130px">
-											<span class="p-column-title">Alamat 2</span>
-											{{record.daerah}}
+											<span class="p-column-title">Agensi</span>
+											{{record.nama_agensi}}
 										</td>
-										<td style="width: 130px">
-											<span class="p-column-title">Daerah</span>
-											{{record.negeri}}
+										<td style="width: 100px">
+											<span class="p-column-title">Tarikh Daftar</span>
+											{{record.tarikh_cipta | date:'dd-MM-yyyy'}}
 										</td>
 									</tr>
 								</ng-template>
@@ -245,7 +179,7 @@
 								<p-paginator
 									[rows]="primengTableHelper.defaultRecordsCountPerPage"
 									#paginator
-									(onPageChange)="getBelumTerimaBantuan($event)"
+									(onPageChange)="getMangsaDaftar($event)"
 									[totalRecords]="primengTableHelper.totalRecordsCount"
 									[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
 								></p-paginator>
