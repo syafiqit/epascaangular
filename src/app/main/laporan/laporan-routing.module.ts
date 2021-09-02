@@ -12,14 +12,13 @@ import { LaporanBwiNegeriComponent } from './laporan-bwi-negeri/laporan-bwi-nege
 import { LaporanBwiKematianComponent } from './laporan-bwi-kematian/laporan-bwi-kematian.component';
 import { LaporanPinjamanComponent } from './laporan-pinjaman/laporan-pinjaman.component';
 import { LaporanPertanianComponent } from './laporan-pertanian/laporan-pertanian.component';
-import { LaporanRumahBaruComponent } from './laporan-rumah-baru/laporan-rumah-baru.component';
-import { LaporanBaikPulihRumahComponent } from './laporan-baik-pulih-rumah/laporan-baik-pulih-rumah.component';
-import { LaporanBwiPenerimaBantuanComponent } from './laporan-bwi-penerima-bantuan/laporan-bwi-penerima-bantuan.component';
+import { LaporanRumahComponent } from './laporan-rumah/laporan-rumah.component';
+import { LaporanBwiPenerimaComponent } from './laporan-bwi-penerima/laporan-bwi-penerima.component';
 import { LaporanComponent } from './laporan.component';
-import { LaporanPendaftaranMangsaComponent } from './laporan-pendaftaran-mangsa/laporan-pendaftaran-mangsa.component';
-import { LaporanBelumTerimaBantuanComponent } from './laporan-belum-terima-bantuan/laporan-belum-terima-bantuan.component';
+import { LaporanMangsaComponent } from './laporan-mangsa/laporan-mangsa.component';
+import { LaporanTiadaBantuanComponent } from './laporan-tiada-bantuan/laporan-tiada-bantuan.component';
 import { LaporanBantuanLainComponent } from './laporan-bantuan-lain/laporan-bantuan-lain.component';
-import { LaporanBantuanAntarabangsaComponent } from './laporan-bantuan-antarabangsa/laporan-bantuan-antarabangsa.component';
+import { LaporanAntarabangsaComponent } from './laporan-antarabangsa/laporan-antarabangsa.component';
 
 const routes: Routes = [
 	{
@@ -70,43 +69,40 @@ const routes: Routes = [
 				component: LaporanBwiKematianComponent
 			},
 			{
-				path: 'pinjaman',
+				path: 'bantuan/pinjaman',
 				component: LaporanPinjamanComponent
 			},
 			{
-				path: 'pertanian',
+				path: 'bantuan/pertanian',
 				component: LaporanPertanianComponent
 			},
 			{
-				path: 'rumah/bina',
-				component: LaporanRumahBaruComponent
+				path: 'bantuan/rumah/bina-baru',
+				component: LaporanRumahComponent
 			},
       {
-				path: 'rumah/baik-pulih',
-				component: LaporanBaikPulihRumahComponent
+				path: 'bantuan/rumah/baik-pulih',
+				component: LaporanRumahComponent
 			},
       {
 				path: 'bwi/penerima',
-				component: LaporanBwiPenerimaBantuanComponent
+				component: LaporanBwiPenerimaComponent
 			},
 			{
-				path: 'pendaftaran-mangsa',
-				component: LaporanPendaftaranMangsaComponent
+				path: 'mangsa/pendaftaran',
+				component: LaporanMangsaComponent
 			},
-
 			{
-				path: 'belum-terima-bantuan',
-				component: LaporanBelumTerimaBantuanComponent
+				path: 'mangsa/tiada-bantuan',
+				component: LaporanTiadaBantuanComponent
 			},
-
 			{
-				path: 'bantuan-lain',
+				path: 'bantuan/lain-lain',
 				component: LaporanBantuanLainComponent
 			},
-
 			{
-				path: 'bantuan-antarabangsa',
-				component: LaporanBantuanAntarabangsaComponent
+				path: 'bantuan/antarabangsa',
+				component: LaporanAntarabangsaComponent
 			},
 		]
 	}
