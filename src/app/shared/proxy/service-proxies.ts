@@ -11941,7 +11941,7 @@ export class TabungBayaranSkbBulananServiceProxy {
      * @param body Create or edit object
      * @return Success
      */
-    createOrEdit(body: CreateOrEditTabungBayaranSkbBulananDto): Observable<CreateOrEditTabungBayaranSkbBulananDto> {
+    createOrEdit(body: CreateOrEditTabungBayaranSkbBulananDto): Observable<OutputCreateSkbBulananDto> {
         let url_ = this.baseUrl + "/api/tabungBayaranSkbBulanan/createOrEdit";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -11964,14 +11964,14 @@ export class TabungBayaranSkbBulananServiceProxy {
                 try {
                     return this.processCreateOrEdit(<any>response_);
                 } catch (e) {
-                    return <Observable<CreateOrEditTabungBayaranSkbBulananDto>><any>_observableThrow(e);
+                    return <Observable<OutputCreateSkbBulananDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<CreateOrEditTabungBayaranSkbBulananDto>><any>_observableThrow(response_);
+                return <Observable<OutputCreateSkbBulananDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditTabungBayaranSkbBulananDto> {
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<OutputCreateSkbBulananDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -11982,7 +11982,7 @@ export class TabungBayaranSkbBulananServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = CreateOrEditTabungBayaranSkbBulananDto.fromJS(resultData200);
+            result200 = OutputCreateSkbBulananDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status === 500) {
@@ -11994,7 +11994,7 @@ export class TabungBayaranSkbBulananServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<CreateOrEditTabungBayaranSkbBulananDto>(<any>null);
+        return _observableOf<OutputCreateSkbBulananDto>(<any>null);
     }
 }
 
@@ -13128,6 +13128,92 @@ export class TabungKelulusanServiceProxy {
     }
 
     /**
+     * Get all TabungKelulusan For Lookup Table
+     * @param filter (optional) Filter records with a string
+     * @param filterTabung (optional) Filter records with a integer
+     * @param filterJenisBencana (optional) Filter records with a integer
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAllKelulusanForLookupTable(filter: string | undefined, filterTabung: number | undefined, filterJenisBencana: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungKelulusanForViewDto> {
+        let url_ = this.baseUrl + "/api/tabungKelulusan/getAllKelulusanForLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (filterTabung === null)
+            throw new Error("The parameter 'filterTabung' cannot be null.");
+        else if (filterTabung !== undefined)
+            url_ += "filterTabung=" + encodeURIComponent("" + filterTabung) + "&";
+        if (filterJenisBencana === null)
+            throw new Error("The parameter 'filterJenisBencana' cannot be null.");
+        else if (filterJenisBencana !== undefined)
+            url_ += "filterJenisBencana=" + encodeURIComponent("" + filterJenisBencana) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllKelulusanForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllKelulusanForLookupTable(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfTabungKelulusanForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfTabungKelulusanForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllKelulusanForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfTabungKelulusanForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfTabungKelulusanForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfTabungKelulusanForViewDto>(<any>null);
+    }
+
+    /**
      * Get TabungKelulusan by id
      * @param id TabungKelulusan Id
      * @return Success
@@ -13193,7 +13279,7 @@ export class TabungKelulusanServiceProxy {
      * @param body Create or edit object
      * @return Success
      */
-    createOrEdit(body: CreateOrEditTabungKelulusanDto): Observable<CreateOrEditTabungKelulusanDto> {
+    createOrEdit(body: CreateOrEditTabungKelulusanDto): Observable<OutputCreateTabungKelulusanDto> {
         let url_ = this.baseUrl + "/api/tabungKelulusan/createOrEdit";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -13216,14 +13302,14 @@ export class TabungKelulusanServiceProxy {
                 try {
                     return this.processCreateOrEdit(<any>response_);
                 } catch (e) {
-                    return <Observable<CreateOrEditTabungKelulusanDto>><any>_observableThrow(e);
+                    return <Observable<OutputCreateTabungKelulusanDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<CreateOrEditTabungKelulusanDto>><any>_observableThrow(response_);
+                return <Observable<OutputCreateTabungKelulusanDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditTabungKelulusanDto> {
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<OutputCreateTabungKelulusanDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -13234,7 +13320,7 @@ export class TabungKelulusanServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = CreateOrEditTabungKelulusanDto.fromJS(resultData200);
+            result200 = OutputCreateTabungKelulusanDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status === 500) {
@@ -13246,7 +13332,7 @@ export class TabungKelulusanServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<CreateOrEditTabungKelulusanDto>(<any>null);
+        return _observableOf<OutputCreateTabungKelulusanDto>(<any>null);
     }
 }
 
@@ -13603,6 +13689,82 @@ export class TabungServiceProxy {
     }
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfTabungForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfTabungForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfTabungForViewDto>(<any>null);
+    }
+
+    /**
+     * Get all Tabung
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAllTabungForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungForViewDto> {
+        let url_ = this.baseUrl + "/api/tabung/getAllTabungForLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllTabungForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllTabungForLookupTable(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfTabungForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfTabungForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllTabungForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfTabungForViewDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -26875,6 +27037,7 @@ export interface IUpdateProfilDto {
 export class CreateOrEditTabungBayaranSkbBulananDto implements ICreateOrEditTabungBayaranSkbBulananDto {
     id!: number;
     id_tabung_bayaran_skb!: number;
+    id_tabung!: number;
     bulan!: string;
     tahun!: number;
     jumlah!: number;
@@ -26896,6 +27059,7 @@ export class CreateOrEditTabungBayaranSkbBulananDto implements ICreateOrEditTabu
         if (_data) {
             this.id = _data["id"];
             this.id_tabung_bayaran_skb = _data["id_tabung_bayaran_skb"];
+            this.id_tabung = _data["id_tabung"];
             this.bulan = _data["bulan"];
             this.tahun = _data["tahun"];
             this.jumlah = _data["jumlah"];
@@ -26917,6 +27081,7 @@ export class CreateOrEditTabungBayaranSkbBulananDto implements ICreateOrEditTabu
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["id_tabung_bayaran_skb"] = this.id_tabung_bayaran_skb;
+        data["id_tabung"] = this.id_tabung;
         data["bulan"] = this.bulan;
         data["tahun"] = this.tahun;
         data["jumlah"] = this.jumlah;
@@ -26931,6 +27096,7 @@ export class CreateOrEditTabungBayaranSkbBulananDto implements ICreateOrEditTabu
 export interface ICreateOrEditTabungBayaranSkbBulananDto {
     id: number;
     id_tabung_bayaran_skb: number;
+    id_tabung: number;
     bulan: string;
     tahun: number;
     jumlah: number;
@@ -27026,6 +27192,42 @@ export interface IGetTabungBayaranSkbBulananForViewDto {
     bulan: string;
     tahun: string;
     jumlah: string;
+}
+
+export class OutputCreateSkbBulananDto implements IOutputCreateSkbBulananDto {
+    message!: string;
+
+    constructor(data?: IOutputCreateSkbBulananDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.message = _data["message"];
+        }
+    }
+
+    static fromJS(data: any): OutputCreateSkbBulananDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new OutputCreateSkbBulananDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["message"] = this.message;
+        return data; 
+    }
+}
+
+export interface IOutputCreateSkbBulananDto {
+    message: string;
 }
 
 /** TabungBayaranSkbBulanan List in Tabular model */
@@ -28696,12 +28898,12 @@ export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulu
     id!: number;
     no_rujukan_kelulusan!: string;
     id_tabung!: number;
-    id_bencana!: number;
     id_bantuan!: number;
     id_komitmen!: number;
     rujukan_surat!: string;
     tarikh_surat!: moment.Moment;
     jumlah_siling!: number;
+    baki_jumlah_siling!: number;
     tarikh_mula_kelulusan!: moment.Moment;
     tarikh_tamat_kelulusan!: moment.Moment;
     perihal_surat!: string;
@@ -28729,12 +28931,12 @@ export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulu
             this.id = _data["id"];
             this.no_rujukan_kelulusan = _data["no_rujukan_kelulusan"];
             this.id_tabung = _data["id_tabung"];
-            this.id_bencana = _data["id_bencana"];
             this.id_bantuan = _data["id_bantuan"];
             this.id_komitmen = _data["id_komitmen"];
             this.rujukan_surat = _data["rujukan_surat"];
             this.tarikh_surat = _data["tarikh_surat"] ? moment(_data["tarikh_surat"].toString()) : <any>undefined;
             this.jumlah_siling = _data["jumlah_siling"];
+            this.baki_jumlah_siling = _data["baki_jumlah_siling"];
             this.tarikh_mula_kelulusan = _data["tarikh_mula_kelulusan"] ? moment(_data["tarikh_mula_kelulusan"].toString()) : <any>undefined;
             this.tarikh_tamat_kelulusan = _data["tarikh_tamat_kelulusan"] ? moment(_data["tarikh_tamat_kelulusan"].toString()) : <any>undefined;
             this.perihal_surat = _data["perihal_surat"];
@@ -28762,12 +28964,12 @@ export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulu
         data["id"] = this.id;
         data["no_rujukan_kelulusan"] = this.no_rujukan_kelulusan;
         data["id_tabung"] = this.id_tabung;
-        data["id_bencana"] = this.id_bencana;
         data["id_bantuan"] = this.id_bantuan;
         data["id_komitmen"] = this.id_komitmen;
         data["rujukan_surat"] = this.rujukan_surat;
         data["tarikh_surat"] = this.tarikh_surat ? this.tarikh_surat.toISOString() : <any>undefined;
         data["jumlah_siling"] = this.jumlah_siling;
+        data["baki_jumlah_siling"] = this.baki_jumlah_siling;
         data["tarikh_mula_kelulusan"] = this.tarikh_mula_kelulusan ? this.tarikh_mula_kelulusan.toISOString() : <any>undefined;
         data["tarikh_tamat_kelulusan"] = this.tarikh_tamat_kelulusan ? this.tarikh_tamat_kelulusan.toISOString() : <any>undefined;
         data["perihal_surat"] = this.perihal_surat;
@@ -28788,12 +28990,12 @@ export interface ICreateOrEditTabungKelulusanDto {
     id: number;
     no_rujukan_kelulusan: string;
     id_tabung: number;
-    id_bencana: number;
     id_bantuan: number;
     id_komitmen: number;
     rujukan_surat: string;
     tarikh_surat: moment.Moment;
     jumlah_siling: number;
+    baki_jumlah_siling: number;
     tarikh_mula_kelulusan: moment.Moment;
     tarikh_tamat_kelulusan: moment.Moment;
     perihal_surat: string;
@@ -28852,6 +29054,7 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
     rujukan_surat!: string;
     tarikh_surat!: moment.Moment;
     jumlah_siling!: string;
+    baki_jumlah_siling!: string;
     tarikh_mula_kelulusan!: moment.Moment;
     tarikh_tamat_kelulusan!: moment.Moment;
     peruntukan!: string;
@@ -28876,6 +29079,7 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
             this.rujukan_surat = _data["rujukan_surat"];
             this.tarikh_surat = _data["tarikh_surat"] ? moment(_data["tarikh_surat"].toString()) : <any>undefined;
             this.jumlah_siling = _data["jumlah_siling"];
+            this.baki_jumlah_siling = _data["baki_jumlah_siling"];
             this.tarikh_mula_kelulusan = _data["tarikh_mula_kelulusan"] ? moment(_data["tarikh_mula_kelulusan"].toString()) : <any>undefined;
             this.tarikh_tamat_kelulusan = _data["tarikh_tamat_kelulusan"] ? moment(_data["tarikh_tamat_kelulusan"].toString()) : <any>undefined;
             this.peruntukan = _data["peruntukan"];
@@ -28900,6 +29104,7 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
         data["rujukan_surat"] = this.rujukan_surat;
         data["tarikh_surat"] = this.tarikh_surat ? this.tarikh_surat.toISOString() : <any>undefined;
         data["jumlah_siling"] = this.jumlah_siling;
+        data["baki_jumlah_siling"] = this.baki_jumlah_siling;
         data["tarikh_mula_kelulusan"] = this.tarikh_mula_kelulusan ? this.tarikh_mula_kelulusan.toISOString() : <any>undefined;
         data["tarikh_tamat_kelulusan"] = this.tarikh_tamat_kelulusan ? this.tarikh_tamat_kelulusan.toISOString() : <any>undefined;
         data["peruntukan"] = this.peruntukan;
@@ -28917,11 +29122,48 @@ export interface IGetTabungKelulusanForViewDto {
     rujukan_surat: string;
     tarikh_surat: moment.Moment;
     jumlah_siling: string;
+    baki_jumlah_siling: string;
     tarikh_mula_kelulusan: moment.Moment;
     tarikh_tamat_kelulusan: moment.Moment;
     peruntukan: string;
     status_tabung: number;
     perihal_surat: string;
+}
+
+export class OutputCreateTabungKelulusanDto implements IOutputCreateTabungKelulusanDto {
+    message!: string;
+
+    constructor(data?: IOutputCreateTabungKelulusanDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.message = _data["message"];
+        }
+    }
+
+    static fromJS(data: any): OutputCreateTabungKelulusanDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new OutputCreateTabungKelulusanDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["message"] = this.message;
+        return data; 
+    }
+}
+
+export interface IOutputCreateTabungKelulusanDto {
+    message: string;
 }
 
 /** TabungKelulusan List in Tabular model */
