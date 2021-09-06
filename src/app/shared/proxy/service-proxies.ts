@@ -29049,6 +29049,7 @@ export interface IGetTabungKelulusanForEditDto {
 export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewDto {
     id!: number;
     no_rujukan_kelulusan!: string;
+    id_tabung!: number;
     nama_tabung!: string;
     nama_jenis_bencana!: string;
     rujukan_surat!: string;
@@ -29074,6 +29075,7 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
         if (_data) {
             this.id = _data["id"];
             this.no_rujukan_kelulusan = _data["no_rujukan_kelulusan"];
+            this.id_tabung = _data["id_tabung"];
             this.nama_tabung = _data["nama_tabung"];
             this.nama_jenis_bencana = _data["nama_jenis_bencana"];
             this.rujukan_surat = _data["rujukan_surat"];
@@ -29099,6 +29101,7 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["no_rujukan_kelulusan"] = this.no_rujukan_kelulusan;
+        data["id_tabung"] = this.id_tabung;
         data["nama_tabung"] = this.nama_tabung;
         data["nama_jenis_bencana"] = this.nama_jenis_bencana;
         data["rujukan_surat"] = this.rujukan_surat;
@@ -29117,6 +29120,7 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
 export interface IGetTabungKelulusanForViewDto {
     id: number;
     no_rujukan_kelulusan: string;
+    id_tabung: number;
     nama_tabung: string;
     nama_jenis_bencana: string;
     rujukan_surat: string;

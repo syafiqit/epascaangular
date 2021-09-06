@@ -46,9 +46,13 @@
 								No. Kelulusan
 								<p-sortIcon field="no_rujukan_kelulusan"></p-sortIcon>
 							</th>
-							<th style="width: 150px" pSortableColumn="perihal_surat">
-								Perihal
-								<p-sortIcon field="perihal_surat"></p-sortIcon>
+							<th style="width: 130px" pSortableColumn="nama_tabung">
+								Tabung
+								<p-sortIcon field="nama_tabung"></p-sortIcon>
+							</th>
+							<th style="width: 130px" pSortableColumn="jumlah_siling">
+								Siling Peruntukan
+								<p-sortIcon field="jumlah_siling"></p-sortIcon>
 							</th>
 						</tr>
 					</ng-template>
@@ -60,7 +64,8 @@
                   type="button"
                   (click)="select(
                     record.id,
-                    record.no_rujukan_kelulusan
+                    record.no_rujukan_kelulusan,
+                    record.id_tabung
                     )"
                 >
                   Pilih
@@ -70,9 +75,13 @@
 								<span class="p-column-title">No. Kelulusan</span>
 								{{record.no_rujukan_kelulusan}}
 							</td>
-							<td style="width: 150px">
-								<span class="p-column-title">Perihal</span>
-								{{record.perihal_surat}}
+							<td style="width: 130px">
+								<span class="p-column-title">Tabung</span>
+								{{record.nama_tabung}}
+							</td>
+							<td style="width: 130px">
+								<span class="p-column-title">Siling Peruntukan</span>
+								RM {{record.jumlah_siling}}
 							</td>
 						</tr>
 					</ng-template>

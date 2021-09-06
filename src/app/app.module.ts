@@ -63,7 +63,6 @@ export function appInitializerFactory(injector: Injector) {
 			if (cookieService.get('token')) {
 				appSessionService.init().then(
 					(result) => {
-						console.log(result);
 						if (result) {
 							resolve(true);
 						}
