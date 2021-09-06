@@ -23,6 +23,7 @@
               [(ngModel)]="bantuanPertanian.id_bencana"
               #namaBencana="ngModel"
               [ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
+              (change)="onSelectBencana(bantuanPertanian.id_bencana)" 
               required
             ></ng-select>
             <div
@@ -36,7 +37,23 @@
           </div>
         </div>
       </div>
+      <div class="col-lg-6">
+				<div class="form-group">
+					<label>Tarikh Bencana</label>
+					<input
+						class="form-control"
+            			id="tarikhBencana"
+						type="text"
+						name="tarikh_bencana"
+						[(ngModel)]="date_bencana"
+						placeholder="Tarikh Bencana"
+						readonly
+					/>
+				</div>
+			</div>
+		</div>
 
+		<div class="row">
       <div class="col-lg-6">
         <div class="form-group">
           <label>Agensi Pemberi Bantuan</label>
@@ -64,9 +81,6 @@
           </div>
         </div>
       </div>
-		</div>
-
-		<div class="row">
 			<div class="col-lg-6">
         <div class="form-group">
           <label>Jenis Pertanian</label>
@@ -94,7 +108,9 @@
           </div>
         </div>
       </div>
+		</div>
 
+		<div class="row">
       <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
         <label>Tarikh Bantuan</label>
         <div class="input-group">
@@ -125,9 +141,6 @@
         <button class="btn btn-primary btn-sm m-2 float-left" (click)="model = today; d.close()">Hari Ini</button>
         <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Tutup</button>
       </ng-template>
-		</div>
-
-		<div class="row">
 			<div class="col-lg-6">
         <div class="form-group">
           <label>Luas (Hektar)</label>
@@ -147,8 +160,10 @@
           </div>
         </div>
       </div>
+		</div>
 
-			<div class="col-lg-6">
+		<div class="row">
+      <div class="col-lg-6">
         <div class="form-group">
           <label>Luas Musnah(Hektar)</label>
           <input
@@ -167,9 +182,6 @@
           </div>
         </div>
       </div>
-		</div>
-
-		<div class="row">
 			<div class="col-lg-6">
         <div class="form-group">
           <label>Bilangan Asal</label>
@@ -189,7 +201,9 @@
           </div>
         </div>
       </div>
+		</div>
 
+    <div class="row">
 			<div class="col-lg-6">
         <div class="form-group">
           <label>Bilangan Rosak/Mati</label>
@@ -209,9 +223,6 @@
           </div>
         </div>
       </div>
-		</div>
-
-    <div class="row">
       <div class="col-lg-6">
         <div class="form-group">
           <label>Kos Bantuan(RM)</label>
@@ -232,7 +243,9 @@
           </div>
         </div>
       </div>
+		</div>
 
+    <div class="row">
       <div class="col-lg-6">
         <div class="form-group">
           <label>Status</label>
@@ -261,24 +274,23 @@
         </div>
       </div>
 		</div>
-
     <div class="row">
-			<div class="col">
-				<div class="form-group">
-					<label>Catatan</label>
-					<textarea
+      <div class="col">
+        <div class="form-group">
+          <label>Catatan</label>
+          <textarea
             class="form-control"
             id="exampleFormControlTextarea4"
             name="bantuanPertanian.catatan"
             [(ngModel)]="bantuanPertanian.catatan"
             rows="3">
           </textarea>
-				</div>
-			</div>
-		</div>
-</div>
-<div class="modal-footer">
-	<button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
-	<button type="submit" class="btn btn-primary">Simpan</button>
-</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
+    <button type="submit" class="btn btn-primary">Simpan</button>
+  </div>
 </form>

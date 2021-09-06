@@ -10,6 +10,7 @@ import {
   RefSumberDanaServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-tambah-edit-bantuan-lain',
@@ -36,6 +37,8 @@ export class TambahEditBantuanLainComponent implements OnInit {
   model: NgbDateStruct;
   today = this.calendar.getToday();
   readonly DELIMITER = '-';
+  date_bencana:any;
+  pipe = new DatePipe('en-US');
 
   status=[
     {id: 1, nama_status: "Tidak Aktif"},
@@ -76,7 +79,7 @@ export class TambahEditBantuanLainComponent implements OnInit {
     return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
   }
 
-  show() {
+  show(filter?) {
     if (!this.id) {
       this.bantuanLain = new CreateOrEditMangsaBantuanDto();
     } else {
@@ -86,6 +89,17 @@ export class TambahEditBantuanLainComponent implements OnInit {
           this.model = this.fromModel(result.mangsa_bantuan.tarikh_bantuan.format('YYYY-MM-DD'));
         }
       });
+
+      this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
+        this.date_bencana = result.items.filter(
+          filt=>{
+            if(filt.id == this.bantuanLain.id_bencana){
+              return filt.tarikh_bencana;
+            }
+          }).map(data=>{
+            return this.pipe.transform(data.tarikh_bencana.toDate(), 'dd/MM/yyyy');
+          });
+        });
     }
   }
 
@@ -124,6 +138,20 @@ export class TambahEditBantuanLainComponent implements OnInit {
           swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Lain Berjaya Dikemaskini.', 'success');
         }
         this.activeModal.close(true);
+      });
+  }
+
+  onSelectBencana(id?,filter?){
+    console.log(id);
+    this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
+      this.date_bencana = result.items.filter(
+        filt=>{
+          if(filt.id == id){
+            return filt.tarikh_bencana;
+          }
+        }).map(data=>{
+          return this.pipe.transform(data.tarikh_bencana.toDate(), 'dd/MM/yyyy');
+        });
       });
   }
 

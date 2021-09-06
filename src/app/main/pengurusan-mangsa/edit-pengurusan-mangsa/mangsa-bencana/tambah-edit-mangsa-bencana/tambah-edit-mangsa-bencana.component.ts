@@ -9,6 +9,8 @@ import {
   RefPindahServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import * as moment from 'moment';
+import { DatePipe } from '@angular/common';
 @Component({
 	selector: 'app-tambah-edit-mangsa-bencana',
 	templateUrl: './tambah-edit-mangsa-bencana.component.html'
@@ -22,6 +24,8 @@ export class TambahEditMangsaBencanaComponent implements OnInit {
   idMangsa: number;
   disasters: any;
   evacuates: any;
+  date_bencana:any;
+  pipe = new DatePipe('en-US');
   addBencana: CreateOrEditMangsaBencanaDto = new CreateOrEditMangsaBencanaDto();
 
 	constructor(
@@ -40,13 +44,23 @@ export class TambahEditMangsaBencanaComponent implements OnInit {
     this.getPindah();
   }
 
-	show() {
+	show(filter?) {
 		if (!this.id) {
 			this.addBencana = new CreateOrEditMangsaBencanaDto();
 		} else {
 			this._mangsaBencanaServiceProxy.getMangsaBencanaForEdit(this.id).subscribe((result) => {
 				this.addBencana = result.mangsa_bencana;
 			});
+			this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
+				this.date_bencana = result.items.filter(
+					filt=>{
+						if(filt.id == this.addBencana.id_bencana){
+							return filt.tarikh_bencana;
+						}
+					}).map(data=>{
+						return this.pipe.transform(data.tarikh_bencana.toDate(), 'dd/MM/yyyy');
+					});
+				});
 		}
 	}
 
@@ -82,4 +96,19 @@ export class TambahEditMangsaBencanaComponent implements OnInit {
 				this.activeModal.close(true);
 			});
 	}
+
+	onSelectBencana(id?,filter?){
+		console.log(id);
+		this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
+			this.date_bencana = result.items.filter(
+				filt=>{
+					if(filt.id == id){
+						return filt.tarikh_bencana;
+					}
+				}).map(data=>{
+					return this.pipe.transform(data.tarikh_bencana.toDate(), 'dd/MM/yyyy');
+				});
+			});
+	}
+	
 }
