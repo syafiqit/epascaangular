@@ -247,15 +247,15 @@
 										styleClass="p-datatable-striped"
 										[resizableColumns]="true"
 										(onLazyLoad)="getKelulusan($event)"
-                    [loading]="primengTableHelperBWI.isLoading"
-										[value]="primengTableHelperBWI.records"
-										rows="{{primengTableHelperBWI.defaultRecordsCountPerPage}}"
+                    [loading]="primengTableHelperKelulusan.isLoading"
+										[value]="primengTableHelperKelulusan.records"
+										rows="{{primengTableHelperKelulusan.defaultRecordsCountPerPage}}"
 										[paginator]="false"
 										[lazy]="true"
 										[scrollable]="true"
 										ScrollWidth="100%"
-										[responsive]="primengTableHelperBWI.isResponsive"
-										[resizableColumns]="primengTableHelperBWI.resizableColumns"
+										[responsive]="primengTableHelperKelulusan.isResponsive"
+										[resizableColumns]="primengTableHelperKelulusan.resizableColumns"
 									>
 										<ng-template pTemplate="header">
 											<tr>
@@ -306,15 +306,15 @@
 											<tr>
                         <td style="width: 144px">
 													<span class="p-column-title">No. Rujukan</span>
-													{{records.no_rujukan}}
+													{{records.no_rujukan_kelulusan}}
 												</td>
                         <td style="width: 130px">
 													<span class="p-column-title">Tabung</span>
-													{{records.tabung}}
+													{{records.nama_tabung}}
 												</td>
                         <td style="width: 130px">
 													<span class="p-column-title">Tarikh Surat</span>
-													{{records.tarikh_surat}}
+													{{records.tarikh_surat | date:'dd-MM-yyyy'}}
 												</td>
 												<td style="width: 130px">
 													<span class="p-column-title">Rujukan Surat</span>
@@ -322,27 +322,31 @@
 												</td>
 												<td style="width: 130px">
 													<span class="p-column-title">Siling Peruntukan</span>
-													{{records.siling_peruntukan}}
+                          <label *ngIf="records.peruntukan">{{records.peruntukan}}</label>
+													<label *ngIf="!records.peruntukan">RM 0.00</label>
 												</td>
                         <td style="width: 186px">
 													<span class="p-column-title">Tarikh Mula</span>
-													RM {{records.tarikh_kelulusan_mula}}
+													RM {{records.tarikh_mula_kelulusan | date:'dd-MM-yyyy'}}
 												</td>
                         <td style="width: 170px">
 													<span class="p-column-title">Tarikh Tamat</span>
-													RM {{records.tarikh_kelulusan_tamat}}
+													RM {{records.tarikh_tamat_kelulusan | date:'dd-MM-yyyy'}}
 												</td>
                         <td style="width: 170px">
 													<span class="p-column-title">Jumlah Belanja</span>
-													RM {{records.jumlah_belanja}}
+                          <label *ngIf="records.jumlah_belanja">{{records.jumlah_belanja}}</label>
+													<label *ngIf="!records.jumlah_belanja">RM 0.00</label>
 												</td>
                         <td style="width: 170px">
 													<span class="p-column-title">Baki Peruntukan</span>
-													RM {{records.baki_peruntukan}}
+                          <label *ngIf="records.baki_jumlah_siling">{{records.baki_jumlah_siling}}</label>
+                          <label *ngIf="!records.baki_jumlah_siling">RM 0.00</label>
 												</td>
                         <td style="width: 130px">
 													<span class="p-column-title">Status</span>
-													RM {{records.status}}
+                          <label *ngIf="records.status_tabung == 1">Aktif</label>
+                          <label *ngIf="records.status_tabung == 2">Tidak Aktif</label>
 												</td>
                         <td style="width: 160px">
                           <div ngbDropdown class="btn-group" role="group" container="body">
@@ -367,16 +371,16 @@
 											</tr>
 										</ng-template>
 									</p-table>
-                  <div class="primeng-no-data" *ngIf="primengTableHelperBWI.totalRecordsCount == 0">No Data</div>
+                  <div class="primeng-no-data" *ngIf="primengTableHelperKelulusan.totalRecordsCount == 0">No Data</div>
                   <div class="primeng-paging-container justify-content-between">
                     <p-paginator
-                      [rows]="primengTableHelperBWI.defaultRecordsCountPerPage"
+                      [rows]="primengTableHelperKelulusan.defaultRecordsCountPerPage"
                       #paginator
                       (onPageChange)="getKelulusan($event)"
-                      [totalRecords]="primengTableHelperBWI.totalRecordsCount"
-                      [rowsPerPageOptions]="primengTableHelperBWI.predefinedRecordsCountPerPage"
+                      [totalRecords]="primengTableHelperKelulusan.totalRecordsCount"
+                      [rowsPerPageOptions]="primengTableHelperKelulusan.predefinedRecordsCountPerPage"
                     ></p-paginator>
-                    <span class="total-records-count">Jumlah: {{ primengTableHelperBWI.totalRecordsCount}}</span>
+                    <span class="total-records-count">Jumlah: {{ primengTableHelperKelulusan.totalRecordsCount}}</span>
                   </div>
 								</div>
 							</div>
