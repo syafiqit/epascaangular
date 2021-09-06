@@ -7,7 +7,7 @@ import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
 import { NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TambahPeruntukanComponent } from '../edit-tabung/tambah-peruntukan/tambah-peruntukan.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CreateOrEditTabungDto, GetTabungForEditDto, RefSumberPeruntukanServiceProxy, TabungPeruntukanServiceProxy, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import { CreateOrEditTabungDto, GetTabungForEditDto, RefSumberPeruntukanServiceProxy, TabungKelulusanServiceProxy, TabungPeruntukanServiceProxy, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import * as moment from 'moment';
 import { finalize } from 'rxjs/operators';
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
@@ -25,7 +25,7 @@ export class EditTabungComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
   primengTableHelperSejarah: PrimengTableHelper;
-  primengTableHelperBWI: PrimengTableHelper;
+  primengTableHelperKelulusan: PrimengTableHelper;
 
   getTabung: GetTabungForEditDto = new GetTabungForEditDto();
   editTabung: CreateOrEditTabungDto = new CreateOrEditTabungDto();
@@ -34,6 +34,8 @@ export class EditTabungComponent implements OnInit {
   tarikhBaki: string;
   tarikh_cipta: string;
   filterText: string;
+  filterTabung: number;
+  filterJenisBencana: number;
   statuses: any;
   sumberPeruntukan: any;
   tarikhTerimaanSehingga: Date;
@@ -73,13 +75,14 @@ export class EditTabungComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private tabungServiceProxy: TabungServiceProxy,
     private tabungPeruntukanServiceProxy: TabungPeruntukanServiceProxy,
+    private tabungKelulusanServiceProxy: TabungKelulusanServiceProxy,
     private _refSumberPeruntukanServiceProxy: RefSumberPeruntukanServiceProxy,
     private calendar: NgbCalendar,
     private router: Router
     ) {
 		this.primengTableHelper = new PrimengTableHelper();
     this.primengTableHelperSejarah = new PrimengTableHelper();
-    this.primengTableHelperBWI = new PrimengTableHelper();
+    this.primengTableHelperKelulusan = new PrimengTableHelper();
     this.getTabung.tabung = new CreateOrEditTabungDto;
     this._activatedRoute.queryParams.subscribe((p) => {
       this.idTabung = p['id'];
@@ -171,16 +174,28 @@ export class EditTabungComponent implements OnInit {
 	}
 
   getKelulusan(event?: LazyLoadEvent) {
-		if (this.primengTableHelperBWI.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
+    if (this.primengTableHelperKelulusan.shouldResetPaging(event)) {
+      this.paginator.changePage(0);
+      return;
+    }
+    this.primengTableHelperKelulusan.showLoadingIndicator();
 
-    this.primengTableHelperBWI.showLoadingIndicator();
-		this.primengTableHelperBWI.totalRecordsCount = this.kelulusan.length;
-		this.primengTableHelperBWI.records = this.kelulusan;
-		this.primengTableHelperBWI.hideLoadingIndicator();
-	}
+    this.tabungKelulusanServiceProxy.getAll(
+      this.filterText,
+      this.idTabung,
+      this.filterJenisBencana,
+      this.primengTableHelperKelulusan.getSorting(this.dataTable),
+      this.primengTableHelperKelulusan.getSkipCount(this.paginator, event),
+      this.primengTableHelperKelulusan.getMaxResultCount(this.paginator, event)
+    )
+    .pipe(finalize(()=>{
+      this.primengTableHelperKelulusan.hideLoadingIndicator();
+    }))
+    .subscribe((result) => {
+      this.primengTableHelperKelulusan.totalRecordsCount = result.total_count;
+      this.primengTableHelperKelulusan.records = result.items;
+    });
+  }
 
 	addTabungPeruntukan(idTabung) {
 		const modalRef = this.modalService.open(TambahPeruntukanComponent, { size: 'lg' });
