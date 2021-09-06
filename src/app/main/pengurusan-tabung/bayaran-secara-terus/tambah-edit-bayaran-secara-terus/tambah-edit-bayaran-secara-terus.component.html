@@ -48,34 +48,36 @@
 
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Tabung*</label>
-									<div class="input-group">
-										<input
-                      class="form-control"
-                      type="text"
-                      placeholder="Tabung"
-                      name="tabung"
-                      [(ngModel)]="namaTabung"
-                      #tabung="ngModel"
-                      [ngClass]="{ 'is-invalid': f.submitted && tabung.invalid }"
-                      required
-                      readonly
-										/>
-										<div class="input-group-append">
-											<button class="btn btn-primary" (click)="addTabung()" type="button">
-												<i class="fa fa-search text-white"></i>
-											</button>
-										</div>
-									</div>
-                  <div *ngIf="f.submitted && tabung.invalid" class="invalid-feedback">
-                    <div *ngIf="tabung.errors.required">Tabung Wajib Dipilih</div>
-                  </div>
+									<label>Jenis Bayaran</label>
+									<ng-select
+                    [items]="jenisBayaran"
+                    bindLabel="nama_jenis_bayaran"
+                    bindValue="id"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
+                    name="jenisBayaran"
+                    [(ngModel)]="id_jenis_bayaran"
+                  ></ng-select>
 								</div>
 							</div>
 						</div>
 
 						<div class="row">
 							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Kategori</label>
+									<ng-select
+                    [items]="kategori"
+                    bindLabel="nama_kategori"
+                    bindValue="id"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
+                    name="kategori"
+                  ></ng-select>
+								</div>
+							</div>
+
+							<div class="col-lg-6" *ngIf="id_jenis_bayaran == 1">
 								<div class="form-group">
 									<label>Bencana*</label>
 									<div class="input-group">
@@ -101,20 +103,21 @@
                   </div>
 								</div>
 							</div>
+						</div>
 
+            <div class="row" *ngIf="id_jenis_bayaran == 1 && namaBencana">
 							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Kategori*</label>
-									<ng-select
-                    [items]="jenisBencana"
-                    bindLabel="nama_jenis_bencana"
-                    bindValue="id"
-                    placeholder="Sila Pilih"
-                    class="js-example-placeholder-multiple"
-                    name="jenisBencana"
-                  ></ng-select>
-								</div>
-							</div>
+                <div class="form-group">
+                  <label>Tarikh Bencana</label>
+                  <input
+                    class="form-control"
+                    name="tarikhBencana"
+                    type="text"
+                    placeholder="Tarikh Bencana"
+                    disabled
+                  />
+                </div>
+              </div>
 						</div>
 						<hr />
 						<h6>Maklumat Bayaran</h6>

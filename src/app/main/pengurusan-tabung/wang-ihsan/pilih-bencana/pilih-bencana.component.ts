@@ -3,17 +3,18 @@ import { NgbActiveModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
-import { finalize } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
-import { TabungKelulusanServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import { RefBencanaServiceProxy } from 'src/app/shared/proxy/service-proxies';
 
 @Component({
-  selector: 'app-pilih-rujukan-kelulusan',
-  templateUrl: './pilih-rujukan-kelulusan.component.html',
+  selector: 'app-pilih-bencana',
+  templateUrl: './pilih-bencana.component.html',
   encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig]
 })
-export class PilihRujukanKelulusanComponent implements OnInit {
+export class PilihBencanaComponent implements OnInit {
   @ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
@@ -22,33 +23,47 @@ export class PilihRujukanKelulusanComponent implements OnInit {
 	@Input() name;
 
   filter: string;
-  filterTabung: number;
-  filterJenisBencana: number;
+  filterTahun: number;
+  filterBencana: string;
+  filterJenis: number;
+  terms$ = new Subject<string>();
 
 	constructor(
     config: NgbModalConfig,
     public activeModal: NgbActiveModal,
-    private _tabungKelulusanServiceProxy: TabungKelulusanServiceProxy
+    private _refBencanaServiceProxy: RefBencanaServiceProxy
   ) {
+		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
-		this.primengTableHelper = new PrimengTableHelper();
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+    this.terms$.pipe(
+      debounceTime(500), distinctUntilChanged()
+    ).subscribe((filterValue: string) =>{
+      this.filter = filterValue;
+      this.getBencana();
+    });
+  }
 
-	getKelulusan(event?: LazyLoadEvent) {
+  applyFilter(filterValue: string){
+    this.terms$.next(filterValue);
+  }
+
+	getBencana(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
 		}
 
 		this.primengTableHelper.showLoadingIndicator();
-		this._tabungKelulusanServiceProxy
-			.getAllKelulusanForLookupTable(
+		this._refBencanaServiceProxy
+			.getAll(
 				this.filter,
-        this.filterTabung,
-        this.filterJenisBencana,
+        this.filterTahun,
+        this.filterBencana,
+        this.filterJenis,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -62,16 +77,12 @@ export class PilihRujukanKelulusanComponent implements OnInit {
 			});
 	}
 
-  select(id, no_rujukan_kelulusan, id_jenis_bencana, id_tabung, nama_jenis_bencana, rujukan_surat, nama_tabung, perihal_surat) {
+  select(id, nama_bencana) {
 		this.activeModal.close({
       id: id,
-      no_rujukan_kelulusan: no_rujukan_kelulusan,
-      id_jenis_bencana: id_jenis_bencana,
-      id_tabung: id_tabung,
-      nama_jenis_bencana: nama_jenis_bencana,
-      rujukan_surat: rujukan_surat,
-      nama_tabung: nama_tabung,
-      perihal_surat: perihal_surat
+      nama_bencana: nama_bencana,
+
+
     });
 	}
 }

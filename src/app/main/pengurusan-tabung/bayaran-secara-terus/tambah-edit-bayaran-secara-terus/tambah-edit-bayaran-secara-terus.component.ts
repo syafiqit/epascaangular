@@ -28,6 +28,7 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
   filterJenisBencana: string;
   bencana: any;
   jenisBencana: any;
+  id_jenis_bayaran: number;
   no_rujukan_kelulusan: string;
   namaTabung: string;
   namaBencana: string;
@@ -36,6 +37,16 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
   readonly DELIMITER = '-';
   tarikhBayaran: string;
   idBayaranTerus: any;
+
+  jenisBayaran = [
+    { id: 1, nama_jenis_bayaran: 'BWI' },
+    { id: 2, nama_jenis_bayaran: 'Pengoperasian' }
+  ];
+
+  kategori = [
+    { id: 1, nama_kategori: 'Covid' },
+    { id: 2, nama_kategori: 'Bukan Covid' }
+  ];
 
 	constructor(
     config: NgbModalConfig,

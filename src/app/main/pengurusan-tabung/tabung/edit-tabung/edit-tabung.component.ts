@@ -36,6 +36,7 @@ export class EditTabungComponent implements OnInit {
   filterText: string;
   statuses: any;
   sumberPeruntukan: any;
+  tarikhTerimaanSehingga: Date;
 
 	ColumnMode = ColumnMode;
 	SortType = SortType;
@@ -58,18 +59,11 @@ export class EditTabungComponent implements OnInit {
 		}
 	];
 
-  bwi = [
+  kelulusan = [
 		{
-      bil: '1', jenis_bencana: 'BANJIR', negeri: 'PENANG', daerah: 'SPT', tahun: '2020', jumlah_kir: '76', jumlah_keseluruhan: '38000.00', baki_dipulangkan: '2000.00'
-		},
-    {
-      bil: '2', jenis_bencana: 'BANJIR', negeri: 'PAHANG', daerah: 'KUANTAN', tahun: '2020', jumlah_kir: '50', jumlah_keseluruhan: '18000.00', baki_dipulangkan: '-'
-		},
-    {
-      bil: '3', jenis_bencana: 'BANJIR', negeri: 'PAHANG', daerah: 'BERA', tahun: '2020', jumlah_kir: '10', jumlah_keseluruhan: '10000.00', baki_dipulangkan: '-'
-		},
-    {
-      bil: '4', jenis_bencana: 'RIBUT', negeri: 'PAHANG', daerah: 'SPT', tahun: '2019', jumlah_kir: '10', jumlah_keseluruhan: '32100.00', baki_dipulangkan: '-'
+      no_rujukan: 'A123', tabung: 'KWABBN', tarikh_surat: '17/12/2019', rujukan_surat: 'JPM.APBN(S).600-3/8/2 Jld.7 (7)', siling_peruntukan: '76',
+      tarikh_kelulusan_mula: '30/12/2019', tarikh_kelulusan_tamat: '31/12/2019', jumlah_belanja : '304,996.00', baki_peruntukan: '695,004.00',
+      status: 'Aktif'
 		}
 	];
 
@@ -95,6 +89,7 @@ export class EditTabungComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+    this.tarikhTerimaanSehingga = new Date(new Date().getFullYear() -1, 12, 0);
     this.getSumberPeruntukan();
     this.show()
   }
@@ -175,15 +170,15 @@ export class EditTabungComponent implements OnInit {
 		this.primengTableHelperSejarah.hideLoadingIndicator();
 	}
 
-  getSejarahBWI(event?: LazyLoadEvent) {
+  getKelulusan(event?: LazyLoadEvent) {
 		if (this.primengTableHelperBWI.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
 		}
 
     this.primengTableHelperBWI.showLoadingIndicator();
-		this.primengTableHelperBWI.totalRecordsCount = this.bwi.length;
-		this.primengTableHelperBWI.records = this.bwi;
+		this.primengTableHelperBWI.totalRecordsCount = this.kelulusan.length;
+		this.primengTableHelperBWI.records = this.kelulusan;
 		this.primengTableHelperBWI.hideLoadingIndicator();
 	}
 
