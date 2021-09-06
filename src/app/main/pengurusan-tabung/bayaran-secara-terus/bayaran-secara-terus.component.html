@@ -53,7 +53,6 @@
 						>
 							<ng-template pTemplate="header">
 								<tr>
-									<th style="width: 130px">Tindakan</th>
                   <th style="width: 130px" pSortableColumn="no_rujukan_kelulusan">
 										No. Kelulusan
 										<p-sortIcon field="no_rujukan_kelulusan"></p-sortIcon>
@@ -78,34 +77,11 @@
 										Kategori
 										<p-sortIcon field="nama_bencana"></p-sortIcon>
 									</th>
+                  <th style="width: 130px">Tindakan</th>
 								</tr>
 							</ng-template>
 							<ng-template pTemplate="body" let-record="$implicit">
 								<tr>
-									<td style="width: 130px">
-										<div ngbDropdown class="btn-group" role="group" container="body">
-											<button
-												type="button"
-												class="btn btn-primary btn-primeng dropdown-toggle"
-												id="action"
-												ngbDropdownToggle
-											>
-												<i class="fa fa-cog"></i>
-												<span class="caret"></span>
-												Tindakan
-											</button>
-											<div ngbDropdownMenu aria-labelledby="action">
-												<button
-													class="dropdown-item"
-													[routerLink]="['/app/tabung/tambah-edit-bayaran-secara-terus']"
-                          [queryParams]="{id: record.id}"
-												>
-													Lihat
-												</button>
-												<button class="dropdown-item">Padam</button>
-											</div>
-										</div>
-									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">No. Rujukan Kelulusan</span>
 										{{record.no_rujukan_kelulusan}}
@@ -130,6 +106,30 @@
 									<td style="width: 100px">
 										<span class="p-column-title">Kategori</span>
 										{{record.nama_bencana}}
+									</td>
+                  <td style="width: 130px">
+										<div ngbDropdown class="btn-group" role="group" container="body">
+											<button
+												type="button"
+												class="btn btn-primary btn-primeng dropdown-toggle"
+												id="action"
+												ngbDropdownToggle
+											>
+												<i class="fa fa-cog"></i>
+												<span class="caret"></span>
+												Tindakan
+											</button>
+											<div ngbDropdownMenu aria-labelledby="action">
+												<button
+													class="dropdown-item"
+													[routerLink]="['/app/tabung/tambah-edit-bayaran-secara-terus']"
+                          [queryParams]="{id: record.id}"
+												>
+													Lihat
+												</button>
+												<button class="dropdown-item">Padam</button>
+											</div>
+										</div>
 									</td>
 								</tr>
 							</ng-template>

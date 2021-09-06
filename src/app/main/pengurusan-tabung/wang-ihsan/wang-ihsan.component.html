@@ -114,7 +114,7 @@
                       <button
                         class="btn btn-primary pull-right"
                         type="button"
-                        (click)="getBantuanWangIhsan()"
+                        (click)="getSenaraiBWI()"
                       >
                       <i class="fa fa-search mr-2"></i>
                         <b>Cari</b>
@@ -133,7 +133,7 @@
 							styleClass="p-datatable-striped"
 							[resizableColumns]="true"
               [loading]="primengTableHelper.isLoading"
-							(onLazyLoad)="getBantuanWangIhsan($event)"
+							(onLazyLoad)="getSenaraiBWI($event)"
 							[value]="primengTableHelper.records"
 							rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
 							[paginator]="false"
@@ -145,44 +145,60 @@
 						>
 							<ng-template pTemplate="header">
 								<tr>
-									<th style="width: 150px">Tindakan</th>
-                  <th style="width: 150px" pSortableColumn="nama_jenis_bencana">
-										Jenis Bencana
-										<p-sortIcon field="nama_jenis_bencana"></p-sortIcon>
+                  <th style="width: 150px" pSortableColumn="no_rujukan">
+										No. Rujukan
+										<p-sortIcon field="no_rujukan"></p-sortIcon>
 									</th>
-									<th style="width: 150px" pSortableColumn="nama_negeri">
-										Negeri
-										<p-sortIcon field="nama_negeri"></p-sortIcon>
+									<th style="width: 130px" pSortableColumn="jenis_bencana">
+										Jenis (BWI)
+										<p-sortIcon field="jenis_bencana"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="nama_daerah">
-										Daerah
-										<p-sortIcon field="nama_daerah"></p-sortIcon>
+									<th style="width: 150px" pSortableColumn="nama_bencana">
+										Nama Bencana
+										<p-sortIcon field="nama_bencana"></p-sortIcon>
 									</th>
-                  <th style="width: 155px" pSortableColumn="status">
-										Status Rujukan
-										<p-sortIcon field="status"></p-sortIcon>
+                  <th style="width: 110px" pSortableColumn="tarikh">
+									  Tarikh
+										<p-sortIcon field="tarikh"></p-sortIcon>
 									</th>
-									<th style="width: 120px" pSortableColumn="tahun_bencana">
-										Tahun
-										<p-sortIcon field="tahun_bencana"></p-sortIcon>
+									<th style="width: 120px" pSortableColumn="negeri_didaftarkan">
+										Jumlah Negeri Didaftarkan
+										<p-sortIcon field="negeri_didaftarkan"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="jumlah_kir">
-										Jumlah KIR
-										<p-sortIcon field="jumlah_kir"></p-sortIcon>
+									<th style="width: 130px" pSortableColumn="jumlah_keseluruhan_bayaran">
+										Jumlah Keseluruhan Bayaran
+										<p-sortIcon field="jumlah_keseluruhan_bayaran"></p-sortIcon>
 									</th>
-									<th style="width: 140px" pSortableColumn="jumlah">
-										Jumlah (RM)
-										<p-sortIcon field="jumlah"></p-sortIcon>
-									</th>
-									<th style="width: 150px" pSortableColumn="jumlah_kembali">
-										Baki Pulangan
-										<p-sortIcon field="jumlah_kembali"></p-sortIcon>
-									</th>
+                  <th style="width: 150px">Tindakan</th>
 								</tr>
 							</ng-template>
 							<ng-template pTemplate="body" let-record="$implicit">
 								<tr>
+                  <td style="width: 150px">
+										<span class="p-column-title">No. Rujukan</span>
+                    {{record.no_rujukan}}
+									</td>
+									<td style="width: 130px">
+										<span class="p-column-title">Jenis (BWI)</span>
+                    {{record.jenis_bwi}}
+									</td>
 									<td style="width: 150px">
+										<span class="p-column-title">Nama Bencana</span>
+                    {{record.nama_bencana}}
+									</td>
+									<td style="width: 110px">
+										<span class="p-column-title">Tarikh</span>
+                    {{record.tarikh}}
+									</td>
+									<td style="width: 120px">
+										<span class="p-column-title">Jumlah Negeri Didaftarkan</span>
+                    {{record.negeri_didaftarkan}}
+									</td>
+									<td style="width: 130px">
+										<span class="p-column-title">Jumlah Keseluruhan Bayaran</span>
+                    {{record.jumlah_keseluruhan_bayaran}}
+									</td>
+                  <td style="width: 150px">
 										<div ngbDropdown class="btn-group" role="group" container="body">
 											<button
 												type="button"
@@ -198,44 +214,11 @@
 												<button
 													class="dropdown-item"
 													[routerLink]="['/app/tabung/edit-wang-ihsan']"
-                          [queryParams]="{id: record.id}"
 												>
 													Lihat
 												</button>
 											</div>
 										</div>
-									</td>
-                  <td style="width: 150px">
-										<span class="p-column-title">Jenis Bencana</span>
-                    {{record.nama_jenis_bencana}}
-									</td>
-									<td style="width: 150px">
-										<span class="p-column-title">Negeri</span>
-                    {{record.nama_negeri}}
-									</td>
-									<td style="width: 130px">
-										<span class="p-column-title">Daerah</span>
-                    {{record.nama_daerah}}
-									</td>
-									<td style="width: 155px">
-										<span class="p-column-title">Status Rujukan</span>
-                    <label>-</label>
-									</td>
-									<td style="width: 120px">
-										<span class="p-column-title">Tahun</span>
-                    {{record.tahun_bencana}}
-									</td>
-									<td style="width: 130px">
-										<span class="p-column-title">Jumlah KIR</span>
-                    {{record.jumlah_kir}}
-									</td>
-									<td style="width: 140px">
-										<span class="p-column-title">Jumlah</span>
-                    RM{{record.jumlah_setiap_kir * record.jumlah_kir}}
-									</td>
-									<td style="width: 150px">
-										<span class="p-column-title">Baki Pulangan</span>
-                    RM{{record.jumlah_kembali}}
 									</td>
 								</tr>
 							</ng-template>
@@ -245,7 +228,7 @@
 							<p-paginator
 								[rows]="primengTableHelper.defaultRecordsCountPerPage"
 								#paginator
-								(onPageChange)="getBantuanWangIhsan($event)"
+								(onPageChange)="getSenaraiBWI($event)"
 								[totalRecords]="primengTableHelper.totalRecordsCount"
 								[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
 							></p-paginator>

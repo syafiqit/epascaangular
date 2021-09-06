@@ -36,8 +36,6 @@ export class TambahEditTabungComponent implements OnInit {
   readonly DELIMITER = '-';
 
 	constructor(
-    private modalService: NgbModal,
-    private datePipe: DatePipe,
     public activeModal: NgbActiveModal,
     private calendar: NgbCalendar,
     private _activatedRoute: ActivatedRoute,
@@ -80,8 +78,6 @@ export class TambahEditTabungComponent implements OnInit {
   }
 
   save() {
-    this.createTabung.id_tabung_sebelum = this.id_tabung_sebelum;
-    this.createTabung.baki_bawaan = this.tabungSebelum.jumlah_baki_semasa;
     this.createTabung.tarikh_baki = moment(this.tarikhBaki, "YYYY-MM-DD");
 
     this.tabungServiceProxy.createOrEdit(this.createTabung).subscribe(()=>{

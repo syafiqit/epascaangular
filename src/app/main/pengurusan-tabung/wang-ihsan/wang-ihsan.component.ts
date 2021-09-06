@@ -36,6 +36,18 @@ export class WangIhsanComponent implements OnInit {
   negeri: any;
   idBwi: any;
 
+  SenaraiBWI = [
+		{
+      no_rujukan: 'BWI 17687', jenis_bwi: 'Bencana', nama_bencana: 'Ribut', tarikh: '12/12/2021', negeri_didaftarkan: '3',jumlah_keseluruhan_bayaran: '60000'
+		},
+    {
+      no_rujukan: 'BWI 94563', jenis_bwi: 'Lain-lain', nama_bencana: 'Kebakaran', tarikh: '6/8/2021', negeri_didaftarkan: '1',jumlah_keseluruhan_bayaran: '60000'
+		},
+    {
+      no_rujukan: 'BWI 36982', jenis_bwi: 'Kematian', nama_bencana: '-', tarikh: '-', negeri_didaftarkan: '3',jumlah_keseluruhan_bayaran: '60000'
+		}
+	];
+
 	constructor(
     config: NgbModalConfig,
     private _activatedRoute: ActivatedRoute,
@@ -59,7 +71,7 @@ export class WangIhsanComponent implements OnInit {
       debounceTime(500), distinctUntilChanged()
     ).subscribe((filterValue: string) =>{
       this.filter = filterValue;
-      this.getBantuanWangIhsan();
+      this.getSenaraiBWI();
     });
 
   }
@@ -68,31 +80,43 @@ export class WangIhsanComponent implements OnInit {
     this.terms$.next(filterValue);
   }
 
-	getBantuanWangIhsan(event?: LazyLoadEvent) {
-    if (this.primengTableHelper.shouldResetPaging(event)) {
-      this.paginator.changePage(0);
-      return;
-    }
-    this.primengTableHelper.showLoadingIndicator();
+	// getBantuanWangIhsan(event?: LazyLoadEvent) {
+  //   if (this.primengTableHelper.shouldResetPaging(event)) {
+  //     this.paginator.changePage(0);
+  //     return;
+  //   }
+  //   this.primengTableHelper.showLoadingIndicator();
 
-    this.tabungBwiServiceProxy
-    .getAll(
-      this.filter,
-      this.filterDaerah ?? undefined,
-      this.filterNegeri ?? undefined,
-      this.filterJenisBencana ?? undefined,
-      this.primengTableHelper.getSorting(this.dataTable),
-      this.primengTableHelper.getSkipCount(this.paginator, event),
-      this.primengTableHelper.getMaxResultCount(this.paginator, event)
-    )
-    .pipe(finalize(()=>{
-      this.primengTableHelper.hideLoadingIndicator();
-    }))
-    .subscribe((result) => {
-      this.primengTableHelper.totalRecordsCount = result.total_count;
-      this.primengTableHelper.records = result.items;
-    });
-  }
+  //   this.tabungBwiServiceProxy
+  //   .getAll(
+  //     this.filter,
+  //     this.filterDaerah ?? undefined,
+  //     this.filterNegeri ?? undefined,
+  //     this.filterJenisBencana ?? undefined,
+  //     this.primengTableHelper.getSorting(this.dataTable),
+  //     this.primengTableHelper.getSkipCount(this.paginator, event),
+  //     this.primengTableHelper.getMaxResultCount(this.paginator, event)
+  //   )
+  //   .pipe(finalize(()=>{
+  //     this.primengTableHelper.hideLoadingIndicator();
+  //   }))
+  //   .subscribe((result) => {
+  //     this.primengTableHelper.totalRecordsCount = result.total_count;
+  //     this.primengTableHelper.records = result.items;
+  //   });
+  // }
+
+  getSenaraiBWI(event?: LazyLoadEvent) {
+		if (this.primengTableHelper.shouldResetPaging(event)) {
+			this.paginator.changePage(0);
+			return;
+		}
+
+    this.primengTableHelper.showLoadingIndicator();
+		this.primengTableHelper.totalRecordsCount = this.SenaraiBWI.length;
+		this.primengTableHelper.records = this.SenaraiBWI;
+		this.primengTableHelper.hideLoadingIndicator();
+	}
 
   getJenisBencana(filter?) {
 		this._refJenisBencanaServiceProxy.getRefJenisBencanaForDropdown(filter).subscribe((result) => {
@@ -118,7 +142,7 @@ export class WangIhsanComponent implements OnInit {
     this.filterNegeri = undefined;
     this.filterJenisBencana = undefined;
 
-    this.getBantuanWangIhsan();
+    this.getSenaraiBWI();
   }
 
 	reloadPage(): void {

@@ -27,10 +27,10 @@ export class PilihPembayaranComponent implements OnInit {
 
   rows = [
 		{
-      jenis_bayaran: 'SKB', no_rujukan_bayaran: 'SKB078', perihal: 'Kecemasan', jumlah: 'RM 100000.00'
+      jenis_bayaran: 'TERUS', no_rujukan_bayaran: 'TRS 078', perihal: 'Test 1', no_rujukan_kelulusan: 'KLS 89087', jumlah: 'RM 100000.00'
 		},
     {
-      jenis_bayaran: 'TERUS', no_rujukan_bayaran: 'TRS312', perihal: 'Tiada', jumlah: 'RM 93000.00'
+      jenis_bayaran: 'TERUS', no_rujukan_bayaran: 'TRS 312', perihal: 'Test 2', no_rujukan_kelulusan: 'KLS 54632', jumlah: 'RM 93000.00'
 		}
 	];
 
@@ -58,9 +58,13 @@ export class PilihPembayaranComponent implements OnInit {
 		this.primengTableHelper.hideLoadingIndicator();
 	}
 
-  select(jenis_bayaran) {
+  select(jenis_bayaran, no_rujukan_bayaran, perihal, no_rujukan_kelulusan, jumlah) {
 		this.activeModal.close({
-      nama_pembayaran: jenis_bayaran
+      nama_pembayaran: jenis_bayaran,
+      no_rujukan_bayaran: no_rujukan_bayaran,
+      perihal: perihal,
+      no_rujukan_kelulusan: no_rujukan_kelulusan,
+      jumlah: jumlah
     });
 	}
 }

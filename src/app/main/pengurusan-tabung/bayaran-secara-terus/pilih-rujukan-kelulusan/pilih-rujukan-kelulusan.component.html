@@ -25,7 +25,6 @@
 				>
 					<ng-template pTemplate="header">
 						<tr>
-							<th style="width: 100px">Tindakan</th>
 							<th style="width: 130px" pSortableColumn="no_rujukan_kelulusan">
 								No. Rujukan
 								<p-sortIcon field="no_rujukan_kelulusan"></p-sortIcon>
@@ -34,19 +33,28 @@
 								Tabung
 								<p-sortIcon field="nama_tabung"></p-sortIcon>
 							</th>
-							<th style="width: 130px" pSortableColumn="perihal_surat">
-								Perihal
-								<p-sortIcon field="perihal_surat"></p-sortIcon>
+              <th style="width: 130px" pSortableColumn="jumlah_siling">
+								Jumlah Siling
+								<p-sortIcon field="jumlah_siling"></p-sortIcon>
 							</th>
-              <th style="width: 130px" pSortableColumn="peruntukan">
-								Peruntukan
-								<p-sortIcon field="peruntukan"></p-sortIcon>
-							</th>
+              <th style="width: 100px">Tindakan</th>
 						</tr>
 					</ng-template>
 					<ng-template pTemplate="body" let-record="$implicit">
 						<tr>
-							<td style="width: 100px">
+							<td style="width: 130px">
+								<span class="p-column-title">No. Rujukan</span>
+								{{record.no_rujukan_kelulusan}}
+							</td>
+							<td style="width: 130px">
+								<span class="p-column-title">Tabung</span>
+								{{record.nama_tabung}}
+							</td>
+              <td style="width: 130px">
+								<span class="p-column-title">Jumlah Siling</span>
+								{{record.jumlah_siling}}
+							</td>
+              <td style="width: 100px">
 								<button
                   class="btn btn-primary"
                   type="button"
@@ -63,22 +71,6 @@
                 >
                   Pilih
                 </button>
-							</td>
-							<td style="width: 130px">
-								<span class="p-column-title">No. Rujukan</span>
-								{{record.no_rujukan_kelulusan}}
-							</td>
-							<td style="width: 130px">
-								<span class="p-column-title">Tabung</span>
-								{{record.nama_tabung}}
-							</td>
-							<td style="width: 130px">
-								<span class="p-column-title">Perihal</span>
-								{{record.perihal_surat}}
-							</td>
-              <td style="width: 130px">
-								<span class="p-column-title">Peruntukan</span>
-								{{record.peruntukan}}
 							</td>
 						</tr>
 					</ng-template>
