@@ -17,6 +17,7 @@ export class TambahBelanjaBulanan implements OnInit {
 	@Input() jumlah;
   @Input() kategori;
   @Input() id_tabung_bayaran_skb;
+  @Input() id_tabung;
 
 	bulanan: CreateOrEditTabungBayaranSkbBulananDto = new CreateOrEditTabungBayaranSkbBulananDto();
 	saving = false;
@@ -74,6 +75,7 @@ export class TambahBelanjaBulanan implements OnInit {
       this.saving = true;
 
       this.bulanan.id_tabung_bayaran_skb = this.id_tabung_bayaran_skb;
+      this.bulanan.id_tabung = this.id_tabung;
       this._tabungBayaranSkbBulananServiceProxy
         .createOrEdit(this.bulanan)
         .pipe()

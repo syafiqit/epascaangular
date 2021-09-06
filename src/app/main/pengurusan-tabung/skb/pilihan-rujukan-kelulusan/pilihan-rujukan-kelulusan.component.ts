@@ -58,7 +58,7 @@ export class PilihanRujukanKelulusanComponent implements OnInit {
 
 		this.primengTableHelper.showLoadingIndicator();
 		this._tabungKelulusanServiceProxy
-			.getAll(
+			.getAllKelulusanForLookupTable(
 				this.filter,
         this.filterTabung,
         this.filterJenisBencana,
@@ -75,10 +75,11 @@ export class PilihanRujukanKelulusanComponent implements OnInit {
 			});
 	}
 
-  select(id, no_rujukan_kelulusan) {
+  select(id, no_rujukan_kelulusan, id_tabung) {
 		this.activeModal.close({
       id: id,
-      no_rujukan_kelulusan: no_rujukan_kelulusan
+      no_rujukan_kelulusan: no_rujukan_kelulusan,
+      id_tabung: id_tabung
     });
 	}
 }

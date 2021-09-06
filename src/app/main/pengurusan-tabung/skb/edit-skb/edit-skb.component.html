@@ -41,36 +41,39 @@
 
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Tabung</label>
-									<div class="input-group">
-										<input
-                      class="form-control"
-                      type="text"
-                      placeholder="Nama Tabung"
-                      name="tabung"
-                      [(ngModel)]="nama_tabung"
-                      #namaTabung="ngModel"
-                      [ngClass]="{ 'is-invalid': f.submitted && namaTabung.invalid }"
-                      required
-                      readonly
-										/>
-										<div class="input-group-append">
-											<button class="btn btn-primary" (click)="pilihTabung()" type="button">
-												<i class="fa fa-search text-white"></i>
-											</button>
-										</div>
-									</div>
-                  <div *ngIf="f.submitted && namaTabung.invalid" class="invalid-feedback">
-                    <div *ngIf="namaTabung.errors.required">Tabung Wajib Dipilih</div>
-                  </div>
-							  </div>
-						  </div>
+									<label>Kategori</label>
+                  <ng-select
+                    [items]="categories"
+                    bindLabel="kategori"
+                    bindValue="id"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
+                    name="kategori_skb"
+                    [(ngModel)]="id_kategori_skb"
+                  ></ng-select>
+								</div>
+							</div>
 						</div>
 
             <div class="row">
-              <div class="col-lg-6">
+							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Bencana</label>
+									<label>Jenis Bayaran</label>
+                  <ng-select
+                    [items]="bayaran"
+                    bindLabel="jenis_bayaran"
+                    bindValue="id"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
+                    name="jenisBayaran"
+                    [(ngModel)]="paymentType"
+                  ></ng-select>
+							  </div>
+						  </div>
+
+              <div class="col-lg-6" *ngIf="paymentType == 1" [@fadeVerticalAnimation]>
+								<div class="form-group">
+									<label>Jenis Bencana</label>
 									<div class="input-group">
 										<input
                       class="form-control"
@@ -92,29 +95,25 @@
                   <div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
                     <div *ngIf="namaBencana.errors.required">Bencana Wajib Dipilih</div>
                   </div>
-							  </div>
-						  </div>
+						    </div>
+              </div>
 
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Kategori Bencana</label>
-                  <ng-select
-                    [items]="categories"
-                    bindLabel="nama_jenis_bencana"
-                    bindValue="id"
-                    placeholder="Sila Pilih"
-                    class="js-example-placeholder-multiple"
-                    name="nama_jenis_bencana"
-                    [(ngModel)]="id_jenis_bencana"
-                    #jenisBencana="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && jenisBencana.invalid }"
-                    required
-                  ></ng-select>
-                  <div *ngIf="f.submitted && jenisBencana.invalid" class="invalid-feedback">
-                    <div *ngIf="jenisBencana.errors.required">Kategori Bencana Wajib Dipilih</div>
-                  </div>
-								</div>
-							</div>
+							<div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown" *ngIf="paymentType == 1" [@fadeVerticalAnimation]>
+                <label>Tarikh Bencana</label>
+                <div class="input-group">
+                  <input
+                    class="form-control"
+                    placeholder="yyyy-mm-dd"
+                    name="dp3"
+                    [(ngModel)]="modelBencana"
+                    ngbDatepicker
+                    [footerTemplate]="footerTemplate"
+                    #d3="ngbDatepicker"
+                    style="border: 1px solid #efefef !important;"
+                    readonly
+                  >
+                </div>
+              </div>
             </div>
 						<hr />
 
@@ -229,13 +228,15 @@
               <div class="col-lg-6">
                 <div class="form-group">
                   <label>Status</label>
-                  <select
-                    class="form-control digits"
-                    name="status_skb"
-                    disabled
-                  >
-                    <option [value]="1">Aktif</option>
-                  </select>
+                  <ng-select
+                    [items]="statuses"
+                    bindLabel="nama"
+                    bindValue="id"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
+                    name="status_bulanan"
+                    [(ngModel)]="status_skb_bulanan"
+                  ></ng-select>
                 </div>
               </div>
 
@@ -246,7 +247,7 @@
                     class="form-control"
                     placeholder="Perihal"
                     name="perihalSkb"
-                    [(ngModel)]="skb.perihal"
+                    [(ngModel)]="edit.tabung_bayaran_skb.perihal"
                   >
                   </textarea>
                 </div>
@@ -255,6 +256,46 @@
 						<hr />
 
 						<h6>Maklumat Belanja Bulanan</h6>
+            <div class="row mt-3">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Siling Peruntukan (RM)</label>
+									<input
+                    class="form-control"
+                    type="text"
+                    name="siling_peruntukan"
+                    placeholder="Jumlah Siling Peruntukan"
+                    value="{{edit.tabung_bayaran_skb.jumlah_siling_peruntukan | number: '1.2-2'}}"
+                    disabled
+                  />
+								</div>
+							</div>
+
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Baki Peruntukan (RM)</label>
+									<input
+                    class="form-control"
+                    type="text"
+                    name="baki_peruntukan"
+                    placeholder="Jumlah Baki Peruntukan"
+                    value="{{edit.tabung_bayaran_skb.jumlah_baki_peruntukan | number: '1.2-2'}}"
+                    disabled
+                  />
+								</div>
+							</div>
+						</div>
+
+            <div class="row no-gutters justify-content-end">
+              <button
+                type="button"
+                class="btn btn-primary pull-right"
+                (click)="addBulanan(edit.tabung_bayaran_skb.id)"
+              >
+                <i class="fa fa-plus mr-2"></i>
+                <b>Tambah</b>
+              </button>
+            </div>
 
             <div class="row mt-3">
               <div class="col-lg-12 align-items-center">
@@ -263,7 +304,7 @@
                     #dataTable
                     styleClass="p-datatable-striped"
                     [resizableColumns]="true"
-                    (onLazyLoad)="getBulan($event)"
+                    (onLazyLoad)="getBulananSKB($event)"
                     [value]="primengTableHelper.records"
                     rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
                     [paginator]="false"
@@ -277,29 +318,17 @@
                     <ng-template pTemplate="header">
                       <tr>
                         <th style="width: 130px">Tindakan</th>
-                        <th style="width: 100px" pSortableColumn="tarikh_mula">
-                          Tarikh Mula
-                          <p-sortIcon field="tarikh_mula"></p-sortIcon>
+                        <th style="width: 150px" pSortableColumn="tahun">
+                          Tahun
+                          <p-sortIcon field="tahun"></p-sortIcon>
                         </th>
-                        <th style="width: 100px" pSortableColumn="tarikh_tamat">
-                          Tarikh Tamat
-                          <p-sortIcon field="tarikh_tamat"></p-sortIcon>
+                        <th style="width: 150px" pSortableColumn="bulan">
+                          Bulan
+                          <p-sortIcon field="bulan"></p-sortIcon>
                         </th>
-                        <th style="width: 150px" pSortableColumn="jumlah_siling_peruntukan">
-                          Siling Peruntukan
-                          <p-sortIcon field="jumlah_siling_peruntukan"></p-sortIcon>
-                        </th>
-                        <th style="width: 150px" pSortableColumn="jumlah_baki_peruntukan">
-                          Baki Peruntukan
-                          <p-sortIcon field="jumlah_baki_peruntukan"></p-sortIcon>
-                        </th>
-                        <th style="width: 150px" pSortableColumn="jumlah_perbelanjaan">
-                          Jumlah Belanja
-                          <p-sortIcon field="jumlah_perbelanjaan"></p-sortIcon>
-                        </th>
-                        <th style="width: 100px" pSortableColumn="status_skb">
-                          Status
-                          <p-sortIcon field="status_skb"></p-sortIcon>
+                        <th style="width: 150px" pSortableColumn="jumlah">
+                          Jumlah
+                          <p-sortIcon field="jumlah"></p-sortIcon>
                         </th>
                       </tr>
                     </ng-template>
@@ -318,33 +347,21 @@
                               Tindakan
                             </button>
                             <div ngbDropdownMenu aria-labelledby="action">
-                              <button class="dropdown-item" (click)="skbBulanan()">Lihat</button>
+                              <button class="dropdown-item" (click)="editBulanan(record.id, record.id_tabung_bayaran_skb)">Lihat</button>
                             </div>
                           </div>
                         </td>
-                        <td style="width: 100px">
-                          <span class="p-column-title">Tarikh Mula</span>
-                          {{record.tarikh_mula}}
-                        </td>
-                        <td style="width: 100px">
-                          <span class="p-column-title">Tarikh Tamat</span>
-                          {{record.tarikh_tamat}}
+                        <td style="width: 150px">
+                          <span class="p-column-title">Tahun</span>
+                          {{record.tahun}}
                         </td>
                         <td style="width: 150px">
-                          <span class="p-column-title">Siling Peruntukan</span>
-                          RM {{record.jumlah_siling_peruntukan}}
+                          <span class="p-column-title">Bulan</span>
+                          {{record.bulan}}
                         </td>
                         <td style="width: 150px">
-                          <span class="p-column-title">Baki Peruntukan</span>
-                          RM {{record.jumlah_baki_peruntukan}}
-                        </td>
-                        <td style="width: 150px">
-                          <span class="p-column-title">Jumlah Belanja</span>
-                          RM {{record.jumlah_perbelanjaan}}
-                        </td>
-                        <td style="width: 100px">
-                          <span class="p-column-title">Status</span>
-                          {{record.status_skb}}
+                          <span class="p-column-title">Jumlah</span>
+                          RM {{record.jumlah}}
                         </td>
                       </tr>
                     </ng-template>
@@ -356,7 +373,7 @@
                     <p-paginator
                       [rows]="primengTableHelper.defaultRecordsCountPerPage"
                       #paginator
-                      (onPageChange)="getBulan($event)"
+                      (onPageChange)="getBulananSKB($event)"
                       [totalRecords]="primengTableHelper.totalRecordsCount"
                       [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
                     ></p-paginator>
@@ -366,7 +383,23 @@
                   </div>
                 </div>
               </div>
-						</div>
+            </div>
+
+            <div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Jumlah Perbelanjaan (RM)</label>
+									<input
+                    class="form-control"
+                    type="text"
+                    name="jumlah_belanja"
+                    placeholder="Jumlah Perbelanjaan"
+                    value="{{belanja | number: '1.2-2'}}"
+                    disabled
+                  />
+								</div>
+							</div>
+            </div>
 
 						<button class="btn btn-primary pull-right" type="submit">Simpan</button>
 						<button

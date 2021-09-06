@@ -41,36 +41,45 @@
 
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Tabung</label>
-									<div class="input-group">
-										<input
-                      class="form-control"
-                      type="text"
-                      placeholder="Nama Tabung"
-                      name="tabung"
-                      [(ngModel)]="nama_tabung"
-                      #namaTabung="ngModel"
-                      [ngClass]="{ 'is-invalid': f.submitted && namaTabung.invalid }"
-                      required
-                      readonly
-										/>
-										<div class="input-group-append">
-											<button class="btn btn-primary" (click)="pilihTabung()" type="button">
-												<i class="fa fa-search text-white"></i>
-											</button>
-										</div>
-									</div>
-                  <div *ngIf="f.submitted && namaTabung.invalid" class="invalid-feedback">
-                    <div *ngIf="namaTabung.errors.required">Tabung Wajib Dipilih</div>
-                  </div>
-							  </div>
-						  </div>
+									<label>Kategori</label>
+                  <ng-select
+                    [items]="categories"
+                    bindLabel="kategori"
+                    bindValue="id"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
+                    name="kategori_skb"
+                    [(ngModel)]="id_kategori_skb"
+                  ></ng-select>
+								</div>
+							</div>
             </div>
 
             <div class="row">
-              <div class="col-lg-6">
+							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Bencana</label>
+									<label>Jenis Bayaran</label>
+                  <ng-select
+                    [items]="bayaran"
+                    bindLabel="jenis_bayaran"
+                    bindValue="id"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
+                    name="jenisBayaran"
+                    [(ngModel)]="paymentType"
+                    #jenisBayar="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && jenisBayar.invalid }"
+                    required
+                  ></ng-select>
+                  <div *ngIf="f.submitted && jenisBayar.invalid" class="invalid-feedback">
+                    <div *ngIf="jenisBayar.errors.required">Jenis Bayaran Wajib Dipilih</div>
+                  </div>
+							  </div>
+						  </div>
+
+              <div class="col-lg-6" *ngIf="paymentType == 1" [@fadeVerticalAnimation]>
+								<div class="form-group">
+									<label>Jenis Bencana</label>
 									<div class="input-group">
 										<input
                       class="form-control"
@@ -92,29 +101,25 @@
                   <div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
                     <div *ngIf="namaBencana.errors.required">Bencana Wajib Dipilih</div>
                   </div>
-							  </div>
-						  </div>
+						    </div>
+              </div>
 
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Kategori Bencana</label>
-                  <ng-select
-                    [items]="categories"
-                    bindLabel="nama_jenis_bencana"
-                    bindValue="id"
-                    placeholder="Sila Pilih"
-                    class="js-example-placeholder-multiple"
-                    name="nama_jenis_bencana"
-                    [(ngModel)]="id_jenis_bencana"
-                    #jenisBencana="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && jenisBencana.invalid }"
-                    required
-                  ></ng-select>
-                  <div *ngIf="f.submitted && jenisBencana.invalid" class="invalid-feedback">
-                    <div *ngIf="jenisBencana.errors.required">Kategori Bencana Wajib Dipilih</div>
-                  </div>
-								</div>
-							</div>
+							<div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown" *ngIf="paymentType == 1" [@fadeVerticalAnimation]>
+                <label>Tarikh Bencana</label>
+                <div class="input-group">
+                  <input
+                    class="form-control"
+                    placeholder="yyyy-mm-dd"
+                    name="dp3"
+                    [(ngModel)]="modelBencana"
+                    ngbDatepicker
+                    [footerTemplate]="footerTemplate"
+                    #d3="ngbDatepicker"
+                    style="border: 1px solid #efefef !important;"
+                    readonly
+                  >
+                </div>
+              </div>
             </div>
 						<hr />
 

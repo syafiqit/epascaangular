@@ -16,14 +16,15 @@ import {
 import { TambahBelanjaBulanan } from '../tambah-belanja-bulanan/tambah-belanja-bulanan.component';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
-import { PilihanTabungComponent } from '../pilihan-tabung/pilihan-tabung.component';
-import { PilihanBencanaComponent } from '../pilihan-bencana/pilihan-bencana.component';
 import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { PilihanBencanaComponent } from '../pilihan-bencana/pilihan-bencana.component';
+import { fadeVerticalAnimation } from '@app/shared/data/router-animation/fade-vertical-animation';
 @Component({
 	selector: 'app-tambah-skb',
 	templateUrl: './tambah-skb.component.html',
 	encapsulation: ViewEncapsulation.None,
-	providers: [NgbModalConfig, NgbModal, NgbActiveModal]
+	providers: [NgbModalConfig, NgbModal, NgbActiveModal],
+  animations: [fadeVerticalAnimation]
 })
 export class TambahSkbComponent implements OnInit {
 	@ViewChild('dataTable', { static: true }) dataTable: Table;
@@ -38,8 +39,6 @@ export class TambahSkbComponent implements OnInit {
 
   agencies: any;
   no_rujukan_kelulusan: number;
-  nama_tabung: string;
-  nama_bencana: string;
   filter: string;
   saving = false;
   tarikhMula: string;
@@ -48,19 +47,26 @@ export class TambahSkbComponent implements OnInit {
   rows = [];
   belanja: number = 0;
   balance_peruntukan: number = 0;
-  id_jenis_bencana: number;
+  id_kategori_skb: number;
+  paymentType: any;
+  nama_bencana: string;
+  tarikh_bencana: string;
 
   date = new Date();
+  modelBencana: NgbDateStruct;
   modelMula: NgbDateStruct;
   modelTamat: NgbDateStruct;
   today = this.calendar.getToday();
   readonly DELIMITER = '-';
 
   categories = [
-    { id: 1, nama_jenis_bencana: "Covid" },
-    { id: 2, nama_jenis_bencana: "Bukan Covid" },
-    { id: 3, nama_jenis_bencana: "KWABBN" },
-    { id: 4, nama_jenis_bencana: "Pelbagai" }
+    { id: 1, kategori: "Covid" },
+    { id: 2, kategori: "Bukan Covid" }
+  ]
+
+  bayaran = [
+    { id: 1, jenis_bayaran: "Bantuan Wang Ihsan" },
+    { id: 2, jenis_bayaran: "Pengoperasian" }
   ]
 
 	constructor(
@@ -80,6 +86,18 @@ export class TambahSkbComponent implements OnInit {
 	ngOnInit(): void {
     this.getAgensi();
     this.getAddSKB();
+  }
+
+  fromModel(value: string | null): NgbDateStruct | null {
+    if (value) {
+      let date = value.split(this.DELIMITER);
+      return {
+        year : parseInt(date[0], 10),
+        month : parseInt(date[1], 10),
+        day : parseInt(date[2], 10)
+      };
+    }
+    return null;
   }
 
   toModel(date: NgbDateStruct | null): string | null {
@@ -165,19 +183,7 @@ export class TambahSkbComponent implements OnInit {
 				if (response) {
           this.skb.id_tabung_kelulusan = response.id;
 					this.no_rujukan_kelulusan = response.no_rujukan_kelulusan;
-				}
-			}
-		);
-	}
-
-	pilihTabung() {
-		const modalRef = this.modalService.open(PilihanTabungComponent, { size: 'xl' });
-		modalRef.componentInstance.name = 'add';
-    modalRef.result.then(
-			(response) => {
-				if (response) {
-          this.skb.id_tabung = response.id;
-          this.nama_tabung = response.nama_tabung;
+          this.skb.id_tabung = response.id_tabung;
 				}
 			}
 		);
@@ -191,6 +197,7 @@ export class TambahSkbComponent implements OnInit {
 				if (response) {
           this.skb.id_bencana = response.id;
           this.nama_bencana = response.nama_bencana;
+          this.modelBencana = this.fromModel(response.tarikh_bencana.format('YYYY-MM-DD'));
 				}
 			}
 		);
@@ -226,8 +233,6 @@ export class TambahSkbComponent implements OnInit {
       this.tarikhTamat = this.toModel(this.modelTamat);
       this.bayaranSKB.skb.tarikh_tamat = moment(this.tarikhTamat, "YYYY-MM-DD");
     }
-    this.bayaranSKB.skb.no_rujukan_skb = null;
-    this.bayaranSKB.skb.perihal = null;
     this.bayaranSKB.skb.jumlah_baki_peruntukan = this.balance_peruntukan;
     this.bayaranSKB.skbBulanan = this.bulanan;
 		this._tabungBayaranSkbServiceProxy
