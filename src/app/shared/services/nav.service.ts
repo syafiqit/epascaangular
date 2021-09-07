@@ -153,6 +153,8 @@ export class NavService implements OnDestroy {
 				{ path: '/app/tetapan/senarai-jenis-bantuan', title: 'Jenis Bantuan', type: 'link' },
 				{ path: '/app/tetapan/hubungan', title: 'Hubungan', type: 'link' },
 				{ path: '/app/tetapan/peranan', title: 'Peranan', type: 'link' },
+        { path: '/app/tetapan/kadar', title: 'Kadar Bantuan', type: 'link' },
+        { path: '/app/tetapan/jenis-bwi', title: 'Jenis Bantuan Wang Ihsan', type: 'link' },
 				{ path: '/app/tetapan/rujukan', title: 'Rujukan', type: 'link' }
 				]
 			}
