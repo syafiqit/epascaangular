@@ -9,7 +9,7 @@
 <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
   <div class="modal-body">
 		<div class="row">
-			<div class="col-lg-12 mt-2">
+			<div class="col-lg-6 mt-2">
 				<div class="form-group">
 					<label>Nama Tabung</label>
 					<input
@@ -27,48 +27,21 @@
           </div>
 				</div>
 			</div>
-    </div>
-
-    <div class="row">
-      <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
-        <label>Baki Pada (Tarikh)</label>
-        <div class="input-group">
-          <input
-            class="form-control"
-            placeholder="{{tarikhBaki | date:'dd-MM-yyyy'}}"
-            name="dp"
-            ngbDatepicker
-            [footerTemplate]="footerTemplate"
-            #d="ngbDatepicker"
-            style="border: 1px solid #efefef !important;"
-            disabled
-          >
-          <div class="input-group-append">
-            <button class="btn btn-light" (click)="d.toggle()" type="button" disabled><i
-              class="fa fa-calendar"></i></button>
-          </div>
-        </div>
-      </div>
-      <ng-template #footerTemplate>
-        <hr class="my-0">
-        <button class="btn btn-primary btn-sm m-2 float-left" (click)="model = today; d.close()">Hari Ini</button>
-        <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Tutup</button>
-      </ng-template>
 
       <div class="col-lg-6">
         <div class="form-group">
-          <label>Jumlah Baki Bawaan (RM)</label>
+          <label>Jumlah Dana Awal (RM)</label>
           <input
             class="form-control"
             type="text"
-            name="jumlah_baki_bawaan"
-            [(ngModel)]="createTabung.baki_bawaan"
-            placeholder="Jumlah Baki Bawaan"
+            name="danaAwal"
+            [(ngModel)]="createTabung.dana_awal"
+            placeholder="Jumlah Dana Awal"
             onlyNumbers
           />
         </div>
       </div>
-		</div>
+    </div>
 
 		<div class="row">
 			<div class="col-lg-12">

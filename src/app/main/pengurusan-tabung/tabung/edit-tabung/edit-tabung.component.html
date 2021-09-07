@@ -29,25 +29,6 @@
 								</div>
 							</div>
 						</div>
-
-						<div class="row">
-							<div class="col-lg-4">
-                <label>Tarikh Baki Bawaan:&nbsp;</label>
-                <label>{{getTabung.tabung.tarikh_baki | date:'dd-MM-yyyy'}}</label>
-              </div>
-
-							<div class="col-lg-4">
-								<div class="form-group">
-									<label>Jumlah Baki Bawaan:&nbsp;</label>
-                  <label>RM{{getTabung.tabung.baki_bawaan}}</label>
-								</div>
-							</div>
-
-              <div class="col-lg-4">
-                <label>Tarikh Terimaan Sehingga:&nbsp;</label>
-                <label>{{tarikhTerimaanSehingga | date:'dd-MM-yyyy'}}</label>
-              </div>
-						</div>
             <hr />
 
             <div class="row">
@@ -56,15 +37,32 @@
             </div>
             </div>
 
-						<div class="row">
+            <div class="row">
 							<div class="col-lg-4">
 								<div class="form-group">
-									<label>Jumlah Peruntukan:&nbsp;</label>
-									<label *ngIf="getTabung.tabung.peruntukan">RM {{getTabung.tabung.peruntukan}}</label>
-                  <label *ngIf="!getTabung.tabung.peruntukan">RM 0.00</label>
+									<label>Jumlah Dana Awal:&nbsp;</label>
+									<label *ngIf="getTabung.tabung.dana_awal">RM {{getTabung.tabung.dana_awal}}</label>
+                  <label *ngIf="!getTabung.tabung.dana_awal">RM 0.00</label>
 								</div>
 							</div>
 
+              <div class="col-lg-4">
+								<div class="form-group">
+									<label>Jumlah Dana Tambahan:&nbsp;</label>
+                  <label>RM 0.00</label>
+								</div>
+							</div>
+
+              <div class="col-lg-4">
+								<div class="form-group">
+									<label>Jumlah Baki Bawaan:&nbsp;</label>
+                  <label *ngIf="getTabung.tabung.baki_bawaan">RM {{getTabung.tabung.baki_bawaan}}</label>
+                  <label *ngIf="!getTabung.tabung.baki_bawaan">RM 0.00</label>
+								</div>
+							</div>
+            </div>
+
+						<div class="row">
               <div class="col-lg-4">
 								<div class="form-group">
 									<label>Jumlah Perbelanjaan:&nbsp;</label>
@@ -80,20 +78,27 @@
                   <label *ngIf="!getTabung.tabung.jumlah_baki_semasa">RM 0.00</label>
 								</div>
 							</div>
+
+							<div class="col-lg-4">
+								<div class="form-group">
+									<label>Jumlah Keseluruhan:&nbsp;</label>
+									<label *ngIf="getTabung.tabung.jumlah_keseluruhan">RM {{getTabung.tabung.jumlah_keseluruhan}}</label>
+                  <label *ngIf="!getTabung.tabung.jumlah_keseluruhan">RM 0.00</label>
+								</div>
+							</div>
             </div>
 
             <div class="row">
 							<div class="col-lg-4">
 								<div class="form-group">
-									<label>Jumlah Keseluruhan (Kelulusan):&nbsp;</label>
-                  <label *ngIf="getTabung.tabung.jumlah_keseluruhan">RM {{getTabung.tabung.jumlah_keseluruhan}}</label>
-                  <label *ngIf="!getTabung.tabung.jumlah_keseluruhan">RM 0.00</label>
+									<label>Jumlah Kelulusan:&nbsp;</label>
+                  <label>RM 0.00</label>
 								</div>
 							</div>
 
               <div class="col-lg-4">
 								<div class="form-group">
-									<label>Jumlah Siling Dipindahkan (Kelulusan):&nbsp;</label>
+									<label>Jumlah Siling Diambil:&nbsp;</label>
                   <label>RM 0.00</label>
 								</div>
 							</div>
@@ -179,7 +184,8 @@
                         </td>
                         <td style="width: 130px">
                           <span class="p-column-title">Sumber</span>
-                          {{getStatus(record.id_sumber_peruntukan)}}
+                          <label *ngIf="record.id_sumber_peruntukan">{{getStatus(record.id_sumber_peruntukan)}}</label>
+                          <label *ngIf="!record.id_sumber_peruntukan">-</label>
                         </td>
                         <td style="width: 130px">
                           <span class="p-column-title">Nama</span>
@@ -200,6 +206,7 @@
                         <td style="width: 160px">
                           <div ngbDropdown class="btn-group" role="group" container="body">
                             <button
+                              *ngIf="record.id_sumber_peruntukan"
                               type="button"
                               class="btn btn-primary btn-primeng dropdown-toggle"
                               id="action"
@@ -240,6 +247,12 @@
 
             <h6>Kelulusan</h6>
 						<div class="card-body">
+              <div class="row justify-content-end mb-2">
+								<button class="btn btn-primary" type="button" [routerLink]="'/app/tabung/tambah-kelulusan'" [queryParams]="{idTabung: idTabung}">
+									<i class="fa fa-plus mr-2"></i>
+									Tambah
+								</button>
+							</div>
 							<div class="row align-items-center">
 								<div class="primeng-datatable-container">
 									<p-table
@@ -361,10 +374,16 @@
                               Tindakan
                             </button>
                             <div ngbDropdownMenu aria-labelledby="action">
-                              <button class="dropdown-item">Kemaskini</button>
+                              <button
+                                class="dropdown-item"
+                                [routerLink]="'/app/tabung/edit-kelulusan'"
+                                [queryParams]="{idKelulusanTabung: idTabung }"
+                              >
+                                Kemaskini
+                              </button>
                               <button class="dropdown-item">Meminda Peruntukan</button>
                               <button class="dropdown-item">Pembayaran SKB</button>
-                              <button class="dropdown-item">Padam</button>
+                              <button class="dropdown-item">Pembayaran Secara Terus</button>
                             </div>
                           </div>
                         </td>
