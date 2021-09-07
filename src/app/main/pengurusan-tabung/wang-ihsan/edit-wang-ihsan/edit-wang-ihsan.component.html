@@ -9,48 +9,146 @@
 			<div class="card">
 				<div class="card-body">
 
-          <ul ngbNav #nav="ngbNav" animation="true" [(activeId)]="active" (navChange)="validate($event)" class="nav-tabs">
+          <ul ngbNav #nav="ngbNav" animation="true" [(activeId)]="active" class="nav-tabs">
             <li [ngbNavItem]="1" [destroyOnHide]="true">
               <a ngbNavLink>Kelulusan</a>
               <ng-template ngbNavContent>
-              <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate focusInvalidInput>
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <label>Pembayaran</label>
-                      <div class="input-group">
-                        <input
-                          class="form-control"
-                          name="jenisPembayaran"
-                          type="text"
-                          placeholder="Pembayaran"
-                          [(ngModel)]="nama_pembayaran"
-                          #jenisPembayaran="ngModel"
-                          [ngClass]="{ 'is-invalid': f.submitted && jenisPembayaran.invalid }"
-                          readonly
-                        />
-                        <div class="input-group-append">
-                          <button class="btn btn-primary" (click)="pilihPembayaran()" type="button">
-                            <i class="fa fa-search text-white"></i>
-                          </button>
-                        </div>
-                        <!-- <div *ngIf="f.submitted && jenisPembayaran.invalid" class="invalid-feedback">
-                          <div *ngIf="jenisPembayaran.errors.required">Pembayaran Wajib Dipilih</div>
-                        </div> -->
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid" novalidate>
+                <h6>Maklumat Pembayaran</h6>
+                <app-tambah-edit-pembayaran></app-tambah-edit-pembayaran>
 
                 <div class="row">
                   <div class="col-lg-6">
                     <div class="form-group">
-                      <label>Bencana</label>
+                      <label>Jenis BWI</label>
+                      <ng-select
+                        [items]="bwiCategory"
+                        bindLabel="nama_jenis_bwi"
+                        bindValue="id"
+                        placeholder="Sila Pilih"
+                        class="js-example-placeholder-multiple"
+                        name="jenis_bwi"
+                        [(ngModel)]="bwiType"
+                        #jenisBwi="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && jenisBwi.invalid }"
+                        required
+                      ></ng-select>
+                      <div *ngIf="f.submitted && jenisBwi.invalid" class="invalid-feedback">
+                        <div *ngIf="jenisBwi.errors.required">Jenis BWI Wajib Dipilih</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6" *ngIf="bwiType == 1" [@fadeVerticalAnimation]>
+                    <div class="form-group">
+                      <label>Jenis Bencana</label>
+                      <div class="input-group">
+                        <input
+                          class="form-control"
+                          type="text"
+                          placeholder="Nama Bencana"
+                          name="bencana"
+                          [(ngModel)]="nama_bencana"
+                          #namaBencana="ngModel"
+                          [ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
+                          required
+                          readonly
+                        />
+                        <div class="input-group-append">
+                          <button class="btn btn-primary" (click)="pilihBencana()" type="button">
+                            <i class="fa fa-search text-white"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
+                        <div *ngIf="namaBencana.errors.required">Bencana Wajib Dipilih</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown" *ngIf="bwiType == 1" [@fadeVerticalAnimation]>
+                    <label>Tarikh Bencana</label>
+                    <div class="input-group">
                       <input
                         class="form-control"
-                        name="bencana"
+                        placeholder="yyyy-mm-dd"
+                        name="dp"
+                        [(ngModel)]="modelBencana"
+                        ngbDatepicker
+                        [footerTemplate]="footerTemplate"
+                        #d="ngbDatepicker"
+                        style="border: 1px solid #efefef !important;"
+                        readonly
+                      >
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6" *ngIf="bwiType == 3" [@fadeVerticalAnimation]>
+                    <div class="form-group">
+                      <label>Nama Kejadian</label>
+                      <input
+                        class="form-control"
                         type="text"
-                        placeholder="BANJIR"
+                        placeholder="Nama Kejadian"
+                        name="kejadian"
+                        [(ngModel)]="nama_kejadian"
+                        #namaKejadian="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && namaKejadian.invalid }"
+                        required
+                      />
+                      <div *ngIf="f.submitted && namaKejadian.invalid" class="invalid-feedback">
+                        <div *ngIf="namaKejadian.errors.required">Nama Kejadian Wajib Diisi</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown" *ngIf="bwiType == 3" [@fadeVerticalAnimation]>
+                    <label>Tarikh Kejadian</label>
+                    <div class="input-group">
+                      <input
+                        class="form-control"
+                        placeholder="yyyy-mm-dd"
+                        name="dp1"
+                        [(ngModel)]="modelKejadian"
+                        ngbDatepicker
+                        [footerTemplate]="footerTemplate"
+                        #d1="ngbDatepicker"
+                        style="border: 1px solid #efefef !important;"
+                        #eventDate="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && eventDate.invalid }"
+                        required
+                      >
+                      <div class="input-group-append">
+                        <button class="btn btn-light" (click)="d1.toggle()" type="button"><i
+                          class="fa fa-calendar"></i></button>
+                      </div>
+                      <div *ngIf="f.submitted && eventDate.invalid" class="invalid-feedback">
+                        <div *ngIf="eventDate.errors.required">Tarikh Kejadian Wajib Dipilih</div>
+                      </div>
+                    </div>
+                  </div>
+                  <ng-template #footerTemplate>
+                    <hr class="my-0">
+                    <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelKejadian = today; d1.close()">Hari Ini</button>
+                    <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d1.close()">Tutup</button>
+                  </ng-template>
+                </div>
+                <hr />
+
+                <h6>Maklumat Bantuan</h6>
+                <app-tambah-edit-bantuan></app-tambah-edit-bantuan>
+
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Jumlah Keseluruhan Bayaran (RM)</label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="jumlah_bayaran"
+                        placeholder="Jumlah Pembayaran"
+                        value="{{bayaran | number: '1.2-2'}}"
+                        onlyNumbers
                         disabled
                       />
                     </div>
@@ -58,12 +156,14 @@
 
                   <div class="col-lg-6">
                     <div class="form-group">
-                      <label>Tahun</label>
+                      <label>Jumlah Keseluruhan Pulalngan (RM)</label>
                       <input
                         class="form-control"
-                        name="tahun"
                         type="text"
-                        placeholder="2020"
+                        name="jumlah_pulangan"
+                        placeholder="Jumlah Pulangan"
+                        value="{{bayaran | number: '1.2-2'}}"
+                        onlyNumbers
                         disabled
                       />
                     </div>
@@ -71,7 +171,8 @@
                 </div>
                 <hr />
 
-                <app-tambah-edit-kir [idBwi]="idBwi"></app-tambah-edit-kir>
+                <h6>Maklumat Ketua Isi Rumah</h6>
+                <app-tambah-edit-kir></app-tambah-edit-kir>
 
                 <div class="row">
                   <div class="col-lg-6">
@@ -82,14 +183,8 @@
                         name="wiKir"
                         type="text"
                         placeholder="Jumlah Bayaran (WI/KIR)"
-                        [(ngModel)]="edit.tabung_bwi.jumlah_setiap_kir"
-                        #perKir="ngModel"
-                        [ngClass]="{ 'is-invalid': f.submitted && perKir.invalid }"
                         onlyNumbers
                       />
-                      <!-- <div *ngIf="f.submitted && perKir.invalid" class="invalid-feedback">
-                        <div *ngIf="perKir.errors.required">Jumlah Bayaran (WI/KIR) Wajib Diisi</div>
-                      </div> -->
                     </div>
                   </div>
 
@@ -116,7 +211,6 @@
                         name="bakiPulangan"
                         type="text"
                         placeholder="Jumlah Pulangan"
-                        [(ngModel)]="edit.tabung_bwi.jumlah_kembali"
                         onlyNumbers
                       />
                     </div>
@@ -144,9 +238,9 @@
                         <button class="btn btn-light" (click)="d.toggle()" type="button"><i
                           class="fa fa-calendar"></i></button>
                       </div>
-                      <!-- <div *ngIf="f.submitted && eftDate.invalid" class="invalid-feedback">
+                      <div *ngIf="f.submitted && eftDate.invalid" class="invalid-feedback">
                         <div *ngIf="eftDate.errors.required">Tarikh Eft/Pengeluaran Wajib Dipilih</div>
-                      </div> -->
+                      </div>
                     </div>
                   </div>
                   <ng-template #footerTemplate>
@@ -174,9 +268,9 @@
                         <button class="btn btn-light" (click)="e.toggle()" type="button"><i
                           class="fa fa-calendar"></i></button>
                       </div>
-                      <!-- <div *ngIf="f.submitted && dueReport.invalid" class="invalid-feedback">
+                      <div *ngIf="f.submitted && dueReport.invalid" class="invalid-feedback">
                         <div *ngIf="dueReport.errors.required">Tarikh Due Report Wajib Dipilih</div>
-                      </div> -->
+                      </div>
                     </div>
                   </div>
                   <ng-template #footerTemplate>
@@ -202,7 +296,19 @@
                 </div>
 
                 <div class="row no-gutters justify-content-end">
-                  <button class="btn btn-primary" type="submit">Simpan</button>
+                  <button
+                    class="btn btn-light mr-2"
+                    [routerLink]="['/app/tabung/senarai-wang-ihsan']"
+                    type="button"
+                  >
+                    Kembali
+                  </button>
+                  <button
+                    class="btn btn-primary pull-right"
+                    type="button"
+                  >
+                    Simpan
+                  </button>
                 </div>
               </form>
             </ng-template>
@@ -211,7 +317,7 @@
           <li [ngbNavItem]="2" [destroyOnHide]="true">
             <a ngbNavLink>Memo</a>
             <ng-template ngbNavContent>
-              <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate focusInvalidInput>
+              <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid" novalidate>
                 <h6>Memo Perakuan KP</h6>
                 <div class="row">
                   <div class="col-lg-6 mt-2">
@@ -374,7 +480,19 @@
                 </div>
 
                 <div class="row mt-3 no-gutters justify-content-end">
-                  <button class="btn btn-primary" type="submit">Simpan</button>
+                  <button
+                    class="btn btn-light mr-2"
+                    [routerLink]="['/app/tabung/senarai-wang-ihsan']"
+                    type="button"
+                  >
+                    Kembali
+                  </button>
+                  <button
+                    class="btn btn-primary pull-right"
+                    type="button"
+                  >
+                    Simpan
+                  </button>
                 </div>
               </form>
             </ng-template>
@@ -383,7 +501,7 @@
           <li [ngbNavItem]="3" [destroyOnHide]="true">
             <a ngbNavLink>Surat</a>
             <ng-template ngbNavContent>
-              <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate focusInvalidInput>
+              <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid" novalidate>
                 <h6>Surat Makluman Tarikh Majlis</h6>
                 <div class="row">
                   <div class="col-lg-6 mt-2">
@@ -510,7 +628,21 @@
                   </ng-template>
                 </div>
 
-                <button class="btn btn-primary pull-right" type="submit">Simpan</button>
+                <div class="row mt-3 no-gutters justify-content-end">
+                  <button
+                    class="btn btn-light mr-2"
+                    [routerLink]="['/app/tabung/senarai-wang-ihsan']"
+                    type="button"
+                  >
+                    Kembali
+                  </button>
+                  <button
+                    class="btn btn-primary pull-right"
+                    type="button"
+                  >
+                    Simpan
+                  </button>
+                </div>
               </form>
             </ng-template>
           </li>

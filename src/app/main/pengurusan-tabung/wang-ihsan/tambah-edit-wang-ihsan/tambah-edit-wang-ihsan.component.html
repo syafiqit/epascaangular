@@ -8,628 +8,361 @@
 		<div class="col-sm-12">
 			<div class="card">
 				<div class="card-body">
-          <aw-wizard navBarLayout="large-filled-symbols">
-            <aw-wizard-step [navigationSymbol]="{ symbol: '1' }">
-              <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid" novalidate>
-                <ng-template awWizardStepTitle>
-                  <p>Kelulusan</p>
-                </ng-template>
+					<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
+						<h6>Maklumat Pembayaran</h6>
+            <div class="row no-gutters justify-content-end">
+              <button
+                type="button"
+                class="btn btn-primary pull-right"
+                (click)="pilihPembayaran()"
+              >
+                <i class="fa fa-plus mr-2"></i>
+                <b>Pembayaran</b>
+              </button>
+            </div>
 
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <label>Pembayaran</label>
-                      <div class="input-group">
-                        <input
-                          class="form-control"
-                          name="jenisPembayaran"
-                          type="text"
-                          placeholder="Pembayaran"
-                          [(ngModel)]="nama_pembayaran"
-                          #jenisPembayaran="ngModel"
-                          [ngClass]="{ 'is-invalid': f.submitted && jenisPembayaran.invalid }"
-                          required
-                          readonly
-                        />
-                        <div class="input-group-append">
-                          <button class="btn btn-primary" (click)="pilihPembayaran()" type="button">
-                            <i class="fa fa-search text-white"></i>
+            <div class="row no-gutters align-items-center mt-3">
+              <div class="primeng-datatable-container">
+                <p-table
+                  #dataTable
+                  styleClass="p-datatable-striped"
+                  [resizableColumns]="true"
+                  [loading]="primengTableHelper.isLoading"
+                  (onLazyLoad)="getPembayaran($event)"
+                  [value]="primengTableHelper.records"
+                  rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
+                  [paginator]="false"
+                  [lazy]="true"
+                  [scrollable]="true"
+                  ScrollWidth="100%"
+                  [responsive]="primengTableHelper.isResponsive"
+                  [resizableColumns]="primengTableHelper.resizableColumns"
+                >
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th style="width: 150px" pSortableColumn="no_bayaran">
+                        No. Bayaran
+                        <p-sortIcon field="no_bayaran"></p-sortIcon>
+                      </th>
+                      <th style="width: 130px" pSortableColumn="perihal">
+                        Perihal
+                        <p-sortIcon field="perihal"></p-sortIcon>
+                      </th>
+                      <th style="width: 150px" pSortableColumn="no_rujukan_kelulusan">
+                        No. Kelulusan
+                        <p-sortIcon field="no_rujukan_kelulusan"></p-sortIcon>
+                      </th>
+                      <th style="width: 110px" pSortableColumn="jumlah_bayaran">
+                        Jumlah
+                        <p-sortIcon field="jumlah_bayaran"></p-sortIcon>
+                      </th>
+                      <th style="width: 150px">Tindakan</th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-record="$implicit">
+                    <tr>
+                      <td style="width: 150px">
+                        <span class="p-column-title">No. Bayaran</span>
+                        {{record.no_bayaran}}
+                      </td>
+                      <td style="width: 130px">
+                        <span class="p-column-title">Perihal</span>
+                        {{record.perihal}}
+                      </td>
+                      <td style="width: 150px">
+                        <span class="p-column-title">No. Kelulusan</span>
+                        {{record.no_rujukan_kelulusan}}
+                      </td>
+                      <td style="width: 110px">
+                        <span class="p-column-title">Jumlah</span>
+                        {{record.jumlah_bayaran}}
+                      </td>
+                      <td style="width: 150px">
+                        <div ngbDropdown class="btn-group" role="group" container="body">
+                          <button
+                            type="button"
+                            class="btn btn-primary btn-primeng dropdown-toggle"
+                            id="action"
+                            ngbDropdownToggle
+                          >
+                            <i class="fa fa-cog"></i>
+                            <span class="caret"></span>
+                            Tindakan
                           </button>
+                          <div ngbDropdownMenu aria-labelledby="action">
+                            <button
+                              class="dropdown-item"
+                            >
+                              Padam
+                            </button>
+                          </div>
                         </div>
-                        <div *ngIf="f.submitted && jenisPembayaran.invalid" class="invalid-feedback">
-                          <div *ngIf="jenisPembayaran.errors.required">Pembayaran Wajib Dipilih</div>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+                <div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">No Data</div>
+                <div class="primeng-paging-container justify-content-between">
+                  <p-paginator
+                    [rows]="primengTableHelper.defaultRecordsCountPerPage"
+                    #paginator
+                    (onPageChange)="getPembayaran($event)"
+                    [totalRecords]="primengTableHelper.totalRecordsCount"
+                    [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
+                  ></p-paginator>
+                  <span class="total-records-count">Jumlah: {{ primengTableHelper.totalRecordsCount}}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Jenis BWI</label>
+                  <ng-select
+                    [items]="bwiCategory"
+                    bindLabel="nama_jenis_bwi"
+                    bindValue="id"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
+                    name="jenis_bwi"
+                    [(ngModel)]="bwiType"
+                    #jenisBwi="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && jenisBwi.invalid }"
+                    required
+                  ></ng-select>
+                  <div *ngIf="f.submitted && jenisBwi.invalid" class="invalid-feedback">
+                    <div *ngIf="jenisBwi.errors.required">Jenis BWI Wajib Dipilih</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6" *ngIf="bwiType == 1" [@fadeVerticalAnimation]>
+                <div class="form-group">
+                  <label>Jenis Bencana</label>
+                  <div class="input-group">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="Nama Bencana"
+                      name="bencana"
+                      [(ngModel)]="nama_bencana"
+                      #namaBencana="ngModel"
+                      [ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
+                      required
+                      readonly
+                    />
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" (click)="pilihBencana()" type="button">
+                        <i class="fa fa-search text-white"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
+                    <div *ngIf="namaBencana.errors.required">Bencana Wajib Dipilih</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown" *ngIf="bwiType == 1" [@fadeVerticalAnimation]>
+                <label>Tarikh Bencana</label>
+                <div class="input-group">
+                  <input
+                    class="form-control"
+                    placeholder="yyyy-mm-dd"
+                    name="dp"
+                    [(ngModel)]="modelBencana"
+                    ngbDatepicker
+                    [footerTemplate]="footerTemplate"
+                    #d="ngbDatepicker"
+                    style="border: 1px solid #efefef !important;"
+                    readonly
+                  >
+                </div>
+              </div>
+
+              <div class="col-lg-6" *ngIf="bwiType == 3" [@fadeVerticalAnimation]>
+                <div class="form-group">
+                  <label>Nama Kejadian</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="Nama Kejadian"
+                    name="kejadian"
+                    [(ngModel)]="nama_kejadian"
+                    #namaKejadian="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && namaKejadian.invalid }"
+                    required
+                  />
+                  <div *ngIf="f.submitted && namaKejadian.invalid" class="invalid-feedback">
+                    <div *ngIf="namaKejadian.errors.required">Nama Kejadian Wajib Diisi</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown" *ngIf="bwiType == 3" [@fadeVerticalAnimation]>
+                <label>Tarikh Kejadian</label>
+                <div class="input-group">
+                  <input
+                    class="form-control"
+                    placeholder="yyyy-mm-dd"
+                    name="dp1"
+                    [(ngModel)]="modelKejadian"
+                    ngbDatepicker
+                    [footerTemplate]="footerTemplate"
+                    #d1="ngbDatepicker"
+                    style="border: 1px solid #efefef !important;"
+                    #eventDate="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && eventDate.invalid }"
+                    required
+                  >
+                  <div class="input-group-append">
+                    <button class="btn btn-light" (click)="d1.toggle()" type="button"><i
+                      class="fa fa-calendar"></i></button>
+                  </div>
+                  <div *ngIf="f.submitted && eventDate.invalid" class="invalid-feedback">
+                    <div *ngIf="eventDate.errors.required">Tarikh Kejadian Wajib Dipilih</div>
+                  </div>
+                </div>
+              </div>
+              <ng-template #footerTemplate>
+                <hr class="my-0">
+                <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelKejadian = today; d1.close()">Hari Ini</button>
+                <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d1.close()">Tutup</button>
+              </ng-template>
+            </div>
+            <hr />
+
+						<h6>Maklumat Bantuan</h6>
+            <div class="row no-gutters justify-content-end">
+              <button
+                type="button"
+                class="btn btn-primary pull-right"
+                (click)="addBantuan()"
+              >
+                <i class="fa fa-plus mr-2"></i>
+                <b>Tambah</b>
+              </button>
+            </div>
+
+            <div class="row no-gutters align-items-center mt-3">
+              <div class="primeng-datatable-container">
+                <p-table
+                  #dataTable
+                  styleClass="p-datatable-striped"
+                  [resizableColumns]="true"
+                  [loading]="primengTableHelper.isLoading"
+                  (onLazyLoad)="getBantuan($event)"
+                  [value]="primengTableHelper.records"
+                  rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
+                  [paginator]="false"
+                  [lazy]="true"
+                  [scrollable]="true"
+                  ScrollWidth="100%"
+                  [responsive]="primengTableHelper.isResponsive"
+                  [resizableColumns]="primengTableHelper.resizableColumns"
+                >
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th style="width: 100px" pSortableColumn="nama_negeri">
+                        Negeri
+                        <p-sortIcon field="nama_negeri"></p-sortIcon>
+                      </th>
+                      <th style="width: 100px" pSortableColumn="nama_daerah">
+                        Daerah
+                        <p-sortIcon field="nama_daerah"></p-sortIcon>
+                      </th>
+                      <th style="width: 100px" pSortableColumn="jumlah_bantuan">
+                        Jumlah Diberikan
+                        <p-sortIcon field="jumlah_bantuan"></p-sortIcon>
+                      </th>
+                      <th style="width: 150px">Tindakan</th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-record="$implicit">
+                    <tr>
+                      <td style="width: 100px">
+                        <span class="p-column-title">Negeri</span>
+                        {{record.nama_negeri}}
+                      </td>
+                      <td style="width: 100px">
+                        <span class="p-column-title">Daerah</span>
+                        {{record.nama_daerah}}
+                      </td>
+                      <td style="width: 100px">
+                        <span class="p-column-title">Jumlah Diberikan</span>
+                        {{record.jumlah_bantuan}}
+                      </td>
+                      <td style="width: 150px">
+                        <div ngbDropdown class="btn-group" role="group" container="body">
+                          <button
+                            type="button"
+                            class="btn btn-primary btn-primeng dropdown-toggle"
+                            id="action"
+                            ngbDropdownToggle
+                          >
+                            <i class="fa fa-cog"></i>
+                            <span class="caret"></span>
+                            Tindakan
+                          </button>
+                          <div ngbDropdownMenu aria-labelledby="action">
+                            <button
+                              class="dropdown-item"
+                            >
+                              Padam
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <label>Bencana</label>
-                      <input
-                        class="form-control"
-                        name="bencana"
-                        type="text"
-                        placeholder="BANJIR"
-                        disabled
-                      />
-                    </div>
-                  </div>
-
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <label>Tahun</label>
-                      <input
-                        class="form-control"
-                        name="tahun"
-                        type="text"
-                        placeholder="2020"
-                        disabled
-                      />
-                    </div>
-                  </div>
-                </div>
-                <hr />
-
-                <div class="row no-gutters justify-content-end mb-3">
-                  <button class="btn btn-primary" type="button" (click)="addKirModal()">
-                    <i class="fa fa-plus mr-2"></i>
-                    Pilih
-                  </button>
-                </div>
-
-                <div class="row no-gutters align-items-center">
-                  <div class="primeng-datatable-container">
-                    <p-table
-                      #dataTable
-                      styleClass="p-datatable-striped"
-                      [resizableColumns]="true"
-                      (onLazyLoad)="getKir($event)"
-                      [value]="primengTableHelper.records"
-                      rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
-                      [paginator]="false"
-                      [lazy]="true"
-                      [loading]="primengTableHelper.isLoading"
-                      [scrollable]="true"
-                      ScrollWidth="100%"
-                      [responsive]="primengTableHelper.isResponsive"
-                      [resizableColumns]="primengTableHelper.resizableColumns"
-                    >
-                      <ng-template pTemplate="header">
-                        <tr>
-                          <th style="width: 130px">Tindakan</th>
-                          <th style="width: 150px" pSortableColumn="nama">
-                            Nama KIR
-                            <p-sortIcon field="nama"></p-sortIcon>
-                          </th>
-                          <th style="width: 130px" pSortableColumn="jumlah_bwi">
-                            Jumlah BWI
-                            <p-sortIcon field="jumlah_bwi"></p-sortIcon>
-                          </th>
-                          <th style="width: 130px" pSortableColumn="jumlah_dipulangkan">
-                            Jumlah Dipulangkan (RM)
-                            <p-sortIcon field="jumlah_dipulangkan"></p-sortIcon>
-                          </th>
-                          <th style="width: 130px" pSortableColumn="nama_daerah">
-                            Daerah
-                            <p-sortIcon field="nama_daerah"></p-sortIcon>
-                          </th>
-                          <th style="width: 130px" pSortableColumn="nama_negeri">
-                            Negeri
-                            <p-sortIcon field="nama_negeri"></p-sortIcon>
-                          </th>
-                        </tr>
-                      </ng-template>
-                      <ng-template pTemplate="body" let-record="$implicit">
-                        <tr>
-                          <td style="width: 130px">
-                            <div ngbDropdown class="btn-group" role="group" container="body">
-                              <button
-                                type="button"
-                                class="btn btn-primary btn-primeng dropdown-toggle"
-                                id="action"
-                                ngbDropdownToggle
-                              >
-                                <i class="fa fa-cog"></i>
-                                <span class="caret"></span>
-                                Tindakan
-                              </button>
-                              <div ngbDropdownMenu aria-labelledby="action">
-                                <button class="dropdown-item" (click)="deleteKir(record.id)">Padam</button>
-                              </div>
-                            </div>
-                          </td>
-                          <td style="width: 150px">
-                            <span class="p-column-title">Nama KIR</span>
-                            {{record.nama}}
-                          </td>
-                          <td style="width: 130px">
-                            <span class="p-column-title">Jumlah BWI</span>
-                            RM{{record.jumlah_bwi}}
-                          </td>
-                          <td style="width: 130px">
-                            <span class="p-column-title">Jumlah Dipulangkan (RM)</span>
-                            -
-                          </td>
-                          <td style="width: 130px">
-                            <span class="p-column-title">Daerah</span>
-                            {{record.nama_daerah}}
-                          </td>
-                          <td style="width: 130px">
-                            <span class="p-column-title">Negeri</span>
-                            {{record.nama_negeri}}
-                          </td>
-                        </tr>
-                      </ng-template>
-                    </p-table>
-                    <div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">No Data</div>
-                    <div class="primeng-paging-container justify-content-between">
-                      <p-paginator
-                        [rows]="primengTableHelper.defaultRecordsCountPerPage"
-                        #paginator
-                        (onPageChange)="getKir($event)"
-                        [totalRecords]="primengTableHelper.totalRecordsCount"
-                        [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
-                      ></p-paginator>
-                      <span class="total-records-count">
-                        Jumlah: {{ primengTableHelper.totalRecordsCount}}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <label>Jumlah Bayaran (WI/KIR) (RM)</label>
-                      <input
-                        class="form-control"
-                        name="wiKir"
-                        type="text"
-                        placeholder="Jumlah Bayaran (WI/KIR)"
-                        [(ngModel)]="bwi.jumlah_setiap_kir"
-                        #perKir="ngModel"
-                        [ngClass]="{ 'is-invalid': f.submitted && perKir.invalid }"
-                        required
-                        onlyNumbers
-                      />
-                      <div *ngIf="f.submitted && perKir.invalid" class="invalid-feedback">
-                        <div *ngIf="perKir.errors.required">Jumlah Bayaran (WI/KIR) Wajib Diisi</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <label>Jumlah KIR/Permohonan</label>
-                      <input
-                        class="form-control"
-                        name="totalKir"
-                        type="text"
-                        placeholder="Jumlah KIR"
-                        value="{{primengTableHelper.totalRecordsCount}}"
-                        [(ngModel)]="jumlahKir"
-                        disabled
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <label>Jumlah Pulangan (RM)</label>
-                      <input
-                        class="form-control"
-                        name="bakiPulangan"
-                        type="text"
-                        placeholder="Jumlah Pulangan"
-                        [(ngModel)]="bwi.jumlah_kembali"
-                        onlyNumbers
-                      />
-                    </div>
-                  </div>
-                </div>
-                <hr />
-
-                <div class="row">
-                  <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
-                    <label>Tarikh EFT/Pengeluaran</label>
-                    <div class="input-group">
-                      <input
-                        class="form-control"
-                        placeholder="yyyy-mm-dd"
-                        name="dp"
-                        [(ngModel)]="modelEft"
-                        ngbDatepicker
-                        [footerTemplate]="footerTemplate"
-                        #d="ngbDatepicker"
-                        style="border: 1px solid #efefef !important;"
-                        #eftDate="ngModel"
-                        [ngClass]="{ 'is-invalid': f.submitted && eftDate.invalid }"
-                        required
-                      >
-                      <div class="input-group-append">
-                        <button class="btn btn-light" (click)="d.toggle()" type="button"><i
-                          class="fa fa-calendar"></i></button>
-                      </div>
-                      <div *ngIf="f.submitted && eftDate.invalid" class="invalid-feedback">
-                        <div *ngIf="eftDate.errors.required">Tarikh Eft/Pengeluaran Wajib Dipilih</div>
-                      </div>
-                    </div>
-                  </div>
-                  <ng-template #footerTemplate>
-                    <hr class="my-0">
-                    <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelEft = today; d.close()">Hari Ini</button>
-                    <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Tutup</button>
+                      </td>
+                    </tr>
                   </ng-template>
-
-                  <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
-                    <label>Due Report(21 Jam)</label>
-                    <div class="input-group">
-                      <input
-                        class="form-control"
-                        placeholder="yyyy-mm-dd"
-                        name="dp"
-                        [(ngModel)]="modelDueReport"
-                        ngbDatepicker
-                        [footerTemplate]="footerTemplate"
-                        #e="ngbDatepicker"
-                        style="border: 1px solid #efefef !important;"
-                        #dueReport="ngModel"
-                        [ngClass]="{ 'is-invalid': f.submitted && dueReport.invalid }"
-                        required
-                      >
-                      <div class="input-group-append">
-                        <button class="btn btn-light" (click)="e.toggle()" type="button"><i
-                          class="fa fa-calendar"></i></button>
-                      </div>
-                      <div *ngIf="f.submitted && dueReport.invalid" class="invalid-feedback">
-                        <div *ngIf="dueReport.errors.required">Tarikh Due Report Wajib Dipilih</div>
-                      </div>
-                    </div>
-                  </div>
-                  <ng-template #footerTemplate>
-                    <hr class="my-0">
-                    <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelEft = today; e.close()">Hari Ini</button>
-                    <button class="btn btn-secondary btn-sm m-2 float-right" (click)="e.close()">Tutup</button>
-                  </ng-template>
+                </p-table>
+                <div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">No Data</div>
+                <div class="primeng-paging-container justify-content-between">
+                  <p-paginator
+                    [rows]="primengTableHelper.defaultRecordsCountPerPage"
+                    #paginator
+                    (onPageChange)="getBantuan($event)"
+                    [totalRecords]="primengTableHelper.totalRecordsCount"
+                    [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
+                  ></p-paginator>
+                  <span class="total-records-count">Jumlah: {{ primengTableHelper.totalRecordsCount}}</span>
                 </div>
+              </div>
+            </div>
 
-                <div class="row">
-                  <div class="col-lg-6 mt-2">
-                    <div class="form-group">
-                      <label>Catatan</label>
-                      <textarea
-                        class="form-control input-air-primary"
-                        rows="3"
-                        placeholder="Catatan"
-                        name="catatan"
-                        [(ngModel)]="bwi.catatan"
-                      ></textarea>
-                    </div>
-                  </div>
-                </div>
+            <div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Jumlah Keseluruhan Bayaran (RM)</label>
+									<input
+                    class="form-control"
+                    type="text"
+                    name="jumlah_bayaran"
+                    placeholder="Jumlah Pembayaran"
+                    value="{{bayaran | number: '1.2-2'}}"
+                    onlyNumbers
+                    disabled
+                  />
+								</div>
+							</div>
+            </div>
 
-                <button class="btn btn-primary pull-right" type="submit" awNextStep
-                  [disabled]="!f.form.valid">Seterusnya</button>
-                <button class="btn btn-light pull-right mr-2" type="button" [routerLink]="['/app/tabung/senarai-wang-ihsan']">Kembali</button>
-              </form>
-            </aw-wizard-step>
-
-            <aw-wizard-step [navigationSymbol]="{ symbol: '2' }">
-              <form class="form theme-form" name="form" #a="ngForm" (ngSubmit)="a.form.valid" novalidate>
-                <ng-template awWizardStepTitle>
-                  <p>Memo</p>
-                </ng-template>
-
-                <h6>Memo Perakuan KP</h6>
-                <div class="row">
-                  <div class="col-lg-6 mt-2">
-                    <div class="form-group">
-                      <label>No. Rujukan</label>
-                      <input
-                        class="form-control"
-                        name="rujukan_akuan_kp"
-                        type="text"
-                        placeholder="No. Rujukan"
-                        [(ngModel)]="bwi.no_rujukan_akuan_kp"
-                        #refAkuanKp="ngModel"
-                        [ngClass]="{ 'is-invalid': a.submitted && refAkuanKp.invalid }"
-                        required
-                      />
-                      <div *ngIf="a.submitted && refAkuanKp.invalid" class="invalid-feedback">
-                        <div *ngIf="refAkuanKp.errors.required">No. Rujukan Wajib Diisi</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
-                    <label>Tarikh Perakuan</label>
-                    <div class="input-group">
-                      <input
-                        class="form-control"
-                        placeholder="yyyy-mm-dd"
-                        name="dp1"
-                        [(ngModel)]="modelPerakuan"
-                        ngbDatepicker
-                        [footerTemplate]="footerTemplate"
-                        #d1="ngbDatepicker"
-                        style="border: 1px solid #efefef !important;"
-                        #akuanKpDate="ngModel"
-                        [ngClass]="{ 'is-invalid': a.submitted && akuanKpDate.invalid }"
-                        required
-                      >
-                      <div class="input-group-append">
-                        <button class="btn btn-light" (click)="d1.toggle()" type="button"><i
-                          class="fa fa-calendar"></i></button>
-                      </div>
-                      <div *ngIf="a.submitted && akuanKpDate.invalid" class="invalid-feedback">
-                        <div *ngIf="akuanKpDate.errors.required">Tarikh Perakuan Wajib Dipilih</div>
-                      </div>
-                    </div>
-                  </div>
-                  <ng-template #footerTemplate>
-                    <hr class="my-0">
-                    <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelPerakuan = today; d1.close()">Hari Ini</button>
-                    <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d1.close()">Tutup</button>
-                  </ng-template>
-                </div>
-                <hr />
-
-                <h6>Memo Penyaluran KPD BKP</h6>
-                <div class="row">
-                  <div class="col-lg-6 mt-2">
-                    <div class="form-group">
-                      <label>No. Rujukan</label>
-                      <input
-                        class="form-control"
-                        name="rujukan_saluran"
-                        type="text"
-                        placeholder="No. Rujukan"
-                        [(ngModel)]="bwi.no_rujukan_saluran_kpd_bkp"
-                        #refSaluran="ngModel"
-                        [ngClass]="{ 'is-invalid': a.submitted && refSaluran.invalid }"
-                        required
-                      />
-                      <div *ngIf="a.submitted && refSaluran.invalid" class="invalid-feedback">
-                        <div *ngIf="refSaluran.errors.required">No. Rujukan Wajib Diisi</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
-                    <label>Tarikh Penyaluran</label>
-                    <div class="input-group">
-                      <input
-                        class="form-control"
-                        placeholder="yyyy-mm-dd"
-                        name="dp2"
-                        [(ngModel)]="modelPenyaluran"
-                        ngbDatepicker
-                        [footerTemplate]="footerTemplate"
-                        #d2="ngbDatepicker"
-                        style="border: 1px solid #efefef !important;"
-                        #saluranDate="ngModel"
-                        [ngClass]="{ 'is-invalid': a.submitted && saluranDate.invalid }"
-                        required
-                      >
-                      <div class="input-group-append">
-                        <button class="btn btn-light" (click)="d2.toggle()" type="button"><i
-                          class="fa fa-calendar"></i></button>
-                      </div>
-                      <div *ngIf="a.submitted && saluranDate.invalid" class="invalid-feedback">
-                        <div *ngIf="saluranDate.errors.required">Tarikh Penyaluran Wajib Dipilih</div>
-                      </div>
-                    </div>
-                  </div>
-                  <ng-template #footerTemplate>
-                    <hr class="my-0">
-                    <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelPenyaluran = today; d2.close()">Hari Ini</button>
-                    <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d2.close()">Tutup</button>
-                  </ng-template>
-                </div>
-                <hr />
-
-                <h6>Memo Laporan KPD BKP</h6>
-                <div class="row">
-                  <div class="col-lg-6 mt-2">
-                    <div class="form-group">
-                      <label>No. Rujukan</label>
-                      <input
-                        class="form-control"
-                        name="rujukan_laporan"
-                        type="text"
-                        placeholder="No. Rujukan"
-                        [(ngModel)]="bwi.no_rujukan_laporan_kpd_bkp"
-                        #refLaporan="ngModel"
-                        [ngClass]="{ 'is-invalid': a.submitted && refLaporan.invalid }"
-                        required
-                      />
-                      <div *ngIf="a.submitted && refLaporan.invalid" class="invalid-feedback">
-                        <div *ngIf="refLaporan.errors.required">No. Rujukan Wajib Diisi</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
-                    <label>Tarikh Laporan</label>
-                    <div class="input-group">
-                      <input
-                        class="form-control"
-                        placeholder="yyyy-mm-dd"
-                        name="dp3"
-                        [(ngModel)]="modelLaporan"
-                        ngbDatepicker
-                        [footerTemplate]="footerTemplate"
-                        #d3="ngbDatepicker"
-                        style="border: 1px solid #efefef !important;"
-                        #laporanDate="ngModel"
-                        [ngClass]="{ 'is-invalid': a.submitted && laporanDate.invalid }"
-                        required
-                      >
-                      <div class="input-group-append">
-                        <button class="btn btn-light" (click)="d3.toggle()" type="button"><i
-                          class="fa fa-calendar"></i></button>
-                      </div>
-                      <div *ngIf="a.submitted && laporanDate.invalid" class="invalid-feedback">
-                        <div *ngIf="laporanDate.errors.required">Tarikh Laporan Wajib Dipilih</div>
-                      </div>
-                    </div>
-                  </div>
-                  <ng-template #footerTemplate>
-                    <hr class="my-0">
-                    <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelLaporan = today; d3.close()">Hari Ini</button>
-                    <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d3.close()">Tutup</button>
-                  </ng-template>
-                </div>
-
-                <button class="btn btn-primary pull-right" type="submit" awNextStep
-                  [disabled]="!a.form.valid">Seterusnya</button>
-                <button class="btn btn-light pull-right mr-2" type="button" awPreviousStep>Kembali</button>
-              </form>
-            </aw-wizard-step>
-
-            <aw-wizard-completion-step awEnableBackLinks [navigationSymbol]="{ symbol: '3' }">
-              <form class="form theme-form" name="form" #k="ngForm" (ngSubmit)="k.form.valid && save()" novalidate>
-                <ng-template awWizardStepTitle>
-                  <p>Surat</p>
-                </ng-template>
-
-                <h6>Surat Makluman Tarikh Majlis</h6>
-                <div class="row">
-                  <div class="col-lg-6 mt-2">
-                    <div class="form-group">
-                      <label>No. Rujukan</label>
-                      <input
-                        class="form-control"
-                        name="rujukan_majlis"
-                        type="text"
-                        placeholder="No. Rujukan"
-                        [(ngModel)]="bwi.no_rujukan_makluman_majlis"
-                        #refMajlis="ngModel"
-                        [ngClass]="{ 'is-invalid': k.submitted && refMajlis.invalid }"
-                        required
-                      />
-                      <div *ngIf="k.submitted && refMajlis.invalid" class="invalid-feedback">
-                        <div *ngIf="refMajlis.errors.required">No. Rujukan Wajib Diisi</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
-                    <label>Tarikh Makluman Majlis</label>
-                    <div class="input-group">
-                      <input
-                        class="form-control"
-                        placeholder="yyyy-mm-dd"
-                        name="dp4"
-                        [(ngModel)]="modelMakluman"
-                        ngbDatepicker
-                        [footerTemplate]="footerTemplate"
-                        #d4="ngbDatepicker"
-                        style="border: 1px solid #efefef !important;"
-                        #maklumDate="ngModel"
-                        [ngClass]="{ 'is-invalid': k.submitted && maklumDate.invalid }"
-                        required
-                      >
-                      <div class="input-group-append">
-                        <button class="btn btn-light" (click)="d4.toggle()" type="button"><i
-                          class="fa fa-calendar"></i></button>
-                      </div>
-                      <div *ngIf="k.submitted && maklumDate.invalid" class="invalid-feedback">
-                        <div *ngIf="maklumDate.errors.required">Tarikh Makluman Majlis Wajib Dipilih</div>
-                      </div>
-                    </div>
-                  </div>
-                  <ng-template #footerTemplate>
-                    <hr class="my-0">
-                    <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelMakluman = today; d4.close()">Hari Ini</button>
-                    <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d4.close()">Tutup</button>
-                  </ng-template>
-                </div>
-
-                <div class="row">
-                  <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
-                    <label>Tarikh Majlis</label>
-                    <div class="input-group">
-                      <input
-                        class="form-control"
-                        placeholder="yyyy-mm-dd"
-                        name="dp5"
-                        [(ngModel)]="modelMajlis"
-                        ngbDatepicker
-                        [footerTemplate]="footerTemplate"
-                        #d5="ngbDatepicker"
-                        style="border: 1px solid #efefef !important;"
-                        #majlisDate="ngModel"
-                        [ngClass]="{ 'is-invalid': k.submitted && majlisDate.invalid }"
-                        required
-                      >
-                      <div class="input-group-append">
-                        <button class="btn btn-light" (click)="d5.toggle()" type="button"><i
-                          class="fa fa-calendar"></i></button>
-                      </div>
-                      <div *ngIf="k.submitted && majlisDate.invalid" class="invalid-feedback">
-                        <div *ngIf="majlisDate.errors.required">Tarikh Majlis Wajib Dipilih</div>
-                      </div>
-                    </div>
-                  </div>
-                  <ng-template #footerTemplate>
-                    <hr class="my-0">
-                    <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelMajlis = today; d5.close()">Hari Ini</button>
-                    <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d5.close()">Tutup</button>
-                  </ng-template>
-                </div><hr />
-
-                <h6>Surat Laporan Majlis DRP APM</h6>
-                <div class="row">
-                  <div class="col-lg-6 mt-2">
-                    <div class="form-group">
-                      <label>No. Rujukan</label>
-                      <input
-                        class="form-control"
-                        name="rujukan_surat_laporan_majlis"
-                        type="text"
-                        placeholder="No. Rujukan"
-                      />
-                    </div>
-                  </div>
-
-                  <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
-                    <label>Tarikh Surat Laporan</label>
-                    <div class="input-group">
-                      <input
-                        class="form-control"
-                        placeholder="yyyy-mm-dd"
-                        name="tarikhSuratLaporan"
-                        [(ngModel)]="modelSuratLaporan"
-                        ngbDatepicker
-                        [footerTemplate]="footerTemplate"
-                        #sl="ngbDatepicker"
-                        style="border: 1px solid #efefef !important;"
-                      >
-                      <div class="input-group-append">
-                        <button class="btn btn-light" (click)="sl.toggle()" type="button"><i
-                          class="fa fa-calendar"></i></button>
-                      </div>
-                    </div>
-                  </div>
-                  <ng-template #footerTemplate>
-                    <hr class="my-0">
-                    <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelSuratLaporan = today; sl.close()">Hari Ini</button>
-                    <button class="btn btn-secondary btn-sm m-2 float-right" (click)="sl.close()">Tutup</button>
-                  </ng-template>
-                </div>
-
-                <button class="btn btn-primary pull-right" type="submit"
-                  [disabled]="!k.form.valid">Hantar</button>
-                <button class="btn btn-light pull-right mr-2" id="prevBtn" type="button" awPreviousStep>Kembali</button>
-              </form>
-            </aw-wizard-completion-step>
-          </aw-wizard>
+						<button
+              class="btn btn-primary pull-right"
+              type="button"
+              [routerLink]="['/app/tabung/senarai-wang-ihsan']"
+            >
+              Hantar
+            </button>
+						<button
+							class="btn btn-light pull-right mr-2"
+							[routerLink]="['/app/tabung/senarai-wang-ihsan']"
+							type="button"
+						>
+							Kembali
+						</button>
+          </form>
 				</div>
 			</div>
 		</div>
