@@ -44,6 +44,10 @@ import { TambahEditPerananComponent } from './peranan/tambah-edit-peranan/tambah
 import { RujukanComponent } from './rujukan/rujukan.component';
 import { TambahEditRujukanComponent } from './rujukan/tambah-edit-rujukan/tambah-edit-rujukan.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { KadarComponent } from './kadar/kadar.component';
+import { TambahEditKadarComponent } from './kadar/tambah-edit-kadar/tambah-edit-kadar.component';
+import { JenisBwiComponent } from './jenis-bwi/jenis-bwi.component';
+import { TambahEditJenisBwiComponent } from './jenis-bwi/tambah-edit-jenis-bwi/tambah-edit-jenis-bwi.component';
 
 @NgModule({
 	imports: [
@@ -93,7 +97,11 @@ import { NgSelectModule } from '@ng-select/ng-select';
 		PerananComponent,
 		TambahEditPerananComponent,
 		RujukanComponent,
-		TambahEditRujukanComponent
+		TambahEditRujukanComponent,
+    KadarComponent,
+    TambahEditKadarComponent,
+    JenisBwiComponent,
+    TambahEditJenisBwiComponent
 	]
 })
 export class TetapanModule {}
