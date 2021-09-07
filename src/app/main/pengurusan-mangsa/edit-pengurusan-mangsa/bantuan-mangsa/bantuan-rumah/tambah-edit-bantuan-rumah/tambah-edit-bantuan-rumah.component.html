@@ -23,6 +23,7 @@
               [(ngModel)]="bantuanRumah.id_bencana"
               #namaBencana="ngModel"
               [ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
+              (change)="onSelectBencana(bantuanRumah.id_bencana)" 
               required
             ></ng-select>
             <div
@@ -37,6 +38,22 @@
         </div>
       </div>
 
+      <div class="col-lg-6">
+				<div class="form-group">
+					<label>Tarikh Bencana</label>
+					<input
+						class="form-control"
+            			id="tarikhBencana"
+						type="text"
+						name="tarikh_bencana"
+						[(ngModel)]="date_bencana"
+						placeholder="Tarikh Bencana"
+						readonly
+					/>
+				</div>
+			</div>
+		</div>
+		<div class="row">
       <div class="col-lg-6">
         <div class="form-group">
           <label>Jenis Bantuan</label>
@@ -64,8 +81,6 @@
           </div>
         </div>
       </div>
-		</div>
-		<div class="row">
 			<div class="col-lg-6">
         <div class="form-group">
           <label>Jenis Kerosakan Rumah</label>
@@ -93,7 +108,8 @@
           </div>
         </div>
       </div>
-
+		</div>
+		<div class="row">
       <div class="col-lg-6">
         <div class="form-group">
           <label>Status Tapak Asal</label>
@@ -121,8 +137,6 @@
           </div>
         </div>
       </div>
-		</div>
-		<div class="row">
 			<div class="col-lg-6">
         <div class="form-group">
           <label>Agensi Pemilik</label>
