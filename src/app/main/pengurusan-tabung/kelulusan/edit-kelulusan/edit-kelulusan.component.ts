@@ -45,7 +45,6 @@ export class EditKelulusanComponent implements OnInit {
   tarikhMula:string;
   tarikhTamat:string;
   id:number;
-  idKelulusanTabung: number;
   tabung:any;
   bencana:any;
   bantuan:any;
@@ -114,7 +113,6 @@ export class EditKelulusanComponent implements OnInit {
     private calendar: NgbCalendar
   ) {
     this.id = this._activatedRoute.snapshot.queryParams['id'];
-    this.idKelulusanTabung = this._activatedRoute.snapshot.queryParams['idKelulusanTabung'];
 		config.backdrop = 'static';
 		config.keyboard = false;
     this.primengTableHelper = new PrimengTableHelper();
@@ -124,7 +122,6 @@ export class EditKelulusanComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-    console.log(this.idKelulusanTabung);
     this.show();
     this.getTabung();
     this.getBencana();
