@@ -23,6 +23,7 @@
               [(ngModel)]="bantuanLain.id_bencana"
               #namaBencana="ngModel"
               [ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
+              (change)="onSelectBencana(bantuanLain.id_bencana)" 
               required
             ></ng-select>
             <div
@@ -37,6 +38,23 @@
         </div>
       </div>
 
+      <div class="col-lg-6">
+				<div class="form-group">
+					<label>Tarikh Bencana</label>
+					<input
+						class="form-control"
+            			id="tarikhBencana"
+						type="text"
+						name="tarikh_bencana"
+						[(ngModel)]="date_bencana"
+						placeholder="Tarikh Bencana"
+						readonly
+					/>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
       <div class="col-lg-6">
         <div class="form-group">
           <label>Nama Bantuan</label>
@@ -56,9 +74,6 @@
           </div>
         </div>
       </div>
-		</div>
-
-		<div class="row">
 			<div class="col-lg-6">
         <div class="form-group">
           <label>Sumber Dana</label>
@@ -86,7 +101,9 @@
           </div>
         </div>
       </div>
+		</div>
 
+		<div class="row">
       <div class="col-lg-6">
         <div class="form-group">
           <label>Nyatakan Jika Sumber Dana Lain</label>
@@ -102,9 +119,6 @@
           />
         </div>
       </div>
-		</div>
-
-		<div class="row">
 			<div class="col-lg-6">
         <div class="form-group">
           <label>Agensi Pemberi Bantuan</label>
@@ -132,7 +146,9 @@
           </div>
         </div>
       </div>
+		</div>
 
+		<div class="row">
       <div class="col-lg-6">
         <div class="form-group">
           <label>Kos Bantuan(RM)</label>
@@ -153,9 +169,7 @@
           </div>
         </div>
       </div>
-		</div>
 
-		<div class="row">
 			<div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
         <label>Tarikh Bantuan</label>
         <div class="input-group">
@@ -187,6 +201,10 @@
         <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Tutup</button>
       </ng-template>
 
+      
+		</div>
+
+		<div class="row">
       <div class="col-lg-6">
         <div class="form-group">
           <label>Status</label>
@@ -215,8 +233,7 @@
         </div>
       </div>
 		</div>
-
-		<div class="row">
+    <div class="row">
 			<div class="col">
 				<div class="form-group">
 					<label>Catatan</label>

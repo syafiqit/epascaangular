@@ -3,6 +3,7 @@ import { NgbActiveModal, NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } 
 import * as moment from 'moment';
 import { CreateOrEditMangsaRumahDto, GetMangsaRumahForEditDto, MangsaRumahServiceProxy, RefBantuanServiceProxy, RefBencanaServiceProxy, RefKerosakanServiceProxy, RefPelaksanaServiceProxy, RefPemilikServiceProxy, RefStatusKemajuanServiceProxy, RefSumberDanaServiceProxy, RefTapakRumahServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-tambah-edit-bantuan-rumah',
@@ -35,6 +36,8 @@ export class TambahEditBantuanRumahComponent implements OnInit {
   tarikh_mula: string;
   tarikh_siap: string;
   readonly DELIMITER = '-';
+  date_bencana:any;
+  pipe = new DatePipe('en-US');
 
   status=[
     {id: 1, nama_status: "Tidak Aktif"},
@@ -85,7 +88,7 @@ export class TambahEditBantuanRumahComponent implements OnInit {
     return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
   }
 
-  show() {
+  show(filter?) {
     if (!this.id) {
       this.bantuanRumah = new CreateOrEditMangsaRumahDto();
     } else {
@@ -98,6 +101,17 @@ export class TambahEditBantuanRumahComponent implements OnInit {
           this.modelSiap = this.fromModel(result.mangsa_rumah.tarikh_siap.format('YYYY-MM-DD'));
         }
       });
+
+      this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
+        this.date_bencana = result.items.filter(
+          filt=>{
+            if(filt.id == this.bantuanRumah.id_bencana){
+              return filt.tarikh_bencana;
+            }
+          }).map(data=>{
+            return this.pipe.transform(data.tarikh_bencana.toDate(), 'dd/MM/yyyy');
+          });
+        });
     }
   }
 
@@ -170,6 +184,20 @@ export class TambahEditBantuanRumahComponent implements OnInit {
           swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Rumah Berjaya Dikemaskini.', 'success');
         }
         this.activeModal.close(true);
+      });
+  }
+
+  onSelectBencana(id?,filter?){
+    console.log(id);
+    this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
+      this.date_bencana = result.items.filter(
+        filt=>{
+          if(filt.id == id){
+            return filt.tarikh_bencana;
+          }
+        }).map(data=>{
+          return this.pipe.transform(data.tarikh_bencana.toDate(), 'dd/MM/yyyy');
+        });
       });
   }
 
