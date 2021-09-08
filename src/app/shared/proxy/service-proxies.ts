@@ -27203,6 +27203,7 @@ export class CreateOrEditTabungBayaranSkbBulananDto implements ICreateOrEditTabu
     bulan!: string;
     tahun!: number;
     jumlah!: number;
+    jumlah_lama!: number;
     id_pengguna_cipta!: number;
     tarikh_cipta!: moment.Moment;
     id_pengguna_kemaskini!: number;
@@ -27225,6 +27226,7 @@ export class CreateOrEditTabungBayaranSkbBulananDto implements ICreateOrEditTabu
             this.bulan = _data["bulan"];
             this.tahun = _data["tahun"];
             this.jumlah = _data["jumlah"];
+            this.jumlah_lama = _data["jumlah_lama"];
             this.id_pengguna_cipta = _data["id_pengguna_cipta"];
             this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
@@ -27247,6 +27249,7 @@ export class CreateOrEditTabungBayaranSkbBulananDto implements ICreateOrEditTabu
         data["bulan"] = this.bulan;
         data["tahun"] = this.tahun;
         data["jumlah"] = this.jumlah;
+        data["jumlah_lama"] = this.jumlah_lama;
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
@@ -27262,6 +27265,7 @@ export interface ICreateOrEditTabungBayaranSkbBulananDto {
     bulan: string;
     tahun: number;
     jumlah: number;
+    jumlah_lama: number;
     id_pengguna_cipta: number;
     tarikh_cipta: moment.Moment;
     id_pengguna_kemaskini: number;
@@ -27308,8 +27312,8 @@ export class GetTabungBayaranSkbBulananForViewDto implements IGetTabungBayaranSk
     id!: number;
     id_tabung_bayaran_skb!: number;
     bulan!: string;
-    tahun!: string;
-    jumlah!: string;
+    tahun!: number;
+    jumlah!: number;
 
     constructor(data?: IGetTabungBayaranSkbBulananForViewDto) {
         if (data) {
@@ -27352,8 +27356,8 @@ export interface IGetTabungBayaranSkbBulananForViewDto {
     id: number;
     id_tabung_bayaran_skb: number;
     bulan: string;
-    tahun: string;
-    jumlah: string;
+    tahun: number;
+    jumlah: number;
 }
 
 export class OutputCreateSkbBulananDto implements IOutputCreateSkbBulananDto {
@@ -29910,6 +29914,8 @@ export interface ICreateOrEditTabungDto {
 
 export class GetTabungForEditDto implements IGetTabungForEditDto {
     tabung!: CreateOrEditTabungDto;
+    dana_awal!: number;
+    dana_tambahan!: number;
 
     constructor(data?: IGetTabungForEditDto) {
         if (data) {
@@ -29923,6 +29929,8 @@ export class GetTabungForEditDto implements IGetTabungForEditDto {
     init(_data?: any) {
         if (_data) {
             this.tabung = _data["tabung"] ? CreateOrEditTabungDto.fromJS(_data["tabung"]) : <any>undefined;
+            this.dana_awal = _data["dana_awal"];
+            this.dana_tambahan = _data["dana_tambahan"];
         }
     }
 
@@ -29936,12 +29944,16 @@ export class GetTabungForEditDto implements IGetTabungForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["tabung"] = this.tabung ? this.tabung.toJSON() : <any>undefined;
+        data["dana_awal"] = this.dana_awal;
+        data["dana_tambahan"] = this.dana_tambahan;
         return data; 
     }
 }
 
 export interface IGetTabungForEditDto {
     tabung: CreateOrEditTabungDto;
+    dana_awal: number;
+    dana_tambahan: number;
 }
 
 /** Tabung List in Tabular model */
@@ -30082,8 +30094,9 @@ export interface IGetTabungForViewDto {
 
 /** Total Tabung in Tabular model */
 export class GetTotalTabungCardForViewDto implements IGetTotalTabungCardForViewDto {
-    /** Items in array of object */
-    items!: TotalTabungCardForViewDto[];
+    jumlah_keseluruhan!: number;
+    jumlah_perbelanjaan_semasa!: number;
+    jumlah_tanggungan!: number;
 
     constructor(data?: IGetTotalTabungCardForViewDto) {
         if (data) {
@@ -30096,11 +30109,9 @@ export class GetTotalTabungCardForViewDto implements IGetTotalTabungCardForViewD
 
     init(_data?: any) {
         if (_data) {
-            if (Array.isArray(_data["items"])) {
-                this.items = [] as any;
-                for (let item of _data["items"])
-                    this.items!.push(TotalTabungCardForViewDto.fromJS(item));
-            }
+            this.jumlah_keseluruhan = _data["jumlah_keseluruhan"];
+            this.jumlah_perbelanjaan_semasa = _data["jumlah_perbelanjaan_semasa"];
+            this.jumlah_tanggungan = _data["jumlah_tanggungan"];
         }
     }
 
@@ -30113,19 +30124,18 @@ export class GetTotalTabungCardForViewDto implements IGetTotalTabungCardForViewD
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        if (Array.isArray(this.items)) {
-            data["items"] = [];
-            for (let item of this.items)
-                data["items"].push(item.toJSON());
-        }
+        data["jumlah_keseluruhan"] = this.jumlah_keseluruhan;
+        data["jumlah_perbelanjaan_semasa"] = this.jumlah_perbelanjaan_semasa;
+        data["jumlah_tanggungan"] = this.jumlah_tanggungan;
         return data; 
     }
 }
 
 /** Total Tabung in Tabular model */
 export interface IGetTotalTabungCardForViewDto {
-    /** Items in array of object */
-    items: TotalTabungCardForViewDto[];
+    jumlah_keseluruhan: number;
+    jumlah_perbelanjaan_semasa: number;
+    jumlah_tanggungan: number;
 }
 
 /** Tabung List in Tabular model */
