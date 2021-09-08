@@ -21,45 +21,30 @@ export class TabungComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
   filterText: string;
+  filterMonth: string;
   terms$ = new Subject<string>();
-  monthCard: string;
 
-  jumlahKeseluruhan: any;
-  jumlahPeruntukan: any;
-  jumlahBakiSemasa: any;
-  jumlahBakiBawaan: any;
-
-	report = [
-		{ title: 'Jumlah Keseluruhan Semasa (RM)', total_kos: '491,081,927.21' },
-		{ title: 'Jumlah Bayaran Semasa (RM)', total_kos: '312,123,121.00' },
-		{ title: 'Jumlah Tanggung Semasa (RM)', total_kos: '22,323,321.00' }
-	];
+  jumlah_keseluruhan: number;
+  jumlah_perbelanjaan_semasa: number;
+  jumlah_tanggungan: number;
 
 	constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,
     private tabungServiceProxy: TabungServiceProxy
     ) {
-    this.tabungServiceProxy.getTotalTabungCard(this.monthCard).subscribe((result) => {
-      this.jumlahKeseluruhan = result.items.map((data) => {
-        return data.total_keseluruhan_semasa;
-      });
-      this.jumlahPeruntukan = result.items.map((data) => {
-        return data.total_peruntukan;
-      });
-      this.jumlahBakiSemasa = result.items.map((data) => {
-        return data.total_baki_semasa;
-      });
-      this.jumlahBakiBawaan = result.items.map((data) => {
-        return data.total_baki_bawaan;
-      });
-    })
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
 	}
 
 	ngOnInit(): void {
+
+    this.tabungServiceProxy.getTotalTabungCard(this.filterMonth).subscribe((result) => {
+      this.jumlah_keseluruhan = result.jumlah_keseluruhan;
+      this.jumlah_perbelanjaan_semasa = result.jumlah_perbelanjaan_semasa;
+      this.jumlah_tanggungan = result.jumlah_tanggungan;
+    });
 
     this.terms$.pipe(
       debounceTime(500), distinctUntilChanged()
@@ -74,27 +59,29 @@ export class TabungComponent implements OnInit {
   }
 
 	getTabung(event?: LazyLoadEvent) {
-    if (this.primengTableHelper.shouldResetPaging(event)) {
-      this.paginator.changePage(0);
-      return;
-    }
-    this.primengTableHelper.showLoadingIndicator();
+		if (this.primengTableHelper.shouldResetPaging(event)) {
+			this.paginator.changePage(0);
+			return;
+		}
 
-    this.tabungServiceProxy
-    .getAll(
-      this.filterText,
-      this.primengTableHelper.getSorting(this.dataTable),
-      this.primengTableHelper.getSkipCount(this.paginator, event),
-      this.primengTableHelper.getMaxResultCount(this.paginator, event)
-    )
-    .pipe(finalize(()=>{
-      this.primengTableHelper.hideLoadingIndicator();
-    }))
-    .subscribe((result) => {
-      this.primengTableHelper.totalRecordsCount = result.total_count;
-      this.primengTableHelper.records = result.items;
-    });
-  }
+		this.primengTableHelper.showLoadingIndicator();
+		this.tabungServiceProxy
+			.getAll(
+				this.filterText,
+				this.primengTableHelper.getSorting(this.dataTable),
+				this.primengTableHelper.getSkipCount(this.paginator, event),
+				this.primengTableHelper.getMaxResultCount(this.paginator, event)
+			)
+      .pipe(
+				finalize(() => {
+					this.primengTableHelper.hideLoadingIndicator();
+				})
+			)
+			.subscribe((result) => {
+				this.primengTableHelper.totalRecordsCount = result.total_count;
+				this.primengTableHelper.records = result.items;
+			});
+	}
 
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());

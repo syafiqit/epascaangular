@@ -41,15 +41,16 @@
 							<div class="col-lg-4">
 								<div class="form-group">
 									<label>Jumlah Dana Awal:&nbsp;</label>
-									<label *ngIf="getTabung.tabung.dana_awal">RM {{getTabung.tabung.dana_awal}}</label>
-                  <label *ngIf="!getTabung.tabung.dana_awal">RM 0.00</label>
+									<label *ngIf="getTabung.dana_awal">RM {{getTabung.dana_awal}}</label>
+                  <label *ngIf="!getTabung.dana_awal">RM 0.00</label>
 								</div>
 							</div>
 
               <div class="col-lg-4">
 								<div class="form-group">
-									<label>Jumlah Dana Tambahan:&nbsp;</label>
-                  <label>RM 0.00</label>
+                  <label>Jumlah Dana Tambahan:&nbsp;</label>
+									<label *ngIf="getTabung.dana_tambahan">RM {{getTabung.dana_tambahan}}</label>
+                  <label *ngIf="!getTabung.dana_tambahan">RM 0.00</label>
 								</div>
 							</div>
 
