@@ -23,7 +23,8 @@
 						</div>
 
 						<div class="row justify-content-center">
-							<h4>RM {{jumlahKeseluruhan}}</h4>
+							<h4 *ngIf="jumlah_keseluruhan">RM {{jumlah_keseluruhan}}</h4>
+              <h4 *ngIf="!jumlah_keseluruhan">RM 0.00</h4>
 						</div>
 					</div>
 				</div>
@@ -45,7 +46,8 @@
 						</div>
 
 						<div class="row justify-content-center">
-							<h4>RM {{jumlahPeruntukan}}</h4>
+							<h4 *ngIf="jumlah_perbelanjaan_semasa">RM {{jumlah_perbelanjaan_semasa}}</h4>
+              <h4 *ngIf="!jumlah_perbelanjaan_semasa">RM 0.00</h4>
 						</div>
 					</div>
 				</div>
@@ -67,7 +69,8 @@
 						</div>
 
 						<div class="row justify-content-center">
-							<h4>RM {{jumlahBakiSemasa}}</h4>
+							<h4 *ngIf="jumlah_tanggungan">RM {{jumlah_tanggungan}}</h4>
+              <h4 *ngIf="!jumlah_tanggungan">RM 0.00</h4>
 						</div>
 					</div>
 				</div>

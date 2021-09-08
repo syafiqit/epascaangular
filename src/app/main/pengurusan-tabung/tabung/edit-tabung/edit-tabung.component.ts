@@ -61,14 +61,6 @@ export class EditTabungComponent implements OnInit {
 		}
 	];
 
-  kelulusan = [
-		{
-      no_rujukan: 'A123', tabung: 'KWABBN', tarikh_surat: '17/12/2019', rujukan_surat: 'JPM.APBN(S).600-3/8/2 Jld.7 (7)', siling_peruntukan: '76',
-      tarikh_kelulusan_mula: '30/12/2019', tarikh_kelulusan_tamat: '31/12/2019', jumlah_belanja : '304,996.00', baki_peruntukan: '695,004.00',
-      status: 'Aktif'
-		}
-	];
-
 	constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,
