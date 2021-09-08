@@ -1,108 +1,108 @@
-<app-breadcrumb [title]="'Tetapan Pelaksana'" [items]="['Tetapan']" [active_item]="'Pelaksana'"></app-breadcrumb>
-<div class="content d-flex flex-column flex-column-fluid">
-	<div class="container-fluid">
-		<div class="card card-custom gutter-b">
-			<div class="card-body">
-				<div class="row pr-0 mb-3">
-          <div class="col justify-content-start pl-0">
-            <div class="faq-form">
-              <input
-                class="form-control"
-                type="text"
-                name="searchPelaksana"
-                placeholder="Carian..."
-                [(ngModel)]="filter"
-                (keyup)="applyFilter($event.target.value)"
-              />
-              <i class="search-icon" data-feather="search"></i>
-            </div>
-          </div>
-          <div class="col pr-0">
-            <div class="justify-content-end pull-right">
-              <button (click)="addExecutorModal()" type="button" class="btn btn-primary">
-                <i class="fa fa-plus mr-2"></i>
-                <b>Tambah</b>
-              </button>
-            </div>
-          </div>
-        </div>
-
-				<div class="row align-items-center">
-					<div class="primeng-datatable-container">
-						<p-table
-							#dataTable
-							styleClass="p-datatable-striped"
-							[resizableColumns]="true"
-							(onLazyLoad)="getPelaksana($event)"
-							[value]="primengTableHelper.records"
-							rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
-							[paginator]="false"
-							[lazy]="true"
-              [loading]="primengTableHelper.isLoading"
-							[scrollable]="true"
-							ScrollWidth="100%"
-							[responsive]="primengTableHelper.isResponsive"
-							[resizableColumns]="primengTableHelper.resizableColumns"
-						>
-							<ng-template pTemplate="header">
-								<tr>
-									<th style="width: 80px">Tindakan</th>
-									<th style="width: 130px" pSortableColumn="nama_pelaksana">
-										Nama Pelaksana
-										<p-sortIcon field="nama_pelaksana"></p-sortIcon>
-									</th>
-									<th style="width: 130px" pSortableColumn="status">
-										Status
-										<p-sortIcon field="status"></p-sortIcon>
-									</th>
-								</tr>
-							</ng-template>
-							<ng-template pTemplate="body" let-record="$implicit">
-								<tr>
-									<td style="width: 70px">
-										<div ngbDropdown class="btn-group" role="group" container="body">
-											<button
-												type="button"
-												class="btn btn-primary btn-primeng dropdown-toggle"
-												id="action"
-												ngbDropdownToggle
-											>
-												<i class="fa fa-cog"></i>
-												<span class="caret"></span>
-												Tindakan
-											</button>
-											<div ngbDropdownMenu aria-labelledby="action">
-												<button class="dropdown-item" (click)="editExecutorModal(record.id)">
-													Lihat
-												</button>
-											</div>
-										</div>
-									</td>
-									<td style="width: 100px">
-										<span class="p-column-title">Nama Pelaksana</span>
-										{{record.nama_pelaksana}}
-									</td>
-									<td style="width: 100px">
-										<span class="p-column-title">Status</span>
-										{{record.status_pelaksana == 1? "Aktif":"Tidak Aktif"}}
-									</td>
-								</tr>
-							</ng-template>
-						</p-table>
-						<div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">No Data</div>
-						<div class="primeng-paging-container justify-content-between">
-							<p-paginator
-								[rows]="primengTableHelper.defaultRecordsCountPerPage"
-								#paginator
-								(onPageChange)="getPelaksana($event)"
-								[totalRecords]="primengTableHelper.totalRecordsCount"
-								[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
-							></p-paginator>
-							<span class="total-records-count">Jumlah: {{ primengTableHelper.totalRecordsCount}}</span>
-						</div>
-					</div>
-				</div>
-			</div>
+<div class="card">
+	<div class="card-header card-no-border">
+		<div class="header-top">
+			<h5 class="m-0">Tetapan Pelaksana</h5>
 		</div>
+	</div>
+	<div class="card-body pt-3 pr-4">
+    <div class="row pr-0 mb-2">
+      <div class="col justify-content-start pl-0">
+        <div class="faq-form">
+          <input
+            class="form-control"
+            type="text"
+            name="searchPelaksana"
+            placeholder="Carian..."
+            [(ngModel)]="filter"
+            (keyup)="applyFilter($event.target.value)"
+          />
+          <i class="icon-search search-icon" style="font-size: large; font-weight: bold;"></i>
+        </div>
+      </div>
+      <div class="col pr-0">
+        <div class="justify-content-end pull-right">
+          <button (click)="addExecutorModal()" type="button" class="btn btn-primary">
+            <i class="fa fa-plus mr-2"></i>
+            <b>Tambah</b>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row align-items-center pr-3">
+      <div class="primeng-datatable-container">
+        <p-table
+          #dataTable
+          styleClass="p-datatable-striped"
+          [resizableColumns]="true"
+          (onLazyLoad)="getPelaksana($event)"
+          [value]="primengTableHelper.records"
+          rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
+          [paginator]="false"
+          [lazy]="true"
+          [loading]="primengTableHelper.isLoading"
+          [scrollable]="true"
+          ScrollWidth="100%"
+          [responsive]="primengTableHelper.isResponsive"
+          [resizableColumns]="primengTableHelper.resizableColumns"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 130px" pSortableColumn="nama_pelaksana">
+                Nama Pelaksana
+                <p-sortIcon field="nama_pelaksana"></p-sortIcon>
+              </th>
+              <th style="width: 130px" pSortableColumn="status">
+                Status
+                <p-sortIcon field="status"></p-sortIcon>
+              </th>
+              <th style="width: 80px">Tindakan</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-record="$implicit">
+            <tr>
+              <td style="width: 100px">
+                <span class="p-column-title">Nama Pelaksana</span>
+                {{record.nama_pelaksana}}
+              </td>
+              <td style="width: 100px">
+                <span class="p-column-title">Status</span>
+                {{record.status_pelaksana == 1? "Aktif":"Tidak Aktif"}}
+              </td>
+              <td style="width: 70px">
+                <div ngbDropdown class="btn-group" role="group" container="body">
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-primeng dropdown-toggle"
+                    id="action"
+                    ngbDropdownToggle
+                  >
+                    <i class="fa fa-cog"></i>
+                    <span class="caret"></span>
+                    Tindakan
+                  </button>
+                  <div ngbDropdownMenu aria-labelledby="action">
+                    <button class="dropdown-item" (click)="editExecutorModal(record.id)">
+                      Lihat
+                    </button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+        <div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">No Data</div>
+        <div class="primeng-paging-container justify-content-between">
+          <p-paginator
+            [rows]="primengTableHelper.defaultRecordsCountPerPage"
+            #paginator
+            (onPageChange)="getPelaksana($event)"
+            [totalRecords]="primengTableHelper.totalRecordsCount"
+            [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
+          ></p-paginator>
+          <span class="total-records-count">Jumlah: {{ primengTableHelper.totalRecordsCount}}</span>
+        </div>
+      </div>
+    </div>
 	</div>
 </div>

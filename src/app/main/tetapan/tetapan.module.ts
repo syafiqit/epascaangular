@@ -48,6 +48,7 @@ import { KadarComponent } from './kadar/kadar.component';
 import { TambahEditKadarComponent } from './kadar/tambah-edit-kadar/tambah-edit-kadar.component';
 import { JenisBwiComponent } from './jenis-bwi/jenis-bwi.component';
 import { TambahEditJenisBwiComponent } from './jenis-bwi/tambah-edit-jenis-bwi/tambah-edit-jenis-bwi.component';
+import { TetapanComponent } from './tetapan.component';
 
 @NgModule({
 	imports: [
@@ -101,7 +102,8 @@ import { TambahEditJenisBwiComponent } from './jenis-bwi/tambah-edit-jenis-bwi/t
     KadarComponent,
     TambahEditKadarComponent,
     JenisBwiComponent,
-    TambahEditJenisBwiComponent
+    TambahEditJenisBwiComponent,
+    TetapanComponent
 	]
 })
 export class TetapanModule {}
