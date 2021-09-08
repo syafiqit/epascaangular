@@ -18,10 +18,14 @@ export class TambahEditBantuanComponent implements OnInit {
   primengTableHelper: PrimengTableHelper;
   public isCollapsed = false;
 
-  rows = [];
   states: any;
   districts: any;
   filterNegeri: number;
+
+  rows = [
+    { nama_negeri: "PAHANG", nama_daerah: "KUANTAN", jumlah_bantuan: "6000.00", jumlah_pulangan: "0.00", jumlah_kir: 20 },
+    { nama_negeri: "PAHANG", nama_daerah: "RAUB", jumlah_bantuan: "6000.00", jumlah_pulangan: "0.00", jumlah_kir: 20 }
+  ]
 
   constructor(
     config: NgbModalConfig,

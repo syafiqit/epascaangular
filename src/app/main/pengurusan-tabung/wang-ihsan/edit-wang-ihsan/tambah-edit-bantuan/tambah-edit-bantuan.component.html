@@ -124,9 +124,17 @@
             Daerah
             <p-sortIcon field="nama_daerah"></p-sortIcon>
           </th>
-          <th style="width: 100px" pSortableColumn="jumlah_bantuan">
+          <th style="width: 130px" pSortableColumn="jumlah_bantuan">
             Jumlah Diberikan
             <p-sortIcon field="jumlah_bantuan"></p-sortIcon>
+          </th>
+          <th style="width: 145px" pSortableColumn="jumlah_pulangan">
+            Jumlah Dipulangkan
+            <p-sortIcon field="jumlah_pulangan"></p-sortIcon>
+          </th>
+          <th style="width: 100px" pSortableColumn="jumlah_kir">
+            Jumlah KIR
+            <p-sortIcon field="jumlah_kir"></p-sortIcon>
           </th>
           <th style="width: 150px">Tindakan</th>
         </tr>
@@ -141,9 +149,17 @@
             <span class="p-column-title">Daerah</span>
             {{record.nama_daerah}}
           </td>
-          <td style="width: 100px">
+          <td style="width: 130px">
             <span class="p-column-title">Jumlah Diberikan</span>
-            {{record.jumlah_bantuan}}
+            RM {{record.jumlah_bantuan}}
+          </td>
+          <td style="width: 145px">
+            <span class="p-column-title">Jumlah Dipulangkan</span>
+            RM {{record.jumlah_pulangan}}
+          </td>
+          <td style="width: 100px">
+            <span class="p-column-title">Jumlah KIR</span>
+            {{record.jumlah_kir}}
           </td>
           <td style="width: 150px">
             <div ngbDropdown class="btn-group" role="group" container="body">
@@ -160,8 +176,9 @@
               <div ngbDropdownMenu aria-labelledby="action">
                 <button
                   class="dropdown-item"
+                  [routerLink]="['/app/tabung/edit-wang-ihsan/kir']"
                 >
-                  Padam
+                  Lihat
                 </button>
               </div>
             </div>

@@ -1,10 +1,8 @@
 import { OnInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal, NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig, NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
-import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
-import { finalize } from 'rxjs/operators';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import {
   CreateOrEditTabungBwiDto,
@@ -12,12 +10,8 @@ import {
   GetTabungBwiForEditDto,
   InputBwiKirDto,
   InputCreateTabungBwiDto,
-  TabungBwiKirServiceProxy,
   TabungBwiServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
-import { TambahNoRujukanComponent } from '../tambah-no-rujukan/tambah-no-rujukan.component';
-import { TambahKetuaIsiRumahComponent } from '../tambah-ketua-isi-rumah/tambah-ketua-isi-rumah.component';
-import { PilihPembayaranComponent } from '../pilih-pembayaran/pilih-pembayaran.component';
 import * as moment from 'moment';
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { NgForm } from '@angular/forms';
@@ -50,26 +44,24 @@ export class EditWangIhsanComponent implements OnInit {
   nama_tabung: string;
   perihal_surat: string;
   rows = [];
+  bwiType: any;
+  bayaran: number = 0;
 
   saving = false;
-  tarikhEft: string;
-  tarikhAkuanKp: string;
-  tarikhPenyaluran: string;
-  tarikhLaporan: string;
-  tarikhMaklum: string;
-  tarikhMajlis: string;
+  tarikhBencana: string;
+  tarikhKejadian: string;
 
   date = new Date();
-  modelDueReport: NgbDateStruct;
-  modelEft: NgbDateStruct;
-  modelPerakuan: NgbDateStruct;
-  modelPenyaluran: NgbDateStruct;
-  modelLaporan: NgbDateStruct;
-  modelMakluman: NgbDateStruct;
-  modelMajlis: NgbDateStruct;
-  modelSuratLaporan: NgbDateStruct;
+  modelBencana: NgbDateStruct;
+  modelKejadian: NgbDateStruct;
   today = this.calendar.getToday();
   readonly DELIMITER = '-';
+
+  bwiCategory = [
+    { id: 1, nama_jenis_bwi: "Bencana" },
+    { id: 2, nama_jenis_bwi: "Pengurusan Kematian" },
+    { id: 3, nama_jenis_bwi: "Lain-lain" }
+  ]
 
 	constructor(
     private router: Router,
@@ -78,8 +70,7 @@ export class EditWangIhsanComponent implements OnInit {
     private modalService: NgbModal,
     public activeModal: NgbActiveModal,
     private _activatedRoute: ActivatedRoute,
-    private _tabungBwiServiceProxy: TabungBwiServiceProxy,
-    private _tabungBwiKirServiceProxy: TabungBwiKirServiceProxy
+    private _tabungBwiServiceProxy: TabungBwiServiceProxy
   ) {
     this.idBwi = this._activatedRoute.snapshot.queryParams['id'];
 		this.primengTableHelper = new PrimengTableHelper();
@@ -121,81 +112,16 @@ export class EditWangIhsanComponent implements OnInit {
       this.rujukan_surat = result.rujukan_kelulusan_bwi.rujukan_surat;
       this.perihal_surat = result.rujukan_kelulusan_bwi.perihal_surat;
       if(result.tabung_bwi.tarikh_eft){
-        this.modelEft = this.fromModel(result.tabung_bwi.tarikh_eft.format('YYYY-MM-DD'));
+        this.modelBencana = this.fromModel(result.tabung_bwi.tarikh_eft.format('YYYY-MM-DD'));
       }
       if(result.tabung_bwi.tarikh_akuan_kp){
-        this.modelPerakuan = this.fromModel(result.tabung_bwi.tarikh_akuan_kp.format('YYYY-MM-DD'));
-      }
-      if(result.tabung_bwi.tarikh_saluran_kpd_bkp){
-        this.modelPenyaluran = this.fromModel(result.tabung_bwi.tarikh_saluran_kpd_bkp.format('YYYY-MM-DD'));
-      }
-      if(result.tabung_bwi.tarikh_laporan_kpd_bkp){
-        this.modelLaporan = this.fromModel(result.tabung_bwi.tarikh_laporan_kpd_bkp.format('YYYY-MM-DD'));
-      }
-      if(result.tabung_bwi.tarikh_makluman_majlis){
-        this.modelMakluman = this.fromModel(result.tabung_bwi.tarikh_makluman_majlis.format('YYYY-MM-DD'));
-      }
-      if(result.tabung_bwi.tarikh_majlis_makluman_majlis){
-        this.modelMajlis = this.fromModel(result.tabung_bwi.tarikh_majlis_makluman_majlis.format('YYYY-MM-DD'));
+        this.modelKejadian = this.fromModel(result.tabung_bwi.tarikh_akuan_kp.format('YYYY-MM-DD'));
       }
     })
   }
 
-	getKir(event?: LazyLoadEvent) {
-    if (this.primengTableHelper.shouldResetPaging(event)) {
-      this.paginator.changePage(0);
-      return;
-    }
-    this.primengTableHelper.showLoadingIndicator();
-
-    this._tabungBwiKirServiceProxy
-    .getAllKirById(
-      this.filter,
-      this.idBwi,
-      this.primengTableHelper.getSorting(this.dataTable),
-      this.primengTableHelper.getSkipCount(this.paginator, event),
-      this.primengTableHelper.getMaxResultCount(this.paginator, event)
-    )
-    .pipe(finalize(()=>{
-      this.primengTableHelper.hideLoadingIndicator();
-    }))
-    .subscribe((result) => {
-      this.primengTableHelper.totalRecordsCount = result.total_count;
-      this.primengTableHelper.records = result.items;
-    });
-  }
-
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
-	}
-
-	pilihPembayaran() {
-		const modalRef = this.modalService.open(PilihPembayaranComponent, { size: 'lg' });
-		modalRef.componentInstance.name = 'add';
-    modalRef.result.then(
-			(response) => {
-				if (response) {
-					this.nama_pembayaran = response.nama_pembayaran;
-				}
-			},
-			() => {}
-		);
-	}
-
-  addKirModal(id_tabung_bwi) {
-		const modalRef = this.modalService.open(TambahKetuaIsiRumahComponent, { size: 'lg' });
-		modalRef.componentInstance.name = 'add';
-    modalRef.componentInstance.kategori = 2;
-    modalRef.componentInstance.id_tabung_bwi = id_tabung_bwi;
-    modalRef.result.then(
-			(response) => {
-				if (response) {
-          this.rows.push({ id: response.id, nama: response.nama, jumlah_bwi: response.jumlah_bwi, nama_daerah: response.nama_daerah, nama_negeri: response.nama_negeri });
-          this.getKir();
-				}
-			},
-			() => {}
-		);
 	}
 
   validate(changeEvent: NgbNavChangeEvent){
@@ -211,29 +137,13 @@ export class EditWangIhsanComponent implements OnInit {
 	save() {
     this.saving = true;
     this.tabungBwi.bwi = this.edit.tabung_bwi;
-    if(this.modelEft){
-      this.tarikhEft = this.toModel(this.modelEft);
-      this.tabungBwi.bwi.tarikh_eft = moment(this.tarikhEft, "YYYY-MM-DD");
+    if(this.modelBencana){
+      this.tarikhBencana = this.toModel(this.modelBencana);
+      this.tabungBwi.bwi.tarikh_eft = moment(this.tarikhBencana, "YYYY-MM-DD");
     }
-    if(this.modelPerakuan){
-      this.tarikhAkuanKp = this.toModel(this.modelPerakuan);
-      this.tabungBwi.bwi.tarikh_akuan_kp = moment(this.tarikhAkuanKp, "YYYY-MM-DD");
-    }
-    if(this.modelPenyaluran){
-      this.tarikhPenyaluran = this.toModel(this.modelPenyaluran);
-      this.tabungBwi.bwi.tarikh_saluran_kpd_bkp = moment(this.tarikhPenyaluran, "YYYY-MM-DD");
-    }
-    if(this.modelLaporan){
-      this.tarikhLaporan = this.toModel(this.modelLaporan);
-      this.tabungBwi.bwi.tarikh_laporan_kpd_bkp = moment(this.tarikhLaporan, "YYYY-MM-DD");
-    }
-    if(this.modelMakluman){
-      this.tarikhMaklum = this.toModel(this.modelMakluman);
-      this.tabungBwi.bwi.tarikh_makluman_majlis = moment(this.tarikhMaklum, "YYYY-MM-DD");
-    }
-    if(this.modelMajlis){
-      this.tarikhMajlis = this.toModel(this.modelMajlis);
-      this.tabungBwi.bwi.tarikh_majlis_makluman_majlis = moment(this.tarikhMajlis, "YYYY-MM-DD");
+    if(this.modelKejadian){
+      this.tarikhKejadian = this.toModel(this.modelKejadian);
+      this.tabungBwi.bwi.tarikh_akuan_kp = moment(this.tarikhKejadian, "YYYY-MM-DD");
     }
     this._tabungBwiServiceProxy
 			.createOrEdit(this.tabungBwi)
