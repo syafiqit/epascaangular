@@ -317,7 +317,6 @@
                   >
                     <ng-template pTemplate="header">
                       <tr>
-                        <th style="width: 130px">Tindakan</th>
                         <th style="width: 150px" pSortableColumn="tahun">
                           Tahun
                           <p-sortIcon field="tahun"></p-sortIcon>
@@ -330,10 +329,23 @@
                           Jumlah
                           <p-sortIcon field="jumlah"></p-sortIcon>
                         </th>
+                        <th style="width: 130px">Tindakan</th>
                       </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-record="$implicit">
                       <tr>
+                        <td style="width: 150px">
+                          <span class="p-column-title">Tahun</span>
+                          {{record.tahun}}
+                        </td>
+                        <td style="width: 150px">
+                          <span class="p-column-title">Bulan</span>
+                          {{record.bulan}}
+                        </td>
+                        <td style="width: 150px">
+                          <span class="p-column-title">Jumlah</span>
+                          RM {{record.jumlah}}
+                        </td>
                         <td style="width: 130px">
                           <div ngbDropdown class="btn-group" role="group" container="body">
                             <button
@@ -356,18 +368,6 @@
                               >Lihat</button>
                             </div>
                           </div>
-                        </td>
-                        <td style="width: 150px">
-                          <span class="p-column-title">Tahun</span>
-                          {{record.tahun}}
-                        </td>
-                        <td style="width: 150px">
-                          <span class="p-column-title">Bulan</span>
-                          {{record.bulan}}
-                        </td>
-                        <td style="width: 150px">
-                          <span class="p-column-title">Jumlah</span>
-                          RM {{record.jumlah}}
                         </td>
                       </tr>
                     </ng-template>

@@ -25,7 +25,6 @@
 				>
 					<ng-template pTemplate="header">
 						<tr>
-							<th style="width: 100px">Tindakan</th>
 							<th style="width: 130px" pSortableColumn="no_rujukan_kelulusan">
 								No. Rujukan
 								<p-sortIcon field="no_rujukan_kelulusan"></p-sortIcon>
@@ -46,28 +45,11 @@
 								Perihal
 								<p-sortIcon field="perihal_surat"></p-sortIcon>
 							</th>
+							<th style="width: 100px">Tindakan</th>
 						</tr>
 					</ng-template>
 					<ng-template pTemplate="body" let-record="$implicit">
 						<tr>
-							<td style="width: 100px">
-								<button
-                  class="btn btn-primary"
-                  type="button"
-                  (click)="select(
-                    record.id,
-                    record.no_rujukan_kelulusan,
-                    record.id_jenis_bencana,
-                    record.id_tabung,
-                    record.nama_jenis_bencana,
-                    record.rujukan_surat,
-                    record.nama_tabung,
-                    record.perihal_surat
-                    )"
-                >
-                  Pilih
-                </button>
-							</td>
 							<td style="width: 130px">
 								<span class="p-column-title">No. Rujukan</span>
 								{{record.no_rujukan_kelulusan}}
@@ -87,6 +69,24 @@
 							<td style="width: 130px">
 								<span class="p-column-title">Perihal</span>
 								{{record.perihal_surat}}
+							</td>
+							<td style="width: 100px">
+								<button
+                  class="btn btn-primary"
+                  type="button"
+                  (click)="select(
+                    record.id,
+                    record.no_rujukan_kelulusan,
+                    record.id_jenis_bencana,
+                    record.id_tabung,
+                    record.nama_jenis_bencana,
+                    record.rujukan_surat,
+                    record.nama_tabung,
+                    record.perihal_surat
+                    )"
+                >
+                  Pilih
+                </button>
 							</td>
 						</tr>
 					</ng-template>

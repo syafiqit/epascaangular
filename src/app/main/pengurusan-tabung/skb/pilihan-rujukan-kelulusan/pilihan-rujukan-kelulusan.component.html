@@ -41,7 +41,6 @@
 				>
 					<ng-template pTemplate="header">
 						<tr>
-							<th style="width: 100px">Tindakan</th>
 							<th style="width: 130px" pSortableColumn="no_rujukan_kelulusan">
 								No. Kelulusan
 								<p-sortIcon field="no_rujukan_kelulusan"></p-sortIcon>
@@ -54,10 +53,23 @@
 								Siling Peruntukan
 								<p-sortIcon field="jumlah_siling"></p-sortIcon>
 							</th>
+							<th style="width: 100px">Tindakan</th>
 						</tr>
 					</ng-template>
 					<ng-template pTemplate="body" let-record="$implicit">
 						<tr>
+							<td style="width: 130px">
+								<span class="p-column-title">No. Kelulusan</span>
+								{{record.no_rujukan_kelulusan}}
+							</td>
+							<td style="width: 130px">
+								<span class="p-column-title">Tabung</span>
+								{{record.nama_tabung}}
+							</td>
+							<td style="width: 130px">
+								<span class="p-column-title">Siling Peruntukan</span>
+								RM {{record.jumlah_siling}}
+							</td>
 							<td style="width: 100px">
 								<button
                   class="btn btn-primary"
@@ -70,18 +82,6 @@
                 >
                   Pilih
                 </button>
-							</td>
-							<td style="width: 130px">
-								<span class="p-column-title">No. Kelulusan</span>
-								{{record.no_rujukan_kelulusan}}
-							</td>
-							<td style="width: 130px">
-								<span class="p-column-title">Tabung</span>
-								{{record.nama_tabung}}
-							</td>
-							<td style="width: 130px">
-								<span class="p-column-title">Siling Peruntukan</span>
-								RM {{record.jumlah_siling}}
 							</td>
 						</tr>
 					</ng-template>
