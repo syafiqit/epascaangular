@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
-import { NgbDateStruct, NgbCalendar, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbCalendar, NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
@@ -11,6 +11,7 @@ import {
   TabungKelulusanServiceProxy,
   TabungServiceProxy
 } from "../../../shared/proxy/service-proxies";
+import { PeruntukanDiambilComponent } from './peruntukan-diambil/peruntukan-diambil.component';
 
 @Component({
 	selector: 'app-kelulusan',
@@ -37,6 +38,7 @@ export class KelulusanComponent implements OnInit {
 
 	constructor(
     config: NgbModalConfig,
+    private modalService: NgbModal,
 	  private calendar: NgbCalendar,
     private _tabungKelulusanServiceProxy: TabungKelulusanServiceProxy,
     private _tabungServiceProxy: TabungServiceProxy,
@@ -111,4 +113,16 @@ export class KelulusanComponent implements OnInit {
 
     this.getTabungKelulusanList();
   }
+
+  peruntukanDiambilModal() {
+		const modalRef = this.modalService.open(PeruntukanDiambilComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'add';
+    modalRef.result.then(
+			(response) => {
+				if (response) {
+          // this.kelulusan.id_bencana = response.id;
+				}
+			}
+		);
+	}
 }
