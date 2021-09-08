@@ -22,6 +22,7 @@ export class TambahBelanjaBulanan implements OnInit {
 	bulanan: CreateOrEditTabungBayaranSkbBulananDto = new CreateOrEditTabungBayaranSkbBulananDto();
 	saving = false;
   arrayYear:any[];
+  jumlah_lama: number;
 
   months = [
     { id: 1, bulan: "JANUARI" }, { id: 2, bulan: "FEBRUARI" }, { id: 3, bulan: "MAC" }, { id: 4, bulan: "APRIL" },
@@ -49,6 +50,7 @@ export class TambahBelanjaBulanan implements OnInit {
     else {
 			this._tabungBayaranSkbBulananServiceProxy.getTabungBayaranSkbBulananForEdit(this.id).subscribe((result) => {
 				this.bulanan = result.tabung_bayaran_skb_bulanan;
+        this.jumlah_lama = result.tabung_bayaran_skb_bulanan.jumlah;
 			});
 		}
 	}
@@ -76,6 +78,7 @@ export class TambahBelanjaBulanan implements OnInit {
 
       this.bulanan.id_tabung_bayaran_skb = this.id_tabung_bayaran_skb;
       this.bulanan.id_tabung = this.id_tabung;
+      this.bulanan.jumlah_lama = this.jumlah_lama;
       this._tabungBayaranSkbBulananServiceProxy
         .createOrEdit(this.bulanan)
         .pipe()

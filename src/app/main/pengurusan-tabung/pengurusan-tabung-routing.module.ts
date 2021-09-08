@@ -14,6 +14,7 @@ import { KelulusanComponent } from './kelulusan/kelulusan.component';
 import { TambahKelulusanComponent } from './kelulusan/tambah-kelulusan/tambah-kelulusan.component';
 import { EditKelulusanComponent } from './kelulusan/edit-kelulusan/edit-kelulusan.component';
 import { EditTabungComponent } from './tabung/edit-tabung/edit-tabung.component';
+import { TambahEditKirComponent } from './wang-ihsan/edit-wang-ihsan/tambah-edit-kir/tambah-edit-kir.component';
 
 const routes: Routes = [
 	{
@@ -74,6 +75,10 @@ const routes: Routes = [
 			{
 				path: 'edit-tabung',
 				component: EditTabungComponent
+			},
+			{
+				path: 'edit-wang-ihsan/kir',
+				component: TambahEditKirComponent
 			}
 		]
 	}

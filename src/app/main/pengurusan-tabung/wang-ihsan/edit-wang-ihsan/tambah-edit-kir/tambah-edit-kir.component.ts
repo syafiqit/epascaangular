@@ -1,16 +1,18 @@
-import { Component, Input, OnInit, ViewChild, } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewEncapsulation, } from '@angular/core';
 import { PrimengTableHelper } from '@app/shared/helpers/PrimengTableHelper';
-import { GetTabungBwiForEditDto, TabungBwiKirServiceProxy } from '@app/shared/proxy/service-proxies';
+import { CreateOrEditTabungBwiDto, GetTabungBwiForEditDto, TabungBwiKirServiceProxy } from '@app/shared/proxy/service-proxies';
 import { finalize } from 'rxjs/operators';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { TambahKetuaIsiRumahComponent } from '../../tambah-ketua-isi-rumah/tambah-ketua-isi-rumah.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-tambah-edit-kir',
-  templateUrl: './tambah-edit-kir.component.html'
+  templateUrl: './tambah-edit-kir.component.html',
+	encapsulation: ViewEncapsulation.None,
+	providers: [NgbModalConfig, NgbModal, NgbActiveModal]
 })
 export class TambahEditKirComponent implements OnInit {
 
@@ -26,14 +28,53 @@ export class TambahEditKirComponent implements OnInit {
   filter: string;
   rows = [];
 
+  tarikhEft: string;
+  tarikhAkuanKp: string;
+  tarikhPenyaluran: string;
+  tarikhLaporan: string;
+  tarikhMaklum: string;
+  tarikhMajlis: string;
+
+  date = new Date();
+  modelDueReport: NgbDateStruct;
+  modelEft: NgbDateStruct;
+  modelPerakuan: NgbDateStruct;
+  modelPenyaluran: NgbDateStruct;
+  modelLaporan: NgbDateStruct;
+  modelMakluman: NgbDateStruct;
+  modelMajlis: NgbDateStruct;
+  modelSuratLaporan: NgbDateStruct;
+  today = this.calendar.getToday();
+  readonly DELIMITER = '-';
+
   constructor(
+    config: NgbModalConfig,
+    private calendar: NgbCalendar,
     private _tabungBwiKirServiceProxy: TabungBwiKirServiceProxy,
     private modalService: NgbModal,
   ) {
     this.primengTableHelper = new PrimengTableHelper();
+    this.edit.tabung_bwi = new CreateOrEditTabungBwiDto();
+		config.backdrop = 'static';
+		config.keyboard = false;
    }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  fromModel(value: string | null): NgbDateStruct | null {
+    if (value) {
+      let date = value.split(this.DELIMITER);
+      return {
+        year : parseInt(date[0], 10),
+        month : parseInt(date[1], 10),
+        day : parseInt(date[2], 10)
+      };
+    }
+    return null;
+  }
+
+  toModel(date: NgbDateStruct | null): string | null {
+    return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
   }
 
   getKir(event?: LazyLoadEvent) {
