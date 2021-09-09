@@ -75,9 +75,9 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
 		} else {
 			this.tabungBayaranTerusServiceProxy.getTabungBayaranTerusForEdit(this.idBayaranTerus).subscribe((result) => {
 				this.bayaranTerus = result.tabung_bayaran_terus;
-        this.no_rujukan_kelulusan = result.rujukan_kelulusan_terus.no_rujukan_kelulusan;
-        this.namaTabung = result.nama_tabung;
-        this.namaBencana = result.nama_bencana;
+        // this.no_rujukan_kelulusan = result.rujukan_kelulusan_terus.no_rujukan_kelulusan;
+        // this.namaTabung = result.nama_tabung;
+        // this.namaBencana = result.nama_bencana;
         if(result.tabung_bayaran_terus.tarikh){
           this.modelTarikh = this.fromModel(result.tabung_bayaran_terus.tarikh.format('YYYY-MM-DD'));
         }
@@ -116,7 +116,7 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
     modalRef.result.then(
 			(response) => {
 				if (response) {
-          this.bayaranTerus.id_tabung = response.id;
+          // this.bayaranTerus.id_tabung = response.id;
 					this.namaTabung = response.nama_tabung;
 				}
 			}

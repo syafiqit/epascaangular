@@ -7,7 +7,6 @@ import { NgbActiveModal, NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } 
 import { PilihanRujukanKelulusanComponent } from '../pilihan-rujukan-kelulusan/pilihan-rujukan-kelulusan.component';
 import {
   CreateOrEditTabungBayaranSkbDto,
-  GetRujukanKelulusanSkbDto,
   GetTabungBayaranSkbForEditDto,
   InputCreateBayaranSkbDto,
   InputSkbBulananDto,
@@ -93,7 +92,6 @@ export class EditSkbComponent implements OnInit {
     this.idSkb = this._activatedRoute.snapshot.queryParams['id'];
     this.primengTableHelper = new PrimengTableHelper();
     this.edit.tabung_bayaran_skb = new CreateOrEditTabungBayaranSkbDto();
-    this.edit.rujukan_kelulusan_skb = new GetRujukanKelulusanSkbDto();
 		config.backdrop = 'static';
 		config.keyboard = false;
 	}
@@ -124,8 +122,8 @@ export class EditSkbComponent implements OnInit {
     this._tabungBayaranSkbServiceProxy.getTabungBayaranSkbForEdit(this.idSkb).subscribe((result)=>{
       this.edit = result;
       this.edit.tabung_bayaran_skb = result.tabung_bayaran_skb;
-      this.no_rujukan_kelulusan = result.rujukan_kelulusan_skb.no_rujukan_kelulusan;
-      this.nama_bencana = result.nama_bencana;
+      this.no_rujukan_kelulusan = result.tabung_bayaran_skb.no_rujukan_kelulusan;
+      this.nama_bencana = result.tabung_bayaran_skb.nama_bencana;
       if(result.tabung_bayaran_skb.tarikh_mula){
         this.modelMula = this.fromModel(result.tabung_bayaran_skb.tarikh_mula.format('YYYY-MM-DD'));
       }
@@ -204,7 +202,7 @@ export class EditSkbComponent implements OnInit {
 		modalRef.componentInstance.name = 'add';
     modalRef.componentInstance.kategori = 2;
     modalRef.componentInstance.id_tabung_bayaran_skb = id_tabung_bayaran_skb;
-    modalRef.componentInstance.id_tabung = this.edit.rujukan_kelulusan_skb.id_tabung;
+    modalRef.componentInstance.id_tabung = this.edit.tabung_bayaran_skb.id_tabung;
     modalRef.result.then(
 			(response) => {
 				if (response) {
@@ -227,7 +225,7 @@ export class EditSkbComponent implements OnInit {
 		modalRef.componentInstance.name = 'edit';
 		modalRef.componentInstance.id = id;
 		modalRef.componentInstance.id_tabung_bayaran_skb = id_tabung_bayaran_skb;
-    modalRef.componentInstance.id_tabung = this.edit.rujukan_kelulusan_skb.id_tabung;
+    modalRef.componentInstance.id_tabung = this.edit.tabung_bayaran_skb.id_tabung;
     modalRef.result.then(
 			(response) => {
 				if (response) {

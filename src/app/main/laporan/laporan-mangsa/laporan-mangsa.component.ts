@@ -11,6 +11,7 @@ import {
   RefAgensiServiceProxy,
   RefKementerianServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
+import { FileDownloadService } from '@app/shared/services/file-download.service';
 
 @Component({
   selector: 'app-laporan-mangsa',
@@ -37,7 +38,8 @@ export class LaporanMangsaComponent implements OnInit {
     config: NgbModalConfig,
     private _refKementerianServiceProxy: RefKementerianServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
-    private _laporanServiceProxy: LaporanServiceProxy
+    private _laporanServiceProxy: LaporanServiceProxy,
+    private _fileDownloadService: FileDownloadService
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
@@ -84,6 +86,16 @@ export class LaporanMangsaComponent implements OnInit {
 				this.primengTableHelper.records = result.items;
 			});
 	}
+
+  exportToExcel(){
+    this._laporanServiceProxy.exportAllMangsaToExcel(
+      this.filter,
+      this.filterAgensi  ?? undefined,
+      this.filterKementerian ?? undefined,
+    ).subscribe(e=>{
+      this._fileDownloadService.downloadTempFile(e);
+    })
+  }
 
   getKementerian(filter?) {
 		this._refKementerianServiceProxy.getRefKementerianForDropdown(filter).subscribe((result) => {

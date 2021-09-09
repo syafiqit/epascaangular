@@ -91,7 +91,8 @@ const NSWAG = [
   ApiServiceProxies.TabungBwiServiceProxy,
   ApiServiceProxies.TabungKelulusanServiceProxy,
   ApiServiceProxies.TabungPeruntukanServiceProxy,
-  ApiServiceProxies.LaporanServiceProxy
+  ApiServiceProxies.LaporanServiceProxy,
+  ApiServiceProxies.FileServiceProxy
 ];
 
 @NgModule({
