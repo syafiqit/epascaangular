@@ -33206,7 +33206,6 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
     id!: number;
     no_rujukan_kelulusan!: string;
     nama_tabung!: string;
-    nama_jenis_bencana!: string;
     rujukan_surat!: string;
     tarikh_surat!: moment.Moment;
     jumlah_siling!: string;
@@ -33232,7 +33231,6 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
             this.id = _data["id"];
             this.no_rujukan_kelulusan = _data["no_rujukan_kelulusan"];
             this.nama_tabung = _data["nama_tabung"];
-            this.nama_jenis_bencana = _data["nama_jenis_bencana"];
             this.rujukan_surat = _data["rujukan_surat"];
             this.tarikh_surat = _data["tarikh_surat"] ? moment(_data["tarikh_surat"].toString()) : <any>undefined;
             this.jumlah_siling = _data["jumlah_siling"];
@@ -33258,7 +33256,6 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
         data["id"] = this.id;
         data["no_rujukan_kelulusan"] = this.no_rujukan_kelulusan;
         data["nama_tabung"] = this.nama_tabung;
-        data["nama_jenis_bencana"] = this.nama_jenis_bencana;
         data["rujukan_surat"] = this.rujukan_surat;
         data["tarikh_surat"] = this.tarikh_surat ? this.tarikh_surat.toISOString() : <any>undefined;
         data["jumlah_siling"] = this.jumlah_siling;
@@ -33277,7 +33274,6 @@ export interface IGetTabungKelulusanForViewDto {
     id: number;
     no_rujukan_kelulusan: string;
     nama_tabung: string;
-    nama_jenis_bencana: string;
     rujukan_surat: string;
     tarikh_surat: moment.Moment;
     jumlah_siling: string;
