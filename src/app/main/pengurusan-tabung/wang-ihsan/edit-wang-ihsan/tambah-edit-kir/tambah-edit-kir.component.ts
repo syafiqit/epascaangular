@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild, ViewEncapsulation, } from '@angular/core';
 import { PrimengTableHelper } from '@app/shared/helpers/PrimengTableHelper';
-import { CreateOrEditTabungBwiDto, GetTabungBwiForEditDto, TabungBwiKirServiceProxy } from '@app/shared/proxy/service-proxies';
+import { CreateOrEditTabungBwiDto, GetTabungBwiForEditDto } from '@app/shared/proxy/service-proxies';
 import { finalize } from 'rxjs/operators';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
@@ -50,7 +50,6 @@ export class TambahEditKirComponent implements OnInit {
   constructor(
     config: NgbModalConfig,
     private calendar: NgbCalendar,
-    private _tabungBwiKirServiceProxy: TabungBwiKirServiceProxy,
     private modalService: NgbModal,
   ) {
     this.primengTableHelper = new PrimengTableHelper();
@@ -84,21 +83,6 @@ export class TambahEditKirComponent implements OnInit {
     }
     this.primengTableHelper.showLoadingIndicator();
 
-    this._tabungBwiKirServiceProxy
-    .getAllKirById(
-      this.filter,
-      this.idBwi,
-      this.primengTableHelper.getSorting(this.dataTable),
-      this.primengTableHelper.getSkipCount(this.paginator, event),
-      this.primengTableHelper.getMaxResultCount(this.paginator, event)
-    )
-    .pipe(finalize(()=>{
-      this.primengTableHelper.hideLoadingIndicator();
-    }))
-    .subscribe((result) => {
-      this.primengTableHelper.totalRecordsCount = result.total_count;
-      this.primengTableHelper.records = result.items;
-    });
   }
 
   addKirModal(id_tabung_bwi) {
