@@ -119,7 +119,6 @@
       >
         <ng-template pTemplate="header">
           <tr>
-            <th style="width: 100px">Tindakan</th>
             <th style="width: 150px" pSortableColumn="nama">
               Nama KIR
               <p-sortIcon field="nama"></p-sortIcon>
@@ -140,19 +139,11 @@
               Negeri
               <p-sortIcon field="nama_negeri"></p-sortIcon>
             </th>
+            <th style="width: 100px">Tindakan</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-record="$implicit">
           <tr>
-            <td style="width: 100px">
-              <button
-                class="btn btn-primary"
-                type="button"
-                (click)="activeModal.dismiss()"
-              >
-                Pilih
-              </button>
-            </td>
             <td style="width: 150px">
               <span class="p-column-title">Nama KIR</span>
               {{record.nama}}
@@ -172,6 +163,15 @@
             <td style="width: 130px">
               <span class="p-column-title">Negeri</span>
               {{record.nama_negeri}}
+            </td>
+            <td style="width: 100px">
+              <button
+                class="btn btn-primary"
+                type="button"
+                (click)="activeModal.dismiss()"
+              >
+                Pilih
+              </button>
             </td>
           </tr>
         </ng-template>

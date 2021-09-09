@@ -131,7 +131,6 @@
 						>
 							<ng-template pTemplate="header">
 								<tr>
-									<th style="width: 150px">Tindakan</th>
 									<th style="width: 150px" pSortableColumn="no_rujukan_kelulusan">
 										No. Rujukan
 										<p-sortIcon field="no_rujukan_kelulusan"></p-sortIcon>
@@ -172,46 +171,11 @@
 										Status
 										<p-sortIcon field="status_tabung"></p-sortIcon>
 									</th>
+									<th style="width: 150px">Tindakan</th>
 								</tr>
 							</ng-template>
 							<ng-template pTemplate="body" let-record="$implicit">
 								<tr>
-									<td style="width: 150px">
-										<div ngbDropdown class="btn-group" role="group" container="body">
-											<button
-												type="button"
-												class="btn btn-primary btn-primeng dropdown-toggle"
-												id="action"
-												ngbDropdownToggle
-											>
-												<i class="fa fa-cog"></i>
-												<span class="caret"></span>
-												Tindakan
-											</button>
-											<div ngbDropdownMenu aria-labelledby="action">
-												<button
-													class="dropdown-item"
-													[routerLink]="['/app/tabung/edit-kelulusan']"
-                          							[queryParams]="{id: record.id}"
-												>
-													Lihat
-												</button>
-												<button
-													class="dropdown-item"
-													[routerLink]="['/app/tabung/skb/senarai']"
-												>
-													Bayaran SKB
-												</button>
-												<button
-													class="dropdown-item"
-													[routerLink]="['/app/tabung/senarai-bayaran-secara-terus']"
-												>
-													Bayaran Terus
-												</button>
-												<button class="dropdown-item">Padam</button>
-											</div>
-										</div>
-									</td>
 									<td style="width: 150px">
 										<span class="p-column-title">No. Rujukan</span>
 										{{record.no_rujukan_kelulusan}}
@@ -251,6 +215,48 @@
 									<td style="width: 100px">
 										<span class="p-column-title">Status</span>
 										{{record.status_tabung == 1? "Aktif":"Tidak Aktif"}}
+									</td>
+									<td style="width: 150px">
+										<div ngbDropdown class="btn-group" role="group" container="body">
+											<button
+												type="button"
+												class="btn btn-primary btn-primeng dropdown-toggle"
+												id="action"
+												ngbDropdownToggle
+											>
+												<i class="fa fa-cog"></i>
+												<span class="caret"></span>
+												Tindakan
+											</button>
+											<div ngbDropdownMenu aria-labelledby="action">
+												<button
+													class="dropdown-item"
+													[routerLink]="['/app/tabung/edit-kelulusan']"
+                          							[queryParams]="{id: record.id}"
+												>
+													Lihat
+												</button>
+												<button
+													class="dropdown-item"
+													(click)="peruntukanDiambilModal()"
+												>
+													Peruntukan Diambil
+												</button>
+												<button
+													class="dropdown-item"
+													[routerLink]="['/app/tabung/skb/senarai']"
+												>
+													Bayaran SKB
+												</button>
+												<button
+													class="dropdown-item"
+													[routerLink]="['/app/tabung/senarai-bayaran-secara-terus']"
+												>
+													Bayaran Terus
+												</button>
+												<button class="dropdown-item">Padam</button>
+											</div>
+										</div>
 									</td>
 								</tr>
 							</ng-template>
