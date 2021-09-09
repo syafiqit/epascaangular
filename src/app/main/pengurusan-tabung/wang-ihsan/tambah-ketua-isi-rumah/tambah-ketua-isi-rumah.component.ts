@@ -6,7 +6,7 @@ import { Table } from 'primeng/table';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
-import { CreateOrEditTabungBwiKirDto, RefDaerahServiceProxy, RefNegeriServiceProxy, TabungBwiKirServiceProxy, TabungBwiServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import { RefDaerahServiceProxy, RefNegeriServiceProxy, TabungBwiServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 @Component({
 	selector: 'app-tambah-ketua-isi-rumah',
@@ -26,7 +26,6 @@ export class TambahKetuaIsiRumahComponent implements OnInit {
   @Input() kategori;
   @Input() id_tabung_bwi;
 
-  kir: CreateOrEditTabungBwiKirDto = new CreateOrEditTabungBwiKirDto();
   idMangsa: number;
   terms$ = new Subject<string>();
   filter: string;
@@ -40,7 +39,6 @@ export class TambahKetuaIsiRumahComponent implements OnInit {
     config: NgbModalConfig,
     public activeModal: NgbActiveModal,
     private _tabungBwiServiceProxy: TabungBwiServiceProxy,
-    private _tabungBwiKirServiceProxy: TabungBwiKirServiceProxy,
     private _refDaerahServiceProxy: RefDaerahServiceProxy,
     private _refNegeriSeviceProxy: RefNegeriServiceProxy
   ) {
@@ -72,22 +70,7 @@ export class TambahKetuaIsiRumahComponent implements OnInit {
 		}
 
 		this.primengTableHelper.showLoadingIndicator();
-		this._tabungBwiServiceProxy
-			.getAllKir(
-				this.filter,
-        this.filterDaerah ?? undefined,
-        this.filterNegeri ?? undefined,
-				this.primengTableHelper.getSorting(this.dataTable),
-				this.primengTableHelper.getSkipCount(this.paginator, event),
-				this.primengTableHelper.getMaxResultCount(this.paginator, event)
-			)
-      .pipe(finalize(()=> {
-				this.primengTableHelper.hideLoadingIndicator();
-      }))
-			.subscribe((result) => {
-				this.primengTableHelper.totalRecordsCount = result.total_count;
-				this.primengTableHelper.records = result.items;
-			});
+
 	}
 
   getDaerah(filter?) {
@@ -109,32 +92,32 @@ export class TambahKetuaIsiRumahComponent implements OnInit {
     this.getKirBwi();
   }
 
-  select(id, nama, nama_daerah, nama_negeri, jumlah_bwi) {
-    if (this.kategori == 1) {
-      this.activeModal.close({
-        id: id,
-        nama: nama,
-        nama_daerah: nama_daerah,
-        nama_negeri: nama_negeri,
-        jumlah_bwi: jumlah_bwi
-      });
-    }
-    else {
-      this.saving = true;
+  // select(id, nama, nama_daerah, nama_negeri, jumlah_bwi) {
+  //   if (this.kategori == 1) {
+  //     this.activeModal.close({
+  //       id: id,
+  //       nama: nama,
+  //       nama_daerah: nama_daerah,
+  //       nama_negeri: nama_negeri,
+  //       jumlah_bwi: jumlah_bwi
+  //     });
+  //   }
+  //   else {
+  //     this.saving = true;
 
-      this.kir.id_tabung_bwi = this.id_tabung_bwi;
-      this.kir.id_mangsa = id;
-      this._tabungBwiKirServiceProxy
-        .createOrEdit(this.kir)
-        .pipe()
-        .subscribe(() => {
-          if (this.name == 'add') {
-            swalSuccess.fire('Berjaya!', 'Maklumat Ketua Isi Rumah Berjaya Ditambah.', 'success');
-          } else if (this.name == 'edit') {
-            swalSuccess.fire('Berjaya!', 'Maklumat Ketua Isi Rumah Berjaya Dikemaskini.', 'success');
-          }
-          this.activeModal.close(true);
-        });
-    }
-  }
+  //     this.kir.id_tabung_bwi = this.id_tabung_bwi;
+  //     this.kir.id_mangsa = id;
+  //     this._tabungBwiKirServiceProxy
+  //       .createOrEdit(this.kir)
+  //       .pipe()
+  //       .subscribe(() => {
+  //         if (this.name == 'add') {
+  //           swalSuccess.fire('Berjaya!', 'Maklumat Ketua Isi Rumah Berjaya Ditambah.', 'success');
+  //         } else if (this.name == 'edit') {
+  //           swalSuccess.fire('Berjaya!', 'Maklumat Ketua Isi Rumah Berjaya Dikemaskini.', 'success');
+  //         }
+  //         this.activeModal.close(true);
+  //       });
+  //   }
+  // }
 }
