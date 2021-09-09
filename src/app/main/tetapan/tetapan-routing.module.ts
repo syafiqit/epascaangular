@@ -21,6 +21,8 @@ import { PerananComponent } from './peranan/peranan.component';
 import { RujukanComponent } from './rujukan/rujukan.component';
 import { KadarComponent } from './kadar/kadar.component';
 import { JenisBwiComponent } from './jenis-bwi/jenis-bwi.component';
+import { JenisBayaranComponent } from './jenis-bayaran/jenis-bayaran.component';
+import { KategoriKelulusanComponent } from './kategori-kelulusan/kategori-kelulusan.component';
 
 const routes: Routes = [
 	{
@@ -109,6 +111,14 @@ const routes: Routes = [
 			{
 				path: 'jenis-bwi',
 				component: JenisBwiComponent
+			},
+			{
+				path: 'jenis-bayaran',
+				component: JenisBayaranComponent
+			},
+			{
+				path: 'kategori-kelulusan',
+				component: KategoriKelulusanComponent
 			}
 		]
 	}

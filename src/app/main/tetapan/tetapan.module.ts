@@ -48,6 +48,10 @@ import { KadarComponent } from './kadar/kadar.component';
 import { TambahEditKadarComponent } from './kadar/tambah-edit-kadar/tambah-edit-kadar.component';
 import { JenisBwiComponent } from './jenis-bwi/jenis-bwi.component';
 import { TambahEditJenisBwiComponent } from './jenis-bwi/tambah-edit-jenis-bwi/tambah-edit-jenis-bwi.component';
+import { JenisBayaranComponent } from './jenis-bayaran/jenis-bayaran.component';
+import { TambahEditJenisBayaranComponent } from './jenis-bayaran/tambah-edit-jenis-bayaran/tambah-edit-jenis-bayaran.component';
+import { KategoriKelulusanComponent } from './kategori-kelulusan/kategori-kelulusan.component';
+import { TambahEditKategoriKelulusanComponent } from './kategori-kelulusan/tambah-edit-kategori-kelulusan/tambah-edit-kategori-kelulusan.component';
 
 @NgModule({
 	imports: [
@@ -101,7 +105,11 @@ import { TambahEditJenisBwiComponent } from './jenis-bwi/tambah-edit-jenis-bwi/t
     KadarComponent,
     TambahEditKadarComponent,
     JenisBwiComponent,
-    TambahEditJenisBwiComponent
+    TambahEditJenisBwiComponent,
+    JenisBayaranComponent,
+    TambahEditJenisBayaranComponent,
+    KategoriKelulusanComponent,
+    TambahEditKategoriKelulusanComponent
 	]
 })
 export class TetapanModule {}

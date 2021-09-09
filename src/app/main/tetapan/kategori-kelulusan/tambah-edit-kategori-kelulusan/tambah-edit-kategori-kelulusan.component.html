@@ -1,0 +1,46 @@
+<div class="modal-header">
+	<h5 class="modal-title" *ngIf="name === 'add'">Tambah Kategori Kelulusan</h5>
+	<h5 class="modal-title" *ngIf="name === 'edit'">Kemaskini Kategori Kelulusan</h5>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+<form class="form theme-form" name="form" #f="ngForm">
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label>Nama Kategori Kelulusan</label>
+					<input
+						class="form-control"
+						id="nama_kategori_kelulusan"
+						type="text"
+						placeholder="Nama Kategori Kelulusan"
+						name="nama_jenis_bayaran"
+						required
+					/>
+				</div>
+			</div>
+
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label>Status</label>
+					<select
+						id="status"
+						class="form-control digits"
+						name="status"
+						required
+					>
+						<option selected disabled [value]="undefined">Sila Pilih</option>
+						<option [value]="1">Aktif</option>
+						<option [value]="0">Tidak Aktif</option>
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
+		<button type="submit" class="btn btn-primary">Simpan</button>
+	</div>
+</form>

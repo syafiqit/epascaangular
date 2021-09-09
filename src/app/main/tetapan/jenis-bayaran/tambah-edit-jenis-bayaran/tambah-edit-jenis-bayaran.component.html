@@ -1,0 +1,46 @@
+<div class="modal-header">
+	<h5 class="modal-title" *ngIf="name === 'add'">Tambah Jenis Bayaran</h5>
+	<h5 class="modal-title" *ngIf="name === 'edit'">Kemaskini Jenis Bayaran</h5>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+<form class="form theme-form" name="form" #f="ngForm">
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label>Nama Jenis Bayaran</label>
+					<input
+						class="form-control"
+						id="nama_jenis_bayaran"
+						type="text"
+						placeholder="Nama Jeis Bayaran"
+						name="nama_jenis_bayaran"
+						required
+					/>
+				</div>
+			</div>
+
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label>Status</label>
+					<select
+						id="status"
+						class="form-control digits"
+						name="dana.status_sumber_dana"
+						required
+					>
+						<option selected disabled [value]="undefined">Sila Pilih</option>
+						<option [value]="1">Aktif</option>
+						<option [value]="0">Tidak Aktif</option>
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
+		<button type="submit" class="btn btn-primary">Simpan</button>
+	</div>
+</form>
