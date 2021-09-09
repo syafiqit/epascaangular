@@ -13,6 +13,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { PilihBencanaKelulusanComponent } from '../pilih-bencana-kelulusan/pilih-bencana-kelulusan.component';
 
 @Component({
 	selector: 'app-edit-kelulusan',
@@ -48,6 +49,7 @@ export class EditKelulusanComponent implements OnInit {
   tabung:any;
   bencana:any;
   bantuan:any;
+  namaBencana: string;
 
   date = new Date();
   modelSurat: NgbDateStruct;
@@ -100,6 +102,7 @@ export class EditKelulusanComponent implements OnInit {
       w_kir:'500', jumlah_kir:'700', jumlah:'76', tarikh_eft:'21/2/2020'
 		}
 	];
+  bayaranTerus: any;
 
 	constructor(
 	  config: NgbModalConfig,
@@ -254,6 +257,19 @@ export class EditKelulusanComponent implements OnInit {
 		this.primengTableHelperBwi.totalRecordsCount = this.rowBwi.length;
 		this.primengTableHelperBwi.records = this.rowBwi;
 		this.primengTableHelperBwi.hideLoadingIndicator();
+	}
+
+  addBencana() {
+		const modalRef = this.modalService.open(PilihBencanaKelulusanComponent, { size: 'xl' });
+		modalRef.componentInstance.name = 'add';
+    modalRef.result.then(
+			(response) => {
+				if (response) {
+          // this.kelulusan.id_bencana = response.id;
+					this.namaBencana = response.nama_bencana;
+				}
+			}
+		);
 	}
 
 	reloadPage(): void {
