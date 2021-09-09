@@ -21,93 +21,116 @@ import { PerananComponent } from './peranan/peranan.component';
 import { RujukanComponent } from './rujukan/rujukan.component';
 import { KadarComponent } from './kadar/kadar.component';
 import { JenisBwiComponent } from './jenis-bwi/jenis-bwi.component';
+import { TetapanComponent } from './tetapan.component';
 
 const routes: Routes = [
 	{
 		path: '',
+    component: TetapanComponent,
 		children: [
 			{
-				path: 'senarai-pengumuman',
+				path: 'pengumuman',
+        outlet: 'menu',
 				component: PengumumanComponent
 			},
 			{
-				path: 'senarai-bencana',
+				path: 'bencana',
+        outlet: 'menu',
 				component: BencanaComponent
 			},
 			{
-				path: 'senarai-dun',
+				path: 'dun',
+        outlet: 'menu',
 				component: DunComponent
 			},
 			{
-				path: 'senarai-pinjaman-usahawan',
+				path: 'pinjaman',
+        outlet: 'menu',
 				component: PinjamanUsahawanComponent
 			},
 			{
-				path: 'senarai-jenis-bantuan',
+				path: 'jenis-bantuan',
+        outlet: 'menu',
 				component: JenisBantuanComponent
 			},
 			{
-				path: 'senarai-pemilik-projek-rumah',
+				path: 'pemilik-projek-rumah',
+        outlet: 'menu',
 				component: PemilikProjekRumahComponent
 			},
 			{
-				path: 'senarai-kementerian',
+				path: 'kementerian',
+        outlet: 'menu',
 				component: KementerianComponent
 			},
 			{
-				path: 'senarai-parlimen',
+				path: 'parlimen',
+        outlet: 'menu',
 				component: ParlimenComponent
 			},
 			{
-				path: 'senarai-kerosakan-rumah',
+				path: 'kerosakan-rumah',
+        outlet: 'menu',
 				component: KerosakanRumahComponent
 			},
 			{
-				path: 'senarai-daerah',
+				path: 'daerah',
+        outlet: 'menu',
 				component: DaerahComponent
 			},
 			{
-				path: 'senarai-status-berpindah',
+				path: 'status-berpindah',
+        outlet: 'menu',
 				component: StatusBerpindahComponent
 			},
 			{
-				path: 'senarai-sumber-dana',
+				path: 'sumber-dana',
+        outlet: 'menu',
 				component: SumberDanaComponent
 			},
 			{
-				path: 'senarai-pemilik-projek',
+				path: 'pemilik-projek',
+        outlet: 'menu',
 				component: PemilikProjekComponent
 			},
 			{
-				path: 'senarai-negeri',
+				path: 'negeri',
+        outlet: 'menu',
 				component: NegeriComponent
 			},
 			{
-				path: 'senarai-agensi',
+				path: 'agensi',
+        outlet: 'menu',
 				component: AgensiComponent
 			},
 			{
-				path: 'senarai-pelaksana',
+				path: 'pelaksana',
+        outlet: 'menu',
 				component: PelaksanaComponent
 			},
 			{
 				path: 'hubungan',
+        outlet: 'menu',
 				component: HubunganComponent
 			},
 			{
 				path: 'peranan',
+        outlet: 'menu',
 				component: PerananComponent
 			},
 			{
 				path: 'rujukan',
+        outlet: 'menu',
 				component: RujukanComponent
 			},
 			{
 				path: 'kadar',
+        outlet: 'menu',
 				component: KadarComponent
 			},
 			{
 				path: 'jenis-bwi',
+        outlet: 'menu',
 				component: JenisBwiComponent
 			}
 		]

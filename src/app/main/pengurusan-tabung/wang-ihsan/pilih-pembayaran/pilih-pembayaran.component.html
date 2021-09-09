@@ -25,7 +25,6 @@
 				>
 					<ng-template pTemplate="header">
 						<tr>
-							<th style="width: 100px">Tindakan</th>
 							<th style="width: 130px" pSortableColumn="jenis_bayaran">
 								Jenis Bayaran
 								<p-sortIcon field="jenis_bayaran"></p-sortIcon>
@@ -46,19 +45,11 @@
 								Jumlah
 								<p-sortIcon field="jumlah"></p-sortIcon>
 							</th>
+							<th style="width: 100px">Tindakan</th>
 						</tr>
 					</ng-template>
 					<ng-template pTemplate="body" let-record="$implicit">
 						<tr>
-							<td style="width: 100px">
-								<button
-                  class="btn btn-primary"
-                  type="button"
-                  (click)="select(record.jenis_bayaran, record.no_rujukan_bayaran, record.perihal, record.no_rujukan_kelulusan, record.jumlah)"
-                >
-                  Pilih
-                </button>
-							</td>
 							<td style="width: 130px">
 								<span class="p-column-title">Jenis Bayaran</span>
 								{{record.jenis_bayaran}}
@@ -78,6 +69,15 @@
 							<td style="width: 130px">
 								<span class="p-column-title">Jumlah</span>
 								{{record.jumlah}}
+							</td>
+							<td style="width: 100px">
+								<button
+                  class="btn btn-primary"
+                  type="button"
+                  (click)="select(record.jenis_bayaran, record.no_rujukan_bayaran, record.perihal, record.no_rujukan_kelulusan, record.jumlah)"
+                >
+                  Pilih
+                </button>
 							</td>
 						</tr>
 					</ng-template>

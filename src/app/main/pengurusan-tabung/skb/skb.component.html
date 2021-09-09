@@ -130,7 +130,6 @@
 						>
 							<ng-template pTemplate="header">
 								<tr>
-									<th style="width: 150px">Tindakan</th>
 									<th style="width: 144px" pSortableColumn="no_rujukan_kelulusan">
 										No. Kelulusan
 										<p-sortIcon field="no_rujukan_kelulusan"></p-sortIcon>
@@ -171,33 +170,11 @@
 										Tarikh Tamat
 										<p-sortIcon field="tarikh_tamat"></p-sortIcon>
 									</th>
+									<th style="width: 150px">Tindakan</th>
 								</tr>
 							</ng-template>
 							<ng-template pTemplate="body" let-record="$implicit">
 								<tr>
-									<td style="width: 150px">
-										<div ngbDropdown class="btn-group" role="group" container="body">
-											<button
-												type="button"
-												class="btn btn-primary btn-primeng dropdown-toggle"
-												id="action"
-												ngbDropdownToggle
-											>
-												<i class="fa fa-cog"></i>
-												<span class="caret"></span>
-												Tindakan
-											</button>
-											<div ngbDropdownMenu aria-labelledby="action">
-												<button
-													class="dropdown-item"
-													[routerLink]="['/app/tabung/skb/edit']"
-                          [queryParams]="{id: record.id}"
-												>
-													Lihat
-												</button>
-											</div>
-										</div>
-									</td>
 									<td style="width: 144px">
 										<span class="p-column-title">No. Kelulusan</span>
 										{{record.no_rujukan_kelulusan}}
@@ -237,6 +214,29 @@
 									<td style="width: 136px">
 										<span class="p-column-title">Tarikh Tamat</span>
 										{{record.tarikh_tamat | date:'dd-MM-yyyy'}}
+									</td>
+									<td style="width: 150px">
+										<div ngbDropdown class="btn-group" role="group" container="body">
+											<button
+												type="button"
+												class="btn btn-primary btn-primeng dropdown-toggle"
+												id="action"
+												ngbDropdownToggle
+											>
+												<i class="fa fa-cog"></i>
+												<span class="caret"></span>
+												Tindakan
+											</button>
+											<div ngbDropdownMenu aria-labelledby="action">
+												<button
+													class="dropdown-item"
+													[routerLink]="['/app/tabung/skb/edit']"
+                          [queryParams]="{id: record.id}"
+												>
+													Lihat
+												</button>
+											</div>
+										</div>
 									</td>
 								</tr>
 							</ng-template>

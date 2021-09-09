@@ -131,32 +131,9 @@ export class NavService implements OnDestroy {
 			},
 			{
 				title: 'Tetapan',
+				path: '/app/tetapan',
 				icon: 'settings',
-				type: 'sub',
-				active: false,
-				children: [
-				{ path: '/app/tetapan/senarai-bencana', title: 'Bencana', type: 'link' },
-				{ path: '/app/tetapan/senarai-kementerian', title: 'Kementerian', type: 'link' },
-				{ path: '/app/tetapan/senarai-agensi', title: 'Agensi', type: 'link' },
-				{ path: '/app/tetapan/senarai-pelaksana', title: 'Pelaksana', type: 'link' },
-				{ path: '/app/tetapan/senarai-pemilik-projek', title: 'Pemilik Projek', type: 'link' },
-				{ path: '/app/tetapan/senarai-negeri', title: 'Negeri', type: 'link' },
-				{ path: '/app/tetapan/senarai-parlimen', title: 'Parlimen', type: 'link' },
-				{ path: '/app/tetapan/senarai-daerah', title: 'Daerah', type: 'link' },
-				{ path: '/app/tetapan/senarai-dun', title: 'Dun', type: 'link' },
-				{ path: '/app/tetapan/senarai-kerosakan-rumah', title: 'Kerosakan Rumah', type: 'link' },
-				{ path: '/app/tetapan/senarai-sumber-dana', title: 'Sumber Dana', type: 'link' },
-				{ path: '/app/tetapan/senarai-status-berpindah', title: 'Status Berpindah', type: 'link' },
-				{ path: '/app/tetapan/senarai-pinjaman-usahawan', title: 'Pinjaman Usahawan', type: 'link' },
-				{ path: '/app/tetapan/senarai-pengumuman', title: 'Senarai Pengumuman', type: 'link' },
-				{ path: '/app/tetapan/senarai-pemilik-projek-rumah', title: 'Pemilik Projek Rumah', type: 'link' },
-				{ path: '/app/tetapan/senarai-jenis-bantuan', title: 'Jenis Bantuan', type: 'link' },
-				{ path: '/app/tetapan/hubungan', title: 'Hubungan', type: 'link' },
-				{ path: '/app/tetapan/peranan', title: 'Peranan', type: 'link' },
-        { path: '/app/tetapan/kadar', title: 'Kadar Bantuan', type: 'link' },
-        { path: '/app/tetapan/jenis-bwi', title: 'Jenis Bantuan Wang Ihsan', type: 'link' },
-				{ path: '/app/tetapan/rujukan', title: 'Rujukan', type: 'link' }
-				]
+				type: 'link'
 			}
 		];
 

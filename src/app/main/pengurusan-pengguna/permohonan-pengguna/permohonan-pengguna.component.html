@@ -115,7 +115,6 @@
 						>
 							<ng-template pTemplate="header">
 								<tr>
-									<th style="width: 130px">Tindakan</th>
 									<th style="width: 130px" pSortableColumn="nama">
 										Nama
 										<p-sortIcon field="nama"></p-sortIcon>
@@ -136,10 +135,31 @@
 										Status
 										<p-sortIcon field="jawatan_pengguna"></p-sortIcon>
 									</th>
+									<th style="width: 130px">Tindakan</th>
 								</tr>
 							</ng-template>
 							<ng-template pTemplate="body" let-record="$implicit">
 								<tr>
+									<td style="width: 130px">
+										<span class="p-column-title">Nama</span>
+										{{record.nama}}
+									</td>
+									<td style="width: 150px">
+										<span class="p-column-title">Emel</span>
+										{{record.emel}}
+									</td>
+									<td style="width: 130px">
+										<span class="p-column-title">Agensi</span>
+										{{record.nama_agensi}}
+									</td>
+									<td style="width: 100px">
+										<span class="p-column-title">Peranan</span>
+										{{record.peranan}}
+									</td>
+									<td style="width: 100px">
+										<span class="p-column-title">Status</span>
+										{{getStatus(record.status_pengguna)}}
+									</td>
 									<td style="width: 130px">
 										<div ngbDropdown class="btn-group" role="group" container="body">
 											<button
@@ -162,26 +182,6 @@
 												</button>
 											</div>
 										</div>
-									</td>
-									<td style="width: 130px">
-										<span class="p-column-title">Nama</span>
-										{{record.nama}}
-									</td>
-									<td style="width: 150px">
-										<span class="p-column-title">Emel</span>
-										{{record.emel}}
-									</td>
-									<td style="width: 130px">
-										<span class="p-column-title">Agensi</span>
-										{{record.nama_agensi}}
-									</td>
-									<td style="width: 100px">
-										<span class="p-column-title">Peranan</span>
-										{{record.peranan}}
-									</td>
-									<td style="width: 100px">
-										<span class="p-column-title">Status</span>
-										{{getStatus(record.status_pengguna)}}
 									</td>
 								</tr>
 							</ng-template>
