@@ -21,7 +21,7 @@
                       type="text"
                       placeholder="No. Rujukan Kelulusan"
                       name="no_kelulusan"
-                      [(ngModel)]="no_rujukan_kelulusan"
+                      [(ngModel)]="edit.tabung_bayaran_skb.no_rujukan_kelulusan"
                       #rujukanKelulusan="ngModel"
                       [ngClass]="{ 'is-invalid': f.submitted && rujukanKelulusan.invalid }"
                       required
@@ -49,7 +49,7 @@
                     placeholder="Sila Pilih"
                     class="js-example-placeholder-multiple"
                     name="kategori_skb"
-                    [(ngModel)]="id_kategori_skb"
+                    [(ngModel)]="edit.tabung_bayaran_skb.id_kategori_bayaran"
                   ></ng-select>
 								</div>
 							</div>
@@ -66,12 +66,12 @@
                     placeholder="Sila Pilih"
                     class="js-example-placeholder-multiple"
                     name="jenisBayaran"
-                    [(ngModel)]="paymentType"
+                    [(ngModel)]="edit.tabung_bayaran_skb.id_jenis_bayaran"
                   ></ng-select>
 							  </div>
 						  </div>
 
-              <div class="col-lg-6" *ngIf="paymentType == 1" [@fadeVerticalAnimation]>
+              <div class="col-lg-6" *ngIf="edit.tabung_bayaran_skb.id_jenis_bayaran == 1" [@fadeVerticalAnimation]>
 								<div class="form-group">
 									<label>Jenis Bencana</label>
 									<div class="input-group">
@@ -80,7 +80,7 @@
                       type="text"
                       placeholder="Nama Bencana"
                       name="bencana"
-                      [(ngModel)]="nama_bencana"
+                      [(ngModel)]="edit.tabung_bayaran_skb.nama_bencana"
                       #namaBencana="ngModel"
                       [ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
                       required
@@ -98,7 +98,7 @@
 						    </div>
               </div>
 
-							<div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown" *ngIf="paymentType == 1" [@fadeVerticalAnimation]>
+							<div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown" *ngIf="edit.tabung_bayaran_skb.id_jenis_bayaran == 1" [@fadeVerticalAnimation]>
                 <label>Tarikh Bencana</label>
                 <div class="input-group">
                   <input
@@ -227,6 +227,19 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-group">
+                  <label>Perihal</label>
+                  <textarea
+                    class="form-control"
+                    placeholder="Perihal"
+                    name="perihalSkb"
+                    [(ngModel)]="edit.tabung_bayaran_skb.perihal"
+                  >
+                  </textarea>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="form-group">
                   <label>Status</label>
                   <ng-select
                     [items]="statuses"
@@ -234,20 +247,26 @@
                     bindValue="id"
                     placeholder="Sila Pilih"
                     class="js-example-placeholder-multiple"
-                    name="status_bulanan"
-                    [(ngModel)]="status_skb_bulanan"
+                    name="status_skb"
+                    [(ngModel)]="id_status_skb"
+                    #statusSkb="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && statusSkb.invalid }"
+                    required
                   ></ng-select>
+                  <div *ngIf="f.submitted && statusSkb.invalid" class="invalid-feedback">
+                    <div *ngIf="statusSkb.errors.required">Status Wajib Dipilih</div>
+                  </div>
                 </div>
               </div>
 
-              <div class="col-lg-6">
+              <div class="col-lg-6" *ngIf="id_status_skb == 3" [@fadeVerticalAnimation]>
                 <div class="form-group">
-                  <label>Perihal</label>
+                  <label>Catatan</label>
                   <textarea
                     class="form-control"
-                    placeholder="Perihal"
-                    name="perihalSkb"
-                    [(ngModel)]="edit.tabung_bayaran_skb.perihal"
+                    placeholder=""
+                    name="note"
+                    [(ngModel)]="catatan_skb"
                   >
                   </textarea>
                 </div>

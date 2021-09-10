@@ -380,6 +380,201 @@ export class AuthServiceProxy {
 }
 
 @Injectable()
+export class DashboardTabungServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Get Total by Tabung
+     * @param id_tabung (optional) Filter records with a string
+     * @return Success
+     */
+    getTotalTabungCard(id_tabung: number | undefined): Observable<GetTotalByTabungForViewDto> {
+        let url_ = this.baseUrl + "/api/dashboardTabung/getTotalTabungCard?";
+        if (id_tabung === null)
+            throw new Error("The parameter 'id_tabung' cannot be null.");
+        else if (id_tabung !== undefined)
+            url_ += "id_tabung=" + encodeURIComponent("" + id_tabung) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTotalTabungCard(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTotalTabungCard(<any>response_);
+                } catch (e) {
+                    return <Observable<GetTotalByTabungForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetTotalByTabungForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTotalTabungCard(response: HttpResponseBase): Observable<GetTotalByTabungForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetTotalByTabungForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetTotalByTabungForViewDto>(<any>null);
+    }
+
+    /**
+     * Get Total Bayaran Terus by Tabung
+     * @param filterTabung (optional) Filter records with a string
+     * @return Success
+     */
+    getTotalBayaranTerusByMonth(filterTabung: number | undefined): Observable<GetTotalBayaranTerusByMonthForViewDto> {
+        let url_ = this.baseUrl + "/api/dashboardTabung/getTotalBayaranTerusByMonth?";
+        if (filterTabung === null)
+            throw new Error("The parameter 'filterTabung' cannot be null.");
+        else if (filterTabung !== undefined)
+            url_ += "filterTabung=" + encodeURIComponent("" + filterTabung) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTotalBayaranTerusByMonth(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTotalBayaranTerusByMonth(<any>response_);
+                } catch (e) {
+                    return <Observable<GetTotalBayaranTerusByMonthForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetTotalBayaranTerusByMonthForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTotalBayaranTerusByMonth(response: HttpResponseBase): Observable<GetTotalBayaranTerusByMonthForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetTotalBayaranTerusByMonthForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetTotalBayaranTerusByMonthForViewDto>(<any>null);
+    }
+
+    /**
+     * Get Total SKB Tabung by Month
+     * @param filterTabung (optional) Filter records with a string
+     * @return Success
+     */
+    getTotalSkbByMonth(filterTabung: number | undefined): Observable<GetTotalSkbByMonthForViewDto> {
+        let url_ = this.baseUrl + "/api/dashboardTabung/getTotalSkbByMonth?";
+        if (filterTabung === null)
+            throw new Error("The parameter 'filterTabung' cannot be null.");
+        else if (filterTabung !== undefined)
+            url_ += "filterTabung=" + encodeURIComponent("" + filterTabung) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTotalSkbByMonth(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTotalSkbByMonth(<any>response_);
+                } catch (e) {
+                    return <Observable<GetTotalSkbByMonthForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetTotalSkbByMonthForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTotalSkbByMonth(response: HttpResponseBase): Observable<GetTotalSkbByMonthForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetTotalSkbByMonthForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetTotalSkbByMonthForViewDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class DashboardServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -17044,6 +17239,152 @@ export interface IRegisterPenggunaDto {
     id_negeri: number;
 }
 
+/** Total Bayaran Terus By Month in Tabular model */
+export class GetTotalBayaranTerusByMonthForViewDto implements IGetTotalBayaranTerusByMonthForViewDto {
+    bayaran_terus!: number;
+    numeral_month!: number;
+    month!: string;
+    year!: number;
+
+    constructor(data?: IGetTotalBayaranTerusByMonthForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.bayaran_terus = _data["bayaran_terus"];
+            this.numeral_month = _data["numeral_month"];
+            this.month = _data["month"];
+            this.year = _data["year"];
+        }
+    }
+
+    static fromJS(data: any): GetTotalBayaranTerusByMonthForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTotalBayaranTerusByMonthForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["bayaran_terus"] = this.bayaran_terus;
+        data["numeral_month"] = this.numeral_month;
+        data["month"] = this.month;
+        data["year"] = this.year;
+        return data; 
+    }
+}
+
+/** Total Bayaran Terus By Month in Tabular model */
+export interface IGetTotalBayaranTerusByMonthForViewDto {
+    bayaran_terus: number;
+    numeral_month: number;
+    month: string;
+    year: number;
+}
+
+/** Total Card by Tabung in Tabular model */
+export class GetTotalByTabungForViewDto implements IGetTotalByTabungForViewDto {
+    jumlah_keseluruhan!: number;
+    jumlah_perbelanjaan_semasa!: number;
+    jumlah_tanggungan!: number;
+    jumlah_bersih!: number;
+
+    constructor(data?: IGetTotalByTabungForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.jumlah_keseluruhan = _data["jumlah_keseluruhan"];
+            this.jumlah_perbelanjaan_semasa = _data["jumlah_perbelanjaan_semasa"];
+            this.jumlah_tanggungan = _data["jumlah_tanggungan"];
+            this.jumlah_bersih = _data["jumlah_bersih"];
+        }
+    }
+
+    static fromJS(data: any): GetTotalByTabungForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTotalByTabungForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["jumlah_keseluruhan"] = this.jumlah_keseluruhan;
+        data["jumlah_perbelanjaan_semasa"] = this.jumlah_perbelanjaan_semasa;
+        data["jumlah_tanggungan"] = this.jumlah_tanggungan;
+        data["jumlah_bersih"] = this.jumlah_bersih;
+        return data; 
+    }
+}
+
+/** Total Card by Tabung in Tabular model */
+export interface IGetTotalByTabungForViewDto {
+    jumlah_keseluruhan: number;
+    jumlah_perbelanjaan_semasa: number;
+    jumlah_tanggungan: number;
+    jumlah_bersih: number;
+}
+
+/** Total SKB By Month in Tabular model */
+export class GetTotalSkbByMonthForViewDto implements IGetTotalSkbByMonthForViewDto {
+    bayaran_skb!: number;
+    month!: string;
+    year!: number;
+
+    constructor(data?: IGetTotalSkbByMonthForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.bayaran_skb = _data["bayaran_skb"];
+            this.month = _data["month"];
+            this.year = _data["year"];
+        }
+    }
+
+    static fromJS(data: any): GetTotalSkbByMonthForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTotalSkbByMonthForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["bayaran_skb"] = this.bayaran_skb;
+        data["month"] = this.month;
+        data["year"] = this.year;
+        return data; 
+    }
+}
+
+/** Total SKB By Month in Tabular model */
+export interface IGetTotalSkbByMonthForViewDto {
+    bayaran_skb: number;
+    month: string;
+    year: number;
+}
+
 /** Jumlah Bantuan Data For Card */
 export class GetJumlahBantuanDto implements IGetJumlahBantuanDto {
     penerima!: number;
@@ -31195,10 +31536,12 @@ export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayar
     no_rujukan_kelulusan!: string;
     nama_tabung!: string;
     nama_bencana!: string;
+    tarikh_bencana!: moment.Moment;
     nama_jenis_bayaran!: string;
     nama_kategori_bayaran!: string;
     nama_skb_status!: string;
     id_status_skb!: number;
+    catatan!: string;
 
     constructor(data?: ICreateOrEditTabungBayaranSkbDto) {
         if (data) {
@@ -31237,10 +31580,12 @@ export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayar
             this.no_rujukan_kelulusan = _data["no_rujukan_kelulusan"];
             this.nama_tabung = _data["nama_tabung"];
             this.nama_bencana = _data["nama_bencana"];
+            this.tarikh_bencana = _data["tarikh_bencana"] ? moment(_data["tarikh_bencana"].toString()) : <any>undefined;
             this.nama_jenis_bayaran = _data["nama_jenis_bayaran"];
             this.nama_kategori_bayaran = _data["nama_kategori_bayaran"];
             this.nama_skb_status = _data["nama_skb_status"];
             this.id_status_skb = _data["id_status_skb"];
+            this.catatan = _data["catatan"];
         }
     }
 
@@ -31279,10 +31624,12 @@ export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayar
         data["no_rujukan_kelulusan"] = this.no_rujukan_kelulusan;
         data["nama_tabung"] = this.nama_tabung;
         data["nama_bencana"] = this.nama_bencana;
+        data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
         data["nama_jenis_bayaran"] = this.nama_jenis_bayaran;
         data["nama_kategori_bayaran"] = this.nama_kategori_bayaran;
         data["nama_skb_status"] = this.nama_skb_status;
         data["id_status_skb"] = this.id_status_skb;
+        data["catatan"] = this.catatan;
         return data; 
     }
 }
@@ -31314,10 +31661,12 @@ export interface ICreateOrEditTabungBayaranSkbDto {
     no_rujukan_kelulusan: string;
     nama_tabung: string;
     nama_bencana: string;
+    tarikh_bencana: moment.Moment;
     nama_jenis_bayaran: string;
     nama_kategori_bayaran: string;
     nama_skb_status: string;
     id_status_skb: number;
+    catatan: string;
 }
 
 export class GetRujukanKelulusanSkbDto implements IGetRujukanKelulusanSkbDto {
