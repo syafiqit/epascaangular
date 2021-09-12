@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { CreateOrEditTabungBayaranTerusDto, OutputCreateBayaranTerusDto, RefBencanaServiceProxy, RefJenisBencanaServiceProxy, TabungBayaranTerusServiceProxy, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import { CreateOrEditTabungBayaranTerusDto, OutputCreateBayaranTerusDto, RefBencanaServiceProxy, RefJenisBayaranServiceProxy, RefJenisBencanaServiceProxy, RefKategoriBayaranServiceProxy, TabungBayaranTerusServiceProxy, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import { PilihanRujukanKelulusanComponent } from '../../skb/pilihan-rujukan-kelulusan/pilihan-rujukan-kelulusan.component';
 import { PilihBencanaComponent } from '../pilih-bencana/pilih-bencana.component';
 import { PilihRujukanKelulusanComponent } from '../pilih-rujukan-kelulusan/pilih-rujukan-kelulusan.component';
@@ -28,25 +28,20 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
   filterJenisBencana: string;
   bencana: any;
   jenisBencana: any;
+  jenisBayaran: any;
+  kategoriBayaran: any;
   id_jenis_bayaran: number;
   no_rujukan_kelulusan: string;
   namaTabung: string;
   namaBencana: string;
+  tarikh_bencana: NgbDateStruct;
   modelTarikh: NgbDateStruct;
+  modelTarikhBencana: NgbDateStruct;
   today = this.calendar.getToday();
   readonly DELIMITER = '-';
   tarikhBayaran: string;
+  tarikhBencana: string;
   idBayaranTerus: any;
-
-  jenisBayaran = [
-    { id: 1, nama_jenis_bayaran: 'BWI' },
-    { id: 2, nama_jenis_bayaran: 'Pengoperasian' }
-  ];
-
-  kategori = [
-    { id: 1, nama_kategori: 'Covid' },
-    { id: 2, nama_kategori: 'Bukan Covid' }
-  ];
 
 	constructor(
     config: NgbModalConfig,
@@ -56,7 +51,9 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private tabungBayaranTerusServiceProxy: TabungBayaranTerusServiceProxy,
     private _refBencanaServiceProxy: RefBencanaServiceProxy,
-    private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy
+    private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy,
+    private _refJenisBayaranServiceProxy: RefJenisBayaranServiceProxy,
+    private _refKategoriBayaranServiceProxy: RefKategoriBayaranServiceProxy
     ) {
     this.idBayaranTerus = this._activatedRoute.snapshot.queryParams['id'];
 		config.backdrop = 'static';
@@ -67,6 +64,8 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
     this.show();
     this.getBencana();
     this.getKategoriBencana();
+    this.getJenisBayaran();
+    this.getKategoriBayaran();
   }
 
   show(){
@@ -75,11 +74,13 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
 		} else {
 			this.tabungBayaranTerusServiceProxy.getTabungBayaranTerusForEdit(this.idBayaranTerus).subscribe((result) => {
 				this.bayaranTerus = result.tabung_bayaran_terus;
-        // this.no_rujukan_kelulusan = result.rujukan_kelulusan_terus.no_rujukan_kelulusan;
-        // this.namaTabung = result.nama_tabung;
-        // this.namaBencana = result.nama_bencana;
+        this.no_rujukan_kelulusan = result.tabung_bayaran_terus.no_rujukan_kelulusan;
+        this.namaBencana = result.tabung_bayaran_terus.nama_bencana;
         if(result.tabung_bayaran_terus.tarikh){
           this.modelTarikh = this.fromModel(result.tabung_bayaran_terus.tarikh.format('YYYY-MM-DD'));
+        }
+        if(result.tabung_bayaran_terus.tarikh_bencana){
+          this.modelTarikhBencana = this.fromModel(result.tabung_bayaran_terus.tarikh_bencana.format('YYYY-MM-DD'));
         }
 			});
 		}
@@ -94,6 +95,18 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
   getKategoriBencana(){
     this._refJenisBencanaServiceProxy.getRefJenisBencanaForDropdown(this.filterJenisBencana).subscribe((result) => {
 			this.jenisBencana = result.items;
+		});
+  }
+
+  getJenisBayaran(){
+    this._refJenisBayaranServiceProxy.getRefJenisBayaranForDropdown(this.filterJenisBencana).subscribe((result) => {
+			this.jenisBayaran = result.items;
+		});
+  }
+
+  getKategoriBayaran(){
+    this._refKategoriBayaranServiceProxy.getRefKategoriBayaranForDropdown(this.filterJenisBencana).subscribe((result) => {
+			this.kategoriBayaran = result.items;
 		});
   }
 
@@ -131,6 +144,7 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
 				if (response) {
           this.bayaranTerus.id_bencana = response.id;
 					this.namaBencana = response.nama_bencana;
+          this.modelTarikhBencana = this.fromModel(response.tarikh_bencana.format('YYYY-MM-DD'));
 				}
 			}
 		);
@@ -156,6 +170,10 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
     if(this.modelTarikh){
       this.tarikhBayaran = this.toModel(this.modelTarikh);
       this.bayaranTerus.tarikh = moment(this.tarikhBayaran, "YYYY-MM-DD");
+    }
+    if(this.modelTarikhBencana){
+      this.tarikhBencana = this.toModel(this.modelTarikhBencana);
+      this.bayaranTerus.tarikh_bencana = moment(this.tarikhBencana, "YYYY-MM-DD");
     }
 
     if(!this.idBayaranTerus) {
