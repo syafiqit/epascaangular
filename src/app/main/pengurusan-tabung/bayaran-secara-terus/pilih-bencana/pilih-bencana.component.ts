@@ -77,10 +77,11 @@ export class PilihBencanaComponent implements OnInit {
 			});
 	}
 
-  select(id, nama_bencana) {
+  select(id, nama_bencana, tarikh_bencana) {
 		this.activeModal.close({
       id: id,
-      nama_bencana: nama_bencana
+      nama_bencana: nama_bencana,
+      tarikh_bencana: tarikh_bencana
     });
 	}
 }

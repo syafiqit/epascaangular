@@ -56,7 +56,7 @@
                     placeholder="Sila Pilih"
                     class="js-example-placeholder-multiple"
                     name="jenisBayaran"
-                    [(ngModel)]="id_jenis_bayaran"
+                    [(ngModel)]="bayaranTerus.id_jenis_bayaran"
                   ></ng-select>
 								</div>
 							</div>
@@ -67,17 +67,18 @@
 								<div class="form-group">
 									<label>Kategori</label>
 									<ng-select
-                    [items]="kategori"
-                    bindLabel="nama_kategori"
+                    [items]="kategoriBayaran"
+                    bindLabel="nama_kategori_bayaran"
                     bindValue="id"
                     placeholder="Sila Pilih"
                     class="js-example-placeholder-multiple"
                     name="kategori"
+                    [(ngModel)]="bayaranTerus.id_kategori_bayaran"
                   ></ng-select>
 								</div>
 							</div>
 
-							<div class="col-lg-6" *ngIf="id_jenis_bayaran == 1">
+							<div class="col-lg-6" *ngIf="bayaranTerus.id_jenis_bayaran == 1">
 								<div class="form-group">
 									<label>Bencana*</label>
 									<div class="input-group">
@@ -105,19 +106,34 @@
 							</div>
 						</div>
 
-            <div class="row" *ngIf="id_jenis_bayaran == 1 && namaBencana">
-							<div class="col-lg-6">
+            <div class="row" *ngIf="bayaranTerus.id_jenis_bayaran == 1 && namaBencana">
+							<div class="col-lg-6 custom-datepicker custom-datepicker-dropdown">
                 <div class="form-group">
-                  <label>Tarikh Bencana</label>
+                <label>Tarikh Bencana</label>
+                <div class="input-group">
                   <input
                     class="form-control"
+                    placeholder="yyyy-mm-dd"
                     name="tarikhBencana"
-                    type="text"
-                    placeholder="Tarikh Bencana"
+                    [(ngModel)]="modelTarikhBencana"
+                    ngbDatepicker
+                    [footerTemplate]="footerTemplate"
+                    #d="ngbDatepicker"
+                    style="border: 1px solid #efefef !important;"
                     disabled
-                  />
+                  >
+                  <div class="input-group-append">
+                    <button class="btn btn-light" (click)="d.toggle()" type="button" disabled><i
+                      class="fa fa-calendar"></i></button>
+                  </div>
                 </div>
               </div>
+              </div>
+              <ng-template #footerTemplate>
+                <hr class="my-0">
+                <button class="btn btn-primary btn-sm m-2 float-left" (click)="model = today; d.close()">Hari Ini</button>
+                <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Tutup</button>
+              </ng-template>
 						</div>
 						<hr />
 						<h6>Maklumat Bayaran</h6>

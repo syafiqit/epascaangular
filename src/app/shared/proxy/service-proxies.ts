@@ -572,6 +572,67 @@ export class DashboardTabungServiceProxy {
         }
         return _observableOf<GetTotalSkbByMonthForViewDto>(<any>null);
     }
+
+    /**
+     * Get Total Belanja and Tanggungan by Tabung
+     * @param id_tabung (optional) Filter records with a string
+     * @return Success
+     */
+    getBelanjaTanggunganByTabung(id_tabung: number | undefined): Observable<GetTBelanjaTanggunganByTabungForViewDto> {
+        let url_ = this.baseUrl + "/api/dashboardTabung/getBelanjaTanggunganByTabung?";
+        if (id_tabung === null)
+            throw new Error("The parameter 'id_tabung' cannot be null.");
+        else if (id_tabung !== undefined)
+            url_ += "id_tabung=" + encodeURIComponent("" + id_tabung) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetBelanjaTanggunganByTabung(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetBelanjaTanggunganByTabung(<any>response_);
+                } catch (e) {
+                    return <Observable<GetTBelanjaTanggunganByTabungForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetTBelanjaTanggunganByTabungForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetBelanjaTanggunganByTabung(response: HttpResponseBase): Observable<GetTBelanjaTanggunganByTabungForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetTBelanjaTanggunganByTabungForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetTBelanjaTanggunganByTabungForViewDto>(<any>null);
+    }
 }
 
 @Injectable()
@@ -17239,6 +17300,48 @@ export interface IRegisterPenggunaDto {
     id_negeri: number;
 }
 
+/** Total Belanja and Tanggungan by Tabung in Tabular model */
+export class GetTBelanjaTanggunganByTabungForViewDto implements IGetTBelanjaTanggunganByTabungForViewDto {
+    jumlah_perbelanjaan_semasa!: number;
+    jumlah_tanggungan!: number;
+
+    constructor(data?: IGetTBelanjaTanggunganByTabungForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.jumlah_perbelanjaan_semasa = _data["jumlah_perbelanjaan_semasa"];
+            this.jumlah_tanggungan = _data["jumlah_tanggungan"];
+        }
+    }
+
+    static fromJS(data: any): GetTBelanjaTanggunganByTabungForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTBelanjaTanggunganByTabungForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["jumlah_perbelanjaan_semasa"] = this.jumlah_perbelanjaan_semasa;
+        data["jumlah_tanggungan"] = this.jumlah_tanggungan;
+        return data; 
+    }
+}
+
+/** Total Belanja and Tanggungan by Tabung in Tabular model */
+export interface IGetTBelanjaTanggunganByTabungForViewDto {
+    jumlah_perbelanjaan_semasa: number;
+    jumlah_tanggungan: number;
+}
+
 /** Total Bayaran Terus By Month in Tabular model */
 export class GetTotalBayaranTerusByMonthForViewDto implements IGetTotalBayaranTerusByMonthForViewDto {
     bayaran_terus!: number;
@@ -32051,7 +32154,9 @@ export class CreateOrEditTabungBayaranTerusDto implements ICreateOrEditTabungBay
     tarikh_hapus!: moment.Moment;
     sebab_hapus!: string;
     id_bencana!: number;
+    no_rujukan_kelulusan!: string;
     jumlah!: number;
+    tarikh_bencana!: moment.Moment;
     nama_bencana!: string;
     nama_jenis_bayaran!: string;
     nama_kategori_bayaran!: string;
@@ -32084,7 +32189,9 @@ export class CreateOrEditTabungBayaranTerusDto implements ICreateOrEditTabungBay
             this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
             this.sebab_hapus = _data["sebab_hapus"];
             this.id_bencana = _data["id_bencana"];
+            this.no_rujukan_kelulusan = _data["no_rujukan_kelulusan"];
             this.jumlah = _data["jumlah"];
+            this.tarikh_bencana = _data["tarikh_bencana"] ? moment(_data["tarikh_bencana"].toString()) : <any>undefined;
             this.nama_bencana = _data["nama_bencana"];
             this.nama_jenis_bayaran = _data["nama_jenis_bayaran"];
             this.nama_kategori_bayaran = _data["nama_kategori_bayaran"];
@@ -32117,7 +32224,9 @@ export class CreateOrEditTabungBayaranTerusDto implements ICreateOrEditTabungBay
         data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
         data["id_bencana"] = this.id_bencana;
+        data["no_rujukan_kelulusan"] = this.no_rujukan_kelulusan;
         data["jumlah"] = this.jumlah;
+        data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
         data["nama_bencana"] = this.nama_bencana;
         data["nama_jenis_bayaran"] = this.nama_jenis_bayaran;
         data["nama_kategori_bayaran"] = this.nama_kategori_bayaran;
@@ -32143,7 +32252,9 @@ export interface ICreateOrEditTabungBayaranTerusDto {
     tarikh_hapus: moment.Moment;
     sebab_hapus: string;
     id_bencana: number;
+    no_rujukan_kelulusan: string;
     jumlah: number;
+    tarikh_bencana: moment.Moment;
     nama_bencana: string;
     nama_jenis_bayaran: string;
     nama_kategori_bayaran: string;
