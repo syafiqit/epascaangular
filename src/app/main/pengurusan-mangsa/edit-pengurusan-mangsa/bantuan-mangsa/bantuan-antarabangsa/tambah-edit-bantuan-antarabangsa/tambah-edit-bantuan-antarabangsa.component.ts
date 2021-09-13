@@ -5,11 +5,10 @@ import {
   CreateOrEditMangsaAntarabangsaDto,
   GetMangsaAntarabangsaForEditDto,
   MangsaAntarabangsaServiceProxy,
-  RefAgensiServiceProxy,
-  RefBencanaServiceProxy
+  RefAgensiServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
-import { DatePipe } from '@angular/common';
+import { LookupBencanaComponent } from '../../lookup-bencana/lookup-bencana.component';
 
 @Component({
   selector: 'app-tambah-edit-bantuan-antarabangsa',
@@ -18,7 +17,6 @@ import { DatePipe } from '@angular/common';
 	providers: [NgbModalConfig, NgbModal]
 })
 export class TambahEditBantuanAntarabangsaComponent implements OnInit {
-
   @Input() name;
 	@Input() id;
 	@Input() idMangsa;
@@ -28,27 +26,25 @@ export class TambahEditBantuanAntarabangsaComponent implements OnInit {
 
 	saving = true;
   agensi: any;
-  bencana: any;
   tarikh_bantuan: string;
 
   date = new Date();
   model: NgbDateStruct;
   today = this.calendar.getToday();
   readonly DELIMITER = '-';
-  date_bencana:any;
-  pipe = new DatePipe('en-US');
+  nama_bencana: string;
+  modelBencana: NgbDateStruct;
 
   status=[
     {id: 1, nama_status: "Tidak Aktif"},
     {id: 2, nama_status: "Aktif"}
   ]
 
-  constructor
-  (
+  constructor(
+    private modalService: NgbModal,
     public activeModal: NgbActiveModal,
 		private _mangsaAntarabangsaServiceProxy: MangsaAntarabangsaServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
-    private _refBencanaServiceProxy: RefBencanaServiceProxy,
     private calendar: NgbCalendar
   ) {
     this.editAntarabangsa.mangsa_antarabangsa = new CreateOrEditMangsaAntarabangsaDto();
@@ -56,7 +52,6 @@ export class TambahEditBantuanAntarabangsaComponent implements OnInit {
 
   ngOnInit(): void {
     this.show();
-    this.getBencana();
     this.getAgensi();
   }
 
@@ -86,17 +81,6 @@ export class TambahEditBantuanAntarabangsaComponent implements OnInit {
           this.model = this.fromModel(result.mangsa_antarabangsa.tarikh_bantuan.format('YYYY-MM-DD'));
         }
       });
-
-      this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
-        this.date_bencana = result.items.filter(
-          filt=>{
-            if(filt.id == this.antarabangsa.id_bencana){
-              return filt.tarikh_bencana;
-            }
-          }).map(data=>{
-            return this.pipe.transform(data.tarikh_bencana.toDate(), 'dd/MM/yyyy');
-          });
-        });
     }
   }
 
@@ -106,10 +90,19 @@ export class TambahEditBantuanAntarabangsaComponent implements OnInit {
     });
   }
 
-  getBencana(filter?) {
-    this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
-      this.bencana = result.items;
-    });
+  pilihBencana() {
+    const modalRef = this.modalService.open(LookupBencanaComponent, { size: 'lg' });
+    modalRef.componentInstance.name = 'add';
+    modalRef.componentInstance.mangsaId = this.idMangsa;
+    modalRef.result.then(
+      (response) => {
+        if (response) {
+          this.antarabangsa.id_bencana = response.id_bencana;
+          this.nama_bencana = response.nama_bencana;
+          this.modelBencana = this.fromModel(response.tarikh_bencana.format('YYYY-MM-DD'));
+        }
+      }
+    );
   }
 
   save() {
@@ -129,20 +122,6 @@ export class TambahEditBantuanAntarabangsaComponent implements OnInit {
           swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Antarabangsa Berjaya Dikemaskini.', 'success');
         }
         this.activeModal.close(true);
-      });
-  }
-
-  onSelectBencana(id?,filter?){
-    console.log(id);
-    this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
-      this.date_bencana = result.items.filter(
-        filt=>{
-          if(filt.id == id){
-            return filt.tarikh_bencana;
-          }
-        }).map(data=>{
-          return this.pipe.transform(data.tarikh_bencana.toDate(), 'dd/MM/yyyy');
-        });
       });
   }
 

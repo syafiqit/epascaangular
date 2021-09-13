@@ -1,9 +1,20 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgbActiveModal, NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
-import { CreateOrEditMangsaRumahDto, GetMangsaRumahForEditDto, MangsaRumahServiceProxy, RefBantuanServiceProxy, RefBencanaServiceProxy, RefKerosakanServiceProxy, RefPelaksanaServiceProxy, RefPemilikServiceProxy, RefStatusKemajuanServiceProxy, RefSumberDanaServiceProxy, RefTapakRumahServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import {
+  CreateOrEditMangsaRumahDto,
+  GetMangsaRumahForEditDto,
+  MangsaRumahServiceProxy,
+  RefBantuanServiceProxy,
+  RefKerosakanServiceProxy,
+  RefPelaksanaServiceProxy,
+  RefPemilikServiceProxy,
+  RefStatusKemajuanServiceProxy,
+  RefSumberDanaServiceProxy,
+  RefTapakRumahServiceProxy
+} from 'src/app/shared/proxy/service-proxies';
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
-import { DatePipe } from '@angular/common';
+import { LookupBencanaComponent } from '../../lookup-bencana/lookup-bencana.component';
 
 @Component({
   selector: 'app-tambah-edit-bantuan-rumah',
@@ -22,7 +33,6 @@ export class TambahEditBantuanRumahComponent implements OnInit {
 
 	saving = true;
   pemilik: any;
-  bencana: any;
   jenisBantuan: any;
   kerosakan: any;
   tapakRumah: any;
@@ -36,8 +46,8 @@ export class TambahEditBantuanRumahComponent implements OnInit {
   tarikh_mula: string;
   tarikh_siap: string;
   readonly DELIMITER = '-';
-  date_bencana:any;
-  pipe = new DatePipe('en-US');
+  nama_bencana: string;
+  modelBencana: NgbDateStruct;
 
   status=[
     {id: 1, nama_status: "Tidak Aktif"},
@@ -45,10 +55,10 @@ export class TambahEditBantuanRumahComponent implements OnInit {
   ]
 
 	constructor(
+    private modalService: NgbModal,
     public activeModal: NgbActiveModal,
 		private _mangsaRumahServiceProxy: MangsaRumahServiceProxy,
     private _refPemilikServiceProxy: RefPemilikServiceProxy,
-    private _refBencanaServiceProxy: RefBencanaServiceProxy,
     private _refBantuanServiceProxy: RefBantuanServiceProxy,
     private _refKerosakanServiceProxy: RefKerosakanServiceProxy,
     private _refTapakRumahServiceProxy: RefTapakRumahServiceProxy,
@@ -62,7 +72,6 @@ export class TambahEditBantuanRumahComponent implements OnInit {
 
   ngOnInit(): void {
     this.show();
-    this.getBencana();
     this.getPemilik();
     this.getJenisBantuan();
     this.getKerosakan();
@@ -101,29 +110,12 @@ export class TambahEditBantuanRumahComponent implements OnInit {
           this.modelSiap = this.fromModel(result.mangsa_rumah.tarikh_siap.format('YYYY-MM-DD'));
         }
       });
-
-      this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
-        this.date_bencana = result.items.filter(
-          filt=>{
-            if(filt.id == this.bantuanRumah.id_bencana){
-              return filt.tarikh_bencana;
-            }
-          }).map(data=>{
-            return this.pipe.transform(data.tarikh_bencana.toDate(), 'dd/MM/yyyy');
-          });
-        });
     }
   }
 
   getPemilik(filter?) {
     this._refPemilikServiceProxy.getRefPemilikForDropdown(filter).subscribe((result) => {
       this.pemilik = result.items;
-    });
-  }
-
-  getBencana(filter?) {
-    this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
-      this.bencana = result.items;
     });
   }
 
@@ -163,6 +155,21 @@ export class TambahEditBantuanRumahComponent implements OnInit {
     });
   }
 
+  pilihBencana() {
+    const modalRef = this.modalService.open(LookupBencanaComponent, { size: 'lg' });
+    modalRef.componentInstance.name = 'add';
+    modalRef.componentInstance.mangsaId = this.idMangsa;
+    modalRef.result.then(
+      (response) => {
+        if (response) {
+          this.bantuanRumah.id_bencana = response.id_bencana;
+          this.nama_bencana = response.nama_bencana;
+          this.modelBencana = this.fromModel(response.tarikh_bencana.format('YYYY-MM-DD'));
+        }
+      }
+    );
+  }
+
   save() {
     this.saving = true;
     if(this.modelMula){
@@ -186,19 +193,4 @@ export class TambahEditBantuanRumahComponent implements OnInit {
         this.activeModal.close(true);
       });
   }
-
-  onSelectBencana(id?,filter?){
-    console.log(id);
-    this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
-      this.date_bencana = result.items.filter(
-        filt=>{
-          if(filt.id == id){
-            return filt.tarikh_bencana;
-          }
-        }).map(data=>{
-          return this.pipe.transform(data.tarikh_bencana.toDate(), 'dd/MM/yyyy');
-        });
-      });
-  }
-
 }
