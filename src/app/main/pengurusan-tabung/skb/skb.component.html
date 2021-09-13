@@ -150,6 +150,14 @@
 										Tabung
 										<p-sortIcon field="nama_tabung"></p-sortIcon>
 									</th>
+									<th style="width: 129px" pSortableColumn="tarikh_mula">
+										Tarikh Mula
+										<p-sortIcon field="tarikh_mula"></p-sortIcon>
+									</th>
+									<th style="width: 136px" pSortableColumn="tarikh_tamat">
+										Tarikh Tamat
+										<p-sortIcon field="tarikh_tamat"></p-sortIcon>
+									</th>
 									<th style="width: 170px" pSortableColumn="jumlah_siling_peruntukan">
 										Siling Peruntukan
 										<p-sortIcon field="jumlah_siling_peruntukan"></p-sortIcon>
@@ -162,13 +170,9 @@
 										Jumlah Belanja
 										<p-sortIcon field="jumlah_belanja"></p-sortIcon>
 									</th>
-									<th style="width: 129px" pSortableColumn="tarikh_mula">
-										Tarikh Mula
-										<p-sortIcon field="tarikh_mula"></p-sortIcon>
-									</th>
-									<th style="width: 136px" pSortableColumn="tarikh_tamat">
-										Tarikh Tamat
-										<p-sortIcon field="tarikh_tamat"></p-sortIcon>
+									<th style="width: 100px" pSortableColumn="nama_skb_status">
+										Status
+										<p-sortIcon field="nama_skb_status"></p-sortIcon>
 									</th>
 									<th style="width: 150px">Tindakan</th>
 								</tr>
@@ -195,6 +199,14 @@
 										<span class="p-column-title">Tabung</span>
 										{{record.nama_tabung}}
 									</td>
+									<td style="width: 129px">
+										<span class="p-column-title">Tarikh Mula</span>
+										{{record.tarikh_mula | date:'dd-MM-yyyy'}}
+									</td>
+									<td style="width: 136px">
+										<span class="p-column-title">Tarikh Tamat</span>
+										{{record.tarikh_tamat | date:'dd-MM-yyyy'}}
+									</td>
 									<td style="width: 170px">
 										<span class="p-column-title">Siling Peruntukan</span>
 										RM {{record.jumlah_siling_peruntukan}}
@@ -207,13 +219,9 @@
 										<span class="p-column-title">Jumlah Belanja</span>
 										RM {{record.jumlah_belanja}}
 									</td>
-									<td style="width: 129px">
-										<span class="p-column-title">Tarikh Mula</span>
-										{{record.tarikh_mula | date:'dd-MM-yyyy'}}
-									</td>
-									<td style="width: 136px">
-										<span class="p-column-title">Tarikh Tamat</span>
-										{{record.tarikh_tamat | date:'dd-MM-yyyy'}}
+									<td style="width: 100px">
+										<span class="p-column-title">Status</span>
+										{{record.nama_skb_status}}
 									</td>
 									<td style="width: 150px">
 										<div ngbDropdown class="btn-group" role="group" container="body">

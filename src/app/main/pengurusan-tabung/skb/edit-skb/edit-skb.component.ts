@@ -41,7 +41,6 @@ export class EditSkbComponent implements OnInit {
 
   idSkb: any;
   agencies: any;
-  no_rujukan_kelulusan: string;
   filter: string;
   saving = false;
   tarikhMula: string;
@@ -49,11 +48,12 @@ export class EditSkbComponent implements OnInit {
   rows = [];
   id_jenis_bencana: number;
   id_kategori_skb: number;
-  paymentType: any;
   nama_bencana: string;
   tarikh_bencana: string;
   status_skb_bulanan: any = 1;
   belanja: number = 0;
+  id_status_skb: number;
+  catatan_skb: string;
 
   date = new Date();
   modelBencana: NgbDateStruct;
@@ -74,8 +74,8 @@ export class EditSkbComponent implements OnInit {
 
   statuses = [
     { id: 1, nama: "Aktif" },
-    { id: 2, nama: "Lanjut" },
-    { id: 3, nama: "Tamat Tempoh" }
+    { id: 2, nama: "Tamat Tempoh" },
+    { id: 3, nama: "Lanjut" }
   ]
 
 	constructor(
@@ -122,8 +122,11 @@ export class EditSkbComponent implements OnInit {
     this._tabungBayaranSkbServiceProxy.getTabungBayaranSkbForEdit(this.idSkb).subscribe((result)=>{
       this.edit = result;
       this.edit.tabung_bayaran_skb = result.tabung_bayaran_skb;
-      this.no_rujukan_kelulusan = result.tabung_bayaran_skb.no_rujukan_kelulusan;
-      this.nama_bencana = result.tabung_bayaran_skb.nama_bencana;
+      this.id_status_skb = result.tabung_bayaran_skb.id_status_skb;
+      this.catatan_skb = result.tabung_bayaran_skb.catatan;
+      if(result.tabung_bayaran_skb.tarikh_bencana){
+        this.modelBencana = this.fromModel(result.tabung_bayaran_skb.tarikh_bencana.format('YYYY-MM-DD'));
+      }
       if(result.tabung_bayaran_skb.tarikh_mula){
         this.modelMula = this.fromModel(result.tabung_bayaran_skb.tarikh_mula.format('YYYY-MM-DD'));
       }
@@ -174,9 +177,9 @@ export class EditSkbComponent implements OnInit {
     modalRef.result.then(
 			(response) => {
 				if (response) {
-          this.skb.id_tabung_kelulusan = response.id;
-					this.no_rujukan_kelulusan = response.no_rujukan_kelulusan;
-          this.skb.id_tabung = response.id_tabung;
+          this.edit.tabung_bayaran_skb.id_tabung_kelulusan = response.id;
+					this.edit.tabung_bayaran_skb.no_rujukan_kelulusan = response.no_rujukan_kelulusan;
+          this.edit.tabung_bayaran_skb.id_tabung = response.id_tabung;
 				}
 			},
 			() => {}
@@ -189,8 +192,8 @@ export class EditSkbComponent implements OnInit {
     modalRef.result.then(
 			(response) => {
 				if (response) {
-          this.skb.id_bencana = response.id;
-          this.nama_bencana = response.nama_bencana;
+          this.edit.tabung_bayaran_skb.id_bencana = response.id;
+          this.edit.tabung_bayaran_skb.nama_bencana = response.nama_bencana;
           this.modelBencana = this.fromModel(response.tarikh_bencana.format('YYYY-MM-DD'));
 				}
 			}
@@ -253,6 +256,14 @@ export class EditSkbComponent implements OnInit {
     if(this.modelTamat){
       this.tarikhTamat = this.toModel(this.modelTamat);
       this.bayaranSKB.skb.tarikh_tamat = moment(this.tarikhTamat, "YYYY-MM-DD");
+    }
+    if(this.id_status_skb != this.edit.tabung_bayaran_skb.id_status_skb) {
+      this.bayaranSKB.changeStatus = this.id_status_skb;
+      this.bayaranSKB.catatan = this.catatan_skb ?? null;
+    }
+    if(this.id_status_skb == this.edit.tabung_bayaran_skb.id_status_skb) {
+      this.bayaranSKB.changeStatus = null;
+      this.bayaranSKB.catatan = this.catatan_skb ?? null;
     }
 		this._tabungBayaranSkbServiceProxy
 			.createOrEdit(this.bayaranSKB)
