@@ -456,7 +456,7 @@ export class DashboardTabungServiceProxy {
      * @param filterTabung (optional) Filter records with a string
      * @return Success
      */
-    getTotalBayaranTerusByMonth(filterTabung: number | undefined): Observable<GetTotalBayaranTerusByMonthForViewDto> {
+    getTotalBayaranTerusByMonth(filterTabung: number | undefined): Observable<TotalBayaranTerusByMonth> {
         let url_ = this.baseUrl + "/api/dashboardTabung/getTotalBayaranTerusByMonth?";
         if (filterTabung === null)
             throw new Error("The parameter 'filterTabung' cannot be null.");
@@ -479,14 +479,14 @@ export class DashboardTabungServiceProxy {
                 try {
                     return this.processGetTotalBayaranTerusByMonth(<any>response_);
                 } catch (e) {
-                    return <Observable<GetTotalBayaranTerusByMonthForViewDto>><any>_observableThrow(e);
+                    return <Observable<TotalBayaranTerusByMonth>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<GetTotalBayaranTerusByMonthForViewDto>><any>_observableThrow(response_);
+                return <Observable<TotalBayaranTerusByMonth>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetTotalBayaranTerusByMonth(response: HttpResponseBase): Observable<GetTotalBayaranTerusByMonthForViewDto> {
+    protected processGetTotalBayaranTerusByMonth(response: HttpResponseBase): Observable<TotalBayaranTerusByMonth> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -497,7 +497,7 @@ export class DashboardTabungServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GetTotalBayaranTerusByMonthForViewDto.fromJS(resultData200);
+            result200 = TotalBayaranTerusByMonth.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status === 500) {
@@ -509,7 +509,7 @@ export class DashboardTabungServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<GetTotalBayaranTerusByMonthForViewDto>(<any>null);
+        return _observableOf<TotalBayaranTerusByMonth>(<any>null);
     }
 
     /**
@@ -517,7 +517,7 @@ export class DashboardTabungServiceProxy {
      * @param filterTabung (optional) Filter records with a string
      * @return Success
      */
-    getTotalSkbByMonth(filterTabung: number | undefined): Observable<GetTotalSkbByMonthForViewDto> {
+    getTotalSkbByMonth(filterTabung: number | undefined): Observable<TotalSkbByMonth> {
         let url_ = this.baseUrl + "/api/dashboardTabung/getTotalSkbByMonth?";
         if (filterTabung === null)
             throw new Error("The parameter 'filterTabung' cannot be null.");
@@ -540,14 +540,14 @@ export class DashboardTabungServiceProxy {
                 try {
                     return this.processGetTotalSkbByMonth(<any>response_);
                 } catch (e) {
-                    return <Observable<GetTotalSkbByMonthForViewDto>><any>_observableThrow(e);
+                    return <Observable<TotalSkbByMonth>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<GetTotalSkbByMonthForViewDto>><any>_observableThrow(response_);
+                return <Observable<TotalSkbByMonth>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetTotalSkbByMonth(response: HttpResponseBase): Observable<GetTotalSkbByMonthForViewDto> {
+    protected processGetTotalSkbByMonth(response: HttpResponseBase): Observable<TotalSkbByMonth> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -558,7 +558,7 @@ export class DashboardTabungServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GetTotalSkbByMonthForViewDto.fromJS(resultData200);
+            result200 = TotalSkbByMonth.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status === 500) {
@@ -570,7 +570,7 @@ export class DashboardTabungServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<GetTotalSkbByMonthForViewDto>(<any>null);
+        return _observableOf<TotalSkbByMonth>(<any>null);
     }
 
     /**
@@ -578,7 +578,7 @@ export class DashboardTabungServiceProxy {
      * @param id_tabung (optional) Filter records with a string
      * @return Success
      */
-    getBelanjaTanggunganByTabung(id_tabung: number | undefined): Observable<GetTBelanjaTanggunganByTabungForViewDto> {
+    getBelanjaTanggunganByTabung(id_tabung: number | undefined): Observable<GetTabungBelanjaTanggunganForViewDto> {
         let url_ = this.baseUrl + "/api/dashboardTabung/getBelanjaTanggunganByTabung?";
         if (id_tabung === null)
             throw new Error("The parameter 'id_tabung' cannot be null.");
@@ -601,14 +601,14 @@ export class DashboardTabungServiceProxy {
                 try {
                     return this.processGetBelanjaTanggunganByTabung(<any>response_);
                 } catch (e) {
-                    return <Observable<GetTBelanjaTanggunganByTabungForViewDto>><any>_observableThrow(e);
+                    return <Observable<GetTabungBelanjaTanggunganForViewDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<GetTBelanjaTanggunganByTabungForViewDto>><any>_observableThrow(response_);
+                return <Observable<GetTabungBelanjaTanggunganForViewDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetBelanjaTanggunganByTabung(response: HttpResponseBase): Observable<GetTBelanjaTanggunganByTabungForViewDto> {
+    protected processGetBelanjaTanggunganByTabung(response: HttpResponseBase): Observable<GetTabungBelanjaTanggunganForViewDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -619,7 +619,7 @@ export class DashboardTabungServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GetTBelanjaTanggunganByTabungForViewDto.fromJS(resultData200);
+            result200 = GetTabungBelanjaTanggunganForViewDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status === 500) {
@@ -631,7 +631,7 @@ export class DashboardTabungServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<GetTBelanjaTanggunganByTabungForViewDto>(<any>null);
+        return _observableOf<GetTabungBelanjaTanggunganForViewDto>(<any>null);
     }
 }
 
@@ -2653,6 +2653,87 @@ export class MangsaBencanaServiceProxy {
     }
 
     /**
+     * Get all MangsaBencana
+     * @param filter (optional) Filter records with a string
+     * @param filterIdMangsa (optional) Filter records with a integer
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAllMangsaBencanaLookupTable(filter: string | undefined, filterIdMangsa: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoMangsBencanaLookupTableDto> {
+        let url_ = this.baseUrl + "/api/mangsaBencana/getAllMangsaBencanaLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (filterIdMangsa === null)
+            throw new Error("The parameter 'filterIdMangsa' cannot be null.");
+        else if (filterIdMangsa !== undefined)
+            url_ += "filterIdMangsa=" + encodeURIComponent("" + filterIdMangsa) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllMangsaBencanaLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllMangsaBencanaLookupTable(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoMangsBencanaLookupTableDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoMangsBencanaLookupTableDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllMangsaBencanaLookupTable(response: HttpResponseBase): Observable<PagedResultDtoMangsBencanaLookupTableDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoMangsBencanaLookupTableDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoMangsBencanaLookupTableDto>(<any>null);
+    }
+
+    /**
      * Get all MangsaBencana by Id Mangsa
      * @param idMangsa Filter by Id Mangsa
      * @param filter (optional) Filter records with a string
@@ -4189,6 +4270,158 @@ export class MangsaWangIhsanServiceProxy {
     }
 
     /**
+     * Get all MangsaWangIhsan by Id Bencana and Jenis Bwi
+     * @param filter (optional) Filter records with a string
+     * @param filterBencana (optional) Filter records with a integer
+     * @param filterJenisBwi (optional) Filter records with a integer
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAllMangsaByBencanaAndJenisBwi(filter: string | undefined, filterBencana: number | undefined, filterJenisBwi: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMangsaWangIhsanForViewDto> {
+        let url_ = this.baseUrl + "/api/mangsaWangIhsan/getAllMangsaByBencanaAndJenisBwi?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (filterBencana === null)
+            throw new Error("The parameter 'filterBencana' cannot be null.");
+        else if (filterBencana !== undefined)
+            url_ += "filterBencana=" + encodeURIComponent("" + filterBencana) + "&";
+        if (filterJenisBwi === null)
+            throw new Error("The parameter 'filterJenisBwi' cannot be null.");
+        else if (filterJenisBwi !== undefined)
+            url_ += "filterJenisBwi=" + encodeURIComponent("" + filterJenisBwi) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllMangsaByBencanaAndJenisBwi(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllMangsaByBencanaAndJenisBwi(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfMangsaWangIhsanForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfMangsaWangIhsanForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllMangsaByBencanaAndJenisBwi(response: HttpResponseBase): Observable<PagedResultDtoOfMangsaWangIhsanForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfMangsaWangIhsanForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfMangsaWangIhsanForViewDto>(<any>null);
+    }
+
+    /**
+     * Get Total MangsaWangIhsan by id Bencana
+     * @param id_bencana MangsaWangIhsan Id Bencana
+     * @param id_jenis_bwi MangsaWangIhsan Id Jenis Bwi
+     * @return Success
+     */
+    getTotalBwiMangsaByIdBencana(id_bencana: number, id_jenis_bwi: number): Observable<GetTotalMangsaWangIhsanDto> {
+        let url_ = this.baseUrl + "/api/mangsaWangIhsan/getTotalBwiMangsaByIdBencana?";
+        if (id_bencana === undefined || id_bencana === null)
+            throw new Error("The parameter 'id_bencana' must be defined and cannot be null.");
+        else
+            url_ += "id_bencana=" + encodeURIComponent("" + id_bencana) + "&";
+        if (id_jenis_bwi === undefined || id_jenis_bwi === null)
+            throw new Error("The parameter 'id_jenis_bwi' must be defined and cannot be null.");
+        else
+            url_ += "id_jenis_bwi=" + encodeURIComponent("" + id_jenis_bwi) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTotalBwiMangsaByIdBencana(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTotalBwiMangsaByIdBencana(<any>response_);
+                } catch (e) {
+                    return <Observable<GetTotalMangsaWangIhsanDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetTotalMangsaWangIhsanDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTotalBwiMangsaByIdBencana(response: HttpResponseBase): Observable<GetTotalMangsaWangIhsanDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetTotalMangsaWangIhsanDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetTotalMangsaWangIhsanDto>(<any>null);
+    }
+
+    /**
      * Get MangsaWangIhsan by id
      * @param id MangsaWangIhsan Id
      * @return Success
@@ -5618,6 +5851,72 @@ export class RefBencanaNegeriServiceProxy {
     }
 
     /**
+     * Get all RefBencanaNegeri in dropdown list by id bencana
+     * @param filter (optional) Filter records with a string
+     * @param filterIdBencana (optional) Filter records with a integer
+     * @return Success
+     */
+    getRefBencanaNegeriForDropdownByIdBencana(filter: string | undefined, filterIdBencana: number | undefined): Observable<GetRefBencanaNegeriForListByBencanaDto> {
+        let url_ = this.baseUrl + "/api/refBencanaNegeri/getRefBencanaNegeriForDropdownByIdBencana?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (filterIdBencana === null)
+            throw new Error("The parameter 'filterIdBencana' cannot be null.");
+        else if (filterIdBencana !== undefined)
+            url_ += "filterIdBencana=" + encodeURIComponent("" + filterIdBencana) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetRefBencanaNegeriForDropdownByIdBencana(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetRefBencanaNegeriForDropdownByIdBencana(<any>response_);
+                } catch (e) {
+                    return <Observable<GetRefBencanaNegeriForListByBencanaDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetRefBencanaNegeriForListByBencanaDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetRefBencanaNegeriForDropdownByIdBencana(response: HttpResponseBase): Observable<GetRefBencanaNegeriForListByBencanaDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetRefBencanaNegeriForListByBencanaDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetRefBencanaNegeriForListByBencanaDto>(<any>null);
+    }
+
+    /**
      * Create or edit RefBencanaNegeri
      * @param body Create or edit object
      * @return Success
@@ -5908,7 +6207,7 @@ export class RefBencanaServiceProxy {
      * @param body Create or edit object
      * @return Success
      */
-    createOrEdit(body: CreateOrEditRefBencanaDto): Observable<CreateOrEditRefBencanaDto> {
+    createOrEdit(body: InputCreateBencanaDto): Observable<InputCreateBencanaDto> {
         let url_ = this.baseUrl + "/api/refBencana/createOrEdit";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -5931,14 +6230,14 @@ export class RefBencanaServiceProxy {
                 try {
                     return this.processCreateOrEdit(<any>response_);
                 } catch (e) {
-                    return <Observable<CreateOrEditRefBencanaDto>><any>_observableThrow(e);
+                    return <Observable<InputCreateBencanaDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<CreateOrEditRefBencanaDto>><any>_observableThrow(response_);
+                return <Observable<InputCreateBencanaDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditRefBencanaDto> {
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<InputCreateBencanaDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -5949,7 +6248,7 @@ export class RefBencanaServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = CreateOrEditRefBencanaDto.fromJS(resultData200);
+            result200 = InputCreateBencanaDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status === 500) {
@@ -5961,7 +6260,7 @@ export class RefBencanaServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<CreateOrEditRefBencanaDto>(<any>null);
+        return _observableOf<InputCreateBencanaDto>(<any>null);
     }
 }
 
@@ -14345,6 +14644,82 @@ export class TabungBayaranTerusServiceProxy {
     }
 
     /**
+     * Get all TabungBayaranTerus
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAllBayaranTerusLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfBayaranTerusLookupDto> {
+        let url_ = this.baseUrl + "/api/tabungBayaranTerus/getAllBayaranTerusLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllBayaranTerusLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllBayaranTerusLookupTable(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfBayaranTerusLookupDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfBayaranTerusLookupDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllBayaranTerusLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfBayaranTerusLookupDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfBayaranTerusLookupDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfBayaranTerusLookupDto>(<any>null);
+    }
+
+    /**
      * Get TabungBayaranTerus by id
      * @param id TabungBayaranTerus Id
      * @return Success
@@ -14529,6 +14904,87 @@ export class TabungBwiBayaranServiceProxy {
     }
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfTabungBwiBayaranForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfTabungBwiBayaranForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfTabungBwiBayaranForViewDto>(<any>null);
+    }
+
+    /**
+     * Get all TabungBwiBayaran
+     * @param filter (optional) Filter records with a string
+     * @param filterIdBwi (optional) Filter records with integer
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAllBwiBayaranTerus(filter: string | undefined, filterIdBwi: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungBwiBayaranForViewDto> {
+        let url_ = this.baseUrl + "/api/tabungBwiBayaran/getAllBwiBayaranTerus?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (filterIdBwi === null)
+            throw new Error("The parameter 'filterIdBwi' cannot be null.");
+        else if (filterIdBwi !== undefined)
+            url_ += "filterIdBwi=" + encodeURIComponent("" + filterIdBwi) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllBwiBayaranTerus(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllBwiBayaranTerus(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfTabungBwiBayaranForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfTabungBwiBayaranForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllBwiBayaranTerus(response: HttpResponseBase): Observable<PagedResultDtoOfTabungBwiBayaranForViewDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -14765,6 +15221,87 @@ export class TabungBwiKawasanServiceProxy {
     }
 
     /**
+     * Get all TabungBwiKawasan
+     * @param filter (optional) Filter records with a string
+     * @param filterIdBwi (optional) Filter records with integer
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAllKawasanByIdBwi(filter: string | undefined, filterIdBwi: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungBwiKawasanForViewDto> {
+        let url_ = this.baseUrl + "/api/tabungBwiKawasan/getAllKawasanByIdBwi?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (filterIdBwi === null)
+            throw new Error("The parameter 'filterIdBwi' cannot be null.");
+        else if (filterIdBwi !== undefined)
+            url_ += "filterIdBwi=" + encodeURIComponent("" + filterIdBwi) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllKawasanByIdBwi(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllKawasanByIdBwi(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfTabungBwiKawasanForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfTabungBwiKawasanForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllKawasanByIdBwi(response: HttpResponseBase): Observable<PagedResultDtoOfTabungBwiKawasanForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfTabungBwiKawasanForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfTabungBwiKawasanForViewDto>(<any>null);
+    }
+
+    /**
      * Get TabungBwiKawasan by id
      * @param id TabungBwiKawasan Id
      * @return Success
@@ -14901,32 +15438,27 @@ export class TabungBwiServiceProxy {
     /**
      * Get all TabungBwi
      * @param filter (optional) Filter records with a string
-     * @param filterDaerah (optional) Filter records with a integer
-     * @param filterNegeri (optional) Filter records with a integer
-     * @param filterJenisBencana (optional) Filter records with a integer
+     * @param filterJenisBwi (optional) Filter records with a integer
+     * @param filterBencana (optional) Filter records with a integer
      * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
      * @param skipCount (optional) Skip n-value of a record
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAll(filter: string | undefined, filterDaerah: number | undefined, filterNegeri: number | undefined, filterJenisBencana: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungBwiForViewDto> {
+    getAll(filter: string | undefined, filterJenisBwi: number | undefined, filterBencana: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungBwiForViewDto> {
         let url_ = this.baseUrl + "/api/tabungBwi/getAll?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
             url_ += "filter=" + encodeURIComponent("" + filter) + "&";
-        if (filterDaerah === null)
-            throw new Error("The parameter 'filterDaerah' cannot be null.");
-        else if (filterDaerah !== undefined)
-            url_ += "filterDaerah=" + encodeURIComponent("" + filterDaerah) + "&";
-        if (filterNegeri === null)
-            throw new Error("The parameter 'filterNegeri' cannot be null.");
-        else if (filterNegeri !== undefined)
-            url_ += "filterNegeri=" + encodeURIComponent("" + filterNegeri) + "&";
-        if (filterJenisBencana === null)
-            throw new Error("The parameter 'filterJenisBencana' cannot be null.");
-        else if (filterJenisBencana !== undefined)
-            url_ += "filterJenisBencana=" + encodeURIComponent("" + filterJenisBencana) + "&";
+        if (filterJenisBwi === null)
+            throw new Error("The parameter 'filterJenisBwi' cannot be null.");
+        else if (filterJenisBwi !== undefined)
+            url_ += "filterJenisBwi=" + encodeURIComponent("" + filterJenisBwi) + "&";
+        if (filterBencana === null)
+            throw new Error("The parameter 'filterBencana' cannot be null.");
+        else if (filterBencana !== undefined)
+            url_ += "filterBencana=" + encodeURIComponent("" + filterBencana) + "&";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
@@ -17301,11 +17833,11 @@ export interface IRegisterPenggunaDto {
 }
 
 /** Total Belanja and Tanggungan by Tabung in Tabular model */
-export class GetTBelanjaTanggunganByTabungForViewDto implements IGetTBelanjaTanggunganByTabungForViewDto {
-    jumlah_perbelanjaan_semasa!: number;
-    jumlah_tanggungan!: number;
+export class GetBelanjaTanggunganByTabungForViewDto implements IGetBelanjaTanggunganByTabungForViewDto {
+    kategori!: string;
+    jumlah!: number;
 
-    constructor(data?: IGetTBelanjaTanggunganByTabungForViewDto) {
+    constructor(data?: IGetBelanjaTanggunganByTabungForViewDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -17316,38 +17848,86 @@ export class GetTBelanjaTanggunganByTabungForViewDto implements IGetTBelanjaTang
 
     init(_data?: any) {
         if (_data) {
-            this.jumlah_perbelanjaan_semasa = _data["jumlah_perbelanjaan_semasa"];
-            this.jumlah_tanggungan = _data["jumlah_tanggungan"];
+            this.kategori = _data["kategori"];
+            this.jumlah = _data["jumlah"];
         }
     }
 
-    static fromJS(data: any): GetTBelanjaTanggunganByTabungForViewDto {
+    static fromJS(data: any): GetBelanjaTanggunganByTabungForViewDto {
         data = typeof data === 'object' ? data : {};
-        let result = new GetTBelanjaTanggunganByTabungForViewDto();
+        let result = new GetBelanjaTanggunganByTabungForViewDto();
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["jumlah_perbelanjaan_semasa"] = this.jumlah_perbelanjaan_semasa;
-        data["jumlah_tanggungan"] = this.jumlah_tanggungan;
+        data["kategori"] = this.kategori;
+        data["jumlah"] = this.jumlah;
         return data; 
     }
 }
 
 /** Total Belanja and Tanggungan by Tabung in Tabular model */
-export interface IGetTBelanjaTanggunganByTabungForViewDto {
-    jumlah_perbelanjaan_semasa: number;
-    jumlah_tanggungan: number;
+export interface IGetBelanjaTanggunganByTabungForViewDto {
+    kategori: string;
+    jumlah: number;
+}
+
+/** Total Belanja and Tanggungan by Tabung in Tabular model */
+export class GetTabungBelanjaTanggunganForViewDto implements IGetTabungBelanjaTanggunganForViewDto {
+    /** Items in array of object */
+    tabung!: GetBelanjaTanggunganByTabungForViewDto[];
+
+    constructor(data?: IGetTabungBelanjaTanggunganForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["tabung"])) {
+                this.tabung = [] as any;
+                for (let item of _data["tabung"])
+                    this.tabung!.push(GetBelanjaTanggunganByTabungForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): GetTabungBelanjaTanggunganForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTabungBelanjaTanggunganForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.tabung)) {
+            data["tabung"] = [];
+            for (let item of this.tabung)
+                data["tabung"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** Total Belanja and Tanggungan by Tabung in Tabular model */
+export interface IGetTabungBelanjaTanggunganForViewDto {
+    /** Items in array of object */
+    tabung: GetBelanjaTanggunganByTabungForViewDto[];
 }
 
 /** Total Bayaran Terus By Month in Tabular model */
 export class GetTotalBayaranTerusByMonthForViewDto implements IGetTotalBayaranTerusByMonthForViewDto {
-    bayaran_terus!: number;
     numeral_month!: number;
     month!: string;
     year!: number;
+    bayaran_terus!: number;
 
     constructor(data?: IGetTotalBayaranTerusByMonthForViewDto) {
         if (data) {
@@ -17360,10 +17940,10 @@ export class GetTotalBayaranTerusByMonthForViewDto implements IGetTotalBayaranTe
 
     init(_data?: any) {
         if (_data) {
-            this.bayaran_terus = _data["bayaran_terus"];
             this.numeral_month = _data["numeral_month"];
             this.month = _data["month"];
             this.year = _data["year"];
+            this.bayaran_terus = _data["bayaran_terus"];
         }
     }
 
@@ -17376,20 +17956,20 @@ export class GetTotalBayaranTerusByMonthForViewDto implements IGetTotalBayaranTe
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["bayaran_terus"] = this.bayaran_terus;
         data["numeral_month"] = this.numeral_month;
         data["month"] = this.month;
         data["year"] = this.year;
+        data["bayaran_terus"] = this.bayaran_terus;
         return data; 
     }
 }
 
 /** Total Bayaran Terus By Month in Tabular model */
 export interface IGetTotalBayaranTerusByMonthForViewDto {
-    bayaran_terus: number;
     numeral_month: number;
     month: string;
     year: number;
+    bayaran_terus: number;
 }
 
 /** Total Card by Tabung in Tabular model */
@@ -17444,8 +18024,8 @@ export interface IGetTotalByTabungForViewDto {
 
 /** Total SKB By Month in Tabular model */
 export class GetTotalSkbByMonthForViewDto implements IGetTotalSkbByMonthForViewDto {
+    bulan!: string;
     bayaran_skb!: number;
-    month!: string;
     year!: number;
 
     constructor(data?: IGetTotalSkbByMonthForViewDto) {
@@ -17459,8 +18039,8 @@ export class GetTotalSkbByMonthForViewDto implements IGetTotalSkbByMonthForViewD
 
     init(_data?: any) {
         if (_data) {
+            this.bulan = _data["bulan"];
             this.bayaran_skb = _data["bayaran_skb"];
-            this.month = _data["month"];
             this.year = _data["year"];
         }
     }
@@ -17474,8 +18054,8 @@ export class GetTotalSkbByMonthForViewDto implements IGetTotalSkbByMonthForViewD
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["bulan"] = this.bulan;
         data["bayaran_skb"] = this.bayaran_skb;
-        data["month"] = this.month;
         data["year"] = this.year;
         return data; 
     }
@@ -17483,9 +18063,105 @@ export class GetTotalSkbByMonthForViewDto implements IGetTotalSkbByMonthForViewD
 
 /** Total SKB By Month in Tabular model */
 export interface IGetTotalSkbByMonthForViewDto {
+    bulan: string;
     bayaran_skb: number;
-    month: string;
     year: number;
+}
+
+/** Total Belanja and Tanggungan by Tabung in Tabular model */
+export class TotalBayaranTerusByMonth implements ITotalBayaranTerusByMonth {
+    /** Items in array of object */
+    items!: GetTotalBayaranTerusByMonthForViewDto[];
+
+    constructor(data?: ITotalBayaranTerusByMonth) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetTotalBayaranTerusByMonthForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): TotalBayaranTerusByMonth {
+        data = typeof data === 'object' ? data : {};
+        let result = new TotalBayaranTerusByMonth();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** Total Belanja and Tanggungan by Tabung in Tabular model */
+export interface ITotalBayaranTerusByMonth {
+    /** Items in array of object */
+    items: GetTotalBayaranTerusByMonthForViewDto[];
+}
+
+/** Total Belanja and Tanggungan by Tabung in Tabular model */
+export class TotalSkbByMonth implements ITotalSkbByMonth {
+    /** Items in array of object */
+    items!: GetTotalSkbByMonthForViewDto[];
+
+    constructor(data?: ITotalSkbByMonth) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetTotalSkbByMonthForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): TotalSkbByMonth {
+        data = typeof data === 'object' ? data : {};
+        let result = new TotalSkbByMonth();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** Total Belanja and Tanggungan by Tabung in Tabular model */
+export interface ITotalSkbByMonth {
+    /** Items in array of object */
+    items: GetTotalSkbByMonthForViewDto[];
 }
 
 /** Jumlah Bantuan Data For Card */
@@ -19690,6 +20366,54 @@ export interface IGetMangsaBencanaForEditDto {
     mangsa_bencana: CreateOrEditMangsaBencanaDto;
 }
 
+export class GetMangsaBencanaForLookupDto implements IGetMangsaBencanaForLookupDto {
+    id_bencana!: number;
+    nama_bencana!: string;
+    tarikh_bencana!: moment.Moment;
+    tahun_bencana!: number;
+
+    constructor(data?: IGetMangsaBencanaForLookupDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id_bencana = _data["id_bencana"];
+            this.nama_bencana = _data["nama_bencana"];
+            this.tarikh_bencana = _data["tarikh_bencana"] ? moment(_data["tarikh_bencana"].toString()) : <any>undefined;
+            this.tahun_bencana = _data["tahun_bencana"];
+        }
+    }
+
+    static fromJS(data: any): GetMangsaBencanaForLookupDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetMangsaBencanaForLookupDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id_bencana"] = this.id_bencana;
+        data["nama_bencana"] = this.nama_bencana;
+        data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
+        data["tahun_bencana"] = this.tahun_bencana;
+        return data; 
+    }
+}
+
+export interface IGetMangsaBencanaForLookupDto {
+    id_bencana: number;
+    nama_bencana: string;
+    tarikh_bencana: moment.Moment;
+    tahun_bencana: number;
+}
+
 export class GetMangsaBencanaForViewDto implements IGetMangsaBencanaForViewDto {
     id!: number;
     id_bencana!: number;
@@ -19784,6 +20508,60 @@ export interface IGetMangsaBencanaForViewDto {
     nama_bencana: string;
     pindah: string;
     tahun_bencana: number;
+}
+
+/** MangsaBencana List in Tabular model */
+export class PagedResultDtoMangsBencanaLookupTableDto implements IPagedResultDtoMangsBencanaLookupTableDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetMangsaBencanaForLookupDto[];
+
+    constructor(data?: IPagedResultDtoMangsBencanaLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetMangsaBencanaForLookupDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoMangsBencanaLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoMangsBencanaLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** MangsaBencana List in Tabular model */
+export interface IPagedResultDtoMangsBencanaLookupTableDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetMangsaBencanaForLookupDto[];
 }
 
 /** MangsaBencana List in Tabular model */
@@ -21118,6 +21896,7 @@ export class CreateOrEditMangsaWangIhsanDto implements ICreateOrEditMangsaWangIh
     id_pengguna_kemaskini!: number;
     tarikh_kemaskini!: moment.Moment;
     jumlah!: number;
+    id_jenis_bwi!: number;
 
     constructor(data?: ICreateOrEditMangsaWangIhsanDto) {
         if (data) {
@@ -21143,6 +21922,7 @@ export class CreateOrEditMangsaWangIhsanDto implements ICreateOrEditMangsaWangIh
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
             this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
             this.jumlah = _data["jumlah"];
+            this.id_jenis_bwi = _data["id_jenis_bwi"];
         }
     }
 
@@ -21168,6 +21948,7 @@ export class CreateOrEditMangsaWangIhsanDto implements ICreateOrEditMangsaWangIh
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
         data["jumlah"] = this.jumlah;
+        data["id_jenis_bwi"] = this.id_jenis_bwi;
         return data; 
     }
 }
@@ -21186,6 +21967,7 @@ export interface ICreateOrEditMangsaWangIhsanDto {
     id_pengguna_kemaskini: number;
     tarikh_kemaskini: moment.Moment;
     jumlah: number;
+    id_jenis_bwi: number;
 }
 
 export class GetMangsaWangIhsanForEditDto implements IGetMangsaWangIhsanForEditDto {
@@ -21241,6 +22023,13 @@ export class GetMangsaWangIhsanForViewDto implements IGetMangsaWangIhsanForViewD
     nama_agensi!: string;
     tarikh_bencana!: moment.Moment;
     jumlah!: number;
+    jumlah_dipulangkan!: number;
+    tarikh_dipulangkan!: moment.Moment;
+    nama!: string;
+    nama_daerah!: string;
+    nama_negeri!: string;
+    id_jenis_bwi!: number;
+    nama_jenis_bwi!: string;
 
     constructor(data?: IGetMangsaWangIhsanForViewDto) {
         if (data) {
@@ -21269,6 +22058,13 @@ export class GetMangsaWangIhsanForViewDto implements IGetMangsaWangIhsanForViewD
             this.nama_agensi = _data["nama_agensi"];
             this.tarikh_bencana = _data["tarikh_bencana"] ? moment(_data["tarikh_bencana"].toString()) : <any>undefined;
             this.jumlah = _data["jumlah"];
+            this.jumlah_dipulangkan = _data["jumlah_dipulangkan"];
+            this.tarikh_dipulangkan = _data["tarikh_dipulangkan"] ? moment(_data["tarikh_dipulangkan"].toString()) : <any>undefined;
+            this.nama = _data["nama"];
+            this.nama_daerah = _data["nama_daerah"];
+            this.nama_negeri = _data["nama_negeri"];
+            this.id_jenis_bwi = _data["id_jenis_bwi"];
+            this.nama_jenis_bwi = _data["nama_jenis_bwi"];
         }
     }
 
@@ -21297,6 +22093,13 @@ export class GetMangsaWangIhsanForViewDto implements IGetMangsaWangIhsanForViewD
         data["nama_agensi"] = this.nama_agensi;
         data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
         data["jumlah"] = this.jumlah;
+        data["jumlah_dipulangkan"] = this.jumlah_dipulangkan;
+        data["tarikh_dipulangkan"] = this.tarikh_dipulangkan ? this.tarikh_dipulangkan.toISOString() : <any>undefined;
+        data["nama"] = this.nama;
+        data["nama_daerah"] = this.nama_daerah;
+        data["nama_negeri"] = this.nama_negeri;
+        data["id_jenis_bwi"] = this.id_jenis_bwi;
+        data["nama_jenis_bwi"] = this.nama_jenis_bwi;
         return data; 
     }
 }
@@ -21318,6 +22121,93 @@ export interface IGetMangsaWangIhsanForViewDto {
     nama_agensi: string;
     tarikh_bencana: moment.Moment;
     jumlah: number;
+    jumlah_dipulangkan: number;
+    tarikh_dipulangkan: moment.Moment;
+    nama: string;
+    nama_daerah: string;
+    nama_negeri: string;
+    id_jenis_bwi: number;
+    nama_jenis_bwi: string;
+}
+
+export class GetTotalMangsaWangIhsanDto implements IGetTotalMangsaWangIhsanDto {
+    total_wang_ihsan!: InputTotalWangIhsanDto;
+
+    constructor(data?: IGetTotalMangsaWangIhsanDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_wang_ihsan = _data["total_wang_ihsan"] ? InputTotalWangIhsanDto.fromJS(_data["total_wang_ihsan"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetTotalMangsaWangIhsanDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTotalMangsaWangIhsanDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_wang_ihsan"] = this.total_wang_ihsan ? this.total_wang_ihsan.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetTotalMangsaWangIhsanDto {
+    total_wang_ihsan: InputTotalWangIhsanDto;
+}
+
+export class InputTotalWangIhsanDto implements IInputTotalWangIhsanDto {
+    jumlah_bayaran!: number;
+    jumlah_dipulangkan!: number;
+    jumlah_kir!: number;
+
+    constructor(data?: IInputTotalWangIhsanDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.jumlah_bayaran = _data["jumlah_bayaran"];
+            this.jumlah_dipulangkan = _data["jumlah_dipulangkan"];
+            this.jumlah_kir = _data["jumlah_kir"];
+        }
+    }
+
+    static fromJS(data: any): InputTotalWangIhsanDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InputTotalWangIhsanDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["jumlah_bayaran"] = this.jumlah_bayaran;
+        data["jumlah_dipulangkan"] = this.jumlah_dipulangkan;
+        data["jumlah_kir"] = this.jumlah_kir;
+        return data; 
+    }
+}
+
+export interface IInputTotalWangIhsanDto {
+    jumlah_bayaran: number;
+    jumlah_dipulangkan: number;
+    jumlah_kir: number;
 }
 
 /** MangsaWangIhsan List in Tabular model */
@@ -22783,6 +23673,54 @@ export interface IGetRefBencanaNegeriForEditDto {
 }
 
 /** RefBencanaNegeri List in Tabular model */
+export class GetRefBencanaNegeriForListByBencanaDto implements IGetRefBencanaNegeriForListByBencanaDto {
+    /** Items in array of object */
+    items!: RefBencanaNegeriByBencanaDto[];
+
+    constructor(data?: IGetRefBencanaNegeriForListByBencanaDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(RefBencanaNegeriByBencanaDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): GetRefBencanaNegeriForListByBencanaDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetRefBencanaNegeriForListByBencanaDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** RefBencanaNegeri List in Tabular model */
+export interface IGetRefBencanaNegeriForListByBencanaDto {
+    /** Items in array of object */
+    items: RefBencanaNegeriByBencanaDto[];
+}
+
+/** RefBencanaNegeri List in Tabular model */
 export class GetRefBencanaNegeriForListDto implements IGetRefBencanaNegeriForListDto {
     /** Items in array of object */
     items!: RefBencanaNegeriDto[];
@@ -22946,6 +23884,46 @@ export interface IPagedResultDtoOfRefBencanaNegeriForViewDto {
     total_count: number;
     /** Items in array of object */
     items: GetRefBencanaNegeriForViewDto[];
+}
+
+export class RefBencanaNegeriByBencanaDto implements IRefBencanaNegeriByBencanaDto {
+    id_negeri!: number;
+    nama_negeri!: string;
+
+    constructor(data?: IRefBencanaNegeriByBencanaDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id_negeri = _data["id_negeri"];
+            this.nama_negeri = _data["nama_negeri"];
+        }
+    }
+
+    static fromJS(data: any): RefBencanaNegeriByBencanaDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new RefBencanaNegeriByBencanaDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id_negeri"] = this.id_negeri;
+        data["nama_negeri"] = this.nama_negeri;
+        return data; 
+    }
+}
+
+export interface IRefBencanaNegeriByBencanaDto {
+    id_negeri: number;
+    nama_negeri: string;
 }
 
 export class RefBencanaNegeriDto implements IRefBencanaNegeriDto {
@@ -23230,6 +24208,56 @@ export interface IGetRefBencanaForViewDto {
     status_bencana: number;
     nama_negeri: string;
     nama_jenis_bencana: string;
+}
+
+export class InputCreateBencanaDto implements IInputCreateBencanaDto {
+    bencana!: CreateOrEditRefBencanaDto;
+    /** Id Negeri in array of integer */
+    id_negeri!: number[];
+
+    constructor(data?: IInputCreateBencanaDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.bencana = _data["bencana"] ? CreateOrEditRefBencanaDto.fromJS(_data["bencana"]) : <any>undefined;
+            if (Array.isArray(_data["id_negeri"])) {
+                this.id_negeri = [] as any;
+                for (let item of _data["id_negeri"])
+                    this.id_negeri!.push(item);
+            }
+        }
+    }
+
+    static fromJS(data: any): InputCreateBencanaDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InputCreateBencanaDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["bencana"] = this.bencana ? this.bencana.toJSON() : <any>undefined;
+        if (Array.isArray(this.id_negeri)) {
+            data["id_negeri"] = [];
+            for (let item of this.id_negeri)
+                data["id_negeri"].push(item);
+        }
+        return data; 
+    }
+}
+
+export interface IInputCreateBencanaDto {
+    bencana: CreateOrEditRefBencanaDto;
+    /** Id Negeri in array of integer */
+    id_negeri: number[];
 }
 
 /** RefBencana List in Tabular model */
@@ -32452,6 +33480,62 @@ export interface IGetTabungBayaranTerusForViewDto {
     id_kategori_bayaran: number;
 }
 
+export class GetTabungBayaranTerusLookupDto implements IGetTabungBayaranTerusLookupDto {
+    id!: number;
+    no_rujukan_terus!: number;
+    perihal!: string;
+    jumlah!: number;
+    id_tabung_kelulusan!: number;
+    no_rujukan_kelulusan!: string;
+
+    constructor(data?: IGetTabungBayaranTerusLookupDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.no_rujukan_terus = _data["no_rujukan_terus"];
+            this.perihal = _data["perihal"];
+            this.jumlah = _data["jumlah"];
+            this.id_tabung_kelulusan = _data["id_tabung_kelulusan"];
+            this.no_rujukan_kelulusan = _data["no_rujukan_kelulusan"];
+        }
+    }
+
+    static fromJS(data: any): GetTabungBayaranTerusLookupDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTabungBayaranTerusLookupDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["no_rujukan_terus"] = this.no_rujukan_terus;
+        data["perihal"] = this.perihal;
+        data["jumlah"] = this.jumlah;
+        data["id_tabung_kelulusan"] = this.id_tabung_kelulusan;
+        data["no_rujukan_kelulusan"] = this.no_rujukan_kelulusan;
+        return data; 
+    }
+}
+
+export interface IGetTabungBayaranTerusLookupDto {
+    id: number;
+    no_rujukan_terus: number;
+    perihal: string;
+    jumlah: number;
+    id_tabung_kelulusan: number;
+    no_rujukan_kelulusan: string;
+}
+
 export class OutputCreateBayaranTerusDto implements IOutputCreateBayaranTerusDto {
     message!: string;
 
@@ -32486,6 +33570,60 @@ export class OutputCreateBayaranTerusDto implements IOutputCreateBayaranTerusDto
 
 export interface IOutputCreateBayaranTerusDto {
     message: string;
+}
+
+/** TabungBayaranTerus List in Tabular model */
+export class PagedResultDtoOfBayaranTerusLookupDto implements IPagedResultDtoOfBayaranTerusLookupDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetTabungBayaranTerusLookupDto[];
+
+    constructor(data?: IPagedResultDtoOfBayaranTerusLookupDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetTabungBayaranTerusLookupDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfBayaranTerusLookupDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfBayaranTerusLookupDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** TabungBayaranTerus List in Tabular model */
+export interface IPagedResultDtoOfBayaranTerusLookupDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetTabungBayaranTerusLookupDto[];
 }
 
 /** TabungBayaranTerus List in Tabular model */
@@ -32656,6 +33794,10 @@ export class GetTabungBwiBayaranForViewDto implements IGetTabungBwiBayaranForVie
     hapus!: boolean;
     tarikh_hapus!: moment.Moment;
     id_pengguna_hapus!: number;
+    no_rujukan_terus!: string;
+    no_rujukan_kelulusan!: string;
+    jumlah!: number;
+    perihal!: string;
 
     constructor(data?: IGetTabungBwiBayaranForViewDto) {
         if (data) {
@@ -32677,6 +33819,10 @@ export class GetTabungBwiBayaranForViewDto implements IGetTabungBwiBayaranForVie
             this.hapus = _data["hapus"];
             this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
             this.id_pengguna_hapus = _data["id_pengguna_hapus"];
+            this.no_rujukan_terus = _data["no_rujukan_terus"];
+            this.no_rujukan_kelulusan = _data["no_rujukan_kelulusan"];
+            this.jumlah = _data["jumlah"];
+            this.perihal = _data["perihal"];
         }
     }
 
@@ -32698,6 +33844,10 @@ export class GetTabungBwiBayaranForViewDto implements IGetTabungBwiBayaranForVie
         data["hapus"] = this.hapus;
         data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
         data["id_pengguna_hapus"] = this.id_pengguna_hapus;
+        data["no_rujukan_terus"] = this.no_rujukan_terus;
+        data["no_rujukan_kelulusan"] = this.no_rujukan_kelulusan;
+        data["jumlah"] = this.jumlah;
+        data["perihal"] = this.perihal;
         return data; 
     }
 }
@@ -32712,6 +33862,10 @@ export interface IGetTabungBwiBayaranForViewDto {
     hapus: boolean;
     tarikh_hapus: moment.Moment;
     id_pengguna_hapus: number;
+    no_rujukan_terus: string;
+    no_rujukan_kelulusan: string;
+    jumlah: number;
+    perihal: string;
 }
 
 /** TabungBwiBayaran List in Tabular model */
@@ -32769,9 +33923,10 @@ export interface IPagedResultDtoOfTabungBwiBayaranForViewDto {
 }
 
 export class CreateOrEditTabungBwiKawasanDto implements ICreateOrEditTabungBwiKawasanDto {
-    id_tabung_bwi!: string;
-    id_daerah!: string;
-    id_negeri!: string;
+    id!: number;
+    id_tabung_bwi!: number;
+    id_daerah!: number;
+    id_negeri!: number;
     jumlah_kir!: number;
     tarikh_eft!: moment.Moment;
     no_rujukan_akuan_kp!: string;
@@ -32802,6 +33957,7 @@ export class CreateOrEditTabungBwiKawasanDto implements ICreateOrEditTabungBwiKa
 
     init(_data?: any) {
         if (_data) {
+            this.id = _data["id"];
             this.id_tabung_bwi = _data["id_tabung_bwi"];
             this.id_daerah = _data["id_daerah"];
             this.id_negeri = _data["id_negeri"];
@@ -32835,6 +33991,7 @@ export class CreateOrEditTabungBwiKawasanDto implements ICreateOrEditTabungBwiKa
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
         data["id_tabung_bwi"] = this.id_tabung_bwi;
         data["id_daerah"] = this.id_daerah;
         data["id_negeri"] = this.id_negeri;
@@ -32861,9 +34018,10 @@ export class CreateOrEditTabungBwiKawasanDto implements ICreateOrEditTabungBwiKa
 }
 
 export interface ICreateOrEditTabungBwiKawasanDto {
-    id_tabung_bwi: string;
-    id_daerah: string;
-    id_negeri: string;
+    id: number;
+    id_tabung_bwi: number;
+    id_daerah: number;
+    id_negeri: number;
     jumlah_kir: number;
     tarikh_eft: moment.Moment;
     no_rujukan_akuan_kp: string;
@@ -32921,9 +34079,10 @@ export interface IGetTabungBwiKawasanForEditDto {
 }
 
 export class GetTabungBwiKawasanForViewDto implements IGetTabungBwiKawasanForViewDto {
-    id_tabung_bwi!: string;
-    id_daerah!: string;
-    id_negeri!: string;
+    id!: number;
+    id_tabung_bwi!: number;
+    id_daerah!: number;
+    id_negeri!: number;
     jumlah_kir!: number;
     tarikh_eft!: moment.Moment;
     no_rujukan_akuan_kp!: string;
@@ -32954,6 +34113,7 @@ export class GetTabungBwiKawasanForViewDto implements IGetTabungBwiKawasanForVie
 
     init(_data?: any) {
         if (_data) {
+            this.id = _data["id"];
             this.id_tabung_bwi = _data["id_tabung_bwi"];
             this.id_daerah = _data["id_daerah"];
             this.id_negeri = _data["id_negeri"];
@@ -32987,6 +34147,7 @@ export class GetTabungBwiKawasanForViewDto implements IGetTabungBwiKawasanForVie
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
         data["id_tabung_bwi"] = this.id_tabung_bwi;
         data["id_daerah"] = this.id_daerah;
         data["id_negeri"] = this.id_negeri;
@@ -33013,9 +34174,10 @@ export class GetTabungBwiKawasanForViewDto implements IGetTabungBwiKawasanForVie
 }
 
 export interface IGetTabungBwiKawasanForViewDto {
-    id_tabung_bwi: string;
-    id_daerah: string;
-    id_negeri: string;
+    id: number;
+    id_tabung_bwi: number;
+    id_daerah: number;
+    id_negeri: number;
     jumlah_kir: number;
     tarikh_eft: moment.Moment;
     no_rujukan_akuan_kp: string;
@@ -33092,21 +34254,11 @@ export interface IPagedResultDtoOfTabungBwiKawasanForViewDto {
 
 export class CreateOrEditTabungBwiDto implements ICreateOrEditTabungBwiDto {
     id!: number;
-    id_tabung_kelulusan!: number;
-    jumlah_setiap_kir!: number;
-    jumlah_kir!: number;
-    jumlah_kembali!: number;
-    tarikh_eft!: moment.Moment;
-    catatan!: string;
-    no_rujukan_akuan_kp!: string;
-    tarikh_akuan_kp!: moment.Moment;
-    no_rujukan_saluran_kpd_bkp!: string;
-    tarikh_saluran_kpd_bkp!: moment.Moment;
-    no_rujukan_laporan_kpd_bkp!: string;
-    tarikh_laporan_kpd_bkp!: moment.Moment;
-    no_rujukan_makluman_majlis!: string;
-    tarikh_makluman_majlis!: moment.Moment;
-    tarikh_majlis_makluman_majlis!: moment.Moment;
+    no_rujukan_bwi!: string;
+    id_jenis_bwi!: number;
+    id_bencana!: number;
+    nama_kejadian!: string;
+    tarikh_kejadian!: moment.Moment;
     id_pengguna_cipta!: number;
     tarikh_cipta!: moment.Moment;
     id_pengguna_kemaskini!: number;
@@ -33114,6 +34266,7 @@ export class CreateOrEditTabungBwiDto implements ICreateOrEditTabungBwiDto {
     id_pengguna_hapus!: number;
     tarikh_hapus!: moment.Moment;
     sebab_hapus!: string;
+    hapus!: boolean;
 
     constructor(data?: ICreateOrEditTabungBwiDto) {
         if (data) {
@@ -33127,21 +34280,11 @@ export class CreateOrEditTabungBwiDto implements ICreateOrEditTabungBwiDto {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
-            this.id_tabung_kelulusan = _data["id_tabung_kelulusan"];
-            this.jumlah_setiap_kir = _data["jumlah_setiap_kir"];
-            this.jumlah_kir = _data["jumlah_kir"];
-            this.jumlah_kembali = _data["jumlah_kembali"];
-            this.tarikh_eft = _data["tarikh_eft"] ? moment(_data["tarikh_eft"].toString()) : <any>undefined;
-            this.catatan = _data["catatan"];
-            this.no_rujukan_akuan_kp = _data["no_rujukan_akuan_kp"];
-            this.tarikh_akuan_kp = _data["tarikh_akuan_kp"] ? moment(_data["tarikh_akuan_kp"].toString()) : <any>undefined;
-            this.no_rujukan_saluran_kpd_bkp = _data["no_rujukan_saluran_kpd_bkp"];
-            this.tarikh_saluran_kpd_bkp = _data["tarikh_saluran_kpd_bkp"] ? moment(_data["tarikh_saluran_kpd_bkp"].toString()) : <any>undefined;
-            this.no_rujukan_laporan_kpd_bkp = _data["no_rujukan_laporan_kpd_bkp"];
-            this.tarikh_laporan_kpd_bkp = _data["tarikh_laporan_kpd_bkp"] ? moment(_data["tarikh_laporan_kpd_bkp"].toString()) : <any>undefined;
-            this.no_rujukan_makluman_majlis = _data["no_rujukan_makluman_majlis"];
-            this.tarikh_makluman_majlis = _data["tarikh_makluman_majlis"] ? moment(_data["tarikh_makluman_majlis"].toString()) : <any>undefined;
-            this.tarikh_majlis_makluman_majlis = _data["tarikh_majlis_makluman_majlis"] ? moment(_data["tarikh_majlis_makluman_majlis"].toString()) : <any>undefined;
+            this.no_rujukan_bwi = _data["no_rujukan_bwi"];
+            this.id_jenis_bwi = _data["id_jenis_bwi"];
+            this.id_bencana = _data["id_bencana"];
+            this.nama_kejadian = _data["nama_kejadian"];
+            this.tarikh_kejadian = _data["tarikh_kejadian"] ? moment(_data["tarikh_kejadian"].toString()) : <any>undefined;
             this.id_pengguna_cipta = _data["id_pengguna_cipta"];
             this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
@@ -33149,6 +34292,7 @@ export class CreateOrEditTabungBwiDto implements ICreateOrEditTabungBwiDto {
             this.id_pengguna_hapus = _data["id_pengguna_hapus"];
             this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
             this.sebab_hapus = _data["sebab_hapus"];
+            this.hapus = _data["hapus"];
         }
     }
 
@@ -33162,21 +34306,11 @@ export class CreateOrEditTabungBwiDto implements ICreateOrEditTabungBwiDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        data["id_tabung_kelulusan"] = this.id_tabung_kelulusan;
-        data["jumlah_setiap_kir"] = this.jumlah_setiap_kir;
-        data["jumlah_kir"] = this.jumlah_kir;
-        data["jumlah_kembali"] = this.jumlah_kembali;
-        data["tarikh_eft"] = this.tarikh_eft ? this.tarikh_eft.toISOString() : <any>undefined;
-        data["catatan"] = this.catatan;
-        data["no_rujukan_akuan_kp"] = this.no_rujukan_akuan_kp;
-        data["tarikh_akuan_kp"] = this.tarikh_akuan_kp ? this.tarikh_akuan_kp.toISOString() : <any>undefined;
-        data["no_rujukan_saluran_kpd_bkp"] = this.no_rujukan_saluran_kpd_bkp;
-        data["tarikh_saluran_kpd_bkp"] = this.tarikh_saluran_kpd_bkp ? this.tarikh_saluran_kpd_bkp.toISOString() : <any>undefined;
-        data["no_rujukan_laporan_kpd_bkp"] = this.no_rujukan_laporan_kpd_bkp;
-        data["tarikh_laporan_kpd_bkp"] = this.tarikh_laporan_kpd_bkp ? this.tarikh_laporan_kpd_bkp.toISOString() : <any>undefined;
-        data["no_rujukan_makluman_majlis"] = this.no_rujukan_makluman_majlis;
-        data["tarikh_makluman_majlis"] = this.tarikh_makluman_majlis ? this.tarikh_makluman_majlis.toISOString() : <any>undefined;
-        data["tarikh_majlis_makluman_majlis"] = this.tarikh_majlis_makluman_majlis ? this.tarikh_majlis_makluman_majlis.toISOString() : <any>undefined;
+        data["no_rujukan_bwi"] = this.no_rujukan_bwi;
+        data["id_jenis_bwi"] = this.id_jenis_bwi;
+        data["id_bencana"] = this.id_bencana;
+        data["nama_kejadian"] = this.nama_kejadian;
+        data["tarikh_kejadian"] = this.tarikh_kejadian ? this.tarikh_kejadian.toISOString() : <any>undefined;
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
@@ -33184,27 +34318,18 @@ export class CreateOrEditTabungBwiDto implements ICreateOrEditTabungBwiDto {
         data["id_pengguna_hapus"] = this.id_pengguna_hapus;
         data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
+        data["hapus"] = this.hapus;
         return data; 
     }
 }
 
 export interface ICreateOrEditTabungBwiDto {
     id: number;
-    id_tabung_kelulusan: number;
-    jumlah_setiap_kir: number;
-    jumlah_kir: number;
-    jumlah_kembali: number;
-    tarikh_eft: moment.Moment;
-    catatan: string;
-    no_rujukan_akuan_kp: string;
-    tarikh_akuan_kp: moment.Moment;
-    no_rujukan_saluran_kpd_bkp: string;
-    tarikh_saluran_kpd_bkp: moment.Moment;
-    no_rujukan_laporan_kpd_bkp: string;
-    tarikh_laporan_kpd_bkp: moment.Moment;
-    no_rujukan_makluman_majlis: string;
-    tarikh_makluman_majlis: moment.Moment;
-    tarikh_majlis_makluman_majlis: moment.Moment;
+    no_rujukan_bwi: string;
+    id_jenis_bwi: number;
+    id_bencana: number;
+    nama_kejadian: string;
+    tarikh_kejadian: moment.Moment;
     id_pengguna_cipta: number;
     tarikh_cipta: moment.Moment;
     id_pengguna_kemaskini: number;
@@ -33212,6 +34337,7 @@ export interface ICreateOrEditTabungBwiDto {
     id_pengguna_hapus: number;
     tarikh_hapus: moment.Moment;
     sebab_hapus: string;
+    hapus: boolean;
 }
 
 export class GetAllKirForViewDto implements IGetAllKirForViewDto {
@@ -33332,10 +34458,8 @@ export interface IGetRujukanKelulusanBwiDto {
 
 export class GetTabungBwiForEditDto implements IGetTabungBwiForEditDto {
     tabung_bwi!: CreateOrEditTabungBwiDto;
-    rujukan_kelulusan_bwi!: GetRujukanKelulusanBwiDto;
-    nama_tabung!: string;
-    id_jenis_bencana!: number;
-    nama_jenis_bencana!: string;
+    jumlah_keseluruhan!: number;
+    jumlah_dipulangkan!: number;
 
     constructor(data?: IGetTabungBwiForEditDto) {
         if (data) {
@@ -33349,10 +34473,8 @@ export class GetTabungBwiForEditDto implements IGetTabungBwiForEditDto {
     init(_data?: any) {
         if (_data) {
             this.tabung_bwi = _data["tabung_bwi"] ? CreateOrEditTabungBwiDto.fromJS(_data["tabung_bwi"]) : <any>undefined;
-            this.rujukan_kelulusan_bwi = _data["rujukan_kelulusan_bwi"] ? GetRujukanKelulusanBwiDto.fromJS(_data["rujukan_kelulusan_bwi"]) : <any>undefined;
-            this.nama_tabung = _data["nama_tabung"];
-            this.id_jenis_bencana = _data["id_jenis_bencana"];
-            this.nama_jenis_bencana = _data["nama_jenis_bencana"];
+            this.jumlah_keseluruhan = _data["jumlah_keseluruhan"];
+            this.jumlah_dipulangkan = _data["jumlah_dipulangkan"];
         }
     }
 
@@ -33366,33 +34488,28 @@ export class GetTabungBwiForEditDto implements IGetTabungBwiForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["tabung_bwi"] = this.tabung_bwi ? this.tabung_bwi.toJSON() : <any>undefined;
-        data["rujukan_kelulusan_bwi"] = this.rujukan_kelulusan_bwi ? this.rujukan_kelulusan_bwi.toJSON() : <any>undefined;
-        data["nama_tabung"] = this.nama_tabung;
-        data["id_jenis_bencana"] = this.id_jenis_bencana;
-        data["nama_jenis_bencana"] = this.nama_jenis_bencana;
+        data["jumlah_keseluruhan"] = this.jumlah_keseluruhan;
+        data["jumlah_dipulangkan"] = this.jumlah_dipulangkan;
         return data; 
     }
 }
 
 export interface IGetTabungBwiForEditDto {
     tabung_bwi: CreateOrEditTabungBwiDto;
-    rujukan_kelulusan_bwi: GetRujukanKelulusanBwiDto;
-    nama_tabung: string;
-    id_jenis_bencana: number;
-    nama_jenis_bencana: string;
+    jumlah_keseluruhan: number;
+    jumlah_dipulangkan: number;
 }
 
 export class GetTabungBwiForViewDto implements IGetTabungBwiForViewDto {
     id!: number;
-    id_tabung_kelulusan!: number;
-    jumlah_setiap_kir!: string;
-    jumlah_kir!: number;
-    tarikh_eft!: moment.Moment;
-    jumlah_kembali!: string;
-    nama_jenis_bencana!: string;
-    tahun_bencana!: number;
-    nama_daerah!: string;
-    nama_negeri!: string;
+    no_rujukan_bwi!: string;
+    id_jenis_bwi!: number;
+    id_bencana!: number;
+    nama_kejadian!: string;
+    tarikh_kejadian!: moment.Moment;
+    nama_jenis_bwi!: string;
+    nama_bencana!: string;
+    tarikh_bencana!: moment.Moment;
 
     constructor(data?: IGetTabungBwiForViewDto) {
         if (data) {
@@ -33406,15 +34523,14 @@ export class GetTabungBwiForViewDto implements IGetTabungBwiForViewDto {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
-            this.id_tabung_kelulusan = _data["id_tabung_kelulusan"];
-            this.jumlah_setiap_kir = _data["jumlah_setiap_kir"];
-            this.jumlah_kir = _data["jumlah_kir"];
-            this.tarikh_eft = _data["tarikh_eft"] ? moment(_data["tarikh_eft"].toString()) : <any>undefined;
-            this.jumlah_kembali = _data["jumlah_kembali"];
-            this.nama_jenis_bencana = _data["nama_jenis_bencana"];
-            this.tahun_bencana = _data["tahun_bencana"];
-            this.nama_daerah = _data["nama_daerah"];
-            this.nama_negeri = _data["nama_negeri"];
+            this.no_rujukan_bwi = _data["no_rujukan_bwi"];
+            this.id_jenis_bwi = _data["id_jenis_bwi"];
+            this.id_bencana = _data["id_bencana"];
+            this.nama_kejadian = _data["nama_kejadian"];
+            this.tarikh_kejadian = _data["tarikh_kejadian"] ? moment(_data["tarikh_kejadian"].toString()) : <any>undefined;
+            this.nama_jenis_bwi = _data["nama_jenis_bwi"];
+            this.nama_bencana = _data["nama_bencana"];
+            this.tarikh_bencana = _data["tarikh_bencana"] ? moment(_data["tarikh_bencana"].toString()) : <any>undefined;
         }
     }
 
@@ -33428,36 +34544,35 @@ export class GetTabungBwiForViewDto implements IGetTabungBwiForViewDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        data["id_tabung_kelulusan"] = this.id_tabung_kelulusan;
-        data["jumlah_setiap_kir"] = this.jumlah_setiap_kir;
-        data["jumlah_kir"] = this.jumlah_kir;
-        data["tarikh_eft"] = this.tarikh_eft ? this.tarikh_eft.toISOString() : <any>undefined;
-        data["jumlah_kembali"] = this.jumlah_kembali;
-        data["nama_jenis_bencana"] = this.nama_jenis_bencana;
-        data["tahun_bencana"] = this.tahun_bencana;
-        data["nama_daerah"] = this.nama_daerah;
-        data["nama_negeri"] = this.nama_negeri;
+        data["no_rujukan_bwi"] = this.no_rujukan_bwi;
+        data["id_jenis_bwi"] = this.id_jenis_bwi;
+        data["id_bencana"] = this.id_bencana;
+        data["nama_kejadian"] = this.nama_kejadian;
+        data["tarikh_kejadian"] = this.tarikh_kejadian ? this.tarikh_kejadian.toISOString() : <any>undefined;
+        data["nama_jenis_bwi"] = this.nama_jenis_bwi;
+        data["nama_bencana"] = this.nama_bencana;
+        data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
         return data; 
     }
 }
 
 export interface IGetTabungBwiForViewDto {
     id: number;
-    id_tabung_kelulusan: number;
-    jumlah_setiap_kir: string;
-    jumlah_kir: number;
-    tarikh_eft: moment.Moment;
-    jumlah_kembali: string;
-    nama_jenis_bencana: string;
-    tahun_bencana: number;
-    nama_daerah: string;
-    nama_negeri: string;
+    no_rujukan_bwi: string;
+    id_jenis_bwi: number;
+    id_bencana: number;
+    nama_kejadian: string;
+    tarikh_kejadian: moment.Moment;
+    nama_jenis_bwi: string;
+    nama_bencana: string;
+    tarikh_bencana: moment.Moment;
 }
 
-export class InputBwiKirDto implements IInputBwiKirDto {
-    id_mangsa!: number;
+export class InputBwiBayaranDto implements IInputBwiBayaranDto {
+    id_skb!: number;
+    id_terus!: number;
 
-    constructor(data?: IInputBwiKirDto) {
+    constructor(data?: IInputBwiBayaranDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -33468,32 +34583,81 @@ export class InputBwiKirDto implements IInputBwiKirDto {
 
     init(_data?: any) {
         if (_data) {
-            this.id_mangsa = _data["id_mangsa"];
+            this.id_skb = _data["id_skb"];
+            this.id_terus = _data["id_terus"];
         }
     }
 
-    static fromJS(data: any): InputBwiKirDto {
+    static fromJS(data: any): InputBwiBayaranDto {
         data = typeof data === 'object' ? data : {};
-        let result = new InputBwiKirDto();
+        let result = new InputBwiBayaranDto();
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["id_mangsa"] = this.id_mangsa;
+        data["id_skb"] = this.id_skb;
+        data["id_terus"] = this.id_terus;
         return data; 
     }
 }
 
-export interface IInputBwiKirDto {
-    id_mangsa: number;
+export interface IInputBwiBayaranDto {
+    id_skb: number;
+    id_terus: number;
+}
+
+export class InputBwiKawasanDto implements IInputBwiKawasanDto {
+    id_daerah!: number;
+    id_negeri!: number;
+    jumlah_bwi!: number;
+
+    constructor(data?: IInputBwiKawasanDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id_daerah = _data["id_daerah"];
+            this.id_negeri = _data["id_negeri"];
+            this.jumlah_bwi = _data["jumlah_bwi"];
+        }
+    }
+
+    static fromJS(data: any): InputBwiKawasanDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InputBwiKawasanDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id_daerah"] = this.id_daerah;
+        data["id_negeri"] = this.id_negeri;
+        data["jumlah_bwi"] = this.jumlah_bwi;
+        return data; 
+    }
+}
+
+export interface IInputBwiKawasanDto {
+    id_daerah: number;
+    id_negeri: number;
+    jumlah_bwi: number;
 }
 
 export class InputCreateTabungBwiDto implements IInputCreateTabungBwiDto {
     bwi!: CreateOrEditTabungBwiDto;
     /** Array of kluster object */
-    bwiKir!: InputBwiKirDto[];
+    bwi_bayaran!: InputBwiBayaranDto[];
+    /** Array of kluster object */
+    bwi_kawasan!: InputBwiKawasanDto[];
 
     constructor(data?: IInputCreateTabungBwiDto) {
         if (data) {
@@ -33507,10 +34671,15 @@ export class InputCreateTabungBwiDto implements IInputCreateTabungBwiDto {
     init(_data?: any) {
         if (_data) {
             this.bwi = _data["bwi"] ? CreateOrEditTabungBwiDto.fromJS(_data["bwi"]) : <any>undefined;
-            if (Array.isArray(_data["bwiKir"])) {
-                this.bwiKir = [] as any;
-                for (let item of _data["bwiKir"])
-                    this.bwiKir!.push(InputBwiKirDto.fromJS(item));
+            if (Array.isArray(_data["bwi_bayaran"])) {
+                this.bwi_bayaran = [] as any;
+                for (let item of _data["bwi_bayaran"])
+                    this.bwi_bayaran!.push(InputBwiBayaranDto.fromJS(item));
+            }
+            if (Array.isArray(_data["bwi_kawasan"])) {
+                this.bwi_kawasan = [] as any;
+                for (let item of _data["bwi_kawasan"])
+                    this.bwi_kawasan!.push(InputBwiKawasanDto.fromJS(item));
             }
         }
     }
@@ -33525,10 +34694,15 @@ export class InputCreateTabungBwiDto implements IInputCreateTabungBwiDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["bwi"] = this.bwi ? this.bwi.toJSON() : <any>undefined;
-        if (Array.isArray(this.bwiKir)) {
-            data["bwiKir"] = [];
-            for (let item of this.bwiKir)
-                data["bwiKir"].push(item.toJSON());
+        if (Array.isArray(this.bwi_bayaran)) {
+            data["bwi_bayaran"] = [];
+            for (let item of this.bwi_bayaran)
+                data["bwi_bayaran"].push(item.toJSON());
+        }
+        if (Array.isArray(this.bwi_kawasan)) {
+            data["bwi_kawasan"] = [];
+            for (let item of this.bwi_kawasan)
+                data["bwi_kawasan"].push(item.toJSON());
         }
         return data; 
     }
@@ -33537,7 +34711,9 @@ export class InputCreateTabungBwiDto implements IInputCreateTabungBwiDto {
 export interface IInputCreateTabungBwiDto {
     bwi: CreateOrEditTabungBwiDto;
     /** Array of kluster object */
-    bwiKir: InputBwiKirDto[];
+    bwi_bayaran: InputBwiBayaranDto[];
+    /** Array of kluster object */
+    bwi_kawasan: InputBwiKawasanDto[];
 }
 
 /** TabungBwi List in Tabular model */
