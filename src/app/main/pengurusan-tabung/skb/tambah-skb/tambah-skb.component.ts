@@ -38,7 +38,6 @@ export class TambahSkbComponent implements OnInit {
   bulanan: InputSkbBulananDto[] = [];
 
   agencies: any;
-  no_rujukan_kelulusan: number;
   filter: string;
   saving = false;
   tarikhMula: string;
@@ -47,9 +46,6 @@ export class TambahSkbComponent implements OnInit {
   rows = [];
   belanja: number = 0;
   balance_peruntukan: number = 0;
-  id_kategori_skb: number;
-  paymentType: any;
-  nama_bencana: string;
   tarikh_bencana: string;
 
   date = new Date();
@@ -182,7 +178,7 @@ export class TambahSkbComponent implements OnInit {
 			(response) => {
 				if (response) {
           this.skb.id_tabung_kelulusan = response.id;
-					this.no_rujukan_kelulusan = response.no_rujukan_kelulusan;
+					this.skb.no_rujukan_kelulusan = response.no_rujukan_kelulusan;
           this.skb.id_tabung = response.id_tabung;
 				}
 			}
@@ -196,7 +192,7 @@ export class TambahSkbComponent implements OnInit {
 			(response) => {
 				if (response) {
           this.skb.id_bencana = response.id;
-          this.nama_bencana = response.nama_bencana;
+          this.skb.nama_bencana = response.nama_bencana;
           this.modelBencana = this.fromModel(response.tarikh_bencana.format('YYYY-MM-DD'));
 				}
 			}

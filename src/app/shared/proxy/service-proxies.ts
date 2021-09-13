@@ -31639,10 +31639,12 @@ export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayar
     no_rujukan_kelulusan!: string;
     nama_tabung!: string;
     nama_bencana!: string;
+    tarikh_bencana!: moment.Moment;
     nama_jenis_bayaran!: string;
     nama_kategori_bayaran!: string;
     nama_skb_status!: string;
     id_status_skb!: number;
+    catatan!: string;
 
     constructor(data?: ICreateOrEditTabungBayaranSkbDto) {
         if (data) {
@@ -31681,10 +31683,12 @@ export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayar
             this.no_rujukan_kelulusan = _data["no_rujukan_kelulusan"];
             this.nama_tabung = _data["nama_tabung"];
             this.nama_bencana = _data["nama_bencana"];
+            this.tarikh_bencana = _data["tarikh_bencana"] ? moment(_data["tarikh_bencana"].toString()) : <any>undefined;
             this.nama_jenis_bayaran = _data["nama_jenis_bayaran"];
             this.nama_kategori_bayaran = _data["nama_kategori_bayaran"];
             this.nama_skb_status = _data["nama_skb_status"];
             this.id_status_skb = _data["id_status_skb"];
+            this.catatan = _data["catatan"];
         }
     }
 
@@ -31723,10 +31727,12 @@ export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayar
         data["no_rujukan_kelulusan"] = this.no_rujukan_kelulusan;
         data["nama_tabung"] = this.nama_tabung;
         data["nama_bencana"] = this.nama_bencana;
+        data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
         data["nama_jenis_bayaran"] = this.nama_jenis_bayaran;
         data["nama_kategori_bayaran"] = this.nama_kategori_bayaran;
         data["nama_skb_status"] = this.nama_skb_status;
         data["id_status_skb"] = this.id_status_skb;
+        data["catatan"] = this.catatan;
         return data; 
     }
 }
@@ -31758,10 +31764,12 @@ export interface ICreateOrEditTabungBayaranSkbDto {
     no_rujukan_kelulusan: string;
     nama_tabung: string;
     nama_bencana: string;
+    tarikh_bencana: moment.Moment;
     nama_jenis_bayaran: string;
     nama_kategori_bayaran: string;
     nama_skb_status: string;
     id_status_skb: number;
+    catatan: string;
 }
 
 export class GetRujukanKelulusanSkbDto implements IGetRujukanKelulusanSkbDto {

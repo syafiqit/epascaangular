@@ -5,6 +5,9 @@ import { PrimengTableHelper } from '@shared/helpers/PrimengTableHelper';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { TambahEditJenisBwiComponent } from './tambah-edit-jenis-bwi/tambah-edit-jenis-bwi.component';
+import { RefJenisBwiServiceProxy } from '@app/shared/proxy/service-proxies';
+import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
 	selector: 'app-jenis-bwi',
@@ -18,26 +21,31 @@ export class JenisBwiComponent {
 
 	primengTableHelper: PrimengTableHelper;
 
-	rows = [
-		{
-			nama_jenis_bwi: 'Bencana',
-			status: 'Aktif'
-		},
-    {
-			nama_jenis_bwi: 'Lain-lain',
-			status: 'Aktif'
-		},
-		{
-			nama_jenis_bwi: 'Kematian',
-			status: 'Aktif'
-		}
-	];
+  filter: string;
+  terms$ = new Subject<string>();
 
-	constructor(config: NgbModalConfig, private modalService: NgbModal) {
+	constructor(
+    config: NgbModalConfig,
+    private modalService: NgbModal,
+    private _refJenisBwiServiceProxy: RefJenisBwiServiceProxy
+  ) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
 	}
+
+	ngOnInit(): void {
+    this.terms$.pipe(
+      debounceTime(500), distinctUntilChanged()
+    ).subscribe((filterValue: string) =>{
+      this.filter = filterValue;
+      this.getJenisBwi();
+    });
+  }
+
+  applyFilter(filterValue: string){
+    this.terms$.next(filterValue);
+  }
 
 	getJenisBwi(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
@@ -46,9 +54,20 @@ export class JenisBwiComponent {
 		}
 
 		this.primengTableHelper.showLoadingIndicator();
-		this.primengTableHelper.totalRecordsCount = this.rows.length;
-		this.primengTableHelper.records = this.rows;
-		this.primengTableHelper.hideLoadingIndicator();
+		this._refJenisBwiServiceProxy
+			.getAll(
+				this.filter,
+				this.primengTableHelper.getSorting(this.dataTable),
+				this.primengTableHelper.getSkipCount(this.paginator, event),
+				this.primengTableHelper.getMaxResultCount(this.paginator, event)
+			)
+      .pipe(finalize(()=>{
+        this.primengTableHelper.hideLoadingIndicator();
+      }))
+			.subscribe((result) => {
+				this.primengTableHelper.totalRecordsCount = result.total_count;
+				this.primengTableHelper.records = result.items;
+			});
 	}
 
 	reloadPage(): void {
@@ -65,9 +84,10 @@ export class JenisBwiComponent {
 		});
 	}
 
-	editJenisBwiModal() {
+	editJenisBwiModal(id) {
 		const modalRef = this.modalService.open(TambahEditJenisBwiComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'edit';
+		modalRef.componentInstance.id = id;
 		modalRef.result.then((response) => {
 			if (response) {
 				this.getJenisBwi();

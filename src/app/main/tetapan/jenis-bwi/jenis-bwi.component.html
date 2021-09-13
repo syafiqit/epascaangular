@@ -13,6 +13,7 @@
             type="text"
             name="searchJenisBwi"
             placeholder="Carian..."
+            (keyup)="applyFilter($event.target.value)"
           />
           <i class="icon-search search-icon" style="font-size: large; font-weight: bold;"></i>
         </div>
@@ -50,9 +51,9 @@
                 Nama Jenis BWI
                 <p-sortIcon field="nama_jenis_bwi"></p-sortIcon>
               </th>
-              <th style="width: 100px" pSortableColumn="status">
+              <th style="width: 100px" pSortableColumn="status_jenis_bwi">
                 Status
-                <p-sortIcon field="status"></p-sortIcon>
+                <p-sortIcon field="status_jenis_bwi"></p-sortIcon>
               </th>
               <th style="width: 130px">Tindakan</th>
             </tr>
@@ -65,7 +66,7 @@
               </td>
               <td style="width: 100px">
                 <span class="p-column-title">Status</span>
-                {{record.status}}
+                {{record.status_jenis_bwi == 1? "Aktif":"Tidak Aktif"}}
               </td>
               <td style="width: 130px">
                 <div ngbDropdown class="btn-group" role="group" container="body">
@@ -80,7 +81,9 @@
                     Tindakan
                   </button>
                   <div ngbDropdownMenu aria-labelledby="action">
-                    <button class="dropdown-item" (click)="editJenisBwiModal()">Lihat</button>
+                    <button class="dropdown-item" (click)="editJenisBwiModal(record.id)">
+                      Lihat
+                    </button>
                   </div>
                 </div>
               </td>
