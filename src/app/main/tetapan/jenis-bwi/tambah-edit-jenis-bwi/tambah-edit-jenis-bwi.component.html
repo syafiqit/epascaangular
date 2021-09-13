@@ -5,7 +5,7 @@
 		<span aria-hidden="true">&times;</span>
 	</button>
 </div>
-<form class="form theme-form">
+<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()">
 	<div class="modal-body">
 		<div class="row">
 			<div class="col-6">
@@ -17,7 +17,14 @@
 						type="text"
 						name="nama_jenis_bwi"
 						placeholder="Nama Jenis BWI"
+						[(ngModel)]="jenis_bwi.nama_jenis_bwi"
+						#jenisBwi="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && jenisBwi.invalid }"
+						required
 					/>
+					<div *ngIf="f.submitted && jenisBwi.invalid" class="invalid-feedback">
+						<div *ngIf="jenisBwi.errors.required">Nama Jenis BWI Wajib Diisi</div>
+					</div>
 				</div>
 			</div>
 
@@ -25,13 +32,21 @@
 				<div class="form-group">
 					<label>Status</label>
 					<select
+            id="status"
 						class="form-control digits"
 						name="status_jenis"
+						[(ngModel)]="jenis_bwi.status_jenis_bwi"
+						#status="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
+						required
 					>
 						<option selected disabled [value]="undefined">Sila Pilih</option>
 						<option [value]="1">Aktif</option>
 						<option [value]="0">Tidak Aktif</option>
 					</select>
+					<div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
+						<div *ngIf="status.errors.required">Status Wajib Dipilih</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -39,6 +54,6 @@
 
 	<div class="modal-footer">
 		<button type="button" class="btn btn-light" (click)="activeModal.close(false)">Tutup</button>
-		<button type="button" class="btn btn-primary" (click)="activeModal.close(false)">Simpan</button>
+		<button type="submit" class="btn btn-primary">Simpan</button>
 	</div>
 </form>
