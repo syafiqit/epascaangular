@@ -5,11 +5,11 @@ import {
   GetMangsaWangIhsanForEditDto,
   MangsaWangIhsanServiceProxy,
   RefAgensiServiceProxy,
-  RefBencanaServiceProxy
+  RefJenisBwiServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import * as moment from 'moment';
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
-import { DatePipe } from '@angular/common';
+import { LookupBencanaComponent } from '../../lookup-bencana/lookup-bencana.component';
 
 @Component({
   selector: 'app-tambah-edit-bantuan-wang-ihsan',
@@ -27,17 +27,18 @@ export class TambahEditBantuanWangIhsanComponent implements OnInit {
   editWangIhsan: GetMangsaWangIhsanForEditDto = new GetMangsaWangIhsanForEditDto();
 
 	saving = true;
+  types: any;
   agensi: any;
   agency: any;
   bencana: any;
-  disaster: any;
   date = new Date();
   model: NgbDateStruct;
+  modelBencana: NgbDateStruct;
   today = this.calendar.getToday();
   tarikhSerahan: string;
   readonly DELIMITER = '-';
-  date_bencana:any;
-  pipe = new DatePipe('en-US');
+  id_bencana: number;
+  nama_bencana: string;
 
   status=[
     {id: 1, nama_status: "Tidak Aktif"},
@@ -45,10 +46,11 @@ export class TambahEditBantuanWangIhsanComponent implements OnInit {
   ]
 
   constructor(
+    private modalService: NgbModal,
 		public activeModal: NgbActiveModal,
 		private _mangsaWangIhsanServiceProxy: MangsaWangIhsanServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
-    private _refBencanaServiceProxy: RefBencanaServiceProxy,
+    private _refJenisBwiServiceProxy: RefJenisBwiServiceProxy,
     private calendar: NgbCalendar
     ) {
       this.editWangIhsan.mangsa_wang_ihsan = new CreateOrEditMangsaWangIhsanDto();
@@ -56,7 +58,7 @@ export class TambahEditBantuanWangIhsanComponent implements OnInit {
 
     ngOnInit(): void {
       this.show();
-      this.getBencana();
+      this.getJenisBwi();
       this.getAgensi();
     }
 
@@ -76,7 +78,7 @@ export class TambahEditBantuanWangIhsanComponent implements OnInit {
       return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
     }
 
-    show(filter?) {
+    show() {
       if (!this.id) {
         this.wangIhsan = new CreateOrEditMangsaWangIhsanDto();
       } else {
@@ -86,18 +88,13 @@ export class TambahEditBantuanWangIhsanComponent implements OnInit {
             this.model = this.fromModel(result.mangsa_wang_ihsan.tarikh_serahan.format('YYYY-MM-DD'));
           }
         });
-
-        this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
-          this.date_bencana = result.items.filter(
-            filt=>{
-              if(filt.id == this.wangIhsan.id_bencana){
-                return filt.tarikh_bencana;
-              }
-            }).map(data=>{
-              return this.pipe.transform(data.tarikh_bencana.toDate(), 'dd/MM/yyyy');
-            });
-          });
       }
+    }
+
+    getJenisBwi(filter?) {
+      this._refJenisBwiServiceProxy.getRefJenisBwiForDropdown(filter).subscribe((result) => {
+        this.types = result.items;
+      });
     }
 
     getAgensi(filter?) {
@@ -106,10 +103,19 @@ export class TambahEditBantuanWangIhsanComponent implements OnInit {
       });
     }
 
-    getBencana(filter?) {
-      this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
-        this.disaster = result.items;
-      });
+    pilihBencana() {
+      const modalRef = this.modalService.open(LookupBencanaComponent, { size: 'lg' });
+      modalRef.componentInstance.name = 'add';
+      modalRef.componentInstance.mangsaId = this.idMangsa;
+      modalRef.result.then(
+        (response) => {
+          if (response) {
+            this.wangIhsan.id_bencana = response.id_bencana;
+            this.nama_bencana = response.nama_bencana;
+            this.modelBencana = this.fromModel(response.tarikh_bencana.format('YYYY-MM-DD'));
+          }
+        }
+      );
     }
 
     save() {
@@ -129,20 +135,6 @@ export class TambahEditBantuanWangIhsanComponent implements OnInit {
             swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Wang Ihsan Berjaya Dikemaskini.', 'success');
           }
           this.activeModal.close(true);
-        });
-    }
-
-    onSelectBencana(id?,filter?){
-      console.log(id);
-      this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
-        this.date_bencana = result.items.filter(
-          filt=>{
-            if(filt.id == id){
-              return filt.tarikh_bencana;
-            }
-          }).map(data=>{
-            return this.pipe.transform(data.tarikh_bencana.toDate(), 'dd/MM/yyyy');
-          });
         });
     }
 

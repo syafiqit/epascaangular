@@ -6,11 +6,10 @@ import {
   GetMangsaPertanianForEditDto,
   MangsaPertanianServiceProxy,
   RefAgensiServiceProxy,
-  RefBencanaServiceProxy,
   RefJenisPertanianServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
-import { DatePipe } from '@angular/common';
+import { LookupBencanaComponent } from '../../lookup-bencana/lookup-bencana.component';
 
 @Component({
   selector: 'app-tambah-edit-bantuan-pertanian',
@@ -29,7 +28,6 @@ export class TambahEditBantuanPertanianComponent implements OnInit {
 
 	saving = true;
   agensi: any;
-  bencana: any;
   jenisPertanian: any;
   tarikh_bantuan: string;
 
@@ -37,8 +35,8 @@ export class TambahEditBantuanPertanianComponent implements OnInit {
   model: NgbDateStruct;
   today = this.calendar.getToday();
   readonly DELIMITER = '-';
-  date_bencana:any;
-  pipe = new DatePipe('en-US');
+  nama_bencana: string;
+  modelBencana: NgbDateStruct;
 
   status=[
     {id: 1, nama_status: "Tidak Aktif"},
@@ -46,10 +44,10 @@ export class TambahEditBantuanPertanianComponent implements OnInit {
   ]
 
   constructor(
+    private modalService: NgbModal,
     public activeModal: NgbActiveModal,
 		private _mangsaPertanianServiceProxy: MangsaPertanianServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
-    private _refBencanaServiceProxy: RefBencanaServiceProxy,
     private _refJenisPertanianServiceProxy: RefJenisPertanianServiceProxy,
     private calendar: NgbCalendar
     ) {
@@ -58,7 +56,6 @@ export class TambahEditBantuanPertanianComponent implements OnInit {
 
   ngOnInit(): void {
     this.show();
-    this.getBencana();
     this.getAgensi();
     this.getJenisPertanian();
   }
@@ -89,17 +86,6 @@ export class TambahEditBantuanPertanianComponent implements OnInit {
           this.model = this.fromModel(result.mangsa_pertanian.tarikh_bantuan.format('YYYY-MM-DD'));
         }
       });
-
-      this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
-        this.date_bencana = result.items.filter(
-          filt=>{
-            if(filt.id == this.bantuanPertanian.id_bencana){
-              return filt.tarikh_bencana;
-            }
-          }).map(data=>{
-            return this.pipe.transform(data.tarikh_bencana.toDate(), 'dd/MM/yyyy');
-          });
-        });
     }
   }
 
@@ -109,16 +95,25 @@ export class TambahEditBantuanPertanianComponent implements OnInit {
     });
   }
 
-  getBencana(filter?) {
-    this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
-      this.bencana = result.items;
-    });
-  }
-
   getJenisPertanian(filter?) {
     this._refJenisPertanianServiceProxy.getRefJenisPertanianForDropdown(filter).subscribe((result) => {
       this.jenisPertanian = result.items;
     });
+  }
+
+  pilihBencana() {
+    const modalRef = this.modalService.open(LookupBencanaComponent, { size: 'lg' });
+    modalRef.componentInstance.name = 'add';
+    modalRef.componentInstance.mangsaId = this.idMangsa;
+    modalRef.result.then(
+      (response) => {
+        if (response) {
+          this.bantuanPertanian.id_bencana = response.id_bencana;
+          this.nama_bencana = response.nama_bencana;
+          this.modelBencana = this.fromModel(response.tarikh_bencana.format('YYYY-MM-DD'));
+        }
+      }
+    );
   }
 
   save() {
@@ -140,19 +135,4 @@ export class TambahEditBantuanPertanianComponent implements OnInit {
         this.activeModal.close(true);
       });
   }
-
-  onSelectBencana(id?,filter?){
-    console.log(id);
-    this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
-      this.date_bencana = result.items.filter(
-        filt=>{
-          if(filt.id == id){
-            return filt.tarikh_bencana;
-          }
-        }).map(data=>{
-          return this.pipe.transform(data.tarikh_bencana.toDate(), 'dd/MM/yyyy');
-        });
-      });
-  }
-
 }

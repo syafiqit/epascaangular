@@ -100,7 +100,8 @@ const NSWAG = [
 	ApiServiceProxies.RefJenisBwiServiceProxy,
 	ApiServiceProxies.RefJenisBayaranServiceProxy,
 	ApiServiceProxies.RefKategoriBayaranServiceProxy,
-	ApiServiceProxies.RefJenisPeruntukanServiceProxy
+	ApiServiceProxies.RefJenisPeruntukanServiceProxy,
+  ApiServiceProxies.DashboardTabungServiceProxy
 ];
 
 @NgModule({

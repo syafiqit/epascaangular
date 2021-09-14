@@ -6,51 +6,52 @@
 	</button>
 </div>
 
-	<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
-    <div class="modal-body">
+<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
+  <div class="modal-body">
 		<div class="row">
 			<div class="col-lg-6">
         <div class="form-group">
           <label>Nama Bencana</label>
-          <div>
-            <ng-select
-              [items]="bencana"
-              bindLabel="nama_bencana"
-              bindValue="id"
-              placeholder="Sila Pilih"
-              class="js-example-placeholder-multiple"
-              name="id_bencana"
-              [(ngModel)]="bantuanPertanian.id_bencana"
+          <div class="input-group">
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Nama Bencana"
+              name="bencana"
+              [(ngModel)]="nama_bencana"
               #namaBencana="ngModel"
               [ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
-              (change)="onSelectBencana(bantuanPertanian.id_bencana)" 
               required
-            ></ng-select>
-            <div
-              *ngIf="f.submitted && namaBencana.invalid"
-              class="invalid-feedback"
-            >
-              <div *ngIf="namaBencana.errors.required">
-                Nama Bencana Wajib Dipilih
-              </div>
+              readonly
+            />
+            <div class="input-group-append">
+              <button class="btn btn-primary" (click)="pilihBencana()" type="button">
+                <i class="fa fa-search text-white"></i>
+              </button>
             </div>
+          </div>
+          <div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
+            <div *ngIf="namaBencana.errors.required">Nama Bencana Wajib Dipilih</div>
           </div>
         </div>
       </div>
-      <div class="col-lg-6">
-				<div class="form-group">
-					<label>Tarikh Bencana</label>
-					<input
-						class="form-control"
-            			id="tarikhBencana"
-						type="text"
-						name="tarikh_bencana"
-						[(ngModel)]="date_bencana"
-						placeholder="Tarikh Bencana"
-						readonly
-					/>
-				</div>
-			</div>
+
+      <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
+        <label>Tarikh Bencana</label>
+        <div class="input-group">
+          <input
+            class="form-control"
+            placeholder="yyyy-mm-dd"
+            name="dp3"
+            [(ngModel)]="modelBencana"
+            ngbDatepicker
+            [footerTemplate]="footerTemplate"
+            #d3="ngbDatepicker"
+            style="border: 1px solid #efefef !important;"
+            readonly
+          >
+        </div>
+      </div>
 		</div>
 
 		<div class="row">
@@ -274,6 +275,7 @@
         </div>
       </div>
 		</div>
+
     <div class="row">
       <div class="col">
         <div class="form-group">

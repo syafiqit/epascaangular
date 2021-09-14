@@ -24,7 +24,6 @@
     >
     <ng-template pTemplate="header">
       <tr>
-        <th style="width: 130px">Tindakan</th>
         <th style="width: 100px" pSortableColumn="nama_bencana">
           Nama Bencana
           <p-sortIcon field="nama_bencana"></p-sortIcon>
@@ -41,10 +40,28 @@
           Status
           <p-sortIcon field="status_mangsa_antarabangsa"></p-sortIcon>
         </th>
+        <th style="width: 130px">Tindakan</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-record="$implicit">
       <tr>
+        <td style="width: 100px">
+          <span class="p-column-title">Nama Bencana</span>
+          {{record.nama_bencana}}
+        </td>
+        <td style="width: 130px">
+          <span class="p-column-title">Tarikh Bencana</span>
+          {{record.tarikh_bencana | date: 'dd/MM/yyyy'}}
+        </td>
+        <td style="width: 130px">
+          <span class="p-column-title">Kos Bantuan</span>
+          {{record.kos_bantuan}}
+        </td>
+        <td style="width: 130px">
+          <span class="p-column-title">Status</span>
+          <label *ngIf="record.status_mangsa_antarabangsa == 2">Aktif</label>
+          <label *ngIf="record.status_mangsa_antarabangsa == 1">Tidak Aktif</label>
+        </td>
         <td style="width: 130px">
           <div ngbDropdown class="btn-group" role="group" container="body">
             <button
@@ -62,23 +79,6 @@
               </button>
             </div>
           </div>
-        </td>
-        <td style="width: 100px">
-          <span class="p-column-title">Nama Bencana</span>
-          {{record.nama_bencana}}
-        </td>
-        <td style="width: 130px">
-          <span class="p-column-title">Tarikh Bencana</span>
-          {{record.tarikh_bencana | date: 'dd/MM/yyyy'}}
-        </td>
-        <td style="width: 130px">
-          <span class="p-column-title">Kos Bantuan</span>
-          {{record.kos_bantuan}}
-        </td>
-        <td style="width: 130px">
-          <span class="p-column-title">Status</span>
-          <label *ngIf="record.status_mangsa_antarabangsa == 2">Aktif</label>
-          <label *ngIf="record.status_mangsa_antarabangsa == 1">Tidak Aktif</label>
         </td>
       </tr>
     </ng-template>
