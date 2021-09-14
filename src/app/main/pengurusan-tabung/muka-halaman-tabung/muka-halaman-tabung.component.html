@@ -29,14 +29,12 @@
             <div class="col-lg-12">
               <div id="collapseExample" [ngbCollapse]="!isCollapsedGraph">
                 <div class="row">
-                  <div class="col-lg-4 m-auto">
+                  <div class="col-lg-4">
                     <div class="form-group">
-                      <label for="exampleFormControlInput1">Tahun</label>
-                      <select class="form-control digits" id="exampleFormControlSelect9">
-                        <option>Sila Pilih</option>
-                        <option>2021</option>
-                        <option>2020</option>
-                        <option>2019</option>
+                      <label>Tahun</label>
+                      <select class="form-control" [(ngModel)]="year">
+                        <option selected disabled [value]="undefined">Sila Pilih</option>
+                        <option *ngFor="let year of arrayYear">{{year}}</option>
                       </select>
                     </div>
                   </div>
@@ -84,19 +82,22 @@
                     </div>
                   </div>
 
-                  <div class="col-lg-4 m-auto">
+                  <div class="col-lg-4">
                     <div class="form-group">
-                      <label for="exampleFormControlInput1">Tabung</label>
-                      <select class="form-control digits" id="exampleFormControlSelect9">
-                        <option>Sila Pilih</option>
-                        <option>KWABBN</option>
-                        <option>Covid-19</option>
-                      </select>
+                      <label>Tabung</label>
+                      <ng-select
+                        [items]="funds"
+                        bindLabel="nama_tabung"
+                        bindValue="id"
+                        placeholder="Sila Pilih"
+                        class="js-example-placeholder-multiple"
+                        name="namaTabung"
+                        [(ngModel)]="filterTabung"
+                      ></ng-select>
                     </div>
                   </div>
-
-
                 </div>
+
                 <div class="row justify-content-end mb-2 pr-2">
                   <button
                     class="btn btn-light mr-2"
@@ -109,6 +110,7 @@
                   <button
                     class="btn btn-primary pull-right mr-2"
                     type="button"
+                    (click)="tabungCard()"
                   >
                   <i class="fa fa-search mr-2"></i>
                     <b>Cari</b>
@@ -134,7 +136,7 @@
             <div class="card-body" style="background-color:#7945cb;text-align:end; padding:20px; border-radius:8px; cursor: pointer;">
               <div class="row">
                 <div class="col-12" style="font-size:30px">
-                  <a style="font-weight:500">RM 920000</a>
+                  <a style="font-weight:500">RM {{overallTotal}}</a>
                 </div>
               </div>
               <div class="row">
@@ -154,7 +156,7 @@
             <div class="card-body" style="background-color:#7945cb;text-align:end; padding:20px; border-radius:8px; cursor: pointer;">
               <div class="row">
                 <div class="col-12" style="font-size:30px">
-                  <a style="font-weight:500">RM 32000</a>
+                  <a style="font-weight:500">RM {{expendTotal}}</a>
                 </div>
               </div>
               <div class="row">
@@ -174,7 +176,7 @@
             <div class="card-body" style="background-color:#7945cb;text-align:end; padding:20px; border-radius:8px; cursor: pointer;">
               <div class="row">
                 <div class="col-12" style="font-size:30px">
-                  <a style="font-weight:500">RM 12000</a>
+                  <a style="font-weight:500">RM {{dependTotal}}</a>
                 </div>
               </div>
               <div class="row">
@@ -194,7 +196,7 @@
             <div class="card-body" style="background-color:#7945cb;text-align:end; padding:20px; border-radius:8px; cursor: pointer;">
               <div class="row">
                 <div class="col-12">
-                  <a style="font-weight:500; font-size: 30px;">RM 72561</a>
+                  <a style="font-weight:500; font-size: 30px;">RM {{netTotal}}</a>
                 </div>
               </div>
               <div class="row">
@@ -210,24 +212,13 @@
 	</div>
 
 	<div class="row">
-		<div class="col-lg-6">
+		<div class="col-lg-12">
 			<div class="card">
 				<div class="card-header">
-					<h6>Tangunggan Mengikut Tabung</h6>
-				</div>
-				<div class="card-body mr-5">
-					<div id="chartdivTabung" style="width: 100%; height: 230px"></div>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-lg-6">
-			<div class="card">
-				<div class="card-header">
-					<h6>Tangunggan & Perbelanjaan</h6>
+					<h6>Tanggungan & Perbelanjaan</h6>
 				</div>
 				<div class="card-body">
-					<div id="chartdivPerbelanjaan" style="height: 230px"></div>
+					<div id="tanggunganPerbelanjaan" style="height: 230px"></div>
 				</div>
 			</div>
 		</div>
@@ -236,8 +227,24 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="card">
+				<div class="card-header">
+					<h6>Statistik Bayaran Surat Kuasa Belanja Mengikut Bulan</h6>
+				</div>
 				<div class="card-body">
-					<div id="chartdivBelanja" style="width: 100%; height: 400px"></div>
+					<div id="bayaranSkb" style="width: 100%; height: 400px"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="card">
+				<div class="card-header">
+					<h6>Statistik Bayaran Secara Terus Mengikut Bulan</h6>
+				</div>
+				<div class="card-body">
+					<div id="bayaranTerus" style="width: 100%; height: 400px"></div>
 				</div>
 			</div>
 		</div>
