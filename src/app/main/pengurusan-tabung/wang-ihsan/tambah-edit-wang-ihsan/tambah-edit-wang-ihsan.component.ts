@@ -1,7 +1,6 @@
 import { OnInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbActiveModal, NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import * as moment from 'moment';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
@@ -11,7 +10,6 @@ import {
   CreateOrEditTabungBwiDto,
   InputBwiBayaranDto,
   InputBwiKawasanDto,
-  // InputBwiKirDto,
   InputCreateTabungBwiDto,
   RefJenisBwiServiceProxy,
   TabungBwiServiceProxy
