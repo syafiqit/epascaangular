@@ -26,11 +26,18 @@
 							<div class="col-lg-6">
 								<div class="form-group">
 								<label>Komitmen</label>
-									<select [(ngModel)]="kelulusan.id_komitmen" class="form-control digits">
-									<option>Pilih</option>
-									<option value='1'>Perolehan Secara Pembelian Terus</option>
-									<option value='2'>Perolehan Secara Darurat</option>
-								</select>
+								<ng-select
+									bindValue="id"
+									placeholder="Sila Pilih"
+									class="js-example-placeholder-multiple"
+									name="komitmen"
+									[(ngModel)]="kelulusan.id_komitmen" 
+									#status="ngModel"
+									[ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
+									required>
+									<ng-option [value]='1'>Perolehan Secara Pembelian Terus</ng-option>
+									<ng-option [value]='2'>Perolehan Secara Darurat</ng-option>
+								</ng-select>
 								</div>
 							</div>
 						</div>
@@ -117,13 +124,13 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Bencana*</label>
+									<label>Tabung*</label>
 									<div class="input-group">
 										<input
 											class="form-control"
 											type="text"
-											placeholder="Bencana"
-											name="bencana"
+											placeholder="Tabung"
+											name="tabung"
 											[(ngModel)]="namaBencana"
 											#bencana="ngModel"
 											[ngClass]="{ 'is-invalid': f.submitted && bencana.invalid }"
@@ -137,7 +144,27 @@
 										</div>
 									</div>
 									<div *ngIf="f.submitted && bencana.invalid" class="invalid-feedback">
-										<div *ngIf="bencana.errors.required">Bencana Wajib Dipilih</div>
+										<div *ngIf="bencana.errors.required">Tabung Wajib Dipilih</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Status*</label>
+									<ng-select
+										bindValue="id"
+										placeholder="Sila Pilih"
+										class="js-example-placeholder-multiple"
+										name="status_tabung_kelulusan"
+										[(ngModel)]="kelulusan.status_tabung_kelulusan" 
+										#status="ngModel"
+										[ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
+										required>
+										<ng-option [value]='1'>Aktif</ng-option>
+										<ng-option [value]='2'>Tidak Aktif</ng-option>
+									</ng-select>
+									<div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
+										<div *ngIf="status.errors.required">Status Wajib Dipilih</div>
 									</div>
 								</div>
 							</div>

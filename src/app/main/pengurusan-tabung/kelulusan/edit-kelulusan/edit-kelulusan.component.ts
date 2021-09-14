@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import {
   CreateOrEditTabungKelulusanDto, RefBantuanServiceProxy, RefBencanaServiceProxy,
@@ -21,7 +21,7 @@ import { PilihBencanaKelulusanComponent } from '../pilih-bencana-kelulusan/pilih
 	encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig, NgbModal]
 })
-export class EditKelulusanComponent implements OnInit {
+export class EditKelulusanComponent implements OnInit, AfterViewInit {
 
   @ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
@@ -129,6 +129,11 @@ export class EditKelulusanComponent implements OnInit {
     this.getTabung();
     this.getBencana();
     this.getBantuan();
+    
+  }
+
+  ngAfterViewInit(){
+    
   }
 
   fromModel(value: string | null): NgbDateStruct | null {
@@ -162,6 +167,8 @@ export class EditKelulusanComponent implements OnInit {
         if(result.tabung_kelulusan.tarikh_tamat_kelulusan){
           this.modelTamat = this.fromModel(result.tabung_kelulusan.tarikh_tamat_kelulusan.format('YYYY-MM-DD'));
         }
+
+        this.populateTabung();
       });
     }
   }
@@ -202,6 +209,7 @@ export class EditKelulusanComponent implements OnInit {
       this.tarikhTamat = this.toModel(this.modelTamat);
       this.kelulusan.tarikh_tamat_kelulusan = moment(this.tarikhTamat, "YYYY-MM-DD");
     }
+    
     this._tabungKelulusanServiceProxy
       .createOrEdit(this.kelulusan)
       .pipe()
@@ -265,12 +273,22 @@ export class EditKelulusanComponent implements OnInit {
     modalRef.result.then(
 			(response) => {
 				if (response) {
-          // this.kelulusan.id_bencana = response.id;
-					this.namaBencana = response.nama_bencana;
+          this.kelulusan.id_tabung = response.id;
+					this.namaBencana = response.nama_tabung;
 				}
 			}
 		);
 	}
+
+  tabungId(){
+
+  }
+
+  populateTabung(id?){
+    this._tabungServiceProxy.getTabungForEdit(this.kelulusan.id_tabung).subscribe((result) => {
+      this.namaBencana = result.tabung.nama_tabung;
+    });
+  }
 
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
