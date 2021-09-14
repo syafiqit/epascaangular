@@ -6,15 +6,15 @@ import { Table } from 'primeng/table';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
-import { RefBencanaServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import { RefBencanaServiceProxy} from 'src/app/shared/proxy/service-proxies';
 
 @Component({
-  selector: 'app-pilih-bencana',
-  templateUrl: './pilih-bencana.component.html',
+  selector: 'app-pilih-bencana-bwi',
+  templateUrl: './pilih-bencana-bwi.component.html',
   encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig]
 })
-export class PilihBencanaComponent implements OnInit {
+export class PilihBencanaBwiComponent implements OnInit {
   @ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
@@ -31,7 +31,7 @@ export class PilihBencanaComponent implements OnInit {
 	constructor(
     config: NgbModalConfig,
     public activeModal: NgbActiveModal,
-    private _refBencanaServiceProxy: RefBencanaServiceProxy
+    private _refBencanaServiceProxy: RefBencanaServiceProxy,
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
@@ -43,7 +43,7 @@ export class PilihBencanaComponent implements OnInit {
       debounceTime(500), distinctUntilChanged()
     ).subscribe((filterValue: string) =>{
       this.filter = filterValue;
-      this.getBencana();
+      this.getJenisBencana();
     });
   }
 
@@ -51,7 +51,7 @@ export class PilihBencanaComponent implements OnInit {
     this.terms$.next(filterValue);
   }
 
-	getBencana(event?: LazyLoadEvent) {
+	getJenisBencana(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
@@ -77,12 +77,11 @@ export class PilihBencanaComponent implements OnInit {
 			});
 	}
 
-  select(id, nama_bencana) {
+  select(id, nama_bencana, tarikh_bencana) {
 		this.activeModal.close({
       id: id,
       nama_bencana: nama_bencana,
-
-
+      tarikh_bencana: tarikh_bencana
     });
 	}
 }

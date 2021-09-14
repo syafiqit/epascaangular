@@ -25,13 +25,9 @@
 				>
 					<ng-template pTemplate="header">
 						<tr>
-							<th style="width: 130px" pSortableColumn="jenis_bayaran">
-								Jenis Bayaran
-								<p-sortIcon field="jenis_bayaran"></p-sortIcon>
-							</th>
-							<th style="width: 130px" pSortableColumn="no_rujukan_bayaran">
+							<th style="width: 130px" pSortableColumn="no_rujukan_terus">
 								No. Rujukan Bayaran
-								<p-sortIcon field="no_rujukan_bayaran"></p-sortIcon>
+								<p-sortIcon field="no_rujukan_terus"></p-sortIcon>
 							</th>
 							<th style="width: 130px" pSortableColumn="perihal">
 								Perihal
@@ -51,12 +47,8 @@
 					<ng-template pTemplate="body" let-record="$implicit">
 						<tr>
 							<td style="width: 130px">
-								<span class="p-column-title">Jenis Bayaran</span>
-								{{record.jenis_bayaran}}
-							</td>
-							<td style="width: 130px">
 								<span class="p-column-title">No. Rujukan Bayaran</span>
-								{{record.no_rujukan_bayaran}}
+								{{record.no_rujukan_terus}}
 							</td>
 							<td style="width: 130px">
 								<span class="p-column-title">Perihal</span>
@@ -74,7 +66,7 @@
 								<button
                   class="btn btn-primary"
                   type="button"
-                  (click)="select(record.jenis_bayaran, record.no_rujukan_bayaran, record.perihal, record.no_rujukan_kelulusan, record.jumlah)"
+                  (click)="select(record.id, record.no_rujukan_terus, record.perihal, record.no_rujukan_kelulusan, record.jumlah)"
                 >
                   Pilih
                 </button>

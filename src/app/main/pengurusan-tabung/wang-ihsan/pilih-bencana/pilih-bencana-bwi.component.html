@@ -28,7 +28,7 @@
 					#dataTable
 					styleClass="p-datatable-striped"
 					[resizableColumns]="true"
-					(onLazyLoad)="getBencana($event)"
+					(onLazyLoad)="getJenisBencana($event)"
 					[value]="primengTableHelper.records"
 					rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
 					[paginator]="false"
@@ -41,7 +41,6 @@
 				>
 					<ng-template pTemplate="header">
 						<tr>
-							<th style="width: 100px">Tindakan</th>
 							<th style="width: 130px" pSortableColumn="tarikh_bencana">
 								Tarikh Kejadian
 								<p-sortIcon field="tarikh_bencana"></p-sortIcon>
@@ -58,19 +57,11 @@
 								Catatan
 								<p-sortIcon field="catatan"></p-sortIcon>
 							</th>
+              <th style="width: 100px">Tindakan</th>
 						</tr>
 					</ng-template>
 					<ng-template pTemplate="body" let-record="$implicit">
 						<tr>
-							<td style="width: 100px">
-								<button
-                  class="btn btn-primary"
-                  type="button"
-                  (click)="select(record.id, record.nama_bencana)"
-                >
-                  Pilih
-                </button>
-							</td>
 							<td style="width: 130px">
 								<span class="p-column-title">Tarikh Kejadian</span>
 								{{record.tarikh_bencana | date:'dd-MM-yyyy'}}
@@ -87,6 +78,19 @@
 								<span class="p-column-title">Catatan</span>
 								{{record.catatan}}
 							</td>
+              <td style="width: 100px">
+								<button
+                  class="btn btn-primary"
+                  type="button"
+                  (click)="select(
+                    record.id,
+                    record.nama_bencana,
+                    record.tarikh_bencana
+                    )"
+                >
+                  Pilih
+                </button>
+							</td>
 						</tr>
 					</ng-template>
 				</p-table>
@@ -95,7 +99,7 @@
 					<p-paginator
 						[rows]="primengTableHelper.defaultRecordsCountPerPage"
 						#paginator
-						(onPageChange)="getBencana($event)"
+						(onPageChange)="getJenisBencana($event)"
 						[totalRecords]="primengTableHelper.totalRecordsCount"
 						[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
 					></p-paginator>
