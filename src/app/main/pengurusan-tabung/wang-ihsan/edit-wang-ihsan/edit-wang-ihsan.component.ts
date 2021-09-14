@@ -8,7 +8,7 @@ import {
   CreateOrEditTabungBwiDto,
   GetRujukanKelulusanBwiDto,
   GetTabungBwiForEditDto,
-  InputBwiKirDto,
+  // InputBwiKirDto,
   InputCreateTabungBwiDto,
   TabungBwiServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
@@ -31,7 +31,7 @@ export class EditWangIhsanComponent implements OnInit {
   edit: GetTabungBwiForEditDto = new GetTabungBwiForEditDto();
   tabungBwi: InputCreateTabungBwiDto = new InputCreateTabungBwiDto();
   bwi: CreateOrEditTabungBwiDto = new CreateOrEditTabungBwiDto();
-  bwiKir: InputBwiKirDto[] = [];
+  // bwiKir: InputBwiKirDto[] = [];
   kelulusan: GetRujukanKelulusanBwiDto = new GetRujukanKelulusanBwiDto();
 
   active;
@@ -75,9 +75,9 @@ export class EditWangIhsanComponent implements OnInit {
     this.idBwi = this._activatedRoute.snapshot.queryParams['id'];
 		this.primengTableHelper = new PrimengTableHelper();
     this.edit.tabung_bwi = new CreateOrEditTabungBwiDto();
-    this.edit.rujukan_kelulusan_bwi = new GetRujukanKelulusanBwiDto();
-    this.edit.nama_tabung = this.nama_tabung;
-    this.edit.nama_jenis_bencana = this.nama_jenis_bencana;
+    // this.edit.rujukan_kelulusan_bwi = new GetRujukanKelulusanBwiDto();
+    // this.edit.nama_tabung = this.nama_tabung;
+    // this.edit.nama_jenis_bencana = this.nama_jenis_bencana;
 		config.backdrop = 'static';
 		config.keyboard = false;
 	}
@@ -103,21 +103,21 @@ export class EditWangIhsanComponent implements OnInit {
   }
 
   show() {
-    this._tabungBwiServiceProxy.getTabungBwiForEdit(this.idBwi).subscribe((result)=>{
-      this.edit = result;
-      this.edit.tabung_bwi = result.tabung_bwi;
-      this.no_rujukan_kelulusan = result.rujukan_kelulusan_bwi.no_rujukan_kelulusan;
-      this.nama_tabung = result.nama_tabung;
-      this.nama_jenis_bencana = result.nama_jenis_bencana;
-      this.rujukan_surat = result.rujukan_kelulusan_bwi.rujukan_surat;
-      this.perihal_surat = result.rujukan_kelulusan_bwi.perihal_surat;
-      if(result.tabung_bwi.tarikh_eft){
-        this.modelBencana = this.fromModel(result.tabung_bwi.tarikh_eft.format('YYYY-MM-DD'));
-      }
-      if(result.tabung_bwi.tarikh_akuan_kp){
-        this.modelKejadian = this.fromModel(result.tabung_bwi.tarikh_akuan_kp.format('YYYY-MM-DD'));
-      }
-    })
+    // this._tabungBwiServiceProxy.getTabungBwiForEdit(this.idBwi).subscribe((result)=>{
+    //   this.edit = result;
+    //   this.edit.tabung_bwi = result.tabung_bwi;
+    //   this.no_rujukan_kelulusan = result.rujukan_kelulusan_bwi.no_rujukan_kelulusan;
+    //   this.nama_tabung = result.nama_tabung;
+    //   this.nama_jenis_bencana = result.nama_jenis_bencana;
+    //   this.rujukan_surat = result.rujukan_kelulusan_bwi.rujukan_surat;
+    //   this.perihal_surat = result.rujukan_kelulusan_bwi.perihal_surat;
+    //   if(result.tabung_bwi.tarikh_eft){
+    //     this.modelBencana = this.fromModel(result.tabung_bwi.tarikh_eft.format('YYYY-MM-DD'));
+    //   }
+    //   if(result.tabung_bwi.tarikh_akuan_kp){
+    //     this.modelKejadian = this.fromModel(result.tabung_bwi.tarikh_akuan_kp.format('YYYY-MM-DD'));
+    //   }
+    // })
   }
 
 	reloadPage(): void {
@@ -137,14 +137,14 @@ export class EditWangIhsanComponent implements OnInit {
 	save() {
     this.saving = true;
     this.tabungBwi.bwi = this.edit.tabung_bwi;
-    if(this.modelBencana){
-      this.tarikhBencana = this.toModel(this.modelBencana);
-      this.tabungBwi.bwi.tarikh_eft = moment(this.tarikhBencana, "YYYY-MM-DD");
-    }
-    if(this.modelKejadian){
-      this.tarikhKejadian = this.toModel(this.modelKejadian);
-      this.tabungBwi.bwi.tarikh_akuan_kp = moment(this.tarikhKejadian, "YYYY-MM-DD");
-    }
+    // if(this.modelBencana){
+    //   this.tarikhBencana = this.toModel(this.modelBencana);
+    //   this.tabungBwi.bwi.tarikh_eft = moment(this.tarikhBencana, "YYYY-MM-DD");
+    // }
+    // if(this.modelKejadian){
+    //   this.tarikhKejadian = this.toModel(this.modelKejadian);
+    //   this.tabungBwi.bwi.tarikh_akuan_kp = moment(this.tarikhKejadian, "YYYY-MM-DD");
+    // }
     this._tabungBwiServiceProxy
 			.createOrEdit(this.tabungBwi)
 			.pipe()

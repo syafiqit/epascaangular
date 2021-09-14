@@ -224,7 +224,7 @@
                     rows="3"
                     placeholder="Catatan"
                     name="catatan"
-                    [(ngModel)]="edit.tabung_bwi.catatan"
+
                   ></textarea>
                 </div>
               </div>
@@ -241,14 +241,13 @@
                     name="rujukan_akuan_kp"
                     type="text"
                     placeholder="No. Rujukan"
-                    [(ngModel)]="edit.tabung_bwi.no_rujukan_akuan_kp"
-                    #refAkuanKp="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && refAkuanKp.invalid }"
+
+
                     required
                   />
-                  <div *ngIf="f.submitted && refAkuanKp.invalid" class="invalid-feedback">
+                  <!-- <div *ngIf="f.submitted && refAkuanKp.invalid" class="invalid-feedback">
                     <div *ngIf="refAkuanKp.errors.required">No. Rujukan Wajib Diisi</div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
 
@@ -295,14 +294,13 @@
                     name="rujukan_saluran"
                     type="text"
                     placeholder="No. Rujukan"
-                    [(ngModel)]="edit.tabung_bwi.no_rujukan_saluran_kpd_bkp"
-                    #refSaluran="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && refSaluran.invalid }"
+
+
                     required
                   />
-                  <div *ngIf="f.submitted && refSaluran.invalid" class="invalid-feedback">
+                  <!-- <div *ngIf="f.submitted && refSaluran.invalid" class="invalid-feedback">
                     <div *ngIf="refSaluran.errors.required">No. Rujukan Wajib Diisi</div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
 
@@ -349,14 +347,13 @@
                     name="rujukan_laporan"
                     type="text"
                     placeholder="No. Rujukan"
-                    [(ngModel)]="edit.tabung_bwi.no_rujukan_laporan_kpd_bkp"
-                    #refLaporan="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && refLaporan.invalid }"
+
+
                     required
                   />
-                  <div *ngIf="f.submitted && refLaporan.invalid" class="invalid-feedback">
+                  <!-- <div *ngIf="f.submitted && refLaporan.invalid" class="invalid-feedback">
                     <div *ngIf="refLaporan.errors.required">No. Rujukan Wajib Diisi</div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
 
@@ -403,14 +400,13 @@
                     name="rujukan_majlis"
                     type="text"
                     placeholder="No. Rujukan"
-                    [(ngModel)]="edit.tabung_bwi.no_rujukan_makluman_majlis"
-                    #refMajlis="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && refMajlis.invalid }"
+
+
                     required
                   />
-                  <div *ngIf="f.submitted && refMajlis.invalid" class="invalid-feedback">
+                  <!-- <div *ngIf="f.submitted && refMajlis.invalid" class="invalid-feedback">
                     <div *ngIf="refMajlis.errors.required">No. Rujukan Wajib Diisi</div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
 

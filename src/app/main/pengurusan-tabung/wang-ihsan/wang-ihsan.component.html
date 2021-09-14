@@ -56,37 +56,6 @@
                     <div class="row mt-2">
                       <div class="col-lg-4">
                         <div class="form-group">
-                          <label>Negeri</label>
-                          <ng-select
-                            [items]="negeri"
-                            bindLabel="nama_negeri"
-                            bindValue="id"
-                            placeholder="Sila Pilih"
-                            class="js-example-placeholder-multiple"
-                            name="negeri"
-                            [(ngModel)]="filterNegeri"
-                            (ngModelChange)="getDaerah()"
-                          ></ng-select>
-                        </div>
-                      </div>
-
-                      <div class="col-lg-4">
-                        <div class="form-group">
-                          <label>Daerah</label>
-                          <ng-select
-                            [items]="daerah"
-                            bindLabel="nama_daerah"
-                            bindValue="id"
-                            placeholder="Sila Pilih"
-                            class="js-example-placeholder-multiple"
-                            name="daerah"
-                            [(ngModel)]="filterDaerah"
-                          ></ng-select>
-                        </div>
-                      </div>
-
-                      <div class="col-lg-4">
-                        <div class="form-group">
                           <label>Jenis Bencana</label>
                           <ng-select
                             [items]="jenisBencana"
@@ -114,7 +83,7 @@
                       <button
                         class="btn btn-primary pull-right"
                         type="button"
-                        (click)="getSenaraiBWI()"
+                        (click)="getBantuanWangIhsan()"
                       >
                       <i class="fa fa-search mr-2"></i>
                         <b>Cari</b>
@@ -133,7 +102,7 @@
 							styleClass="p-datatable-striped"
 							[resizableColumns]="true"
               [loading]="primengTableHelper.isLoading"
-							(onLazyLoad)="getSenaraiBWI($event)"
+							(onLazyLoad)="getBantuanWangIhsan($event)"
 							[value]="primengTableHelper.records"
 							rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
 							[paginator]="false"
@@ -161,13 +130,13 @@
 									  Tarikh
 										<p-sortIcon field="tarikh"></p-sortIcon>
 									</th>
-									<th style="width: 120px" pSortableColumn="negeri_didaftarkan">
+									<th style="width: 120px" pSortableColumn="jumlah_negeri">
 										Jumlah Negeri Didaftarkan
-										<p-sortIcon field="negeri_didaftarkan"></p-sortIcon>
+										<p-sortIcon field="jumlah_negeri"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="jumlah_keseluruhan_bayaran">
+									<th style="width: 130px" pSortableColumn="jumlah_bayaran_bwi">
 										Jumlah Keseluruhan Bayaran
-										<p-sortIcon field="jumlah_keseluruhan_bayaran"></p-sortIcon>
+										<p-sortIcon field="jumlah_bayaran_bwi"></p-sortIcon>
 									</th>
                   <th style="width: 150px">Tindakan</th>
 								</tr>
@@ -176,27 +145,30 @@
 								<tr>
                   <td style="width: 150px">
 										<span class="p-column-title">No. Rujukan</span>
-                    {{record.no_rujukan}}
+                    <label *ngIf="record.no_rujukan_bwi">{{record.no_rujukan_bwi}}</label>
+                    <label *ngIf="!record.no_rujukan_bwi">-</label>
 									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">Jenis (BWI)</span>
-                    {{record.jenis_bwi}}
+                    {{record.nama_jenis_bwi}}
 									</td>
 									<td style="width: 150px">
 										<span class="p-column-title">Nama Bencana</span>
-                    {{record.nama_bencana}}
+                    <label *ngIf="record.nama_bencana">{{record.nama_bencana}}</label>
+                    <label *ngIf="!record.nama_bencana">-</label>
 									</td>
 									<td style="width: 110px">
 										<span class="p-column-title">Tarikh</span>
-                    {{record.tarikh}}
+                    <label *ngIf="record.tarikh_bencana">{{record.tarikh_bencana | date:'dd-MM-yyyy'}}</label>
+                    <label *ngIf="!record.tarikh_bencana">-</label>
 									</td>
 									<td style="width: 120px">
 										<span class="p-column-title">Jumlah Negeri Didaftarkan</span>
-                    {{record.negeri_didaftarkan}}
+                    {{record.jumlah_negeri}}
 									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">Jumlah Keseluruhan Bayaran</span>
-                    {{record.jumlah_keseluruhan_bayaran}}
+                    {{record.jumlah_bayaran_bwi}}
 									</td>
                   <td style="width: 150px">
 										<div ngbDropdown class="btn-group" role="group" container="body">
@@ -228,7 +200,7 @@
 							<p-paginator
 								[rows]="primengTableHelper.defaultRecordsCountPerPage"
 								#paginator
-								(onPageChange)="getSenaraiBWI($event)"
+								(onPageChange)="getBantuanWangIhsan($event)"
 								[totalRecords]="primengTableHelper.totalRecordsCount"
 								[rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
 							></p-paginator>

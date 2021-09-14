@@ -96,21 +96,21 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
       this.dateDisaster = this.toModel(this.model);
       this.pengurusan_bencana.tarikh_bencana = moment(this.dateDisaster, "YYYY-MM-DD");
     }
-		this._refBencanaServiceProxy
-			.createOrEdit(this.pengurusan_bencana)
-			.pipe(
-				finalize(() => {
-					this.saving = false;
-				})
-			)
-			.subscribe(() => {
-				if (this.name == 'add') {
-					swalSuccess.fire('Berjaya!', 'Maklumat Agensi Berjaya disimpan.', 'success');
-				} else if (this.name == 'edit') {
-					swalSuccess.fire('Berjaya!', 'Maklumat Agensi Berjaya dikemaskini.', 'success');
-				}
-				this.activeModal.close(true);
-			});
+		// this._refBencanaServiceProxy
+		// 	.createOrEdit(this.pengurusan_bencana)
+		// 	.pipe(
+		// 		finalize(() => {
+		// 			this.saving = false;
+		// 		})
+		// 	)
+		// 	.subscribe(() => {
+		// 		if (this.name == 'add') {
+		// 			swalSuccess.fire('Berjaya!', 'Maklumat Agensi Berjaya disimpan.', 'success');
+		// 		} else if (this.name == 'edit') {
+		// 			swalSuccess.fire('Berjaya!', 'Maklumat Agensi Berjaya dikemaskini.', 'success');
+		// 		}
+		// 		this.activeModal.close(true);
+		// 	});
 	}
 
 }
