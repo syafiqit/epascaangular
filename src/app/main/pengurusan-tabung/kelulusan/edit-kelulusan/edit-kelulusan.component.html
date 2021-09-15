@@ -1,5 +1,5 @@
 <app-breadcrumb
-	[title]="'Tambah Kelulusan (KWABBN)'"
+	[title]="'Kemaskini Kelulusan'"
 	[items]="['Pengurusan Tabung']"
 	[active_item]="'Kelulusan'"
 ></app-breadcrumb>
@@ -31,7 +31,7 @@
 									placeholder="Sila Pilih"
 									class="js-example-placeholder-multiple"
 									name="komitmen"
-									[(ngModel)]="kelulusan.id_komitmen" 
+									[(ngModel)]="kelulusan.id_komitmen"
 									#status="ngModel"
 									[ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
 									required>
@@ -41,7 +41,7 @@
 								</div>
 							</div>
 						</div>
-						
+
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
@@ -156,7 +156,7 @@
 										placeholder="Sila Pilih"
 										class="js-example-placeholder-multiple"
 										name="status_tabung_kelulusan"
-										[(ngModel)]="kelulusan.status_tabung_kelulusan" 
+										[(ngModel)]="kelulusan.status_tabung_kelulusan"
 										#status="ngModel"
 										[ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
 										required>
