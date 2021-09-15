@@ -41,7 +41,7 @@
 							<div class="col-lg-4">
 								<div class="form-group">
 									<label>Jumlah Dana Awal:&nbsp;</label>
-									<label *ngIf="getTabung.dana_awal">RM {{getTabung.dana_awal}}</label>
+									<label *ngIf="getTabung.dana_awal">RM {{getTabung.dana_awal | number: '1.2-2'}}</label>
                   <label *ngIf="!getTabung.dana_awal">RM 0.00</label>
 								</div>
 							</div>
@@ -49,7 +49,7 @@
               <div class="col-lg-4">
 								<div class="form-group">
                   <label>Jumlah Dana Tambahan:&nbsp;</label>
-									<label *ngIf="getTabung.dana_tambahan">RM {{getTabung.dana_tambahan}}</label>
+									<label *ngIf="getTabung.dana_tambahan">RM {{getTabung.dana_tambahan | number: '1.2-2'}}</label>
                   <label *ngIf="!getTabung.dana_tambahan">RM 0.00</label>
 								</div>
 							</div>
@@ -57,7 +57,7 @@
               <div class="col-lg-4">
 								<div class="form-group">
 									<label>Jumlah Baki Bawaan:&nbsp;</label>
-                  <label *ngIf="getTabung.tabung.baki_bawaan">RM {{getTabung.tabung.baki_bawaan}}</label>
+                  <label *ngIf="getTabung.tabung.baki_bawaan">RM {{getTabung.tabung.baki_bawaan | number: '1.2-2'}}</label>
                   <label *ngIf="!getTabung.tabung.baki_bawaan">RM 0.00</label>
 								</div>
 							</div>
@@ -67,7 +67,7 @@
               <div class="col-lg-4">
 								<div class="form-group">
 									<label>Jumlah Perbelanjaan:&nbsp;</label>
-                  <label *ngIf="getTabung.tabung.jumlah_perbelanjaan_semasa">RM {{getTabung.tabung.jumlah_perbelanjaan_semasa}}</label>
+                  <label *ngIf="getTabung.tabung.jumlah_perbelanjaan_semasa">RM {{getTabung.tabung.jumlah_perbelanjaan_semasa | number: '1.2-2'}}</label>
                   <label *ngIf="!getTabung.tabung.jumlah_perbelanjaan_semasa">RM 0.00</label>
 								</div>
 							</div>
@@ -75,7 +75,7 @@
               <div class="col-lg-4">
 								<div class="form-group">
 									<label>Jumlah Baki Semasa:&nbsp;</label>
-                  <label *ngIf="getTabung.tabung.jumlah_baki_semasa">RM {{getTabung.tabung.jumlah_baki_semasa}}</label>
+                  <label *ngIf="getTabung.tabung.jumlah_baki_semasa">RM {{getTabung.tabung.jumlah_baki_semasa | number: '1.2-2'}}</label>
                   <label *ngIf="!getTabung.tabung.jumlah_baki_semasa">RM 0.00</label>
 								</div>
 							</div>
@@ -83,7 +83,7 @@
 							<div class="col-lg-4">
 								<div class="form-group">
 									<label>Jumlah Keseluruhan:&nbsp;</label>
-									<label *ngIf="getTabung.tabung.jumlah_keseluruhan">RM {{getTabung.tabung.jumlah_keseluruhan}}</label>
+									<label *ngIf="getTabung.tabung.jumlah_keseluruhan">RM {{getTabung.tabung.jumlah_keseluruhan | number: '1.2-2'}}</label>
                   <label *ngIf="!getTabung.tabung.jumlah_keseluruhan">RM 0.00</label>
 								</div>
 							</div>
@@ -194,7 +194,7 @@
                         </td>
                         <td style="width: 130px">
                           <span class="p-column-title">Jumlah</span>
-                          {{record.jumlah}}
+                          RM {{record.jumlah | number: '1.2-2'}}
                         </td>
                         <td style="width: 130px">
                           <span class="p-column-title">Catatan</span>
@@ -336,7 +336,7 @@
 												</td>
 												<td style="width: 130px">
 													<span class="p-column-title">Siling Peruntukan</span>
-                          <label *ngIf="records.peruntukan">{{records.peruntukan}}</label>
+                          <label *ngIf="records.peruntukan">{{records.peruntukan | number: '1.2-2'}}</label>
 													<label *ngIf="!records.peruntukan">RM 0.00</label>
 												</td>
                         <td style="width: 186px">
@@ -349,12 +349,12 @@
 												</td>
                         <td style="width: 170px">
 													<span class="p-column-title">Jumlah Belanja</span>
-                          <label *ngIf="records.jumlah_belanja">{{records.jumlah_belanja}}</label>
+                          <label *ngIf="records.jumlah_belanja">RM {{records.jumlah_belanja | number: '1.2-2'}}</label>
 													<label *ngIf="!records.jumlah_belanja">RM 0.00</label>
 												</td>
                         <td style="width: 170px">
 													<span class="p-column-title">Baki Peruntukan</span>
-                          <label *ngIf="records.baki_jumlah_siling">{{records.baki_jumlah_siling}}</label>
+                          <label *ngIf="records.baki_jumlah_siling">RM {{records.baki_jumlah_siling | number: '1.2-2'}}</label>
                           <label *ngIf="!records.baki_jumlah_siling">RM 0.00</label>
 												</td>
                         <td style="width: 130px">

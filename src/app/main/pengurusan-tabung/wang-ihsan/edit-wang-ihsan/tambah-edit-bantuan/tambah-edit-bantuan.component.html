@@ -151,15 +151,17 @@
           </td>
           <td style="width: 130px">
             <span class="p-column-title">Jumlah Diberikan</span>
-            RM {{record.jumlah_bantuan}}
+            RM {{record.jumlah_bwi}}
           </td>
           <td style="width: 145px">
             <span class="p-column-title">Jumlah Dipulangkan</span>
-            RM {{record.jumlah_pulangan}}
+            <label *ngIf="record.jumlah_kembali">RM {{record.jumlah_kembali}}</label>
+            <label *ngIf="!record.jumlah_kembali">RM 0.00</label>
           </td>
           <td style="width: 100px">
             <span class="p-column-title">Jumlah KIR</span>
-            {{record.jumlah_kir}}
+            <label *ngIf="record.jumlah_kir">{{record.jumlah_kir}}</label>
+            <label *ngIf="!record.jumlah_kir">0</label>
           </td>
           <td style="width: 150px">
             <div ngbDropdown class="btn-group" role="group" container="body">
@@ -177,6 +179,7 @@
                 <button
                   class="dropdown-item"
                   [routerLink]="['/app/tabung/edit-wang-ihsan/kir']"
+                  [queryParams]="{idKawasan: record.id, idBencana: idBencana, idJenisBwi: idJenisBwi}"
                 >
                   Lihat
                 </button>

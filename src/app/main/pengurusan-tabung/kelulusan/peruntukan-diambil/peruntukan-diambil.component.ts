@@ -10,6 +10,7 @@ import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 export class PeruntukanDiambilComponent implements OnInit {
   @Input() id_tabung;
   @Input() id_tabung_kelulusan;
+  @Input() baki_jumlah_siling;
 
   saving:any;
   peruntukan: CreateOrEditTabungKelulusanAmbilanDto = new CreateOrEditTabungKelulusanAmbilanDto();

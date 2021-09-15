@@ -15952,6 +15952,67 @@ export class TabungKelulusanServiceProxy {
     }
 
     /**
+     * Get all TabungKelulusan
+     * @param filterIdKelulusan (optional) Filter records with a integer
+     * @return Success
+     */
+    getKategoriTabungByKelulusan(filterIdKelulusan: number | undefined): Observable<PagedResultDtoOfKategoriBayaranDto> {
+        let url_ = this.baseUrl + "/api/tabungKelulusan/getKategoriTabungByKelulusan?";
+        if (filterIdKelulusan === null)
+            throw new Error("The parameter 'filterIdKelulusan' cannot be null.");
+        else if (filterIdKelulusan !== undefined)
+            url_ += "filterIdKelulusan=" + encodeURIComponent("" + filterIdKelulusan) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetKategoriTabungByKelulusan(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetKategoriTabungByKelulusan(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfKategoriBayaranDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfKategoriBayaranDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetKategoriTabungByKelulusan(response: HttpResponseBase): Observable<PagedResultDtoOfKategoriBayaranDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfKategoriBayaranDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfKategoriBayaranDto>(<any>null);
+    }
+
+    /**
      * Get all TabungKelulusan For Lookup Table
      * @param filter (optional) Filter records with a string
      * @param filterTabung (optional) Filter records with a integer
@@ -33983,8 +34044,11 @@ export class CreateOrEditTabungBwiKawasanDto implements ICreateOrEditTabungBwiKa
     id_tabung_bwi!: number;
     id_daerah!: number;
     id_negeri!: number;
+    jumlah_bwi!: number;
     jumlah_kir!: number;
+    jumlah_kembali!: number;
     tarikh_eft!: moment.Moment;
+    catatan!: string;
     no_rujukan_akuan_kp!: string;
     tarikh_akuan_kp!: moment.Moment;
     no_rujukan_saluran_kpd_bkp!: string;
@@ -34001,6 +34065,9 @@ export class CreateOrEditTabungBwiKawasanDto implements ICreateOrEditTabungBwiKa
     id_pengguna_hapus!: number;
     tarikh_hapus!: moment.Moment;
     sebab_hapus!: string;
+    due_report!: moment.Moment;
+    no_rujukan_majlis_drp_apm!: string;
+    tarikh_majlis_drp_apm!: moment.Moment;
 
     constructor(data?: ICreateOrEditTabungBwiKawasanDto) {
         if (data) {
@@ -34017,8 +34084,11 @@ export class CreateOrEditTabungBwiKawasanDto implements ICreateOrEditTabungBwiKa
             this.id_tabung_bwi = _data["id_tabung_bwi"];
             this.id_daerah = _data["id_daerah"];
             this.id_negeri = _data["id_negeri"];
+            this.jumlah_bwi = _data["jumlah_bwi"];
             this.jumlah_kir = _data["jumlah_kir"];
+            this.jumlah_kembali = _data["jumlah_kembali"];
             this.tarikh_eft = _data["tarikh_eft"] ? moment(_data["tarikh_eft"].toString()) : <any>undefined;
+            this.catatan = _data["catatan"];
             this.no_rujukan_akuan_kp = _data["no_rujukan_akuan_kp"];
             this.tarikh_akuan_kp = _data["tarikh_akuan_kp"] ? moment(_data["tarikh_akuan_kp"].toString()) : <any>undefined;
             this.no_rujukan_saluran_kpd_bkp = _data["no_rujukan_saluran_kpd_bkp"];
@@ -34035,6 +34105,9 @@ export class CreateOrEditTabungBwiKawasanDto implements ICreateOrEditTabungBwiKa
             this.id_pengguna_hapus = _data["id_pengguna_hapus"];
             this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
             this.sebab_hapus = _data["sebab_hapus"];
+            this.due_report = _data["due_report"] ? moment(_data["due_report"].toString()) : <any>undefined;
+            this.no_rujukan_majlis_drp_apm = _data["no_rujukan_majlis_drp_apm"];
+            this.tarikh_majlis_drp_apm = _data["tarikh_majlis_drp_apm"] ? moment(_data["tarikh_majlis_drp_apm"].toString()) : <any>undefined;
         }
     }
 
@@ -34051,8 +34124,11 @@ export class CreateOrEditTabungBwiKawasanDto implements ICreateOrEditTabungBwiKa
         data["id_tabung_bwi"] = this.id_tabung_bwi;
         data["id_daerah"] = this.id_daerah;
         data["id_negeri"] = this.id_negeri;
+        data["jumlah_bwi"] = this.jumlah_bwi;
         data["jumlah_kir"] = this.jumlah_kir;
+        data["jumlah_kembali"] = this.jumlah_kembali;
         data["tarikh_eft"] = this.tarikh_eft ? this.tarikh_eft.toISOString() : <any>undefined;
+        data["catatan"] = this.catatan;
         data["no_rujukan_akuan_kp"] = this.no_rujukan_akuan_kp;
         data["tarikh_akuan_kp"] = this.tarikh_akuan_kp ? this.tarikh_akuan_kp.toISOString() : <any>undefined;
         data["no_rujukan_saluran_kpd_bkp"] = this.no_rujukan_saluran_kpd_bkp;
@@ -34069,6 +34145,9 @@ export class CreateOrEditTabungBwiKawasanDto implements ICreateOrEditTabungBwiKa
         data["id_pengguna_hapus"] = this.id_pengguna_hapus;
         data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
+        data["due_report"] = this.due_report ? this.due_report.toISOString() : <any>undefined;
+        data["no_rujukan_majlis_drp_apm"] = this.no_rujukan_majlis_drp_apm;
+        data["tarikh_majlis_drp_apm"] = this.tarikh_majlis_drp_apm ? this.tarikh_majlis_drp_apm.toISOString() : <any>undefined;
         return data; 
     }
 }
@@ -34078,8 +34157,11 @@ export interface ICreateOrEditTabungBwiKawasanDto {
     id_tabung_bwi: number;
     id_daerah: number;
     id_negeri: number;
+    jumlah_bwi: number;
     jumlah_kir: number;
+    jumlah_kembali: number;
     tarikh_eft: moment.Moment;
+    catatan: string;
     no_rujukan_akuan_kp: string;
     tarikh_akuan_kp: moment.Moment;
     no_rujukan_saluran_kpd_bkp: string;
@@ -34096,6 +34178,9 @@ export interface ICreateOrEditTabungBwiKawasanDto {
     id_pengguna_hapus: number;
     tarikh_hapus: moment.Moment;
     sebab_hapus: string;
+    due_report: moment.Moment;
+    no_rujukan_majlis_drp_apm: string;
+    tarikh_majlis_drp_apm: moment.Moment;
 }
 
 export class GetTabungBwiKawasanForEditDto implements IGetTabungBwiKawasanForEditDto {
@@ -34139,24 +34224,11 @@ export class GetTabungBwiKawasanForViewDto implements IGetTabungBwiKawasanForVie
     id_tabung_bwi!: number;
     id_daerah!: number;
     id_negeri!: number;
+    jumlah_bwi!: number;
     jumlah_kir!: number;
-    tarikh_eft!: moment.Moment;
-    no_rujukan_akuan_kp!: string;
-    tarikh_akuan_kp!: moment.Moment;
-    no_rujukan_saluran_kpd_bkp!: string;
-    tarikh_saluran_kpd_bkp!: moment.Moment;
-    no_rujukan_laporan_kpd_bkp!: string;
-    tarikh_laporan_kpd_bkp!: moment.Moment;
-    no_rujukan_makluman_majlis!: string;
-    tarikh_makluman_majlis!: moment.Moment;
-    tarikh_majlis_makluman_majlis!: moment.Moment;
-    id_pengguna_cipta!: number;
-    tarikh_cipta!: moment.Moment;
-    id_pengguna_kemaskini!: number;
-    tarikh_kemaskini!: moment.Moment;
-    id_pengguna_hapus!: number;
-    tarikh_hapus!: moment.Moment;
-    sebab_hapus!: string;
+    jumlah_kembali!: number;
+    nama_negeri!: string;
+    nama_daerah!: string;
 
     constructor(data?: IGetTabungBwiKawasanForViewDto) {
         if (data) {
@@ -34173,24 +34245,11 @@ export class GetTabungBwiKawasanForViewDto implements IGetTabungBwiKawasanForVie
             this.id_tabung_bwi = _data["id_tabung_bwi"];
             this.id_daerah = _data["id_daerah"];
             this.id_negeri = _data["id_negeri"];
+            this.jumlah_bwi = _data["jumlah_bwi"];
             this.jumlah_kir = _data["jumlah_kir"];
-            this.tarikh_eft = _data["tarikh_eft"] ? moment(_data["tarikh_eft"].toString()) : <any>undefined;
-            this.no_rujukan_akuan_kp = _data["no_rujukan_akuan_kp"];
-            this.tarikh_akuan_kp = _data["tarikh_akuan_kp"] ? moment(_data["tarikh_akuan_kp"].toString()) : <any>undefined;
-            this.no_rujukan_saluran_kpd_bkp = _data["no_rujukan_saluran_kpd_bkp"];
-            this.tarikh_saluran_kpd_bkp = _data["tarikh_saluran_kpd_bkp"] ? moment(_data["tarikh_saluran_kpd_bkp"].toString()) : <any>undefined;
-            this.no_rujukan_laporan_kpd_bkp = _data["no_rujukan_laporan_kpd_bkp"];
-            this.tarikh_laporan_kpd_bkp = _data["tarikh_laporan_kpd_bkp"] ? moment(_data["tarikh_laporan_kpd_bkp"].toString()) : <any>undefined;
-            this.no_rujukan_makluman_majlis = _data["no_rujukan_makluman_majlis"];
-            this.tarikh_makluman_majlis = _data["tarikh_makluman_majlis"] ? moment(_data["tarikh_makluman_majlis"].toString()) : <any>undefined;
-            this.tarikh_majlis_makluman_majlis = _data["tarikh_majlis_makluman_majlis"] ? moment(_data["tarikh_majlis_makluman_majlis"].toString()) : <any>undefined;
-            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
-            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
-            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
-            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
-            this.id_pengguna_hapus = _data["id_pengguna_hapus"];
-            this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
-            this.sebab_hapus = _data["sebab_hapus"];
+            this.jumlah_kembali = _data["jumlah_kembali"];
+            this.nama_negeri = _data["nama_negeri"];
+            this.nama_daerah = _data["nama_daerah"];
         }
     }
 
@@ -34207,24 +34266,11 @@ export class GetTabungBwiKawasanForViewDto implements IGetTabungBwiKawasanForVie
         data["id_tabung_bwi"] = this.id_tabung_bwi;
         data["id_daerah"] = this.id_daerah;
         data["id_negeri"] = this.id_negeri;
+        data["jumlah_bwi"] = this.jumlah_bwi;
         data["jumlah_kir"] = this.jumlah_kir;
-        data["tarikh_eft"] = this.tarikh_eft ? this.tarikh_eft.toISOString() : <any>undefined;
-        data["no_rujukan_akuan_kp"] = this.no_rujukan_akuan_kp;
-        data["tarikh_akuan_kp"] = this.tarikh_akuan_kp ? this.tarikh_akuan_kp.toISOString() : <any>undefined;
-        data["no_rujukan_saluran_kpd_bkp"] = this.no_rujukan_saluran_kpd_bkp;
-        data["tarikh_saluran_kpd_bkp"] = this.tarikh_saluran_kpd_bkp ? this.tarikh_saluran_kpd_bkp.toISOString() : <any>undefined;
-        data["no_rujukan_laporan_kpd_bkp"] = this.no_rujukan_laporan_kpd_bkp;
-        data["tarikh_laporan_kpd_bkp"] = this.tarikh_laporan_kpd_bkp ? this.tarikh_laporan_kpd_bkp.toISOString() : <any>undefined;
-        data["no_rujukan_makluman_majlis"] = this.no_rujukan_makluman_majlis;
-        data["tarikh_makluman_majlis"] = this.tarikh_makluman_majlis ? this.tarikh_makluman_majlis.toISOString() : <any>undefined;
-        data["tarikh_majlis_makluman_majlis"] = this.tarikh_majlis_makluman_majlis ? this.tarikh_majlis_makluman_majlis.toISOString() : <any>undefined;
-        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
-        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
-        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
-        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
-        data["id_pengguna_hapus"] = this.id_pengguna_hapus;
-        data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
-        data["sebab_hapus"] = this.sebab_hapus;
+        data["jumlah_kembali"] = this.jumlah_kembali;
+        data["nama_negeri"] = this.nama_negeri;
+        data["nama_daerah"] = this.nama_daerah;
         return data; 
     }
 }
@@ -34234,24 +34280,11 @@ export interface IGetTabungBwiKawasanForViewDto {
     id_tabung_bwi: number;
     id_daerah: number;
     id_negeri: number;
+    jumlah_bwi: number;
     jumlah_kir: number;
-    tarikh_eft: moment.Moment;
-    no_rujukan_akuan_kp: string;
-    tarikh_akuan_kp: moment.Moment;
-    no_rujukan_saluran_kpd_bkp: string;
-    tarikh_saluran_kpd_bkp: moment.Moment;
-    no_rujukan_laporan_kpd_bkp: string;
-    tarikh_laporan_kpd_bkp: moment.Moment;
-    no_rujukan_makluman_majlis: string;
-    tarikh_makluman_majlis: moment.Moment;
-    tarikh_majlis_makluman_majlis: moment.Moment;
-    id_pengguna_cipta: number;
-    tarikh_cipta: moment.Moment;
-    id_pengguna_kemaskini: number;
-    tarikh_kemaskini: moment.Moment;
-    id_pengguna_hapus: number;
-    tarikh_hapus: moment.Moment;
-    sebab_hapus: string;
+    jumlah_kembali: number;
+    nama_negeri: string;
+    nama_daerah: string;
 }
 
 /** TabungBwiKawasan List in Tabular model */
@@ -34310,19 +34343,12 @@ export interface IPagedResultDtoOfTabungBwiKawasanForViewDto {
 
 export class CreateOrEditTabungBwiDto implements ICreateOrEditTabungBwiDto {
     id!: number;
-    no_rujukan_bwi!: string;
     id_jenis_bwi!: number;
     id_bencana!: number;
-    nama_kejadian!: string;
-    tarikh_kejadian!: moment.Moment;
-    id_pengguna_cipta!: number;
-    tarikh_cipta!: moment.Moment;
-    id_pengguna_kemaskini!: number;
-    tarikh_kemaskini!: moment.Moment;
-    id_pengguna_hapus!: number;
-    tarikh_hapus!: moment.Moment;
-    sebab_hapus!: string;
-    hapus!: boolean;
+    no_rujukan_bwi!: string;
+    nama_jenis_bwi!: string;
+    nama_bencana!: string;
+    tarikh_bencana!: moment.Moment;
 
     constructor(data?: ICreateOrEditTabungBwiDto) {
         if (data) {
@@ -34336,19 +34362,12 @@ export class CreateOrEditTabungBwiDto implements ICreateOrEditTabungBwiDto {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
-            this.no_rujukan_bwi = _data["no_rujukan_bwi"];
             this.id_jenis_bwi = _data["id_jenis_bwi"];
             this.id_bencana = _data["id_bencana"];
-            this.nama_kejadian = _data["nama_kejadian"];
-            this.tarikh_kejadian = _data["tarikh_kejadian"] ? moment(_data["tarikh_kejadian"].toString()) : <any>undefined;
-            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
-            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
-            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
-            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
-            this.id_pengguna_hapus = _data["id_pengguna_hapus"];
-            this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
-            this.sebab_hapus = _data["sebab_hapus"];
-            this.hapus = _data["hapus"];
+            this.no_rujukan_bwi = _data["no_rujukan_bwi"];
+            this.nama_jenis_bwi = _data["nama_jenis_bwi"];
+            this.nama_bencana = _data["nama_bencana"];
+            this.tarikh_bencana = _data["tarikh_bencana"] ? moment(_data["tarikh_bencana"].toString()) : <any>undefined;
         }
     }
 
@@ -34362,38 +34381,24 @@ export class CreateOrEditTabungBwiDto implements ICreateOrEditTabungBwiDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        data["no_rujukan_bwi"] = this.no_rujukan_bwi;
         data["id_jenis_bwi"] = this.id_jenis_bwi;
         data["id_bencana"] = this.id_bencana;
-        data["nama_kejadian"] = this.nama_kejadian;
-        data["tarikh_kejadian"] = this.tarikh_kejadian ? this.tarikh_kejadian.toISOString() : <any>undefined;
-        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
-        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
-        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
-        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
-        data["id_pengguna_hapus"] = this.id_pengguna_hapus;
-        data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
-        data["sebab_hapus"] = this.sebab_hapus;
-        data["hapus"] = this.hapus;
+        data["no_rujukan_bwi"] = this.no_rujukan_bwi;
+        data["nama_jenis_bwi"] = this.nama_jenis_bwi;
+        data["nama_bencana"] = this.nama_bencana;
+        data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
         return data; 
     }
 }
 
 export interface ICreateOrEditTabungBwiDto {
     id: number;
-    no_rujukan_bwi: string;
     id_jenis_bwi: number;
     id_bencana: number;
-    nama_kejadian: string;
-    tarikh_kejadian: moment.Moment;
-    id_pengguna_cipta: number;
-    tarikh_cipta: moment.Moment;
-    id_pengguna_kemaskini: number;
-    tarikh_kemaskini: moment.Moment;
-    id_pengguna_hapus: number;
-    tarikh_hapus: moment.Moment;
-    sebab_hapus: string;
-    hapus: boolean;
+    no_rujukan_bwi: string;
+    nama_jenis_bwi: string;
+    nama_bencana: string;
+    tarikh_bencana: moment.Moment;
 }
 
 export class GetAllKirForViewDto implements IGetAllKirForViewDto {
@@ -35258,6 +35263,46 @@ export interface IGetBayaranTerusByIdKelulusanDto {
     jumlah: number;
 }
 
+export class GetKelulusanByKategoriBayaranDto implements IGetKelulusanByKategoriBayaranDto {
+    kategori!: string;
+    jumlah!: number;
+
+    constructor(data?: IGetKelulusanByKategoriBayaranDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.kategori = _data["kategori"];
+            this.jumlah = _data["jumlah"];
+        }
+    }
+
+    static fromJS(data: any): GetKelulusanByKategoriBayaranDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetKelulusanByKategoriBayaranDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["kategori"] = this.kategori;
+        data["jumlah"] = this.jumlah;
+        return data; 
+    }
+}
+
+export interface IGetKelulusanByKategoriBayaranDto {
+    kategori: string;
+    jumlah: number;
+}
+
 export class GetSkbByIdKelulusanDto implements IGetSkbByIdKelulusanDto {
     no_rujukan_skb!: string;
     jumlah!: number;
@@ -35516,6 +35561,60 @@ export interface IPagedResultDtoOfBayaranTerusByKelulusanDto {
     total_terus: number;
     /** Items in array of object */
     items: GetBayaranTerusByIdKelulusanDto[];
+}
+
+/** TabungKelulusan List in Tabular model */
+export class PagedResultDtoOfKategoriBayaranDto implements IPagedResultDtoOfKategoriBayaranDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetKelulusanByKategoriBayaranDto[];
+
+    constructor(data?: IPagedResultDtoOfKategoriBayaranDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetKelulusanByKategoriBayaranDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfKategoriBayaranDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfKategoriBayaranDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** TabungKelulusan List in Tabular model */
+export interface IPagedResultDtoOfKategoriBayaranDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetKelulusanByKategoriBayaranDto[];
 }
 
 /** TabungKelulusan List in Tabular model */

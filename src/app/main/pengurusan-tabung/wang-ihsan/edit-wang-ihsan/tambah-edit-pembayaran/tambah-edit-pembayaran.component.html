@@ -16,7 +16,7 @@
       styleClass="p-datatable-striped"
       [resizableColumns]="true"
       [loading]="primengTableHelper.isLoading"
-      (onLazyLoad)="getPembayaran($event)"
+      (onLazyLoad)="getBayaranBwi($event)"
       [value]="primengTableHelper.records"
       rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
       [paginator]="false"
@@ -28,9 +28,9 @@
     >
       <ng-template pTemplate="header">
         <tr>
-          <th style="width: 150px" pSortableColumn="no_bayaran">
+          <th style="width: 150px" pSortableColumn="no_rujukan_terus">
             No. Bayaran
-            <p-sortIcon field="no_bayaran"></p-sortIcon>
+            <p-sortIcon field="no_rujukan_terus"></p-sortIcon>
           </th>
           <th style="width: 130px" pSortableColumn="perihal">
             Perihal
@@ -40,9 +40,9 @@
             No. Kelulusan
             <p-sortIcon field="no_rujukan_kelulusan"></p-sortIcon>
           </th>
-          <th style="width: 110px" pSortableColumn="jumlah_bayaran">
+          <th style="width: 110px" pSortableColumn="jumlah">
             Jumlah
-            <p-sortIcon field="jumlah_bayaran"></p-sortIcon>
+            <p-sortIcon field="jumlah"></p-sortIcon>
           </th>
           <th style="width: 150px">Tindakan</th>
         </tr>
@@ -51,7 +51,7 @@
         <tr>
           <td style="width: 150px">
             <span class="p-column-title">No. Bayaran</span>
-            {{record.no_bayaran}}
+            {{record.no_rujukan_terus}}
           </td>
           <td style="width: 130px">
             <span class="p-column-title">Perihal</span>
@@ -63,7 +63,7 @@
           </td>
           <td style="width: 110px">
             <span class="p-column-title">Jumlah</span>
-            {{record.jumlah_bayaran}}
+            {{record.jumlah}}
           </td>
           <td style="width: 150px">
             <div ngbDropdown class="btn-group" role="group" container="body">
@@ -94,7 +94,7 @@
       <p-paginator
         [rows]="primengTableHelper.defaultRecordsCountPerPage"
         #paginator
-        (onPageChange)="getPembayaran($event)"
+        (onPageChange)="getBayaranBwi($event)"
         [totalRecords]="primengTableHelper.totalRecordsCount"
         [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
       ></p-paginator>

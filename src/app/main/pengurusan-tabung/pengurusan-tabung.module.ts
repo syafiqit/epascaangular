@@ -40,6 +40,8 @@ import { TambahEditBantuanComponent } from './wang-ihsan/edit-wang-ihsan/tambah-
 import { PilihBencanaBwiComponent } from './wang-ihsan/pilih-bencana/pilih-bencana-bwi.component';
 import { PilihBencanaKelulusanComponent } from './kelulusan/pilih-bencana-kelulusan/pilih-bencana-kelulusan.component';
 import { PeruntukanDiambilComponent } from './kelulusan/peruntukan-diambil/peruntukan-diambil.component';
+import { TambahEditKawasanBantuanComponent } from './wang-ihsan/edit-wang-ihsan/tambah-edit-kawasan-bantuan/tambah-edit-kawasan-bantuan.component';
+import { TambahEditKirBwiComponent } from './wang-ihsan/edit-wang-ihsan/tambah-edit-kir/tambah-edit-kir-bwi/tambah-edit-kir-bwi.component';
 
 @NgModule({
 	imports: [
@@ -85,7 +87,9 @@ import { PeruntukanDiambilComponent } from './kelulusan/peruntukan-diambil/perun
     TambahEditBantuanComponent,
     PilihBencanaKelulusanComponent,
     PeruntukanDiambilComponent,
-    PilihBencanaBwiComponent
+    PilihBencanaBwiComponent,
+    TambahEditKawasanBantuanComponent,
+    TambahEditKirBwiComponent,
 	]
 })
 export class PengurusanTabungModule {}
