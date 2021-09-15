@@ -33,9 +33,9 @@ export class TambahEditBantuanPinjamanKhasComponent implements OnInit {
   date = new Date();
   model: NgbDateStruct;
   today = this.calendar.getToday();
+  tarikhBencana: string;
   tarikh_mula: string;
   readonly DELIMITER = '-';
-  nama_bencana: string;
   modelBencana: NgbDateStruct;
 
   status=[
@@ -82,6 +82,9 @@ export class TambahEditBantuanPinjamanKhasComponent implements OnInit {
     } else {
       this._mangsaPinjamanServiceProxy.getMangsaPinjamanForEdit(this.id).subscribe((result) => {
         this.pinjamanKhas = result.mangsa_pinjaman;
+        if(result.mangsa_pinjaman.tarikh_bencana){
+          this.modelBencana = this.fromModel(result.mangsa_pinjaman.tarikh_bencana.format('YYYY-MM-DD'));
+        }
         if(result.mangsa_pinjaman.tarikh_mula){
           this.model = this.fromModel(result.mangsa_pinjaman.tarikh_mula.format('YYYY-MM-DD'));
         }
@@ -109,7 +112,7 @@ export class TambahEditBantuanPinjamanKhasComponent implements OnInit {
       (response) => {
         if (response) {
           this.pinjamanKhas.id_bencana = response.id_bencana;
-          this.nama_bencana = response.nama_bencana;
+          this.pinjamanKhas.nama_bencana = response.nama_bencana;
           this.modelBencana = this.fromModel(response.tarikh_bencana.format('YYYY-MM-DD'));
         }
       }
@@ -119,6 +122,10 @@ export class TambahEditBantuanPinjamanKhasComponent implements OnInit {
   save() {
     this.saving = true;
     this.pinjamanKhas.id_mangsa = this.idMangsa;
+    if(this.modelBencana){
+      this.tarikhBencana = this.toModel(this.modelBencana);
+      this.pinjamanKhas.tarikh_bencana = moment(this.tarikhBencana, "YYYY-MM-DD");
+    }
     if(this.model){
       this.tarikh_mula = this.toModel(this.model);
       this.pinjamanKhas.tarikh_mula = moment(this.tarikh_mula, "YYYY-MM-DD");

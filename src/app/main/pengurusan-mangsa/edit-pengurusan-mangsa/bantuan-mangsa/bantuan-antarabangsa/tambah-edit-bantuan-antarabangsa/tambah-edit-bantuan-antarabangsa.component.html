@@ -18,7 +18,7 @@
               type="text"
               placeholder="Nama Bencana"
               name="bencana"
-              [(ngModel)]="nama_bencana"
+              [(ngModel)]="antarabangsa.nama_bencana"
               #namaBencana="ngModel"
               [ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
               required
@@ -74,6 +74,7 @@
           </div>
         </div>
       </div>
+
 			<div class="col-lg-6">
         <div class="form-group">
           <label>Nama Bantuan</label>
@@ -116,6 +117,7 @@
           </div>
         </div>
       </div>
+
       <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
         <label>Tarikh Bantuan</label>
         <div class="input-group">
@@ -148,42 +150,37 @@
       </ng-template>
 		</div>
 
-		<div class="row">
+		<div class="row" *ngIf="name === 'edit'">
       <div class="col-lg-6">
         <div class="form-group">
           <label>Status</label>
-          <div>
-            <ng-select
-              [items]="status"
-              bindLabel="nama_status"
-              bindValue="id"
-              placeholder="Sila Pilih"
-              class="js-example-placeholder-multiple"
-              name="id_status"
-              [(ngModel)]="antarabangsa.status_mangsa_antarabangsa"
-              #namaStatus="ngModel"
-              [ngClass]="{ 'is-invalid': f.submitted && namaStatus.invalid }"
-              required
-            ></ng-select>
-            <div
-              *ngIf="f.submitted && namaStatus.invalid"
-              class="invalid-feedback"
-            >
-              <div *ngIf="namaStatus.errors.required">
-                Nama Status Wajib Dipilih
-              </div>
+          <ng-select
+            [items]="status"
+            bindLabel="nama_status"
+            bindValue="id"
+            placeholder="Sila Pilih"
+            class="js-example-placeholder-multiple"
+            name="id_status"
+            [(ngModel)]="antarabangsa.status_mangsa_antarabangsa"
+            #namaStatus="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && namaStatus.invalid }"
+            required
+          ></ng-select>
+          <div *ngIf="f.submitted && namaStatus.invalid" class="invalid-feedback">
+            <div *ngIf="namaStatus.errors.required">
+              Status Wajib Dipilih
             </div>
           </div>
         </div>
       </div>
 		</div>
+
     <div class="row">
 			<div class="col">
 				<div class="form-group">
-					<label for="exampleFormControlTextarea4">Catatan</label>
+					<label>Catatan</label>
 					<textarea
             class="form-control"
-            id="exampleFormControlTextarea4"
             name="antarabangsa.catatan"
             [(ngModel)]="antarabangsa.catatan"
             rows="3">
@@ -192,6 +189,7 @@
 			</div>
 		</div>
   </div>
+
   <div class="modal-footer">
     <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
     <button type="submit" class="btn btn-primary">Simpan</button>

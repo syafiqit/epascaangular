@@ -30,12 +30,12 @@ export class TambahEditBantuanLainComponent implements OnInit {
   agensi: any;
   sumberDana: any;
   tarikh_bantuan: string;
+  tarikhBencana: string;
 
   date = new Date();
   model: NgbDateStruct;
   today = this.calendar.getToday();
   readonly DELIMITER = '-';
-  nama_bencana: string;
   modelBencana: NgbDateStruct;
 
   status=[
@@ -82,6 +82,9 @@ export class TambahEditBantuanLainComponent implements OnInit {
     } else {
       this._mangsaBantuanServiceProxy.getMangsaBantuanForEdit(this.id).subscribe((result) => {
         this.bantuanLain = result.mangsa_bantuan;
+        if(result.mangsa_bantuan.tarikh_bencana){
+          this.modelBencana = this.fromModel(result.mangsa_bantuan.tarikh_bencana.format('YYYY-MM-DD'));
+        }
         if(result.mangsa_bantuan.tarikh_bantuan){
           this.model = this.fromModel(result.mangsa_bantuan.tarikh_bantuan.format('YYYY-MM-DD'));
         }
@@ -109,7 +112,7 @@ export class TambahEditBantuanLainComponent implements OnInit {
       (response) => {
         if (response) {
           this.bantuanLain.id_bencana = response.id_bencana;
-          this.nama_bencana = response.nama_bencana;
+          this.bantuanLain.nama_bencana = response.nama_bencana;
           this.modelBencana = this.fromModel(response.tarikh_bencana.format('YYYY-MM-DD'));
         }
       }
@@ -118,6 +121,10 @@ export class TambahEditBantuanLainComponent implements OnInit {
 
   save() {
     this.saving = true;
+    if(this.modelBencana){
+      this.tarikhBencana = this.toModel(this.modelBencana);
+      this.bantuanLain.tarikh_bencana = moment(this.tarikhBencana, "YYYY-MM-DD");
+    }
     if(this.model){
       this.tarikh_bantuan = this.toModel(this.model);
       this.bantuanLain.tarikh_bantuan = moment(this.tarikh_bantuan, "YYYY-MM-DD");
