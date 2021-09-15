@@ -24,7 +24,7 @@
     >
     <ng-template pTemplate="header">
       <tr>
-        <th style="width: 100px" pSortableColumn="nama_bencana">
+        <th style="width: 130px" pSortableColumn="nama_bencana">
           Nama Bencana
           <p-sortIcon field="nama_bencana"></p-sortIcon>
         </th>
@@ -32,11 +32,11 @@
           Tarikh Bencana
           <p-sortIcon field="tarikh_bencana"></p-sortIcon>
         </th>
-        <th style="width: 130px" pSortableColumn="kos_bantuan">
+        <th style="width: 100px" pSortableColumn="kos_bantuan">
           Kos Bantuan
           <p-sortIcon field="kos_bantuan"></p-sortIcon>
         </th>
-        <th style="width: 130px" pSortableColumn="status_mangsa_pertanian">
+        <th style="width: 100px" pSortableColumn="status_mangsa_pertanian">
           Status
           <p-sortIcon field="status_mangsa_pertanian"></p-sortIcon>
         </th>
@@ -45,7 +45,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-record="$implicit">
       <tr>
-        <td style="width: 100px">
+        <td style="width: 130px">
           <span class="p-column-title">Nama Bencana</span>
           {{record.nama_bencana}}
         </td>
@@ -53,14 +53,13 @@
           <span class="p-column-title">Tarikh Bencana</span>
           {{record.tarikh_bencana | date: 'dd/MM/yyyy'}}
         </td>
-        <td style="width: 130px">
+        <td style="width: 100px">
           <span class="p-column-title">Kos Bantuan</span>
-          {{record.kos_bantuan}}
+          RM {{record.kos_bantuan | number: '1.2-2'}}
         </td>
-        <td style="width: 130px">
+        <td style="width: 100px">
           <span class="p-column-title">Status</span>
-          <label *ngIf="record.status_mangsa_pertanian == 2">Aktif</label>
-          <label *ngIf="record.status_mangsa_pertanian == 1">Tidak Aktif</label>
+          {{record.status_mangsa_pertanian == 1? "Tidak Aktif":"Aktif"}}
         </td>
         <td style="width: 130px">
           <div ngbDropdown class="btn-group" role="group" container="body">

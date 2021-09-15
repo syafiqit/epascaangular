@@ -6,7 +6,7 @@
 	</button>
 </div>
 
-<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid " novalidate>
+<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
   <div class="modal-body">
 		<div class="row">
 			<div class="col-lg-6">
@@ -22,7 +22,7 @@
 						[(ngModel)]="addBencana.id_bencana"
 						#bencana="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && bencana.invalid }"
-						(change)="onSelectBencana(addBencana.id_bencana)" 
+						(change)="onSelectBencana(addBencana.id_bencana)"
 						required
 					></ng-select>
 					<div *ngIf="f.submitted && bencana.invalid" class="invalid-feedback">
@@ -36,7 +36,7 @@
 					<label>Tarikh Bencana</label>
 					<input
 						class="form-control"
-            			id="tarikhBencana"
+            id="tarikhBencana"
 						type="text"
 						name="tarikh_bencana"
 						[(ngModel)]="date_bencana"
@@ -73,7 +73,7 @@
 					<label>Nama Pusat</label>
 					<input
 						class="form-control"
-            			id="pusatPindah"
+            id="pusatPindah"
 						type="text"
 						name="nama_pusat_pemindahan"
 						[(ngModel)]="addBencana.nama_pusat_pemindahan"
@@ -89,7 +89,7 @@
 			</div>
 		</div>
 		<div class="row">
-      		<div class="col-lg-12">
+      <div class="col-lg-12">
 				<div class="form-group">
 					<label>Masalah Dihadapi</label>
 					<textarea
@@ -106,6 +106,6 @@
 
   <div class="modal-footer">
     <button type="button" class="btn btn-light" (click)="activeModal.close(false)">Tutup</button>
-		<button type="submit" class="btn btn-primary" (click)="save()">Simpan</button>
+		<button type="submit" class="btn btn-primary">Simpan</button>
   </div>
 </form>
