@@ -114,9 +114,11 @@ export class KelulusanComponent implements OnInit {
     this.getTabungKelulusanList();
   }
 
-  peruntukanDiambilModal() {
+  peruntukanDiambilModal(id?, id_tabung?) {
 		const modalRef = this.modalService.open(PeruntukanDiambilComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
+    modalRef.componentInstance.id_tabung = id_tabung;
+    modalRef.componentInstance.id_tabung_kelulusan = id;
     modalRef.result.then(
 			(response) => {
 				if (response) {
