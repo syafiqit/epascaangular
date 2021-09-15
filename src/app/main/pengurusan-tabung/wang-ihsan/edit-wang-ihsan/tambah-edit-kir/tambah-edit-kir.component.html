@@ -8,14 +8,8 @@
 		<div class="col-sm-12">
 			<div class="card">
 				<div class="card-body">
-          <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid" novalidate>
+          <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
             <h6>Maklumat Ketua Isi Rumah</h6>
-            <div class="row no-gutters justify-content-end">
-              <button class="btn btn-primary" type="button" (click)="addKirModal(idBwi)">
-                <i class="fa fa-plus mr-2"></i>
-                <b>Pilih</b>
-              </button>
-            </div>
 
             <div class="row no-gutters align-items-center mt-3">
               <div class="primeng-datatable-container">
@@ -63,7 +57,7 @@
                       </td>
                       <td style="width: 130px">
                         <span class="p-column-title">Jumlah BWI</span>
-                        RM {{record.jumlah_bwi}}
+                        RM {{record.jumlah}}
                       </td>
                       <td style="width: 130px">
                         <span class="p-column-title">Daerah</span>
@@ -118,7 +112,8 @@
                     name="wiKir"
                     type="text"
                     placeholder="Jumlah Bayaran (WI/KIR)"
-                    onlyNumbers
+                    [(ngModel)]="bantuanKawasan.jumlah_bwi"
+                    disabled
                   />
                 </div>
               </div>
@@ -131,7 +126,8 @@
                     name="totalKir"
                     type="text"
                     placeholder="Jumlah KIR"
-                    value="{{primengTableHelper.totalRecordsCount}}"
+                    value="{{bantuanKawasan.jumlah_kir || 0}}"
+                    disabled
                   />
                 </div>
               </div>
@@ -146,7 +142,8 @@
                     name="bakiPulangan"
                     type="text"
                     placeholder="Jumlah Pulangan"
-                    onlyNumbers
+                    value="{{bantuanKawasan.jumlah_kembali || '0.00'}}"
+                    disabled
                   />
                 </div>
               </div>
@@ -224,15 +221,15 @@
                     rows="3"
                     placeholder="Catatan"
                     name="catatan"
-
+                    [(ngModel)]="bantuanKawasan.catatan"
                   ></textarea>
                 </div>
               </div>
             </div>
-            <hr />
+            <hr >
 
-            <h6>Memo Perakuan KP</h6>
-            <div class="row">
+            <h6 *ngIf="idJenisBwi != 2">Memo Perakuan KP</h6>
+            <div class="row" *ngIf="idJenisBwi != 2">
               <div class="col-lg-6 mt-2">
                 <div class="form-group">
                   <label>No. Rujukan</label>
@@ -241,13 +238,8 @@
                     name="rujukan_akuan_kp"
                     type="text"
                     placeholder="No. Rujukan"
-
-
-                    required
+                    [(ngModel)]="bantuanKawasan.no_rujukan_akuan_kp"
                   />
-                  <!-- <div *ngIf="f.submitted && refAkuanKp.invalid" class="invalid-feedback">
-                    <div *ngIf="refAkuanKp.errors.required">No. Rujukan Wajib Diisi</div>
-                  </div> -->
                 </div>
               </div>
 
@@ -263,16 +255,10 @@
                     [footerTemplate]="footerTemplate"
                     #d1="ngbDatepicker"
                     style="border: 1px solid #efefef !important;"
-                    #akuanKpDate="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && akuanKpDate.invalid }"
-                    required
                   >
                   <div class="input-group-append">
                     <button class="btn btn-light" (click)="d1.toggle()" type="button"><i
                       class="fa fa-calendar"></i></button>
-                  </div>
-                  <div *ngIf="f.submitted && akuanKpDate.invalid" class="invalid-feedback">
-                    <div *ngIf="akuanKpDate.errors.required">Tarikh Perakuan Wajib Dipilih</div>
                   </div>
                 </div>
               </div>
@@ -282,7 +268,7 @@
                 <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d1.close()">Tutup</button>
               </ng-template>
             </div>
-            <hr />
+            <hr *ngIf="idJenisBwi != 2">
 
             <h6>Memo Penyaluran KPD BKP</h6>
             <div class="row">
@@ -294,13 +280,8 @@
                     name="rujukan_saluran"
                     type="text"
                     placeholder="No. Rujukan"
-
-
-                    required
+                    [(ngModel)]="bantuanKawasan.no_rujukan_saluran_kpd_bkp"
                   />
-                  <!-- <div *ngIf="f.submitted && refSaluran.invalid" class="invalid-feedback">
-                    <div *ngIf="refSaluran.errors.required">No. Rujukan Wajib Diisi</div>
-                  </div> -->
                 </div>
               </div>
 
@@ -316,16 +297,10 @@
                     [footerTemplate]="footerTemplate"
                     #d2="ngbDatepicker"
                     style="border: 1px solid #efefef !important;"
-                    #saluranDate="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && saluranDate.invalid }"
-                    required
                   >
                   <div class="input-group-append">
                     <button class="btn btn-light" (click)="d2.toggle()" type="button"><i
                       class="fa fa-calendar"></i></button>
-                  </div>
-                  <div *ngIf="f.submitted && saluranDate.invalid" class="invalid-feedback">
-                    <div *ngIf="saluranDate.errors.required">Tarikh Penyaluran Wajib Dipilih</div>
                   </div>
                 </div>
               </div>
@@ -347,13 +322,8 @@
                     name="rujukan_laporan"
                     type="text"
                     placeholder="No. Rujukan"
-
-
-                    required
+                    [(ngModel)]="bantuanKawasan.no_rujukan_laporan_kpd_bkp"
                   />
-                  <!-- <div *ngIf="f.submitted && refLaporan.invalid" class="invalid-feedback">
-                    <div *ngIf="refLaporan.errors.required">No. Rujukan Wajib Diisi</div>
-                  </div> -->
                 </div>
               </div>
 
@@ -369,16 +339,10 @@
                     [footerTemplate]="footerTemplate"
                     #d3="ngbDatepicker"
                     style="border: 1px solid #efefef !important;"
-                    #laporanDate="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && laporanDate.invalid }"
-                    required
                   >
                   <div class="input-group-append">
                     <button class="btn btn-light" (click)="d3.toggle()" type="button"><i
                       class="fa fa-calendar"></i></button>
-                  </div>
-                  <div *ngIf="f.submitted && laporanDate.invalid" class="invalid-feedback">
-                    <div *ngIf="laporanDate.errors.required">Tarikh Laporan Wajib Dipilih</div>
                   </div>
                 </div>
               </div>
@@ -388,10 +352,10 @@
                 <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d3.close()">Tutup</button>
               </ng-template>
             </div>
-            <hr />
+            <hr *ngIf="idJenisBwi != 2">
 
-            <h6>Surat Makluman Tarikh Majlis</h6>
-            <div class="row">
+            <h6 *ngIf="idJenisBwi != 2">Surat Makluman Tarikh Majlis</h6>
+            <div class="row" *ngIf="idJenisBwi != 2">
               <div class="col-lg-6 mt-2">
                 <div class="form-group">
                   <label>No. Rujukan</label>
@@ -400,13 +364,8 @@
                     name="rujukan_majlis"
                     type="text"
                     placeholder="No. Rujukan"
-
-
-                    required
+                    [(ngModel)]="bantuanKawasan.no_rujukan_makluman_majlis"
                   />
-                  <!-- <div *ngIf="f.submitted && refMajlis.invalid" class="invalid-feedback">
-                    <div *ngIf="refMajlis.errors.required">No. Rujukan Wajib Diisi</div>
-                  </div> -->
                 </div>
               </div>
 
@@ -417,21 +376,15 @@
                     class="form-control"
                     placeholder="yyyy-mm-dd"
                     name="dp4"
-                    [(ngModel)]="modelMakluman"
+                    [(ngModel)]="modelMaklumanMajlis"
                     ngbDatepicker
                     [footerTemplate]="footerTemplate"
                     #d4="ngbDatepicker"
                     style="border: 1px solid #efefef !important;"
-                    #maklumDate="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && maklumDate.invalid }"
-                    required
                   >
                   <div class="input-group-append">
                     <button class="btn btn-light" (click)="d4.toggle()" type="button"><i
                       class="fa fa-calendar"></i></button>
-                  </div>
-                  <div *ngIf="f.submitted && maklumDate.invalid" class="invalid-feedback">
-                    <div *ngIf="maklumDate.errors.required">Tarikh Makluman Majlis Wajib Dipilih</div>
                   </div>
                 </div>
               </div>
@@ -442,7 +395,7 @@
               </ng-template>
             </div>
 
-            <div class="row">
+            <div class="row" *ngIf="idJenisBwi != 2">
               <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
                 <label>Tarikh Majlis</label>
                 <div class="input-group">
@@ -455,16 +408,10 @@
                     [footerTemplate]="footerTemplate"
                     #d5="ngbDatepicker"
                     style="border: 1px solid #efefef !important;"
-                    #majlisDate="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && majlisDate.invalid }"
-                    required
                   >
                   <div class="input-group-append">
                     <button class="btn btn-light" (click)="d5.toggle()" type="button"><i
                       class="fa fa-calendar"></i></button>
-                  </div>
-                  <div *ngIf="f.submitted && majlisDate.invalid" class="invalid-feedback">
-                    <div *ngIf="majlisDate.errors.required">Tarikh Majlis Wajib Dipilih</div>
                   </div>
                 </div>
               </div>
@@ -474,10 +421,10 @@
                 <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d5.close()">Tutup</button>
               </ng-template>
             </div>
-            <hr />
+            <hr *ngIf="idJenisBwi != 2">
 
-            <h6>Surat Laporan Majlis DRP APM</h6>
-            <div class="row">
+            <h6 *ngIf="idJenisBwi != 2">Surat Laporan Majlis DRP APM</h6>
+            <div class="row" *ngIf="idJenisBwi != 2">
               <div class="col-lg-6 mt-2">
                 <div class="form-group">
                   <label>No. Rujukan</label>
@@ -486,6 +433,7 @@
                     name="rujukan_surat_laporan_majlis"
                     type="text"
                     placeholder="No. Rujukan"
+                    [(ngModel)]="bantuanKawasan.no_rujukan_majlis_drp_apm"
                   />
                 </div>
               </div>
@@ -526,7 +474,7 @@
               </button>
               <button
                 class="btn btn-primary pull-right"
-                type="button"
+                type="submit"
               >
                 Simpan
               </button>

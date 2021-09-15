@@ -36,17 +36,14 @@ export class WangIhsanComponent implements OnInit {
   filterJenisBwi: number;
   daerah: any;
   negeri: any;
-  idBwi: any;
 
 	constructor(
     config: NgbModalConfig,
-    private _activatedRoute: ActivatedRoute,
      private tabungBwiServiceProxy: TabungBwiServiceProxy,
      private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy,
      private _refDaerahServiceProxy: RefDaerahServiceProxy,
      private _refNegeriServiceProxy: RefNegeriServiceProxy
   ) {
-    this.idBwi = this._activatedRoute.snapshot.queryParams['id'];
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;

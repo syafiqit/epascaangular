@@ -1,0 +1,79 @@
+<div class="modal-header">
+	<h5 class="modal-title">Tambah Bantuan</h5>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.close(false)">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-6">
+				<div class="form-group">
+					<label>Negeri</label>
+          <ng-select
+            [items]="states"
+            bindLabel="nama_negeri"
+            placeholder="Sila Pilih"
+            class="js-example-placeholder-multiple"
+            name="negeri"
+            [(ngModel)]="negeriModel"
+            (ngModelChange)="getNamaNegeri()"
+            #state="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && state.invalid }"
+            required
+          ></ng-select>
+          <div *ngIf="f.submitted && state.invalid" class="invalid-feedback">
+            <div *ngIf="state.errors.required">Negeri Wajib Dipilih</div>
+          </div>
+				</div>
+			</div>
+
+			<div class="col-6">
+				<div class="form-group">
+					<label>Daerah</label>
+          <ng-select
+            [items]="districts"
+            bindLabel="nama_daerah"
+            placeholder="Sila Pilih"
+            class="js-example-placeholder-multiple"
+            name="daerah"
+            [(ngModel)]="daerahModel"
+            (ngModelChange)="getNamaDaerah()"
+            #district="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && district.invalid }"
+            required
+          ></ng-select>
+          <div *ngIf="f.submitted && district.invalid" class="invalid-feedback">
+            <div *ngIf="district.errors.required">Daerah Wajib Dipilih</div>
+          </div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-6">
+				<div class="form-group">
+					<label>Jumlah Diberikan (RM)</label>
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Jumlah Diberikan (RM)"
+            name="jumlahBayaran"
+            [(ngModel)]="jumlah_bayaran"
+            #jumlahBeri="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && jumlahBeri.invalid }"
+            required
+          />
+          <div *ngIf="f.submitted && jumlahBeri.invalid" class="invalid-feedback">
+            <div *ngIf="jumlahBeri.errors.required">Jumlah Diberikan Wajib Diisi</div>
+          </div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-light" (click)="activeModal.close(false)">Tutup</button>
+		<button type="submit" class="btn btn-primary">Simpan</button>
+	</div>
+</form>

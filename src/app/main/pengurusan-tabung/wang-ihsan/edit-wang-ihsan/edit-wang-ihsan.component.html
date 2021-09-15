@@ -10,128 +10,65 @@
 				<div class="card-body">
           <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid" novalidate>
             <h6>Maklumat Pembayaran</h6>
-            <app-tambah-edit-pembayaran></app-tambah-edit-pembayaran>
+            <app-tambah-edit-pembayaran [idBwi]="idBwi"></app-tambah-edit-pembayaran>
 
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-group">
                   <label>Jenis BWI</label>
                   <ng-select
-                    [items]="bwiCategory"
+                    [items]="jenisBwi"
                     bindLabel="nama_jenis_bwi"
                     bindValue="id"
                     placeholder="Sila Pilih"
                     class="js-example-placeholder-multiple"
                     name="jenis_bwi"
-                    [(ngModel)]="bwiType"
-                    #jenisBwi="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && jenisBwi.invalid }"
+                    [(ngModel)]="edit.tabung_bwi.id_jenis_bwi"
+                    #namaJenisBwi="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && namaJenisBwi.invalid }"
                     required
+                    disabled
                   ></ng-select>
-                  <div *ngIf="f.submitted && jenisBwi.invalid" class="invalid-feedback">
-                    <div *ngIf="jenisBwi.errors.required">Jenis BWI Wajib Dipilih</div>
+                  <div *ngIf="f.submitted && namaJenisBwi.invalid" class="invalid-feedback">
+                    <div *ngIf="namaJenisBwi.errors.required">Jenis BWI Wajib Dipilih</div>
                   </div>
                 </div>
               </div>
 
-              <div class="col-lg-6" *ngIf="bwiType == 1" [@fadeVerticalAnimation]>
+              <div class="col-lg-6">
                 <div class="form-group">
-                  <label>Jenis Bencana</label>
+                  <label>Bencana</label>
                   <div class="input-group">
                     <input
                       class="form-control"
                       type="text"
                       placeholder="Nama Bencana"
                       name="bencana"
-                      [(ngModel)]="nama_bencana"
-                      #namaBencana="ngModel"
-                      [ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
-                      required
-                      readonly
+                      [(ngModel)]="edit.tabung_bwi.nama_bencana"
+                      disabled
                     />
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" (click)="pilihBencana()" type="button">
-                        <i class="fa fa-search text-white"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
-                    <div *ngIf="namaBencana.errors.required">Bencana Wajib Dipilih</div>
                   </div>
                 </div>
               </div>
 
-              <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown" *ngIf="bwiType == 1" [@fadeVerticalAnimation]>
+              <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
                 <label>Tarikh Bencana</label>
                 <div class="input-group">
                   <input
                     class="form-control"
                     placeholder="yyyy-mm-dd"
                     name="dp"
-                    [(ngModel)]="modelBencana"
-                    ngbDatepicker
-                    [footerTemplate]="footerTemplate"
-                    #d="ngbDatepicker"
-                    style="border: 1px solid #efefef !important;"
-                    readonly
+                    [(ngModel)]="tarikh_bencana"
+                    disabled
                   >
                 </div>
               </div>
 
-              <div class="col-lg-6" *ngIf="bwiType == 3" [@fadeVerticalAnimation]>
-                <div class="form-group">
-                  <label>Nama Kejadian</label>
-                  <input
-                    class="form-control"
-                    type="text"
-                    placeholder="Nama Kejadian"
-                    name="kejadian"
-                    [(ngModel)]="nama_kejadian"
-                    #namaKejadian="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && namaKejadian.invalid }"
-                    required
-                  />
-                  <div *ngIf="f.submitted && namaKejadian.invalid" class="invalid-feedback">
-                    <div *ngIf="namaKejadian.errors.required">Nama Kejadian Wajib Diisi</div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown" *ngIf="bwiType == 3" [@fadeVerticalAnimation]>
-                <label>Tarikh Kejadian</label>
-                <div class="input-group">
-                  <input
-                    class="form-control"
-                    placeholder="yyyy-mm-dd"
-                    name="dp1"
-                    [(ngModel)]="modelKejadian"
-                    ngbDatepicker
-                    [footerTemplate]="footerTemplate"
-                    #d1="ngbDatepicker"
-                    style="border: 1px solid #efefef !important;"
-                    #eventDate="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && eventDate.invalid }"
-                    required
-                  >
-                  <div class="input-group-append">
-                    <button class="btn btn-light" (click)="d1.toggle()" type="button"><i
-                      class="fa fa-calendar"></i></button>
-                  </div>
-                  <div *ngIf="f.submitted && eventDate.invalid" class="invalid-feedback">
-                    <div *ngIf="eventDate.errors.required">Tarikh Kejadian Wajib Dipilih</div>
-                  </div>
-                </div>
-              </div>
-              <ng-template #footerTemplate>
-                <hr class="my-0">
-                <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelKejadian = today; d1.close()">Hari Ini</button>
-                <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d1.close()">Tutup</button>
-              </ng-template>
             </div>
             <hr />
 
             <h6>Maklumat Bantuan</h6>
-            <app-tambah-edit-bantuan></app-tambah-edit-bantuan>
+            <app-tambah-edit-bantuan [idBwi]="idBwi" [idBencana]="id_bencana" [idJenisBwi]="idJenisBwi"></app-tambah-edit-bantuan>
 
             <div class="row">
               <div class="col-lg-6">
@@ -142,7 +79,7 @@
                     type="text"
                     name="jumlah_bayaran"
                     placeholder="Jumlah Pembayaran"
-                    value="{{bayaran | number: '1.2-2'}}"
+                    [(ngModel)]="edit.jumlah_keseluruhan"
                     onlyNumbers
                     disabled
                   />
@@ -151,13 +88,13 @@
 
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label>Jumlah Keseluruhan Pulalngan (RM)</label>
+                  <label>Jumlah Keseluruhan Pulangan (RM)</label>
                   <input
                     class="form-control"
                     type="text"
                     name="jumlah_pulangan"
                     placeholder="Jumlah Pulangan"
-                    value="{{bayaran | number: '1.2-2'}}"
+                    [(ngModel)]="edit.jumlah_dipulangkan"
                     onlyNumbers
                     disabled
                   />
