@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import {
   CreateOrEditTabungKelulusanDto, RefBantuanServiceProxy, RefBencanaServiceProxy,
@@ -21,7 +21,7 @@ import { PilihBencanaKelulusanComponent } from '../pilih-bencana-kelulusan/pilih
 	encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig, NgbModal]
 })
-export class EditKelulusanComponent implements OnInit, AfterViewInit {
+export class EditKelulusanComponent implements OnInit {
 
   @ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
@@ -129,10 +129,6 @@ export class EditKelulusanComponent implements OnInit, AfterViewInit {
     this.getTabung();
     this.getBencana();
     this.getBantuan();
-    
-  }
-
-  ngAfterViewInit(){
     
   }
 
@@ -279,10 +275,6 @@ export class EditKelulusanComponent implements OnInit, AfterViewInit {
 			}
 		);
 	}
-
-  tabungId(){
-
-  }
 
   populateTabung(id?){
     this._tabungServiceProxy.getTabungForEdit(this.kelulusan.id_tabung).subscribe((result) => {
