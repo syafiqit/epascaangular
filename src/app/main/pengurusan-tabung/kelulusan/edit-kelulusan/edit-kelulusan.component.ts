@@ -129,6 +129,7 @@ export class EditKelulusanComponent implements OnInit {
     this.getTabung();
     this.getBencana();
     this.getBantuan();
+    
   }
 
   fromModel(value: string | null): NgbDateStruct | null {
@@ -162,6 +163,8 @@ export class EditKelulusanComponent implements OnInit {
         if(result.tabung_kelulusan.tarikh_tamat_kelulusan){
           this.modelTamat = this.fromModel(result.tabung_kelulusan.tarikh_tamat_kelulusan.format('YYYY-MM-DD'));
         }
+
+        this.populateTabung();
       });
     }
   }
@@ -202,6 +205,7 @@ export class EditKelulusanComponent implements OnInit {
       this.tarikhTamat = this.toModel(this.modelTamat);
       this.kelulusan.tarikh_tamat_kelulusan = moment(this.tarikhTamat, "YYYY-MM-DD");
     }
+    
     this._tabungKelulusanServiceProxy
       .createOrEdit(this.kelulusan)
       .pipe()
@@ -265,12 +269,18 @@ export class EditKelulusanComponent implements OnInit {
     modalRef.result.then(
 			(response) => {
 				if (response) {
-          // this.kelulusan.id_bencana = response.id;
-					this.namaBencana = response.nama_bencana;
+          this.kelulusan.id_tabung = response.id;
+					this.namaBencana = response.nama_tabung;
 				}
 			}
 		);
 	}
+
+  populateTabung(id?){
+    this._tabungServiceProxy.getTabungForEdit(this.kelulusan.id_tabung).subscribe((result) => {
+      this.namaBencana = result.tabung.nama_tabung;
+    });
+  }
 
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());

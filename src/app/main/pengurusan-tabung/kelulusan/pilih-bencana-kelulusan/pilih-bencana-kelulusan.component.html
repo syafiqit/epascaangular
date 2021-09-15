@@ -1,5 +1,5 @@
 <div class="modal-header">
-	<h5 class="modal-title">Pilih Maklumat Bencana</h5>
+	<h5 class="modal-title">Pilih Tabung</h5>
 	<button type="button" class="close" aria-label="Close" (click)="activeModal.close()">
 		<span aria-hidden="true">&times;</span>
 	</button>
@@ -42,20 +42,16 @@
 					<ng-template pTemplate="header">
 						<tr>
 							<th style="width: 130px" pSortableColumn="tarikh_bencana">
-								Tarikh Kejadian
+								Nama Tabung
 								<p-sortIcon field="tarikh_bencana"></p-sortIcon>
 							</th>
 							<th style="width: 135px" pSortableColumn="nama_jenis_bencana">
-								Kategori Bencana
+								Peruntukan
 								<p-sortIcon field="nama_jenis_bencana"></p-sortIcon>
 							</th>
 							<th style="width: 130px" pSortableColumn="nama_bencana">
-								Nama Bencana
+								Jumlah Kesuluruhan
 								<p-sortIcon field="nama_bencana"></p-sortIcon>
-							</th>
-							<th style="width: 150px" pSortableColumn="catatan">
-								Catatan
-								<p-sortIcon field="catatan"></p-sortIcon>
 							</th>
               <th style="width: 100px">Tindakan</th>
 						</tr>
@@ -64,19 +60,15 @@
 						<tr>
 							<td style="width: 130px">
 								<span class="p-column-title">Tarikh Kejadian</span>
-								{{record.tarikh_bencana | date:'dd-MM-yyyy'}}
+								{{record.nama_tabung}}
 							</td>
 							<td style="width: 135px">
 								<span class="p-column-title">Kategori Bencana</span>
-								{{record.nama_jenis_bencana}}
+								{{record.peruntukan ? record.peruntukan: '0.00'}}
 							</td>
 							<td style="width: 130px">
 								<span class="p-column-title">Nama Bencana</span>
-								{{record.nama_bencana}}
-							</td>
-							<td style="width: 150px">
-								<span class="p-column-title">Catatan</span>
-								{{record.catatan}}
+								{{record.jumlah_keseluruhan ? record.jumlah_keseluruhan: '0.00'}}
 							</td>
               <td style="width: 100px">
 								<button
@@ -84,7 +76,7 @@
                   type="button"
                   (click)="select(
                     record.id,
-                    record.nama_bencana
+                    record.nama_tabung
                     )"
                 >
                   Pilih
