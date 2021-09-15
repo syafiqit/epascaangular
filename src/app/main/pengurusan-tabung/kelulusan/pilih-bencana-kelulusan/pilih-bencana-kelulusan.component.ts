@@ -6,7 +6,7 @@ import { Table } from 'primeng/table';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
-import { RefBencanaServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import { RefBencanaServiceProxy, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
 
 @Component({
 	selector: 'app-pilih-bencana-kelulusan',
@@ -31,7 +31,7 @@ export class PilihBencanaKelulusanComponent implements OnInit {
 	constructor(
     config: NgbModalConfig,
     public activeModal: NgbActiveModal,
-    private _refBencanaServiceProxy: RefBencanaServiceProxy
+    private _refBencanaServiceProxy: TabungServiceProxy
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
@@ -59,11 +59,8 @@ export class PilihBencanaKelulusanComponent implements OnInit {
 
 		this.primengTableHelper.showLoadingIndicator();
 		this._refBencanaServiceProxy
-			.getAll(
+			.getAllTabungForLookupTable(
 				this.filter,
-        this.filterTahun,
-        this.filterBencana,
-        this.filterJenis,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -77,10 +74,10 @@ export class PilihBencanaKelulusanComponent implements OnInit {
 			});
 	}
 
-	select(id, nama_bencana) {
+	select(id, nama_tabung) {
 		this.activeModal.close({
 		id: id,
-		nama_bencana: nama_bencana
+		nama_tabung: nama_tabung
 		});
 	}
 }

@@ -1,5 +1,5 @@
 <app-breadcrumb
-	[title]="'Tambah Kelulusan (KWABBN)'"
+	[title]="'Tambah Kelulusan'"
 	[items]="['Pengurusan Tabung']"
 	[active_item]="'Kelulusan'"
 ></app-breadcrumb>
@@ -112,6 +112,54 @@
                     name="kelulusan.jumlah_siling"
                     [(ngModel)]="kelulusan.jumlah_siling"
                   />
+								</div>
+							</div>
+						</div>
+            <div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Tabung*</label>
+									<div class="input-group">
+										<input
+											class="form-control"
+											type="text"
+											placeholder="Tabung"
+											name="tabung"
+											[(ngModel)]="namaBencana"
+											#bencana="ngModel"
+											[ngClass]="{ 'is-invalid': f.submitted && bencana.invalid }"
+											required
+											readonly
+										/>
+										<div class="input-group-append">
+											<button class="btn btn-primary" (click)="addBencana()" type="button">
+												<i class="fa fa-search text-white"></i>
+											</button>
+										</div>
+									</div>
+									<div *ngIf="f.submitted && bencana.invalid" class="invalid-feedback">
+										<div *ngIf="bencana.errors.required">Tabung Wajib Dipilih</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Status*</label>
+									<ng-select
+										bindValue="id"
+										placeholder="Sila Pilih"
+										class="js-example-placeholder-multiple"
+										name="status_tabung_kelulusan"
+										[(ngModel)]="kelulusan.status_tabung_kelulusan"
+										#status="ngModel"
+										[ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
+										required>
+										<ng-option [value]='1'>Aktif</ng-option>
+										<ng-option [value]='2'>Tidak Aktif</ng-option>
+									</ng-select>
+									<div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
+										<div *ngIf="status.errors.required">Status Wajib Dipilih</div>
+									</div>
 								</div>
 							</div>
 						</div>
