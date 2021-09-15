@@ -18,7 +18,7 @@
         <div class="col">
             <div class="form-group">
                 <label>Jumlah Siling Peruntukan Semasa: </label>
-                <a style="font-weight: bold;"> RM 0.00</a>
+                <a style="font-weight: bold;"> RM {{baki_jumlah_siling}}.00</a>
             </div>
         </div>
     </div>
@@ -43,7 +43,7 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label>Jumlah Siling Peruntukan Baru: </label>
-                <a style="font-weight: bold;"> RM 0.00</a>
+                <a style="font-weight: bold;"> RM {{peruntukan.jumlah ? baki_jumlah_siling - peruntukan.jumlah : 0}}.00</a>
             </div>
         </div>
     </div>

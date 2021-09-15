@@ -9,6 +9,7 @@ import {finalize} from "rxjs/operators";
 import * as moment from "moment";
 import {ActivatedRoute, Router} from "@angular/router";
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { PilihBencanaKelulusanComponent } from '../pilih-bencana-kelulusan/pilih-bencana-kelulusan.component';
 
 @Component({
 	selector: 'app-tambah-kelulusan',
@@ -29,6 +30,7 @@ export class TambahKelulusanComponent implements OnInit {
   tabung:any;
   bencana:any;
   bantuan:any;
+  namaBencana: string;
 
   date = new Date();
   modelSurat: NgbDateStruct;
@@ -146,4 +148,17 @@ export class TambahKelulusanComponent implements OnInit {
         this.router.navigate(['/app/tabung/senarai-kelulusan']);
       });
   }
+
+  addBencana() {
+		const modalRef = this.modalService.open(PilihBencanaKelulusanComponent, { size: 'xl' });
+		modalRef.componentInstance.name = 'add';
+    modalRef.result.then(
+			(response) => {
+				if (response) {
+          this.kelulusan.id_tabung = response.id;
+					this.namaBencana = response.nama_tabung;
+				}
+			}
+		);
+	}
 }
