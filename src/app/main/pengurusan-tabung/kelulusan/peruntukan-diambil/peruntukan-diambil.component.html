@@ -5,7 +5,7 @@
 	</button>
 </div>
 
-<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid " novalidate>
+<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
   <div class="modal-body">
     <div class="row">
         <div class="col">
@@ -18,7 +18,7 @@
         <div class="col">
             <div class="form-group">
                 <label>Jumlah Siling Peruntukan Semasa: </label>
-                <a style="font-weight: bold;"> RM 50,000.00</a>
+                <a style="font-weight: bold;"> RM 0.00</a>
             </div>
         </div>
     </div>
@@ -33,6 +33,7 @@
                     type="text"
                     name="jumlahPeruntukan"
                     placeholder="Jumlah Peruntukan"
+                    [(ngModel)]="peruntukan.jumlah"
                 />
             </div>
         </div>
@@ -42,14 +43,14 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label>Jumlah Siling Peruntukan Baru: </label>
-                <a style="font-weight: bold;"> RM 100,000.00</a>
+                <a style="font-weight: bold;"> RM 0.00</a>
             </div>
         </div>
     </div>
-</div>
+  </div>
 
-<div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="activeModal.close(false)">Tutup</button>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="activeModal.close(false)">Tutup</button>
         <button type="submit" class="btn btn-primary" >Simpan</button>
     </div>
 </form>
