@@ -63,6 +63,9 @@
                       onlyNumbers
                       kpValidator
 										/>
+                    <div *ngIf="f.submitted && noKp.invalid" class="invalid-feedback">
+                      <div *ngIf="noKp.errors.required">No. Kad Pengenalan Wajib Diisi</div>
+                    </div>
                     <div class="mt-1" *ngIf="(noKp.touched || noKp.dirty) && noKp.errors?.valueInvalid" style="color: #dc3545; font-size: 80%; size: 80%;">
                       No. Kad Pengenalan Kurang Daripada 12
                     </div>

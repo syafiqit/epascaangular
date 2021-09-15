@@ -6,7 +6,7 @@
 	</button>
 </div>
 
-<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid " novalidate>
+<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
   <div class="modal-body">
 		<div class="row">
       <div class="col-lg-6">
@@ -32,20 +32,29 @@
 			<div class="col-lg-6">
 				<div class="form-group">
 					<label>No. Kad Pengenalan</label>
-					<input
-						class="form-control"
+          <input
+            class="form-control"
             id="noKP"
-						type="text"
-						name="no_kp"
-						[(ngModel)]="addAhli.no_kp"
-						placeholder="No. Kad Pengenalan"
-						#kadPengenalan="ngModel"
-						[ngClass]="{ 'is-invalid': f.submitted && kadPengenalan.invalid }"
-						required
-					/>
-					<div *ngIf="f.submitted && kadPengenalan.invalid" class="invalid-feedback">
-						<div *ngIf="kadPengenalan.errors.required">No. Kad Pengenalan Wajib Diisi</div>
-					</div>
+            type="text"
+            name="no_kp"
+            [(ngModel)]="addAhli.no_kp"
+            placeholder="No. Kad Pengenalan"
+            #noKp="ngModel"
+            [class.is-invalid]="((noKp.touched || noKp.dirty) && noKp.errors?.stateCodeInvalid && noKp.errors?.valueInvalid) || f.submitted && noKp.invalid"
+            maxlength="12"
+            onlyNumbers
+            kpValidator
+            required
+          />
+          <div *ngIf="f.submitted && noKp.invalid" class="invalid-feedback">
+            <div *ngIf="noKp.errors.required">No. Kad Pengenalan Wajib Diisi</div>
+          </div>
+          <div class="mt-1" *ngIf="(noKp.touched || noKp.dirty) && noKp.errors?.valueInvalid" style="color: #dc3545; font-size: 80%; size: 80%;">
+            No. Kad Pengenalan Kurang Daripada 12
+          </div>
+          <div class="mt-1" *ngIf="(noKp.touched || noKp.dirty) && noKp.errors?.stateCodeInvalid" style="color: #dc3545; font-size: 80%; size: 80%;">
+            Kod Negeri Tidak Sah
+          </div>
 				</div>
 			</div>
 		</div>
@@ -96,6 +105,6 @@
 
   <div class="modal-footer">
     <button type="button" class="btn btn-light" (click)="activeModal.close(false)">Tutup</button>
-		<button type="submit" class="btn btn-primary" (click)="save()">Simpan</button>
+		<button type="submit" class="btn btn-primary">Simpan</button>
   </div>
 </form>
