@@ -8,13 +8,14 @@ import {
   CreateOrEditTabungBwiDto,
   GetRujukanKelulusanBwiDto,
   GetTabungBwiForEditDto,
-  // InputBwiKirDto,
   InputCreateTabungBwiDto,
+  RefBencanaServiceProxy,
+  RefJenisBwiServiceProxy,
   TabungBwiServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
-import * as moment from 'moment';
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { NgForm } from '@angular/forms';
+
 @Component({
 	selector: 'app-edit-wang-ihsan',
 	templateUrl: './edit-wang-ihsan.component.html',
@@ -31,13 +32,13 @@ export class EditWangIhsanComponent implements OnInit {
   edit: GetTabungBwiForEditDto = new GetTabungBwiForEditDto();
   tabungBwi: InputCreateTabungBwiDto = new InputCreateTabungBwiDto();
   bwi: CreateOrEditTabungBwiDto = new CreateOrEditTabungBwiDto();
-  // bwiKir: InputBwiKirDto[] = [];
   kelulusan: GetRujukanKelulusanBwiDto = new GetRujukanKelulusanBwiDto();
 
   active;
   nama_pembayaran:string;
   idBwi: any;
   filter: string;
+  filterJenisBwi: string;
   no_rujukan_kelulusan: string;
   nama_jenis_bencana: string;
   rujukan_surat: string;
@@ -46,6 +47,12 @@ export class EditWangIhsanComponent implements OnInit {
   rows = [];
   bwiType: any;
   bayaran: number = 0;
+  jenisBwi: any;
+  id_bencana: any;
+  bencana: any;
+  nama_bencana: string;
+  tarikh_bencana: any;
+  idJenisBwi: number;
 
   saving = false;
   tarikhBencana: string;
@@ -57,33 +64,27 @@ export class EditWangIhsanComponent implements OnInit {
   today = this.calendar.getToday();
   readonly DELIMITER = '-';
 
-  bwiCategory = [
-    { id: 1, nama_jenis_bwi: "Bencana" },
-    { id: 2, nama_jenis_bwi: "Pengurusan Kematian" },
-    { id: 3, nama_jenis_bwi: "Lain-lain" }
-  ]
-
 	constructor(
     private router: Router,
     config: NgbModalConfig,
     private calendar: NgbCalendar,
-    private modalService: NgbModal,
     public activeModal: NgbActiveModal,
     private _activatedRoute: ActivatedRoute,
-    private _tabungBwiServiceProxy: TabungBwiServiceProxy
+    private _tabungBwiServiceProxy: TabungBwiServiceProxy,
+    private _refJenisBwiServiceProxy: RefJenisBwiServiceProxy,
+    private _refBencanaServiceProxy: RefBencanaServiceProxy
   ) {
     this.idBwi = this._activatedRoute.snapshot.queryParams['id'];
+    this.id_bencana = this._activatedRoute.snapshot.queryParams['idBencana'];
 		this.primengTableHelper = new PrimengTableHelper();
     this.edit.tabung_bwi = new CreateOrEditTabungBwiDto();
-    // this.edit.rujukan_kelulusan_bwi = new GetRujukanKelulusanBwiDto();
-    // this.edit.nama_tabung = this.nama_tabung;
-    // this.edit.nama_jenis_bencana = this.nama_jenis_bencana;
 		config.backdrop = 'static';
 		config.keyboard = false;
 	}
 
 	ngOnInit(): void {
-    this.show();
+    this.getTabungBwi();
+    this.getJenisBwi();
   }
 
   fromModel(value: string | null): NgbDateStruct | null {
@@ -102,22 +103,19 @@ export class EditWangIhsanComponent implements OnInit {
     return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
   }
 
-  show() {
-    // this._tabungBwiServiceProxy.getTabungBwiForEdit(this.idBwi).subscribe((result)=>{
-    //   this.edit = result;
-    //   this.edit.tabung_bwi = result.tabung_bwi;
-    //   this.no_rujukan_kelulusan = result.rujukan_kelulusan_bwi.no_rujukan_kelulusan;
-    //   this.nama_tabung = result.nama_tabung;
-    //   this.nama_jenis_bencana = result.nama_jenis_bencana;
-    //   this.rujukan_surat = result.rujukan_kelulusan_bwi.rujukan_surat;
-    //   this.perihal_surat = result.rujukan_kelulusan_bwi.perihal_surat;
-    //   if(result.tabung_bwi.tarikh_eft){
-    //     this.modelBencana = this.fromModel(result.tabung_bwi.tarikh_eft.format('YYYY-MM-DD'));
-    //   }
-    //   if(result.tabung_bwi.tarikh_akuan_kp){
-    //     this.modelKejadian = this.fromModel(result.tabung_bwi.tarikh_akuan_kp.format('YYYY-MM-DD'));
-    //   }
-    // })
+  getTabungBwi() {
+    this._tabungBwiServiceProxy.getTabungBwiForEdit(this.idBwi).subscribe((result)=>{
+      this.edit = result;
+      this.edit.tabung_bwi = result.tabung_bwi;
+      this.tarikh_bencana = this.edit.tabung_bwi.tarikh_bencana.format('YYYY-MM-DD');
+      this.idJenisBwi = this.edit.tabung_bwi.id_jenis_bwi;
+    })
+  }
+
+  getJenisBwi(){
+    this._refJenisBwiServiceProxy.getRefJenisBwiForDropdown(this.filterJenisBwi).subscribe((result) => {
+			this.jenisBwi = result.items;
+		});
   }
 
 	reloadPage(): void {
@@ -137,14 +135,6 @@ export class EditWangIhsanComponent implements OnInit {
 	save() {
     this.saving = true;
     this.tabungBwi.bwi = this.edit.tabung_bwi;
-    // if(this.modelBencana){
-    //   this.tarikhBencana = this.toModel(this.modelBencana);
-    //   this.tabungBwi.bwi.tarikh_eft = moment(this.tarikhBencana, "YYYY-MM-DD");
-    // }
-    // if(this.modelKejadian){
-    //   this.tarikhKejadian = this.toModel(this.modelKejadian);
-    //   this.tabungBwi.bwi.tarikh_akuan_kp = moment(this.tarikhKejadian, "YYYY-MM-DD");
-    // }
     this._tabungBwiServiceProxy
 			.createOrEdit(this.tabungBwi)
 			.pipe()

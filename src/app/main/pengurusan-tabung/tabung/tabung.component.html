@@ -23,7 +23,7 @@
 						</div>
 
 						<div class="row justify-content-center">
-							<h4 *ngIf="jumlah_keseluruhan">RM {{jumlah_keseluruhan}}</h4>
+							<h4 *ngIf="jumlah_keseluruhan">RM {{jumlah_keseluruhan | number: '1.2-2'}}</h4>
               <h4 *ngIf="!jumlah_keseluruhan">RM 0.00</h4>
 						</div>
 					</div>
@@ -46,7 +46,7 @@
 						</div>
 
 						<div class="row justify-content-center">
-							<h4 *ngIf="jumlah_perbelanjaan_semasa">RM {{jumlah_perbelanjaan_semasa}}</h4>
+							<h4 *ngIf="jumlah_perbelanjaan_semasa">RM {{jumlah_perbelanjaan_semasa | number: '1.2-2'}}</h4>
               <h4 *ngIf="!jumlah_perbelanjaan_semasa">RM 0.00</h4>
 						</div>
 					</div>
@@ -68,7 +68,7 @@
 							<label>Jumlah Tanggungan Semasa</label>
 						</div>
 						<div class="row justify-content-center">
-							<h4 *ngIf="jumlah_tanggungan">RM {{jumlah_tanggungan}}</h4>
+							<h4 *ngIf="jumlah_tanggungan">RM {{jumlah_tanggungan | number: '1.2-2'}}</h4>
               <h4 *ngIf="!jumlah_tanggungan">RM 0.00</h4>
 						</div>
 					</div>
@@ -174,7 +174,7 @@
 									</td>
 									<td style="width: 135px">
 										<span class="p-column-title">Baki Bawaan</span>
-                    <label *ngIf="record.baki_bawaan">RM {{record.baki_bawaan}}</label>
+                    <label *ngIf="record.baki_bawaan">RM {{record.baki_bawaan | number: '1.2-2'}}</label>
                     <label *ngIf="!record.baki_bawaan">RM 0.00</label>
 									</td>
 									<td style="width: 164px">
@@ -183,22 +183,22 @@
 									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">Peruntukan</span>
-                    <label *ngIf="record.peruntukan">RM {{record.peruntukan}}</label>
+                    <label *ngIf="record.peruntukan">RM {{record.peruntukan | number: '1.2-2'}}</label>
                     <label *ngIf="!record.peruntukan">RM 0.00</label>
 									</td>
 									<td style="width: 135px">
 										<span class="p-column-title">Keseluruhan</span>
-                    <label *ngIf="record.jumlah_keseluruhan">RM {{record.jumlah_keseluruhan}}</label>
+                    <label *ngIf="record.jumlah_keseluruhan">RM {{record.jumlah_keseluruhan | number: '1.2-2'}}</label>
                     <label *ngIf="!record.jumlah_keseluruhan">RM 0.00</label>
 									</td>
                   <td style="width: 137px">
 										<span class="p-column-title">Perbelanjaan</span>
-                    <label *ngIf="record.jumlah_perbelanjaan_semasa">RM {{record.jumlah_perbelanjaan_semasa}}</label>
+                    <label *ngIf="record.jumlah_perbelanjaan_semasa">RM {{record.jumlah_perbelanjaan_semasa | number: '1.2-2'}}</label>
                     <label *ngIf="!record.jumlah_perbelanjaan_semasa">RM 0.00</label>
 									</td>
 									<td style="width: 135px">
 										<span class="p-column-title">Baki Semasa</span>
-                    <label *ngIf="record.jumlah_baki_semasa">RM {{record.jumlah_baki_semasa}}</label>
+                    <label *ngIf="record.jumlah_baki_semasa">RM {{record.jumlah_baki_semasa | number: '1.2-2'}}</label>
                     <label *ngIf="!record.jumlah_baki_semasa">RM 0.00</label>
 									</td>
                   <td style="width: 100px">
