@@ -41,7 +41,7 @@
               type="text"
               placeholder="Nama Bencana"
               name="bencana"
-              [(ngModel)]="nama_bencana"
+              [(ngModel)]="wangIhsan.nama_bencana"
               #namaBencana="ngModel"
               [ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
               required
@@ -160,7 +160,7 @@
       </div>
 		</div>
 
-    <div class="row">
+    <div class="row" *ngIf="name === 'edit'">
       <div class="col-lg-6">
         <div class="form-group">
           <label>Status</label>
@@ -182,7 +182,7 @@
               class="invalid-feedback"
             >
               <div *ngIf="namaStatus.errors.required">
-                Nama Status Wajib Dipilih
+                Status Wajib Dipilih
               </div>
             </div>
           </div>

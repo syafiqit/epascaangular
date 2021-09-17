@@ -18,7 +18,7 @@
               type="text"
               placeholder="Nama Bencana"
               name="bencana"
-              [(ngModel)]="nama_bencana"
+              [(ngModel)]="bantuanPertanian.nama_bencana"
               #namaBencana="ngModel"
               [ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
               required
@@ -82,6 +82,7 @@
           </div>
         </div>
       </div>
+
 			<div class="col-lg-6">
         <div class="form-group">
           <label>Jenis Pertanian</label>
@@ -142,6 +143,7 @@
         <button class="btn btn-primary btn-sm m-2 float-left" (click)="model = today; d.close()">Hari Ini</button>
         <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Tutup</button>
       </ng-template>
+
 			<div class="col-lg-6">
         <div class="form-group">
           <label>Luas (Hektar)</label>
@@ -183,6 +185,7 @@
           </div>
         </div>
       </div>
+
 			<div class="col-lg-6">
         <div class="form-group">
           <label>Bilangan Asal</label>
@@ -224,6 +227,7 @@
           </div>
         </div>
       </div>
+
       <div class="col-lg-6">
         <div class="form-group">
           <label>Kos Bantuan(RM)</label>
@@ -246,7 +250,7 @@
       </div>
 		</div>
 
-    <div class="row">
+    <div class="row" *ngIf="name === 'edit'">
       <div class="col-lg-6">
         <div class="form-group">
           <label>Status</label>
@@ -263,12 +267,9 @@
               [ngClass]="{ 'is-invalid': f.submitted && namaStatus.invalid }"
               required
             ></ng-select>
-            <div
-              *ngIf="f.submitted && namaStatus.invalid"
-              class="invalid-feedback"
-            >
+            <div *ngIf="f.submitted && namaStatus.invalid" class="invalid-feedback">
               <div *ngIf="namaStatus.errors.required">
-                Nama Status Wajib Dipilih
+                Status Wajib Dipilih
               </div>
             </div>
           </div>
@@ -282,7 +283,6 @@
           <label>Catatan</label>
           <textarea
             class="form-control"
-            id="exampleFormControlTextarea4"
             name="bantuanPertanian.catatan"
             [(ngModel)]="bantuanPertanian.catatan"
             rows="3">
@@ -291,6 +291,7 @@
       </div>
     </div>
   </div>
+
   <div class="modal-footer">
     <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
     <button type="submit" class="btn btn-primary">Simpan</button>

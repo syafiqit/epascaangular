@@ -63,12 +63,11 @@
         </td>
         <td style="width: 100px">
           <span class="p-column-title">Jumlah</span>
-          RM {{record.jumlah}}
+          RM {{record.jumlah | number: '1.2-2'}}
         </td>
         <td style="width: 100px">
           <span class="p-column-title">Status</span>
-          <label *ngIf="record.status_mangsa_wang_ihsan == 2">Aktif</label>
-          <label *ngIf="record.status_mangsa_wang_ihsan == 1">Tidak Aktif</label>
+          {{record.status_mangsa_wang_ihsan == 1? "Tidak Aktif":"Aktif"}}
         </td>
         <td style="width: 130px">
           <div ngbDropdown class="btn-group" role="group" container="body">

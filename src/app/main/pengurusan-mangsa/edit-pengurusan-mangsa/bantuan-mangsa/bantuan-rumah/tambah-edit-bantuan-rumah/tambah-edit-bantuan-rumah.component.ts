@@ -43,10 +43,10 @@ export class TambahEditBantuanRumahComponent implements OnInit {
   modelMula: NgbDateStruct;
   modelSiap: NgbDateStruct;
   today = this.calendar.getToday();
+  tarikhBencana: string;
   tarikh_mula: string;
   tarikh_siap: string;
   readonly DELIMITER = '-';
-  nama_bencana: string;
   modelBencana: NgbDateStruct;
 
   status=[
@@ -103,6 +103,9 @@ export class TambahEditBantuanRumahComponent implements OnInit {
     } else {
       this._mangsaRumahServiceProxy.getMangsaRumahForEdit(this.id).subscribe((result) => {
         this.bantuanRumah = result.mangsa_rumah;
+        if(result.mangsa_rumah.tarikh_bencana){
+          this.modelBencana = this.fromModel(result.mangsa_rumah.tarikh_bencana.format('YYYY-MM-DD'));
+        }
         if(result.mangsa_rumah.tarikh_mula){
           this.modelMula = this.fromModel(result.mangsa_rumah.tarikh_mula.format('YYYY-MM-DD'));
         }
@@ -163,7 +166,7 @@ export class TambahEditBantuanRumahComponent implements OnInit {
       (response) => {
         if (response) {
           this.bantuanRumah.id_bencana = response.id_bencana;
-          this.nama_bencana = response.nama_bencana;
+          this.bantuanRumah.nama_bencana = response.nama_bencana;
           this.modelBencana = this.fromModel(response.tarikh_bencana.format('YYYY-MM-DD'));
         }
       }
@@ -172,6 +175,10 @@ export class TambahEditBantuanRumahComponent implements OnInit {
 
   save() {
     this.saving = true;
+    if(this.modelBencana){
+      this.tarikhBencana = this.toModel(this.modelBencana);
+      this.bantuanRumah.tarikh_bencana = moment(this.tarikhBencana, "YYYY-MM-DD");
+    }
     if(this.modelMula){
       this.tarikh_mula = this.toModel(this.modelMula);
       this.bantuanRumah.tarikh_mula = moment(this.tarikh_mula, "YYYY-MM-DD");
