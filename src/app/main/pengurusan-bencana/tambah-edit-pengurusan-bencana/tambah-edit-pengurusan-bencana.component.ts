@@ -25,6 +25,7 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 	pengurusan_bencana: CreateOrEditRefBencanaDto = new CreateOrEditRefBencanaDto();
 	saving = true;
 	filter: any;
+	filterNegeri:any;
 	disasters: any;
 	states: any;
 	tarikhBencana: any;
@@ -48,7 +49,7 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 	ngOnInit(): void {
 		this.show();
 		this.getBencana();
-		this.getNegeri(null,this.id);
+		this.getNegeri(this.id);
 	}
 
   fromModel(value: string | null): NgbDateStruct | null {
@@ -86,8 +87,8 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 		});
 	}
 
-	getNegeri(filter?, id_bencana?) {
-		this._refBencanaNegeriServiceProxy.getRefBencanaNegeriForDropdownByIdBencana(filter, id_bencana).subscribe((result) => {
+	getNegeri(id_bencana?) {
+		this._refBencanaNegeriServiceProxy.getRefBencanaNegeriForDropdownByIdBencana(this.filterNegeri, id_bencana).subscribe((result) => {
 			this.states = result.items;
 		});
 	}
