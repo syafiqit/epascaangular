@@ -4,6 +4,7 @@ import { finalize } from 'rxjs/operators';
 import * as moment from 'moment';
 import {
   CreateOrEditRefBencanaDto,
+  RefBencanaNegeriServiceProxy,
   RefBencanaServiceProxy,
   RefJenisBencanaServiceProxy,
   RefNegeriServiceProxy
@@ -40,13 +41,14 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 		private _refBencanaServiceProxy: RefBencanaServiceProxy,
 		private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy,
 		private _refNegeriServiceProxy: RefNegeriServiceProxy,
+		private _refBencanaNegeriServiceProxy: RefBencanaNegeriServiceProxy,
     private calendar: NgbCalendar
 	) { }
 
 	ngOnInit(): void {
 		this.show();
 		this.getBencana();
-		this.getNegeri();
+		this.getNegeri(null,this.id);
 	}
 
   fromModel(value: string | null): NgbDateStruct | null {
@@ -84,8 +86,8 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 		});
 	}
 
-	getNegeri(filter?) {
-		this._refNegeriServiceProxy.getRefNegeriForDropdown(filter).subscribe((result) => {
+	getNegeri(filter?, id_bencana?) {
+		this._refBencanaNegeriServiceProxy.getRefBencanaNegeriForDropdownByIdBencana(filter, id_bencana).subscribe((result) => {
 			this.states = result.items;
 		});
 	}
