@@ -118,6 +118,7 @@
             [(ngModel)]="pengurusan_bencana.id_negeri"
             #negeri="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && negeri.invalid }"
+            [multiple]="true"
             required
           ></ng-select>
           <div *ngIf="f.submitted && negeri.invalid" class="invalid-feedback">
