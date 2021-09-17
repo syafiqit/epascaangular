@@ -23,15 +23,15 @@
                     />
 								</div>
 							</div>
-
-							<div class="col-lg-6">
+              <div class="col-lg-6">
 								<div class="form-group">
-									<label>Komitmen</label>
-                  <select [(ngModel)]="kelulusan.id_komitmen" class="form-control digits">
-										<option>Pilih</option>
-                    <option value='1'>Perolehan Secara Pembelian Terus</option>
-                    <option value='2'>Perolehan Secara Darurat</option>
-									</select>
+									<label>Jumlah Siling Peruntukan (RM)</label>
+									<input
+                    class="form-control"
+                    type="number"
+                    name="kelulusan.jumlah_siling"
+                    [(ngModel)]="kelulusan.jumlah_siling"
+                  />
 								</div>
 							</div>
 						</div>
@@ -85,39 +85,6 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Jenis Bantuan*</label>
-                  <ng-select
-                    [items]="bantuan"
-                    bindLabel="nama_bantuan"
-                    bindValue="id"
-                    placeholder="Sila Pilih"
-                    class="js-example-placeholder-multiple"
-                    name="bantuan"
-                    [(ngModel)]="kelulusan.id_bantuan"
-                    #jenisBantuan="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && jenisBantuan.invalid }"
-                    required
-                  ></ng-select>
-                  <div *ngIf="f.submitted && jenisBantuan.invalid" class="invalid-feedback">
-                    <div *ngIf="jenisBantuan.errors.required">Jenis Bantuan wajib Dipilih</div>
-                  </div>
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Jumlah Siling Peruntukan (RM)</label>
-									<input
-                    class="form-control"
-                    type="number"
-                    name="kelulusan.jumlah_siling"
-                    [(ngModel)]="kelulusan.jumlah_siling"
-                  />
-								</div>
-							</div>
-						</div>
-            <div class="row">
-							<div class="col-lg-6">
-								<div class="form-group">
 									<label>Tabung*</label>
 									<div class="input-group">
 										<input
@@ -139,26 +106,6 @@
 									</div>
 									<div *ngIf="f.submitted && bencana.invalid" class="invalid-feedback">
 										<div *ngIf="bencana.errors.required">Tabung Wajib Dipilih</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Status*</label>
-									<ng-select
-										bindValue="id"
-										placeholder="Sila Pilih"
-										class="js-example-placeholder-multiple"
-										name="status_tabung_kelulusan"
-										[(ngModel)]="kelulusan.status_tabung_kelulusan"
-										#status="ngModel"
-										[ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
-										required>
-										<ng-option [value]='1'>Aktif</ng-option>
-										<ng-option [value]='2'>Tidak Aktif</ng-option>
-									</ng-select>
-									<div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
-										<div *ngIf="status.errors.required">Status Wajib Dipilih</div>
 									</div>
 								</div>
 							</div>
