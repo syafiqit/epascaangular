@@ -25,19 +25,13 @@
 							</div>
 							<div class="col-lg-6">
 								<div class="form-group">
-								<label>Komitmen</label>
-								<ng-select
-									bindValue="id"
-									placeholder="Sila Pilih"
-									class="js-example-placeholder-multiple"
-									name="komitmen"
-									[(ngModel)]="kelulusan.id_komitmen"
-									#status="ngModel"
-									[ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
-									required>
-									<ng-option [value]='1'>Perolehan Secara Pembelian Terus</ng-option>
-									<ng-option [value]='2'>Perolehan Secara Darurat</ng-option>
-								</ng-select>
+									<label>Jumlah Siling Peruntukan (RM)</label>
+									<input
+										class="form-control"
+										type="number"
+										name="kelulusan.jumlah_siling"
+										[(ngModel)]="kelulusan.jumlah_siling"
+									/>
 								</div>
 							</div>
 						</div>
@@ -87,40 +81,6 @@
 								</div>
 							</div>
 						</div>
-
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Jenis Bantuan*</label>
-									<ng-select
-										[items]="bantuan"
-										bindLabel="nama_bantuan"
-										bindValue="id"
-										placeholder="Sila Pilih"
-										class="js-example-placeholder-multiple"
-										name="bantuan"
-										[(ngModel)]="kelulusan.id_bantuan"
-										#jenisBantuan="ngModel"
-										[ngClass]="{ 'is-invalid': f.submitted && jenisBantuan.invalid }"
-										required
-									></ng-select>
-									<div *ngIf="f.submitted && jenisBantuan.invalid" class="invalid-feedback">
-										<div *ngIf="jenisBantuan.errors.required">Jenis Bantuan wajib Dipilih</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Jumlah Siling Peruntukan (RM)</label>
-									<input
-										class="form-control"
-										type="number"
-										name="kelulusan.jumlah_siling"
-										[(ngModel)]="kelulusan.jumlah_siling"
-									/>
-								</div>
-							</div>
-						</div>
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
@@ -152,7 +112,6 @@
 								<div class="form-group">
 									<label>Status*</label>
 									<ng-select
-										bindValue="id"
 										placeholder="Sila Pilih"
 										class="js-example-placeholder-multiple"
 										name="status_tabung_kelulusan"
