@@ -39,12 +39,8 @@ export class TabungComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+    this.getTotalCard();
 
-    this.tabungServiceProxy.getTotalTabungCard(this.filterMonth).subscribe((result) => {
-      this.jumlah_keseluruhan = result.jumlah_keseluruhan;
-      this.jumlah_perbelanjaan_semasa = result.jumlah_perbelanjaan_semasa;
-      this.jumlah_tanggungan = result.jumlah_tanggungan;
-    });
 
     this.terms$.pipe(
       debounceTime(500), distinctUntilChanged()
@@ -56,6 +52,14 @@ export class TabungComponent implements OnInit {
 
   applyFilter(filterValue: string){
     this.terms$.next(filterValue);
+  }
+
+  getTotalCard(){
+    this.tabungServiceProxy.getTotalTabungCard(this.filterMonth).subscribe((result) => {
+      this.jumlah_keseluruhan = result.jumlah_keseluruhan;
+      this.jumlah_perbelanjaan_semasa = result.jumlah_perbelanjaan_semasa;
+      this.jumlah_tanggungan = result.jumlah_tanggungan;
+    });
   }
 
 	getTabung(event?: LazyLoadEvent) {
@@ -93,6 +97,7 @@ export class TabungComponent implements OnInit {
     modalRef.result.then((response) => {
 			if (response) {
 				this.getTabung();
+        this.getTotalCard();
 			}
 		});
 	}
