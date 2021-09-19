@@ -33488,6 +33488,7 @@ export class GetTabungBayaranTerusForViewDto implements IGetTabungBayaranTerusFo
     penerima!: string;
     tarikh!: moment.Moment;
     perihal!: string;
+    jumlah!: number;
     id_pengguna_cipta!: number;
     tarikh_cipta!: moment.Moment;
     id_pengguna_kemaskini!: number;
@@ -33521,6 +33522,7 @@ export class GetTabungBayaranTerusForViewDto implements IGetTabungBayaranTerusFo
             this.penerima = _data["penerima"];
             this.tarikh = _data["tarikh"] ? moment(_data["tarikh"].toString()) : <any>undefined;
             this.perihal = _data["perihal"];
+            this.jumlah = _data["jumlah"];
             this.id_pengguna_cipta = _data["id_pengguna_cipta"];
             this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
@@ -33554,6 +33556,7 @@ export class GetTabungBayaranTerusForViewDto implements IGetTabungBayaranTerusFo
         data["penerima"] = this.penerima;
         data["tarikh"] = this.tarikh ? this.tarikh.toISOString() : <any>undefined;
         data["perihal"] = this.perihal;
+        data["jumlah"] = this.jumlah;
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
@@ -33580,6 +33583,7 @@ export interface IGetTabungBayaranTerusForViewDto {
     penerima: string;
     tarikh: moment.Moment;
     perihal: string;
+    jumlah: number;
     id_pengguna_cipta: number;
     tarikh_cipta: moment.Moment;
     id_pengguna_kemaskini: number;
