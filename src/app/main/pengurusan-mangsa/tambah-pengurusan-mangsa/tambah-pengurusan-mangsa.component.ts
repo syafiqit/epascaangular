@@ -11,12 +11,13 @@ import {
   RefNegeriServiceProxy,
   RefParlimenServiceProxy,
   RefPindahServiceProxy,
-  RefBencanaServiceProxy,
   SessionServiceProxy,
   GetProfilDto
 } from 'src/app/shared/proxy/service-proxies';
 import { Router } from '@angular/router';
 import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SelectBencanaComponent } from '../select-bencana/select-bencana.component';
 
 @Component({
 	selector: 'app-tambah-pengurusan-mangsa',
@@ -34,21 +35,21 @@ export class TambahPengurusanMangsaComponent implements OnInit {
   parliaments: any;
   districts: any;
   states: any;
-  disasters: any;
   evacuates: any;
   setDun: any;
   setDaerah: any;
   verify: number;
   filterIdNegeri: number;
+  nama_bencana: string;
 
 	constructor(
     public datePipe: DatePipe,
+    private modalService: NgbModal,
     private _mangsaServiceProxy: MangsaServiceProxy,
     private _refDunServiceProxy: RefDunServiceProxy,
     private _refParlimenServiceProxy: RefParlimenServiceProxy,
     private _refDaerahServiceProxy: RefDaerahServiceProxy,
     private _refNegeriServiceProxy: RefNegeriServiceProxy,
-    private _refBencanaServiceProxy: RefBencanaServiceProxy,
     private _refPindahServiceProxy: RefPindahServiceProxy,
     private _sessionServiceProxy: SessionServiceProxy,
     private router: Router
@@ -65,7 +66,6 @@ export class TambahPengurusanMangsaComponent implements OnInit {
     this.getParlimen();
     this.getDaerah();
     this.getNegeri();
-    this.getBencana();
     this.getStatusPindah();
   }
 
@@ -100,12 +100,6 @@ export class TambahPengurusanMangsaComponent implements OnInit {
 		});
 	}
 
-  getBencana(filter?) {
-		this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
-			this.disasters = result.items;
-		});
-	}
-
   getStatusPindah(filter?) {
 		this._refPindahServiceProxy.getRefPindahForDropdown(filter).subscribe((result) => {
 			this.evacuates = result.items;
@@ -130,6 +124,19 @@ export class TambahPengurusanMangsaComponent implements OnInit {
       this.verify = 0;
     }
   }
+
+	pilihBencana() {
+		const modalRef = this.modalService.open(SelectBencanaComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'add';
+    modalRef.result.then(
+			(response) => {
+				if (response) {
+          this.addMangsa.bencana.id_bencana = response.id;
+          this.nama_bencana = response.nama_bencana;
+				}
+			}
+		);
+	}
 
 	save(): void {
 		this.saving = true;

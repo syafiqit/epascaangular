@@ -267,20 +267,26 @@
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Nama Bencana*</label>
-									<ng-select
-                    [items]="disasters"
-                    bindLabel="nama_bencana"
-                    bindValue="id"
-                    placeholder="Sila Pilih"
-                    class="js-example-placeholder-multiple"
-                    name="id_bencana"
-                    [(ngModel)]="addMangsa.bencana.id_bencana"
-                    #disaster="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && disaster.invalid }"
-                    required
-                  ></ng-select>
-                  <div *ngIf="f.submitted && disaster.invalid" class="invalid-feedback">
-                    <div *ngIf="disaster.errors.required">Nama Bencana Wajib Dipilih</div>
+									<div class="input-group">
+										<input
+                      class="form-control"
+                      type="text"
+                      placeholder="Nama Bencana"
+                      name="bencana"
+                      [(ngModel)]="nama_bencana"
+                      #namaBencana="ngModel"
+                      [ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
+                      required
+                      readonly
+										/>
+										<div class="input-group-append">
+											<button class="btn btn-primary" (click)="pilihBencana()" type="button">
+												<i class="fa fa-search text-white"></i>
+											</button>
+										</div>
+									</div>
+                  <div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
+                    <div *ngIf="namaBencana.errors.required">Nama Bencana Wajib Dipilih</div>
                   </div>
 								</div>
 							</div>

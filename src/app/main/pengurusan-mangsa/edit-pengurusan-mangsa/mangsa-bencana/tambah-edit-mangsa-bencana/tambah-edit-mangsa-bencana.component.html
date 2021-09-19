@@ -12,39 +12,45 @@
 			<div class="col-lg-6">
 				<div class="form-group">
 					<label>Nama Bencana</label>
-					<ng-select
-						[items]="disasters"
-						bindLabel="nama_bencana"
-						bindValue="id"
-						placeholder="Sila Pilih"
-						class="js-example-placeholder-multiple"
-						name="id_bencana"
-						[(ngModel)]="addBencana.id_bencana"
-						#bencana="ngModel"
-						[ngClass]="{ 'is-invalid': f.submitted && bencana.invalid }"
-						(change)="onSelectBencana(addBencana.id_bencana)"
-						required
-					></ng-select>
-					<div *ngIf="f.submitted && bencana.invalid" class="invalid-feedback">
-						<div *ngIf="bencana.errors.required">Nama Bencana Wajib Dipilih</div>
-					</div>
+          <div class="input-group">
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Nama Bencana"
+              name="bencana"
+              [(ngModel)]="addBencana.nama_bencana"
+              #namaBencana="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
+              required
+              readonly
+            />
+            <div class="input-group-append">
+              <button class="btn btn-primary" (click)="pilihBencana()" type="button">
+                <i class="fa fa-search text-white"></i>
+              </button>
+            </div>
+          </div>
+          <div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
+            <div *ngIf="namaBencana.errors.required">Nama Bencana Wajib Dipilih</div>
+          </div>
 				</div>
 			</div>
 
-			<div class="col-lg-6">
-				<div class="form-group">
-					<label>Tarikh Bencana</label>
-					<input
-						class="form-control"
-            id="tarikhBencana"
-						type="text"
-						name="tarikh_bencana"
-						[(ngModel)]="date_bencana"
-						placeholder="Tarikh Bencana"
-						readonly
-					/>
-				</div>
-			</div>
+      <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
+        <label>Tarikh Bencana</label>
+        <div class="input-group">
+          <input
+            class="form-control"
+            placeholder="yyyy-mm-dd"
+            name="dp3"
+            [(ngModel)]="modelBencana"
+            ngbDatepicker
+            #d3="ngbDatepicker"
+            style="border: 1px solid #efefef !important;"
+            readonly
+          >
+        </div>
+      </div>
 		</div>
 
 		<div class="row">
