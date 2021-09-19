@@ -4,7 +4,7 @@ import { finalize } from 'rxjs/operators';
 import * as moment from 'moment';
 import {
   CreateOrEditRefBencanaDto,
-  RefBencanaNegeriServiceProxy,
+  InputCreateBencanaDto,
   RefBencanaServiceProxy,
   RefJenisBencanaServiceProxy,
   RefNegeriServiceProxy
@@ -21,8 +21,10 @@ import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 export class TambahEditPengurusanBencanaComponent implements OnInit {
   @Input() name;
 	@Input() id;
+	negeriArray:any;
 
-	pengurusan_bencana: CreateOrEditRefBencanaDto = new CreateOrEditRefBencanaDto();
+	pengurusan_bencana: InputCreateBencanaDto = new InputCreateBencanaDto();
+	bencana: CreateOrEditRefBencanaDto = new CreateOrEditRefBencanaDto();
 	saving = true;
 	filter: any;
 	filterNegeri:any;
@@ -42,14 +44,13 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 		private _refBencanaServiceProxy: RefBencanaServiceProxy,
 		private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy,
 		private _refNegeriServiceProxy: RefNegeriServiceProxy,
-		private _refBencanaNegeriServiceProxy: RefBencanaNegeriServiceProxy,
     private calendar: NgbCalendar
 	) { }
 
 	ngOnInit(): void {
 		this.show();
 		this.getBencana();
-		this.getNegeri(this.id);
+		this.getNegeri();
 	}
 
   fromModel(value: string | null): NgbDateStruct | null {
@@ -70,13 +71,15 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 
 	show() {
 		if (!this.id) {
-			this.pengurusan_bencana = new CreateOrEditRefBencanaDto();
+			this.pengurusan_bencana = new InputCreateBencanaDto();
+			this.bencana = new CreateOrEditRefBencanaDto();
 		} else {
 			this._refBencanaServiceProxy.getRefBencanaForEdit(this.id).subscribe((result) => {
-				this.pengurusan_bencana = result.ref_bencana;
-        if(result.ref_bencana.tarikh_bencana){
-          this.model = this.fromModel(result.ref_bencana.tarikh_bencana.format('YYYY-MM-DD'));
-        }
+				this.bencana = result.ref_bencana;
+
+				if(result.ref_bencana.tarikh_bencana){
+					this.model = this.fromModel(result.ref_bencana.tarikh_bencana.format('YYYY-MM-DD'));
+				}
 			});
 		}
 	}
@@ -87,33 +90,37 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 		});
 	}
 
-	getNegeri(id_bencana?) {
-		this._refBencanaNegeriServiceProxy.getRefBencanaNegeriForDropdownByIdBencana(this.filterNegeri, id_bencana).subscribe((result) => {
+	getNegeri() {
+		this._refNegeriServiceProxy.getRefNegeriForDropdown(this.filterNegeri).subscribe((result) => {
 			this.states = result.items;
 		});
 	}
 
 	save(): void {
 		this.saving = true;
-    if(this.model){
-      this.dateDisaster = this.toModel(this.model);
-      this.pengurusan_bencana.tarikh_bencana = moment(this.dateDisaster, "YYYY-MM-DD");
-    }
-		// this._refBencanaServiceProxy
-		// 	.createOrEdit(this.pengurusan_bencana)
-		// 	.pipe(
-		// 		finalize(() => {
-		// 			this.saving = false;
-		// 		})
-		// 	)
-		// 	.subscribe(() => {
-		// 		if (this.name == 'add') {
-		// 			swalSuccess.fire('Berjaya!', 'Maklumat Agensi Berjaya disimpan.', 'success');
-		// 		} else if (this.name == 'edit') {
-		// 			swalSuccess.fire('Berjaya!', 'Maklumat Agensi Berjaya dikemaskini.', 'success');
-		// 		}
-		// 		this.activeModal.close(true);
-		// 	});
+
+		if(this.model){
+		this.dateDisaster = this.toModel(this.model);
+		this.bencana.tarikh_bencana = moment(this.dateDisaster, "YYYY-MM-DD");
+		this.pengurusan_bencana.id_negeri = this.negeriArray;
+		this.pengurusan_bencana.bencana = this.bencana;
+		
+		this._refBencanaServiceProxy
+			.createOrEdit(this.pengurusan_bencana)
+			.pipe(
+				finalize(() => {
+					this.saving = false;
+				})
+			)
+			.subscribe(() => {
+				if (this.name == 'add') {
+					swalSuccess.fire('Berjaya!', 'Maklumat Agensi Berjaya disimpan.', 'success');
+				} else if (this.name == 'edit') {
+					swalSuccess.fire('Berjaya!', 'Maklumat Agensi Berjaya dikemaskini.', 'success');
+				}
+				this.activeModal.close(true);
+			});
+    	}
 	}
 
 }

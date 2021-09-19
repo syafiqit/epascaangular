@@ -49,7 +49,7 @@
             type="text"
             name="tahun_bencana"
             placeholder="Tahun"
-            [(ngModel)]="pengurusan_bencana.tahun_bencana"
+            [(ngModel)]="bencana.tahun_bencana"
             #tahunBencana="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && tahunBencana.invalid }"
             required
@@ -71,8 +71,8 @@
             bindValue="id"
             placeholder="Sila Pilih"
             class="js-example-placeholder-multiple"
-            name="pengurusan_bencana.id_jenis_bencana"
-            [(ngModel)]="pengurusan_bencana.id_jenis_bencana"
+            name="bencana.id_jenis_bencana"
+            [(ngModel)]="bencana.id_jenis_bencana"
             #jenisBencana="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && jenisBencana.invalid }"
             required
@@ -92,7 +92,7 @@
             type="text"
             name="nama_bencana"
             placeholder="Nama Bencana"
-            [(ngModel)]="pengurusan_bencana.nama_bencana"
+            [(ngModel)]="bencana.nama_bencana"
             #namaBencana="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
             required
@@ -114,8 +114,8 @@
             bindValue="id"
             placeholder="Sila Pilih"
             class="js-example-placeholder-multiple"
-            name="pengurusan_bencana.id_negeri"
-            [(ngModel)]="pengurusan_bencana.id_negeri"
+            name="bencana.id_negeri"
+            [(ngModel)]="negeriArray"
             #negeri="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && negeri.invalid }"
             [multiple]="true"
@@ -133,7 +133,7 @@
 					<select
 						class="form-control digits"
 						name="status_bencana"
-						[(ngModel)]="pengurusan_bencana.status_bencana"
+						[(ngModel)]="bencana.status_bencana"
 						#status="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
 						required
@@ -159,7 +159,7 @@
             type="text"
             name="catatan"
             placeholder="Catatan..."
-            [(ngModel)]="pengurusan_bencana.catatan"
+            [(ngModel)]="bencana.catatan"
 				  ></textarea>
         </div>
       </div>
