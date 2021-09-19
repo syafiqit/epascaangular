@@ -1,10 +1,17 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { CreateOrEditTabungBayaranTerusDto, OutputCreateBayaranTerusDto, RefBencanaServiceProxy, RefJenisBayaranServiceProxy, RefJenisBencanaServiceProxy, RefKategoriBayaranServiceProxy, TabungBayaranTerusServiceProxy, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
-import { PilihanRujukanKelulusanComponent } from '../../skb/pilihan-rujukan-kelulusan/pilihan-rujukan-kelulusan.component';
+import {
+  CreateOrEditTabungBayaranTerusDto,
+  OutputCreateBayaranTerusDto,
+  RefBencanaServiceProxy,
+  RefJenisBayaranServiceProxy,
+  RefJenisBencanaServiceProxy,
+  RefKategoriBayaranServiceProxy,
+  TabungBayaranTerusServiceProxy,
+  TabungKelulusanServiceProxy
+} from 'src/app/shared/proxy/service-proxies';
 import { PilihBencanaComponent } from '../pilih-bencana/pilih-bencana.component';
 import { PilihRujukanKelulusanComponent } from '../pilih-rujukan-kelulusan/pilih-rujukan-kelulusan.component';
-import { PilihTabungComponent } from '../pilih-tabung/pilih-tabung.component';
 import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
@@ -42,6 +49,7 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
   tarikhBayaran: string;
   tarikhBencana: string;
   idBayaranTerus: any;
+  idKelulusan: any;
 
 	constructor(
     config: NgbModalConfig,
@@ -50,17 +58,22 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
     private router: Router,
     private _activatedRoute: ActivatedRoute,
     private tabungBayaranTerusServiceProxy: TabungBayaranTerusServiceProxy,
+    private _tabungKelulusanServiceProxy: TabungKelulusanServiceProxy,
     private _refBencanaServiceProxy: RefBencanaServiceProxy,
     private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy,
     private _refJenisBayaranServiceProxy: RefJenisBayaranServiceProxy,
     private _refKategoriBayaranServiceProxy: RefKategoriBayaranServiceProxy
     ) {
     this.idBayaranTerus = this._activatedRoute.snapshot.queryParams['id'];
+    this.idKelulusan = this._activatedRoute.snapshot.queryParams['id_kelulusan'];
 		config.backdrop = 'static';
 		config.keyboard = false;
 	}
 
 	ngOnInit(): void {
+    if(this.idKelulusan) {
+      this.getKelulusan();
+    }
     this.show();
     this.getBencana();
     this.getKategoriBencana();
@@ -84,6 +97,13 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
         }
 			});
 		}
+  }
+
+  getKelulusan() {
+    this._tabungKelulusanServiceProxy.getTabungKelulusanForEdit(this.idKelulusan).subscribe((result)=>{
+      this.no_rujukan_kelulusan = result.tabung_kelulusan.no_rujukan_kelulusan;
+      this.bayaranTerus.id_tabung_kelulusan = this.idKelulusan;
+    })
   }
 
   getBencana(){
@@ -118,19 +138,6 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
 				if (response) {
           this.bayaranTerus.id_tabung_kelulusan = response.id;
 					this.no_rujukan_kelulusan = response.no_rujukan_kelulusan;
-				}
-			}
-		);
-	}
-
-  addTabung() {
-		const modalRef = this.modalService.open(PilihTabungComponent, { size: 'xl' });
-		modalRef.componentInstance.name = 'add';
-    modalRef.result.then(
-			(response) => {
-				if (response) {
-          // this.bayaranTerus.id_tabung = response.id;
-					this.namaTabung = response.nama_tabung;
 				}
 			}
 		);
