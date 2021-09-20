@@ -61,7 +61,7 @@
 										No. Bayaran
 										<p-sortIcon field="no_rujukan_terus"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="tarikh">
+									<th style="width: 100px" pSortableColumn="tarikh">
 										Tarikh
 										<p-sortIcon field="tarikh"></p-sortIcon>
 									</th>
@@ -74,8 +74,12 @@
 										<p-sortIcon field="penerima"></p-sortIcon>
 									</th>
 									<th style="width: 100px" pSortableColumn="nama_bencana">
-										Kategori
+										Bencana
 										<p-sortIcon field="nama_bencana"></p-sortIcon>
+									</th>
+                  <th style="width: 100px" pSortableColumn="jumlah">
+										Jumlah
+										<p-sortIcon field="jumlah"></p-sortIcon>
 									</th>
                   <th style="width: 130px">Tindakan</th>
 								</tr>
@@ -91,7 +95,7 @@
 										<label *ngIf="record.no_rujukan_terus">{{record.no_rujukan_terus}}</label>
                     <label *ngIf="!record.no_rujukan_terus">-</label>
 									</td>
-									<td style="width: 130px">
+									<td style="width: 100px">
 										<span class="p-column-title">Tarikh</span>
 										{{record.tarikh | date:'dd-MM-yyyy'}}
 									</td>
@@ -104,8 +108,12 @@
 										{{record.penerima}}
 									</td>
 									<td style="width: 100px">
-										<span class="p-column-title">Kategori</span>
+										<span class="p-column-title">Bencana</span>
 										{{record.nama_bencana}}
+									</td>
+                  <td style="width: 100px">
+										<span class="p-column-title">Jumlah</span>
+										{{record.jumlah}}
 									</td>
                   <td style="width: 130px">
 										<div ngbDropdown class="btn-group" role="group" container="body">

@@ -9,9 +9,9 @@
 <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
   <div class="modal-body">
 		<div class="row">
-			<div class="col-lg-6 mt-2">
+			<div class="col-lg-6">
 				<div class="form-group">
-					<label>Nama Tabung</label>
+					<label>Nama Tabung*</label>
 					<input
             class="form-control"
             name="nama_tabung"
@@ -30,15 +30,22 @@
 
       <div class="col-lg-6">
         <div class="form-group">
-          <label>Jumlah Dana Awal (RM)</label>
+          <label>Jumlah Dana Awal (RM)*</label>
           <input
             class="form-control"
             type="text"
             name="danaAwal"
             [(ngModel)]="createTabung.dana_awal"
+            format="currency"
+            #danaAwal="ngModel"
+				    [ngClass]="{ 'is-invalid': f.submitted && danaAwal.invalid }"
             placeholder="Jumlah Dana Awal"
             onlyNumbers
+            required
           />
+          <div *ngIf="f.submitted && danaAwal.invalid" class="invalid-feedback">
+            <div *ngIf="danaAwal.errors.required">Jumlah Dana Awal Wajib Diisi</div>
+          </div>
         </div>
       </div>
     </div>
