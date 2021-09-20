@@ -15,7 +15,7 @@ import {
 } from 'src/app/shared/proxy/service-proxies';
 import { TambahBelanjaBulanan } from '../tambah-belanja-bulanan/tambah-belanja-bulanan.component';
 import * as moment from 'moment';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { PilihanBencanaComponent } from '../pilihan-bencana/pilihan-bencana.component';
 import { fadeVerticalAnimation } from '@app/shared/data/router-animation/fade-vertical-animation';
@@ -69,11 +69,14 @@ export class TambahSkbComponent implements OnInit {
     config: NgbModalConfig,
     private modalService: NgbModal,
     public activeModal: NgbActiveModal,
+    private _activatedRoute: ActivatedRoute,
     private _tabungBayaranSkbServiceProxy: TabungBayaranSkbServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
     private router: Router,
     private calendar: NgbCalendar
   ) {
+    this.skb.id_tabung_kelulusan = this._activatedRoute.snapshot.queryParams['kelulusan'];
+    this.skb.no_rujukan_kelulusan = this._activatedRoute.snapshot.queryParams['no_ruj'];
     this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;

@@ -126,7 +126,6 @@
 							>
 								<ng-template pTemplate="header">
 									<tr>
-										<th style="width: 130px">Tindakan</th>
 										<th style="width: 159px" pSortableColumn="no_kp">
 											Kad Pengenalan
 											<p-sortIcon field="no_kp"></p-sortIcon>
@@ -155,33 +154,11 @@
 											Varifikasi
 											<p-sortIcon field="status_verifikasi"></p-sortIcon>
 										</th>
+										<th style="width: 130px">Tindakan</th>
 									</tr>
 								</ng-template>
 								<ng-template pTemplate="body" let-record="$implicit">
 									<tr>
-										<td style="width: 130px">
-											<div ngbDropdown class="btn-group" role="group" container="body">
-												<button
-													type="button"
-													class="btn btn-primary btn-primeng dropdown-toggle"
-													id="action"
-													ngbDropdownToggle
-												>
-													<i class="fa fa-cog"></i>
-													<span class="caret"></span>
-													Tindakan
-												</button>
-												<div ngbDropdownMenu aria-labelledby="action">
-													<button
-														class="dropdown-item"
-														[routerLink]="['/app/mangsa/edit-pengurusan-mangsa']"
-                            [queryParams]="{id: record.id }"
-													>
-														Lihat
-													</button>
-												</div>
-											</div>
-										</td>
 										<td style="width: 159px">
 											<span class="p-column-title">Kad Pengenalan</span>
 											{{record.no_kp}}
@@ -208,7 +185,31 @@
 										</td>
 										<td style="width: 112px">
 											<span class="p-column-title">Varifikasi</span>
-											{{record.status_verifikasi == 1? "Sudah":"Belum"}}
+                      <label *ngIf="record.status_verifikasi == 1" style="color: green;">Sudah</label>
+                      <label *ngIf="record.status_verifikasi == 0" style="color: red;">Belum</label>
+										</td>
+										<td style="width: 130px">
+											<div ngbDropdown class="btn-group" role="group" container="body">
+												<button
+													type="button"
+													class="btn btn-primary btn-primeng dropdown-toggle"
+													id="action"
+													ngbDropdownToggle
+												>
+													<i class="fa fa-cog"></i>
+													<span class="caret"></span>
+													Tindakan
+												</button>
+												<div ngbDropdownMenu aria-labelledby="action">
+													<button
+														class="dropdown-item"
+														[routerLink]="['/app/mangsa/edit-pengurusan-mangsa']"
+                            [queryParams]="{id: record.id }"
+													>
+														Lihat
+													</button>
+												</div>
+											</div>
 										</td>
 									</tr>
 								</ng-template>

@@ -15,15 +15,32 @@
 			</div>
 		</div>
 
-		<div class="row justify-content-end pr-0 mb-1">
-			<button (click)="addVictimDisasterModal()" class="btn btn-primary pull-right">
-        <i class="fa fa-plus mr-2"></i>
-        <b>Tambah</b>
-      </button>
-		</div>
+    <div class="row mb-2">
+      <div class="col-6 justify-content-start pl-0">
+        <div class="faq-form">
+          <input
+            class="form-control"
+            type="text"
+            name="searchBencana"
+            placeholder="Carian..."
+            (keyup)="applyFilter($event.target.value)"
+          />
+          <i class="search-icon" data-feather="search"></i>
+        </div>
+      </div>
+
+      <div class="col-6 justify-content-end pr-0">
+        <button
+          (click)="addVictimDisasterModal()"
+          class="btn btn-primary pull-right"
+        >
+          <i class="fa fa-plus mr-2"></i>
+          <b>Tambah</b>
+        </button>
+      </div>
+    </div>
 
 		<div class="row align-items-center">
-      <!--<Primeng-TurboTable-Start>-->
       <div class="primeng-datatable-container">
         <p-table
           #dataTable
@@ -38,16 +55,16 @@
           [scrollable]="true"
           ScrollWidth="100%"
           [responsive]="primengTableHelper.isResponsive"
+          [resizableColumns]="primengTableHelper.resizableColumns"
         >
           <ng-template pTemplate="header">
             <tr>
-              <th style="width: 130px">Tindakan</th>
               <th style="width: 100px" pSortableColumn="tahun_bencana">
                 Tahun Bencana
                 <p-sortIcon field="tahun_bencana"></p-sortIcon>
               </th>
               <th style="width: 130px" pSortableColumn="nama_bencana">
-                Nama Bencana
+                Bencana
                 <p-sortIcon field="nama_bencana"></p-sortIcon>
               </th>
               <th style="width: 130px" pSortableColumn="pindah">
@@ -58,10 +75,27 @@
                 Nama Pusat
                 <p-sortIcon field="nama_pusat_pemindahan"></p-sortIcon>
               </th>
+              <th style="width: 130px">Tindakan</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-record="$implicit">
             <tr>
+              <td style="width: 100px">
+                <span class="p-column-title">Tarikh Bencana</span>
+                {{record.tarikh_bencana | date: 'dd/MM/yyyy'}}
+              </td>
+              <td style="width: 130px">
+                <span class="p-column-title">Bencana</span>
+                {{record.nama_bencana}}
+              </td>
+              <td style="width: 130px">
+                <span class="p-column-title">Status Pindah</span>
+                {{record.pindah}}
+              </td>
+              <td style="width: 130px">
+                <span class="p-column-title">Nama Pusat</span>
+                {{record.nama_pusat_pemindahan}}
+              </td>
               <td style="width: 130px">
                 <div ngbDropdown class="btn-group" role="group" container="body">
                   <button
@@ -81,22 +115,6 @@
                   </div>
                 </div>
               </td>
-              <td style="width: 100px">
-                <span class="p-column-title">Tahun Bencana</span>
-                {{record.tahun_bencana}}
-              </td>
-              <td style="width: 130px">
-                <span class="p-column-title">Nama Bencana</span>
-                {{record.nama_bencana}}
-              </td>
-              <td style="width: 130px">
-                <span class="p-column-title">Status Pindah</span>
-                {{record.pindah}}
-              </td>
-              <td style="width: 130px">
-                <span class="p-column-title">Nama Pusat</span>
-                {{record.nama_pusat_pemindahan}}
-              </td>
             </tr>
           </ng-template>
         </p-table>
@@ -112,7 +130,6 @@
           <span class="total-records-count">Jumlah: {{ primengTableHelper.totalRecordsCount}}</span>
         </div>
       </div>
-      <!--<Primeng-TurboTable-End>-->
     </div>
 	</div>
 </form>

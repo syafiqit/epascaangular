@@ -11,12 +11,13 @@ import {
   RefNegeriServiceProxy,
   RefParlimenServiceProxy,
   RefPindahServiceProxy,
-  RefBencanaServiceProxy,
   SessionServiceProxy,
   GetProfilDto
 } from 'src/app/shared/proxy/service-proxies';
 import { Router } from '@angular/router';
 import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SelectBencanaComponent } from '../select-bencana/select-bencana.component';
 
 @Component({
 	selector: 'app-tambah-pengurusan-mangsa',
@@ -34,21 +35,23 @@ export class TambahPengurusanMangsaComponent implements OnInit {
   parliaments: any;
   districts: any;
   states: any;
-  disasters: any;
   evacuates: any;
   setDun: any;
   setDaerah: any;
   verify: number;
   filterIdNegeri: number;
+  nama_bencana: string;
+  modelBencana: NgbDateStruct;
+  readonly DELIMITER = '-';
 
 	constructor(
     public datePipe: DatePipe,
+    private modalService: NgbModal,
     private _mangsaServiceProxy: MangsaServiceProxy,
     private _refDunServiceProxy: RefDunServiceProxy,
     private _refParlimenServiceProxy: RefParlimenServiceProxy,
     private _refDaerahServiceProxy: RefDaerahServiceProxy,
     private _refNegeriServiceProxy: RefNegeriServiceProxy,
-    private _refBencanaServiceProxy: RefBencanaServiceProxy,
     private _refPindahServiceProxy: RefPindahServiceProxy,
     private _sessionServiceProxy: SessionServiceProxy,
     private router: Router
@@ -65,7 +68,6 @@ export class TambahPengurusanMangsaComponent implements OnInit {
     this.getParlimen();
     this.getDaerah();
     this.getNegeri();
-    this.getBencana();
     this.getStatusPindah();
   }
 
@@ -75,6 +77,18 @@ export class TambahPengurusanMangsaComponent implements OnInit {
       this.addMangsa.mangsa.id_pengguna_cipta = result.pengguna.id;
 		});
 	}
+
+  fromModel(value: string | null): NgbDateStruct | null {
+    if (value) {
+      let date = value.split(this.DELIMITER);
+      return {
+        year : parseInt(date[0], 10),
+        month : parseInt(date[1], 10),
+        day : parseInt(date[2], 10)
+      };
+    }
+    return null;
+  }
 
   getDun(filter?) {
 		this._refDunServiceProxy.getRefDunForDropdown(filter).subscribe((result) => {
@@ -97,12 +111,6 @@ export class TambahPengurusanMangsaComponent implements OnInit {
   getNegeri(filter?) {
 		this._refNegeriServiceProxy.getRefNegeriForDropdown(filter).subscribe((result) => {
 			this.states = result.items;
-		});
-	}
-
-  getBencana(filter?) {
-		this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
-			this.disasters = result.items;
 		});
 	}
 
@@ -130,6 +138,20 @@ export class TambahPengurusanMangsaComponent implements OnInit {
       this.verify = 0;
     }
   }
+
+	pilihBencana() {
+		const modalRef = this.modalService.open(SelectBencanaComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'add';
+    modalRef.result.then(
+			(response) => {
+				if (response) {
+          this.addMangsa.bencana.id_bencana = response.id;
+          this.nama_bencana = response.nama_bencana;
+          this.modelBencana = this.fromModel(response.tarikh_bencana.format('YYYY-MM-DD'));
+				}
+			}
+		);
+	}
 
 	save(): void {
 		this.saving = true;

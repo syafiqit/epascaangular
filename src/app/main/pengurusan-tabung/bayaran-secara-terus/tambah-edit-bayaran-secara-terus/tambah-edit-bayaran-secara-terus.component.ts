@@ -1,10 +1,16 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { CreateOrEditTabungBayaranTerusDto, OutputCreateBayaranTerusDto, RefBencanaServiceProxy, RefJenisBayaranServiceProxy, RefJenisBencanaServiceProxy, RefKategoriBayaranServiceProxy, TabungBayaranTerusServiceProxy, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
-import { PilihanRujukanKelulusanComponent } from '../../skb/pilihan-rujukan-kelulusan/pilihan-rujukan-kelulusan.component';
+import {
+  CreateOrEditTabungBayaranTerusDto,
+  OutputCreateBayaranTerusDto,
+  RefBencanaServiceProxy,
+  RefJenisBayaranServiceProxy,
+  RefJenisBencanaServiceProxy,
+  RefKategoriBayaranServiceProxy,
+  TabungBayaranTerusServiceProxy
+} from 'src/app/shared/proxy/service-proxies';
 import { PilihBencanaComponent } from '../pilih-bencana/pilih-bencana.component';
 import { PilihRujukanKelulusanComponent } from '../pilih-rujukan-kelulusan/pilih-rujukan-kelulusan.component';
-import { PilihTabungComponent } from '../pilih-tabung/pilih-tabung.component';
 import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
@@ -56,6 +62,8 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
     private _refKategoriBayaranServiceProxy: RefKategoriBayaranServiceProxy
     ) {
     this.idBayaranTerus = this._activatedRoute.snapshot.queryParams['id'];
+    this.bayaranTerus.id_tabung_kelulusan = this._activatedRoute.snapshot.queryParams['kelulusan'];
+    this.no_rujukan_kelulusan = this._activatedRoute.snapshot.queryParams['no_ruj'];
 		config.backdrop = 'static';
 		config.keyboard = false;
 	}
@@ -123,19 +131,6 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
 		);
 	}
 
-  addTabung() {
-		const modalRef = this.modalService.open(PilihTabungComponent, { size: 'xl' });
-		modalRef.componentInstance.name = 'add';
-    modalRef.result.then(
-			(response) => {
-				if (response) {
-          // this.bayaranTerus.id_tabung = response.id;
-					this.namaTabung = response.nama_tabung;
-				}
-			}
-		);
-	}
-
   addBencana() {
 		const modalRef = this.modalService.open(PilihBencanaComponent, { size: 'xl' });
 		modalRef.componentInstance.name = 'add';
@@ -184,7 +179,7 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
         this.output.message = result.message;
         if(this.output.message == "Tabung Bayaran Terus Berjaya Ditambah"){
           swalSuccess.fire('Berjaya!', 'Maklumat Bayaran Secara Terus Berjaya Ditambah.', 'success').then(() => {
-            this.router.navigateByUrl('/app/tabung/senarai-bayaran-secara-terus');
+            this.router.navigateByUrl('/app/tabung/bayaran-terus/senarai');
           });
         }else{
           swalError.fire('Tidak Berjaya!', this.output.message, 'error');
@@ -198,7 +193,7 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
         this.output.message = result.message;
         if(this.output.message == "Tabung Bayaran Terus Berjaya Ditambah"){
           swalSuccess.fire('Berjaya!', 'Maklumat Bayaran Secara Terus Berjaya Dikemaskini.', 'success').then(() => {
-            this.router.navigateByUrl('/app/tabung/senarai-bayaran-secara-terus');
+            this.router.navigateByUrl('/app/tabung/bayaran-terus/senarai');
           });
         }else{
           swalError.fire('Tidak Berjaya!', this.output.message, 'error');

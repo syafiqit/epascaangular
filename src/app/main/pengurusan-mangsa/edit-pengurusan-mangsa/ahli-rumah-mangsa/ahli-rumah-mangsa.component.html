@@ -15,7 +15,7 @@
 			</div>
 		</div>
 
-		<div class="row justify-content-end pr-0 mb-1">
+		<div class="row justify-content-end pr-0 mb-2">
 			<button (click)="addAhliRumahModal()" class="btn btn-primary pull-right">
         <i class="fa fa-plus mr-2"></i>
         <b>Tambah</b>
@@ -23,7 +23,6 @@
 		</div>
 
 		<div class="row align-items-center">
-      <!--<Primeng-TurboTable-Start>-->
       <div class="primeng-datatable-container">
         <p-table
           #dataTable
@@ -41,7 +40,6 @@
         >
           <ng-template pTemplate="header">
             <tr>
-              <th style="width: 130px">Tindakan</th>
               <th style="width: 100px" pSortableColumn="no_kp">
                 No. Kad Pengenalan
                 <p-sortIcon field="no_kp"></p-sortIcon>
@@ -58,10 +56,27 @@
                 Hubungan
                 <p-sortIcon field="nama_hubungan"></p-sortIcon>
               </th>
+              <th style="width: 130px">Tindakan</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-record="$implicit">
             <tr>
+              <td style="width: 100px">
+                <span class="p-column-title">No. Kad Pengenalan</span>
+                {{record.no_kp}}
+              </td>
+              <td style="width: 130px">
+                <span class="p-column-title">Nama Ahli Isi Rumah</span>
+                {{record.nama}}
+              </td>
+              <td style="width: 100px">
+                <span class="p-column-title">Umur</span>
+                {{record.umur}}
+              </td>
+              <td style="width: 100px">
+                <span class="p-column-title">Hubungan</span>
+                {{record.nama_hubungan}}
+              </td>
               <td style="width: 130px">
                 <div ngbDropdown class="btn-group" role="group" container="body">
                   <button
@@ -81,22 +96,6 @@
                   </div>
                 </div>
               </td>
-              <td style="width: 100px">
-                <span class="p-column-title">No. Kad Pengenalan</span>
-                {{record.no_kp}}
-              </td>
-              <td style="width: 130px">
-                <span class="p-column-title">Nama Ahli Isi Rumah</span>
-                {{record.nama}}
-              </td>
-              <td style="width: 100px">
-                <span class="p-column-title">Umur</span>
-                {{record.umur}}
-              </td>
-              <td style="width: 100px">
-                <span class="p-column-title">Hubungan</span>
-                {{record.nama_hubungan}}
-              </td>
             </tr>
           </ng-template>
         </p-table>
@@ -112,7 +111,6 @@
           <span class="total-records-count">Jumlah: {{ primengTableHelper.totalRecordsCount}}</span>
         </div>
       </div>
-      <!--<Primeng-TurboTable-End>-->
     </div>
 	</div>
 </form>
