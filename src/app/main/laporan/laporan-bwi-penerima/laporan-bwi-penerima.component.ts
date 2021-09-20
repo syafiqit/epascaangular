@@ -1,5 +1,6 @@
 import { OnInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { NgbDateStruct, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { FileDownloadService } from '@app/shared/services/file-download.service';
+import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
@@ -8,12 +9,9 @@ import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import {
   LaporanServiceProxy,
-  RefBencanaServiceProxy,
   RefDaerahServiceProxy,
-  RefJenisBencanaServiceProxy,
   RefNegeriServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
-
 @Component({
   selector: 'app-laporan-bwi-penerima',
   templateUrl: './laporan-bwi-penerima.component.html',
@@ -38,7 +36,8 @@ export class LaporanBwiPenerimaComponent implements OnInit {
     config: NgbModalConfig,
     private _refDaerahServiceProxy: RefDaerahServiceProxy,
     private _refNegeriServiceProxy: RefNegeriServiceProxy,
-    private _laporanServiceProxy: LaporanServiceProxy
+    private _laporanServiceProxy: LaporanServiceProxy,
+    private _fileDownloadService: FileDownloadService
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
@@ -85,6 +84,16 @@ export class LaporanBwiPenerimaComponent implements OnInit {
 				this.primengTableHelper.records = result.items;
 			});
 	}
+
+  exportToExcel(){
+    this._laporanServiceProxy.exportAllMangsaBantuanWangIhsanToExcel(
+      this.filter,
+      this.filterNegeri  ?? undefined,
+      this.filterDaerah ?? undefined,
+    ).subscribe(e=>{
+      this._fileDownloadService.downloadTempFile(e);
+    })
+  }
 
   getDaerah(filter?) {
 		this._refDaerahServiceProxy.getRefDaerahForDropdown(filter, this.filterNegeri ?? undefined).subscribe((result) => {
