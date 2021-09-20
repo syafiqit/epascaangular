@@ -7,8 +7,7 @@ import {
   RefJenisBayaranServiceProxy,
   RefJenisBencanaServiceProxy,
   RefKategoriBayaranServiceProxy,
-  TabungBayaranTerusServiceProxy,
-  TabungKelulusanServiceProxy
+  TabungBayaranTerusServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { PilihBencanaComponent } from '../pilih-bencana/pilih-bencana.component';
 import { PilihRujukanKelulusanComponent } from '../pilih-rujukan-kelulusan/pilih-rujukan-kelulusan.component';
@@ -49,7 +48,6 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
   tarikhBayaran: string;
   tarikhBencana: string;
   idBayaranTerus: any;
-  idKelulusan: any;
 
 	constructor(
     config: NgbModalConfig,
@@ -58,22 +56,19 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
     private router: Router,
     private _activatedRoute: ActivatedRoute,
     private tabungBayaranTerusServiceProxy: TabungBayaranTerusServiceProxy,
-    private _tabungKelulusanServiceProxy: TabungKelulusanServiceProxy,
     private _refBencanaServiceProxy: RefBencanaServiceProxy,
     private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy,
     private _refJenisBayaranServiceProxy: RefJenisBayaranServiceProxy,
     private _refKategoriBayaranServiceProxy: RefKategoriBayaranServiceProxy
     ) {
     this.idBayaranTerus = this._activatedRoute.snapshot.queryParams['id'];
-    this.idKelulusan = this._activatedRoute.snapshot.queryParams['id_kelulusan'];
+    this.bayaranTerus.id_tabung_kelulusan = this._activatedRoute.snapshot.queryParams['kelulusan'];
+    this.no_rujukan_kelulusan = this._activatedRoute.snapshot.queryParams['no_ruj'];
 		config.backdrop = 'static';
 		config.keyboard = false;
 	}
 
 	ngOnInit(): void {
-    if(this.idKelulusan) {
-      this.getKelulusan();
-    }
     this.show();
     this.getBencana();
     this.getKategoriBencana();
@@ -97,13 +92,6 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
         }
 			});
 		}
-  }
-
-  getKelulusan() {
-    this._tabungKelulusanServiceProxy.getTabungKelulusanForEdit(this.idKelulusan).subscribe((result)=>{
-      this.no_rujukan_kelulusan = result.tabung_kelulusan.no_rujukan_kelulusan;
-      this.bayaranTerus.id_tabung_kelulusan = this.idKelulusan;
-    })
   }
 
   getBencana(){
@@ -191,7 +179,7 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
         this.output.message = result.message;
         if(this.output.message == "Tabung Bayaran Terus Berjaya Ditambah"){
           swalSuccess.fire('Berjaya!', 'Maklumat Bayaran Secara Terus Berjaya Ditambah.', 'success').then(() => {
-            this.router.navigateByUrl('/app/tabung/senarai-bayaran-secara-terus');
+            this.router.navigateByUrl('/app/tabung/bayaran-terus/senarai');
           });
         }else{
           swalError.fire('Tidak Berjaya!', this.output.message, 'error');
@@ -205,7 +193,7 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
         this.output.message = result.message;
         if(this.output.message == "Tabung Bayaran Terus Berjaya Ditambah"){
           swalSuccess.fire('Berjaya!', 'Maklumat Bayaran Secara Terus Berjaya Dikemaskini.', 'success').then(() => {
-            this.router.navigateByUrl('/app/tabung/senarai-bayaran-secara-terus');
+            this.router.navigateByUrl('/app/tabung/bayaran-terus/senarai');
           });
         }else{
           swalError.fire('Tidak Berjaya!', this.output.message, 'error');

@@ -387,14 +387,14 @@
                             <button
                               class="dropdown-item"
                               [routerLink]="['/app/tabung/skb/tambah']"
-                              [queryParams]="{id_kelulusan: records.id }"
+                              [queryParams]="{kelulusan: records.id, no_ruj: records.no_rujukan_kelulusan}"
                             >
                               Pembayaran SKB
                             </button>
                             <button
                               class="dropdown-item"
-                              [routerLink]="['/app/tabung/tambah-edit-bayaran-secara-terus']"
-                              [queryParams]="{id_kelulusan: records.id }"
+                              [routerLink]="['/app/tabung/bayaran-terus/tambah']"
+                              [queryParams]="{kelulusan: records.id, no_ruj: records.no_rujukan_kelulusan}"
                             >
                               Pembayaran Secara Terus
                             </button>
@@ -500,7 +500,7 @@
             </div>
 
 						<button class="btn btn-primary pull-right" type="submit">Simpan</button>
-						<button class="btn btn-light pull-right mr-2" [routerLink]="['/app/tabung/senarai-tabung']" type="button">
+						<button class="btn btn-light pull-right mr-2" [routerLink]="['/app/tabung/senarai']" type="button">
 							Kembali
 						</button>
 					</form>

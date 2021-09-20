@@ -229,7 +229,7 @@ export class EditTabungComponent implements OnInit {
     }
     this.tabungServiceProxy.createOrEdit(this.editTabung).subscribe(()=>{
       swalSuccess.fire('Berjaya', 'Maklumat Tabung Berjaya Dikemaskini').then(() => {
-        this.router.navigateByUrl('/app/tabung/senarai-tabung');
+        this.router.navigateByUrl('/app/tabung/senarai');
       });
     })
   }

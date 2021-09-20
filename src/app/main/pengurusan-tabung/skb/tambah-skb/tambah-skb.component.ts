@@ -11,8 +11,7 @@ import {
   InputSkbBulananDto,
   OutputCreateBayaranSkbDto,
   RefAgensiServiceProxy,
-  TabungBayaranSkbServiceProxy,
-  TabungKelulusanServiceProxy
+  TabungBayaranSkbServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { TambahBelanjaBulanan } from '../tambah-belanja-bulanan/tambah-belanja-bulanan.component';
 import * as moment from 'moment';
@@ -38,7 +37,6 @@ export class TambahSkbComponent implements OnInit {
   output: OutputCreateBayaranSkbDto = new OutputCreateBayaranSkbDto();
   bulanan: InputSkbBulananDto[] = [];
 
-  idKelulusan: any;
   agencies: any;
   filter: string;
   saving = false;
@@ -73,21 +71,18 @@ export class TambahSkbComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private _activatedRoute: ActivatedRoute,
     private _tabungBayaranSkbServiceProxy: TabungBayaranSkbServiceProxy,
-    private _tabungKelulusanServiceProxy: TabungKelulusanServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
     private router: Router,
     private calendar: NgbCalendar
   ) {
-    this.idKelulusan = this._activatedRoute.snapshot.queryParams['id_kelulusan'];
+    this.skb.id_tabung_kelulusan = this._activatedRoute.snapshot.queryParams['kelulusan'];
+    this.skb.no_rujukan_kelulusan = this._activatedRoute.snapshot.queryParams['no_ruj'];
     this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
 	}
 
 	ngOnInit(): void {
-    if(this.idKelulusan) {
-      this.getKelulusan();
-    }
     this.getAgensi();
     this.getAddSKB();
   }
@@ -178,13 +173,6 @@ export class TambahSkbComponent implements OnInit {
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
 	}
-
-  getKelulusan() {
-    this._tabungKelulusanServiceProxy.getTabungKelulusanForEdit(this.idKelulusan).subscribe((result)=>{
-      this.skb.no_rujukan_kelulusan = result.tabung_kelulusan.no_rujukan_kelulusan;
-      this.skb.id_tabung_kelulusan = this.idKelulusan;
-    })
-  }
 
 	addNoReference() {
 		const modalRef = this.modalService.open(PilihanRujukanKelulusanComponent, { size: 'lg' });

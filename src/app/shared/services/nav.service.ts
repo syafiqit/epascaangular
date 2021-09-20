@@ -106,7 +106,7 @@ export class NavService implements OnDestroy {
 				type: 'sub',
 				active: false,
 				children: [
-				{ path: '/app/tabung/senarai-tabung', title: 'Tabung', type: 'link' },
+				{ path: '/app/tabung/senarai', title: 'Tabung', type: 'link' },
 				{ path: '/app/tabung/senarai-kelulusan', title: 'Kelulusan', type: 'link' },
 				{
 					title: 'Pembayaran',
@@ -114,7 +114,7 @@ export class NavService implements OnDestroy {
 					children: [
 					{ path: '/app/tabung/skb/senarai', title: 'Surat Kuasa Belanja', type: 'link' },
 					{
-						path: '/app/tabung/senarai-bayaran-secara-terus',
+						path: '/app/tabung/bayaran-terus/senarai',
 						title: 'Bayaran Secara Terus',
 						type: 'link'
 					}
@@ -207,7 +207,7 @@ export class NavService implements OnDestroy {
 			active: false,
 			children: [
 				{ path: '/app/tabung/muka-halaman-tabung', title: 'Muka Halaman Tabung', type: 'link' },
-				{ path: '/app/tabung/senarai-tabung', title: 'Tabung', type: 'link' },
+				{ path: '/app/tabung/senarai', title: 'Tabung', type: 'link' },
 				{ path: '/app/tabung/senarai-kelulusan', title: 'Kelulusan', type: 'link' },
 				{
 					title: 'Pembayaran',
@@ -215,7 +215,7 @@ export class NavService implements OnDestroy {
 					children: [
 						{ path: '/app/tabung/skb/senarai', title: 'Surat Kuasa Belanja', type: 'link' },
 						{
-							path: '/app/tabung/senarai-bayaran-secara-terus',
+							path: '/app/tabung/bayaran-terus/senarai',
 							title: 'Bayaran Secara Terus',
 							type: 'link'
 						}

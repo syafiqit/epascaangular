@@ -30,10 +30,10 @@
 				#password="ngModel"
 				[ngClass]="{ 'is-invalid': f.submitted && password.invalid }"
 			/>
-			<div class="show-hide" (click)="showPassword()" *ngIf="!show">
+			<div class="show-hide-3" (click)="showPassword()" *ngIf="!show">
 				<div style="margin-top: 4px; margin-right: -10px; color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-outline fa-lg"></i></div>
 			</div>
-			<div class="show-hide" (click)="showPassword()" *ngIf="show">
+			<div class="show-hide-3" (click)="showPassword()" *ngIf="show">
 				<div style="margin-top: 4px; margin-right: -10px; color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-off-outline fa-lg"></i></div>
 			</div>
 			<div *ngIf="f.submitted && password.invalid" class="invalid-feedback">

@@ -21,7 +21,7 @@ const routes: Routes = [
 		path: '',
 		children: [
 			{
-				path: 'senarai-tabung',
+				path: 'senarai',
 				component: TabungComponent
 			},
 			{
@@ -53,11 +53,15 @@ const routes: Routes = [
 				component: EditSkbComponent
 			},
 			{
-				path: 'senarai-bayaran-secara-terus',
+				path: 'bayaran-terus/senarai',
 				component: BayaranSecaraTerusComponent
 			},
 			{
-				path: 'tambah-edit-bayaran-secara-terus',
+				path: 'bayaran-terus/tambah',
+				component: TambahEditBayaranSecaraTerusComponent
+			},
+			{
+				path: 'bayaran-terus/edit',
 				component: TambahEditBayaranSecaraTerusComponent
 			},
 			{
@@ -73,7 +77,7 @@ const routes: Routes = [
 				component: EditKelulusanComponent
 			},
 			{
-				path: 'edit-tabung',
+				path: 'edit',
 				component: EditTabungComponent
 			},
 			{
