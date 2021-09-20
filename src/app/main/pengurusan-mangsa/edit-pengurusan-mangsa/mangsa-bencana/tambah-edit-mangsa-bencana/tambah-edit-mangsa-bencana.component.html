@@ -11,12 +11,12 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label>Nama Bencana</label>
+					<label>Bencana</label>
           <div class="input-group">
             <input
               class="form-control"
               type="text"
-              placeholder="Nama Bencana"
+              placeholder="Bencana"
               name="bencana"
               [(ngModel)]="addBencana.nama_bencana"
               #namaBencana="ngModel"
@@ -31,7 +31,7 @@
             </div>
           </div>
           <div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
-            <div *ngIf="namaBencana.errors.required">Nama Bencana Wajib Dipilih</div>
+            <div *ngIf="namaBencana.errors.required">Bencana Wajib Dipilih</div>
           </div>
 				</div>
 			</div>

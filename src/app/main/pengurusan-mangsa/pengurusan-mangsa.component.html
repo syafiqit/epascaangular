@@ -185,7 +185,8 @@
 										</td>
 										<td style="width: 112px">
 											<span class="p-column-title">Varifikasi</span>
-											{{record.status_verifikasi == 1? "Sudah":"Belum"}}
+                      <label *ngIf="record.status_verifikasi == 1" style="color: green;">Sudah</label>
+                      <label *ngIf="record.status_verifikasi == 0" style="color: red;">Belum</label>
 										</td>
 										<td style="width: 130px">
 											<div ngbDropdown class="btn-group" role="group" container="body">

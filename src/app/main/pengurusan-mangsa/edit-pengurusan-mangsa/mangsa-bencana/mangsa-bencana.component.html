@@ -15,12 +15,30 @@
 			</div>
 		</div>
 
-		<div class="row justify-content-end pr-0 mb-1">
-			<button (click)="addVictimDisasterModal()" class="btn btn-primary pull-right">
-        <i class="fa fa-plus mr-2"></i>
-        <b>Tambah</b>
-      </button>
-		</div>
+    <div class="row mb-2">
+      <div class="col-6 justify-content-start pl-0">
+        <div class="faq-form">
+          <input
+            class="form-control"
+            type="text"
+            name="searchBencana"
+            placeholder="Carian..."
+            (keyup)="applyFilter($event.target.value)"
+          />
+          <i class="search-icon" data-feather="search"></i>
+        </div>
+      </div>
+
+      <div class="col-6 justify-content-end pr-0">
+        <button
+          (click)="addVictimDisasterModal()"
+          class="btn btn-primary pull-right"
+        >
+          <i class="fa fa-plus mr-2"></i>
+          <b>Tambah</b>
+        </button>
+      </div>
+    </div>
 
 		<div class="row align-items-center">
       <div class="primeng-datatable-container">
@@ -37,6 +55,7 @@
           [scrollable]="true"
           ScrollWidth="100%"
           [responsive]="primengTableHelper.isResponsive"
+          [resizableColumns]="primengTableHelper.resizableColumns"
         >
           <ng-template pTemplate="header">
             <tr>
@@ -45,7 +64,7 @@
                 <p-sortIcon field="tahun_bencana"></p-sortIcon>
               </th>
               <th style="width: 130px" pSortableColumn="nama_bencana">
-                Nama Bencana
+                Bencana
                 <p-sortIcon field="nama_bencana"></p-sortIcon>
               </th>
               <th style="width: 130px" pSortableColumn="pindah">
@@ -62,11 +81,11 @@
           <ng-template pTemplate="body" let-record="$implicit">
             <tr>
               <td style="width: 100px">
-                <span class="p-column-title">Tahun Bencana</span>
-                {{record.tahun_bencana}}
+                <span class="p-column-title">Tarikh Bencana</span>
+                {{record.tarikh_bencana | date: 'dd/MM/yyyy'}}
               </td>
               <td style="width: 130px">
-                <span class="p-column-title">Nama Bencana</span>
+                <span class="p-column-title">Bencana</span>
                 {{record.nama_bencana}}
               </td>
               <td style="width: 130px">

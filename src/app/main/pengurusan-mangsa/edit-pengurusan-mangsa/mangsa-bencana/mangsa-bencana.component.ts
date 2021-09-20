@@ -10,8 +10,9 @@ import {
   MangsaBencanaServiceProxy,
   MangsaServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
-import { finalize } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { Subject } from 'rxjs';
 
 @Component({
 	selector: 'app-mangsa-bencana',
@@ -28,6 +29,7 @@ export class MangsaBencanaComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
 
   filter: string;
+  terms$ = new Subject<string>();
   getMangsa: GetMangsaForEditDto = new GetMangsaForEditDto();
 
 	constructor(
@@ -41,6 +43,17 @@ export class MangsaBencanaComponent implements OnInit {
 
 	ngOnInit(): void {
     this.show();
+
+    this.terms$.pipe(
+      debounceTime(500), distinctUntilChanged()
+    ).subscribe((filterValue: string) =>{
+      this.filter = filterValue;
+      this.getDisaster();
+    });
+  }
+
+  applyFilter(filterValue: string){
+    this.terms$.next(filterValue);
   }
 
 	show(): void {

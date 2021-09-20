@@ -37,8 +37,9 @@
     </div>
 
     <div class="col-lg-9">
+      <h6>Maklumat Diri Mangsa</h6>
       <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-12">
           <div class="form-group">
             <label>Nama*</label>
             <input
@@ -57,7 +58,9 @@
             </div>
           </div>
         </div>
+      </div>
 
+      <div class="row">
         <div class="col-lg-6">
           <div class="form-group">
             <label>No. Kad Pengenalan*</label>
@@ -86,87 +89,112 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="form-group">
-            <label>Alamat 1*</label>
-            <input
-              class="form-control"
-              id="alamat1"
-              type="text"
-              name="alamat_1"
-              [(ngModel)]="getMangsa.mangsa.alamat_1"
-              placeholder="Alamat 1"
-              #alamat1="ngModel"
-              [ngClass]="{ 'is-invalid': f.submitted && alamat1.invalid }"
-              required
-            />
-            <div *ngIf="f.submitted && alamat1.invalid" class="invalid-feedback">
-              <div *ngIf="alamat1.errors.required">Alamat 1 Mangsa Wajib Diisi</div>
-            </div>
-          </div>
-        </div>
 
         <div class="col-lg-6">
           <div class="form-group">
-            <label>Alamat 2</label>
+            <label>No. Telefon*</label>
             <input
               class="form-control"
-              id="alamat2"
+              id="noTel"
               type="text"
-              name="alamat_2"
-              [(ngModel)]="getMangsa.mangsa.alamat_2"
-              placeholder="Alamat 2"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="form-group">
-            <label>Poskod*</label>
-            <input
-              class="form-control"
-              id="poskodMangsa"
-              type="text"
-              name="poskod"
-              [(ngModel)]="getMangsa.mangsa.poskod"
-              placeholder="Poskod"
-              #postcode="ngModel"
-              [ngClass]="{ 'is-invalid': f.submitted && postcode.invalid }"
+              name="telefon"
+              [(ngModel)]="getMangsa.mangsa.telefon"
+              placeholder="No. Telefon"
+              #noTel="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && noTel.invalid }"
               oninput="this.value=this.value.replace(/\D+/g, '');"
-              minlength="5"
-              maxlength="5"
+              minlength="9"
+              maxlength="15"
               required
             />
-            <div *ngIf="f.submitted && postcode.invalid" class="invalid-feedback">
-              <div *ngIf="postcode.errors.required">Poskod Wajib Diisi</div>
+            <div *ngIf="f.submitted && noTel.invalid" class="invalid-feedback">
+              <div *ngIf="noTel.errors.required">No. Telefon Wajib Diisi</div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+  <hr />
 
-        <div class="col-lg-6">
-          <div class="form-group">
-            <label>Daerah*</label>
-            <ng-select
-              [items]="districts"
-              bindLabel="nama_daerah"
-              placeholder="Sila Pilih"
-              class="js-example-placeholder-multiple"
-              name="namaDaerah"
-              (change)="setNegeri()"
-              [(ngModel)]="setDaerah"
-              #daerah="ngModel"
-              [ngClass]="{ 'is-invalid': f.submitted && daerah.invalid }"
-              required
-            ></ng-select>
-            <div *ngIf="f.submitted && daerah.invalid" class="invalid-feedback">
-              <div *ngIf="daerah.errors.required">Daerah Wajib Dipilih</div>
-            </div>
-          </div>
+  <h6>Maklumat Alamat</h6>
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label>Alamat 1*</label>
+        <input
+          class="form-control"
+          id="alamat1"
+          type="text"
+          name="alamat_1"
+          [(ngModel)]="getMangsa.mangsa.alamat_1"
+          placeholder="Alamat 1"
+          #alamat1="ngModel"
+          [ngClass]="{ 'is-invalid': f.submitted && alamat1.invalid }"
+          required
+        />
+        <div *ngIf="f.submitted && alamat1.invalid" class="invalid-feedback">
+          <div *ngIf="alamat1.errors.required">Alamat 1 Mangsa Wajib Diisi</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label>Alamat 2</label>
+        <input
+          class="form-control"
+          id="alamat2"
+          type="text"
+          name="alamat_2"
+          [(ngModel)]="getMangsa.mangsa.alamat_2"
+          placeholder="Alamat 2"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label>Poskod*</label>
+        <input
+          class="form-control"
+          id="poskodMangsa"
+          type="text"
+          name="poskod"
+          [(ngModel)]="getMangsa.mangsa.poskod"
+          placeholder="Poskod"
+          #postcode="ngModel"
+          [ngClass]="{ 'is-invalid': f.submitted && postcode.invalid }"
+          oninput="this.value=this.value.replace(/\D+/g, '');"
+          minlength="5"
+          maxlength="5"
+          required
+        />
+        <div *ngIf="f.submitted && postcode.invalid" class="invalid-feedback">
+          <div *ngIf="postcode.errors.required">Poskod Wajib Diisi</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label>Daerah*</label>
+        <ng-select
+          [items]="districts"
+          bindLabel="nama_daerah"
+          placeholder="Sila Pilih"
+          class="js-example-placeholder-multiple"
+          name="namaDaerah"
+          (change)="setNegeri()"
+          [(ngModel)]="setDaerah"
+          #daerah="ngModel"
+          [ngClass]="{ 'is-invalid': f.submitted && daerah.invalid }"
+          required
+        ></ng-select>
+        <div *ngIf="f.submitted && daerah.invalid" class="invalid-feedback">
+          <div *ngIf="daerah.errors.required">Daerah Wajib Dipilih</div>
         </div>
       </div>
     </div>
@@ -189,32 +217,7 @@
       </div>
     </div>
 
-    <div class="col-lg-6">
-      <div class="form-group">
-        <label>No. Telefon*</label>
-        <input
-          class="form-control"
-          id="noTel"
-          type="text"
-          name="telefon"
-          [(ngModel)]="getMangsa.mangsa.telefon"
-          placeholder="No. Telefon"
-          #noTel="ngModel"
-          [ngClass]="{ 'is-invalid': f.submitted && noTel.invalid }"
-          oninput="this.value=this.value.replace(/\D+/g, '');"
-          minlength="9"
-          maxlength="15"
-          required
-        />
-        <div *ngIf="f.submitted && noTel.invalid" class="invalid-feedback">
-          <div *ngIf="noTel.errors.required">No. Telefon Wajib Diisi</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row" *ngIf="showDun == true">
-    <div class="col-lg-6">
+    <div class="col-lg-6" *ngIf="showDun == true">
       <div class="form-group">
         <label>Dun</label>
         <ng-select
@@ -228,7 +231,9 @@
         ></ng-select>
       </div>
     </div>
+  </div>
 
+  <div class="row" *ngIf="showDun == true">
     <div class="col-lg-6">
       <div class="form-group">
         <label>Parlimen</label>
@@ -257,6 +262,35 @@
           [(ngModel)]="getMangsa.mangsa.catatan"
           placeholder="Catatan..."
         ></textarea>
+      </div>
+    </div>
+  </div>
+
+  <h6>Varifikasi Urusetia</h6>
+  <div class="row mt-1">
+    <div class="col-lg-12">
+      <div class="row form-group custom-radio-ml ml-2">
+        <div class="radio radio-primary mr-4">
+          <input
+            id="radio44"
+            type="radio"
+            name="status_verifikasi"
+            [value]="1"
+            [(ngModel)]="getMangsa.mangsa.status_verifikasi"
+          />
+          <label for="radio44">Sudah</label>
+        </div>
+
+        <div class="radio radio-primary">
+          <input
+            id="radio55"
+            type="radio"
+            name="status_verifikasi"
+            [value]="0"
+            [(ngModel)]="getMangsa.mangsa.status_verifikasi"
+          />
+          <label for="radio55">Belum</label>
+        </div>
       </div>
     </div>
   </div>

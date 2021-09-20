@@ -1,4 +1,4 @@
-<div class="row justify-content-end pr-0 mb-1">
+<div class="row justify-content-end pr-0 mb-2">
   <button (click)="addPinjamanModal(mangsaId)" class="btn btn-primary pull-right">
     <i class="fa fa-plus mr-2"></i>
     <b>Tambah</b>
@@ -25,7 +25,7 @@
     <ng-template pTemplate="header">
       <tr>
         <th style="width: 130px" pSortableColumn="nama_bencana">
-          Nama Bencana
+          Bencana
           <p-sortIcon field="nama_bencana"></p-sortIcon>
         </th>
         <th style="width: 130px" pSortableColumn="tarikh_bencana">
@@ -46,7 +46,7 @@
     <ng-template pTemplate="body" let-record="$implicit">
       <tr>
         <td style="width: 130px">
-          <span class="p-column-title">Nama Bencana</span>
+          <span class="p-column-title">Bencana</span>
           {{record.nama_bencana}}
         </td>
         <td style="width: 130px">

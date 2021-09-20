@@ -16,7 +16,7 @@ import {
 } from 'src/app/shared/proxy/service-proxies';
 import { Router } from '@angular/router';
 import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SelectBencanaComponent } from '../select-bencana/select-bencana.component';
 
 @Component({
@@ -41,6 +41,8 @@ export class TambahPengurusanMangsaComponent implements OnInit {
   verify: number;
   filterIdNegeri: number;
   nama_bencana: string;
+  modelBencana: NgbDateStruct;
+  readonly DELIMITER = '-';
 
 	constructor(
     public datePipe: DatePipe,
@@ -75,6 +77,18 @@ export class TambahPengurusanMangsaComponent implements OnInit {
       this.addMangsa.mangsa.id_pengguna_cipta = result.pengguna.id;
 		});
 	}
+
+  fromModel(value: string | null): NgbDateStruct | null {
+    if (value) {
+      let date = value.split(this.DELIMITER);
+      return {
+        year : parseInt(date[0], 10),
+        month : parseInt(date[1], 10),
+        day : parseInt(date[2], 10)
+      };
+    }
+    return null;
+  }
 
   getDun(filter?) {
 		this._refDunServiceProxy.getRefDunForDropdown(filter).subscribe((result) => {
@@ -133,6 +147,7 @@ export class TambahPengurusanMangsaComponent implements OnInit {
 				if (response) {
           this.addMangsa.bencana.id_bencana = response.id;
           this.nama_bencana = response.nama_bencana;
+          this.modelBencana = this.fromModel(response.tarikh_bencana.format('YYYY-MM-DD'));
 				}
 			}
 		);
