@@ -11,13 +11,19 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label>Nama Peruntukan</label>
+					<label>Nama Peruntukan*</label>
 					<input
             class="form-control"
             name="nama_peruntukan"
             type="text"
             [(ngModel)]="peruntukan.nama_peruntukan"
+            #namaPeruntukan="ngModel"
+				    [ngClass]="{ 'is-invalid': f.submitted && namaPeruntukan.invalid }"
+            required
           />
+          <div *ngIf="f.submitted && namaPeruntukan.invalid" class="invalid-feedback">
+            <div *ngIf="namaPeruntukan.errors.required">Nama Peruntukan Wajib Diisi</div>
+          </div>
 				</div>
 			</div>
 
@@ -68,27 +74,40 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label>Jumlah(RM)</label>
+					<label>Jumlah(RM)*</label>
 					<input
             class="form-control"
             name="jumlah"
             type="text"
             [(ngModel)]="peruntukan.jumlah"
+            #jumlahPeruntukan="ngModel"
+				    [ngClass]="{ 'is-invalid': f.submitted && jumlahPeruntukan.invalid }"
+            placeholder="Jumlah Peruntukan"
+            required
           />
+          <div *ngIf="f.submitted && jumlahPeruntukan.invalid" class="invalid-feedback">
+            <div *ngIf="jumlahPeruntukan.errors.required">Jumlah Peruntukan Wajib Diisi</div>
+          </div>
 				</div>
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="col-lg-12">
-				<label>Catatan</label>
+				<label>Catatan*</label>
 				<textarea
           class="form-control"
           name="catatan"
           [(ngModel)]="peruntukan.catatan"
-          placeholder="Catatan..."
+          #catatanPeruntukan="ngModel"
+          [ngClass]="{ 'is-invalid': f.submitted && catatanPeruntukan.invalid }"
+          placeholder="Catatan"
+          required
           rows="3"
         ></textarea>
+        <div *ngIf="f.submitted && catatanPeruntukan.invalid" class="invalid-feedback">
+          <div *ngIf="catatanPeruntukan.errors.required">Catatan Wajib Diisi</div>
+        </div>
 			</div>
 		</div>
   </div>
