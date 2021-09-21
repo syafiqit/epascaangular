@@ -943,6 +943,123 @@ export class LaporanServiceProxy {
     }
 
     /**
+     * Get Kos Bantuan by Jenis Bantuan
+     * @return Success
+     */
+    getKosBantuanByJenisBantuan(): Observable<GetTotalBantuanForViewDto> {
+        let url_ = this.baseUrl + "/api/laporan/getKosBantuanByJenisBantuan";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetKosBantuanByJenisBantuan(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetKosBantuanByJenisBantuan(<any>response_);
+                } catch (e) {
+                    return <Observable<GetTotalBantuanForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetTotalBantuanForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetKosBantuanByJenisBantuan(response: HttpResponseBase): Observable<GetTotalBantuanForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetTotalBantuanForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetTotalBantuanForViewDto>(<any>null);
+    }
+
+    /**
+     * Get Sumber Dana for Bantuan Rumah
+     * @param id_jenis_bantuan (optional) Filter records with a integer
+     * @return Success
+     */
+    getSumberDanaRumah(id_jenis_bantuan: number | undefined): Observable<GetSumberDanaRumahForViewDto> {
+        let url_ = this.baseUrl + "/api/laporan/getSumberDanaRumah?";
+        if (id_jenis_bantuan === null)
+            throw new Error("The parameter 'id_jenis_bantuan' cannot be null.");
+        else if (id_jenis_bantuan !== undefined)
+            url_ += "id_jenis_bantuan=" + encodeURIComponent("" + id_jenis_bantuan) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetSumberDanaRumah(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetSumberDanaRumah(<any>response_);
+                } catch (e) {
+                    return <Observable<GetSumberDanaRumahForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetSumberDanaRumahForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetSumberDanaRumah(response: HttpResponseBase): Observable<GetSumberDanaRumahForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetSumberDanaRumahForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetSumberDanaRumahForViewDto>(<any>null);
+    }
+
+    /**
      * Export excel all Mangsa
      * @param filter (optional) Filter records with a string
      * @param filterAgensi (optional) Filter records with integer
@@ -15507,7 +15624,7 @@ export class TabungBwiBayaranServiceProxy {
      * @param body Create or edit object
      * @return Success
      */
-    createOrEdit(body: CreateOrEditTabungBwiBayaranDto): Observable<CreateOrEditTabungBwiBayaranDto> {
+    createOrEdit(body: InputCreateBwiTabungBayaranDto): Observable<CreateOrEditTabungBwiBayaranDto> {
         let url_ = this.baseUrl + "/api/tabungBwiBayaran/createOrEdit";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -15798,7 +15915,7 @@ export class TabungBwiKawasanServiceProxy {
      * @param body Create or edit object
      * @return Success
      */
-    createOrEdit(body: CreateOrEditTabungBwiKawasanDto): Observable<CreateOrEditTabungBwiKawasanDto> {
+    createOrEdit(body: InputCreateBwiTabungKawasanDto): Observable<CreateOrEditTabungBwiKawasanDto> {
         let url_ = this.baseUrl + "/api/tabungBwiKawasan/createOrEdit";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -19534,6 +19651,144 @@ export interface IGetMangsaLaporanDto {
     tarikh_cipta: moment.Moment;
 }
 
+/** Sumber dana list in Tabular model */
+export class GetSumberDanaRumahForViewDto implements IGetSumberDanaRumahForViewDto {
+    /** Items in array of object */
+    sumber_dana!: TotalSumberDanaRumahForViewDto[];
+
+    constructor(data?: IGetSumberDanaRumahForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["sumber_dana"])) {
+                this.sumber_dana = [] as any;
+                for (let item of _data["sumber_dana"])
+                    this.sumber_dana!.push(TotalSumberDanaRumahForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): GetSumberDanaRumahForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetSumberDanaRumahForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.sumber_dana)) {
+            data["sumber_dana"] = [];
+            for (let item of this.sumber_dana)
+                data["sumber_dana"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** Sumber dana list in Tabular model */
+export interface IGetSumberDanaRumahForViewDto {
+    /** Items in array of object */
+    sumber_dana: TotalSumberDanaRumahForViewDto[];
+}
+
+/** Total Bantuan by Jenis Bantuan in Tabular model */
+export class GetTotalBantuanByJenisBantuanDto implements IGetTotalBantuanByJenisBantuanDto {
+    kategori!: string;
+    jumlah!: number;
+
+    constructor(data?: IGetTotalBantuanByJenisBantuanDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.kategori = _data["kategori"];
+            this.jumlah = _data["jumlah"];
+        }
+    }
+
+    static fromJS(data: any): GetTotalBantuanByJenisBantuanDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTotalBantuanByJenisBantuanDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["kategori"] = this.kategori;
+        data["jumlah"] = this.jumlah;
+        return data; 
+    }
+}
+
+/** Total Bantuan by Jenis Bantuan in Tabular model */
+export interface IGetTotalBantuanByJenisBantuanDto {
+    kategori: string;
+    jumlah: number;
+}
+
+/** Total Bantuan by Jenis Bantuan in Tabular model */
+export class GetTotalBantuanForViewDto implements IGetTotalBantuanForViewDto {
+    /** Items in array of object */
+    bantuan!: GetTotalBantuanByJenisBantuanDto[];
+
+    constructor(data?: IGetTotalBantuanForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["bantuan"])) {
+                this.bantuan = [] as any;
+                for (let item of _data["bantuan"])
+                    this.bantuan!.push(GetTotalBantuanByJenisBantuanDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): GetTotalBantuanForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTotalBantuanForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.bantuan)) {
+            data["bantuan"] = [];
+            for (let item of this.bantuan)
+                data["bantuan"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** Total Bantuan by Jenis Bantuan in Tabular model */
+export interface IGetTotalBantuanForViewDto {
+    /** Items in array of object */
+    bantuan: GetTotalBantuanByJenisBantuanDto[];
+}
+
 /** Mangsa List in Tabular model */
 export class PagedResultOfLaporanMangsaBantuanAntarabangsaForViewDto implements IPagedResultOfLaporanMangsaBantuanAntarabangsaForViewDto {
     /** Total Count */
@@ -19910,6 +20165,46 @@ export interface IPagedResultOfLaporanMangsaForViewDto {
     total_count: number;
     /** Items in array of object */
     items: GetMangsaLaporanDto[];
+}
+
+export class TotalSumberDanaRumahForViewDto implements ITotalSumberDanaRumahForViewDto {
+    nama_sumber_dana!: string;
+    jumlah!: number;
+
+    constructor(data?: ITotalSumberDanaRumahForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.nama_sumber_dana = _data["nama_sumber_dana"];
+            this.jumlah = _data["jumlah"];
+        }
+    }
+
+    static fromJS(data: any): TotalSumberDanaRumahForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new TotalSumberDanaRumahForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["nama_sumber_dana"] = this.nama_sumber_dana;
+        data["jumlah"] = this.jumlah;
+        return data; 
+    }
+}
+
+export interface ITotalSumberDanaRumahForViewDto {
+    nama_sumber_dana: string;
+    jumlah: number;
 }
 
 export class CreateOrEditMangsaAirDto implements ICreateOrEditMangsaAirDto {
@@ -34516,6 +34811,56 @@ export interface IGetTabungBwiBayaranForViewDto {
     perihal: string;
 }
 
+export class InputCreateBwiTabungBayaranDto implements IInputCreateBwiTabungBayaranDto {
+    /** Array of kluster object */
+    bwi_bayaran!: UpdateBwiBayaranDto[];
+    id_tabung_bwi!: number;
+
+    constructor(data?: IInputCreateBwiTabungBayaranDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["bwi_bayaran"])) {
+                this.bwi_bayaran = [] as any;
+                for (let item of _data["bwi_bayaran"])
+                    this.bwi_bayaran!.push(UpdateBwiBayaranDto.fromJS(item));
+            }
+            this.id_tabung_bwi = _data["id_tabung_bwi"];
+        }
+    }
+
+    static fromJS(data: any): InputCreateBwiTabungBayaranDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InputCreateBwiTabungBayaranDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.bwi_bayaran)) {
+            data["bwi_bayaran"] = [];
+            for (let item of this.bwi_bayaran)
+                data["bwi_bayaran"].push(item.toJSON());
+        }
+        data["id_tabung_bwi"] = this.id_tabung_bwi;
+        return data; 
+    }
+}
+
+export interface IInputCreateBwiTabungBayaranDto {
+    /** Array of kluster object */
+    bwi_bayaran: UpdateBwiBayaranDto[];
+    id_tabung_bwi: number;
+}
+
 /** TabungBwiBayaran List in Tabular model */
 export class PagedResultDtoOfTabungBwiBayaranForViewDto implements IPagedResultDtoOfTabungBwiBayaranForViewDto {
     /** Total Count */
@@ -34568,6 +34913,46 @@ export interface IPagedResultDtoOfTabungBwiBayaranForViewDto {
     total_count: number;
     /** Items in array of object */
     items: GetTabungBwiBayaranForViewDto[];
+}
+
+export class UpdateBwiBayaranDto implements IUpdateBwiBayaranDto {
+    id_tabung_bayaran_skb!: number;
+    id_tabung_bayaran_terus!: number;
+
+    constructor(data?: IUpdateBwiBayaranDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id_tabung_bayaran_skb = _data["id_tabung_bayaran_skb"];
+            this.id_tabung_bayaran_terus = _data["id_tabung_bayaran_terus"];
+        }
+    }
+
+    static fromJS(data: any): UpdateBwiBayaranDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateBwiBayaranDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id_tabung_bayaran_skb"] = this.id_tabung_bayaran_skb;
+        data["id_tabung_bayaran_terus"] = this.id_tabung_bayaran_terus;
+        return data; 
+    }
+}
+
+export interface IUpdateBwiBayaranDto {
+    id_tabung_bayaran_skb: number;
+    id_tabung_bayaran_terus: number;
 }
 
 export class CreateOrEditTabungBwiKawasanDto implements ICreateOrEditTabungBwiKawasanDto {
@@ -34816,6 +35201,56 @@ export interface IGetTabungBwiKawasanForViewDto {
     jumlah_kembali: number;
     nama_negeri: string;
     nama_daerah: string;
+}
+
+export class InputCreateBwiTabungKawasanDto implements IInputCreateBwiTabungKawasanDto {
+    /** Array of kluster object */
+    bwi_kawasan!: CreateOrEditTabungBwiKawasanDto[];
+    id_tabung_bwi!: number;
+
+    constructor(data?: IInputCreateBwiTabungKawasanDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["bwi_kawasan"])) {
+                this.bwi_kawasan = [] as any;
+                for (let item of _data["bwi_kawasan"])
+                    this.bwi_kawasan!.push(CreateOrEditTabungBwiKawasanDto.fromJS(item));
+            }
+            this.id_tabung_bwi = _data["id_tabung_bwi"];
+        }
+    }
+
+    static fromJS(data: any): InputCreateBwiTabungKawasanDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InputCreateBwiTabungKawasanDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.bwi_kawasan)) {
+            data["bwi_kawasan"] = [];
+            for (let item of this.bwi_kawasan)
+                data["bwi_kawasan"].push(item.toJSON());
+        }
+        data["id_tabung_bwi"] = this.id_tabung_bwi;
+        return data; 
+    }
+}
+
+export interface IInputCreateBwiTabungKawasanDto {
+    /** Array of kluster object */
+    bwi_kawasan: CreateOrEditTabungBwiKawasanDto[];
+    id_tabung_bwi: number;
 }
 
 /** TabungBwiKawasan List in Tabular model */

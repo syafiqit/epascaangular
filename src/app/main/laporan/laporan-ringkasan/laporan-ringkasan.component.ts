@@ -2,6 +2,7 @@ import { AfterViewInit, Component } from '@angular/core';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
+import { LaporanServiceProxy } from '@app/shared/proxy/service-proxies';
 am4core.useTheme(am4themes_animated);
 
 @Component({
@@ -11,7 +12,17 @@ am4core.useTheme(am4themes_animated);
 export class LaporanRingkasanComponent implements AfterViewInit {
 	private chart: am4charts.XYChart;
 
-	constructor( ) { }
+  pieBantuanMangsa: any[];
+  pieDanaRumah: any[];
+  id_jenis_bantuan: number;
+  jenisBantuan = [
+    { id: 2, nama_bantuan: "BINA RUMAH KEKAL" },
+    { id: 3, nama_bantuan: "BAIK PULIH RUMAH" }
+  ];
+
+	constructor(
+    private _laporanServiceProxy: LaporanServiceProxy
+  ) { }
 
 	ngAfterViewInit() {
     am4core.useTheme(am4themes_animated);
@@ -26,89 +37,51 @@ export class LaporanRingkasanComponent implements AfterViewInit {
 	}
 
   pieBantuan() {
-    let chart = am4core.create("bantuanKeseluruhan", am4charts.PieChart);
+    this._laporanServiceProxy.getKosBantuanByJenisBantuan()
+    .subscribe((result) => {
+      let stringData = JSON.stringify(result.bantuan);
+      this.pieBantuanMangsa = JSON.parse(stringData);
 
-    chart.data = [
-      {
-        "bantuan": "Wang Ihsan",
-        "jumlah": 2500
-      },
-      {
-        "bantuan": "Bina Rumah",
-        "jumlah": 1200
-      },
-      {
-        "bantuan": "Baik Pulih",
-        "jumlah": 1500
-      },
-      {
-        "bantuan": "Pinjaman Khas",
-        "jumlah": 1300
-      },
-      {
-        "bantuan": "Bantuan Pertanian",
-        "jumlah": 3100
-      },
-      {
-        "bantuan": "Bantuan Antarabangsa",
-        "jumlah": 800
-      },
-      {
-        "bantuan": "Bantuan Lain",
-        "jumlah": 3300
-      }
-    ];
+      let chart = am4core.create("jenisBantuan", am4charts.PieChart);
 
-    let pieSeries = chart.series.push(new am4charts.PieSeries());
-    pieSeries.dataFields.value = "jumlah";
-    pieSeries.dataFields.category = "bantuan";
-    pieSeries.slices.template.stroke = am4core.color("#fff");
-    pieSeries.slices.template.strokeOpacity = 1;
+      chart.data = this.pieBantuanMangsa;
 
-    chart.hiddenState.properties.radius = am4core.percent(0);
+      let pieSeries = chart.series.push(new am4charts.PieSeries());
+      pieSeries.dataFields.value = "jumlah";
+      pieSeries.dataFields.category = "kategori";
+      pieSeries.slices.template.stroke = am4core.color("#fff");
+      pieSeries.slices.template.strokeOpacity = 1;
 
-    let hs = pieSeries.slices.template.states.getKey("hover");
-    hs.properties.scale = 1;
-    hs.properties.fillOpacity = 0.5;
+      chart.hiddenState.properties.radius = am4core.percent(0);
+
+      let hs = pieSeries.slices.template.states.getKey("hover");
+      hs.properties.scale = 1;
+      hs.properties.fillOpacity = 0.5;
+    })
   }
 
   pieSumberDana() {
-    let chart = am4core.create("sumberDanaRumah", am4charts.PieChart);
+    this._laporanServiceProxy.getSumberDanaRumah(this.id_jenis_bantuan)
+    .subscribe((result) => {
+      let stringData = JSON.stringify(result.sumber_dana);
+      this.pieDanaRumah = JSON.parse(stringData);
 
-    chart.data = [
-      {
-        "sumber": "Kerajaan Persekutuan",
-        "jumlah": 750000.00
-      },
-      {
-        "sumber": "Sumber Antarabangsa",
-        "jumlah": 0.00
-      },
-      {
-        "sumber": "Kerajaan Negeri",
-        "jumlah": 280000.00
-      },
-      {
-        "sumber": "NGO",
-        "jumlah": 105000
-      },
-      {
-        "sumber": "Lain-lain",
-        "jumlah": 0.00
-      }
-    ];
+      let chart = am4core.create("sumberDanaRumah", am4charts.PieChart);
 
-    let pieSeries = chart.series.push(new am4charts.PieSeries());
-    pieSeries.dataFields.value = "jumlah";
-    pieSeries.dataFields.category = "sumber";
-    pieSeries.slices.template.stroke = am4core.color("#fff");
-    pieSeries.slices.template.strokeOpacity = 1;
+      chart.data = this.pieDanaRumah;
 
-    chart.hiddenState.properties.radius = am4core.percent(0);
+      let pieSeries = chart.series.push(new am4charts.PieSeries());
+      pieSeries.dataFields.value = "jumlah";
+      pieSeries.dataFields.category = "nama_sumber_dana";
+      pieSeries.slices.template.stroke = am4core.color("#fff");
+      pieSeries.slices.template.strokeOpacity = 1;
 
-    let hs = pieSeries.slices.template.states.getKey("hover");
-    hs.properties.scale = 1;
-    hs.properties.fillOpacity = 0.5;
+      chart.hiddenState.properties.radius = am4core.percent(0);
+
+      let hs = pieSeries.slices.template.states.getKey("hover");
+      hs.properties.scale = 1;
+      hs.properties.fillOpacity = 0.5;
+    })
   }
 
   mangsaNegeriGraph() {
