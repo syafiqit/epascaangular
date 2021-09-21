@@ -111,13 +111,12 @@
 						>
 							<ng-template pTemplate="header">
 								<tr>
-									<th style="width: 130px">Tindakan</th>
-									<th style="width: 100px" pSortableColumn="tahun_bencana">
+									<th style="width: 80px" pSortableColumn="tahun_bencana">
 										Tahun
 										<p-sortIcon field="tahun_bencana"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="tarikh_bencana">
-										Tarikh Kejadian
+									<th style="width: 120px" pSortableColumn="tarikh_bencana">
+										Tarikh Bencana
 										<p-sortIcon field="tarikh_bencana"></p-sortIcon>
 									</th>
 									<th style="width: 130px" pSortableColumn="nama_jenis_bencana">
@@ -128,14 +127,35 @@
 										Nama Bencana
 										<p-sortIcon field="nama_bencana"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="nama_negeri">
+									<th style="width: 150px" pSortableColumn="bencanaNegeri">
 										Negeri
-										<p-sortIcon field="nama_negeri"></p-sortIcon>
+										<p-sortIcon field="bencanaNegeri"></p-sortIcon>
 									</th>
+									<th style="width: 130px">Tindakan</th>
 								</tr>
 							</ng-template>
 							<ng-template pTemplate="body" let-record="$implicit">
 								<tr>
+									<td style="width: 80px">
+										<span class="p-column-title">Tahun</span>
+										{{record.bencana.tahun_bencana}}
+									</td>
+									<td style="width: 120px">
+										<span class="p-column-title">Tarikh Bencana</span>
+										{{record.bencana.tarikh_bencana | date:'dd-MM-yyyy'}}
+									</td>
+									<td style="width: 130px">
+										<span class="p-column-title">Jenis Bencana</span>
+										{{record.bencana.nama_jenis_bencana}}
+									</td>
+									<td style="width: 130px">
+										<span class="p-column-title">Nama Bencana</span>
+										{{record.bencana.nama_bencana}}
+									</td>
+									<td style="width: 150px">
+										<span class="p-column-title">Negeri</span>
+										{{record.bencanaNegeri}}
+									</td>
 									<td style="width: 130px">
 										<div ngbDropdown class="btn-group" role="group" container="body">
 											<button
@@ -151,32 +171,12 @@
 											<div ngbDropdownMenu aria-labelledby="action">
 												<button
 													class="dropdown-item"
-													(click)="editDisasterModal(record.id)"
+													(click)="editDisasterModal(record.bencana.id)"
 												>
 													Lihat
 												</button>
 											</div>
 										</div>
-									</td>
-									<td style="width: 100px">
-										<span class="p-column-title">Tahun</span>
-										{{record.tahun_bencana}}
-									</td>
-									<td style="width: 130px">
-										<span class="p-column-title">Tarikh Kejadian</span>
-										{{record.tarikh_bencana | date:'dd-MM-yyyy'}}
-									</td>
-									<td style="width: 130px">
-										<span class="p-column-title">Jenis Bencana</span>
-										{{record.nama_jenis_bencana}}
-									</td>
-									<td style="width: 130px">
-										<span class="p-column-title">Nama Bencana</span>
-										{{record.nama_bencana}}
-									</td>
-									<td style="width: 130px">
-										<span class="p-column-title">Negeri</span>
-										{{record.nama_negeri}}
 									</td>
 								</tr>
 							</ng-template>

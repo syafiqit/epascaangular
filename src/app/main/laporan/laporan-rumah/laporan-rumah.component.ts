@@ -1,5 +1,6 @@
 import { OnInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { FileDownloadService } from '@app/shared/services/file-download.service';
 import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
@@ -39,7 +40,8 @@ export class LaporanRumahComponent implements OnInit {
 		private _activatedRoute: ActivatedRoute,
     private _refDaerahServiceProxy: RefDaerahServiceProxy,
     private _refNegeriServiceProxy: RefNegeriServiceProxy,
-    private _laporanServiceProxy: LaporanServiceProxy
+    private _laporanServiceProxy: LaporanServiceProxy,
+    private _fileDownloadService: FileDownloadService
   ) {
 		this.filterBantuan = this._activatedRoute.snapshot.queryParams['id'];
 		this.primengTableHelper = new PrimengTableHelper();
@@ -88,6 +90,17 @@ export class LaporanRumahComponent implements OnInit {
 				this.primengTableHelper.records = result.items;
 			});
 	}
+
+  exportToExcel(){
+    this._laporanServiceProxy.exportAllMangsaBantuanRumahToExcel(
+      this.filter,
+      this.filterNegeri  ?? undefined,
+      this.filterDaerah ?? undefined,
+      this.filterBantuan,
+    ).subscribe(e=>{
+      this._fileDownloadService.downloadTempFile(e);
+    })
+  }
 
   getDaerah(filter?) {
 		this._refDaerahServiceProxy.getRefDaerahForDropdown(filter, this.filterNegeri ?? undefined).subscribe((result) => {

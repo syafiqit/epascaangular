@@ -37,7 +37,7 @@
             </div>
 
             <div class="col-lg-4 col-sm-12 justify-content-end p-0">
-              <button type="button" class="btn btn-outline-success pull-right">
+              <button type="button" (click)="exportToExcel()" class="btn btn-outline-success pull-right">
                 <i class="fa fa-file-excel-o fa-lg mr-2"></i>
                 <b>Excel</b>
               </button>
@@ -223,7 +223,7 @@
 										</td>
                     <td style="width: 134px">
 											<span class="p-column-title">Kos Bantuan</span>
-                      <label *ngIf="record.kos_bantuan">RM {{record.kos_bantuan}}</label>
+                      <label *ngIf="record.kos_bantuan">RM {{record.kos_bantuan | number: '1.2-2'}}</label>
                       <label *ngIf="!record.kos_bantuan">RM 0.00</label>
 										</td>
                     <td style="width: 130px">
