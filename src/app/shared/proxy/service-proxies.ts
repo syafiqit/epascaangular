@@ -10874,6 +10874,124 @@ export class RefPerananServiceProxy {
         }
         return _observableOf<CreateOrEditRefPerananDto>(<any>null);
     }
+
+    /**
+     * Get All Capaian in string list
+     * @param namaPeranan (optional) Filter records with a string
+     * @return Success
+     */
+    getCapaianPeranan(namaPeranan: string | undefined): Observable<GetCapaianPerananDto> {
+        let url_ = this.baseUrl + "/api/refPeranan/getCapaianPeranan?";
+        if (namaPeranan === null)
+            throw new Error("The parameter 'namaPeranan' cannot be null.");
+        else if (namaPeranan !== undefined)
+            url_ += "namaPeranan=" + encodeURIComponent("" + namaPeranan) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetCapaianPeranan(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetCapaianPeranan(<any>response_);
+                } catch (e) {
+                    return <Observable<GetCapaianPerananDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetCapaianPerananDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetCapaianPeranan(response: HttpResponseBase): Observable<GetCapaianPerananDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetCapaianPerananDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetCapaianPerananDto>(<any>null);
+    }
+
+    /**
+     * Update peranan capaian
+     * @param body Create or edit object
+     * @return Success
+     */
+    updateCapaianPeranan(body: UpdateCapaianPerananDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/refPeranan/updateCapaianPeranan";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateCapaianPeranan(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateCapaianPeranan(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdateCapaianPeranan(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
 }
 
 @Injectable()
@@ -17575,6 +17693,124 @@ export class UserServiceProxy {
         }
         return _observableOf<OutputChangeEmelPasswordDto>(<any>null);
     }
+
+    /**
+     * Get All Capaian of a user in string list
+     * @param id (optional) User Id
+     * @return Success
+     */
+    getCapaianPengguna(id: number | undefined): Observable<GetCapaianPerananDto> {
+        let url_ = this.baseUrl + "/api/user/getCapaianPengguna?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetCapaianPengguna(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetCapaianPengguna(<any>response_);
+                } catch (e) {
+                    return <Observable<GetCapaianPerananDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetCapaianPerananDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetCapaianPengguna(response: HttpResponseBase): Observable<GetCapaianPerananDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetCapaianPerananDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetCapaianPerananDto>(<any>null);
+    }
+
+    /**
+     * Update capaian pengguna
+     * @param body Create or edit object
+     * @return Success
+     */
+    updateCapaianPengguna(body: UpdateCapaianPenggunaDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/user/updateCapaianPengguna";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateCapaianPengguna(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateCapaianPengguna(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdateCapaianPengguna(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
 }
 
 export class AuthChangePasswordDto implements IAuthChangePasswordDto {
@@ -20515,7 +20751,7 @@ export class GetMangsaBencanaForViewDto implements IGetMangsaBencanaForViewDto {
     sebab_hapus!: string;
     nama_bencana!: string;
     pindah!: string;
-    tarikh_bencana!: moment.Moment;
+    tahun_bencana!: number;
 
     constructor(data?: IGetMangsaBencanaForViewDto) {
         if (data) {
@@ -20543,7 +20779,7 @@ export class GetMangsaBencanaForViewDto implements IGetMangsaBencanaForViewDto {
             this.sebab_hapus = _data["sebab_hapus"];
             this.nama_bencana = _data["nama_bencana"];
             this.pindah = _data["pindah"];
-            this.tarikh_bencana = _data["tarikh_bencana"] ? moment(_data["tarikh_bencana"].toString()) : <any>undefined;
+            this.tahun_bencana = _data["tahun_bencana"];
         }
     }
 
@@ -20571,7 +20807,7 @@ export class GetMangsaBencanaForViewDto implements IGetMangsaBencanaForViewDto {
         data["sebab_hapus"] = this.sebab_hapus;
         data["nama_bencana"] = this.nama_bencana;
         data["pindah"] = this.pindah;
-        data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
+        data["tahun_bencana"] = this.tahun_bencana;
         return data; 
     }
 }
@@ -20592,7 +20828,7 @@ export interface IGetMangsaBencanaForViewDto {
     sebab_hapus: string;
     nama_bencana: string;
     pindah: string;
-    tarikh_bencana: moment.Moment;
+    tahun_bencana: number;
 }
 
 /** MangsaBencana List in Tabular model */
@@ -28991,6 +29227,52 @@ export interface ICreateOrEditRefPerananDto {
     peranan: string;
 }
 
+export class GetCapaianPerananDto implements IGetCapaianPerananDto {
+    /** Capaian in array of string */
+    capaian!: string[];
+
+    constructor(data?: IGetCapaianPerananDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["capaian"])) {
+                this.capaian = [] as any;
+                for (let item of _data["capaian"])
+                    this.capaian!.push(item);
+            }
+        }
+    }
+
+    static fromJS(data: any): GetCapaianPerananDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetCapaianPerananDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.capaian)) {
+            data["capaian"] = [];
+            for (let item of this.capaian)
+                data["capaian"].push(item);
+        }
+        return data; 
+    }
+}
+
+export interface IGetCapaianPerananDto {
+    /** Capaian in array of string */
+    capaian: string[];
+}
+
 export class GetRefPerananForEditDto implements IGetRefPerananForEditDto {
     ref_peranan!: CreateOrEditRefPerananDto;
 
@@ -29207,6 +29489,56 @@ export class RefPerananDto implements IRefPerananDto {
 export interface IRefPerananDto {
     id: number;
     peranan: string;
+}
+
+export class UpdateCapaianPerananDto implements IUpdateCapaianPerananDto {
+    nama_peranan!: string;
+    /** Capaian in array of string */
+    capaian!: string[];
+
+    constructor(data?: IUpdateCapaianPerananDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.nama_peranan = _data["nama_peranan"];
+            if (Array.isArray(_data["capaian"])) {
+                this.capaian = [] as any;
+                for (let item of _data["capaian"])
+                    this.capaian!.push(item);
+            }
+        }
+    }
+
+    static fromJS(data: any): UpdateCapaianPerananDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateCapaianPerananDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["nama_peranan"] = this.nama_peranan;
+        if (Array.isArray(this.capaian)) {
+            data["capaian"] = [];
+            for (let item of this.capaian)
+                data["capaian"].push(item);
+        }
+        return data; 
+    }
+}
+
+export interface IUpdateCapaianPerananDto {
+    nama_peranan: string;
+    /** Capaian in array of string */
+    capaian: string[];
 }
 
 export class CreateOrEditRefPindahDto implements ICreateOrEditRefPindahDto {
@@ -33488,7 +33820,6 @@ export class GetTabungBayaranTerusForViewDto implements IGetTabungBayaranTerusFo
     penerima!: string;
     tarikh!: moment.Moment;
     perihal!: string;
-    jumlah!: number;
     id_pengguna_cipta!: number;
     tarikh_cipta!: moment.Moment;
     id_pengguna_kemaskini!: number;
@@ -33522,7 +33853,6 @@ export class GetTabungBayaranTerusForViewDto implements IGetTabungBayaranTerusFo
             this.penerima = _data["penerima"];
             this.tarikh = _data["tarikh"] ? moment(_data["tarikh"].toString()) : <any>undefined;
             this.perihal = _data["perihal"];
-            this.jumlah = _data["jumlah"];
             this.id_pengguna_cipta = _data["id_pengguna_cipta"];
             this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
@@ -33556,7 +33886,6 @@ export class GetTabungBayaranTerusForViewDto implements IGetTabungBayaranTerusFo
         data["penerima"] = this.penerima;
         data["tarikh"] = this.tarikh ? this.tarikh.toISOString() : <any>undefined;
         data["perihal"] = this.perihal;
-        data["jumlah"] = this.jumlah;
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
@@ -33583,7 +33912,6 @@ export interface IGetTabungBayaranTerusForViewDto {
     penerima: string;
     tarikh: moment.Moment;
     perihal: string;
-    jumlah: number;
     id_pengguna_cipta: number;
     tarikh_cipta: moment.Moment;
     id_pengguna_kemaskini: number;
@@ -36701,6 +37029,52 @@ export interface IEditUserDto {
     catatan: string;
 }
 
+export class GetCapaianPenggunaDto implements IGetCapaianPenggunaDto {
+    /** Capaian in array of string */
+    capaian!: string[];
+
+    constructor(data?: IGetCapaianPenggunaDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["capaian"])) {
+                this.capaian = [] as any;
+                for (let item of _data["capaian"])
+                    this.capaian!.push(item);
+            }
+        }
+    }
+
+    static fromJS(data: any): GetCapaianPenggunaDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetCapaianPenggunaDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.capaian)) {
+            data["capaian"] = [];
+            for (let item of this.capaian)
+                data["capaian"].push(item);
+        }
+        return data; 
+    }
+}
+
+export interface IGetCapaianPenggunaDto {
+    /** Capaian in array of string */
+    capaian: string[];
+}
+
 export class GetUserForEditDto implements IGetUserForEditDto {
     pengguna!: EditUserDto;
 
@@ -36905,6 +37279,56 @@ export interface IPagedResultDtoOfUserForViewDto {
     total_count: number;
     /** Items in array of object */
     items: GetUserForViewDto[];
+}
+
+export class UpdateCapaianPenggunaDto implements IUpdateCapaianPenggunaDto {
+    user_id!: number;
+    /** Capaian in array of string */
+    capaian!: string[];
+
+    constructor(data?: IUpdateCapaianPenggunaDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.user_id = _data["user_id"];
+            if (Array.isArray(_data["capaian"])) {
+                this.capaian = [] as any;
+                for (let item of _data["capaian"])
+                    this.capaian!.push(item);
+            }
+        }
+    }
+
+    static fromJS(data: any): UpdateCapaianPenggunaDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateCapaianPenggunaDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["user_id"] = this.user_id;
+        if (Array.isArray(this.capaian)) {
+            data["capaian"] = [];
+            for (let item of this.capaian)
+                data["capaian"].push(item);
+        }
+        return data; 
+    }
+}
+
+export interface IUpdateCapaianPenggunaDto {
+    user_id: number;
+    /** Capaian in array of string */
+    capaian: string[];
 }
 
 export interface FileParameter {
