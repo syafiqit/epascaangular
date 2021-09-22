@@ -15,7 +15,7 @@
 		<div class="col-sm-12">
 			<div class="card">
 				<div class="card-body">
-					<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
+					<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate focusInvalidInput>
 						<h6>Maklumat Kelulusan</h6>
 						<div class="row">
 							<div class="col-lg-6">
@@ -48,7 +48,7 @@
 
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Jenis Bayaran</label>
+									<label>Jenis Bayaran*</label>
 									<ng-select
                     [items]="jenisBayaran"
                     bindLabel="nama_jenis_bayaran"
@@ -57,7 +57,13 @@
                     class="js-example-placeholder-multiple"
                     name="jenisBayaran"
                     [(ngModel)]="bayaranTerus.id_jenis_bayaran"
+                    #jenis_bayaran="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && jenis_bayaran.invalid }"
+                    required
                   ></ng-select>
+                  <div *ngIf="f.submitted && jenis_bayaran.invalid" class="invalid-feedback">
+                    <div *ngIf="jenis_bayaran.errors.required">Jenis Bayaran Wajib Dipilih</div>
+                  </div>
 								</div>
 							</div>
 						</div>
@@ -65,7 +71,7 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Kategori</label>
+									<label>Kategori*</label>
 									<ng-select
                     [items]="kategoriBayaran"
                     bindLabel="nama_kategori_bayaran"
@@ -74,7 +80,13 @@
                     class="js-example-placeholder-multiple"
                     name="kategori"
                     [(ngModel)]="bayaranTerus.id_kategori_bayaran"
+                    #kategori_bayaran="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && kategori_bayaran.invalid }"
+                    required
                   ></ng-select>
+                  <div *ngIf="f.submitted && kategori_bayaran.invalid" class="invalid-feedback">
+                    <div *ngIf="kategori_bayaran.errors.required">Kategori Bayaran Wajib Dipilih</div>
+                  </div>
 								</div>
 							</div>
 
@@ -153,14 +165,20 @@
 
 							<div class="col-lg-6">
                 <div class="form-group">
-                  <label>Kepada</label>
+                  <label>Kepada*</label>
                   <input
                     class="form-control"
                     name="penerima"
                     type="text"
                     [(ngModel)]="bayaranTerus.penerima"
                     placeholder="Penerima"
+                    #penerimaBayaran="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && penerimaBayaran.invalid }"
+                    required
                   />
+                  <div *ngIf="f.submitted && penerimaBayaran.invalid" class="invalid-feedback">
+                    <div *ngIf="penerimaBayaran.errors.required">Nama Penerima Wajib Diisi</div>
+                  </div>
                 </div>
               </div>
 						</div>
