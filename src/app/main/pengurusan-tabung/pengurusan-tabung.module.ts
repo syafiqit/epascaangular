@@ -42,6 +42,11 @@ import { PilihBencanaKelulusanComponent } from './kelulusan/pilih-bencana-kelulu
 import { PeruntukanDiambilComponent } from './kelulusan/peruntukan-diambil/peruntukan-diambil.component';
 import { TambahEditKawasanBantuanComponent } from './wang-ihsan/edit-wang-ihsan/tambah-edit-kawasan-bantuan/tambah-edit-kawasan-bantuan.component';
 import { TambahEditKirBwiComponent } from './wang-ihsan/edit-wang-ihsan/tambah-edit-kir/tambah-edit-kir-bwi/tambah-edit-kir-bwi.component';
+import { MaklumatSuratComponent } from './kelulusan/edit-kelulusan/maklumat-surat/maklumat-surat.component';
+import { PerbelanjaanComponent } from './kelulusan/edit-kelulusan/perbelanjaan/perbelanjaan.component';
+import { JenisBayaranSkbComponent } from './kelulusan/edit-kelulusan/perbelanjaan/jenis-bayaran-skb/jenis-bayaran-skb.component';
+import { JenisBayaranTerusComponent } from './kelulusan/edit-kelulusan/perbelanjaan/jenis-bayaran-terus/jenis-bayaran-terus.component';
+import { PeruntukanDiambilListComponent } from './kelulusan/edit-kelulusan/peruntukan-diambil/peruntukan-diambil-list.component';
 
 @NgModule({
 	imports: [
@@ -90,6 +95,11 @@ import { TambahEditKirBwiComponent } from './wang-ihsan/edit-wang-ihsan/tambah-e
     PilihBencanaBwiComponent,
     TambahEditKawasanBantuanComponent,
     TambahEditKirBwiComponent,
+    MaklumatSuratComponent,
+    PerbelanjaanComponent,
+    JenisBayaranSkbComponent,
+    JenisBayaranTerusComponent,
+	PeruntukanDiambilListComponent
 	]
 })
 export class PengurusanTabungModule {}
