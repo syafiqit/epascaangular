@@ -1,23 +1,31 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { TambahRujukanBencanaComponent } from './tambah-rujukan-bencana/tambah-rujukan-bencana.component';
 import {
   CreateOrEditTabungKelulusanDto, RefBantuanServiceProxy, RefBencanaServiceProxy,
   TabungKelulusanServiceProxy, TabungServiceProxy
-} from "../../../../shared/proxy/service-proxies";
+} from "../../../../../shared/proxy/service-proxies";
 import {finalize} from "rxjs/operators";
 import * as moment from "moment";
 import {ActivatedRoute, Router} from "@angular/router";
-import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
-import { PilihBencanaKelulusanComponent } from '../pilih-bencana-kelulusan/pilih-bencana-kelulusan.component';
+import { TambahRujukanBencanaComponent } from '../../tambah-kelulusan/tambah-rujukan-bencana/tambah-rujukan-bencana.component';
+import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
+import { LazyLoadEvent } from 'primeng/api';
+import { Table } from 'primeng/table';
+import { Paginator } from 'primeng/paginator';
+import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { PilihBencanaKelulusanComponent } from '../../pilih-bencana-kelulusan/pilih-bencana-kelulusan.component';
 
 @Component({
-	selector: 'app-tambah-kelulusan',
-	templateUrl: './tambah-kelulusan.component.html',
-	encapsulation: ViewEncapsulation.None,
-	providers: [NgbModalConfig, NgbModal]
+  selector: 'app-maklumat-surat',
+  templateUrl: './maklumat-surat.component.html'
 })
-export class TambahKelulusanComponent implements OnInit {
+export class MaklumatSuratComponent implements OnInit {
+
+  @Input() public idKelulusan: number;
+
+  filter:any;
+  test:any;
+
 	displayMonths = 1;
 	navigation = 'select';
 	showWeekNumbers = false;
@@ -41,10 +49,7 @@ export class TambahKelulusanComponent implements OnInit {
 
   kelulusan: CreateOrEditTabungKelulusanDto = new CreateOrEditTabungKelulusanDto();
 
-  komitmen = [
-    { id: 1, nama_komitmen: "Perolehan Secara Pembelian Terus" },
-    { id: 2, nama_komitmen: "Perolehan Secara Darurat" }
-  ]
+  bayaranTerus: any;
 
 	constructor(
 	  config: NgbModalConfig,
@@ -60,6 +65,10 @@ export class TambahKelulusanComponent implements OnInit {
     this.id = this._activatedRoute.snapshot.queryParams['id'];
 		config.backdrop = 'static';
 		config.keyboard = false;
+
+    this._tabungKelulusanServiceProxy.getKategoriTabungByKelulusan(this.id).subscribe((result) =>{
+      this.test = result.items;
+    })
 	}
 
 	ngOnInit(): void {
@@ -67,6 +76,7 @@ export class TambahKelulusanComponent implements OnInit {
     this.getTabung();
     this.getBencana();
     this.getBantuan();
+    
   }
 
   fromModel(value: string | null): NgbDateStruct | null {
@@ -100,6 +110,8 @@ export class TambahKelulusanComponent implements OnInit {
         if(result.tabung_kelulusan.tarikh_tamat_kelulusan){
           this.modelTamat = this.fromModel(result.tabung_kelulusan.tarikh_tamat_kelulusan.format('YYYY-MM-DD'));
         }
+
+        this.populateTabung();
       });
     }
   }
@@ -140,16 +152,13 @@ export class TambahKelulusanComponent implements OnInit {
       this.tarikhTamat = this.toModel(this.modelTamat);
       this.kelulusan.tarikh_tamat_kelulusan = moment(this.tarikhTamat, "YYYY-MM-DD");
     }
+    
     this._tabungKelulusanServiceProxy
       .createOrEdit(this.kelulusan)
       .pipe()
-      .subscribe((response) => {
-        if(response.message == 'Jumlah Peruntukan Melebihi Jumlah Keseluruhan Tabung'){
-          swalError.fire('Perhatian!', 'Jumlah Peruntukan Melebihi Jumlah Keseluruhan Tabung.', 'error');
-        }else{
-          swalSuccess.fire('Berjaya!', 'Maklumat Tabung Kelulusan Berjaya Disimpan.', 'success');
-          this.router.navigate(['/app/tabung/senarai-kelulusan']);
-        }
+      .subscribe(() => {
+        swalSuccess.fire('Berjaya!', 'Maklumat Tabung Kelulusan Berjaya Disimpan.', 'success');
+        this.router.navigate(['/app/tabung/senarai-kelulusan']);
       });
   }
 
@@ -165,4 +174,10 @@ export class TambahKelulusanComponent implements OnInit {
 			}
 		);
 	}
+
+  populateTabung(id?){
+    this._tabungServiceProxy.getTabungForEdit(this.kelulusan.id_tabung).subscribe((result) => {
+      this.namaBencana = result.tabung.nama_tabung;
+    });
+  }
 }

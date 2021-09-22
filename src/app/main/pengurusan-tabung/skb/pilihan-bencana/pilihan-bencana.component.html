@@ -64,28 +64,28 @@
 						<tr>
 							<td style="width: 130px">
 								<span class="p-column-title">Tarikh Kejadian</span>
-								{{record.tarikh_bencana | date:'dd-MM-yyyy'}}
+								{{record.bencana.tarikh_bencana | date:'dd-MM-yyyy'}}
 							</td>
 							<td style="width: 135px">
 								<span class="p-column-title">Kategori Bencana</span>
-								{{record.nama_jenis_bencana}}
+								{{record.bencana.nama_jenis_bencana}}
 							</td>
 							<td style="width: 130px">
 								<span class="p-column-title">Nama Bencana</span>
-								{{record.nama_bencana}}
+								{{record.bencana.nama_bencana}}
 							</td>
 							<td style="width: 150px">
 								<span class="p-column-title">Catatan</span>
-								{{record.catatan}}
+								{{record.bencana.catatan}}
 							</td>
 							<td style="width: 100px">
 								<button
                   class="btn btn-primary"
                   type="button"
                   (click)="select(
-                    record.id,
-                    record.tarikh_bencana,
-                    record.nama_bencana
+                    record.bencana.id,
+                    record.bencana.tarikh_bencana,
+                    record.bencana.nama_bencana
                     )"
                 >
                   Pilih

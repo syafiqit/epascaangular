@@ -1,5 +1,5 @@
 <app-breadcrumb
-	[title]="'Laporan Belanja Secara Bayaran Terus KWABBN'"
+	[title]="'Laporan Belanja Secara Bayaran Terus'"
 	[items]="['Laporan']"
 	[active_item]="'Bayaran Terus'"
 ></app-breadcrumb>
@@ -16,6 +16,7 @@
                   type="text"
                   name="searchReportSkb"
                   placeholder="Carian..."
+                  (keyup)="applyFilter($event.target.value)"
                 />
                 <i class="search-icon" data-feather="search"></i>
               </div>
@@ -36,7 +37,7 @@
             </div>
 
             <div class="col-lg-4 col-sm-12 justify-content-end p-0">
-              <button type="button" class="btn btn-outline-success pull-right">
+              <button type="button" (click)="exportToExcel()" class="btn btn-outline-success pull-right">
                 <i class="fa fa-file-excel-o fa-lg mr-2"></i>
                 <b>Excel</b>
               </button>
@@ -52,56 +53,31 @@
                       <div class="row mt-2">
                         <div class="col-lg-4">
                           <div class="form-group">
-                            <label>Tabung</label>
+                            <label>Kategori Bayaran</label>
                             <ng-select
-                              [items]="funds"
-                              bindLabel="nama_tabung"
+                              [items]="categories"
+                              bindLabel="nama_kategori_bayaran"
                               bindValue="id"
                               placeholder="Sila Pilih"
                               class="js-example-placeholder-multiple"
-                              name="namaTabung"
+                              name="kategoriBayaran"
+                              [(ngModel)]="filterKategori"
                             ></ng-select>
                           </div>
                         </div>
 
                         <div class="col-lg-4">
-                          <div class="form-group custom-datepicker custom-datepicker-dropdown">
-                            <label>Tarikh Bayaran</label>
-                            <div class="input-group">
-                              <input
-                                class="form-control"
-                                placeholder="yyyy-mm-dd"
-                                name="dp1"
-                                [(ngModel)]="modelMula"
-                                ngbDatepicker
-                                #d="ngbDatepicker"
-                                style="border: 1px solid #efefef !important;"
-                              >
-                              <div class="input-group-append">
-                                <button class="btn btn-light" (click)="d.toggle()" type="button"><i
-                                  class="fa fa-calendar"></i></button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                          <div class="form-group custom-datepicker custom-datepicker-dropdown">
-                            <div class="input-group pt-4 mt-1">
-                              <input
-                                class="form-control"
-                                placeholder="yyyy-mm-dd"
-                                name="dp2"
-                                [(ngModel)]="modelTamat"
-                                ngbDatepicker
-                                #a="ngbDatepicker"
-                                style="border: 1px solid #efefef !important;"
-                              >
-                              <div class="input-group-append">
-                                <button class="btn btn-light" (click)="a.toggle()" type="button"><i
-                                  class="fa fa-calendar"></i></button>
-                              </div>
-                            </div>
+                          <div class="form-group">
+                            <label>Tahun</label>
+                            <ng-select
+                              [items]="arrayYear"
+                              bindLabel="years"
+                              bindValue="years"
+                              placeholder="Sila Pilih"
+                              class="js-example-placeholder-multiple"
+                              name="tahunBayaran"
+                              [(ngModel)]="filterYear"
+                            ></ng-select>
                           </div>
                         </div>
                       </div>
@@ -110,6 +86,7 @@
                         <button
                           class="btn btn-light mr-2"
                           type="button"
+                          (click)="resetFilter()"
                         >
                         <i class="fa fa-refresh mr-2"></i>
                           <b>Reset</b>
@@ -118,6 +95,7 @@
                         <button
                           class="btn btn-primary pull-right mr-2"
                           type="button"
+                          (click)="getTerusReport()"
                         >
                         <i class="fa fa-search mr-2"></i>
                           <b>Cari</b>
@@ -149,73 +127,75 @@
 							>
 								<ng-template pTemplate="header">
 									<tr>
-										<th style="width: 130px" pSortableColumn="no_bayaran">
+										<th style="width: 132px" pSortableColumn="no_rujukan_terus">
 											No. Bayaran
-											<p-sortIcon field="no_bayaran"></p-sortIcon>
+											<p-sortIcon field="no_rujukan_terus"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="no_kelulusan">
+										<th style="width: 143px" pSortableColumn="no_rujukan_kelulusan">
 											No. Kelulusan
-											<p-sortIcon field="no_kelulusan"></p-sortIcon>
+											<p-sortIcon field="no_rujukan_kelulusan"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="no_baucer">
+										<th style="width: 130px" pSortableColumn="no_baucar">
 											No. Baucer
-											<p-sortIcon field="no_baucer"></p-sortIcon>
+											<p-sortIcon field="no_baucar"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="tarikh_bayaran">
+										<th style="width: 149px" pSortableColumn="tarikh">
 											Tarikh Bayaran
-											<p-sortIcon field="tarikh_bayaran"></p-sortIcon>
+											<p-sortIcon field="tarikh"></p-sortIcon>
 										</th>
 										<th style="width: 130px" pSortableColumn="perihal">
 											Perihal
 											<p-sortIcon field="perihal"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="kepada">
+										<th style="width: 150px" pSortableColumn="penerima">
 											Kepada
-											<p-sortIcon field="kepada"></p-sortIcon>
+											<p-sortIcon field="penerima"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="kategori_tabung">
-											Tabung
-											<p-sortIcon field="kategori_tabung"></p-sortIcon>
+										<th style="width: 130px" pSortableColumn="nama_kategori_bayaran">
+											Kategori
+											<p-sortIcon field="nama_kategori_bayaran"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="jumlah_belanja">
+										<th style="width: 153px" pSortableColumn="jumlah">
 											Jumlah Belanja
-											<p-sortIcon field="jumlah_belanja"></p-sortIcon>
+											<p-sortIcon field="jumlah"></p-sortIcon>
 										</th>
 									</tr>
 								</ng-template>
 								<ng-template pTemplate="body" let-record="$implicit">
 									<tr>
-										<td style="width: 130px">
+										<td style="width: 132px">
 											<span class="p-column-title">No. Bayaran</span>
-											{{record.no_bayaran}}
+											{{record.no_rujukan_terus}}
 										</td>
-										<td style="width: 130px">
+										<td style="width: 143px">
 											<span class="p-column-title">No. Kelulusan</span>
-											{{record.no_kelulusan}}
+											{{record.no_rujukan_kelulusan}}
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">No. Baucer</span>
-											{{record.no_baucer}}
+											{{record.no_baucar}}
 										</td>
-										<td style="width: 130px">
+										<td style="width: 149px">
 											<span class="p-column-title">Tarikh Bayaran</span>
-											{{record.tarikh_bayaran}}
+											{{record.tarikh | date:'dd-MM-yyyy'}}
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Perihal</span>
-											{{record.perihal}}
+                      <label *ngIf="record.perihal">{{record.perihal}}</label>
+                      <label *ngIf="!record.perihal">-</label>
 										</td>
-										<td style="width: 130px">
+										<td style="width: 150px">
 											<span class="p-column-title">Kepada</span>
-											{{record.kepada}}
+											{{record.penerima}}
 										</td>
 										<td style="width: 130px">
-											<span class="p-column-title">Tabung</span>
-											{{record.kategori_tabung}}
+											<span class="p-column-title">Kategori</span>
+											{{record.nama_kategori_bayaran}}
 										</td>
-										<td style="width: 130px">
+										<td style="width: 153px">
 											<span class="p-column-title">Jumlah Belanja</span>
-											RM {{record.jumlah_belanja}}
+                      <label *ngIf="record.jumlah">RM {{record.jumlah | number: '1.2-2'}}</label>
+                      <label *ngIf="!record.jumlah">RM 0.00</label>
 										</td>
 									</tr>
 								</ng-template>

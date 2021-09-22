@@ -1,23 +1,39 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { TambahRujukanBencanaComponent } from './tambah-rujukan-bencana/tambah-rujukan-bencana.component';
 import {
   CreateOrEditTabungKelulusanDto, RefBantuanServiceProxy, RefBencanaServiceProxy,
   TabungKelulusanServiceProxy, TabungServiceProxy
-} from "../../../../shared/proxy/service-proxies";
+} from "../../../../../shared/proxy/service-proxies";
 import {finalize} from "rxjs/operators";
 import * as moment from "moment";
 import {ActivatedRoute, Router} from "@angular/router";
+import { TambahRujukanBencanaComponent } from '../../tambah-kelulusan/tambah-rujukan-bencana/tambah-rujukan-bencana.component';
+import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
+import { LazyLoadEvent } from 'primeng/api';
+import { Table } from 'primeng/table';
+import { Paginator } from 'primeng/paginator';
 import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
-import { PilihBencanaKelulusanComponent } from '../pilih-bencana-kelulusan/pilih-bencana-kelulusan.component';
+import { PilihBencanaKelulusanComponent } from '../../pilih-bencana-kelulusan/pilih-bencana-kelulusan.component';
 
 @Component({
-	selector: 'app-tambah-kelulusan',
-	templateUrl: './tambah-kelulusan.component.html',
-	encapsulation: ViewEncapsulation.None,
-	providers: [NgbModalConfig, NgbModal]
+  selector: 'app-perbelanjaan',
+  templateUrl: './perbelanjaan.component.html'
 })
-export class TambahKelulusanComponent implements OnInit {
+export class PerbelanjaanComponent implements OnInit {
+
+  @Input() public idKelulusan: number;
+
+  @ViewChild('dataTableKategori', { static: true }) dataTableKategori: Table;
+	@ViewChild('paginatorTabung', { static: true }) paginatorTabung: Paginator;
+  @ViewChild('dataTableBwi', { static: true }) dataTableBwi: Table;
+	@ViewChild('paginatorBwi', { static: true }) paginatorBwi: Paginator;
+
+  primengTableHelperTabung: PrimengTableHelper;
+  primengTableHelperBwi: PrimengTableHelper;
+
+  filter:any;
+  tabId = 1;
+
 	displayMonths = 1;
 	navigation = 'select';
 	showWeekNumbers = false;
@@ -41,10 +57,18 @@ export class TambahKelulusanComponent implements OnInit {
 
   kelulusan: CreateOrEditTabungKelulusanDto = new CreateOrEditTabungKelulusanDto();
 
-  komitmen = [
-    { id: 1, nama_komitmen: "Perolehan Secara Pembelian Terus" },
-    { id: 2, nama_komitmen: "Perolehan Secara Darurat" }
-  ]
+  bayaranTerus: any;
+
+  rowBwi = [
+		{
+      bil: '1', no_rujukan: 'Covid-19', negeri: 'Penang', daerah:'SPT', jenis_bencana:'Banjir',tahun:'2020',
+      w_kir:'500', jumlah_kir:'500', jumlah:'76', tarikh_eft:'21/2/2020'
+		},
+    {
+      bil: '1', no_rujukan: 'Covid-19', negeri: 'Penang', daerah:'SPT', jenis_bencana:'Banjir',tahun:'2020',
+      w_kir:'500', jumlah_kir:'700', jumlah:'76', tarikh_eft:'21/2/2020'
+		}
+	];
 
 	constructor(
 	  config: NgbModalConfig,
@@ -53,20 +77,17 @@ export class TambahKelulusanComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private _tabungKelulusanServiceProxy: TabungKelulusanServiceProxy,
     private _tabungServiceProxy: TabungServiceProxy,
-    private _refBencanaServiceProxy: RefBencanaServiceProxy,
-    private _refBantuanServiceProxy: RefBantuanServiceProxy,
     private calendar: NgbCalendar
   ) {
     this.id = this._activatedRoute.snapshot.queryParams['id'];
 		config.backdrop = 'static';
 		config.keyboard = false;
+    this.primengTableHelperTabung = new PrimengTableHelper();
+    this.primengTableHelperBwi = new PrimengTableHelper();
 	}
 
 	ngOnInit(): void {
     this.show();
-    this.getTabung();
-    this.getBencana();
-    this.getBantuan();
   }
 
   fromModel(value: string | null): NgbDateStruct | null {
@@ -104,28 +125,6 @@ export class TambahKelulusanComponent implements OnInit {
     }
   }
 
-	approvalAddModal() {
-		this.modalService.open(TambahRujukanBencanaComponent, { size: 'lg' });
-	}
-
-  getTabung(filter?) {
-    this._tabungServiceProxy.getTabungForDropdown(filter).subscribe((result) => {
-      this.tabung = result.items;
-    });
-  }
-
-  getBencana(filter?) {
-    this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
-      this.bencana = result.items;
-    });
-  }
-
-  getBantuan(filter?) {
-    this._refBantuanServiceProxy.getRefBantuanForDropdown(filter).subscribe((result) => {
-      this.bantuan = result.items;
-    });
-  }
-
   save(): void {
     this.saving = true;
     if(this.modelSurat){
@@ -140,6 +139,7 @@ export class TambahKelulusanComponent implements OnInit {
       this.tarikhTamat = this.toModel(this.modelTamat);
       this.kelulusan.tarikh_tamat_kelulusan = moment(this.tarikhTamat, "YYYY-MM-DD");
     }
+    
     this._tabungKelulusanServiceProxy
       .createOrEdit(this.kelulusan)
       .pipe()
@@ -153,16 +153,34 @@ export class TambahKelulusanComponent implements OnInit {
       });
   }
 
-  addBencana() {
-		const modalRef = this.modalService.open(PilihBencanaKelulusanComponent, { size: 'xl' });
-		modalRef.componentInstance.name = 'add';
-    modalRef.result.then(
-			(response) => {
-				if (response) {
-          this.kelulusan.id_tabung = response.id;
-					this.namaBencana = response.nama_tabung;
-				}
-			}
-		);
+  getBelanjaTabung(event?: LazyLoadEvent) {
+
+    if (this.primengTableHelperTabung.shouldResetPaging(event)) {
+			this.paginatorTabung.changePage(0);
+			return;
+		}
+
+		this.primengTableHelperTabung.showLoadingIndicator();
+		this._tabungKelulusanServiceProxy.getKategoriTabungByKelulusan(this.id)
+      .pipe(finalize(()=> {
+        this.primengTableHelperTabung.hideLoadingIndicator();
+      }))
+			.subscribe((result) => {
+				this.primengTableHelperTabung.totalRecordsCount = result.total_count;
+				this.primengTableHelperTabung.records = result.items;
+			});
 	}
+
+  getSejarahBwi(event?: LazyLoadEvent) {
+		if (this.primengTableHelperTabung.shouldResetPaging(event)) {
+			this.paginatorBwi.changePage(0);
+			return;
+		}
+
+		this.primengTableHelperBwi.showLoadingIndicator();
+		this.primengTableHelperBwi.totalRecordsCount = this.rowBwi.length;
+		this.primengTableHelperBwi.records = this.rowBwi;
+		this.primengTableHelperBwi.hideLoadingIndicator();
+	}
+  
 }

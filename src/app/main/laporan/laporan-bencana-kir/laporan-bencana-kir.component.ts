@@ -1,10 +1,13 @@
 import { OnInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FileDownloadService } from '@app/shared/services/file-download.service';
 import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
-import { RefJenisBencanaServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import { LaporanServiceProxy, RefBencanaServiceProxy } from 'src/app/shared/proxy/service-proxies';
 
 @Component({
 	selector: 'app-laporan-bencana-kir',
@@ -18,22 +21,19 @@ export class LaporanBencanaKirComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 	public isCollapsed = false;
-  disasters: any;
+  terms$ = new Subject<string>();
 
-	rows = [
-		{
-      jenis_bencana: 'Banjir', bwi_kir: '500.00', jumlah_kir: '76', jumlah_peruntukan: '38000.00',
-      baki_pulangan: '2000.00', jumlah_agihan: '36000.00'
-		},
-		{
-      jenis_bencana: 'Banjir', bwi_kir: '1000.00', jumlah_kir: '50', jumlah_peruntukan: '50000.00',
-      baki_pulangan: '5000.00', jumlah_agihan: '45000.00'
-		}
-	];
+  disasters: any;
+  filter: string;
+  filterBencana: number;
+  filterYear: number;
+  arrayYear:any[];
 
 	constructor(
     config: NgbModalConfig,
-    private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy
+    private _laporanServiceProxy: LaporanServiceProxy,
+    private _fileDownloadService: FileDownloadService,
+    private _refBencanaServiceProxy: RefBencanaServiceProxy
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
@@ -42,22 +42,57 @@ export class LaporanBencanaKirComponent implements OnInit {
 
 	ngOnInit(): void {
     this.getBencana();
+	  this.generateArrayOfYears()
+
+    this.terms$.pipe(
+      debounceTime(500), distinctUntilChanged()
+    ).subscribe((filterValue: string) =>{
+      this.filter = filterValue;
+      this.getBencanaKirReport();
+    });
+  }
+
+  applyFilter(filterValue: string){
+    this.terms$.next(filterValue);
   }
 
 	getBencanaKirReport(event?: LazyLoadEvent) {
-		if (this.primengTableHelper.shouldResetPaging(event)) {
+    if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
 		}
 
 		this.primengTableHelper.showLoadingIndicator();
-		this.primengTableHelper.totalRecordsCount = this.rows.length;
-		this.primengTableHelper.records = this.rows;
-		this.primengTableHelper.hideLoadingIndicator();
+		this._laporanServiceProxy
+			.getAllLaporanBwiBencanaKir(
+				this.filter,
+        this.filterBencana ?? undefined,
+        this.filterYear ?? undefined,
+				this.primengTableHelper.getSorting(this.dataTable),
+				this.primengTableHelper.getSkipCount(this.paginator, event),
+				this.primengTableHelper.getMaxResultCount(this.paginator, event)
+			)
+      .pipe(finalize(()=> {
+        this.primengTableHelper.hideLoadingIndicator();
+      }))
+			.subscribe((result) => {
+				this.primengTableHelper.totalRecordsCount = result.total_count;
+				this.primengTableHelper.records = result.items;
+			});
 	}
 
+  exportToExcel(){
+    this._laporanServiceProxy.exportAllLaporanBwiBencanaKirToExcel(
+      this.filter,
+      this.filterBencana  ?? undefined,
+      this.filterYear ?? undefined,
+    ).subscribe(e=>{
+      this._fileDownloadService.downloadTempFile(e);
+    })
+  }
+
   getBencana(filter?) {
-		this._refJenisBencanaServiceProxy.getRefJenisBencanaForDropdown(filter).subscribe((result) => {
+		this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
 			this.disasters = result.items;
 		});
 	}
@@ -65,4 +100,23 @@ export class LaporanBencanaKirComponent implements OnInit {
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
 	}
+
+  resetFilter() {
+    this.filter = undefined;
+    this.filterBencana = undefined;
+    this.filterYear = undefined;
+
+    this.getBencanaKirReport();
+  }
+
+  generateArrayOfYears() {
+    let max = new Date().getFullYear();
+    let min = max - 9;
+    let years = [];
+
+    for (let i = max; i >= min; i--) {
+      years.push(i)
+    }
+    this.arrayYear = years;
+  }
 }
