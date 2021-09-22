@@ -152,23 +152,14 @@ export class EditWangIhsanComponent implements OnInit {
   }
 
   getIdDaerah(id_daerah: number) {
-    // const bantuanKawasanBwi = new CreateOrEditTabungBwiKawasanDto();
-    // bantuanKawasanBwi.id_daerah = id_daerah;
-    // this.bantuanKawasan.push(bantuanKawasanBwi);
     this.id_daerah = id_daerah;
   }
 
   getIdNegeri(id_negeri: number) {
-    // const bantuanKawasanBwi = new CreateOrEditTabungBwiKawasanDto();
-    // bantuanKawasanBwi.id_negeri = id_negeri;
-    // this.bantuanKawasan.push(bantuanKawasanBwi);
     this.id_negeri = id_negeri;
   }
 
   getJumlahDiberi(jumlah_diberi: number) {
-    // const bantuanKawasanBwi = new CreateOrEditTabungBwiKawasanDto();
-    // bantuanKawasanBwi.jumlah_bwi = jumlah_diberi;
-    // this.bantuanKawasan.push(bantuanKawasanBwi);
     this.jumlah_diberi = jumlah_diberi;
   }
 
