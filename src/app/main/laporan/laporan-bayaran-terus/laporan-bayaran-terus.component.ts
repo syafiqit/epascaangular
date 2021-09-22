@@ -1,10 +1,13 @@
 import { OnInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { NgbDateStruct, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { FileDownloadService } from '@app/shared/services/file-download.service';
+import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
-import { TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import { LaporanServiceProxy, RefKategoriBayaranServiceProxy } from 'src/app/shared/proxy/service-proxies';
 
 @Component({
 	selector: 'app-laporan-bayaran-terus',
@@ -18,29 +21,19 @@ export class LaporanBayaranTerusComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 	public isCollapsed = false;
-  funds: any;
+  terms$ = new Subject<string>();
 
-  date = new Date();
-  modelMula: NgbDateStruct;
-  modelTamat: NgbDateStruct;
-  readonly DELIMITER = '-';
-
-	rows = [
-		{
-      no_bayaran: 'BTK-2101-00001', no_kelulusan: 'KEL-2101-00001', no_baucer: 'BT-00001', tarikh_bayaran: '31-01-2021',
-      perihal: 'Bayaran Latihan Separa Pakej Program', kepada: 'Qiffarah Ventures Sdn Bhd', kategori_tabung: 'KWABBN',
-      jumlah_belanja: '49000.00'
-		},
-		{
-      no_bayaran: 'BTK-2101-00003', no_kelulusan: 'KEL-2101-00002', no_baucer: 'BT-00011', tarikh_bayaran: '31-03-2021',
-      perihal: 'Perolehan Darurat Bencana', kepada: 'Perintis Sanubari Sdn Bhd', kategori_tabung: 'Covid',
-      jumlah_belanja: '326000.00'
-		}
-	];
+  categories: any;
+  filter: string;
+  filterKategori: number;
+  filterYear: number;
+  arrayYear:any[];
 
 	constructor(
     config: NgbModalConfig,
-    private _tabungServiceProxy: TabungServiceProxy
+    private _laporanServiceProxy: LaporanServiceProxy,
+    private _fileDownloadService: FileDownloadService,
+    private _refKategoriBayaranServiceProxy: RefKategoriBayaranServiceProxy
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
@@ -48,32 +41,82 @@ export class LaporanBayaranTerusComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-    this.getTabung();
+    this.getKategori();
+	  this.generateArrayOfYears()
+
+    this.terms$.pipe(
+      debounceTime(500), distinctUntilChanged()
+    ).subscribe((filterValue: string) =>{
+      this.filter = filterValue;
+      this.getTerusReport();
+    });
   }
 
-  toModel(date: NgbDateStruct | null): string | null {
-    return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
+  applyFilter(filterValue: string){
+    this.terms$.next(filterValue);
   }
 
 	getTerusReport(event?: LazyLoadEvent) {
-		if (this.primengTableHelper.shouldResetPaging(event)) {
+    if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
 		}
 
 		this.primengTableHelper.showLoadingIndicator();
-		this.primengTableHelper.totalRecordsCount = this.rows.length;
-		this.primengTableHelper.records = this.rows;
-		this.primengTableHelper.hideLoadingIndicator();
+		this._laporanServiceProxy
+			.getAllLaporanBayaranTerus(
+				this.filter,
+        this.filterKategori ?? undefined,
+        this.filterYear ?? undefined,
+				this.primengTableHelper.getSorting(this.dataTable),
+				this.primengTableHelper.getSkipCount(this.paginator, event),
+				this.primengTableHelper.getMaxResultCount(this.paginator, event)
+			)
+      .pipe(finalize(()=> {
+        this.primengTableHelper.hideLoadingIndicator();
+      }))
+			.subscribe((result) => {
+				this.primengTableHelper.totalRecordsCount = result.total_count;
+				this.primengTableHelper.records = result.items;
+			});
 	}
 
-  getTabung(filter?) {
-		this._tabungServiceProxy.getTabungForDropdown(filter).subscribe((result) => {
-			this.funds = result.items;
+  exportToExcel(){
+    this._laporanServiceProxy.exportAllBayaranTerusToExcel(
+      this.filter,
+      this.filterKategori  ?? undefined,
+      this.filterYear ?? undefined,
+    ).subscribe(e=>{
+      this._fileDownloadService.downloadTempFile(e);
+    })
+  }
+
+  getKategori(filter?) {
+		this._refKategoriBayaranServiceProxy.getRefKategoriBayaranForDropdown(filter).subscribe((result) => {
+			this.categories = result.items;
 		});
 	}
 
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
 	}
+
+  resetFilter() {
+    this.filter = undefined;
+    this.filterKategori = undefined;
+    this.filterYear = undefined;
+
+    this.getTerusReport();
+  }
+
+  generateArrayOfYears() {
+    let max = new Date().getFullYear();
+    let min = max - 9;
+    let years = [];
+
+    for (let i = max; i >= min; i--) {
+      years.push(i)
+    }
+    this.arrayYear = years;
+  }
 }

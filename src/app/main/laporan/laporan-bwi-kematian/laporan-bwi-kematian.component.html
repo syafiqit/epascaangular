@@ -16,6 +16,7 @@
                   type="text"
                   name="searchReportSkb"
                   placeholder="Carian..."
+                  (keyup)="applyFilter($event.target.value)"
                 />
                 <i class="search-icon" data-feather="search"></i>
               </div>
@@ -36,7 +37,7 @@
             </div>
 
             <div class="col-lg-4 col-sm-12 justify-content-end p-0">
-              <button type="button" class="btn btn-outline-success pull-right">
+              <button type="button" (click)="exportToExcel()" class="btn btn-outline-success pull-right">
                 <i class="fa fa-file-excel-o fa-lg mr-2"></i>
                 <b>Excel</b>
               </button>
@@ -60,6 +61,8 @@
                               placeholder="Sila Pilih"
                               class="js-example-placeholder-multiple"
                               name="negeri"
+                              [(ngModel)]="filterNegeri"
+                              (ngModelChange)="getDaerah()"
                             ></ng-select>
                           </div>
                         </div>
@@ -74,6 +77,22 @@
                               placeholder="Sila Pilih"
                               class="js-example-placeholder-multiple"
                               name="daerah"
+                              [(ngModel)]="filterDaerah"
+                            ></ng-select>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                          <div class="form-group">
+                            <label>Tahun</label>
+                            <ng-select
+                              [items]="arrayYear"
+                              bindLabel="years"
+                              bindValue="years"
+                              placeholder="Sila Pilih"
+                              class="js-example-placeholder-multiple"
+                              name="tahunBayaran"
+                              [(ngModel)]="filterYear"
                             ></ng-select>
                           </div>
                         </div>
@@ -83,6 +102,7 @@
                         <button
                           class="btn btn-light mr-2"
                           type="button"
+                          (click)="resetFilter()"
                         >
                         <i class="fa fa-refresh mr-2"></i>
                           <b>Reset</b>
@@ -91,6 +111,7 @@
                         <button
                           class="btn btn-primary pull-right mr-2"
                           type="button"
+                          (click)="getBwiKematianReport()"
                         >
                         <i class="fa fa-search mr-2"></i>
                           <b>Cari</b>
@@ -130,29 +151,21 @@
 											Daerah
 											<p-sortIcon field="nama_daerah"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="butiran">
-											Butiran
-											<p-sortIcon field="butiran"></p-sortIcon>
+										<th style="width: 215px" pSortableColumn="no_rujukan_saluran_kpd_bkp">
+											No. Ruj. Memo KPD BKP
+											<p-sortIcon field="no_rujukan_saluran_kpd_bkp"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="tarikh_memo_bkp">
-											Tarikh Memo BKP
-											<p-sortIcon field="tarikh_memo_bkp"></p-sortIcon>
+										<th style="width: 100px" pSortableColumn="bil_kir">
+											Bil. KIR
+											<p-sortIcon field="bil_kir"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="jumlah_kir">
-											Jumlah KIR
-											<p-sortIcon field="jumlah_kir"></p-sortIcon>
-										</th>
-										<th style="width: 130px" pSortableColumn="bwi_kir">
-											BWI/KIR
-											<p-sortIcon field="bwi_kir"></p-sortIcon>
-										</th>
-										<th style="width: 130px" pSortableColumn="jumlah_peruntukan">
+										<th style="width: 180px" pSortableColumn="jumlah">
 											Jumlah Peruntukan
-											<p-sortIcon field="jumlah_peruntukan"></p-sortIcon>
+											<p-sortIcon field="jumlah"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="tarikh_eft">
+										<th style="width: 215px" pSortableColumn="tarikh_saluran_kpd_bkp">
 											Tarikh EFT/Pengeluaran
-											<p-sortIcon field="tarikh_eft"></p-sortIcon>
+											<p-sortIcon field="tarikh_saluran_kpd_bkp"></p-sortIcon>
 										</th>
 										<th style="width: 130px" pSortableColumn="catatan">
 											Catatan
@@ -170,33 +183,29 @@
 											<span class="p-column-title">Daerah</span>
 											{{record.nama_daerah}}
 										</td>
-										<td style="width: 130px">
-											<span class="p-column-title">Butiran</span>
-											{{record.butiran}}
+										<td style="width: 215px">
+											<span class="p-column-title">No. Ruj. Memo KPD BKP</span>
+                      <label *ngIf="record.no_rujukan_saluran_kpd_bkp">{{record.no_rujukan_saluran_kpd_bkp}}</label>
+                      <label *ngIf="!record.no_rujukan_saluran_kpd_bkp">-</label>
 										</td>
-										<td style="width: 130px">
-											<span class="p-column-title">Tarikh Memo BKP</span>
-											{{record.tarikh_memo_bkp}}
+										<td style="width: 100px">
+											<span class="p-column-title">Bil. KIR</span>
+											{{record.bil_kir}}
 										</td>
-										<td style="width: 130px">
-											<span class="p-column-title">Jumlah KIR</span>
-											{{record.jumlah_kir}}
-										</td>
-										<td style="width: 130px">
-											<span class="p-column-title">BWI/KIR</span>
-											RM {{record.bwi_kir}}
-										</td>
-										<td style="width: 130px">
+										<td style="width: 180px">
 											<span class="p-column-title">Jumlah Peruntukan</span>
-											RM {{record.jumlah_peruntukan}}
+                      <label *ngIf="record.jumlah">RM {{record.jumlah | number: '1.2-2'}}</label>
+                      <label *ngIf="!record.jumlah">RM 0.00</label>
 										</td>
-										<td style="width: 130px">
+										<td style="width: 215px">
 											<span class="p-column-title">Tarikh EFT/Pengeluaran</span>
-											{{record.tarikh_eft}}
+                      <label *ngIf="record.tarikh_saluran_kpd_bkp">{{record.tarikh_saluran_kpd_bkp | date:'dd-MM-yyyy'}}</label>
+                      <label *ngIf="!record.tarikh_saluran_kpd_bkp">-</label>
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Catatan</span>
-											{{record.catatan}}
+                      <label *ngIf="record.catatan">{{record.catatan}}</label>
+                      <label *ngIf="!record.catatan">-</label>
 										</td>
 									</tr>
 								</ng-template>
