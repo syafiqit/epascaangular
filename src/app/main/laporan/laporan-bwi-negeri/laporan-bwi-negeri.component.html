@@ -16,6 +16,7 @@
                   type="text"
                   name="searchReportSkb"
                   placeholder="Carian..."
+                  (keyup)="applyFilter($event.target.value)"
                 />
                 <i class="search-icon" data-feather="search"></i>
               </div>
@@ -36,7 +37,7 @@
             </div>
 
             <div class="col-lg-4 col-sm-12 justify-content-end p-0">
-              <button type="button" class="btn btn-outline-success pull-right">
+              <button type="button" (click)="exportToExcel()" class="btn btn-outline-success pull-right">
                 <i class="fa fa-file-excel-o fa-lg mr-2"></i>
                 <b>Excel</b>
               </button>
@@ -60,20 +61,7 @@
                               placeholder="Sila Pilih"
                               class="js-example-placeholder-multiple"
                               name="negeri"
-                            ></ng-select>
-                          </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                          <div class="form-group">
-                            <label>Daerah</label>
-                            <ng-select
-                              [items]="districts"
-                              bindLabel="nama_daerah"
-                              bindValue="id"
-                              placeholder="Sila Pilih"
-                              class="js-example-placeholder-multiple"
-                              name="daerah"
+                              [(ngModel)]="filterNegeri"
                             ></ng-select>
                           </div>
                         </div>
@@ -83,6 +71,7 @@
                         <button
                           class="btn btn-light mr-2"
                           type="button"
+                          (click)="resetFilter()"
                         >
                         <i class="fa fa-refresh mr-2"></i>
                           <b>Reset</b>
@@ -91,6 +80,7 @@
                         <button
                           class="btn btn-primary pull-right mr-2"
                           type="button"
+                          (click)="getBwiNegeriReport()"
                         >
                         <i class="fa fa-search mr-2"></i>
                           <b>Cari</b>
@@ -126,25 +116,21 @@
 											Negeri
 											<p-sortIcon field="nama_negeri"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="nama_daerah">
-											Daerah
-											<p-sortIcon field="nama_daerah"></p-sortIcon>
+										<th style="width: 100px" pSortableColumn="bil">
+											Bil. KIR
+											<p-sortIcon field="bil"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="jumlah_kir">
-											Jumlah KIR
-											<p-sortIcon field="jumlah_kir"></p-sortIcon>
+										<th style="width: 130px" pSortableColumn="jumlah">
+											Jumlah
+											<p-sortIcon field="jumlah"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="jumlah_peruntukan">
-											Jumlah Peruntukan
-											<p-sortIcon field="jumlah_peruntukan"></p-sortIcon>
-										</th>
-										<th style="width: 130px" pSortableColumn="baki_pulangan">
+										<th style="width: 130px" pSortableColumn="jumlah_dipulangkan">
 											Baki Dipulangkan
-											<p-sortIcon field="baki_pulangan"></p-sortIcon>
+											<p-sortIcon field="jumlah_dipulangkan"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="jumlah_agihan">
+										<th style="width: 130px" pSortableColumn="jumlah_diagihkan">
 											Jumlah Diagihkan
-											<p-sortIcon field="jumlah_agihan"></p-sortIcon>
+											<p-sortIcon field="jumlah_diagihkan"></p-sortIcon>
 										</th>
 									</tr>
 								</ng-template>
@@ -154,25 +140,24 @@
 											<span class="p-column-title">Negeri</span>
 											{{record.nama_negeri}}
 										</td>
-										<td style="width: 130px">
-											<span class="p-column-title">Daerah</span>
-											{{record.nama_daerah}}
+										<td style="width: 100px">
+											<span class="p-column-title">Bil. KIR</span>
+											{{record.bil}}
 										</td>
 										<td style="width: 130px">
-											<span class="p-column-title">Jumlah KIR</span>
-											{{record.jumlah_kir}}
-										</td>
-										<td style="width: 130px">
-											<span class="p-column-title">Jumlah Peruntukan</span>
-											RM {{record.jumlah_peruntukan}}
+											<span class="p-column-title">Jumlah</span>
+                      <label *ngIf="record.jumlah">RM {{record.jumlah | number: '1.2-2'}}</label>
+                      <label *ngIf="!record.jumlah">RM 0.00</label>
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Baki Dipulangkan</span>
-											RM {{record.baki_pulangan}}
+                      <label *ngIf="record.jumlah_dipulangkan">RM {{record.jumlah_dipulangkan | number: '1.2-2'}}</label>
+                      <label *ngIf="!record.jumlah_dipulangkan">RM 0.00</label>
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Jumlah Diagihkan</span>
-											RM {{record.jumlah_agihan}}
+                      <label *ngIf="record.jumlah_diagihkan">RM {{record.jumlah_diagihkan | number: '1.2-2'}}</label>
+                      <label *ngIf="!record.jumlah_diagihkan">RM 0.00</label>
 										</td>
 									</tr>
 								</ng-template>

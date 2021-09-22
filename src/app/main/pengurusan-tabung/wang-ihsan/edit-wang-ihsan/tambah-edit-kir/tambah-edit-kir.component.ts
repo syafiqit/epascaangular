@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation, } from '@angular/core';
 import { PrimengTableHelper } from '@app/shared/helpers/PrimengTableHelper';
-import { CreateOrEditTabungBwiKawasanDto, GetTabungBwiForEditDto, MangsaWangIhsanServiceProxy, TabungBwiKawasanServiceProxy} from '@app/shared/proxy/service-proxies';
+import { CreateOrEditTabungBwiKawasanDto, GetTabungBwiForEditDto, InputCreateBwiTabungKawasanDto, MangsaWangIhsanServiceProxy, TabungBwiKawasanServiceProxy} from '@app/shared/proxy/service-proxies';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
@@ -25,7 +25,7 @@ export class TambahEditKirComponent implements OnInit {
 
   edit: GetTabungBwiForEditDto = new GetTabungBwiForEditDto();
   bantuanKawasan: CreateOrEditTabungBwiKawasanDto = new CreateOrEditTabungBwiKawasanDto();
-
+  inputBantuanKawasan: InputCreateBwiTabungKawasanDto = new InputCreateBwiTabungKawasanDto();
 
   filter: string;
   rows = [];

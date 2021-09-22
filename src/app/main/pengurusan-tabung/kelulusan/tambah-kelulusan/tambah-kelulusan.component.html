@@ -13,78 +13,6 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>No. Rujukan Kelulusan</label>
-                    <input
-                      class="form-control"
-                      type="text"
-                      name="kelulusan.no_rujukan_kelulusan"
-                      [(ngModel)]="kelulusan.no_rujukan_kelulusan"
-                      placeholder="No. Rujukan Kelulusan"
-                    />
-								</div>
-							</div>
-              <div class="col-lg-6">
-								<div class="form-group">
-									<label>Jumlah Siling Peruntukan (RM)</label>
-									<input
-                    class="form-control"
-                    type="number"
-                    name="kelulusan.jumlah_siling"
-                    [(ngModel)]="kelulusan.jumlah_siling"
-                  />
-								</div>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Tarikh Kelulusan (Mula)</label>
-                  <div class="input-group">
-                    <input
-                      class="form-control"
-                      placeholder="yyyy-mm-dd"
-                      name="dp2"
-                      [(ngModel)]="modelMula"
-                      ngbDatepicker
-                      [footerTemplate]="footerTemplate"
-                      #d2="ngbDatepicker"
-                      style="border: 1px solid #efefef !important;"
-                    >
-                    <div class="input-group-append">
-                      <button class="btn btn-light" (click)="d2.toggle()" type="button"><i
-                        class="fa fa-calendar"></i></button>
-                    </div>
-                  </div>
-								</div>
-							</div>
-
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Tarikh Kelulusan (Tamat)</label>
-                <div class="input-group">
-                  <input
-                    class="form-control"
-                    placeholder="yyyy-mm-dd"
-                    name="dp3"
-                    [(ngModel)]="modelTamat"
-                    ngbDatepicker
-                    [footerTemplate]="footerTemplate"
-                    #d3="ngbDatepicker"
-                    style="border: 1px solid #efefef !important;"
-                  >
-                  <div class="input-group-append">
-                    <button class="btn btn-light" (click)="d3.toggle()" type="button"><i
-                      class="fa fa-calendar"></i></button>
-                  </div>
-                </div>
-								</div>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="form-group">
 									<label>Tabung*</label>
 									<div class="input-group">
 										<input
@@ -103,79 +31,166 @@
 												<i class="fa fa-search text-white"></i>
 											</button>
 										</div>
+										<div *ngIf="f.submitted && bencana.invalid" class="invalid-feedback">
+											<div *ngIf="bencana.errors.required">Tabung Wajib Dipilih</div>
+										</div>
 									</div>
-									<div *ngIf="f.submitted && bencana.invalid" class="invalid-feedback">
-										<div *ngIf="bencana.errors.required">Tabung Wajib Dipilih</div>
+								</div>
+							</div>
+              				<div class="col-lg-6">
+								<div class="form-group">
+									<label>Jumlah Siling Peruntukan (RM)*</label>
+									<input
+										class="form-control"
+										type="number"
+										name="kelulusan.jumlah_siling"
+										[(ngModel)]="kelulusan.jumlah_siling"
+										#jumlahSiling="ngModel"
+										[ngClass]="{ 'is-invalid': f.submitted && jumlahSiling.invalid }"
+										required
+									/>
+									<div *ngIf="f.submitted && jumlahSiling.invalid" class="invalid-feedback">
+										<div *ngIf="jumlahSiling.errors.required">Jumlah Siling Wajib Dipilih</div>
 									</div>
 								</div>
 							</div>
 						</div>
-            <hr />
 
-            <div class="row">
+						<div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Rujukan Surat</label>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="kelulusan.rujukan_surat"
-                    [(ngModel)]="kelulusan.rujukan_surat"
-                    placeholder="Rujukan Surat"
-                  />
+									<label>Tarikh Kelulusan (Mula)*</label>
+									<div class="input-group">
+										<input
+										class="form-control"
+										placeholder="yyyy-mm-dd"
+										name="dp2"
+										[(ngModel)]="modelMula"
+										#mulaLulus="ngModel"
+										[ngClass]="{ 'is-invalid': f.submitted && mulaLulus.invalid }"
+										required
+										ngbDatepicker
+										[footerTemplate]="footerTemplate"
+										#d2="ngbDatepicker"
+										style="border: 1px solid #efefef !important;"
+										>
+										<div class="input-group-append">
+										<button class="btn btn-light" (click)="d2.toggle()" type="button"><i
+											class="fa fa-calendar"></i></button>
+										</div>
+										<div *ngIf="f.submitted && mulaLulus.invalid" class="invalid-feedback">
+											<div *ngIf="mulaLulus.errors.required">Tarikh Kelulusan (Mula) Wajib Dipilih</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Tarikh Kelulusan (Tamat)</label>
+									<div class="input-group">
+										<input
+											class="form-control"
+											placeholder="yyyy-mm-dd"
+											name="dp3"
+											[(ngModel)]="modelTamat"
+											ngbDatepicker
+											[footerTemplate]="footerTemplate"
+											#d3="ngbDatepicker"
+											style="border: 1px solid #efefef !important;"
+										>
+										<div class="input-group-append">
+											<button class="btn btn-light" (click)="d3.toggle()" type="button"><i
+											class="fa fa-calendar"></i></button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+            			<hr />
+
+            			<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Rujukan Surat*</label>
+										<input
+											class="form-control"
+											type="text"
+											name="kelulusan.rujukan_surat"
+											[(ngModel)]="kelulusan.rujukan_surat"
+											#rujukanSurat="ngModel"
+                    						[ngClass]="{ 'is-invalid': f.submitted && rujukanSurat.invalid }"
+											placeholder="Rujukan Surat"
+											required
+										/>
+										<div *ngIf="f.submitted && rujukanSurat.invalid" class="invalid-feedback">
+											<div *ngIf="rujukanSurat.errors.required">Rujukan Surat Wajib Dipilih</div>
+										</div>
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Tarikh Surat</label>
-                  <div class="input-group">
-                    <input
-                      class="form-control"
-                      placeholder="yyyy-mm-dd"
-                      name="dp"
-                      [(ngModel)]="modelSurat"
-                      ngbDatepicker
-                      [footerTemplate]="footerTemplate"
-                      #d="ngbDatepicker"
-                      style="border: 1px solid #efefef !important;"
-                    >
-                    <div class="input-group-append">
-                      <button class="btn btn-light" (click)="d.toggle()" type="button"><i
-                        class="fa fa-calendar"></i></button>
-                    </div>
-                  </div>
+									<label>Tarikh Surat*</label>
+									<div class="input-group">
+										<input
+											class="form-control"
+											placeholder="yyyy-mm-dd"
+											name="dp"
+											[(ngModel)]="modelSurat"
+											#tarikhSurat="ngModel"
+											[ngClass]="{ 'is-invalid': f.submitted && tarikhSurat.invalid }"
+											ngbDatepicker
+											[footerTemplate]="footerTemplate"
+											#d="ngbDatepicker"
+											style="border: 1px solid #efefef !important;"
+											required
+										>
+										<div class="input-group-append">
+											<button class="btn btn-light" (click)="d.toggle()" type="button"><i
+											class="fa fa-calendar"></i></button>
+										</div>
+										<div *ngIf="f.submitted && tarikhSurat.invalid" class="invalid-feedback">
+											<div *ngIf="tarikhSurat.errors.required">Tarikh Surat Wajib Dipilih</div>
+										</div>
+									</div>
 								</div>
-                <ng-template #footerTemplate>
-                  <hr class="my-0">
-                  <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelTamat = today; d3.close()">Hari Ini</button>
-                  <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d3.close()">Tutup</button>
-                </ng-template>
+								<ng-template #footerTemplate>
+								<hr class="my-0">
+								<button class="btn btn-primary btn-sm m-2 float-left" (click)="modelTamat = today; d3.close()">Hari Ini</button>
+								<button class="btn btn-secondary btn-sm m-2 float-right" (click)="d3.close()">Tutup</button>
+								</ng-template>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="form-group">
-									<label>Perihal Surat</label>
+									<label>Perihal Surat*</label>
 									<textarea
-                    class="form-control input-air-primary"
-                    name="kelulusan.perihal_surat"
-                    rows="3"
-                    [(ngModel)]="kelulusan.perihal_surat"
-                  ></textarea>
+										class="form-control input-air-primary"
+										name="kelulusan.perihal_surat"
+										rows="3"
+										[(ngModel)]="kelulusan.perihal_surat"
+										#perihalSurat="ngModel"
+										[ngClass]="{ 'is-invalid': f.submitted && perihalSurat.invalid }"
+										required
+									></textarea>
+									<div *ngIf="f.submitted && perihalSurat.invalid" class="invalid-feedback">
+										<div *ngIf="perihalSurat.errors.required">Perihal Surat Wajib Dipilih</div>
+									</div>
 								</div>
 							</div>
 						</div>
 
-            <div class="row">
+            			<div class="row">
 							<div class="col-lg-12">
 								<div class="form-group">
 									<label>Rujukan</label>
 									<textarea
-                    class="form-control input-air-primary"
-                    name="kelulusan.rujukan"
-                    rows="3"
-                    [(ngModel)]="kelulusan.rujukan"
-                  ></textarea>
+										class="form-control input-air-primary"
+										name="kelulusan.rujukan"
+										rows="3"
+										[(ngModel)]="kelulusan.rujukan"
+									></textarea>
 								</div>
 							</div>
 						</div>
