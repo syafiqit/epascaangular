@@ -6,12 +6,17 @@ import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import {
   CreateOrEditTabungBwiDto,
+  CreateOrEditTabungBwiKawasanDto,
   GetRujukanKelulusanBwiDto,
   GetTabungBwiForEditDto,
+  InputCreateBwiTabungBayaranDto,
+  InputCreateBwiTabungKawasanDto,
   InputCreateTabungBwiDto,
-  RefBencanaServiceProxy,
   RefJenisBwiServiceProxy,
-  TabungBwiServiceProxy
+  TabungBwiBayaranServiceProxy,
+  TabungBwiKawasanServiceProxy,
+  TabungBwiServiceProxy,
+  UpdateBwiBayaranDto
 } from 'src/app/shared/proxy/service-proxies';
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { NgForm } from '@angular/forms';
@@ -33,7 +38,12 @@ export class EditWangIhsanComponent implements OnInit {
   tabungBwi: InputCreateTabungBwiDto = new InputCreateTabungBwiDto();
   bwi: CreateOrEditTabungBwiDto = new CreateOrEditTabungBwiDto();
   kelulusan: GetRujukanKelulusanBwiDto = new GetRujukanKelulusanBwiDto();
+  bwi_bayaran: UpdateBwiBayaranDto[] = [];
+  bantuanKawasan: CreateOrEditTabungBwiKawasanDto[] = [];
+  bayaran: InputCreateBwiTabungBayaranDto = new InputCreateBwiTabungBayaranDto();
+  kawasan: InputCreateBwiTabungKawasanDto = new InputCreateBwiTabungKawasanDto();
 
+  items = [];
   active;
   nama_pembayaran:string;
   idBwi: any;
@@ -46,13 +56,15 @@ export class EditWangIhsanComponent implements OnInit {
   perihal_surat: string;
   rows = [];
   bwiType: any;
-  bayaran: number = 0;
   jenisBwi: any;
   id_bencana: any;
   bencana: any;
   nama_bencana: string;
   tarikh_bencana: any;
   idJenisBwi: number;
+  id_daerah: number;
+  id_negeri: number;
+  jumlah_diberi: number;
 
   saving = false;
   tarikhBencana: string;
@@ -72,7 +84,8 @@ export class EditWangIhsanComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private _tabungBwiServiceProxy: TabungBwiServiceProxy,
     private _refJenisBwiServiceProxy: RefJenisBwiServiceProxy,
-    private _refBencanaServiceProxy: RefBencanaServiceProxy
+    private _tabungBwiBayaranServiceProxy: TabungBwiBayaranServiceProxy,
+    private _tabungBwiKawasanServiceProxy: TabungBwiKawasanServiceProxy
   ) {
     this.idBwi = this._activatedRoute.snapshot.queryParams['id'];
     this.id_bencana = this._activatedRoute.snapshot.queryParams['idBencana'];
@@ -132,14 +145,62 @@ export class EditWangIhsanComponent implements OnInit {
     }
   }
 
+  getIdBayaranTerus(id_bayaran_terus: number) {
+    const bayaranBwi = new UpdateBwiBayaranDto();
+    bayaranBwi.id_tabung_bayaran_terus = id_bayaran_terus;
+    this.bwi_bayaran.push(bayaranBwi);
+  }
+
+  getIdDaerah(id_daerah: number) {
+    // const bantuanKawasanBwi = new CreateOrEditTabungBwiKawasanDto();
+    // bantuanKawasanBwi.id_daerah = id_daerah;
+    // this.bantuanKawasan.push(bantuanKawasanBwi);
+    this.id_daerah = id_daerah;
+  }
+
+  getIdNegeri(id_negeri: number) {
+    // const bantuanKawasanBwi = new CreateOrEditTabungBwiKawasanDto();
+    // bantuanKawasanBwi.id_negeri = id_negeri;
+    // this.bantuanKawasan.push(bantuanKawasanBwi);
+    this.id_negeri = id_negeri;
+  }
+
+  getJumlahDiberi(jumlah_diberi: number) {
+    // const bantuanKawasanBwi = new CreateOrEditTabungBwiKawasanDto();
+    // bantuanKawasanBwi.jumlah_bwi = jumlah_diberi;
+    // this.bantuanKawasan.push(bantuanKawasanBwi);
+    this.jumlah_diberi = jumlah_diberi;
+  }
+
 	save() {
     this.saving = true;
+    const bantuanKawasanBwi = new CreateOrEditTabungBwiKawasanDto();
+    bantuanKawasanBwi.id_daerah = this.id_daerah;
+    bantuanKawasanBwi.id_negeri = this.id_negeri;
+    bantuanKawasanBwi.jumlah_bwi = this.jumlah_diberi;
+    this.bantuanKawasan.push(bantuanKawasanBwi);
+
     this.tabungBwi.bwi = this.edit.tabung_bwi;
+    this.bayaran.bwi_bayaran = this.bwi_bayaran;
+    this.kawasan.bwi_kawasan = this.bantuanKawasan;
+    this.bayaran.id_tabung_bwi = this.idBwi;
+    this.kawasan.id_tabung_bwi = this.idBwi;
+
+    if(this.bwi_bayaran){
+      this._tabungBwiBayaranServiceProxy
+			.createOrEdit(this.bayaran).pipe().subscribe();
+    }
+
+    if(this.bantuanKawasan){
+      this._tabungBwiKawasanServiceProxy
+			.createOrEdit(this.kawasan).pipe().subscribe();
+    }
+
     this._tabungBwiServiceProxy
 			.createOrEdit(this.tabungBwi)
 			.pipe()
 			.subscribe((result) => {
-				swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Wang Ihsan Berjaya Disimpan.', 'success').then(() => {
+				swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Wang Ihsan Berjaya Dikemaskini.', 'success').then(() => {
           this.router.navigateByUrl('/app/tabung/senarai-wang-ihsan');
 				});
 			});

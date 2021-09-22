@@ -8,9 +8,9 @@
 		<div class="col-sm-12">
 			<div class="card">
 				<div class="card-body">
-          <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid" novalidate>
+          <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="save()" novalidate>
             <h6>Maklumat Pembayaran</h6>
-            <app-tambah-edit-pembayaran [idBwi]="idBwi"></app-tambah-edit-pembayaran>
+            <app-tambah-edit-pembayaran [idBwi]="idBwi" (idBayaranTerus)="getIdBayaranTerus($event)"></app-tambah-edit-pembayaran>
 
             <div class="row">
               <div class="col-lg-6">
@@ -68,8 +68,9 @@
             <hr />
 
             <h6>Maklumat Bantuan</h6>
-            <app-tambah-edit-bantuan [idBwi]="idBwi" [idBencana]="id_bencana" [idJenisBwi]="idJenisBwi"></app-tambah-edit-bantuan>
-
+            <app-tambah-edit-bantuan
+              [idBwi]="idBwi" [idBencana]="id_bencana" [idJenisBwi]="idJenisBwi" (id_daerah)="getIdDaerah($event)" (id_negeri)="getIdNegeri($event)" (jumlah_diberi)="getJumlahDiberi($event)">
+            </app-tambah-edit-bantuan>
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-group">
@@ -112,7 +113,7 @@
               </button>
               <button
                 class="btn btn-primary pull-right"
-                type="button"
+                type="submit"
               >
                 Simpan
               </button>
