@@ -184,7 +184,7 @@ export class EditWangIhsanComponent implements OnInit {
 
     if(this.bantuanKawasan){
       this._tabungBwiKawasanServiceProxy
-			.createOrEdit(this.kawasan).pipe().subscribe();
+			.addBwiKawasan(this.kawasan).pipe().subscribe();
     }
 
     this._tabungBwiServiceProxy

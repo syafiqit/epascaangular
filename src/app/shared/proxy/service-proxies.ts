@@ -16629,7 +16629,68 @@ export class TabungBwiKawasanServiceProxy {
      * @param body Create or edit object
      * @return Success
      */
-    createOrEdit(body: InputCreateBwiTabungKawasanDto): Observable<CreateOrEditTabungBwiKawasanDto> {
+    addBwiKawasan(body: InputCreateBwiTabungKawasanDto): Observable<InputCreateBwiTabungKawasanDto> {
+        let url_ = this.baseUrl + "/api/tabungBwiKawasan/addBwiKawasan";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processAddBwiKawasan(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processAddBwiKawasan(<any>response_);
+                } catch (e) {
+                    return <Observable<InputCreateBwiTabungKawasanDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<InputCreateBwiTabungKawasanDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processAddBwiKawasan(response: HttpResponseBase): Observable<InputCreateBwiTabungKawasanDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = InputCreateBwiTabungKawasanDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<InputCreateBwiTabungKawasanDto>(<any>null);
+    }
+
+    /**
+     * Create or edit TabungBwiKawasan
+     * @param body Create or edit object
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditTabungBwiKawasanDto): Observable<CreateOrEditTabungBwiKawasanDto> {
         let url_ = this.baseUrl + "/api/tabungBwiKawasan/createOrEdit";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -16920,17 +16981,22 @@ export class TabungKelulusanAmbilanServiceProxy {
     /**
      * Get all TabungKelulusanAmbilan
      * @param filter (optional) Filter records with a string
+     * @param filterIdKelulusan (optional) Filter records with a string
      * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
      * @param skipCount (optional) Skip n-value of a record
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungKelulusanAmbilanForViewDto> {
+    getAll(filter: string | undefined, filterIdKelulusan: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungKelulusanAmbilanForViewDto> {
         let url_ = this.baseUrl + "/api/tabungKelulusanAmbilan/getAll?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
             url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (filterIdKelulusan === null)
+            throw new Error("The parameter 'filterIdKelulusan' cannot be null.");
+        else if (filterIdKelulusan !== undefined)
+            url_ += "filterIdKelulusan=" + encodeURIComponent("" + filterIdKelulusan) + "&";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
@@ -17211,6 +17277,128 @@ export class TabungKelulusanServiceProxy {
             }));
         }
         return _observableOf<PagedResultDtoOfTabungKelulusanForViewDto>(<any>null);
+    }
+
+    /**
+     * Get all TabungKelulusan
+     * @param filterIdKelulusan (optional) Filter records with a integer
+     * @return Success
+     */
+    getKategoriTabungBayaranTerusByKelulusan(filterIdKelulusan: number | undefined): Observable<PagedResultDtoOfKategoriBayaranDto> {
+        let url_ = this.baseUrl + "/api/tabungKelulusan/getKategoriTabungBayaranTerusByKelulusan?";
+        if (filterIdKelulusan === null)
+            throw new Error("The parameter 'filterIdKelulusan' cannot be null.");
+        else if (filterIdKelulusan !== undefined)
+            url_ += "filterIdKelulusan=" + encodeURIComponent("" + filterIdKelulusan) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetKategoriTabungBayaranTerusByKelulusan(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetKategoriTabungBayaranTerusByKelulusan(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfKategoriBayaranDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfKategoriBayaranDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetKategoriTabungBayaranTerusByKelulusan(response: HttpResponseBase): Observable<PagedResultDtoOfKategoriBayaranDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfKategoriBayaranDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfKategoriBayaranDto>(<any>null);
+    }
+
+    /**
+     * Get all TabungKelulusan
+     * @param filterIdKelulusan (optional) Filter records with a integer
+     * @return Success
+     */
+    getKategoriTabungSkbByKelulusan(filterIdKelulusan: number | undefined): Observable<PagedResultDtoOfKategoriBayaranDto> {
+        let url_ = this.baseUrl + "/api/tabungKelulusan/getKategoriTabungSkbByKelulusan?";
+        if (filterIdKelulusan === null)
+            throw new Error("The parameter 'filterIdKelulusan' cannot be null.");
+        else if (filterIdKelulusan !== undefined)
+            url_ += "filterIdKelulusan=" + encodeURIComponent("" + filterIdKelulusan) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetKategoriTabungSkbByKelulusan(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetKategoriTabungSkbByKelulusan(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfKategoriBayaranDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfKategoriBayaranDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetKategoriTabungSkbByKelulusan(response: HttpResponseBase): Observable<PagedResultDtoOfKategoriBayaranDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfKategoriBayaranDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfKategoriBayaranDto>(<any>null);
     }
 
     /**
@@ -37132,6 +37320,9 @@ export interface IGetTabungKelulusanAmbilanForEditDto {
 export class GetTabungKelulusanAmbilanForViewDto implements IGetTabungKelulusanAmbilanForViewDto {
     id!: number;
     id_tabung_kelulusan!: number;
+    baki_jumlah_siling_semasa!: number;
+    jumlah!: number;
+    baki_jumlah_siling_baharu!: number;
     id_tabung!: number;
     catatan!: string;
     tarikh_cipta!: moment.Moment;
@@ -37150,6 +37341,9 @@ export class GetTabungKelulusanAmbilanForViewDto implements IGetTabungKelulusanA
         if (_data) {
             this.id = _data["id"];
             this.id_tabung_kelulusan = _data["id_tabung_kelulusan"];
+            this.baki_jumlah_siling_semasa = _data["baki_jumlah_siling_semasa"];
+            this.jumlah = _data["jumlah"];
+            this.baki_jumlah_siling_baharu = _data["baki_jumlah_siling_baharu"];
             this.id_tabung = _data["id_tabung"];
             this.catatan = _data["catatan"];
             this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
@@ -37168,6 +37362,9 @@ export class GetTabungKelulusanAmbilanForViewDto implements IGetTabungKelulusanA
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["id_tabung_kelulusan"] = this.id_tabung_kelulusan;
+        data["baki_jumlah_siling_semasa"] = this.baki_jumlah_siling_semasa;
+        data["jumlah"] = this.jumlah;
+        data["baki_jumlah_siling_baharu"] = this.baki_jumlah_siling_baharu;
         data["id_tabung"] = this.id_tabung;
         data["catatan"] = this.catatan;
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
@@ -37179,6 +37376,9 @@ export class GetTabungKelulusanAmbilanForViewDto implements IGetTabungKelulusanA
 export interface IGetTabungKelulusanAmbilanForViewDto {
     id: number;
     id_tabung_kelulusan: number;
+    baki_jumlah_siling_semasa: number;
+    jumlah: number;
+    baki_jumlah_siling_baharu: number;
     id_tabung: number;
     catatan: string;
     tarikh_cipta: moment.Moment;
