@@ -16,6 +16,7 @@
                   type="text"
                   name="searchReportSkb"
                   placeholder="Carian..."
+                  (keyup)="applyFilter($event.target.value)"
                 />
                 <i class="search-icon" data-feather="search"></i>
               </div>
@@ -36,7 +37,7 @@
             </div>
 
             <div class="col-lg-4 col-sm-12 justify-content-end p-0">
-              <button type="button" class="btn btn-outline-success pull-right">
+              <button type="button" (click)="exportToExcel()" class="btn btn-outline-success pull-right">
                 <i class="fa fa-file-excel-o fa-lg mr-2"></i>
                 <b>Excel</b>
               </button>
@@ -52,14 +53,30 @@
                       <div class="row mt-2">
                         <div class="col-lg-4">
                           <div class="form-group">
-                            <label>Jenis Bencana</label>
+                            <label>Bencana</label>
                             <ng-select
                               [items]="disasters"
-                              bindLabel="nama_jenis_bencana"
+                              bindLabel="nama_bencana"
                               bindValue="id"
                               placeholder="Sila Pilih"
                               class="js-example-placeholder-multiple"
-                              name="jenisBencana"
+                              name="namaBencana"
+                              [(ngModel)]="filterBencana"
+                            ></ng-select>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                          <div class="form-group">
+                            <label>Tahun</label>
+                            <ng-select
+                              [items]="arrayYear"
+                              bindLabel="years"
+                              bindValue="years"
+                              placeholder="Sila Pilih"
+                              class="js-example-placeholder-multiple"
+                              name="tahunBayaran"
+                              [(ngModel)]="filterYear"
                             ></ng-select>
                           </div>
                         </div>
@@ -69,6 +86,7 @@
                         <button
                           class="btn btn-light mr-2"
                           type="button"
+                          (click)="resetFilter()"
                         >
                         <i class="fa fa-refresh mr-2"></i>
                           <b>Reset</b>
@@ -77,6 +95,7 @@
                         <button
                           class="btn btn-primary pull-right mr-2"
                           type="button"
+                          (click)="getBencanaKirReport()"
                         >
                         <i class="fa fa-search mr-2"></i>
                           <b>Cari</b>
@@ -108,29 +127,29 @@
 							>
 								<ng-template pTemplate="header">
 									<tr>
-										<th style="width: 130px" pSortableColumn="jenis_bencana">
-											Jenis Bencana
-											<p-sortIcon field="jenis_bencana"></p-sortIcon>
+										<th style="width: 130px" pSortableColumn="nama_bencana">
+											Bencana
+											<p-sortIcon field="nama_bencana"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="bwi_kir">
+										<th style="width: 80px" pSortableColumn="jumlah">
 											BWI/KIR
-											<p-sortIcon field="bwi_kir"></p-sortIcon>
+											<p-sortIcon field="jumlah"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="jumlah_kir">
-											Jumlah KIR
-											<p-sortIcon field="jumlah_kir"></p-sortIcon>
+										<th style="width: 70px" pSortableColumn="bil">
+											Bil. KIR
+											<p-sortIcon field="bil"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="jumlah_peruntukan">
+										<th style="width: 135px" pSortableColumn="jumlah_peruntukan">
 											Jumlah Peruntukan
 											<p-sortIcon field="jumlah_peruntukan"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="baki_pulangan">
+										<th style="width: 130px" pSortableColumn="jumlah_dipulangkan">
 											Baki Dipulangkan
-											<p-sortIcon field="baki_pulangan"></p-sortIcon>
+											<p-sortIcon field="jumlah_dipulangkan"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="jumlah_agihan">
+										<th style="width: 130px" pSortableColumn="jumlah_diagihkan">
 											Jumlah Diagihkan
-											<p-sortIcon field="jumlah_agihan"></p-sortIcon>
+											<p-sortIcon field="jumlah_diagihkan"></p-sortIcon>
 										</th>
 									</tr>
 								</ng-template>
@@ -138,27 +157,31 @@
 									<tr>
 										<td style="width: 130px">
 											<span class="p-column-title">Jenis Bencana</span>
-											{{record.jenis_bencana}}
+											{{record.nama_bencana}}
 										</td>
-										<td style="width: 130px">
+										<td style="width: 80px">
 											<span class="p-column-title">BWI/KIR</span>
-											RM {{record.bwi_kir}}
+                      <label *ngIf="record.jumlah">RM {{record.jumlah | number: '1.2-2'}}</label>
+                      <label *ngIf="!record.jumlah">RM 0.00</label>
 										</td>
-										<td style="width: 130px">
-											<span class="p-column-title">Jumlah KIR</span>
-											{{record.jumlah_kir}}
+										<td style="width: 70px">
+											<span class="p-column-title">Bil. KIR</span>
+											{{record.bil}}
 										</td>
-										<td style="width: 130px">
+										<td style="width: 135px">
 											<span class="p-column-title">Jumlah Peruntukan</span>
-											RM {{record.jumlah_peruntukan}}
+                      <label *ngIf="record.jumlah_peruntukan">RM {{record.jumlah_peruntukan | number: '1.2-2'}}</label>
+                      <label *ngIf="!record.jumlah_peruntukan">RM 0.00</label>
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Baki Dipulangkan</span>
-											RM {{record.baki_pulangan}}
+                      <label *ngIf="record.jumlah_dipulangkan">RM {{record.jumlah_dipulangkan | number: '1.2-2'}}</label>
+                      <label *ngIf="!record.jumlah_dipulangkan">RM 0.00</label>
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Jumlah Diagihkan</span>
-											RM {{record.jumlah_agihan}}
+                      <label *ngIf="record.jumlah_diagihkan">RM {{record.jumlah_diagihkan | number: '1.2-2'}}</label>
+                      <label *ngIf="!record.jumlah_diagihkan">RM 0.00</label>
 										</td>
 									</tr>
 								</ng-template>
