@@ -12,7 +12,7 @@ import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { PilihBencanaKelulusanComponent } from '../../pilih-bencana-kelulusan/pilih-bencana-kelulusan.component';
 
 @Component({
@@ -143,9 +143,13 @@ export class PerbelanjaanComponent implements OnInit {
     this._tabungKelulusanServiceProxy
       .createOrEdit(this.kelulusan)
       .pipe()
-      .subscribe(() => {
-        swalSuccess.fire('Berjaya!', 'Maklumat Tabung Kelulusan Berjaya Disimpan.', 'success');
-        this.router.navigate(['/app/tabung/senarai-kelulusan']);
+      .subscribe((response) => {
+        if(response.message == 'Jumlah Peruntukan Melebihi Jumlah Keseluruhan Tabung'){
+          swalError.fire('Perhatian!', 'Jumlah Peruntukan Melebihi Jumlah Keseluruhan Tabung.', 'error');
+        }else{
+          swalSuccess.fire('Berjaya!', 'Maklumat Tabung Kelulusan Berjaya Disimpan.', 'success');
+          this.router.navigate(['/app/tabung/senarai-kelulusan']);
+        }
       });
   }
 
