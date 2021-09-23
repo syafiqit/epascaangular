@@ -173,9 +173,7 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 				})
 			)
 			.subscribe(() => {
-				if (!this.id) {
-					swalSuccess.fire('Berjaya!', 'Maklumat Bencana Berjaya disimpan.', 'success');
-				}
+				swalSuccess.fire('Berjaya!', 'Maklumat Bencana Berjaya disimpan.', 'success');
 				this.router.navigate(['/app/bencana/pengurusan-bencana']);
 			});
     	}
