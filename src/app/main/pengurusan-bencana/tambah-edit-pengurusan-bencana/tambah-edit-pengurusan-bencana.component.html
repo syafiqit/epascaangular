@@ -111,27 +111,6 @@
             </div>
         
             <div class="row">
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label>Negeri</label>
-                  <ng-select
-                    [items]="state"
-                    bindLabel="nama_negeri"
-                    bindValue="id"
-                    placeholder="Sila Pilih"
-                    class="js-example-placeholder-multiple"
-                    name="bencana.id_negeri"
-                    [(ngModel)]="negeriArray"
-                    #negeri="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && negeri.invalid }"
-                    [multiple]="true"
-                    required
-                  ></ng-select>
-                  <div *ngIf="f.submitted && negeri.invalid" class="invalid-feedback">
-                    <div *ngIf="negeri.errors.required">Negeri Wajib diIsi</div>
-                  </div>
-                </div>
-              </div>
         
               <div class="col-lg-6">
                 <div class="form-group">
