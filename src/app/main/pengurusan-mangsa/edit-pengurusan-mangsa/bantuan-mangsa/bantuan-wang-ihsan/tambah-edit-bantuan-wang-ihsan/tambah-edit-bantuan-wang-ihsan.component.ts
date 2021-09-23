@@ -5,6 +5,7 @@ import {
   GetMangsaWangIhsanForEditDto,
   MangsaWangIhsanServiceProxy,
   RefAgensiServiceProxy,
+  RefBencanaBwiServiceProxy,
   RefJenisBwiServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import * as moment from 'moment';
@@ -30,6 +31,7 @@ export class TambahEditBantuanWangIhsanComponent implements OnInit {
   types: any;
   agensi: any;
   agency: any;
+  jumlahBwi: any;
   bencana: any;
   date = new Date();
   model: NgbDateStruct;
@@ -40,8 +42,9 @@ export class TambahEditBantuanWangIhsanComponent implements OnInit {
   readonly DELIMITER = '-';
 
   status=[
-    {id: 1, nama_status: "Tidak Aktif"},
-    {id: 2, nama_status: "Aktif"}
+    {id: 1, nama_status: "Belum Dibayar"},
+    {id: 2, nama_status: "Dibayar"},
+    {id: 3, nama_status: "Dipulangkan"}
   ]
 
   constructor(
@@ -50,6 +53,7 @@ export class TambahEditBantuanWangIhsanComponent implements OnInit {
 		private _mangsaWangIhsanServiceProxy: MangsaWangIhsanServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
     private _refJenisBwiServiceProxy: RefJenisBwiServiceProxy,
+    private _refBencanaBwiServiceProxy: RefBencanaBwiServiceProxy,
     private calendar: NgbCalendar
     ) {
       this.editWangIhsan.mangsa_wang_ihsan = new CreateOrEditMangsaWangIhsanDto();
@@ -105,6 +109,12 @@ export class TambahEditBantuanWangIhsanComponent implements OnInit {
       });
     }
 
+    getJumlahBwi(idBencana, filter?){
+      this._refBencanaBwiServiceProxy.getRefBencanaBwiForDropdown(idBencana, filter).subscribe((result) => {
+        this.jumlahBwi = result.items;
+      });
+    }
+
     pilihBencana() {
       const modalRef = this.modalService.open(LookupBencanaComponent, { size: 'lg' });
       modalRef.componentInstance.name = 'add';
@@ -116,6 +126,7 @@ export class TambahEditBantuanWangIhsanComponent implements OnInit {
             this.wangIhsan.nama_bencana = response.nama_bencana;
             this.modelBencana = this.fromModel(response.tarikh_bencana.format('YYYY-MM-DD'));
           }
+          this.getJumlahBwi(this.wangIhsan.id_bencana);
         }
       );
     }

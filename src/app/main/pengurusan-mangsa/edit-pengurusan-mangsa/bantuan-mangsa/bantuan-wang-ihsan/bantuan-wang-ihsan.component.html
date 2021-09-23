@@ -67,7 +67,7 @@
         </td>
         <td style="width: 100px">
           <span class="p-column-title">Status</span>
-          {{record.status_mangsa_wang_ihsan == 1? "Tidak Aktif":"Aktif"}}
+          {{getStatus(record.status_mangsa_wang_ihsan)}}
         </td>
         <td style="width: 130px">
           <div ngbDropdown class="btn-group" role="group" container="body">

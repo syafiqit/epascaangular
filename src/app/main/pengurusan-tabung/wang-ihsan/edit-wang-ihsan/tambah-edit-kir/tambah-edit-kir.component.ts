@@ -46,6 +46,12 @@ export class TambahEditKirComponent implements OnInit {
   idJenisBwi: number;
   idBwi: number;
   idDaerah: number;
+  jumlahBelumDibayar: number;
+  bilBelumDibayar: number;
+  jumlahDibayar: number;
+  bilDibayar: number;
+  jumlahDipulangkan: number;
+  bilDipulangkan: number;
 
   date = new Date();
   modelDueReport: NgbDateStruct;
@@ -71,12 +77,14 @@ export class TambahEditKirComponent implements OnInit {
     this.idBencana = this._activatedRoute.snapshot.queryParams['idBencana'];
     this.idJenisBwi = this._activatedRoute.snapshot.queryParams['idJenisBwi'];
     this.idBwi = this._activatedRoute.snapshot.queryParams['idBwi'];
+    this.idDaerah = this._activatedRoute.snapshot.queryParams['idDaerah'];
     this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
    }
 
   ngOnInit(): void {
+    this.getJumlahBayaran();
     this.getBantuanKawasan();
     this.getKir();
   }
@@ -122,6 +130,17 @@ export class TambahEditKirComponent implements OnInit {
 				this.primengTableHelper.records = result.items;
 			});
 	}
+
+  getJumlahBayaran(){
+    this.mangsaWangIhsanServiceProxy.getTotalBwiMangsaByIdBencana(this.idBencana, this.idJenisBwi,this.idDaerah).subscribe((result) => {
+      this.jumlahBelumDibayar = result.jumlah_belum_dibayar;
+      this.bilBelumDibayar = result.bil_belum_dibayar;
+      this.jumlahDibayar = result.jumlah_dibayar;
+      this.bilDibayar = result.bil_dibayar;
+      this.jumlahDipulangkan = result.jumlah_dipulangkan;
+      this.bilDipulangkan = result.bil_dipulangkan;
+    });
+  }
 
   getBantuanKawasan(){
     this.tabungBwiKawasanServiceProxy.getTabungBwiKawasanForEdit(this.idKawasan).subscribe((result) => {

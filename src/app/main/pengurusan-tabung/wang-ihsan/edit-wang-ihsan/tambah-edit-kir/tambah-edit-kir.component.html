@@ -106,13 +106,13 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label>Jumlah Bayaran (WI/KIR)</label>
+                  <label>Jumlah Dibayar</label>
                   <input
                     class="form-control"
-                    name="wiKir"
+                    name="jumlah_dibayar"
                     type="text"
-                    placeholder="Jumlah Bayaran (WI/KIR)"
-                    [(ngModel)]="bantuanKawasan.jumlah_bwi"
+                    placeholder="0.00"
+                    [(ngModel)]="jumlahDibayar"
                     disabled
                   />
                 </div>
@@ -120,13 +120,13 @@
 
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label>Bil. KIR</label>
+                  <label>Bil. Dibayar (KIR)</label>
                   <input
                     class="form-control"
-                    name="totalKir"
+                    name="bil_dibayar"
                     type="text"
-                    placeholder="Bil. KIR"
-                    value="{{bantuanKawasan.jumlah_kir || 0}}"
+                    placeholder="Bil. Dibayar (KIR)"
+                    [(ngModel)]="bilDibayar"
                     disabled
                   />
                 </div>
@@ -136,13 +136,57 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label>Jumlah Pulangan (RM)</label>
+                  <label>Jumlah Belum Dibayar</label>
                   <input
                     class="form-control"
-                    name="bakiPulangan"
+                    name="jumlah_belum_dibayar"
                     type="text"
-                    placeholder="Jumlah Pulangan"
-                    value="{{bantuanKawasan.jumlah_kembali || '0.00'}}"
+                    placeholder="0.00"
+                    [(ngModel)]="jumlahBelumDibayar"
+                    disabled
+                  />
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Bil. Belum Dibayar (KIR)</label>
+                  <input
+                    class="form-control"
+                    name="bil_belum_dibayar"
+                    type="text"
+                    placeholder="Bil. Belum Dibayar (KIR)"
+                    [(ngModel)]="bilBelumDibayar"
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Jumlah Dipulangkan</label>
+                  <input
+                    class="form-control"
+                    name="jumlah_dipulangkan"
+                    type="text"
+                    placeholder="0.00"
+                    [(ngModel)]="jumlahDipulangkan"
+                    disabled
+                  />
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Bil. Dipulangkan (KIR)</label>
+                  <input
+                    class="form-control"
+                    name="bil_dipulangkan"
+                    type="text"
+                    placeholder="Bil. Dipulangkan (KIR)"
+                    [(ngModel)]="bilDipulangkan"
                     disabled
                   />
                 </div>
