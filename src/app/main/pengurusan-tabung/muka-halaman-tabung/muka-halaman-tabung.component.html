@@ -1,131 +1,105 @@
 <app-breadcrumb
-	[title]="'Pengurusan Tabung'"
+	[title]="'Muka Halaman Tabung'"
 	[items]="['Muka Halaman']"
 	[active_item]="'Pengurusan Tabung'"
 ></app-breadcrumb>
 <div class="container-fluid">
-	<div class="card">
-    <div class="card-header">
-      <div class="header-top">
-        <h6 class="m-0"></h6>
-        <div class="card-header-right-icon">
-              <button
-                type="button"
-                class="btn btn-primary pull-right"
-                (click)="isCollapsedGraph = !isCollapsedGraph"
-                [attr.aria-expanded]="!isCollapsedGraph"
-                aria-controls="collapseExample"
-                ngbTooltip="Carian Lanjut"
-                style="font-weight: 500"
-              >
-            <i class="fa fa-filter"></i>
-          </button>
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="form-group">
+            <label>Tahun</label>
+            <select class="form-control" [(ngModel)]="year">
+              <option selected disabled [value]="undefined">Sila Pilih</option>
+              <option *ngFor="let year of arrayYear">{{year}}</option>
+            </select>
+          </div>
         </div>
-      </div>
 
-      <div class="row mt-2 no-gutters">
-        <div class="col-lg-12">
-          <div class="row no-gutters">
-            <div class="col-lg-12">
-              <div id="collapseExample" [ngbCollapse]="!isCollapsedGraph">
-                <div class="row">
-                  <div class="col-lg-4">
-                    <div class="form-group">
-                      <label>Tahun</label>
-                      <select class="form-control" [(ngModel)]="year">
-                        <option selected disabled [value]="undefined">Sila Pilih</option>
-                        <option *ngFor="let year of arrayYear">{{year}}</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-2 pr-1">
-                    <div class="form-group custom-datepicker custom-datepicker-dropdown">
-                      <label>Tarikh</label>
-                      <div class="input-group">
-                        <input
-                          class="form-control"
-                          placeholder="yyyy-mm-dd"
-                          name="dp1"
-                          [(ngModel)]="tarikhMula"
-                          ngbDatepicker
-                          #b="ngbDatepicker"
-                          style="border: 1px solid #efefef !important;"
-                          (ngModelChange)="pilihTarikhMula()"
-                        >
-                        <div class="input-group-append">
-                          <button class="btn btn-light pr-2 pl-2" (click)="b.toggle()" type="button"><i
-                            class="fa fa-calendar"></i></button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-2 pl-1">
-                    <div class="form-group custom-datepicker custom-datepicker-dropdown">
-                      <div class="input-group pt-4 mt-1">
-                        <input
-                          class="form-control"
-                          placeholder="yyyy-mm-dd"
-                          name="dp2"
-                          [(ngModel)]="tarikhTamat"
-                          ngbDatepicker
-                          #c="ngbDatepicker"
-                          style="border: 1px solid #efefef !important;"
-                          [disabled]="!chooseFromDate"
-                        >
-                        <div class="input-group-append">
-                          <button class="btn btn-light pr-2 pl-2" (click)="c.toggle()" type="button" [disabled]="!chooseFromDate"><i
-                            class="fa fa-calendar"></i></button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-4">
-                    <div class="form-group">
-                      <label>Tabung</label>
-                      <ng-select
-                        [items]="funds"
-                        bindLabel="nama_tabung"
-                        bindValue="id"
-                        placeholder="Sila Pilih"
-                        class="js-example-placeholder-multiple"
-                        name="namaTabung"
-                        [(ngModel)]="filterTabung"
-                      ></ng-select>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row justify-content-end mb-2 pr-2">
-                  <button
-                    class="btn btn-light mr-2"
-                    type="button"
-                  >
-                  <i class="fa fa-refresh mr-2"></i>
-                    <b>Reset</b>
-                  </button>
-
-                  <button
-                    class="btn btn-primary pull-right mr-2"
-                    type="button"
-                    (click)="tabungCard()"
-                  >
-                  <i class="fa fa-search mr-2"></i>
-                    <b>Cari</b>
-                  </button>
-                </div>
+        <div class="col-lg-2 pr-1">
+          <div class="form-group custom-datepicker custom-datepicker-dropdown">
+            <label>Tarikh</label>
+            <div class="input-group">
+              <input
+                class="form-control"
+                placeholder="yyyy-mm-dd"
+                name="dp1"
+                [(ngModel)]="tarikhMula"
+                ngbDatepicker
+                #b="ngbDatepicker"
+                style="border: 1px solid #efefef !important;"
+                (ngModelChange)="pilihTarikhMula()"
+              >
+              <div class="input-group-append">
+                <button class="btn btn-light pr-2 pl-2" (click)="b.toggle()" type="button"><i
+                  class="fa fa-calendar"></i></button>
               </div>
             </div>
           </div>
         </div>
+
+        <div class="col-lg-2 pl-1">
+          <div class="form-group custom-datepicker custom-datepicker-dropdown">
+            <div class="input-group pt-4 mt-1">
+              <input
+                class="form-control"
+                placeholder="yyyy-mm-dd"
+                name="dp2"
+                [(ngModel)]="tarikhTamat"
+                ngbDatepicker
+                #c="ngbDatepicker"
+                style="border: 1px solid #efefef !important;"
+                [disabled]="!chooseFromDate"
+              >
+              <div class="input-group-append">
+                <button class="btn btn-light pr-2 pl-2" (click)="c.toggle()" type="button" [disabled]="!chooseFromDate"><i
+                  class="fa fa-calendar"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="form-group">
+            <label>Tabung</label>
+            <ng-select
+              [items]="funds"
+              bindLabel="nama_tabung"
+              bindValue="id"
+              placeholder="Sila Pilih"
+              class="js-example-placeholder-multiple"
+              name="namaTabung"
+              [(ngModel)]="filterTabung"
+            ></ng-select>
+          </div>
+        </div>
       </div>
 
+      <div class="row no-gutters justify-content-end">
+        <button
+          class="btn btn-light mr-2"
+          type="button"
+          (click)="resetFilter()"
+        >
+        <i class="fa fa-refresh mr-2"></i>
+          <b>Reset</b>
+        </button>
+
+        <button
+          class="btn btn-primary pull-right"
+          type="button"
+          (click)="getFilter()"
+        >
+        <i class="fa fa-search mr-2"></i>
+          <b>Cari</b>
+        </button>
+      </div>
     </div>
+  </div>
 
-		<div class="card-body">
-
+	<div class="card">
+    <div class="card-body pb-4">
       <div class="row">
         <div class="col-lg-6 col-sm-4 col-xs-6">
           <div class="card bg-primary">
@@ -147,6 +121,7 @@
             </div>
           </div>
         </div>
+
         <div class="col-lg-6 col-sm-4 col-xs-6">
           <div class="card bg-primary">
             <div class="media static-top-widget">
@@ -167,6 +142,7 @@
             </div>
           </div>
         </div>
+
         <div class="col-lg-6 col-sm-4 col-xs-6">
           <div class="card bg-primary">
             <div class="media static-top-widget">
@@ -187,6 +163,7 @@
             </div>
           </div>
         </div>
+
         <div class="col-lg-6 col-sm-4 col-xs-6">
           <div class="card bg-primary">
             <div class="media static-top-widget">

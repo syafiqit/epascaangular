@@ -180,4 +180,16 @@ export class MukaHalamanTabungComponent implements OnInit {
     }
     this.arrayYear = years;
   }
+
+  getFilter() {
+    this.tabungCard();
+    this.pieTanggungan();
+    this.skbGraph();
+    this.terusGraph();
+  }
+
+  resetFilter() {
+    this.filterTabung = undefined;
+    this.getFilter();
+  }
 }
