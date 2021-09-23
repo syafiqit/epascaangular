@@ -10,7 +10,7 @@ import {
   RefNegeriServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { PrimengTableHelper } from '@app/shared/helpers/PrimengTableHelper';
@@ -68,6 +68,7 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 
 	constructor(
 		config: NgbModalConfig,
+		private router: Router,
 		private modalService: NgbModal,
 		private _activatedRoute: ActivatedRoute,
 		private _refBencanaServiceProxy: RefBencanaServiceProxy,
@@ -163,9 +164,10 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 			.subscribe(() => {
 				if (!this.id) {
 					swalSuccess.fire('Berjaya!', 'Maklumat Agensi Berjaya disimpan.', 'success');
-				} else if (this.id) {
+				} else {
 					swalSuccess.fire('Berjaya!', 'Maklumat Agensi Berjaya dikemaskini.', 'success');
 				}
+				this.router.navigate(['/app/tabung/senarai-kelulusan']);
 			});
     	}
 	}
