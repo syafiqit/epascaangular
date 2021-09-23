@@ -384,20 +384,20 @@
                               Kemaskini
                             </button>
                             <button class="dropdown-item">Peruntukan Diambil</button>
-                            <button
+                            <a
                               class="dropdown-item"
                               [routerLink]="['/app/tabung/skb/tambah']"
                               [queryParams]="{kelulusan: records.id, no_ruj: records.no_rujukan_kelulusan}"
                             >
                               Pembayaran SKB
-                            </button>
-                            <button
+                            </a>
+                            <a
                               class="dropdown-item"
                               [routerLink]="['/app/tabung/bayaran-terus/tambah']"
                               [queryParams]="{kelulusan: records.id, no_ruj: records.no_rujukan_kelulusan}"
                             >
                               Pembayaran Secara Terus
-                            </button>
+                            </a>
                           </div>
                         </div>
                       </td>
