@@ -109,7 +109,8 @@
 									</td>
 									<td style="width: 100px">
 										<span class="p-column-title">Bencana</span>
-										{{record.nama_bencana}}
+                    <label *ngIf="record.nama_bencana">{{record.nama_bencana}}</label>
+                    <label *ngIf="!record.nama_bencana">-</label>
 									</td>
                   <td style="width: 100px">
 										<span class="p-column-title">Jumlah</span>
