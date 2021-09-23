@@ -35,7 +35,7 @@
           <div class="col-4 justify-content-end pr-0">
             <button
                 class="btn btn-primary pull-right"
-                (click)="addDisasterModal()"
+                [routerLink]="['/app/bencana/tambah-edit-pengurusan-bencana']"
               >
                 <i class="fa fa-plus mr-2"></i>
                 <b>Tambah</b>
@@ -171,7 +171,8 @@
 											<div ngbDropdownMenu aria-labelledby="action">
 												<button
 													class="dropdown-item"
-													(click)="editDisasterModal(record.bencana.id)"
+													[routerLink]="['/app/bencana/tambah-edit-pengurusan-bencana']"
+                          							[queryParams]="{id: record.bencana.id}"
 												>
 													Lihat
 												</button>
