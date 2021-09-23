@@ -33,6 +33,7 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 
 	negeriArray:any;
 	id:number;
+	nama_bencana:any;
 
 	pengurusan_bencana: InputCreateBencanaDto = new InputCreateBencanaDto();
 	bencana: CreateOrEditRefBencanaDto = new CreateOrEditRefBencanaDto();
@@ -104,15 +105,22 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
     return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
   }
 
+  toModelYear(date: NgbDateStruct | null): number | null {
+    return date.year;
+  }
 	show() {
 		if (!this.id) {
 			this.pengurusan_bencana = new InputCreateBencanaDto();
 			this.bencana = new CreateOrEditRefBencanaDto();
+
+			this.negeri = [];
 		} else {
 			this._refBencanaServiceProxy.getRefBencanaForEdit(this.id).subscribe((result) => {
 				this.bencana = result.ref_bencana;
 
 				this.negeri = result.bencanaNegeri
+
+				this.nama_bencana = this.bencana.nama_bencana;
 
 
 				if(result.ref_bencana.tarikh_bencana){
@@ -151,8 +159,11 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 		if(this.model){
 		this.dateDisaster = this.toModel(this.model);
 		this.bencana.tarikh_bencana = moment(this.dateDisaster, "YYYY-MM-DD");
+		this.bencana.tahun_bencana = this.toModelYear(this.model);
 		this.pengurusan_bencana.id_negeri = this.negeri;
 		this.pengurusan_bencana.bencana = this.bencana;
+		this.pengurusan_bencana.bencana.nama_bencana = this.nama_bencana;
+		this.pengurusan_bencana.bwi = [];
 		
 		this._refBencanaServiceProxy
 			.createOrEdit(this.pengurusan_bencana)
@@ -162,12 +173,8 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 				})
 			)
 			.subscribe(() => {
-				if (!this.id) {
-					swalSuccess.fire('Berjaya!', 'Maklumat Agensi Berjaya disimpan.', 'success');
-				} else {
-					swalSuccess.fire('Berjaya!', 'Maklumat Agensi Berjaya dikemaskini.', 'success');
-				}
-				this.router.navigate(['/app/tabung/senarai-kelulusan']);
+				swalSuccess.fire('Berjaya!', 'Maklumat Bencana Berjaya disimpan.', 'success');
+				this.router.navigate(['/app/bencana/pengurusan-bencana']);
 			});
     	}
 	}
@@ -233,5 +240,9 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 			if (response) {
 			}
 		});
+	}
+
+	namaBencana(nama_bencana?){
+		this.nama_bencana = nama_bencana;
 	}
 }
