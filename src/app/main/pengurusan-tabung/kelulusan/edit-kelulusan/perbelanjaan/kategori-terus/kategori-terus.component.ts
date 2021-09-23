@@ -22,7 +22,7 @@ export class KategoriTerusComponent implements OnInit {
   constructor(
     private _tabungKelulusanServiceProxy: TabungKelulusanServiceProxy,
     private _activatedRoute: ActivatedRoute
-  ) { 
+  ) {
     this.id = this._activatedRoute.snapshot.queryParams['id'];
     this.primengTableHelper = new PrimengTableHelper();
   }
@@ -38,7 +38,7 @@ export class KategoriTerusComponent implements OnInit {
 		}
 
 		this.primengTableHelper.showLoadingIndicator();
-		this._tabungKelulusanServiceProxy.getKategoriTabungSkbByKelulusan(this.id)
+		this._tabungKelulusanServiceProxy.getKategoriTabungBayaranTerusByKelulusan(this.id)
       .pipe(finalize(()=> {
         this.primengTableHelper.hideLoadingIndicator();
       }))
