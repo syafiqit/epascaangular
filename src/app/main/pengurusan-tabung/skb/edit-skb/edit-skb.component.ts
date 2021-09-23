@@ -98,7 +98,6 @@ export class EditSkbComponent implements OnInit {
 
 	ngOnInit(): void {
     this.getAgensi();
-    this.getBulananSKB();
     this.show();
   }
 

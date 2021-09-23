@@ -25,24 +25,13 @@ export class PeruntukanDiambilListComponent implements OnInit {
   filter:any;
   filterIdKelulusan:any;
 
-  rowBwi = [
-    {
-      tarikh: '20/02/2021', jumlah_siling_semasa: 'RM 8,000.00', jumlah_peruntukan_diambil: 'RM 2,000.00', 
-      jumlah_peruntukan_baru:'RM 6,000.00'
-		},
-		{
-      tarikh: '20/01/2021', jumlah_siling_semasa: 'RM 10,000.00', jumlah_peruntukan_diambil: 'RM 2,000.00', 
-      jumlah_peruntukan_baru:'RM 8,000.00'
-		}
-	];
-
   constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,
     private _tabungKelulusanServiceProxy: TabungKelulusanServiceProxy,
     private _tabungKelulusanAmbilanServiceProxy: TabungKelulusanAmbilanServiceProxy,
     private _activatedRoute: ActivatedRoute
-  ) { 
+  ) {
     this.id = this._activatedRoute.snapshot.queryParams['id'];
     this.primengTableHelper = new PrimengTableHelper();
     config.backdrop = 'static';
@@ -96,7 +85,7 @@ export class PeruntukanDiambilListComponent implements OnInit {
     modalRef.result.then(
 			(response) => {
 				if (response) {
-          // this.kelulusan.id_bencana = response.id;
+          this.getSejarahBwi();
 				}
 			}
 		);

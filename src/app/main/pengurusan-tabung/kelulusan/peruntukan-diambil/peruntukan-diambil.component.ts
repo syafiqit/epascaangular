@@ -19,7 +19,7 @@ export class PeruntukanDiambilComponent implements OnInit {
     config: NgbModalConfig,
     public activeModal: NgbActiveModal,
     private _tabungKelulusanAmbilanServiceProxy: TabungKelulusanAmbilanServiceProxy
-    ) { 
+    ) {
       config.backdrop = 'static';
 		  config.keyboard = false;
     }
@@ -43,12 +43,12 @@ export class PeruntukanDiambilComponent implements OnInit {
     this.saving = true;
     this.peruntukan.id_tabung = this.id_tabung;
     this.peruntukan.id_tabung_kelulusan = this.id_tabung_kelulusan;
-    
+
     this._tabungKelulusanAmbilanServiceProxy
       .createOrEdit(this.peruntukan)
       .pipe()
       .subscribe(() => {
-        swalSuccess.fire('Berjaya!', 'Maklumat Tabung Kelulusan Berjaya Disimpan.', 'success');
+        swalSuccess.fire('Berjaya!', 'Maklumat Peruntukan Diambil Berjaya Disimpan', 'success');
       });
       this.activeModal.close(true);
   }
