@@ -176,13 +176,13 @@
                 Tindakan
               </button>
               <div ngbDropdownMenu aria-labelledby="action">
-                <button
+                <a
                   class="dropdown-item"
                   [routerLink]="['/app/tabung/edit-wang-ihsan/kir']"
-                  [queryParams]="{idKawasan: record.id, idBencana: idBencana, idJenisBwi: idJenisBwi}"
+                  [queryParams]="{idKawasan: record.id, idBencana: idBencana, idJenisBwi: idJenisBwi, idBwi: idBwi}"
                 >
                   Lihat
-                </button>
+                </a>
               </div>
             </div>
           </td>
