@@ -48,28 +48,6 @@
         
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label>Tahun</label>
-                  <input
-                    class="form-control"
-                    id="tahun"
-                    type="text"
-                    name="tahun_bencana"
-                    placeholder="Tahun"
-                    [(ngModel)]="bencana.tahun_bencana"
-                    #tahunBencana="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && tahunBencana.invalid }"
-                    required
-                  />
-                  <div *ngIf="f.submitted && tahunBencana.invalid" class="invalid-feedback">
-                    <div *ngIf="tahunBencana.errors.required">Tahun Wajib diIsi</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-        
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="form-group">
                   <label>Jenis Bencana</label>
                   <ng-select
                     [items]="disasters"
@@ -81,6 +59,7 @@
                     [(ngModel)]="bencana.id_jenis_bencana"
                     #jenisBencana="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && jenisBencana.invalid }"
+                    (change)="namaBencana($event.nama_jenis_bencana)"
                     required
                   ></ng-select>
                   <div *ngIf="f.submitted && jenisBencana.invalid" class="invalid-feedback">
@@ -88,6 +67,9 @@
                   </div>
                 </div>
               </div>
+            </div>
+        
+            <!-- <div class="row">
         
               <div class="col-lg-6">
                 <div class="form-group">
@@ -108,11 +90,11 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
         
             <div class="row">
         
-              <div class="col-lg-6">
+              <div class="col-lg-6" *ngIf="id">
                 <div class="form-group">
                   <label>Status</label>
                   <select
@@ -158,13 +140,20 @@
               <div class="col-6" *ngFor="let state of state; let i = index">
                 <div class="col">
                   <div class="checkbox checkbox-dark pl-2">
-                    <input
+                    <input *ngIf="id"
                       class="checkbox_animated"
                       id="negeri-{{ i }}"
                       type="checkbox"
                       [value]="state.id"
                       (change)="pilihNegeri(state.id, $event.target.checked, state.nama_negeri)"
                       [checked]="checkNegeriExist(state.id)"
+                    />
+                    <input *ngIf="!id"
+                      class="checkbox_animated"
+                      id="negeri-{{ i }}"
+                      type="checkbox"
+                      [value]="state.id"
+                      (change)="pilihNegeri(state.id, $event.target.checked, state.nama_negeri)"
                     />
                     <label for="negeri-{{ i }}">{{state.nama_negeri}}</label>
                   </div>
