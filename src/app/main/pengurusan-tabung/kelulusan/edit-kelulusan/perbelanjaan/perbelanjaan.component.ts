@@ -33,6 +33,7 @@ export class PerbelanjaanComponent implements OnInit {
 
   filter:any;
   tabId = 1;
+  tabIdKategori = 1;
 
 	displayMonths = 1;
 	navigation = 'select';

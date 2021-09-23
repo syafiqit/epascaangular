@@ -36,40 +36,40 @@
             >
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="width: 100px" pSortableColumn="tarikh_cipta">
+                        <th style="width: 150px" pSortableColumn="tarikh_cipta">
                             Tarikh
-                            <p-sortIcon field="">tarikh_cipta</p-sortIcon>
+                            <p-sortIcon field="tarikh_cipta"></p-sortIcon>
                         </th>
                         <th style="width: 150px" pSortableColumn="baki_jumlah_siling_semasa">
                             Jumlah Siling Peruntukan Semasa
-                            <p-sortIcon field="">baki_jumlah_siling_semasa</p-sortIcon>
+                            <p-sortIcon field="baki_jumlah_siling_semasa"></p-sortIcon>
                         </th>
                         <th style="width: 150px" pSortableColumn="jumlah">
                             Jumlah Peruntukan Diambil
-                            <p-sortIcon field="">jumlah</p-sortIcon>
+                            <p-sortIcon field="jumlah"></p-sortIcon>
                         </th>
                         <th style="width: 150px" pSortableColumn="baki_jumlah_siling_baharu">
                             Jumlah Siling Peruntukan Baru
-                            <p-sortIcon field="">baki_jumlah_siling_baharu</p-sortIcon>
+                            <p-sortIcon field="baki_jumlah_siling_baharu"></p-sortIcon>
                         </th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-record="$implicit">
                     <tr>
                         <td style="width: 150px">
-                            <span class="p-column-title"></span>
+                            <span class="p-column-title">tarikh_cipta</span>
                             {{record.tarikh_cipta}}
                         </td>
                         <td style="width: 150px">
-                            <span class="p-column-title"></span>
+                            <span class="p-column-title">baki_jumlah_siling_semasa</span>
                             {{record.baki_jumlah_siling_semasa}}
                         </td>
                         <td style="width: 150px">
-                            <span class="p-column-title"></span>
+                            <span class="p-column-title">jumlah</span>
                             {{record.jumlah}}
                         </td>
                         <td style="width: 150px">
-                            <span class="p-column-title"></span>
+                            <span class="p-column-title">baki_jumlah_siling_baharu</span>
                             {{record.baki_jumlah_siling_baharu}}
                         </td>
                     </tr>

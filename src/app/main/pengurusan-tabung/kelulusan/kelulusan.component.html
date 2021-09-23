@@ -171,7 +171,7 @@
 									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">Kategori</span>
-										{{record.nama_jenis_bencana}}
+										{{record.nama_jenis_bencana?record.nama_jenis_bencana:'-'}}
 									</td>
 									<td style="width: 140px">
 										<span class="p-column-title">Tarikh Surat</span>
@@ -191,7 +191,7 @@
 									</td>
 									<td style="width: 150px">
 										<span class="p-column-title">Jumlah Siling</span>
-                    RM{{record.jumlah_siling}}
+                    				RM{{record.jumlah_siling}}
 									</td>
 									<td style="width: 165px">
 										<span class="p-column-title">Baki Peruntukan</span>
