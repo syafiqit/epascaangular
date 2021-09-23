@@ -184,11 +184,11 @@ export class TambahEditKirComponent implements OnInit {
       this.bantuanKawasan.tarikh_majlis_drp_apm = moment(this.tarikhSuratLaporan, "YYYY-MM-DD");
     }
     this.tabungBwiKawasanServiceProxy
-			.createOrEdit(this.inputBantuanKawasan)
+			.createOrEdit(this.bantuanKawasan)
 			.pipe()
 			.subscribe((result) => {
 				swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Berjaya Dikemaskini.', 'success').then(() => {
-					this._router.navigateByUrl('app/tabung/edit-wang-ihsan');
+					this._router.navigateByUrl('app/tabung/senarai-wang-ihsan');
 				});
 			});
   }
