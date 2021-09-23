@@ -44,6 +44,7 @@ export class TambahEditKirComponent implements OnInit {
   idKawasan: number;
   idBencana: number;
   idJenisBwi: number;
+  idBwi: number;
 
   date = new Date();
   modelDueReport: NgbDateStruct;
@@ -68,6 +69,7 @@ export class TambahEditKirComponent implements OnInit {
     this.idKawasan = this._activatedRoute.snapshot.queryParams['idKawasan'];
     this.idBencana = this._activatedRoute.snapshot.queryParams['idBencana'];
     this.idJenisBwi = this._activatedRoute.snapshot.queryParams['idJenisBwi'];
+    this.idBwi = this._activatedRoute.snapshot.queryParams['idBwi'];
     this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
