@@ -27,6 +27,13 @@ export class BantuanWangIhsanComponent implements OnInit {
   maxResultCount: number;
   dateDisasters: any;
   totalDisasters: any;
+  statuses: any;
+
+  status=[
+    {id: 1, nama_status: "Belum Dibayar"},
+    {id: 2, nama_status: "Dibayar"},
+    {id: 3, nama_status: "Dipulangkan"}
+  ]
 
 	constructor(
     config: NgbModalConfig,
@@ -89,6 +96,13 @@ export class BantuanWangIhsanComponent implements OnInit {
 			}
 		});
 	}
+
+  getStatus (id){
+    this.statuses = this.status.map((data) => {
+      return data.nama_status;
+    });
+    return this.statuses[id - 1];
+  }
 
   reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
