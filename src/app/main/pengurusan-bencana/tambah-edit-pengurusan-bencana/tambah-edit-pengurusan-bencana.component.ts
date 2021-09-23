@@ -150,7 +150,7 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 		if(this.model){
 		this.dateDisaster = this.toModel(this.model);
 		this.bencana.tarikh_bencana = moment(this.dateDisaster, "YYYY-MM-DD");
-		this.pengurusan_bencana.id_negeri = this.negeriArray;
+		this.pengurusan_bencana.id_negeri = this.negeri;
 		this.pengurusan_bencana.bencana = this.bencana;
 		
 		this._refBencanaServiceProxy
