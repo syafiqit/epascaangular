@@ -40,7 +40,6 @@ export class PengurusanBencanaComponent implements OnInit {
 
 	constructor(
     config: NgbModalConfig,
-    private modalService: NgbModal,
     private _refBencanaServiceProxy: RefBencanaServiceProxy,
     private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy
   ) {
@@ -106,27 +105,6 @@ export class PengurusanBencanaComponent implements OnInit {
 
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
-	}
-
-	addDisasterModal() {
-		const modalRef = this.modalService.open(TambahEditPengurusanBencanaComponent, { size: 'lg' });
-		modalRef.componentInstance.name = 'add';
-		modalRef.result.then((response) => {
-			if (response) {
-				this.getDisaster();
-			}
-		});
-	}
-
-	editDisasterModal(id) {
-		const modalRef = this.modalService.open(TambahEditPengurusanBencanaComponent, { size: 'lg' });
-		modalRef.componentInstance.name = 'edit';
-		modalRef.componentInstance.id = id;
-		modalRef.result.then((response) => {
-			if (response) {
-				this.getDisaster();
-			}
-		});
 	}
 
 }
