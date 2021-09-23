@@ -45,6 +45,7 @@ export class TambahEditKirComponent implements OnInit {
   idBencana: number;
   idJenisBwi: number;
   idBwi: number;
+  idDaerah: number;
 
   date = new Date();
   modelDueReport: NgbDateStruct;
@@ -108,6 +109,7 @@ export class TambahEditKirComponent implements OnInit {
 				this.filter,
         this.idBencana ?? undefined,
         this.idJenisBwi ?? undefined,
+        this.idDaerah ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
