@@ -48,6 +48,7 @@
 										#jumlahSiling="ngModel"
 										[ngClass]="{ 'is-invalid': f.submitted && jumlahSiling.invalid }"
 										required
+                    placeholder="Jumlah Siling Peruntukan"
 									/>
 									<div *ngIf="f.submitted && jumlahSiling.invalid" class="invalid-feedback">
 										<div *ngIf="jumlahSiling.errors.required">Jumlah Siling Wajib Dipilih</div>

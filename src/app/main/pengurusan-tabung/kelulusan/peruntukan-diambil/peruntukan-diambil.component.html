@@ -8,6 +8,9 @@
 <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
   <div class="modal-body">
     <div class="row">
+      <div class="ribbon ribbon-danger">Perhatian</div>
+    </div><br>
+    <div class="row mt-3">
         <div class="col">
             <div class="form-group">
                 <label>Sila Semak Jumlah Yang Di Ambil Sebelum Menghantar Permohonan Untuk Pindahan Peruntukan </label>
@@ -18,7 +21,7 @@
         <div class="col">
             <div class="form-group">
                 <label>Jumlah Siling Peruntukan Semasa: </label>
-                <a style="font-weight: bold;"> RM {{baki_jumlah_siling}}.00</a>
+                <a style="font-weight: bold;"> RM {{baki_jumlah_siling | number: '1.2-2'}}</a>
             </div>
         </div>
     </div>
@@ -43,7 +46,7 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label>Jumlah Siling Peruntukan Baru: </label>
-                <a style="font-weight: bold;"> RM {{peruntukan.jumlah ? baki_jumlah_siling - peruntukan.jumlah : 0}}.00</a>
+                <a style="font-weight: bold;"> RM {{peruntukan.jumlah ? baki_jumlah_siling - peruntukan.jumlah : 0 | number: '1.2-2'}}</a>
             </div>
         </div>
     </div>

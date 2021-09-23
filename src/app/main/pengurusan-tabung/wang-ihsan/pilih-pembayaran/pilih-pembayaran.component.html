@@ -26,7 +26,7 @@
 					<ng-template pTemplate="header">
 						<tr>
 							<th style="width: 130px" pSortableColumn="no_rujukan_terus">
-								No. Rujukan Bayaran
+								No. Ruj Bayaran
 								<p-sortIcon field="no_rujukan_terus"></p-sortIcon>
 							</th>
 							<th style="width: 130px" pSortableColumn="perihal">
@@ -34,7 +34,7 @@
 								<p-sortIcon field="perihal"></p-sortIcon>
 							</th>
               <th style="width: 130px" pSortableColumn="no_rujukan_kelulusan">
-								No. Rujukan Kelulusan
+								No. Ruj Kelulusan
 								<p-sortIcon field="no_rujukan_kelulusan"></p-sortIcon>
 							</th>
 							<th style="width: 130px" pSortableColumn="jumlah">
@@ -47,7 +47,7 @@
 					<ng-template pTemplate="body" let-record="$implicit">
 						<tr>
 							<td style="width: 130px">
-								<span class="p-column-title">No. Rujukan Bayaran</span>
+								<span class="p-column-title">No. Ruj Bayaran</span>
 								{{record.no_rujukan_terus}}
 							</td>
 							<td style="width: 130px">
@@ -55,7 +55,7 @@
 								{{record.perihal}}
 							</td>
               <td style="width: 130px">
-								<span class="p-column-title">No. Rujukan Kelulusan</span>
+								<span class="p-column-title">No. Ruj Kelulusan</span>
 								{{record.no_rujukan_kelulusan}}
 							</td>
 							<td style="width: 130px">
