@@ -3,8 +3,10 @@ import { NgbActiveModal, NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } 
 import { finalize } from 'rxjs/operators';
 import * as moment from 'moment';
 import {
+  CreateOrEditRefBencanaBwiDto,
   CreateOrEditRefBencanaDto,
   InputCreateBencanaDto,
+  RefBencanaBwiServiceProxy,
   RefBencanaServiceProxy,
   RefJenisBencanaServiceProxy,
   RefNegeriServiceProxy
@@ -32,7 +34,6 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
   primengTableHelper: PrimengTableHelper;
 
 	negeriArray:any;
-	id:number;
 	nama_bencana:any;
 
 	pengurusan_bencana: InputCreateBencanaDto = new InputCreateBencanaDto();
@@ -58,14 +59,13 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
   today = this.calendar.getToday();
   readonly DELIMITER = '-';
 
-  rowBwi = [
-		{
-			bil: '1', jumlah: 'RM 8,000.00' 
-		},
-		{
-			bil: '2', jumlah: 'RM 10,000.00'
-		}
-	];
+  rows = [];
+  idJumlahBwi: number = 0;
+  bil: number = 0;
+  idBencana: any;
+  sorting: any;
+  skipCount: any;
+  resultCount: any;
 
 	constructor(
 		config: NgbModalConfig,
@@ -75,11 +75,10 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 		private _refBencanaServiceProxy: RefBencanaServiceProxy,
 		private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy,
 		private _refNegeriServiceProxy: RefNegeriServiceProxy,
+    private _refBencanaBwiServiceProxy: RefBencanaBwiServiceProxy,
     private calendar: NgbCalendar
 	) {
-		this._activatedRoute.queryParams.subscribe((p) => {
-			this.id = p['id'];
-		});
+    this.idBencana = this._activatedRoute.snapshot.queryParams['id'];
 		this.primengTableHelper = new PrimengTableHelper();
 	 }
 
@@ -87,6 +86,11 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 		this.show();
 		this.getBencana();
 		this.getNegeriList();
+    if(!this.idBencana) {
+      this.getJumlahBwi();
+    }else {
+      this.getJumlahBwiEdit();
+    }
 	}
 
   fromModel(value: string | null): NgbDateStruct | null {
@@ -109,20 +113,17 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
     return date.year;
   }
 	show() {
-		if (!this.id) {
+		if (!this.idBencana) {
 			this.pengurusan_bencana = new InputCreateBencanaDto();
 			this.bencana = new CreateOrEditRefBencanaDto();
 
 			this.negeri = [];
 		} else {
-			this._refBencanaServiceProxy.getRefBencanaForEdit(this.id).subscribe((result) => {
+			this._refBencanaServiceProxy.getRefBencanaForEdit(this.idBencana).subscribe((result) => {
 				this.bencana = result.ref_bencana;
-
-				this.negeri = result.bencanaNegeri
-
+				this.negeri = result.bencanaNegeri;
+        this.idBencana = result.ref_bencana.id;
 				this.nama_bencana = this.bencana.nama_bencana;
-
-
 				if(result.ref_bencana.tarikh_bencana){
 					this.model = this.fromModel(result.ref_bencana.tarikh_bencana.format('YYYY-MM-DD'));
 				}
@@ -153,32 +154,6 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 		});
 	}
 
-	save(): void {
-		this.saving = true;
-
-		if(this.model){
-		this.dateDisaster = this.toModel(this.model);
-		this.bencana.tarikh_bencana = moment(this.dateDisaster, "YYYY-MM-DD");
-		this.bencana.tahun_bencana = this.toModelYear(this.model);
-		this.pengurusan_bencana.id_negeri = this.negeri;
-		this.pengurusan_bencana.bencana = this.bencana;
-		this.pengurusan_bencana.bencana.nama_bencana = this.nama_bencana;
-		this.pengurusan_bencana.bwi = [];
-		
-		this._refBencanaServiceProxy
-			.createOrEdit(this.pengurusan_bencana)
-			.pipe(
-				finalize(() => {
-					this.saving = false;
-				})
-			)
-			.subscribe(() => {
-				swalSuccess.fire('Berjaya!', 'Maklumat Bencana Berjaya disimpan.', 'success');
-				this.router.navigate(['/app/bencana/pengurusan-bencana']);
-			});
-    	}
-	}
-	
 	pilihSemuaNegeri(isChecked: boolean) {
 		if (isChecked) {
 			this.checkNegeri = true;
@@ -196,10 +171,7 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 	} else if (!isChecked) {
 		let index = this.negeri.indexOf(id);
 		this.negeri.splice(index, 1);
-
 		}
-
-		console.log(this.negeri);
 	}
 
 	checkNegeriExist(id?){
@@ -218,31 +190,107 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 		}
 
 		this.primengTableHelper.showLoadingIndicator();
-		this.primengTableHelper.totalRecordsCount = this.rowBwi.length;
-		this.primengTableHelper.records = this.rowBwi;
+		this.primengTableHelper.totalRecordsCount = this.rows.length;
+		this.primengTableHelper.records = this.rows;
 		this.primengTableHelper.hideLoadingIndicator();
+    for(let i = 0; i < this.rows.length; i++){
+      this.bil = this.bil + 1;
+    }
+	}
+
+	getJumlahBwiEdit(event?: LazyLoadEvent) {
+		if (this.primengTableHelper.shouldResetPaging(event)) {
+			this.paginator.changePage(0);
+			return;
+		}
+
+		this.primengTableHelper.showLoadingIndicator();
+		this._refBencanaBwiServiceProxy
+			.getAll(
+				this.filter,
+        this.idBencana,
+				this.sorting,
+				this.skipCount,
+				this.resultCount
+			)
+      .pipe(finalize(()=>{
+        this.primengTableHelper.hideLoadingIndicator();
+      }))
+			.subscribe((result) => {
+				this.primengTableHelper.totalRecordsCount = result.total_count;
+				this.primengTableHelper.records = result.items;
+        for(let i = 0; i < result.items.length; i++){
+          this.bil = this.bil + 1;
+        }
+			});
 	}
 
 	addJumlahBwi() {
 		const modalRef = this.modalService.open(TambahJumlahBwiComponent, { size: 'md' });
 		modalRef.componentInstance.name = 'add';
-		modalRef.result.then((response) => {
-			if (response) {
+    modalRef.componentInstance.kategori = 1;
+
+    modalRef.result.then(
+			(response) => {
+				if (response) {
+          this.idJumlahBwi = this.idJumlahBwi + 1;
+          this.rows.push({ id: this.idJumlahBwi, nilai: response.nilai });
+          this.getJumlahBwi();
+				}
 			}
-		});
+		);
 	}
 
-	editJumlahBwi(id) {
+	editJumlahBwi(idJumlahBwi, nilai) {
 		const modalRef = this.modalService.open(TambahJumlahBwiComponent, { size: 'md' });
 		modalRef.componentInstance.name = 'edit';
-		modalRef.componentInstance.id = id;
-		modalRef.result.then((response) => {
-			if (response) {
+    modalRef.componentInstance.kategori = 1;
+		modalRef.componentInstance.idJumlahBwi = idJumlahBwi;
+		modalRef.componentInstance.nilai = nilai;
+
+    modalRef.result.then(
+			(response) => {
+				if (response) {
+          let d = this.rows.find(e => e.id == response.id);
+          d.nilai = response.nilai;
+          this.getJumlahBwi();
+				}
 			}
-		});
+		);
 	}
 
 	namaBencana(nama_bencana?){
 		this.nama_bencana = nama_bencana;
+	}
+
+	save(): void {
+		this.saving = true;
+    this.pengurusan_bencana.bwi = [];
+    for(let i = 0; i < this.rows.length; i++){
+      const bwiTotal = new CreateOrEditRefBencanaBwiDto();
+      bwiTotal.nilai = this.rows[i].nilai;
+      this.pengurusan_bencana.bwi.push(bwiTotal.nilai);
+    }
+
+		if(this.model){
+		this.dateDisaster = this.toModel(this.model);
+		this.bencana.tarikh_bencana = moment(this.dateDisaster, "YYYY-MM-DD");
+		this.bencana.tahun_bencana = this.toModelYear(this.model);
+		this.pengurusan_bencana.id_negeri = this.negeri;
+		this.pengurusan_bencana.bencana = this.bencana;
+		this.pengurusan_bencana.bencana.nama_bencana = this.nama_bencana;
+
+		this._refBencanaServiceProxy
+			.createOrEdit(this.pengurusan_bencana)
+			.pipe(
+				finalize(() => {
+					this.saving = false;
+				})
+			)
+			.subscribe(() => {
+				swalSuccess.fire('Berjaya!', 'Maklumat Bencana Berjaya disimpan.', 'success');
+				this.router.navigate(['/app/bencana/pengurusan-bencana']);
+			});
+    	}
 	}
 }
