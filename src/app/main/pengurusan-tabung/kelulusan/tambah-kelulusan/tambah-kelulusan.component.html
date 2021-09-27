@@ -20,19 +20,19 @@
 											type="text"
 											placeholder="Tabung"
 											name="tabung"
-											[(ngModel)]="namaBencana"
-											#bencana="ngModel"
-											[ngClass]="{ 'is-invalid': f.submitted && bencana.invalid }"
+											[(ngModel)]="namaTabung"
+											#tabungName="ngModel"
+											[ngClass]="{ 'is-invalid': f.submitted && tabungName.invalid }"
 											required
 											readonly
 										/>
 										<div class="input-group-append">
-											<button class="btn btn-primary" (click)="addBencana()" type="button">
+											<button class="btn btn-primary" (click)="addTabung()" type="button">
 												<i class="fa fa-search text-white"></i>
 											</button>
 										</div>
-										<div *ngIf="f.submitted && bencana.invalid" class="invalid-feedback">
-											<div *ngIf="bencana.errors.required">Tabung Wajib Dipilih</div>
+										<div *ngIf="f.submitted && tabungName.invalid" class="invalid-feedback">
+											<div *ngIf="tabungName.errors.required">Tabung Wajib Dipilih</div>
 										</div>
 									</div>
 								</div>

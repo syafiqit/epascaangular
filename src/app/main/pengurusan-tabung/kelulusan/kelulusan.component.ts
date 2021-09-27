@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
-import { NgbDateStruct, NgbCalendar, NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCalendar, NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
@@ -120,12 +120,5 @@ export class KelulusanComponent implements OnInit {
     modalRef.componentInstance.id_tabung = id_tabung;
     modalRef.componentInstance.id_tabung_kelulusan = id;
     modalRef.componentInstance.baki_jumlah_siling = baki_jumlah_siling;
-    modalRef.result.then(
-			(response) => {
-				if (response) {
-          // this.kelulusan.id_bencana = response.id;
-				}
-			}
-		);
 	}
 }

@@ -5,7 +5,6 @@ import {
   CreateOrEditTabungKelulusanDto, RefBantuanServiceProxy, RefBencanaServiceProxy,
   TabungKelulusanServiceProxy, TabungServiceProxy
 } from "../../../../shared/proxy/service-proxies";
-import {finalize} from "rxjs/operators";
 import * as moment from "moment";
 import {ActivatedRoute, Router} from "@angular/router";
 import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
@@ -30,7 +29,7 @@ export class TambahKelulusanComponent implements OnInit {
   tabung:any;
   bencana:any;
   bantuan:any;
-  namaBencana: string;
+  namaTabung: string;
 
   date = new Date();
   modelSurat: NgbDateStruct;
@@ -58,6 +57,8 @@ export class TambahKelulusanComponent implements OnInit {
     private calendar: NgbCalendar
   ) {
     this.id = this._activatedRoute.snapshot.queryParams['id'];
+    this.kelulusan.id_tabung = this._activatedRoute.snapshot.queryParams['idTabung'];
+    this.namaTabung = this._activatedRoute.snapshot.queryParams['namaTabung'];
 		config.backdrop = 'static';
 		config.keyboard = false;
 	}
@@ -153,14 +154,14 @@ export class TambahKelulusanComponent implements OnInit {
       });
   }
 
-  addBencana() {
+  addTabung() {
 		const modalRef = this.modalService.open(PilihBencanaKelulusanComponent, { size: 'xl' });
 		modalRef.componentInstance.name = 'add';
     modalRef.result.then(
 			(response) => {
 				if (response) {
           this.kelulusan.id_tabung = response.id;
-					this.namaBencana = response.nama_tabung;
+					this.namaTabung = response.nama_tabung;
 				}
 			}
 		);
