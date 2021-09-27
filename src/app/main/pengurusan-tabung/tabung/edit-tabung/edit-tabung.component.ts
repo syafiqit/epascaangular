@@ -11,6 +11,7 @@ import { CreateOrEditTabungDto, GetTabungForEditDto, RefSumberPeruntukanServiceP
 import * as moment from 'moment';
 import { finalize } from 'rxjs/operators';
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { PeruntukanDiambilComponent } from '../../kelulusan/peruntukan-diambil/peruntukan-diambil.component';
 
 @Component({
 	selector: 'app-edit-tabung',
@@ -211,6 +212,12 @@ export class EditTabungComponent implements OnInit {
 				this.getTabungPeruntukan();
 			}
 		});
+	}
+
+  peruntukanDiambilModal(baki_jumlah_siling?) {
+		const modalRef = this.modalService.open(PeruntukanDiambilComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'add';
+    modalRef.componentInstance.baki_jumlah_siling = baki_jumlah_siling;
 	}
 
 	reloadPage(): void {

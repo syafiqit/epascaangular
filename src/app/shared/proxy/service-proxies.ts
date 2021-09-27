@@ -7068,16 +7068,11 @@ export class RefBencanaBwiServiceProxy {
 
     /**
      * Get all RefBencanaBwi in dropdown list
-     * @param id_bencana RefBencanaBwi Id Bencana
      * @param filter (optional) Filter records with a string
      * @return Success
      */
-    getRefBencanaBwiForDropdown(id_bencana: number, filter: string | undefined): Observable<GetRefBencanaBwiForListDto> {
+    getRefBencanaBwiForDropdown(filter: string | undefined): Observable<GetRefBencanaBwiForListDto> {
         let url_ = this.baseUrl + "/api/refBencanaBwi/getRefBencanaBwiForDropdown?";
-        if (id_bencana === undefined || id_bencana === null)
-            throw new Error("The parameter 'id_bencana' must be defined and cannot be null.");
-        else
-            url_ += "id_bencana=" + encodeURIComponent("" + id_bencana) + "&";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
@@ -26278,7 +26273,6 @@ export interface IRefBantuanDto {
 
 export class CreateOrEditRefBencanaBwiDto implements ICreateOrEditRefBencanaBwiDto {
     id!: number;
-    id_bencana!: number;
     nilai!: number;
     status_bencana_bwi!: number;
     tarikh_cipta!: moment.Moment;
@@ -26296,7 +26290,6 @@ export class CreateOrEditRefBencanaBwiDto implements ICreateOrEditRefBencanaBwiD
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
-            this.id_bencana = _data["id_bencana"];
             this.nilai = _data["nilai"];
             this.status_bencana_bwi = _data["status_bencana_bwi"];
             this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
@@ -26314,7 +26307,6 @@ export class CreateOrEditRefBencanaBwiDto implements ICreateOrEditRefBencanaBwiD
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        data["id_bencana"] = this.id_bencana;
         data["nilai"] = this.nilai;
         data["status_bencana_bwi"] = this.status_bencana_bwi;
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
@@ -26325,7 +26317,6 @@ export class CreateOrEditRefBencanaBwiDto implements ICreateOrEditRefBencanaBwiD
 
 export interface ICreateOrEditRefBencanaBwiDto {
     id: number;
-    id_bencana: number;
     nilai: number;
     status_bencana_bwi: number;
     tarikh_cipta: moment.Moment;
@@ -26418,7 +26409,6 @@ export interface IGetRefBencanaBwiForListDto {
 
 export class GetRefBencanaBwiForViewDto implements IGetRefBencanaBwiForViewDto {
     id!: number;
-    id_bencana!: number;
     nilai!: number;
     status_bencana_bwi!: number;
     tarikh_cipta!: moment.Moment;
@@ -26436,7 +26426,6 @@ export class GetRefBencanaBwiForViewDto implements IGetRefBencanaBwiForViewDto {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
-            this.id_bencana = _data["id_bencana"];
             this.nilai = _data["nilai"];
             this.status_bencana_bwi = _data["status_bencana_bwi"];
             this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
@@ -26454,7 +26443,6 @@ export class GetRefBencanaBwiForViewDto implements IGetRefBencanaBwiForViewDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        data["id_bencana"] = this.id_bencana;
         data["nilai"] = this.nilai;
         data["status_bencana_bwi"] = this.status_bencana_bwi;
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
@@ -26465,7 +26453,6 @@ export class GetRefBencanaBwiForViewDto implements IGetRefBencanaBwiForViewDto {
 
 export interface IGetRefBencanaBwiForViewDto {
     id: number;
-    id_bencana: number;
     nilai: number;
     status_bencana_bwi: number;
     tarikh_cipta: moment.Moment;
@@ -27106,8 +27093,6 @@ export class GetRefBencanaForEditDto implements IGetRefBencanaForEditDto {
     ref_bencana!: CreateOrEditRefBencanaDto;
     /** Id Negeri in array of integer */
     bencanaNegeri!: number[];
-    /** Nilai Bwi in array of integer */
-    bencanaBwi!: number[];
 
     constructor(data?: IGetRefBencanaForEditDto) {
         if (data) {
@@ -27125,11 +27110,6 @@ export class GetRefBencanaForEditDto implements IGetRefBencanaForEditDto {
                 this.bencanaNegeri = [] as any;
                 for (let item of _data["bencanaNegeri"])
                     this.bencanaNegeri!.push(item);
-            }
-            if (Array.isArray(_data["bencanaBwi"])) {
-                this.bencanaBwi = [] as any;
-                for (let item of _data["bencanaBwi"])
-                    this.bencanaBwi!.push(item);
             }
         }
     }
@@ -27149,11 +27129,6 @@ export class GetRefBencanaForEditDto implements IGetRefBencanaForEditDto {
             for (let item of this.bencanaNegeri)
                 data["bencanaNegeri"].push(item);
         }
-        if (Array.isArray(this.bencanaBwi)) {
-            data["bencanaBwi"] = [];
-            for (let item of this.bencanaBwi)
-                data["bencanaBwi"].push(item);
-        }
         return data; 
     }
 }
@@ -27162,8 +27137,6 @@ export interface IGetRefBencanaForEditDto {
     ref_bencana: CreateOrEditRefBencanaDto;
     /** Id Negeri in array of integer */
     bencanaNegeri: number[];
-    /** Nilai Bwi in array of integer */
-    bencanaBwi: number[];
 }
 
 /** RefBencana List in Tabular model */
@@ -27290,8 +27263,6 @@ export class InputCreateBencanaDto implements IInputCreateBencanaDto {
     bencana!: CreateOrEditRefBencanaDto;
     /** Id Negeri in array of integer */
     id_negeri!: number[];
-    /** Id Negeri in array of integer */
-    bwi!: number[];
 
     constructor(data?: IInputCreateBencanaDto) {
         if (data) {
@@ -27309,11 +27280,6 @@ export class InputCreateBencanaDto implements IInputCreateBencanaDto {
                 this.id_negeri = [] as any;
                 for (let item of _data["id_negeri"])
                     this.id_negeri!.push(item);
-            }
-            if (Array.isArray(_data["bwi"])) {
-                this.bwi = [] as any;
-                for (let item of _data["bwi"])
-                    this.bwi!.push(item);
             }
         }
     }
@@ -27333,11 +27299,6 @@ export class InputCreateBencanaDto implements IInputCreateBencanaDto {
             for (let item of this.id_negeri)
                 data["id_negeri"].push(item);
         }
-        if (Array.isArray(this.bwi)) {
-            data["bwi"] = [];
-            for (let item of this.bwi)
-                data["bwi"].push(item);
-        }
         return data; 
     }
 }
@@ -27346,8 +27307,6 @@ export interface IInputCreateBencanaDto {
     bencana: CreateOrEditRefBencanaDto;
     /** Id Negeri in array of integer */
     id_negeri: number[];
-    /** Id Negeri in array of integer */
-    bwi: number[];
 }
 
 export class OutputCreateBencanaDto implements IOutputCreateBencanaDto {
@@ -39322,6 +39281,7 @@ export class GetTabungForEditDto implements IGetTabungForEditDto {
     tabung!: CreateOrEditTabungDto;
     dana_awal!: number;
     dana_tambahan!: number;
+    peruntukan_diambil!: number;
 
     constructor(data?: IGetTabungForEditDto) {
         if (data) {
@@ -39337,6 +39297,7 @@ export class GetTabungForEditDto implements IGetTabungForEditDto {
             this.tabung = _data["tabung"] ? CreateOrEditTabungDto.fromJS(_data["tabung"]) : <any>undefined;
             this.dana_awal = _data["dana_awal"];
             this.dana_tambahan = _data["dana_tambahan"];
+            this.peruntukan_diambil = _data["peruntukan_diambil"];
         }
     }
 
@@ -39352,6 +39313,7 @@ export class GetTabungForEditDto implements IGetTabungForEditDto {
         data["tabung"] = this.tabung ? this.tabung.toJSON() : <any>undefined;
         data["dana_awal"] = this.dana_awal;
         data["dana_tambahan"] = this.dana_tambahan;
+        data["peruntukan_diambil"] = this.peruntukan_diambil;
         return data; 
     }
 }
@@ -39360,6 +39322,7 @@ export interface IGetTabungForEditDto {
     tabung: CreateOrEditTabungDto;
     dana_awal: number;
     dana_tambahan: number;
+    peruntukan_diambil: number;
 }
 
 /** Tabung List in Tabular model */
