@@ -113,27 +113,36 @@
               <div class="col-12">
                 <h6>Negeri Terlibat</h6>
               </div>
-              <div class="col-6" *ngFor="let state of state; let i = index">
-                <div class="col">
-                  <div class="checkbox checkbox-dark pl-2">
-                    <input *ngIf="idBencana"
-                      class="checkbox_animated"
-                      id="negeri-{{ i }}"
-                      type="checkbox"
-                      [value]="state.id"
-                      (change)="pilihNegeri(state.id, $event.target.checked, state.nama_negeri)"
-                      [checked]="checkNegeriExist(state.id)"
-                    />
-                    <input *ngIf="!idBencana"
-                      class="checkbox_animated"
-                      id="negeri-{{ i }}"
-                      type="checkbox"
-                      [value]="state.id"
-                      (change)="pilihNegeri(state.id, $event.target.checked, state.nama_negeri)"
-                    />
-                    <label for="negeri-{{ i }}">{{state.nama_negeri}}</label>
-                  </div>
+              <div class="col-12">
+                <div class="checkbox checkbox-dark pl-2">
+                  <input
+                    class="checkbox_animated"
+                    id="chk-ani"
+                    type="checkbox"
+                    (change)="pilihSemuaNegeri($event.target.checked)"
+                  />
+                  <label for="chk-ani">Pilih Semua Negeri</label>
                 </div>
+              </div>
+              <div class="col-6" *ngFor="let state of state; let i = index">
+                <div class="checkbox checkbox-dark pl-2">
+                  <input *ngIf="idBencana"
+                    class="checkbox_animated"
+                    id="negeri-{{ i }}"
+                    type="checkbox"
+                    [value]="state.id"
+                    (change)="pilihNegeri(state.id, $event.target.checked, state.nama_negeri)"
+                    [checked]="checkNegeriExist(state.id)"
+                  />
+                  <input *ngIf="!idBencana"
+                    class="checkbox_animated"
+                    id="negeri-{{ i }}"
+                    type="checkbox"
+                    [value]="state.id"
+                    (change)="pilihNegeri(state.id, $event.target.checked, state.nama_negeri)"
+                  />
+                  <label for="negeri-{{ i }}">{{state.nama_negeri}}</label>
+                  </div>
               </div>
             </div>
             <hr/>
