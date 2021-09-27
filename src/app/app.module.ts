@@ -27,7 +27,7 @@ import { AppSessionService } from './shared/services/app-session.service';
 import { AppRouteGuard } from './shared/guards/app-route-guard';
 import { AppAuthService } from './shared/services/app-auth-service';
 import { API_BASE_URL } from './shared/proxy/service-proxies';
-import { DatePipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import * as moment from 'moment';
 
 @Injectable()
@@ -112,6 +112,7 @@ export function appInitializerFactory(injector: Injector) {
 		CookieService,
 		AppRouteGuard,
     DatePipe,
+    CurrencyPipe,
 		{ provide: API_BASE_URL, useFactory: getRemoteServiceBaseUrl },
 		{
 			provide: APP_INITIALIZER,
