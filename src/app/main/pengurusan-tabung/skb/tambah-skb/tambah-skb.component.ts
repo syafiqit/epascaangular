@@ -125,6 +125,7 @@ export class TambahSkbComponent implements OnInit {
 		const modalRef = this.modalService.open(TambahBelanjaBulanan, { size: 'md' });
 		modalRef.componentInstance.name = 'add';
     modalRef.componentInstance.kategori = 1;
+    modalRef.componentInstance.jumlah_baki_peruntukan = this.balance_peruntukan;
 
     modalRef.result.then(
 			(response) => {
@@ -147,6 +148,7 @@ export class TambahSkbComponent implements OnInit {
 		modalRef.componentInstance.tahun = tahun;
 		modalRef.componentInstance.bulan = bulan;
 		modalRef.componentInstance.jumlah = jumlah;
+    modalRef.componentInstance.jumlah_baki_peruntukan = this.balance_peruntukan;
 
     modalRef.result.then(
 			(response) => {
@@ -211,6 +213,15 @@ export class TambahSkbComponent implements OnInit {
     this.rows.forEach(e=> {
       this.belanja += parseFloat(e.jumlah);
     })
+  }
+
+  checkBulanan() {
+    if(this.rows.length == 0) {
+      swalError.fire('Tidak Berjaya!', "Maklumat Perbelanjaan Bulanan Wajib Dimasukkan.", 'error');
+    }
+    else {
+      this.save();
+    }
   }
 
 	save() {

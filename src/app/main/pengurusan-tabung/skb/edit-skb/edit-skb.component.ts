@@ -228,6 +228,7 @@ export class EditSkbComponent implements OnInit {
 		modalRef.componentInstance.id = id;
 		modalRef.componentInstance.id_tabung_bayaran_skb = id_tabung_bayaran_skb;
     modalRef.componentInstance.id_tabung = this.edit.tabung_bayaran_skb.id_tabung;
+    modalRef.componentInstance.jumlah_baki_peruntukan = this.edit.tabung_bayaran_skb.jumlah_baki_peruntukan;
     modalRef.result.then(
 			(response) => {
 				if (response) {

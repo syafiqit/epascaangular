@@ -16100,6 +16100,82 @@ export class TabungBayaranSkbServiceProxy {
     }
 
     /**
+     * Get all TabungBayaranSkb
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAllSkbForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungBayaranSkbForViewDto> {
+        let url_ = this.baseUrl + "/api/tabungBayaranSkb/getAllSkbForLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllSkbForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllSkbForLookupTable(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfTabungBayaranSkbForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfTabungBayaranSkbForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllSkbForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfTabungBayaranSkbForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfTabungBayaranSkbForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfTabungBayaranSkbForViewDto>(<any>null);
+    }
+
+    /**
      * Get TabungBayaranSkb by id
      * @param id TabungBayaranSkb Id
      * @return Success
@@ -16651,6 +16727,87 @@ export class TabungBwiBayaranServiceProxy {
     }
 
     protected processGetAllBwiBayaranTerus(response: HttpResponseBase): Observable<PagedResultDtoOfTabungBwiBayaranForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfTabungBwiBayaranForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfTabungBwiBayaranForViewDto>(<any>null);
+    }
+
+    /**
+     * Get all TabungBwiBayaran
+     * @param filter (optional) Filter records with a string
+     * @param filterIdBwi (optional) Filter records with integer
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAllBwiBayaranSkb(filter: string | undefined, filterIdBwi: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungBwiBayaranForViewDto> {
+        let url_ = this.baseUrl + "/api/tabungBwiBayaran/getAllBwiBayaranSkb?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (filterIdBwi === null)
+            throw new Error("The parameter 'filterIdBwi' cannot be null.");
+        else if (filterIdBwi !== undefined)
+            url_ += "filterIdBwi=" + encodeURIComponent("" + filterIdBwi) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllBwiBayaranSkb(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllBwiBayaranSkb(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfTabungBwiBayaranForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfTabungBwiBayaranForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllBwiBayaranSkb(response: HttpResponseBase): Observable<PagedResultDtoOfTabungBwiBayaranForViewDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -36060,6 +36217,7 @@ export interface IGetTabungBayaranSkbForEditDto {
 export class GetTabungBayaranSkbForViewDto implements IGetTabungBayaranSkbForViewDto {
     id!: number;
     no_rujukan_skb!: string;
+    perihal!: string;
     nama_pegawai!: string;
     tarikh_mula!: moment.Moment;
     tarikh_tamat!: moment.Moment;
@@ -36088,6 +36246,7 @@ export class GetTabungBayaranSkbForViewDto implements IGetTabungBayaranSkbForVie
         if (_data) {
             this.id = _data["id"];
             this.no_rujukan_skb = _data["no_rujukan_skb"];
+            this.perihal = _data["perihal"];
             this.nama_pegawai = _data["nama_pegawai"];
             this.tarikh_mula = _data["tarikh_mula"] ? moment(_data["tarikh_mula"].toString()) : <any>undefined;
             this.tarikh_tamat = _data["tarikh_tamat"] ? moment(_data["tarikh_tamat"].toString()) : <any>undefined;
@@ -36116,6 +36275,7 @@ export class GetTabungBayaranSkbForViewDto implements IGetTabungBayaranSkbForVie
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["no_rujukan_skb"] = this.no_rujukan_skb;
+        data["perihal"] = this.perihal;
         data["nama_pegawai"] = this.nama_pegawai;
         data["tarikh_mula"] = this.tarikh_mula ? this.tarikh_mula.toISOString() : <any>undefined;
         data["tarikh_tamat"] = this.tarikh_tamat ? this.tarikh_tamat.toISOString() : <any>undefined;
@@ -36137,6 +36297,7 @@ export class GetTabungBayaranSkbForViewDto implements IGetTabungBayaranSkbForVie
 export interface IGetTabungBayaranSkbForViewDto {
     id: number;
     no_rujukan_skb: string;
+    perihal: string;
     nama_pegawai: string;
     tarikh_mula: moment.Moment;
     tarikh_tamat: moment.Moment;
@@ -36980,6 +37141,7 @@ export class GetTabungBwiBayaranForViewDto implements IGetTabungBwiBayaranForVie
     tarikh_hapus!: moment.Moment;
     id_pengguna_hapus!: number;
     no_rujukan_terus!: string;
+    no_rujukan_skb!: string;
     no_rujukan_kelulusan!: string;
     jumlah!: number;
     perihal!: string;
@@ -37005,6 +37167,7 @@ export class GetTabungBwiBayaranForViewDto implements IGetTabungBwiBayaranForVie
             this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
             this.id_pengguna_hapus = _data["id_pengguna_hapus"];
             this.no_rujukan_terus = _data["no_rujukan_terus"];
+            this.no_rujukan_skb = _data["no_rujukan_skb"];
             this.no_rujukan_kelulusan = _data["no_rujukan_kelulusan"];
             this.jumlah = _data["jumlah"];
             this.perihal = _data["perihal"];
@@ -37030,6 +37193,7 @@ export class GetTabungBwiBayaranForViewDto implements IGetTabungBwiBayaranForVie
         data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
         data["id_pengguna_hapus"] = this.id_pengguna_hapus;
         data["no_rujukan_terus"] = this.no_rujukan_terus;
+        data["no_rujukan_skb"] = this.no_rujukan_skb;
         data["no_rujukan_kelulusan"] = this.no_rujukan_kelulusan;
         data["jumlah"] = this.jumlah;
         data["perihal"] = this.perihal;
@@ -37048,6 +37212,7 @@ export interface IGetTabungBwiBayaranForViewDto {
     tarikh_hapus: moment.Moment;
     id_pengguna_hapus: number;
     no_rujukan_terus: string;
+    no_rujukan_skb: string;
     no_rujukan_kelulusan: string;
     jumlah: number;
     perihal: string;

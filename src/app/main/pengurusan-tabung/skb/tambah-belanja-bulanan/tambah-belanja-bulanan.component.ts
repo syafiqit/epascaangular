@@ -1,7 +1,11 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { NgbActiveModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { CreateOrEditTabungBayaranSkbBulananDto, TabungBayaranSkbBulananServiceProxy } from 'src/app/shared/proxy/service-proxies';
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import {
+  CreateOrEditTabungBayaranSkbBulananDto,
+  TabungBayaranSkbBulananServiceProxy,
+  OutputCreateSkbBulananDto
+} from 'src/app/shared/proxy/service-proxies';
+import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 @Component({
 	selector: 'app-tambah-belanja-bulanan',
 	templateUrl: './tambah-belanja-bulanan.component.html',
@@ -18,11 +22,14 @@ export class TambahBelanjaBulanan implements OnInit {
   @Input() kategori;
   @Input() id_tabung_bayaran_skb;
   @Input() id_tabung;
+  @Input() jumlah_baki_peruntukan;
 
 	bulanan: CreateOrEditTabungBayaranSkbBulananDto = new CreateOrEditTabungBayaranSkbBulananDto();
+  output: OutputCreateSkbBulananDto = new OutputCreateSkbBulananDto();
 	saving = false;
   arrayYear:any[];
   jumlah_lama: number;
+  baki_baru: any;
 
   months = [
     { id: 1, bulan: "JANUARI" }, { id: 2, bulan: "FEBRUARI" }, { id: 3, bulan: "MAC" }, { id: 4, bulan: "APRIL" },
@@ -68,10 +75,19 @@ export class TambahBelanjaBulanan implements OnInit {
 
 	save(id, tahun, bulan, jumlah): void {
     if (this.kategori == 1 && !this.idBulan) {
-      this.activeModal.close({tahun: tahun, bulan: bulan, jumlah: jumlah });
+      if(jumlah <= this.jumlah_baki_peruntukan) {
+        this.activeModal.close({tahun: tahun, bulan: bulan, jumlah: jumlah });
+      } else{
+        swalError.fire('Tidak Berjaya!', 'Jumlah Belanja Bulanan Melebihi Jumlah Baki Siling SKB', 'error')
+      }
     }
     else if (this.kategori == 1 && this.idBulan){
-      this.activeModal.close({ id: this.idBulan, tahun: tahun, bulan: bulan, jumlah: jumlah });
+      this.baki_baru = this.jumlah + this.jumlah_baki_peruntukan;
+      if(jumlah <= this.baki_baru) {
+        this.activeModal.close({ id: this.idBulan, tahun: tahun, bulan: bulan, jumlah: jumlah });
+      } else{
+        swalError.fire('Tidak Berjaya!', 'Jumlah Belanja Bulanan Melebihi Jumlah Baki Siling SKB', 'error')
+      }
     }
     else {
       this.saving = true;
@@ -80,16 +96,23 @@ export class TambahBelanjaBulanan implements OnInit {
       this.bulanan.id_tabung = this.id_tabung;
       this.bulanan.jumlah_lama = this.jumlah_lama;
       this._tabungBayaranSkbBulananServiceProxy
-        .createOrEdit(this.bulanan)
-        .pipe()
-        .subscribe(() => {
-          if (this.name == 'add') {
-            swalSuccess.fire('Berjaya!', 'Maklumat Belanja Bulanan SKB Berjaya Ditambah.', 'success');
-          } else if (this.name == 'edit') {
-            swalSuccess.fire('Berjaya!', 'Maklumat Belanja Bulanan SKB Berjaya Dikemaskini.', 'success');
-          }
-          this.activeModal.close(true);
-        });
+      .createOrEdit(this.bulanan)
+      .pipe()
+      .subscribe((result) => {
+        this.output = result;
+        if(this.output.message == "Maklumat SKB Bulanan Berjaya Ditambah!"){
+          swalSuccess.fire('Berjaya!', 'Maklumat Belanja Bulanan Berjaya Dihantar', 'success').then(() => {
+            this.activeModal.close(true);
+          });
+        }
+        else if(this.output.message == "Maklumat SKB Bulanan Berjaya Dikemaskini!"){
+          swalSuccess.fire('Berjaya!', 'Maklumat Belanja Bulanan Berjaya Disimpan', 'success').then(() => {
+            this.activeModal.close(true);
+          });
+        }else{
+          swalError.fire('Tidak Berjaya!', this.output.message, 'error');
+        }
+      });
     }
   }
 }
