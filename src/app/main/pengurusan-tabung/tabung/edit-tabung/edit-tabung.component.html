@@ -120,7 +120,7 @@
             <div class="row no-gutters justify-content-end mb-2">
               <button class="btn btn-primary" type="button" (click)="addTabungPeruntukan(idTabung)">
                 <i class="fa fa-plus mr-2"></i>
-                Tambah
+                <b>Tambah</b>
               </button>
             </div>
 
@@ -249,9 +249,9 @@
 
             <h6>Kelulusan</h6>
             <div class="row no-gutters justify-content-end mb-2">
-              <button class="btn btn-primary" type="button" [routerLink]="'/app/tabung/tambah-kelulusan'" [queryParams]="{idTabung: idTabung}">
+              <button class="btn btn-primary" type="button" [routerLink]="'/app/tabung/tambah-kelulusan'" [queryParams]="{idTabung: idTabung, namaTabung: getTabung.tabung.nama_tabung}">
                 <i class="fa fa-plus mr-2"></i>
-                Tambah
+                <b>Tambah</b>
               </button>
             </div>
 
@@ -376,14 +376,20 @@
                             Tindakan
                           </button>
                           <div ngbDropdownMenu aria-labelledby="action">
-                            <button
+                            <a
                               class="dropdown-item"
                               [routerLink]="'/app/tabung/edit-kelulusan'"
-                              [queryParams]="{idKelulusanTabung: idTabung }"
+                              [queryParams]="{id: records.id}"
                             >
-                              Kemaskini
-                            </button>
-                            <button class="dropdown-item">Peruntukan Diambil</button>
+                              Lihat
+                            </a>
+                            <a
+                              class="dropdown-item"
+                              style="cursor: pointer;"
+                              (click)="peruntukanDiambilModal(records.baki_jumlah_siling)"
+                            >
+                              Peruntukan Diambil
+                            </a>
                             <a
                               class="dropdown-item"
                               [routerLink]="['/app/tabung/skb/tambah']"
