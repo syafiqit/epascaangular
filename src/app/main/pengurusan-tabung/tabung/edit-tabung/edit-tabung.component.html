@@ -29,18 +29,21 @@
 								</div>
 							</div>
 						</div>
-            <hr />
 
             <div class="row">
-              <div class="col form-group">
-              <label><u>Maklumat Semasa (Terbaru)</u></label>
-            </div>
-            </div>
+							<div class="col">
+								<div class="form-group mb-3">
+									<label>Catatan</label>
+									<textarea class="form-control" name="catatan" [(ngModel)]="getTabung.tabung.catatan" rows="3" placeholder="Catatan"></textarea>
+								</div>
+							</div>
+						</div>
 
+            <h6>Maklumat Semasa (Terbaru)</h6>
             <div class="row">
 							<div class="col-lg-4">
 								<div class="form-group">
-									<label>Jumlah Dana Awal:&nbsp;</label>
+									<label>Jumlah Dana Awal:</label><br>
 									<label *ngIf="getTabung.dana_awal">RM {{getTabung.dana_awal | number: '1.2-2'}}</label>
                   <label *ngIf="!getTabung.dana_awal">RM 0.00</label>
 								</div>
@@ -48,7 +51,7 @@
 
               <div class="col-lg-4">
 								<div class="form-group">
-                  <label>Jumlah Dana Tambahan:&nbsp;</label>
+                  <label>Jumlah Dana Tambahan:</label><br>
 									<label *ngIf="getTabung.dana_tambahan">RM {{getTabung.dana_tambahan | number: '1.2-2'}}</label>
                   <label *ngIf="!getTabung.dana_tambahan">RM 0.00</label>
 								</div>
@@ -56,7 +59,7 @@
 
               <div class="col-lg-4">
 								<div class="form-group">
-									<label>Jumlah Baki Bawaan:&nbsp;</label>
+									<label>Jumlah Baki Bawaan:</label><br>
                   <label *ngIf="getTabung.tabung.baki_bawaan">RM {{getTabung.tabung.baki_bawaan | number: '1.2-2'}}</label>
                   <label *ngIf="!getTabung.tabung.baki_bawaan">RM 0.00</label>
 								</div>
@@ -66,7 +69,7 @@
 						<div class="row">
               <div class="col-lg-4">
 								<div class="form-group">
-									<label>Jumlah Perbelanjaan:&nbsp;</label>
+									<label>Jumlah Perbelanjaan:</label><br>
                   <label *ngIf="getTabung.tabung.jumlah_perbelanjaan_semasa">RM {{getTabung.tabung.jumlah_perbelanjaan_semasa | number: '1.2-2'}}</label>
                   <label *ngIf="!getTabung.tabung.jumlah_perbelanjaan_semasa">RM 0.00</label>
 								</div>
@@ -74,7 +77,7 @@
 
               <div class="col-lg-4">
 								<div class="form-group">
-									<label>Jumlah Baki Semasa:&nbsp;</label>
+									<label>Jumlah Baki Semasa:</label><br>
                   <label *ngIf="getTabung.tabung.jumlah_baki_semasa">RM {{getTabung.tabung.jumlah_baki_semasa | number: '1.2-2'}}</label>
                   <label *ngIf="!getTabung.tabung.jumlah_baki_semasa">RM 0.00</label>
 								</div>
@@ -82,7 +85,7 @@
 
 							<div class="col-lg-4">
 								<div class="form-group">
-									<label>Jumlah Keseluruhan:&nbsp;</label>
+									<label>Jumlah Keseluruhan:</label><br>
 									<label *ngIf="getTabung.tabung.jumlah_keseluruhan">RM {{getTabung.tabung.jumlah_keseluruhan | number: '1.2-2'}}</label>
                   <label *ngIf="!getTabung.tabung.jumlah_keseluruhan">RM 0.00</label>
 								</div>
@@ -92,29 +95,20 @@
             <div class="row">
 							<div class="col-lg-4">
 								<div class="form-group">
-									<label>Jumlah Kelulusan:&nbsp;</label>
-                  <label>RM 0.00</label>
+									<label>Jumlah Kelulusan:</label><br>
+                  <label *ngIf="getTabung.tabung.peruntukan">RM {{getTabung.tabung.peruntukan | number: '1.2-2'}}</label>
+                  <label *ngIf="!getTabung.tabung.peruntukan">RM 0.00</label>
 								</div>
 							</div>
 
               <div class="col-lg-4">
 								<div class="form-group">
-									<label>Jumlah Siling Diambil:&nbsp;</label>
-                  <label>RM 0.00</label>
+									<label>Jumlah Peruntukan Diambil:</label><br>
+                  <label *ngIf="getTabung.peruntukan_diambil">RM {{getTabung.peruntukan_diambil | number: '1.2-2'}}</label>
+                  <label *ngIf="!getTabung.peruntukan_diambil">RM 0.00</label>
 								</div>
 							</div>
             </div>
-
-
-						<div class="row">
-							<div class="col">
-								<div class="form-group mb-3">
-									<label>Catatan</label>
-									<textarea class="form-control" name="catatan" [(ngModel)]="getTabung.tabung.catatan" rows="3"></textarea>
-								</div>
-							</div>
-						</div>
-						<hr />
 
 						<h6>Terimaan Tambahan</h6>
             <div class="row no-gutters justify-content-end mb-2">
@@ -151,10 +145,6 @@
                         No. Rujukan
                         <p-sortIcon field="no_rujukan"></p-sortIcon>
                       </th>
-                      <th style="width: 130px" pSortableColumn="id_sumber_peruntukan">
-                        Sumber
-                        <p-sortIcon field="id_sumber_peruntukan"></p-sortIcon>
-                      </th>
                       <th style="width: 130px" pSortableColumn="nama_peruntukan">
                         Nama
                         <p-sortIcon field="nama_peruntukan"></p-sortIcon>
@@ -185,11 +175,6 @@
                         {{record.no_rujukan}}
                       </td>
                       <td style="width: 130px">
-                        <span class="p-column-title">Sumber</span>
-                        <label *ngIf="record.id_sumber_peruntukan">{{getStatus(record.id_sumber_peruntukan)}}</label>
-                        <label *ngIf="!record.id_sumber_peruntukan">-</label>
-                      </td>
-                      <td style="width: 130px">
                         <span class="p-column-title">Nama</span>
                         {{record.nama_peruntukan}}
                       </td>
@@ -209,7 +194,7 @@
                       <td style="width: 160px">
                         <div ngbDropdown class="btn-group" role="group" container="body">
                           <button
-                            *ngIf="record.id_sumber_peruntukan"
+                            *ngIf="record.nama_peruntukan != 'Dana Awal'"
                             type="button"
                             class="btn btn-primary btn-primeng dropdown-toggle"
                             id="action"
