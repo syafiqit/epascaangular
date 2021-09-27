@@ -147,13 +147,6 @@ export class EditTabungComponent implements OnInit {
 		});
 	}
 
-  getStatus(id){
-    this.statuses = this.sumberPeruntukan.map((data) => {
-      return data.nama_sumber_peruntukan;
-    });
-    return this.statuses[id - 1];
-  }
-
 	getSejarahKemaskini(event?: LazyLoadEvent) {
 		if (this.primengTableHelperSejarah.shouldResetPaging(event)) {
 			this.paginator.changePage(0);

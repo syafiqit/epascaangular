@@ -19,6 +19,7 @@
             [(ngModel)]="peruntukan.nama_peruntukan"
             #namaPeruntukan="ngModel"
 				    [ngClass]="{ 'is-invalid': f.submitted && namaPeruntukan.invalid }"
+            placeholder="Nama Peruntukan"
             required
           />
           <div *ngIf="f.submitted && namaPeruntukan.invalid" class="invalid-feedback">
@@ -27,54 +28,38 @@
 				</div>
 			</div>
 
-			<div class="col-lg-6">
-				<div class="form-group">
-					<label>Tarikh</label>
-					<input
-            class="form-control"
-            name="tarikh_peruntukan"
-            type="date"
-            [(ngModel)]="tarikhPeruntukan"
-          />
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-lg-6">
+			<div class="col-lg-6 custom-datepicker custom-datepicker-dropdown">
         <div class="form-group">
-          <label>Sumber Peruntukan</label>
-          <div>
-            <ng-select
-              [items]="sumberPeruntukan"
-              bindLabel="nama_sumber_peruntukan"
-              bindValue="id"
-              placeholder="Sila Pilih"
-              class="js-example-placeholder-multiple"
-              name="sumber_peruntukan"
-              [(ngModel)]="peruntukan.id_sumber_peruntukan"
-            ></ng-select>
+        <label>Tarikh</label>
+        <div class="input-group">
+          <input
+            class="form-control"
+            placeholder="yyyy-mm-dd"
+            name="tarikhBayaran"
+            [(ngModel)]="modelTarikhPeruntukan"
+            ngbDatepicker
+            [footerTemplate]="footerTemplate"
+            #d="ngbDatepicker"
+            style="border: 1px solid #efefef !important;"
+          >
+          <div class="input-group-append">
+            <button class="btn btn-light" (click)="d.toggle()" type="button"><i
+              class="fa fa-calendar"></i></button>
           </div>
         </div>
       </div>
-
-      <div class="col-lg-6">
-				<div class="form-group">
-					<label>Sumber Peruntukan lain</label>
-					<input
-            class="form-control"
-            name="sumber_lain"
-            type="text"
-            [(ngModel)]="peruntukan.sumber_peruntukan_lain"
-          />
-				</div>
-			</div>
+      </div>
+      <ng-template #footerTemplate>
+        <hr class="my-0">
+        <button class="btn btn-primary btn-sm m-2 float-left" (click)="model = today; d.close()">Hari Ini</button>
+        <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Tutup</button>
+      </ng-template>
 		</div>
 
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label>Jumlah(RM)*</label>
+					<label>Jumlah (RM)*</label>
 					<input
             class="form-control"
             name="jumlah"

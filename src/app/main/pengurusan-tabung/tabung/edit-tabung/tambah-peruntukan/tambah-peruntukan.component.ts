@@ -22,6 +22,8 @@ export class TambahPeruntukanComponent implements OnInit {
 	today = this.calendar.getToday();
   tarikhPeruntukan: string;
   sumberPeruntukan: any;
+  modelTarikhPeruntukan: NgbDateStruct;
+  readonly DELIMITER = '-';
 
 	constructor(
     private modalService: NgbModal,
@@ -42,7 +44,9 @@ export class TambahPeruntukanComponent implements OnInit {
 		} else if(this.id){
 			this.tabungPeruntukanServiceProxy.getTabungPeruntukanForEdit(this.idTabungPeruntukan).subscribe((result) => {
 				this.peruntukan = result.tabung_peruntukan;
-        this.tarikhPeruntukan = result.tabung_peruntukan.tarikh_peruntukan.format('yyyy-MM-DD');
+        if(result.tabung_peruntukan.tarikh_peruntukan){
+          this.modelTarikhPeruntukan = this.fromModel(result.tabung_peruntukan.tarikh_peruntukan.format('YYYY-MM-DD'));
+        }
 			});
 		}
 	}
@@ -53,9 +57,28 @@ export class TambahPeruntukanComponent implements OnInit {
     });
   }
 
+  fromModel(value: string | null): NgbDateStruct | null {
+    if (value) {
+      let date = value.split(this.DELIMITER);
+      return {
+        year : parseInt(date[0], 10),
+        month : parseInt(date[1], 10),
+        day : parseInt(date[2], 10)
+      };
+    }
+    return null;
+  }
+
+  toModel(date: NgbDateStruct | null): string | null {
+    return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
+  }
+
   save() {
+    if(this.modelTarikhPeruntukan){
+      this.tarikhPeruntukan = this.toModel(this.modelTarikhPeruntukan);
+      this.peruntukan.tarikh_peruntukan = moment(this.tarikhPeruntukan, "YYYY-MM-DD");
+    }
     this.peruntukan.id_tabung = this.id;
-    this.peruntukan.tarikh_peruntukan = moment(this.tarikhPeruntukan);
     this.tabungPeruntukanServiceProxy.createOrEdit(this.peruntukan).subscribe(()=>{
       swalSuccess.fire('Berjaya', 'Tabung Peruntukan Berjaya Dikemaskini').then(() => {
 				this.activeModal.close(true);
