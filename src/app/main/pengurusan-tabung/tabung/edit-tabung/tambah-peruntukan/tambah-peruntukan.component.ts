@@ -3,7 +3,7 @@ import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-boots
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { CreateOrEditTabungPeruntukanDto, RefSumberPeruntukanServiceProxy, TabungPeruntukanServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import * as moment from 'moment';
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-tambah-peruntukan',
@@ -22,11 +22,12 @@ export class TambahPeruntukanComponent implements OnInit {
 	today = this.calendar.getToday();
   tarikhPeruntukan: string;
   sumberPeruntukan: any;
+  peruntukanLama: number;
+  peruntukanBaru: number;
   modelTarikhPeruntukan: NgbDateStruct;
   readonly DELIMITER = '-';
 
 	constructor(
-    private modalService: NgbModal,
     public activeModal: NgbActiveModal,
     private calendar: NgbCalendar,
     private tabungPeruntukanServiceProxy: TabungPeruntukanServiceProxy,
@@ -44,6 +45,7 @@ export class TambahPeruntukanComponent implements OnInit {
 		} else if(this.id){
 			this.tabungPeruntukanServiceProxy.getTabungPeruntukanForEdit(this.idTabungPeruntukan).subscribe((result) => {
 				this.peruntukan = result.tabung_peruntukan;
+        this.peruntukanLama = result.tabung_peruntukan.jumlah;
         if(result.tabung_peruntukan.tarikh_peruntukan){
           this.modelTarikhPeruntukan = this.fromModel(result.tabung_peruntukan.tarikh_peruntukan.format('YYYY-MM-DD'));
         }
@@ -55,6 +57,10 @@ export class TambahPeruntukanComponent implements OnInit {
     this._refSumberPeruntukanServiceProxy.getRefSumberPeruntukanForDropdown(filter).subscribe((result) => {
       this.sumberPeruntukan = result.items;
     });
+  }
+
+  jumlahPeruntukanBaru(jumlahBaru){
+    this.peruntukanBaru = jumlahBaru;
   }
 
   fromModel(value: string | null): NgbDateStruct | null {
@@ -78,11 +84,18 @@ export class TambahPeruntukanComponent implements OnInit {
       this.tarikhPeruntukan = this.toModel(this.modelTarikhPeruntukan);
       this.peruntukan.tarikh_peruntukan = moment(this.tarikhPeruntukan, "YYYY-MM-DD");
     }
+    this.peruntukan.jumlah_lama = this.peruntukanLama;
+    this.peruntukan.jumlah_baru = this.peruntukanBaru;
     this.peruntukan.id_tabung = this.id;
-    this.tabungPeruntukanServiceProxy.createOrEdit(this.peruntukan).subscribe(()=>{
-      swalSuccess.fire('Berjaya', 'Tabung Peruntukan Berjaya Dikemaskini').then(() => {
-				this.activeModal.close(true);
-      });
+    this.tabungPeruntukanServiceProxy.createOrEdit(this.peruntukan).subscribe((result)=>{
+      if(result.message == "Tambahan Dana Berjaya Dikemaskini"){
+        swalSuccess.fire('Berjaya', result.message).then(() => {
+          this.activeModal.close(true);
+        });
+      }else{
+        swalError.fire('Tidak Berjaya', result.message)
+      }
+
     })
   }
 }

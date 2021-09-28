@@ -65,6 +65,7 @@
             name="jumlah"
             type="text"
             [(ngModel)]="peruntukan.jumlah"
+            (ngModelChange)="jumlahPeruntukanBaru(peruntukan.jumlah)"
             #jumlahPeruntukan="ngModel"
 				    [ngClass]="{ 'is-invalid': f.submitted && jumlahPeruntukan.invalid }"
             placeholder="Jumlah Peruntukan"
