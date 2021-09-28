@@ -86,11 +86,6 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 		this.show();
 		this.getBencana();
 		this.getNegeriList();
-    if(!this.idBencana) {
-      this.getJumlahBwi();
-    }else {
-      this.getJumlahBwiEdit();
-    }
 	}
 
   fromModel(value: string | null): NgbDateStruct | null {
@@ -183,81 +178,7 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 		};
 	}
 
-	getJumlahBwi(event?: LazyLoadEvent) {
-		if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
-
-		this.primengTableHelper.showLoadingIndicator();
-		this.primengTableHelper.totalRecordsCount = this.rows.length;
-		this.primengTableHelper.records = this.rows;
-		this.primengTableHelper.hideLoadingIndicator();
-    for(let i = 0; i < this.rows.length; i++){
-      this.bil = this.bil + 1;
-    }
-	}
-
-	getJumlahBwiEdit(event?: LazyLoadEvent) {
-		if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
-
-		this.primengTableHelper.showLoadingIndicator();
-		this._refBencanaBwiServiceProxy
-			.getAll(
-				this.filter,
-        this.idBencana,
-				this.sorting,
-				this.skipCount,
-				this.resultCount
-			)
-      .pipe(finalize(()=>{
-        this.primengTableHelper.hideLoadingIndicator();
-      }))
-			.subscribe((result) => {
-				this.primengTableHelper.totalRecordsCount = result.total_count;
-				this.primengTableHelper.records = result.items;
-        for(let i = 0; i < result.items.length; i++){
-          this.bil = this.bil + 1;
-        }
-			});
-	}
-
-	addJumlahBwi() {
-		const modalRef = this.modalService.open(TambahJumlahBwiComponent, { size: 'md' });
-		modalRef.componentInstance.name = 'add';
-    modalRef.componentInstance.kategori = 1;
-
-    modalRef.result.then(
-			(response) => {
-				if (response) {
-          this.idJumlahBwi = this.idJumlahBwi + 1;
-          this.rows.push({ id: this.idJumlahBwi, nilai: response.nilai });
-          this.getJumlahBwi();
-				}
-			}
-		);
-	}
-
-	editJumlahBwi(idJumlahBwi, nilai) {
-		const modalRef = this.modalService.open(TambahJumlahBwiComponent, { size: 'md' });
-		modalRef.componentInstance.name = 'edit';
-    modalRef.componentInstance.kategori = 1;
-		modalRef.componentInstance.idJumlahBwi = idJumlahBwi;
-		modalRef.componentInstance.nilai = nilai;
-
-    modalRef.result.then(
-			(response) => {
-				if (response) {
-          let d = this.rows.find(e => e.id == response.id);
-          d.nilai = response.nilai;
-          this.getJumlahBwi();
-				}
-			}
-		);
-	}
+	
 
 	namaBencana(nama_bencana?){
 		this.nama_bencana = nama_bencana;
@@ -265,12 +186,6 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 
 	save(): void {
 		this.saving = true;
-    this.pengurusan_bencana.bwi = [];
-    for(let i = 0; i < this.rows.length; i++){
-      const bwiTotal = new CreateOrEditRefBencanaBwiDto();
-      bwiTotal.nilai = this.rows[i].nilai;
-      this.pengurusan_bencana.bwi.push(bwiTotal.nilai);
-    }
 
 		if(this.model){
 		this.dateDisaster = this.toModel(this.model);

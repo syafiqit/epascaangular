@@ -133,19 +133,23 @@
 										<p-sortIcon field="rujukan_surat"></p-sortIcon>
 									</th>
 									<th style="width: 170px" pSortableColumn="jumlah_siling">
-										Siling Peruntukan
+										Siling Peruntukan (RM)
 										<p-sortIcon field="jumlah_siling"></p-sortIcon>
 									</th>
 									<th style="width: 140px" pSortableColumn="tarikh_mula_kelulusan">
-										Tarikh Mula
+										Tarikh Kelulusan (Mula)
 										<p-sortIcon field="tarikh_mula_kelulusan"></p-sortIcon>
 									</th>
 									<th style="width: 140px" pSortableColumn="tarikh_tamat_kelulusan">
-										Tarikh Tamat
+										Tarikh Kelulusan (Tamat)
 										<p-sortIcon field="tarikh_tamat_kelulusan"></p-sortIcon>
 									</th>
+									<th style="width: 165px" >
+										Jumlah Belanja (RM)
+										<!-- <p-sortIcon field="bel"></p-sortIcon> -->
+									</th>
 									<th style="width: 165px" pSortableColumn="peruntukan">
-										Baki Peruntukan
+										Baki Peruntukan (RM)
 										<p-sortIcon field="peruntukan"></p-sortIcon>
 									</th>
 									<th style="width: 100px" pSortableColumn="status_tabung">
@@ -159,40 +163,44 @@
 								<tr>
 									<td style="width: 150px">
 										<span class="p-column-title">No. Rujukan</span>
-										{{record.no_rujukan_kelulusan}}
+										{{record.kelulusan.no_rujukan_kelulusan}}
 									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">Tabung</span>
-										{{record.nama_tabung}}
+										{{record.kelulusan.nama_tabung}}
 									</td>
 									<td style="width: 140px">
 										<span class="p-column-title">Tarikh Surat</span>
-										{{record.tarikh_surat | date:'dd-MM-yyyy'}}
+										{{record.kelulusan.tarikh_surat | date:'dd-MM-yyyy'}}
 									</td>
 									<td style="width: 150px">
 										<span class="p-column-title">Rujukan Surat</span>
-										{{record.rujukan_surat}}
+										{{record.kelulusan.rujukan_surat}}
 									</td>
 									<td style="width: 170px">
 										<span class="p-column-title">Siling Peruntukan</span>
-										RM {{record.jumlah_siling | number: '1.2-2'}}
+										RM {{record.kelulusan.peruntukan | number: '1.2-2'}}
 									</td>
 									<td style="width: 140px">
 										<span class="p-column-title">Tarikh Mula</span>
-										{{record.tarikh_mula_kelulusan | date:'dd-MM-yyyy'}}
+										{{record.kelulusan.tarikh_mula_kelulusan | date:'dd-MM-yyyy'}}
 									</td>
 									<td style="width: 140px">
 										<span class="p-column-title">Tarikh Tamat</span>
-                    <label *ngIf="record.tarikh_tamat_kelulusan">{{record.tarikh_tamat_kelulusan | date:'dd-MM-yyyy'}}</label>
-                    <label *ngIf="!record.tarikh_tamat_kelulusan">-</label>
+                    <label *ngIf="record.kelulusan.tarikh_tamat_kelulusan">{{record.kelulusan.tarikh_tamat_kelulusan | date:'dd-MM-yyyy'}}</label>
+                    <label *ngIf="!record.kelulusan.tarikh_tamat_kelulusan">-</label>
+									</td>
+									<td style="width: 165px">
+										<span class="p-column-title">jumlah Belanja</span>
+										RM {{record.belanja | number: '1.2-2'}}
 									</td>
 									<td style="width: 165px">
 										<span class="p-column-title">Baki Peruntukan</span>
-										RM {{record.baki_jumlah_siling | number: '1.2-2'}}
+										RM {{record.kelulusan.baki_jumlah_siling | number: '1.2-2'}}
 									</td>
 									<td style="width: 100px">
 										<span class="p-column-title">Status</span>
-										{{record.status_tabung_kelulusan == 1? "Aktif":"Tidak Aktif"}}
+										{{record.kelulusan.status_tabung_kelulusan == 1? "Aktif":"Tidak Aktif"}}
 									</td>
 									<td style="width: 150px">
 										<div ngbDropdown class="btn-group" role="group" container="body">
@@ -210,27 +218,27 @@
 												<button
 													class="dropdown-item"
 													[routerLink]="['/app/tabung/edit-kelulusan']"
-                          [queryParams]="{id: record.id}"
+                          [queryParams]="{id: record.kelulusan.id}"
 												>
 													Lihat
 												</button>
 												<button
 													class="dropdown-item"
-													(click)="peruntukanDiambilModal(record.id, record.id_tabung, record.baki_jumlah_siling)"
+													(click)="peruntukanDiambilModal(record.kelulusan.id, record.kelulusan.id_tabung, record.kelulusan.baki_jumlah_siling)"
 												>
 													Peruntukan Diambil
 												</button>
 												<button
 													class="dropdown-item"
 													[routerLink]="['/app/tabung/skb/senarai']"
-                          [queryParams]="{kelulusan: record.id, no_ruj: record.no_rujukan_kelulusan}"
+                          [queryParams]="{kelulusan: record.kelulusan.id, no_ruj: record.kelulusan.no_rujukan_kelulusan}"
 												>
                           Pembayaran SKB
 												</button>
 												<button
 													class="dropdown-item"
 													[routerLink]="['/app/tabung/bayaran-terus/senarai']"
-                          [queryParams]="{kelulusan: record.id, no_ruj: record.no_rujukan_kelulusan}"
+                          [queryParams]="{kelulusan: record.kelulusan.id, no_ruj: record.kelulusan.no_rujukan_kelulusan}"
 												>
                           Pembayaran Secara Terus
 												</button>

@@ -51,6 +51,8 @@ import { KategoriSkbComponent } from './kelulusan/edit-kelulusan/perbelanjaan/ka
 import { KategoriTerusComponent } from './kelulusan/edit-kelulusan/perbelanjaan/kategori-terus/kategori-terus.component';
 import { BwiSuratKuasaBelanjaComponent } from './wang-ihsan/pilih-pembayaran/bwi-surat-kuasa-belanja/bwi-surat-kuasa-belanja.component';
 import { BwiBayaranSecaraTerusComponent } from './wang-ihsan/pilih-pembayaran/bwi-bayaran-secara-terus/bwi-bayaran-secara-terus.component';
+import { NgbDateCustomParserFormatter } from '@app/shared/date-parser/NgbDateCustomParserFormatter';
+import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
 	imports: [
@@ -107,7 +109,11 @@ import { BwiBayaranSecaraTerusComponent } from './wang-ihsan/pilih-pembayaran/bw
 	KategoriSkbComponent,
 	KategoriTerusComponent,
 	BwiSuratKuasaBelanjaComponent,
-	BwiBayaranSecaraTerusComponent
-	]
+	BwiBayaranSecaraTerusComponent,
+	KategoriTerusComponent
+	],
+	providers: [
+		{provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter}
+	   ]
 })
 export class PengurusanTabungModule {}

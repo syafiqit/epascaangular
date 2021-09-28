@@ -7,6 +7,7 @@ import { Table } from 'primeng/table';
 import { TambahEditJenisBayaranComponent } from './tambah-edit-jenis-bayaran/tambah-edit-jenis-bayaran.component';
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { RefJenisBayaranServiceProxy } from '@app/shared/proxy/service-proxies';
 
 @Component({
   selector: 'app-jenis-bayaran',
@@ -20,7 +21,7 @@ export class JenisBayaranComponent implements OnInit {
 	public isCollapsed = false;
   disasters: any;
 
-  filterText: string;
+  filter: string;
   terms$ = new Subject<string>();
 
 	rows = [
@@ -35,6 +36,7 @@ export class JenisBayaranComponent implements OnInit {
   constructor(
     config: NgbModalConfig,
 		private modalService: NgbModal,
+		private _refJenisBayaranServiceProxy: RefJenisBayaranServiceProxy
   ) { 
     this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
@@ -45,7 +47,7 @@ export class JenisBayaranComponent implements OnInit {
     this.terms$.pipe(
       debounceTime(500), distinctUntilChanged()
     ).subscribe((filterValue: string) =>{
-      this.filterText = filterValue;
+      this.filter = filterValue;
       this.getJenisBayaran();
     });
   }
@@ -55,15 +57,26 @@ export class JenisBayaranComponent implements OnInit {
   }
   
   getJenisBayaran(event?: LazyLoadEvent) {
-		if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
+	if (this.primengTableHelper.shouldResetPaging(event)) {
+		this.paginator.changePage(0);
+		return;
+	}
 
-		this.primengTableHelper.showLoadingIndicator();
-		this.primengTableHelper.totalRecordsCount = this.rows.length;
-		this.primengTableHelper.records = this.rows;
-		this.primengTableHelper.hideLoadingIndicator();
+	this.primengTableHelper.showLoadingIndicator();
+	this._refJenisBayaranServiceProxy
+		.getAll(
+			this.filter,
+			this.primengTableHelper.getSorting(this.dataTable),
+			this.primengTableHelper.getSkipCount(this.paginator, event),
+			this.primengTableHelper.getMaxResultCount(this.paginator, event)
+		)
+  .pipe(finalize(()=>{
+	this.primengTableHelper.hideLoadingIndicator();
+  }))
+		.subscribe((result) => {
+			this.primengTableHelper.totalRecordsCount = result.total_count;
+			this.primengTableHelper.records = result.items;
+		});
 	}
 
 	reloadPage(): void {
