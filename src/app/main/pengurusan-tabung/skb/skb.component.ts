@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { swalError, swalSuccess, swalWarning } from '@app/shared/sweet-alert/swal-constant';
 import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
@@ -7,7 +8,7 @@ import { Table } from 'primeng/table';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
-import { RefAgensiServiceProxy, TabungBayaranSkbServiceProxy, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import { OutputCreateBayaranSkbDto, RefAgensiServiceProxy, TabungBayaranSkbServiceProxy, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
 
 @Component({
 	selector: 'app-skb',
@@ -21,6 +22,7 @@ export class SkbComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 	public isCollapsed = false;
+  output: OutputCreateBayaranSkbDto = new OutputCreateBayaranSkbDto();
 
   terms$ = new Subject<string>();
   idSkb: any;
@@ -106,5 +108,30 @@ export class SkbComponent implements OnInit {
     this.filterTabung = undefined;
 
     this.getSKB();
+  }
+
+  deleteSkb(id){
+		swalWarning.fire({
+			title: 'Anda Pasti?',
+			text: 'Adakah anda pasti ingin maklumat Surat Kuasa Belanja ini?',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			cancelButtonText: 'Tidak',
+			confirmButtonText: 'Ya'
+		}).then((result) => {
+			if (result.value) {
+				this._tabungBayaranSkbServiceProxy.delete(id).subscribe((result)=>{
+          this.output = result;
+          if(this.output.message == "Surat Kuasa Belanja Berjaya Dibuang"){
+            swalSuccess.fire('Berjaya!', 'Surat Kuasa Belanja Dipilih Berjaya Dipadam!').then(()=>{
+              this.getSKB();
+            });
+          }else{
+            swalError.fire('Tidak Berjaya!', this.output.message, 'error');
+          }
+        })
+			}
+		});
   }
 }
