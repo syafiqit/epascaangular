@@ -110,7 +110,7 @@ export class TambahEditBantuanWangIhsanComponent implements OnInit {
     }
 
     getJumlahBwi(idBencana, filter?){
-      this._refBencanaBwiServiceProxy.getRefBencanaBwiForDropdown(idBencana, filter).subscribe((result) => {
+      this._refBencanaBwiServiceProxy.getRefBencanaBwiForDropdown(filter).subscribe((result) => {
         this.jumlahBwi = result.items;
       });
     }

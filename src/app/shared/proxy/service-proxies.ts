@@ -15790,6 +15790,67 @@ export class TabungBayaranSkbBulananServiceProxy {
         }
         return _observableOf<OutputCreateSkbBulananDto>(<any>null);
     }
+
+    /**
+     * delete Bayaran Skb Bulanan
+     * @param id Skb Bulanan Id
+     * @return Success
+     */
+    delete(id: number): Observable<OutputCreateSkbBulananDto> {
+        let url_ = this.baseUrl + "/api/tabungBayaranSkbBulanan/delete?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<OutputCreateSkbBulananDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<OutputCreateSkbBulananDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<OutputCreateSkbBulananDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = OutputCreateSkbBulananDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<OutputCreateSkbBulananDto>(<any>null);
+    }
 }
 
 @Injectable()
@@ -16296,6 +16357,67 @@ export class TabungBayaranSkbServiceProxy {
         }
         return _observableOf<OutputCreateBayaranSkbDto>(<any>null);
     }
+
+    /**
+     * delete Bayaran Skb
+     * @param id Skb Id
+     * @return Success
+     */
+    delete(id: number): Observable<OutputCreateBayaranSkbDto> {
+        let url_ = this.baseUrl + "/api/tabungBayaranSkb/delete?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<OutputCreateBayaranSkbDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<OutputCreateBayaranSkbDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<OutputCreateBayaranSkbDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = OutputCreateBayaranSkbDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<OutputCreateBayaranSkbDto>(<any>null);
+    }
 }
 
 @Injectable()
@@ -16558,6 +16680,67 @@ export class TabungBayaranTerusServiceProxy {
     }
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<OutputCreateBayaranTerusDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = OutputCreateBayaranTerusDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<OutputCreateBayaranTerusDto>(<any>null);
+    }
+
+    /**
+     * delete Bayaran Terus-TabungBayaranTerus
+     * @param id Bayaran Terus Id
+     * @return Success
+     */
+    delete(id: number): Observable<OutputCreateBayaranTerusDto> {
+        let url_ = this.baseUrl + "/api/tabungBayaranTerus/delete?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<OutputCreateBayaranTerusDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<OutputCreateBayaranTerusDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<OutputCreateBayaranTerusDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -18392,6 +18575,67 @@ export class TabungKelulusanServiceProxy {
         }
         return _observableOf<OutputCreateTabungKelulusanDto>(<any>null);
     }
+
+    /**
+     * delete Kelulusan
+     * @param id Kelulusan Id
+     * @return Success
+     */
+    delete(id: number): Observable<OutputCreateTabungKelulusanDto> {
+        let url_ = this.baseUrl + "/api/tabungKelulusan/delete?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<OutputCreateTabungKelulusanDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<OutputCreateTabungKelulusanDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<OutputCreateTabungKelulusanDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = OutputCreateTabungKelulusanDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<OutputCreateTabungKelulusanDto>(<any>null);
+    }
 }
 
 @Injectable()
@@ -18628,7 +18872,7 @@ export class TabungPeruntukanServiceProxy {
      * @param body Create or edit object
      * @return Success
      */
-    createOrEdit(body: CreateOrEditTabungPeruntukanDto): Observable<CreateOrEditTabungPeruntukanDto> {
+    createOrEdit(body: CreateOrEditTabungPeruntukanDto): Observable<OutputCreateEditTabungPeruntukanDto> {
         let url_ = this.baseUrl + "/api/tabungPeruntukan/createOrEdit";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -18651,14 +18895,14 @@ export class TabungPeruntukanServiceProxy {
                 try {
                     return this.processCreateOrEdit(<any>response_);
                 } catch (e) {
-                    return <Observable<CreateOrEditTabungPeruntukanDto>><any>_observableThrow(e);
+                    return <Observable<OutputCreateEditTabungPeruntukanDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<CreateOrEditTabungPeruntukanDto>><any>_observableThrow(response_);
+                return <Observable<OutputCreateEditTabungPeruntukanDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditTabungPeruntukanDto> {
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<OutputCreateEditTabungPeruntukanDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -18669,7 +18913,7 @@ export class TabungPeruntukanServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = CreateOrEditTabungPeruntukanDto.fromJS(resultData200);
+            result200 = OutputCreateEditTabungPeruntukanDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status === 500) {
@@ -18681,7 +18925,68 @@ export class TabungPeruntukanServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<CreateOrEditTabungPeruntukanDto>(<any>null);
+        return _observableOf<OutputCreateEditTabungPeruntukanDto>(<any>null);
+    }
+
+    /**
+     * delete Peruntukan
+     * @param id Peruntukan Id
+     * @return Success
+     */
+    delete(id: number): Observable<OutputCreateEditTabungPeruntukanDto> {
+        let url_ = this.baseUrl + "/api/tabungPeruntukan/delete?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<OutputCreateEditTabungPeruntukanDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<OutputCreateEditTabungPeruntukanDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<OutputCreateEditTabungPeruntukanDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = OutputCreateEditTabungPeruntukanDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<OutputCreateEditTabungPeruntukanDto>(<any>null);
     }
 }
 
@@ -39130,6 +39435,48 @@ export interface IGetBayaranTerusByIdKelulusanDto {
     jumlah: number;
 }
 
+/** Class GetKelulusanAndBelanjaForViewDto */
+export class GetKelulusanAndBelanjaForViewDto implements IGetKelulusanAndBelanjaForViewDto {
+    kelulusan!: GetTabungKelulusanForViewDto;
+    belanja!: number;
+
+    constructor(data?: IGetKelulusanAndBelanjaForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.kelulusan = _data["kelulusan"] ? GetTabungKelulusanForViewDto.fromJS(_data["kelulusan"]) : <any>undefined;
+            this.belanja = _data["belanja"];
+        }
+    }
+
+    static fromJS(data: any): GetKelulusanAndBelanjaForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetKelulusanAndBelanjaForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["kelulusan"] = this.kelulusan ? this.kelulusan.toJSON() : <any>undefined;
+        data["belanja"] = this.belanja;
+        return data; 
+    }
+}
+
+/** Class GetKelulusanAndBelanjaForViewDto */
+export interface IGetKelulusanAndBelanjaForViewDto {
+    kelulusan: GetTabungKelulusanForViewDto;
+    belanja: number;
+}
+
 /** Class GetKelulusanByKategoriBayaranDto */
 export class GetKelulusanByKategoriBayaranDto implements IGetKelulusanByKategoriBayaranDto {
     kategori!: string;
@@ -39559,7 +39906,7 @@ export class PagedResultDtoOfTabungKelulusanForViewDto implements IPagedResultDt
     /** Total Count */
     total_count!: number;
     /** Items in array of object */
-    items!: GetTabungKelulusanForViewDto[];
+    items!: GetKelulusanAndBelanjaForViewDto[];
 
     constructor(data?: IPagedResultDtoOfTabungKelulusanForViewDto) {
         if (data) {
@@ -39576,7 +39923,7 @@ export class PagedResultDtoOfTabungKelulusanForViewDto implements IPagedResultDt
             if (Array.isArray(_data["items"])) {
                 this.items = [] as any;
                 for (let item of _data["items"])
-                    this.items!.push(GetTabungKelulusanForViewDto.fromJS(item));
+                    this.items!.push(GetKelulusanAndBelanjaForViewDto.fromJS(item));
             }
         }
     }
@@ -39605,7 +39952,7 @@ export interface IPagedResultDtoOfTabungKelulusanForViewDto {
     /** Total Count */
     total_count: number;
     /** Items in array of object */
-    items: GetTabungKelulusanForViewDto[];
+    items: GetKelulusanAndBelanjaForViewDto[];
 }
 
 /** Class CreateOrEditTabungPeruntukanDto */
@@ -39619,6 +39966,8 @@ export class CreateOrEditTabungPeruntukanDto implements ICreateOrEditTabungPerun
     sumber_peruntukan_lain!: string;
     jumlah!: number;
     catatan!: string;
+    jumlah_lama!: number;
+    jumlah_baru!: number;
 
     constructor(data?: ICreateOrEditTabungPeruntukanDto) {
         if (data) {
@@ -39640,6 +39989,8 @@ export class CreateOrEditTabungPeruntukanDto implements ICreateOrEditTabungPerun
             this.sumber_peruntukan_lain = _data["sumber_peruntukan_lain"];
             this.jumlah = _data["jumlah"];
             this.catatan = _data["catatan"];
+            this.jumlah_lama = _data["jumlah_lama"];
+            this.jumlah_baru = _data["jumlah_baru"];
         }
     }
 
@@ -39661,6 +40012,8 @@ export class CreateOrEditTabungPeruntukanDto implements ICreateOrEditTabungPerun
         data["sumber_peruntukan_lain"] = this.sumber_peruntukan_lain;
         data["jumlah"] = this.jumlah;
         data["catatan"] = this.catatan;
+        data["jumlah_lama"] = this.jumlah_lama;
+        data["jumlah_baru"] = this.jumlah_baru;
         return data; 
     }
 }
@@ -39676,6 +40029,8 @@ export interface ICreateOrEditTabungPeruntukanDto {
     sumber_peruntukan_lain: string;
     jumlah: number;
     catatan: string;
+    jumlah_lama: number;
+    jumlah_baru: number;
 }
 
 /** Class GetTabungPeruntukanForEditDto */
@@ -39784,6 +40139,44 @@ export interface IGetTabungPeruntukanForViewDto {
     sumber_peruntukan_lain: string;
     jumlah: number;
     catatan: string;
+}
+
+/** Class OutputCreateEditTabungPeruntukanDto */
+export class OutputCreateEditTabungPeruntukanDto implements IOutputCreateEditTabungPeruntukanDto {
+    message!: string;
+
+    constructor(data?: IOutputCreateEditTabungPeruntukanDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.message = _data["message"];
+        }
+    }
+
+    static fromJS(data: any): OutputCreateEditTabungPeruntukanDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new OutputCreateEditTabungPeruntukanDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["message"] = this.message;
+        return data; 
+    }
+}
+
+/** Class OutputCreateEditTabungPeruntukanDto */
+export interface IOutputCreateEditTabungPeruntukanDto {
+    message: string;
 }
 
 /** TabungPeruntukan List in Tabular model */
