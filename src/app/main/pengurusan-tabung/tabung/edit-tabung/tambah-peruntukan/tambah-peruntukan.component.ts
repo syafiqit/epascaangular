@@ -84,18 +84,31 @@ export class TambahPeruntukanComponent implements OnInit {
       this.tarikhPeruntukan = this.toModel(this.modelTarikhPeruntukan);
       this.peruntukan.tarikh_peruntukan = moment(this.tarikhPeruntukan, "YYYY-MM-DD");
     }
-    this.peruntukan.jumlah_lama = this.peruntukanLama;
-    this.peruntukan.jumlah_baru = this.peruntukanBaru;
+    if(this.id && !this.idTabungPeruntukan){
+      this.peruntukan.jumlah_lama = 0;
+      this.peruntukan.jumlah_baru = this.peruntukanBaru;
+    }
+    if(this.id && this.idTabungPeruntukan){
+      this.peruntukan.jumlah_lama = this.peruntukanLama;
+      this.peruntukan.jumlah_baru = this.peruntukanBaru;
+    }
+
     this.peruntukan.id_tabung = this.id;
     this.tabungPeruntukanServiceProxy.createOrEdit(this.peruntukan).subscribe((result)=>{
-      if(result.message == "Tambahan Dana Berjaya Dikemaskini"){
-        swalSuccess.fire('Berjaya', result.message).then(() => {
+      if(this.id && !this.idTabungPeruntukan){
+        swalSuccess.fire('Berjaya', 'Tambahan Dana Berjaya Ditambah').then(() => {
           this.activeModal.close(true);
         });
-      }else{
-        swalError.fire('Tidak Berjaya', result.message)
       }
-
+      else if(this.id && this.idTabungPeruntukan){
+        if(result.message == "Tambahan Dana Berjaya Dikemaskini"){
+          swalSuccess.fire('Berjaya', result.message).then(() => {
+            this.activeModal.close(true);
+          });
+        }else{
+          swalError.fire('Tidak Berjaya', result.message)
+        }
+      }
     })
   }
 }

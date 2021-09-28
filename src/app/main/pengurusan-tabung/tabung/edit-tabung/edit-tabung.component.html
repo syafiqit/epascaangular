@@ -38,8 +38,9 @@
 								</div>
 							</div>
 						</div>
+            <hr>
 
-            <h6>Maklumat Semasa (Terbaru)</h6>
+            <h6>Maklumat Semasa (Terbaru)</h6><br>
             <div class="row">
 							<div class="col-lg-4">
 								<div class="form-group">
@@ -108,7 +109,16 @@
                   <label *ngIf="!getTabung.peruntukan_diambil">RM 0.00</label>
 								</div>
 							</div>
+
+              <div class="col-lg-4">
+								<div class="form-group">
+									<label>Jumlah Tanggungan:</label><br>
+                  <label *ngIf="getTabung.jumlah_tanggungan">RM {{getTabung.jumlah_tanggungan | number: '1.2-2'}}</label>
+                  <label *ngIf="!getTabung.jumlah_tanggungan">RM 0.00</label>
+								</div>
+							</div>
             </div>
+            <br>
 
 						<h6>Terimaan Tambahan</h6>
             <div class="row no-gutters justify-content-end mb-2">
@@ -157,9 +167,9 @@
                         Catatan
                         <p-sortIcon field="catatan"></p-sortIcon>
                       </th>
-                      <th style="width: 170px" pSortableColumn="kemaskini">
+                      <th style="width: 170px" pSortableColumn="nama">
                         Dikemaskini Oleh
-                        <p-sortIcon field="kemaskini"></p-sortIcon>
+                        <p-sortIcon field="nama"></p-sortIcon>
                       </th>
                       <th style="width: 160px">Tindakan</th>
                     </tr>
@@ -189,7 +199,8 @@
                       </td>
                       <td style="width: 170px">
                         <span class="p-column-title">Dikemaskini Oleh</span>
-                        Abu
+                        <label *ngIf="record.nama">{{record.nama}}</label>
+                        <label *ngIf="!record.nama">-</label>
                       </td>
                       <td style="width: 160px">
                         <div ngbDropdown class="btn-group" role="group" container="body">
@@ -264,45 +275,45 @@
                 >
                   <ng-template pTemplate="header">
                     <tr>
-                      <th style="width: 144px" pSortableColumn="no_rujukan">
+                      <th style="width: 144px" pSortableColumn="kelulusan.no_rujukan_kelulusan">
                         No. Rujukan
-                        <p-sortIcon field="no_rujukan"></p-sortIcon>
+                        <p-sortIcon field="kelulusan.no_rujukan_kelulusan"></p-sortIcon>
                       </th>
-                      <th style="width: 130px" pSortableColumn="tabung">
+                      <th style="width: 130px" pSortableColumn="kelulusan.nama_tabung">
                         Tabung
-                        <p-sortIcon field="tabung"></p-sortIcon>
+                        <p-sortIcon field="kelulusan.nama_tabung"></p-sortIcon>
                       </th>
-                      <th style="width: 135px" pSortableColumn="tarikh_surat">
+                      <th style="width: 135px" pSortableColumn="kelulusan.tarikh_surat">
                         Tarikh Surat
-                        <p-sortIcon field="tarikh_surat"></p-sortIcon>
+                        <p-sortIcon field="kelulusan.tarikh_surat"></p-sortIcon>
                       </th>
-                      <th style="width: 145px" pSortableColumn="rujukan_surat">
+                      <th style="width: 145px" pSortableColumn="kelulusan.rujukan_surat">
                         Rujukan Surat
-                        <p-sortIcon field="rujukan_surat"></p-sortIcon>
+                        <p-sortIcon field="kelulusan.rujukan_surat"></p-sortIcon>
                       </th>
-                      <th style="width: 170px" pSortableColumn="siling_peruntukan">
+                      <th style="width: 170px" pSortableColumn="kelulusan.peruntukan">
                         Siling Peruntukan
-                        <p-sortIcon field="siling_peruntukan"></p-sortIcon>
+                        <p-sortIcon field="kelulusan.peruntukan"></p-sortIcon>
                       </th>
-                      <th style="width: 186px" pSortableColumn="tarikh_kelulusan_mula">
+                      <th style="width: 186px" pSortableColumn="kelulusan.tarikh_mula_kelulusan">
                         Tarikh Mula
-                        <p-sortIcon field="tarikh_kelulusan_mula"></p-sortIcon>
+                        <p-sortIcon field="kelulusan.tarikh_mula_kelulusan"></p-sortIcon>
                       </th>
-                      <th style="width: 170px" pSortableColumn="tarikh_kelulusan_tamat">
+                      <th style="width: 170px" pSortableColumn="kelulusan.tarikh_tamat_kelulusan">
                         Tarikh Tamat
-                        <p-sortIcon field="tarikh_kelulusan_tamat"></p-sortIcon>
+                        <p-sortIcon field="kelulusan.tarikh_tamat_kelulusan"></p-sortIcon>
                       </th>
-                      <th style="width: 170px" pSortableColumn="jumlah_belanja">
+                      <th style="width: 170px" pSortableColumn="belanja">
                         Jumlah Belanja
-                        <p-sortIcon field="jumlah_belanja"></p-sortIcon>
+                        <p-sortIcon field="belanja"></p-sortIcon>
                       </th>
-                      <th style="width: 170px" pSortableColumn="baki_peruntukan">
+                      <th style="width: 170px" pSortableColumn="kelulusan.baki_jumlah_siling">
                         Baki Peruntukan
-                        <p-sortIcon field="baki_peruntukan"></p-sortIcon>
+                        <p-sortIcon field="kelulusan.baki_jumlah_siling"></p-sortIcon>
                       </th>
-                      <th style="width: 130px" pSortableColumn="status">
+                      <th style="width: 130px" pSortableColumn="kelulusan.status_tabung">
                         Status
-                        <p-sortIcon field="status"></p-sortIcon>
+                        <p-sortIcon field="kelulusan.status_tabung"></p-sortIcon>
                       </th>
                       <th style="width: 160px">Tindakan</th>
                     </tr>
@@ -311,47 +322,47 @@
                     <tr>
                       <td style="width: 144px">
                         <span class="p-column-title">No. Rujukan</span>
-                        {{records.no_rujukan_kelulusan}}
+                        {{records.kelulusan.no_rujukan_kelulusan}}
                       </td>
                       <td style="width: 130px">
                         <span class="p-column-title">Tabung</span>
-                        {{records.nama_tabung}}
+                        {{records.kelulusan.nama_tabung}}
                       </td>
                       <td style="width: 135px">
                         <span class="p-column-title">Tarikh Surat</span>
-                        {{records.tarikh_surat | date:'dd-MM-yyyy'}}
+                        {{records.kelulusan.tarikh_surat | date:'dd-MM-yyyy'}}
                       </td>
                       <td style="width: 145px">
                         <span class="p-column-title">Rujukan Surat</span>
-                        {{records.rujukan_surat}}
+                        {{records.kelulusan.rujukan_surat}}
                       </td>
                       <td style="width: 170px">
                         <span class="p-column-title">Siling Peruntukan</span>
-                        <label *ngIf="records.peruntukan">{{records.peruntukan | number: '1.2-2'}}</label>
-                        <label *ngIf="!records.peruntukan">RM 0.00</label>
+                        <label *ngIf="records.kelulusan.peruntukan">{{records.kelulusan.peruntukan | number: '1.2-2'}}</label>
+                        <label *ngIf="!records.kelulusan.peruntukan">RM 0.00</label>
                       </td>
                       <td style="width: 186px">
                         <span class="p-column-title">Tarikh Mula</span>
-                        {{records.tarikh_mula_kelulusan | date:'dd-MM-yyyy'}}
+                        {{records.kelulusan.tarikh_mula_kelulusan | date:'dd-MM-yyyy'}}
                       </td>
                       <td style="width: 170px">
                         <span class="p-column-title">Tarikh Tamat</span>
-                        <label *ngIf="records.tarikh_tamat_kelulusan">{{records.tarikh_tamat_kelulusan | date:'dd-MM-yyyy'}}</label>
-                        <label *ngIf="!records.tarikh_tamat_kelulusan">-</label>
+                        <label *ngIf="records.kelulusan.tarikh_tamat_kelulusan">{{records.kelulusan.tarikh_tamat_kelulusan | date:'dd-MM-yyyy'}}</label>
+                        <label *ngIf="!records.kelulusan.tarikh_tamat_kelulusan">-</label>
                       </td>
                       <td style="width: 170px">
                         <span class="p-column-title">Jumlah Belanja</span>
-                        <label *ngIf="records.jumlah_belanja">RM {{records.jumlah_belanja | number: '1.2-2'}}</label>
-                        <label *ngIf="!records.jumlah_belanja">RM 0.00</label>
+                        <label *ngIf="records.belanja">RM {{records.belanja | number: '1.2-2'}}</label>
+                        <label *ngIf="!records.belanja">RM 0.00</label>
                       </td>
                       <td style="width: 170px">
                         <span class="p-column-title">Baki Peruntukan</span>
-                        <label *ngIf="records.baki_jumlah_siling">RM {{records.baki_jumlah_siling | number: '1.2-2'}}</label>
-                        <label *ngIf="!records.baki_jumlah_siling">RM 0.00</label>
+                        <label *ngIf="records.kelulusan.baki_jumlah_siling">RM {{records.kelulusan.baki_jumlah_siling | number: '1.2-2'}}</label>
+                        <label *ngIf="!records.kelulusan.baki_jumlah_siling">RM 0.00</label>
                       </td>
                       <td style="width: 130px">
                         <span class="p-column-title">Status</span>
-                        {{records.status_tabung == 1? "Aktif":"Tidak Aktif"}}
+                        {{records.kelulusan.status_tabung == 1? "Aktif":"Tidak Aktif"}}
                       </td>
                       <td style="width: 160px">
                         <div ngbDropdown class="btn-group" role="group" container="body">
@@ -369,28 +380,28 @@
                             <a
                               class="dropdown-item"
                               [routerLink]="'/app/tabung/edit-kelulusan'"
-                              [queryParams]="{id: records.id}"
+                              [queryParams]="{id: records.kelulusan.id}"
                             >
                               Lihat
                             </a>
                             <a
                               class="dropdown-item"
                               style="cursor: pointer;"
-                              (click)="peruntukanDiambilModal(records.baki_jumlah_siling)"
+                              (click)="peruntukanDiambilModal(records.kelulusan.baki_jumlah_siling)"
                             >
                               Peruntukan Diambil
                             </a>
                             <a
                               class="dropdown-item"
                               [routerLink]="['/app/tabung/skb/tambah']"
-                              [queryParams]="{kelulusan: records.id, no_ruj: records.no_rujukan_kelulusan}"
+                              [queryParams]="{kelulusan: records.kelulusan.id, no_ruj: records.kelulusan.no_rujukan_kelulusan}"
                             >
                               Pembayaran SKB
                             </a>
                             <a
                               class="dropdown-item"
                               [routerLink]="['/app/tabung/bayaran-terus/tambah']"
-                              [queryParams]="{kelulusan: records.id, no_ruj: records.no_rujukan_kelulusan}"
+                              [queryParams]="{kelulusan: records.kelulusan.id, no_ruj: records.kelulusan.no_rujukan_kelulusan}"
                             >
                               Pembayaran Secara Terus
                             </a>
@@ -414,7 +425,7 @@
               </div>
             </div>
 
-						<h6>Sejarah Transaksi</h6>
+						<h6>Sejarah Transaksi</h6><br>
             <div class="row no-gutters align-items-center">
               <div class="primeng-datatable-container">
                 <p-table
