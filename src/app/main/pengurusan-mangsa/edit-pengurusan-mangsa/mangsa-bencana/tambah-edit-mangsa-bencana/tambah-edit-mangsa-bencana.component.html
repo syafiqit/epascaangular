@@ -65,13 +65,7 @@
 						class="js-example-placeholder-multiple"
 						name="id_pindah"
 						[(ngModel)]="addBencana.id_pindah"
-						#pindah="ngModel"
-						[ngClass]="{ 'is-invalid': f.submitted && pindah.invalid }"
-						required
 					></ng-select>
-					<div *ngIf="f.submitted && pindah.invalid" class="invalid-feedback">
-						<div *ngIf="pindah.errors.required">Status Berpindah Wajib Dipilih</div>
-					</div>
 				</div>
 			</div>
 			<div class="col-lg-6">
