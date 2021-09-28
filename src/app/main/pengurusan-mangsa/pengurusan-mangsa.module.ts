@@ -30,6 +30,8 @@ import { TambahEditBantuanRumahComponent } from './edit-pengurusan-mangsa/bantua
 import { TambahEditBantuanWangIhsanComponent } from './edit-pengurusan-mangsa/bantuan-mangsa/bantuan-wang-ihsan/tambah-edit-bantuan-wang-ihsan/tambah-edit-bantuan-wang-ihsan.component';
 import { LookupBencanaComponent } from './edit-pengurusan-mangsa/bantuan-mangsa/lookup-bencana/lookup-bencana.component';
 import { SelectBencanaComponent } from './select-bencana/select-bencana.component';
+import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateCustomParserFormatter } from '@app/shared/date-parser/NgbDateCustomParserFormatter';
 
 @NgModule({
 	imports: [
@@ -66,6 +68,9 @@ import { SelectBencanaComponent } from './select-bencana/select-bencana.componen
 		TambahEditBantuanWangIhsanComponent,
     LookupBencanaComponent,
     SelectBencanaComponent
-	]
+	],
+	providers: [
+		{provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter}
+	   ]
 })
 export class PengurusanMangsaModule {}
