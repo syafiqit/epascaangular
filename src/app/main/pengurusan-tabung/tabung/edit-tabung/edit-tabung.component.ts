@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CreateOrEditTabungDto, GetTabungForEditDto, RefSumberPeruntukanServiceProxy, TabungKelulusanServiceProxy, TabungPeruntukanServiceProxy, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import * as moment from 'moment';
 import { finalize } from 'rxjs/operators';
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { swalError, swalSuccess, swalWarning } from '@shared/sweet-alert/swal-constant';
 import { PeruntukanDiambilComponent } from '../../kelulusan/peruntukan-diambil/peruntukan-diambil.component';
 
 @Component({
@@ -52,13 +52,13 @@ export class EditTabungComponent implements OnInit {
 
   sejarah = [
 		{
-      bil: '1', tarikh_cipta: '01/01/2021', no_rujukan: 'A09219', aktiviti: 'Kelulusan', jumlah: 'RM 100000.00', dikemaskini_oleh: 'Mohd Rahimi'
+      bil: '1', tarikh_cipta: '01/01/2021', no_rujukan: 'A09219', aktiviti: 'Kelulusan', jumlah: 'RM 100,000.00', dikemaskini_oleh: 'Mohd Rahimi'
 		},
     {
-      bil: '2', tarikh_cipta: '01/01/2021', no_rujukan: 'B09281', aktiviti: 'SKB', jumlah: 'RM 100000.00', dikemaskini_oleh: 'Mohd Rahimi'
+      bil: '2', tarikh_cipta: '01/01/2021', no_rujukan: 'B09281', aktiviti: 'SKB', jumlah: 'RM 100,000.00', dikemaskini_oleh: 'Mohd Rahimi'
 		},
     {
-      bil: '3', tarikh_cipta: '01/01/2021', no_rujukan: 'C09237', aktiviti: 'Terus', jumlah: 'RM 100000.00', dikemaskini_oleh: 'Mohd Rahimi'
+      bil: '3', tarikh_cipta: '01/01/2021', no_rujukan: 'C09237', aktiviti: 'Terus', jumlah: 'RM 100,000.00', dikemaskini_oleh: 'Mohd Rahimi'
 		}
 	];
 
@@ -202,10 +202,36 @@ export class EditTabungComponent implements OnInit {
     modalRef.componentInstance.idTabungPeruntukan = id;
     modalRef.result.then((response) => {
 			if (response) {
+        this.show();
 				this.getTabungPeruntukan();
 			}
 		});
 	}
+
+  deleteTabungPeruntukan(id?) {
+    swalWarning.fire({
+      title: 'Anda Pasti?',
+      text: 'Adakah anda pasti ingin padam terimaan tambahan ini?',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Tidak',
+      confirmButtonText: 'Ya'
+    }).then((result) => {
+      if (result.value) {
+        this.tabungPeruntukanServiceProxy.delete(id).subscribe((result) => {
+          if(result.message == "Tambahan Dana Berjaya Dibuang"){
+            swalSuccess.fire('Berjaya!', result.message);
+          }
+          else{
+            swalError.fire('Tidak Berjaya!', result.message);
+          }
+          this.show();
+          this.getTabungPeruntukan();
+        })
+      }
+    });
+  }
 
   peruntukanDiambilModal(baki_jumlah_siling?) {
 		const modalRef = this.modalService.open(PeruntukanDiambilComponent, { size: 'lg' });
