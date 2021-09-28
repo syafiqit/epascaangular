@@ -49,6 +49,8 @@ import { JenisBayaranTerusComponent } from './kelulusan/edit-kelulusan/perbelanj
 import { PeruntukanDiambilListComponent } from './kelulusan/edit-kelulusan/peruntukan-diambil/peruntukan-diambil-list.component';
 import { KategoriSkbComponent } from './kelulusan/edit-kelulusan/perbelanjaan/kategori-skb/kategori-skb.component';
 import { KategoriTerusComponent } from './kelulusan/edit-kelulusan/perbelanjaan/kategori-terus/kategori-terus.component';
+import { NgbDateCustomParserFormatter } from '@app/shared/date-parser/NgbDateCustomParserFormatter';
+import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
 	imports: [
@@ -104,6 +106,9 @@ import { KategoriTerusComponent } from './kelulusan/edit-kelulusan/perbelanjaan/
 	PeruntukanDiambilListComponent,
 	KategoriSkbComponent,
 	KategoriTerusComponent
-	]
+	],
+	providers: [
+		{provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter}
+	   ]
 })
 export class PengurusanTabungModule {}

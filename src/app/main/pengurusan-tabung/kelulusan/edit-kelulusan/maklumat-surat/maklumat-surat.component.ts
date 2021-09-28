@@ -65,10 +65,6 @@ export class MaklumatSuratComponent implements OnInit {
     this.id = this._activatedRoute.snapshot.queryParams['id'];
 		config.backdrop = 'static';
 		config.keyboard = false;
-
-    this._tabungKelulusanServiceProxy.getKategoriTabungByKelulusan(this.id).subscribe((result) =>{
-      this.test = result.items;
-    })
 	}
 
 	ngOnInit(): void {
