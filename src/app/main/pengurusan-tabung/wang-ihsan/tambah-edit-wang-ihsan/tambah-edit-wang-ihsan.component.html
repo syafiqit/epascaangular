@@ -67,7 +67,8 @@
                       </td>
                       <td style="width: 130px">
                         <span class="p-column-title">Perihal</span>
-                        {{record.perihal}}
+                        <label *ngIf="record.perihal">{{record.perihal}}</label>
+								        <label *ngIf="!record.perihal">-</label>
                       </td>
                       <td style="width: 150px">
                         <span class="p-column-title">No. Kelulusan</span>
@@ -92,6 +93,7 @@
                           <div ngbDropdownMenu aria-labelledby="action">
                             <button
                               class="dropdown-item"
+                              (click)="padamPembayaran(record.id)"
                             >
                               Padam
                             </button>

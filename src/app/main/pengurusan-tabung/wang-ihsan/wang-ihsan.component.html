@@ -168,7 +168,8 @@
 									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">Jumlah Bayaran</span>
-                    {{record.jumlah_bayaran_bwi}}
+                    <label *ngIf="record.jumlah_bayaran_bwi">RM {{record.jumlah_bayaran_bwi | number: '1.2-2'}}</label>
+                    <label *ngIf="!record.jumlah_bayaran_bwi">RM 0.00</label>
 									</td>
                   <td style="width: 150px">
 										<div ngbDropdown class="btn-group" role="group" container="body">

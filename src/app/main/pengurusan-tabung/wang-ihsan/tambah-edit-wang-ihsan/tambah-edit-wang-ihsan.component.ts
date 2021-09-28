@@ -19,6 +19,8 @@ import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { fadeVerticalAnimation } from '@app/shared/data/router-animation/fade-vertical-animation';
 import { TambahBantuanComponent } from '../tambah-bantuan/tambah-bantuan.component';
 import { PilihBencanaBwiComponent } from '../pilih-bencana/pilih-bencana-bwi.component';
+import { BwiBayaranSecaraTerusComponent } from '../pilih-pembayaran/bwi-bayaran-secara-terus/bwi-bayaran-secara-terus.component';
+import { BwiSuratKuasaBelanjaComponent } from '../pilih-pembayaran/bwi-surat-kuasa-belanja/bwi-surat-kuasa-belanja.component';
 @Component({
 	selector: 'app-tambah-edit-wang-ihsan',
 	templateUrl: './tambah-edit-wang-ihsan.component.html',
@@ -45,6 +47,7 @@ export class TambahEditWangIhsanComponent implements OnInit {
   tarikh_bencana: string;
   bayaran: number = 0;
   totalBayaran: number = 0;
+  idJenisBayaran: number;
 
   pembayaran = [];
   bantuan = [];
@@ -170,26 +173,76 @@ export class TambahEditWangIhsanComponent implements OnInit {
 	}
 
 	pilihPembayaran() {
-		const modalRef = this.modalService.open(PilihPembayaranComponent, { size: 'lg' });
-		modalRef.componentInstance.name = 'add';
-    modalRef.componentInstance.kategori = 1;
+    if(this.idJenisBayaran == 1){
+      const modalRef = this.modalService.open(BwiSuratKuasaBelanjaComponent, { size: 'lg' });
 
-    modalRef.result.then(
-			(response) => {
-				if (response) {
-          this.pembayaran.push({
-            id: response.id,
-            no_rujukan_bayaran: response.no_rujukan_bayaran,
-            perihal: response.perihal,
-            no_rujukan_kelulusan: response.no_rujukan_kelulusan,
-            jumlah: response.jumlah
-          });
-          this.getPembayaran();
-				}
-			},
-			() => {}
-		);
+      modalRef.result.then(
+        (response) => {
+          if (response) {
+            this.pembayaran.push({
+              id: response.id,
+              no_rujukan_bayaran: response.no_rujukan_bayaran,
+              perihal: response.perihal,
+              no_rujukan_kelulusan: response.no_rujukan_kelulusan,
+              jumlah: response.jumlah,
+            });
+            this.idJenisBayaran = response.idJenisBayaran;
+            this.getPembayaran();
+          }
+        },
+        () => {}
+      );
+    }
+    else if(this.idJenisBayaran == 2){
+      const modalRef = this.modalService.open(BwiBayaranSecaraTerusComponent, { size: 'lg' });
+
+      modalRef.result.then(
+        (response) => {
+          if (response) {
+            this.pembayaran.push({
+              id: response.id,
+              no_rujukan_bayaran: response.no_rujukan_bayaran,
+              perihal: response.perihal,
+              no_rujukan_kelulusan: response.no_rujukan_kelulusan,
+              jumlah: response.jumlah,
+            });
+            this.idJenisBayaran = response.idJenisBayaran;
+            this.getPembayaran();
+          }
+        },
+        () => {}
+      );
+    }else{
+      const modalRef = this.modalService.open(PilihPembayaranComponent, { size: 'md' });
+
+      modalRef.result.then(
+        (response) => {
+          if (response) {
+            this.pembayaran.push({
+              id: response.id,
+              no_rujukan_bayaran: response.no_rujukan_bayaran,
+              perihal: response.perihal,
+              no_rujukan_kelulusan: response.no_rujukan_kelulusan,
+              jumlah: response.jumlah,
+            });
+            this.idJenisBayaran = response.idJenisBayaran;
+            this.getPembayaran();
+          }
+        },
+        () => {}
+      );
+    }
+
 	}
+
+  padamPembayaran(id){
+    let index = this.pembayaran.indexOf(id);
+    this.pembayaran.splice(index, 1);
+    this.primengTableHelper.totalRecordsCount = this.pembayaran.length;
+    if(this.primengTableHelper.totalRecordsCount == 0){
+      this.idJenisBayaran = undefined;
+    }
+  }
 
 	pilihJenisBencana() {
 		const modalRef = this.modalService.open(PilihBencanaBwiComponent, { size: 'lg' });
@@ -238,8 +291,14 @@ export class TambahEditWangIhsanComponent implements OnInit {
 
     for(let i = 0; i < this.pembayaran.length; i++){
       const bayaranBwi = new InputBwiBayaranDto();
-      bayaranBwi.id_terus = this.pembayaran[i].id;
-      this.bwi_bayaran.push(bayaranBwi);
+      if(this.idJenisBayaran == 1){
+        bayaranBwi.id_skb = this.pembayaran[i].id;
+        this.bwi_bayaran.push(bayaranBwi);
+      }
+      else if(this.idJenisBayaran == 2){
+        bayaranBwi.id_terus = this.pembayaran[i].id;
+        this.bwi_bayaran.push(bayaranBwi);
+      }
     }
 
     for(let i = 0; i < this.bantuan.length; i++){

@@ -49,6 +49,8 @@ import { JenisBayaranTerusComponent } from './kelulusan/edit-kelulusan/perbelanj
 import { PeruntukanDiambilListComponent } from './kelulusan/edit-kelulusan/peruntukan-diambil/peruntukan-diambil-list.component';
 import { KategoriSkbComponent } from './kelulusan/edit-kelulusan/perbelanjaan/kategori-skb/kategori-skb.component';
 import { KategoriTerusComponent } from './kelulusan/edit-kelulusan/perbelanjaan/kategori-terus/kategori-terus.component';
+import { BwiSuratKuasaBelanjaComponent } from './wang-ihsan/pilih-pembayaran/bwi-surat-kuasa-belanja/bwi-surat-kuasa-belanja.component';
+import { BwiBayaranSecaraTerusComponent } from './wang-ihsan/pilih-pembayaran/bwi-bayaran-secara-terus/bwi-bayaran-secara-terus.component';
 
 @NgModule({
 	imports: [
@@ -103,7 +105,9 @@ import { KategoriTerusComponent } from './kelulusan/edit-kelulusan/perbelanjaan/
     JenisBayaranTerusComponent,
 	PeruntukanDiambilListComponent,
 	KategoriSkbComponent,
-	KategoriTerusComponent
+	KategoriTerusComponent,
+	BwiSuratKuasaBelanjaComponent,
+	BwiBayaranSecaraTerusComponent
 	]
 })
 export class PengurusanTabungModule {}
