@@ -140,6 +140,7 @@
                     type="checkbox"
                     [value]="state.id"
                     (change)="pilihNegeri(state.id, $event.target.checked, state.nama_negeri)"
+                    [checked]="checkNegeri"
                   />
                   <label for="negeri-{{ i }}">{{state.nama_negeri}}</label>
                   </div>
