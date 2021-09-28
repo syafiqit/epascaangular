@@ -218,27 +218,27 @@
 												<button
 													class="dropdown-item"
 													[routerLink]="['/app/tabung/edit-kelulusan']"
-                          [queryParams]="{id: record.id}"
+                          [queryParams]="{id: record.kelulusan.id}"
 												>
 													Lihat
 												</button>
 												<button
 													class="dropdown-item"
-													(click)="peruntukanDiambilModal(record.id, record.id_tabung, record.baki_jumlah_siling)"
+													(click)="peruntukanDiambilModal(record.kelulusan.id, record.kelulusan.id_tabung, record.kelulusan.baki_jumlah_siling)"
 												>
 													Peruntukan Diambil
 												</button>
 												<button
 													class="dropdown-item"
 													[routerLink]="['/app/tabung/skb/senarai']"
-                          [queryParams]="{kelulusan: record.id, no_ruj: record.no_rujukan_kelulusan}"
+                          [queryParams]="{kelulusan: record.kelulusan.id, no_ruj: record.kelulusan.no_rujukan_kelulusan}"
 												>
                           Pembayaran SKB
 												</button>
 												<button
 													class="dropdown-item"
 													[routerLink]="['/app/tabung/bayaran-terus/senarai']"
-                          [queryParams]="{kelulusan: record.id, no_ruj: record.no_rujukan_kelulusan}"
+                          [queryParams]="{kelulusan: record.kelulusan.id, no_ruj: record.kelulusan.no_rujukan_kelulusan}"
 												>
                           Pembayaran Secara Terus
 												</button>
