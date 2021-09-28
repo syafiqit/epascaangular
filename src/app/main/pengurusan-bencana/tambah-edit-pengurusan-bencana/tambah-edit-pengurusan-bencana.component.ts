@@ -265,12 +265,6 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 
 	save(): void {
 		this.saving = true;
-    this.pengurusan_bencana.bwi = [];
-    for(let i = 0; i < this.rows.length; i++){
-      const bwiTotal = new CreateOrEditRefBencanaBwiDto();
-      bwiTotal.nilai = this.rows[i].nilai;
-      this.pengurusan_bencana.bwi.push(bwiTotal.nilai);
-    }
 
 		if(this.model){
 		this.dateDisaster = this.toModel(this.model);

@@ -5,7 +5,7 @@
 		<span aria-hidden="true">&times;</span>
 	</button>
 </div>
-<form class="form theme-form" name="form">
+<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
 	<div class="modal-body">
 		<div class="row">
 			<div class="col-lg-6">
@@ -15,9 +15,16 @@
 						class="form-control"
 						id="nama_jenis_bayaran"
 						type="text"
-						placeholder="Nama Jeis Bayaran"
+						placeholder="Nama Jenis Bayaran"
 						name="nama_jenis_bayaran"
+						[(ngModel)]="jenis_bayaran.nama_jenis_bayaran"
+						#namaJenisBayaran="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && namaJenisBayaran.invalid }"
 						required
+					/>
+					<div *ngIf="f.submitted && namaJenisBayaran.invalid" class="invalid-feedback">
+						<div *ngIf="namaJenisBayaran.errors.required">Nama Jenis Bayaran Wajib Diisi</div>
+					</div>
 					/>
 				</div>
 			</div>
@@ -26,15 +33,20 @@
 				<div class="form-group">
 					<label>Status</label>
 					<select
-						id="status"
 						class="form-control digits"
-						name="dana.status_sumber_dana"
+						name="status_bantuan"
+						[(ngModel)]="jenis_bayaran.status_jenis_bayaran"
+						#status="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
 						required
 					>
 						<option selected disabled [value]="undefined">Sila Pilih</option>
 						<option [value]="1">Aktif</option>
 						<option [value]="0">Tidak Aktif</option>
 					</select>
+					<div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
+						<div *ngIf="status.errors.required">Status Wajib Dipilih</div>
+					</div>
 				</div>
 			</div>
 		</div>
