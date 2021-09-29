@@ -7,6 +7,7 @@ import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { TabungBayaranTerusServiceProxy, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import { Subject } from 'rxjs';
+import { swalError, swalSuccess, swalWarning } from '@app/shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-bayaran-secara-terus',
@@ -68,6 +69,30 @@ export class BayaranSecaraTerusComponent implements OnInit {
 				this.primengTableHelper.records = result.items;
 			});
 	}
+
+  padamBayaranTerus(id?) {
+    swalWarning.fire({
+      title: 'Anda Pasti?',
+      text: 'Adakah anda pasti ingin padam pembayaran secara terus ini?',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Tidak',
+      confirmButtonText: 'Ya'
+    }).then((result) => {
+      if (result.value) {
+        this._tabungBayaranTerusServiceProxy.delete(id).subscribe((result) => {
+          if(result.message == "Bayaran Terus Berjaya Dibuang"){
+            swalSuccess.fire('Berjaya!', result.message);
+          }
+          else{
+            swalError.fire('Tidak Berjaya!', result.message);
+          }
+          this.getBayaranTerus();
+        })
+      }
+    });
+  }
 
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());

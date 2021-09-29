@@ -16935,6 +16935,727 @@ export class TabungBayaranTerusServiceProxy {
 }
 
 @Injectable()
+export class TabungBayaranWaranBulananServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Get all TabungBayaranWaranBulanan
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungBayaranWaranBulananForViewDto> {
+        let url_ = this.baseUrl + "/api/tabungBayaranWaranBulanan/getAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfTabungBayaranWaranBulananForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfTabungBayaranWaranBulananForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfTabungBayaranWaranBulananForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfTabungBayaranWaranBulananForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfTabungBayaranWaranBulananForViewDto>(<any>null);
+    }
+
+    /**
+     * Get all TabungBayaranWaranBulanan by IdBayaranWaran
+     * @param filter (optional) Filter records with a string
+     * @param filterWaran (optional) Filter Id Waran records with a integer
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAllBulananbyIdWaran(filter: string | undefined, filterWaran: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungBayaranWaranBulananForViewDto> {
+        let url_ = this.baseUrl + "/api/tabungBayaranWaranBulanan/getAllBulananbyIdWaran?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (filterWaran === null)
+            throw new Error("The parameter 'filterWaran' cannot be null.");
+        else if (filterWaran !== undefined)
+            url_ += "filterWaran=" + encodeURIComponent("" + filterWaran) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllBulananbyIdWaran(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllBulananbyIdWaran(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfTabungBayaranWaranBulananForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfTabungBayaranWaranBulananForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllBulananbyIdWaran(response: HttpResponseBase): Observable<PagedResultDtoOfTabungBayaranWaranBulananForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfTabungBayaranWaranBulananForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfTabungBayaranWaranBulananForViewDto>(<any>null);
+    }
+
+    /**
+     * Get TabungBayaranWaranBulanan by id
+     * @param id TabungBayaranWaranBulanan Id
+     * @return Success
+     */
+    getTabungBayaranWaranBulananForEdit(id: number): Observable<GetTabungBayaranWaranBulananForEditDto> {
+        let url_ = this.baseUrl + "/api/tabungBayaranWaranBulanan/getTabungBayaranWaranBulananForEdit?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTabungBayaranWaranBulananForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTabungBayaranWaranBulananForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetTabungBayaranWaranBulananForEditDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetTabungBayaranWaranBulananForEditDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTabungBayaranWaranBulananForEdit(response: HttpResponseBase): Observable<GetTabungBayaranWaranBulananForEditDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetTabungBayaranWaranBulananForEditDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetTabungBayaranWaranBulananForEditDto>(<any>null);
+    }
+
+    /**
+     * Create or edit TabungBayaranWaranBulanan
+     * @param body Create or edit object
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditTabungBayaranWaranBulananDto): Observable<OutputCreateWaranBulananDto> {
+        let url_ = this.baseUrl + "/api/tabungBayaranWaranBulanan/createOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<OutputCreateWaranBulananDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<OutputCreateWaranBulananDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<OutputCreateWaranBulananDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = OutputCreateWaranBulananDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<OutputCreateWaranBulananDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class TabungBayaranWaranStatusServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Get all TabungBayaranWaranStatus
+     * @param filter (optional) Filter records with a string
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungBayaranWaranStatusForViewDto> {
+        let url_ = this.baseUrl + "/api/tabungBayaranWaranStatus/getAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfTabungBayaranWaranStatusForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfTabungBayaranWaranStatusForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfTabungBayaranWaranStatusForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfTabungBayaranWaranStatusForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfTabungBayaranWaranStatusForViewDto>(<any>null);
+    }
+
+    /**
+     * Get TabungBayaranWaranStatus by id
+     * @param id TabungBayaranWaranStatus Id
+     * @return Success
+     */
+    getTabungKelulusanAmbilanForEdit(id: number): Observable<GetTabungBayaranWaranStatusForEditDto> {
+        let url_ = this.baseUrl + "/api/tabungBayaranWaranStatus/getTabungKelulusanAmbilanForEdit?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTabungKelulusanAmbilanForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTabungKelulusanAmbilanForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetTabungBayaranWaranStatusForEditDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetTabungBayaranWaranStatusForEditDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTabungKelulusanAmbilanForEdit(response: HttpResponseBase): Observable<GetTabungBayaranWaranStatusForEditDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetTabungBayaranWaranStatusForEditDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetTabungBayaranWaranStatusForEditDto>(<any>null);
+    }
+
+    /**
+     * Create or edit TabungBayaranWaranStatus
+     * @param body Create or edit object
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditTabungBayaranWaranStatusDto): Observable<CreateOrEditTabungBayaranWaranStatusDto> {
+        let url_ = this.baseUrl + "/api/tabungBayaranWaranStatus/createOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<CreateOrEditTabungBayaranWaranStatusDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CreateOrEditTabungBayaranWaranStatusDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditTabungBayaranWaranStatusDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CreateOrEditTabungBayaranWaranStatusDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<CreateOrEditTabungBayaranWaranStatusDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class TabungBayaranWaranServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * Get all TabungBayaranWaran
+     * @param filter (optional) Filter records with a string
+     * @param filterAgensi (optional) Filter records with a integer
+     * @param filterTabung (optional) Filter records with a integer
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getAll(filter: string | undefined, filterAgensi: number | undefined, filterTabung: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungBayaranWaranForViewDto> {
+        let url_ = this.baseUrl + "/api/tabungBayaranWaran/getAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (filterAgensi === null)
+            throw new Error("The parameter 'filterAgensi' cannot be null.");
+        else if (filterAgensi !== undefined)
+            url_ += "filterAgensi=" + encodeURIComponent("" + filterAgensi) + "&";
+        if (filterTabung === null)
+            throw new Error("The parameter 'filterTabung' cannot be null.");
+        else if (filterTabung !== undefined)
+            url_ += "filterTabung=" + encodeURIComponent("" + filterTabung) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfTabungBayaranWaranForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfTabungBayaranWaranForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfTabungBayaranWaranForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfTabungBayaranWaranForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfTabungBayaranWaranForViewDto>(<any>null);
+    }
+
+    /**
+     * Get TabungBayaranWaran by id
+     * @param id TabungBayaranWaran Id
+     * @return Success
+     */
+    getTabungBayaranWaranForEdit(id: number): Observable<GetTabungBayaranWaranForEditDto> {
+        let url_ = this.baseUrl + "/api/tabungBayaranWaran/getTabungBayaranWaranForEdit?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTabungBayaranWaranForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTabungBayaranWaranForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetTabungBayaranWaranForEditDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetTabungBayaranWaranForEditDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTabungBayaranWaranForEdit(response: HttpResponseBase): Observable<GetTabungBayaranWaranForEditDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetTabungBayaranWaranForEditDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetTabungBayaranWaranForEditDto>(<any>null);
+    }
+
+    /**
+     * Create or edit TabungBayaranWaran
+     * @param body Create or edit object
+     * @return Success
+     */
+    createOrEdit(body: InputCreateBayaranWaranDto): Observable<OutputCreateBayaranWaranDto> {
+        let url_ = this.baseUrl + "/api/tabungBayaranWaran/createOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<OutputCreateBayaranWaranDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<OutputCreateBayaranWaranDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<OutputCreateBayaranWaranDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = OutputCreateBayaranWaranDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<OutputCreateBayaranWaranDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class TabungBwiBayaranServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -36667,6 +37388,8 @@ export interface IPagedResultDtoOfTabungBayaranSkbStatusForViewDto {
 export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayaranSkbDto {
     id!: number;
     no_rujukan_skb!: string;
+    rujukan_surat_skb!: string;
+    tarikh_surat_skb!: moment.Moment;
     id_tabung_kelulusan!: number;
     nama_pegawai!: string;
     id_agensi!: number;
@@ -36711,6 +37434,8 @@ export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayar
         if (_data) {
             this.id = _data["id"];
             this.no_rujukan_skb = _data["no_rujukan_skb"];
+            this.rujukan_surat_skb = _data["rujukan_surat_skb"];
+            this.tarikh_surat_skb = _data["tarikh_surat_skb"] ? moment(_data["tarikh_surat_skb"].toString()) : <any>undefined;
             this.id_tabung_kelulusan = _data["id_tabung_kelulusan"];
             this.nama_pegawai = _data["nama_pegawai"];
             this.id_agensi = _data["id_agensi"];
@@ -36755,6 +37480,8 @@ export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayar
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["no_rujukan_skb"] = this.no_rujukan_skb;
+        data["rujukan_surat_skb"] = this.rujukan_surat_skb;
+        data["tarikh_surat_skb"] = this.tarikh_surat_skb ? this.tarikh_surat_skb.toISOString() : <any>undefined;
         data["id_tabung_kelulusan"] = this.id_tabung_kelulusan;
         data["nama_pegawai"] = this.nama_pegawai;
         data["id_agensi"] = this.id_agensi;
@@ -36792,6 +37519,8 @@ export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayar
 export interface ICreateOrEditTabungBayaranSkbDto {
     id: number;
     no_rujukan_skb: string;
+    rujukan_surat_skb: string;
+    tarikh_surat_skb: moment.Moment;
     id_tabung_kelulusan: number;
     nama_pegawai: string;
     id_agensi: number;
@@ -37714,6 +38443,994 @@ export interface IPagedResultDtoOfTabungBayaranTerusForViewDto {
     total_count: number;
     /** Items in array of object */
     items: GetTabungBayaranTerusForViewDto[];
+}
+
+export class CreateOrEditTabungBayaranWaranBulananDto implements ICreateOrEditTabungBayaranWaranBulananDto {
+    id!: number;
+    id_tabung_bayaran_waran!: number;
+    id_tabung!: number;
+    bulan!: string;
+    tahun!: number;
+    jumlah!: number;
+    jumlah_lama!: number;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+
+    constructor(data?: ICreateOrEditTabungBayaranWaranBulananDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_tabung_bayaran_waran = _data["id_tabung_bayaran_waran"];
+            this.id_tabung = _data["id_tabung"];
+            this.bulan = _data["bulan"];
+            this.tahun = _data["tahun"];
+            this.jumlah = _data["jumlah"];
+            this.jumlah_lama = _data["jumlah_lama"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditTabungBayaranWaranBulananDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditTabungBayaranWaranBulananDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_tabung_bayaran_waran"] = this.id_tabung_bayaran_waran;
+        data["id_tabung"] = this.id_tabung;
+        data["bulan"] = this.bulan;
+        data["tahun"] = this.tahun;
+        data["jumlah"] = this.jumlah;
+        data["jumlah_lama"] = this.jumlah_lama;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditTabungBayaranWaranBulananDto {
+    id: number;
+    id_tabung_bayaran_waran: number;
+    id_tabung: number;
+    bulan: string;
+    tahun: number;
+    jumlah: number;
+    jumlah_lama: number;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+}
+
+export class GetTabungBayaranWaranBulananForEditDto implements IGetTabungBayaranWaranBulananForEditDto {
+    tabung_bayaran_waran_bulanan!: CreateOrEditTabungBayaranWaranBulananDto;
+
+    constructor(data?: IGetTabungBayaranWaranBulananForEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.tabung_bayaran_waran_bulanan = _data["tabung_bayaran_waran_bulanan"] ? CreateOrEditTabungBayaranWaranBulananDto.fromJS(_data["tabung_bayaran_waran_bulanan"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetTabungBayaranWaranBulananForEditDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTabungBayaranWaranBulananForEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["tabung_bayaran_waran_bulanan"] = this.tabung_bayaran_waran_bulanan ? this.tabung_bayaran_waran_bulanan.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetTabungBayaranWaranBulananForEditDto {
+    tabung_bayaran_waran_bulanan: CreateOrEditTabungBayaranWaranBulananDto;
+}
+
+export class GetTabungBayaranWaranBulananForViewDto implements IGetTabungBayaranWaranBulananForViewDto {
+    id!: number;
+    id_tabung_bayaran_waran!: number;
+    bulan!: string;
+    tahun!: string;
+    jumlah!: string;
+
+    constructor(data?: IGetTabungBayaranWaranBulananForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_tabung_bayaran_waran = _data["id_tabung_bayaran_waran"];
+            this.bulan = _data["bulan"];
+            this.tahun = _data["tahun"];
+            this.jumlah = _data["jumlah"];
+        }
+    }
+
+    static fromJS(data: any): GetTabungBayaranWaranBulananForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTabungBayaranWaranBulananForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_tabung_bayaran_waran"] = this.id_tabung_bayaran_waran;
+        data["bulan"] = this.bulan;
+        data["tahun"] = this.tahun;
+        data["jumlah"] = this.jumlah;
+        return data; 
+    }
+}
+
+export interface IGetTabungBayaranWaranBulananForViewDto {
+    id: number;
+    id_tabung_bayaran_waran: number;
+    bulan: string;
+    tahun: string;
+    jumlah: string;
+}
+
+export class OutputCreateWaranBulananDto implements IOutputCreateWaranBulananDto {
+    message!: string;
+
+    constructor(data?: IOutputCreateWaranBulananDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.message = _data["message"];
+        }
+    }
+
+    static fromJS(data: any): OutputCreateWaranBulananDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new OutputCreateWaranBulananDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["message"] = this.message;
+        return data; 
+    }
+}
+
+export interface IOutputCreateWaranBulananDto {
+    message: string;
+}
+
+/** TabungBayaranWaranBulanan List in Tabular model */
+export class PagedResultDtoOfTabungBayaranWaranBulananForViewDto implements IPagedResultDtoOfTabungBayaranWaranBulananForViewDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetTabungBayaranWaranBulananForViewDto[];
+
+    constructor(data?: IPagedResultDtoOfTabungBayaranWaranBulananForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetTabungBayaranWaranBulananForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfTabungBayaranWaranBulananForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfTabungBayaranWaranBulananForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** TabungBayaranWaranBulanan List in Tabular model */
+export interface IPagedResultDtoOfTabungBayaranWaranBulananForViewDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetTabungBayaranWaranBulananForViewDto[];
+}
+
+export class CreateOrEditTabungBayaranWaranStatusDto implements ICreateOrEditTabungBayaranWaranStatusDto {
+    id!: number;
+    id_tabung_bayaran_waran!: number;
+    id_status_waran!: number;
+    catatan!: string;
+    tarikh_cipta!: moment.Moment;
+    id_pengguna_cipta!: number;
+
+    constructor(data?: ICreateOrEditTabungBayaranWaranStatusDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_tabung_bayaran_waran = _data["id_tabung_bayaran_waran"];
+            this.id_status_waran = _data["id_status_waran"];
+            this.catatan = _data["catatan"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditTabungBayaranWaranStatusDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditTabungBayaranWaranStatusDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_tabung_bayaran_waran"] = this.id_tabung_bayaran_waran;
+        data["id_status_waran"] = this.id_status_waran;
+        data["catatan"] = this.catatan;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditTabungBayaranWaranStatusDto {
+    id: number;
+    id_tabung_bayaran_waran: number;
+    id_status_waran: number;
+    catatan: string;
+    tarikh_cipta: moment.Moment;
+    id_pengguna_cipta: number;
+}
+
+export class GetTabungBayaranWaranStatusForEditDto implements IGetTabungBayaranWaranStatusForEditDto {
+    tabungBayaranWaranStatus!: CreateOrEditTabungBayaranWaranStatusDto;
+
+    constructor(data?: IGetTabungBayaranWaranStatusForEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.tabungBayaranWaranStatus = _data["tabungBayaranWaranStatus"] ? CreateOrEditTabungBayaranWaranStatusDto.fromJS(_data["tabungBayaranWaranStatus"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetTabungBayaranWaranStatusForEditDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTabungBayaranWaranStatusForEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["tabungBayaranWaranStatus"] = this.tabungBayaranWaranStatus ? this.tabungBayaranWaranStatus.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetTabungBayaranWaranStatusForEditDto {
+    tabungBayaranWaranStatus: CreateOrEditTabungBayaranWaranStatusDto;
+}
+
+export class GetTabungBayaranWaranStatusForViewDto implements IGetTabungBayaranWaranStatusForViewDto {
+    id!: number;
+    id_tabung_bayaran_waran!: number;
+    id_status_waran!: number;
+    catatan!: string;
+    tarikh_cipta!: moment.Moment;
+    id_pengguna_cipta!: number;
+
+    constructor(data?: IGetTabungBayaranWaranStatusForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.id_tabung_bayaran_waran = _data["id_tabung_bayaran_waran"];
+            this.id_status_waran = _data["id_status_waran"];
+            this.catatan = _data["catatan"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+        }
+    }
+
+    static fromJS(data: any): GetTabungBayaranWaranStatusForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTabungBayaranWaranStatusForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["id_tabung_bayaran_waran"] = this.id_tabung_bayaran_waran;
+        data["id_status_waran"] = this.id_status_waran;
+        data["catatan"] = this.catatan;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        return data; 
+    }
+}
+
+export interface IGetTabungBayaranWaranStatusForViewDto {
+    id: number;
+    id_tabung_bayaran_waran: number;
+    id_status_waran: number;
+    catatan: string;
+    tarikh_cipta: moment.Moment;
+    id_pengguna_cipta: number;
+}
+
+/** TabungBayaranWaranStatus List in Tabular model */
+export class PagedResultDtoOfTabungBayaranWaranStatusForViewDto implements IPagedResultDtoOfTabungBayaranWaranStatusForViewDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetTabungBayaranWaranStatusForViewDto[];
+
+    constructor(data?: IPagedResultDtoOfTabungBayaranWaranStatusForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetTabungBayaranWaranStatusForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfTabungBayaranWaranStatusForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfTabungBayaranWaranStatusForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** TabungBayaranWaranStatus List in Tabular model */
+export interface IPagedResultDtoOfTabungBayaranWaranStatusForViewDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetTabungBayaranWaranStatusForViewDto[];
+}
+
+export class CreateOrEditTabungBayaranWaranDto implements ICreateOrEditTabungBayaranWaranDto {
+    id!: number;
+    no_rujukan_waran!: string;
+    rujukan_surat_waran!: string;
+    tarikh_surat_waran!: moment.Moment;
+    id_tabung_kelulusan!: number;
+    nama_pegawai!: string;
+    id_agensi!: number;
+    perihal!: string;
+    tarikh_mula!: moment.Moment;
+    tarikh_tamat!: moment.Moment;
+    jumlah_siling_peruntukan!: number;
+    jumlah_baki_peruntukan!: number;
+    id_pengguna_cipta!: number;
+    tarikh_cipta!: moment.Moment;
+    id_pengguna_kemaskini!: number;
+    tarikh_kemaskini!: moment.Moment;
+    hapus!: boolean;
+    id_pengguna_hapus!: number;
+    tarikh_hapus!: moment.Moment;
+    sebab_hapus!: string;
+    id_tabung!: number;
+    id_jenis_bayaran!: number;
+    id_kategori_bayaran!: number;
+    id_tabung_bayaran_waran_status!: number;
+    id_bencana!: number;
+    no_rujukan_kelulusan!: string;
+    nama_tabung!: string;
+    nama_bencana!: string;
+    tarikh_bencana!: moment.Moment;
+    nama_jenis_bayaran!: string;
+    nama_kategori_bayaran!: string;
+    nama_waran_status!: string;
+    id_status_waran!: number;
+    catatan!: string;
+
+    constructor(data?: ICreateOrEditTabungBayaranWaranDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.no_rujukan_waran = _data["no_rujukan_waran"];
+            this.rujukan_surat_waran = _data["rujukan_surat_waran"];
+            this.tarikh_surat_waran = _data["tarikh_surat_waran"] ? moment(_data["tarikh_surat_waran"].toString()) : <any>undefined;
+            this.id_tabung_kelulusan = _data["id_tabung_kelulusan"];
+            this.nama_pegawai = _data["nama_pegawai"];
+            this.id_agensi = _data["id_agensi"];
+            this.perihal = _data["perihal"];
+            this.tarikh_mula = _data["tarikh_mula"] ? moment(_data["tarikh_mula"].toString()) : <any>undefined;
+            this.tarikh_tamat = _data["tarikh_tamat"] ? moment(_data["tarikh_tamat"].toString()) : <any>undefined;
+            this.jumlah_siling_peruntukan = _data["jumlah_siling_peruntukan"];
+            this.jumlah_baki_peruntukan = _data["jumlah_baki_peruntukan"];
+            this.id_pengguna_cipta = _data["id_pengguna_cipta"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
+            this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
+            this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
+            this.hapus = _data["hapus"];
+            this.id_pengguna_hapus = _data["id_pengguna_hapus"];
+            this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
+            this.sebab_hapus = _data["sebab_hapus"];
+            this.id_tabung = _data["id_tabung"];
+            this.id_jenis_bayaran = _data["id_jenis_bayaran"];
+            this.id_kategori_bayaran = _data["id_kategori_bayaran"];
+            this.id_tabung_bayaran_waran_status = _data["id_tabung_bayaran_waran_status"];
+            this.id_bencana = _data["id_bencana"];
+            this.no_rujukan_kelulusan = _data["no_rujukan_kelulusan"];
+            this.nama_tabung = _data["nama_tabung"];
+            this.nama_bencana = _data["nama_bencana"];
+            this.tarikh_bencana = _data["tarikh_bencana"] ? moment(_data["tarikh_bencana"].toString()) : <any>undefined;
+            this.nama_jenis_bayaran = _data["nama_jenis_bayaran"];
+            this.nama_kategori_bayaran = _data["nama_kategori_bayaran"];
+            this.nama_waran_status = _data["nama_waran_status"];
+            this.id_status_waran = _data["id_status_waran"];
+            this.catatan = _data["catatan"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditTabungBayaranWaranDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditTabungBayaranWaranDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["no_rujukan_waran"] = this.no_rujukan_waran;
+        data["rujukan_surat_waran"] = this.rujukan_surat_waran;
+        data["tarikh_surat_waran"] = this.tarikh_surat_waran ? this.tarikh_surat_waran.toISOString() : <any>undefined;
+        data["id_tabung_kelulusan"] = this.id_tabung_kelulusan;
+        data["nama_pegawai"] = this.nama_pegawai;
+        data["id_agensi"] = this.id_agensi;
+        data["perihal"] = this.perihal;
+        data["tarikh_mula"] = this.tarikh_mula ? this.tarikh_mula.toISOString() : <any>undefined;
+        data["tarikh_tamat"] = this.tarikh_tamat ? this.tarikh_tamat.toISOString() : <any>undefined;
+        data["jumlah_siling_peruntukan"] = this.jumlah_siling_peruntukan;
+        data["jumlah_baki_peruntukan"] = this.jumlah_baki_peruntukan;
+        data["id_pengguna_cipta"] = this.id_pengguna_cipta;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
+        data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
+        data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
+        data["hapus"] = this.hapus;
+        data["id_pengguna_hapus"] = this.id_pengguna_hapus;
+        data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
+        data["sebab_hapus"] = this.sebab_hapus;
+        data["id_tabung"] = this.id_tabung;
+        data["id_jenis_bayaran"] = this.id_jenis_bayaran;
+        data["id_kategori_bayaran"] = this.id_kategori_bayaran;
+        data["id_tabung_bayaran_waran_status"] = this.id_tabung_bayaran_waran_status;
+        data["id_bencana"] = this.id_bencana;
+        data["no_rujukan_kelulusan"] = this.no_rujukan_kelulusan;
+        data["nama_tabung"] = this.nama_tabung;
+        data["nama_bencana"] = this.nama_bencana;
+        data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
+        data["nama_jenis_bayaran"] = this.nama_jenis_bayaran;
+        data["nama_kategori_bayaran"] = this.nama_kategori_bayaran;
+        data["nama_waran_status"] = this.nama_waran_status;
+        data["id_status_waran"] = this.id_status_waran;
+        data["catatan"] = this.catatan;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditTabungBayaranWaranDto {
+    id: number;
+    no_rujukan_waran: string;
+    rujukan_surat_waran: string;
+    tarikh_surat_waran: moment.Moment;
+    id_tabung_kelulusan: number;
+    nama_pegawai: string;
+    id_agensi: number;
+    perihal: string;
+    tarikh_mula: moment.Moment;
+    tarikh_tamat: moment.Moment;
+    jumlah_siling_peruntukan: number;
+    jumlah_baki_peruntukan: number;
+    id_pengguna_cipta: number;
+    tarikh_cipta: moment.Moment;
+    id_pengguna_kemaskini: number;
+    tarikh_kemaskini: moment.Moment;
+    hapus: boolean;
+    id_pengguna_hapus: number;
+    tarikh_hapus: moment.Moment;
+    sebab_hapus: string;
+    id_tabung: number;
+    id_jenis_bayaran: number;
+    id_kategori_bayaran: number;
+    id_tabung_bayaran_waran_status: number;
+    id_bencana: number;
+    no_rujukan_kelulusan: string;
+    nama_tabung: string;
+    nama_bencana: string;
+    tarikh_bencana: moment.Moment;
+    nama_jenis_bayaran: string;
+    nama_kategori_bayaran: string;
+    nama_waran_status: string;
+    id_status_waran: number;
+    catatan: string;
+}
+
+export class GetRujukanKelulusanWaranDto implements IGetRujukanKelulusanWaranDto {
+    no_rujukan_kelulusan!: string;
+    id_tabung!: number;
+
+    constructor(data?: IGetRujukanKelulusanWaranDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.no_rujukan_kelulusan = _data["no_rujukan_kelulusan"];
+            this.id_tabung = _data["id_tabung"];
+        }
+    }
+
+    static fromJS(data: any): GetRujukanKelulusanWaranDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetRujukanKelulusanWaranDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["no_rujukan_kelulusan"] = this.no_rujukan_kelulusan;
+        data["id_tabung"] = this.id_tabung;
+        return data; 
+    }
+}
+
+export interface IGetRujukanKelulusanWaranDto {
+    no_rujukan_kelulusan: string;
+    id_tabung: number;
+}
+
+export class GetTabungBayaranWaranForEditDto implements IGetTabungBayaranWaranForEditDto {
+    tabung_bayaran_waran!: CreateOrEditTabungBayaranWaranDto;
+
+    constructor(data?: IGetTabungBayaranWaranForEditDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.tabung_bayaran_waran = _data["tabung_bayaran_waran"] ? CreateOrEditTabungBayaranWaranDto.fromJS(_data["tabung_bayaran_waran"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetTabungBayaranWaranForEditDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTabungBayaranWaranForEditDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["tabung_bayaran_waran"] = this.tabung_bayaran_waran ? this.tabung_bayaran_waran.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetTabungBayaranWaranForEditDto {
+    tabung_bayaran_waran: CreateOrEditTabungBayaranWaranDto;
+}
+
+export class GetTabungBayaranWaranForViewDto implements IGetTabungBayaranWaranForViewDto {
+    id!: number;
+    no_rujukan_waran!: string;
+    nama_pegawai!: string;
+    tarikh_mula!: moment.Moment;
+    tarikh_tamat!: moment.Moment;
+    jumlah_siling_peruntukan!: string;
+    jumlah_baki_peruntukan!: string;
+    nama_agensi!: string;
+    nama_tabung!: string;
+    no_rujukan_kelulusan!: string;
+    id_jenis_bayaran!: number;
+    id_kategori_bayaran!: number;
+    nama_jenis_bayaran!: string;
+    nama_kategori_bayaran!: string;
+    nama_waran_status!: string;
+    jumlah_belanja!: number;
+
+    constructor(data?: IGetTabungBayaranWaranForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.no_rujukan_waran = _data["no_rujukan_waran"];
+            this.nama_pegawai = _data["nama_pegawai"];
+            this.tarikh_mula = _data["tarikh_mula"] ? moment(_data["tarikh_mula"].toString()) : <any>undefined;
+            this.tarikh_tamat = _data["tarikh_tamat"] ? moment(_data["tarikh_tamat"].toString()) : <any>undefined;
+            this.jumlah_siling_peruntukan = _data["jumlah_siling_peruntukan"];
+            this.jumlah_baki_peruntukan = _data["jumlah_baki_peruntukan"];
+            this.nama_agensi = _data["nama_agensi"];
+            this.nama_tabung = _data["nama_tabung"];
+            this.no_rujukan_kelulusan = _data["no_rujukan_kelulusan"];
+            this.id_jenis_bayaran = _data["id_jenis_bayaran"];
+            this.id_kategori_bayaran = _data["id_kategori_bayaran"];
+            this.nama_jenis_bayaran = _data["nama_jenis_bayaran"];
+            this.nama_kategori_bayaran = _data["nama_kategori_bayaran"];
+            this.nama_waran_status = _data["nama_waran_status"];
+            this.jumlah_belanja = _data["jumlah_belanja"];
+        }
+    }
+
+    static fromJS(data: any): GetTabungBayaranWaranForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTabungBayaranWaranForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["no_rujukan_waran"] = this.no_rujukan_waran;
+        data["nama_pegawai"] = this.nama_pegawai;
+        data["tarikh_mula"] = this.tarikh_mula ? this.tarikh_mula.toISOString() : <any>undefined;
+        data["tarikh_tamat"] = this.tarikh_tamat ? this.tarikh_tamat.toISOString() : <any>undefined;
+        data["jumlah_siling_peruntukan"] = this.jumlah_siling_peruntukan;
+        data["jumlah_baki_peruntukan"] = this.jumlah_baki_peruntukan;
+        data["nama_agensi"] = this.nama_agensi;
+        data["nama_tabung"] = this.nama_tabung;
+        data["no_rujukan_kelulusan"] = this.no_rujukan_kelulusan;
+        data["id_jenis_bayaran"] = this.id_jenis_bayaran;
+        data["id_kategori_bayaran"] = this.id_kategori_bayaran;
+        data["nama_jenis_bayaran"] = this.nama_jenis_bayaran;
+        data["nama_kategori_bayaran"] = this.nama_kategori_bayaran;
+        data["nama_waran_status"] = this.nama_waran_status;
+        data["jumlah_belanja"] = this.jumlah_belanja;
+        return data; 
+    }
+}
+
+export interface IGetTabungBayaranWaranForViewDto {
+    id: number;
+    no_rujukan_waran: string;
+    nama_pegawai: string;
+    tarikh_mula: moment.Moment;
+    tarikh_tamat: moment.Moment;
+    jumlah_siling_peruntukan: string;
+    jumlah_baki_peruntukan: string;
+    nama_agensi: string;
+    nama_tabung: string;
+    no_rujukan_kelulusan: string;
+    id_jenis_bayaran: number;
+    id_kategori_bayaran: number;
+    nama_jenis_bayaran: string;
+    nama_kategori_bayaran: string;
+    nama_waran_status: string;
+    jumlah_belanja: number;
+}
+
+export class InputCreateBayaranWaranDto implements IInputCreateBayaranWaranDto {
+    waran!: CreateOrEditTabungBayaranWaranDto;
+    /** Array of kluster object */
+    waranBulanan!: InputWaranBulananDto[];
+    catatan!: string;
+    changeStatus!: number;
+
+    constructor(data?: IInputCreateBayaranWaranDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.waran = _data["waran"] ? CreateOrEditTabungBayaranWaranDto.fromJS(_data["waran"]) : <any>undefined;
+            if (Array.isArray(_data["waranBulanan"])) {
+                this.waranBulanan = [] as any;
+                for (let item of _data["waranBulanan"])
+                    this.waranBulanan!.push(InputWaranBulananDto.fromJS(item));
+            }
+            this.catatan = _data["catatan"];
+            this.changeStatus = _data["changeStatus"];
+        }
+    }
+
+    static fromJS(data: any): InputCreateBayaranWaranDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InputCreateBayaranWaranDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["waran"] = this.waran ? this.waran.toJSON() : <any>undefined;
+        if (Array.isArray(this.waranBulanan)) {
+            data["waranBulanan"] = [];
+            for (let item of this.waranBulanan)
+                data["waranBulanan"].push(item.toJSON());
+        }
+        data["catatan"] = this.catatan;
+        data["changeStatus"] = this.changeStatus;
+        return data; 
+    }
+}
+
+export interface IInputCreateBayaranWaranDto {
+    waran: CreateOrEditTabungBayaranWaranDto;
+    /** Array of kluster object */
+    waranBulanan: InputWaranBulananDto[];
+    catatan: string;
+    changeStatus: number;
+}
+
+export class InputWaranBulananDto implements IInputWaranBulananDto {
+    bulan!: string;
+    tahun!: string;
+    jumlah!: number;
+
+    constructor(data?: IInputWaranBulananDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.bulan = _data["bulan"];
+            this.tahun = _data["tahun"];
+            this.jumlah = _data["jumlah"];
+        }
+    }
+
+    static fromJS(data: any): InputWaranBulananDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InputWaranBulananDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["bulan"] = this.bulan;
+        data["tahun"] = this.tahun;
+        data["jumlah"] = this.jumlah;
+        return data; 
+    }
+}
+
+export interface IInputWaranBulananDto {
+    bulan: string;
+    tahun: string;
+    jumlah: number;
+}
+
+export class OutputCreateBayaranWaranDto implements IOutputCreateBayaranWaranDto {
+    message!: string;
+
+    constructor(data?: IOutputCreateBayaranWaranDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.message = _data["message"];
+        }
+    }
+
+    static fromJS(data: any): OutputCreateBayaranWaranDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new OutputCreateBayaranWaranDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["message"] = this.message;
+        return data; 
+    }
+}
+
+export interface IOutputCreateBayaranWaranDto {
+    message: string;
+}
+
+/** TabungBayaranWaran List in Tabular model */
+export class PagedResultDtoOfTabungBayaranWaranForViewDto implements IPagedResultDtoOfTabungBayaranWaranForViewDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetTabungBayaranWaranForViewDto[];
+
+    constructor(data?: IPagedResultDtoOfTabungBayaranWaranForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetTabungBayaranWaranForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfTabungBayaranWaranForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfTabungBayaranWaranForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** TabungBayaranWaran List in Tabular model */
+export interface IPagedResultDtoOfTabungBayaranWaranForViewDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetTabungBayaranWaranForViewDto[];
 }
 
 export class CreateOrEditTabungBwiBayaranDto implements ICreateOrEditTabungBwiBayaranDto {

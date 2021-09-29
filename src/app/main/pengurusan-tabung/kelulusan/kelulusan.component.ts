@@ -12,6 +12,7 @@ import {
   TabungServiceProxy
 } from "../../../shared/proxy/service-proxies";
 import { PeruntukanDiambilComponent } from './peruntukan-diambil/peruntukan-diambil.component';
+import { swalError, swalSuccess, swalWarning } from '@shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-kelulusan',
@@ -120,5 +121,32 @@ export class KelulusanComponent implements OnInit {
     modalRef.componentInstance.id_tabung = id_tabung;
     modalRef.componentInstance.id_tabung_kelulusan = id;
     modalRef.componentInstance.baki_jumlah_siling = baki_jumlah_siling;
+	}
+
+  deleteConfirmation(id?) {
+		swalWarning.fire({
+			title: 'Anda Pasti?',
+			text: 'Adakah anda pasti ingin membuang maklumat kelulusan bayaran ini?',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			cancelButtonText: 'Tidak',
+			confirmButtonText: 'Ya'
+		}).then((result) => {
+			if (result.value) {
+        this._tabungKelulusanServiceProxy.delete(id).subscribe((response)=>{
+          if(response.message == 'Kelulusan Sudah Mempunyai Pembayaran'){
+            swalWarning.fire('Makluman', 'Kelulusan Sudah Mempunyai Pembayaran');
+          }
+          else{
+            swalSuccess.fire('Berjaya!', 'Maklumat Kelulusan Bayaran Berjaya Dibuang');
+            this.getTabungKelulusanList();
+          }
+          
+        })
+			}
+		},(error)=>{
+      swalError.fire('Amaran!',error.message);
+    });
 	}
 }

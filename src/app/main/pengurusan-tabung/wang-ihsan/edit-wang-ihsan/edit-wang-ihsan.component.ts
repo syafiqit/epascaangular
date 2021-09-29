@@ -151,6 +151,12 @@ export class EditWangIhsanComponent implements OnInit {
     this.bwi_bayaran.push(bayaranBwi);
   }
 
+  getIdBayaranSkb(id_bayaran_skb: number) {
+    const bayaranBwi = new UpdateBwiBayaranDto();
+    bayaranBwi.id_tabung_bayaran_skb = id_bayaran_skb;
+    this.bwi_bayaran.push(bayaranBwi);
+  }
+
   getIdDaerah(id_daerah: number) {
     this.id_daerah = id_daerah;
   }

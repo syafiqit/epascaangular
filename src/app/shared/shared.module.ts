@@ -87,6 +87,8 @@ const NSWAG = [
 	ApiServiceProxies.TabungServiceProxy,
 	ApiServiceProxies.TabungBayaranSkbBulananServiceProxy,
 	ApiServiceProxies.TabungBayaranSkbServiceProxy,
+	ApiServiceProxies.TabungBayaranWaranBulananServiceProxy,
+	ApiServiceProxies.TabungBayaranWaranServiceProxy,
 	ApiServiceProxies.TabungBayaranTerusServiceProxy,
 	ApiServiceProxies.TabungBwiServiceProxy,
 	ApiServiceProxies.TabungKelulusanServiceProxy,
