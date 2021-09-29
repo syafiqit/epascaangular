@@ -18,7 +18,7 @@ import {
 import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PilihanBencanaComponent } from '../pilihan-bencana/pilihan-bencana.component';
-import { swalError, swalSuccess, swalWarning } from '@shared/sweet-alert/swal-constant';
+import { swalSuccess, swalWarning } from '@shared/sweet-alert/swal-constant';
 import { fadeVerticalAnimation } from '@app/shared/data/router-animation/fade-vertical-animation';
 import { finalize } from 'rxjs/operators';
 import { TambahBelanjaBulanan } from '../tambah-belanja-bulanan/tambah-belanja-bulanan.component';

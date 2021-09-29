@@ -125,7 +125,13 @@
                     class="js-example-placeholder-multiple"
                     name="jenisBayaran"
                     [(ngModel)]="edit.tabung_bayaran_skb.id_jenis_bayaran"
+                    #jenisBayar="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && jenisBayar.invalid }"
+                    required
                   ></ng-select>
+                  <div *ngIf="f.submitted && jenisBayar.invalid" class="invalid-feedback">
+                    <div *ngIf="jenisBayar.errors.required">Jenis Bayaran Wajib Dipilih</div>
+                  </div>
 							  </div>
 						  </div>
 

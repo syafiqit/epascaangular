@@ -6,7 +6,6 @@ import {
   OutputCreateSkbBulananDto
 } from 'src/app/shared/proxy/service-proxies';
 import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
-import { indexOf } from '@amcharts/amcharts4/.internal/core/utils/Array';
 @Component({
 	selector: 'app-tambah-belanja-bulanan',
 	templateUrl: './tambah-belanja-bulanan.component.html',
@@ -111,12 +110,12 @@ export class TambahBelanjaBulanan implements OnInit {
       .subscribe((result) => {
         this.output = result;
         if(this.output.message == "Maklumat SKB Bulanan Berjaya Ditambah!"){
-          swalSuccess.fire('Berjaya!', 'Maklumat Belanja Bulanan Berjaya Dihantar', 'success').then(() => {
+          swalSuccess.fire('Berjaya!', 'Maklumat Belanja Bulanan SKB Berjaya Dihantar', 'success').then(() => {
             this.activeModal.close(true);
           });
         }
         else if(this.output.message == "Maklumat SKB Bulanan Berjaya Dikemaskini!"){
-          swalSuccess.fire('Berjaya!', 'Maklumat Belanja Bulanan Berjaya Disimpan', 'success').then(() => {
+          swalSuccess.fire('Berjaya!', 'Maklumat Belanja Bulanan SKB Berjaya Disimpan', 'success').then(() => {
             this.activeModal.close(true);
           });
         }else{

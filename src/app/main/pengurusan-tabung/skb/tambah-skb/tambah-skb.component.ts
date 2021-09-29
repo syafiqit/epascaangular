@@ -221,7 +221,7 @@ export class TambahSkbComponent implements OnInit {
 
   checkBulanan() {
     if(this.rows.length == 0) {
-      swalError.fire('Tidak Berjaya!', "Maklumat Perbelanjaan Bulanan Wajib Dimasukkan.", 'error');
+      swalError.fire('Tidak Berjaya!', "Maklumat Perbelanjaan Bulanan SKB Wajib Dimasukkan.", 'error');
     }
     else {
       this.save();
