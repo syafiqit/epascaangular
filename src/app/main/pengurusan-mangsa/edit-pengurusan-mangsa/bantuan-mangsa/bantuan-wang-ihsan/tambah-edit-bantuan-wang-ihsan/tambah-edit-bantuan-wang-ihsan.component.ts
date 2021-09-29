@@ -5,7 +5,6 @@ import {
   GetMangsaWangIhsanForEditDto,
   MangsaWangIhsanServiceProxy,
   RefAgensiServiceProxy,
-  RefBencanaBwiServiceProxy,
   RefJenisBwiServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import * as moment from 'moment';
@@ -53,7 +52,6 @@ export class TambahEditBantuanWangIhsanComponent implements OnInit {
 		private _mangsaWangIhsanServiceProxy: MangsaWangIhsanServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
     private _refJenisBwiServiceProxy: RefJenisBwiServiceProxy,
-    private _refBencanaBwiServiceProxy: RefBencanaBwiServiceProxy,
     private calendar: NgbCalendar
     ) {
       this.editWangIhsan.mangsa_wang_ihsan = new CreateOrEditMangsaWangIhsanDto();
@@ -110,9 +108,9 @@ export class TambahEditBantuanWangIhsanComponent implements OnInit {
     }
 
     getJumlahBwi(idBencana, filter?){
-      this._refBencanaBwiServiceProxy.getRefBencanaBwiForDropdown(filter).subscribe((result) => {
-        this.jumlahBwi = result.items;
-      });
+      // this._refBencanaBwiServiceProxy.getRefBencanaBwiForDropdown(filter).subscribe((result) => {
+      //   this.jumlahBwi = result.items;
+      // });
     }
 
     pilihBencana() {
