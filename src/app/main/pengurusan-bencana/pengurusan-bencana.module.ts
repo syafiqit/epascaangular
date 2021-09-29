@@ -8,7 +8,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { PengurusanBencanaRoutingModule } from './pengurusan-bencana-routing.module';
 import { PengurusanBencanaComponent } from '../pengurusan-bencana/pengurusan-bencana.component';
 import { TambahEditPengurusanBencanaComponent } from '../pengurusan-bencana/tambah-edit-pengurusan-bencana/tambah-edit-pengurusan-bencana.component';
-import { TambahJumlahBwiComponent } from './tambah-edit-pengurusan-bencana/tambah-jumlah-bwi/tambah-jumlah-bwi.component';
 
 @NgModule({
 	imports: [
@@ -20,6 +19,6 @@ import { TambahJumlahBwiComponent } from './tambah-edit-pengurusan-bencana/tamba
 		PaginatorModule,
 		NgSelectModule
 	],
-	declarations: [PengurusanBencanaComponent, TambahEditPengurusanBencanaComponent, TambahJumlahBwiComponent]
+	declarations: [PengurusanBencanaComponent, TambahEditPengurusanBencanaComponent]
 })
 export class PengurusanBencanaModule {}

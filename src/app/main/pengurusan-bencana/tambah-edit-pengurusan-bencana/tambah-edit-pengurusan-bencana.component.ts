@@ -3,10 +3,8 @@ import { NgbActiveModal, NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } 
 import { finalize } from 'rxjs/operators';
 import * as moment from 'moment';
 import {
-  CreateOrEditRefBencanaBwiDto,
   CreateOrEditRefBencanaDto,
   InputCreateBencanaDto,
-  RefBencanaBwiServiceProxy,
   RefBencanaServiceProxy,
   RefJenisBencanaServiceProxy,
   RefNegeriServiceProxy
@@ -17,7 +15,6 @@ import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { PrimengTableHelper } from '@app/shared/helpers/PrimengTableHelper';
 import { LazyLoadEvent } from 'primeng/api';
-import { TambahJumlahBwiComponent } from './tambah-jumlah-bwi/tambah-jumlah-bwi.component';
 
 @Component({
   selector: 'app-tambah-edit-pengurusan-bencana',
@@ -75,7 +72,6 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 		private _refBencanaServiceProxy: RefBencanaServiceProxy,
 		private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy,
 		private _refNegeriServiceProxy: RefNegeriServiceProxy,
-    private _refBencanaBwiServiceProxy: RefBencanaBwiServiceProxy,
     private calendar: NgbCalendar
 	) {
     this.idBencana = this._activatedRoute.snapshot.queryParams['id'];
@@ -178,7 +174,7 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 		};
 	}
 
-	
+
 
 	namaBencana(nama_bencana?){
 		this.nama_bencana = nama_bencana;
