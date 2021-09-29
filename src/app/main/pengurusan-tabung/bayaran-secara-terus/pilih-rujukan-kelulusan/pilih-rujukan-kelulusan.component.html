@@ -37,6 +37,10 @@
 								Jumlah Siling
 								<p-sortIcon field="jumlah_siling"></p-sortIcon>
 							</th>
+							<th style="width: 135px" pSortableColumn="baki_jumlah_siling">
+								Jumlah Baki Siling
+								<p-sortIcon field="baki_jumlah_siling"></p-sortIcon>
+							</th>
               <th style="width: 100px">Tindakan</th>
 						</tr>
 					</ng-template>
@@ -50,9 +54,13 @@
 								<span class="p-column-title">Tabung</span>
 								{{record.nama_tabung}}
 							</td>
-              <td style="width: 130px">
+							<td style="width: 130px">
 								<span class="p-column-title">Jumlah Siling</span>
-								{{record.jumlah_siling}}
+								RM {{record.jumlah_siling | number: '1.2-2'}}
+							</td>
+							<td style="width: 135px">
+								<span class="p-column-title">Jumlah Baki Siling</span>
+								RM {{record.baki_jumlah_siling | number: '1.2-2'}}
 							</td>
               <td style="width: 100px">
 								<button
