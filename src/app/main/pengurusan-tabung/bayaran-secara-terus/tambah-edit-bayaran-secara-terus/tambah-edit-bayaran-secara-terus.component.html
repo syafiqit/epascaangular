@@ -213,18 +213,16 @@
 
               <div class="col-lg-6">
 								<div class="form-group">
-									<label>Belanja</label>
-									<div class="input-group">
-										<div class="input-group-prepend"><span class="input-group-text">RM</span></div>
-										<input
+									<label>Jumlah Belanja (RM)</label>
+									<input
                     class="form-control"
-                    name="belanja"
                     type="text"
+                    name="belanja"
+                    placeholder="Jumlah Belanja"
                     [(ngModel)]="bayaranTerus.jumlah"
-                    placeholder="Belanja"
                     [disabled]="idBayaranTerus"
+                    onlyNumbers
                   />
-									</div>
 								</div>
 							</div>
             </div>
@@ -252,7 +250,7 @@
 							Simpan
 						</button>
 						<button
-							class="btn btn-light pull-right mr-1"
+							class="btn btn-light pull-right mr-2"
 							[routerLink]="['/app/tabung/bayaran-terus/senarai']"
 							type="button"
 						>

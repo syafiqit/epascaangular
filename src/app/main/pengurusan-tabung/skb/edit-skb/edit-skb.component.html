@@ -103,7 +103,7 @@
                 <div class="input-group">
                   <input
                     class="form-control"
-                    placeholder="yyyy-mm-dd"
+                    placeholder="dd-mm-yyyy"
                     name="dp3"
                     [(ngModel)]="modelBencana"
                     ngbDatepicker
@@ -166,7 +166,7 @@
                 <div class="input-group">
                   <input
                     class="form-control"
-                    placeholder="yyyy-mm-dd"
+                    placeholder="dd-mm-yyyy"
                     name="dp"
                     [(ngModel)]="modelMula"
                     ngbDatepicker
@@ -197,7 +197,7 @@
                 <div class="input-group">
                   <input
                     class="form-control"
-                    placeholder="yyyy-mm-dd"
+                    placeholder="dd-mm-yyyy"
                     name="dp2"
                     [(ngModel)]="modelTamat"
                     ngbDatepicker
@@ -380,11 +380,16 @@
                             <div ngbDropdownMenu aria-labelledby="action">
                               <button
                                 class="dropdown-item"
-                                (click)="editBulanan(
-                                  record.id,
-                                  record.id_tabung_bayaran_skb
-                                )"
-                              >Lihat</button>
+                                (click)="editBulanan(record.id, record.id_tabung_bayaran_skb)"
+                              >
+                                Lihat
+                              </button>
+                              <button
+                                class="dropdown-item"
+                                (click)="deleteSkbBulanan(record.id)"
+                              >
+                                Padam
+                              </button>
                             </div>
                           </div>
                         </td>

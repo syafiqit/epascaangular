@@ -10,6 +10,7 @@ import {
   GetTabungBayaranSkbForEditDto,
   InputCreateBayaranSkbDto,
   InputSkbBulananDto,
+  OutputCreateSkbBulananDto,
   RefAgensiServiceProxy,
   TabungBayaranSkbBulananServiceProxy,
   TabungBayaranSkbServiceProxy
@@ -17,7 +18,7 @@ import {
 import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PilihanBencanaComponent } from '../pilihan-bencana/pilihan-bencana.component';
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { swalError, swalSuccess, swalWarning } from '@shared/sweet-alert/swal-constant';
 import { fadeVerticalAnimation } from '@app/shared/data/router-animation/fade-vertical-animation';
 import { finalize } from 'rxjs/operators';
 import { TambahBelanjaBulanan } from '../tambah-belanja-bulanan/tambah-belanja-bulanan.component';
@@ -38,6 +39,7 @@ export class EditSkbComponent implements OnInit {
   bayaranSKB: InputCreateBayaranSkbDto =  new InputCreateBayaranSkbDto();
   skb: CreateOrEditTabungBayaranSkbDto = new CreateOrEditTabungBayaranSkbDto();
   bulanan: InputSkbBulananDto[] = [];
+  output: OutputCreateSkbBulananDto = new OutputCreateSkbBulananDto();
 
   idSkb: any;
   agencies: any;
@@ -208,12 +210,13 @@ export class EditSkbComponent implements OnInit {
     modalRef.result.then(
 			(response) => {
 				if (response) {
-          this.rows.push({ tahun: response.tahun, bulan: response.bulan, jumlah: response.jumlah });
+          this.rows.push({ tahun: response.tahun, bulan: response.bulan, id_bulan: response.id_bulan, jumlah: response.jumlah });
           this.getBulananSKB();
           this.show();
           const monthly = new InputSkbBulananDto();
           monthly.tahun = response.tahun;
           monthly.bulan = response.bulan;
+          monthly.id_bulan = response.id_bulan;
           monthly.jumlah = response.jumlah;
           this.bulanan.push(monthly);
 				}
@@ -232,18 +235,43 @@ export class EditSkbComponent implements OnInit {
     modalRef.result.then(
 			(response) => {
 				if (response) {
-          this.rows.push({ tahun: response.tahun, bulan: response.bulan, jumlah: response.jumlah });
+          this.rows.push({ tahun: response.tahun, bulan: response.bulan, id_bulan: response.id_bulan, jumlah: response.jumlah });
           this.getBulananSKB();
           this.show();
           const monthly = new InputSkbBulananDto();
           monthly.tahun = response.tahun;
           monthly.bulan = response.bulan;
+          monthly.id_bulan = response.id_bulan;
           monthly.jumlah = response.jumlah;
           this.bulanan.push(monthly);
 				}
 			},
 			() => {}
 		);
+  }
+
+  deleteSkbBulanan(id){
+		swalWarning.fire({
+			title: 'Anda Pasti?',
+			text: 'Adakah anda pasti ingin maklumat Belanja Bulanan SKB ini?',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			cancelButtonText: 'Tidak',
+			confirmButtonText: 'Ya'
+		}).then((result) => {
+			if (result.value) {
+				this._tabungBayaranSkbBulananServiceProxy.delete(id).subscribe((result)=>{
+          this.output = result;
+          if(this.output.message == "Surat Kuasa Belanja Bulanan Berjaya Dibuang"){
+            swalSuccess.fire('Berjaya!', 'Maklumat Belanja Bulanan SKB Dipilih Berjaya Dipadam!').then(()=>{
+              this.getBulananSKB();
+              this.show();
+            });
+          }
+        })
+			}
+		});
   }
 
 	save() {

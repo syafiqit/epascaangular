@@ -133,23 +133,23 @@
 										<p-sortIcon field="rujukan_surat"></p-sortIcon>
 									</th>
 									<th style="width: 170px" pSortableColumn="jumlah_siling">
-										Siling Peruntukan (RM)
+										Siling Peruntukan
 										<p-sortIcon field="jumlah_siling"></p-sortIcon>
 									</th>
 									<th style="width: 140px" pSortableColumn="tarikh_mula_kelulusan">
-										Tarikh Kelulusan (Mula)
+										Tarikh Mula
 										<p-sortIcon field="tarikh_mula_kelulusan"></p-sortIcon>
 									</th>
 									<th style="width: 140px" pSortableColumn="tarikh_tamat_kelulusan">
-										Tarikh Kelulusan (Tamat)
+										Tarikh Tamat
 										<p-sortIcon field="tarikh_tamat_kelulusan"></p-sortIcon>
 									</th>
-									<th style="width: 165px" >
-										Jumlah Belanja (RM)
-										<!-- <p-sortIcon field="bel"></p-sortIcon> -->
+									<th style="width: 165px" pSortableColumn="tarikh_tamat_kelulusan">
+										Jumlah Belanja
+										<p-sortIcon field="tarikh_tamat_kelulusan"></p-sortIcon>
 									</th>
 									<th style="width: 165px" pSortableColumn="peruntukan">
-										Baki Peruntukan (RM)
+										Baki Peruntukan
 										<p-sortIcon field="peruntukan"></p-sortIcon>
 									</th>
 									<th style="width: 100px" pSortableColumn="status_tabung">
@@ -191,7 +191,7 @@
                     <label *ngIf="!record.kelulusan.tarikh_tamat_kelulusan">-</label>
 									</td>
 									<td style="width: 165px">
-										<span class="p-column-title">jumlah Belanja</span>
+										<span class="p-column-title">Jumlah Belanja</span>
 										RM {{record.belanja | number: '1.2-2'}}
 									</td>
 									<td style="width: 165px">
@@ -230,14 +230,14 @@
 												</button>
 												<button
 													class="dropdown-item"
-													[routerLink]="['/app/tabung/skb/senarai']"
+													[routerLink]="['/app/tabung/skb/tambah']"
                           [queryParams]="{kelulusan: record.kelulusan.id, no_ruj: record.kelulusan.no_rujukan_kelulusan}"
 												>
                           Pembayaran SKB
 												</button>
 												<button
 													class="dropdown-item"
-													[routerLink]="['/app/tabung/bayaran-terus/senarai']"
+													[routerLink]="['/app/tabung/bayaran-terus/tambah']"
                           [queryParams]="{kelulusan: record.kelulusan.id, no_ruj: record.kelulusan.no_rujukan_kelulusan}"
 												>
                           Pembayaran Secara Terus

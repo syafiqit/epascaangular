@@ -9,6 +9,7 @@ import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import {
   LaporanServiceProxy,
+  RefBencanaServiceProxy,
   RefDaerahServiceProxy,
   RefNegeriServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
@@ -28,15 +29,18 @@ export class LaporanBwiPenerimaComponent implements OnInit {
 
   states: any;
   districts: any;
+  disasters: any;
   filter: string;
   filterNegeri: number;
   filterDaerah: number;
+  filterBencana: number;
 
 	constructor(
     config: NgbModalConfig,
     private _refDaerahServiceProxy: RefDaerahServiceProxy,
     private _refNegeriServiceProxy: RefNegeriServiceProxy,
     private _laporanServiceProxy: LaporanServiceProxy,
+    private _refBencanaServiceProxy: RefBencanaServiceProxy,
     private _fileDownloadService: FileDownloadService
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
@@ -47,6 +51,7 @@ export class LaporanBwiPenerimaComponent implements OnInit {
 	ngOnInit(): void {
     this.getDaerah();
     this.getNegeri();
+    this.getBencana();
 
     this.terms$.pipe(
       debounceTime(500), distinctUntilChanged()
@@ -72,6 +77,7 @@ export class LaporanBwiPenerimaComponent implements OnInit {
 				this.filter,
         this.filterNegeri ?? undefined,
         this.filterDaerah ?? undefined,
+        this.filterBencana ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -90,6 +96,7 @@ export class LaporanBwiPenerimaComponent implements OnInit {
       this.filter,
       this.filterNegeri  ?? undefined,
       this.filterDaerah ?? undefined,
+      this.filterBencana ?? undefined,
     ).subscribe(e=>{
       this._fileDownloadService.downloadTempFile(e);
     })
@@ -107,6 +114,12 @@ export class LaporanBwiPenerimaComponent implements OnInit {
 		});
 	}
 
+  getBencana(filter?) {
+		this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
+			this.disasters = result.items;
+		});
+	}
+
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
 	}
@@ -115,6 +128,7 @@ export class LaporanBwiPenerimaComponent implements OnInit {
     this.filter = undefined;
     this.filterNegeri = undefined;
     this.filterDaerah = undefined;
+    this.filterBencana = undefined;
 
     this.getPenerimaBwi();
     this.getDaerah();

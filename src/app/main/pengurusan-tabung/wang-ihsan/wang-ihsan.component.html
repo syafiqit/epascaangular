@@ -101,12 +101,12 @@
 							#dataTable
 							styleClass="p-datatable-striped"
 							[resizableColumns]="true"
-              [loading]="primengTableHelper.isLoading"
 							(onLazyLoad)="getBantuanWangIhsan($event)"
 							[value]="primengTableHelper.records"
 							rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
 							[paginator]="false"
 							[lazy]="true"
+              [loading]="primengTableHelper.isLoading"
 							[scrollable]="true"
 							ScrollWidth="100%"
 							[responsive]="primengTableHelper.isResponsive"
@@ -122,7 +122,7 @@
 										Jenis (BWI)
 										<p-sortIcon field="jenis_bencana"></p-sortIcon>
 									</th>
-									<th style="width: 150px" pSortableColumn="nama_bencana">
+									<th style="width: 160px" pSortableColumn="nama_bencana">
 										Nama Bencana
 										<p-sortIcon field="nama_bencana"></p-sortIcon>
 									</th>
@@ -130,11 +130,11 @@
 									  Tarikh
 										<p-sortIcon field="tarikh"></p-sortIcon>
 									</th>
-									<th style="width: 120px" pSortableColumn="jumlah_negeri">
+									<th style="width: 121px" pSortableColumn="jumlah_negeri">
 										Bil. Negeri
 										<p-sortIcon field="jumlah_negeri"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="jumlah_bayaran_bwi">
+									<th style="width: 165px" pSortableColumn="jumlah_bayaran_bwi">
 										Jumlah Bayaran
 										<p-sortIcon field="jumlah_bayaran_bwi"></p-sortIcon>
 									</th>
@@ -152,7 +152,7 @@
 										<span class="p-column-title">Jenis (BWI)</span>
                     {{record.nama_jenis_bwi}}
 									</td>
-									<td style="width: 150px">
+									<td style="width: 160px">
 										<span class="p-column-title">Nama Bencana</span>
                     <label *ngIf="record.nama_bencana">{{record.nama_bencana}}</label>
                     <label *ngIf="!record.nama_bencana">-</label>
@@ -162,11 +162,11 @@
                     <label *ngIf="record.tarikh_bencana">{{record.tarikh_bencana | date:'dd-MM-yyyy'}}</label>
                     <label *ngIf="!record.tarikh_bencana">-</label>
 									</td>
-									<td style="width: 120px">
+									<td style="width: 121px">
 										<span class="p-column-title">Bil. Negeri</span>
                     {{record.jumlah_negeri}}
 									</td>
-									<td style="width: 130px">
+									<td style="width: 165px">
 										<span class="p-column-title">Jumlah Bayaran</span>
                     <label *ngIf="record.jumlah_bayaran_bwi">RM {{record.jumlah_bayaran_bwi | number: '1.2-2'}}</label>
                     <label *ngIf="!record.jumlah_bayaran_bwi">RM 0.00</label>

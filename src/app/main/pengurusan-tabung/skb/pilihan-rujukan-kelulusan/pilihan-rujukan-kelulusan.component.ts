@@ -32,9 +32,9 @@ export class PilihanRujukanKelulusanComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private _tabungKelulusanServiceProxy: TabungKelulusanServiceProxy
   ) {
+		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
-		this.primengTableHelper = new PrimengTableHelper();
 	}
 
 	ngOnInit(): void {
@@ -51,7 +51,7 @@ export class PilihanRujukanKelulusanComponent implements OnInit {
   }
 
 	getKelulusan(event?: LazyLoadEvent) {
-		if (this.primengTableHelper.shouldResetPaging(event)) {
+    if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
 		}
@@ -60,14 +60,14 @@ export class PilihanRujukanKelulusanComponent implements OnInit {
 		this._tabungKelulusanServiceProxy
 			.getAllKelulusanForLookupTable(
 				this.filter,
-        this.filterTabung,
-        this.filterJenisBencana,
+        this.filterTabung ?? undefined,
+        this.filterJenisBencana ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
 			)
       .pipe(finalize(()=> {
-				this.primengTableHelper.hideLoadingIndicator();
+        this.primengTableHelper.hideLoadingIndicator();
       }))
 			.subscribe((result) => {
 				this.primengTableHelper.totalRecordsCount = result.total_count;
