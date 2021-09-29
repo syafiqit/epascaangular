@@ -210,12 +210,13 @@ export class EditSkbComponent implements OnInit {
     modalRef.result.then(
 			(response) => {
 				if (response) {
-          this.rows.push({ tahun: response.tahun, bulan: response.bulan, jumlah: response.jumlah });
+          this.rows.push({ tahun: response.tahun, bulan: response.bulan, id_bulan: response.id_bulan, jumlah: response.jumlah });
           this.getBulananSKB();
           this.show();
           const monthly = new InputSkbBulananDto();
           monthly.tahun = response.tahun;
           monthly.bulan = response.bulan;
+          monthly.id_bulan = response.id_bulan;
           monthly.jumlah = response.jumlah;
           this.bulanan.push(monthly);
 				}
@@ -234,12 +235,13 @@ export class EditSkbComponent implements OnInit {
     modalRef.result.then(
 			(response) => {
 				if (response) {
-          this.rows.push({ tahun: response.tahun, bulan: response.bulan, jumlah: response.jumlah });
+          this.rows.push({ tahun: response.tahun, bulan: response.bulan, id_bulan: response.id_bulan, jumlah: response.jumlah });
           this.getBulananSKB();
           this.show();
           const monthly = new InputSkbBulananDto();
           monthly.tahun = response.tahun;
           monthly.bulan = response.bulan;
+          monthly.id_bulan = response.id_bulan;
           monthly.jumlah = response.jumlah;
           this.bulanan.push(monthly);
 				}

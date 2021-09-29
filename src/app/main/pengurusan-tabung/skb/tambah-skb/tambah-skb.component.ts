@@ -131,7 +131,7 @@ export class TambahSkbComponent implements OnInit {
 			(response) => {
 				if (response) {
           this.idBulan = this.idBulan + 1;
-          this.rows.push({ id: this.idBulan, tahun: response.tahun, bulan: response.bulan, jumlah: response.jumlah });
+          this.rows.push({ id: this.idBulan, tahun: response.tahun, bulan: response.bulan, id_bulan: response.id_bulan, jumlah: response.jumlah });
           this.getAddSKB();
           this.calculateTotal();
           this.calculateBalance();
@@ -140,13 +140,14 @@ export class TambahSkbComponent implements OnInit {
 		);
 	}
 
-  editBulanan(idBulan, tahun, bulan, jumlah) {
+  editBulanan(idBulan, tahun, bulan, id_bulan, jumlah) {
 		const modalRef = this.modalService.open(TambahBelanjaBulanan, { size: 'md' });
 		modalRef.componentInstance.name = 'edit';
     modalRef.componentInstance.kategori = 1;
 		modalRef.componentInstance.idBulan = idBulan;
 		modalRef.componentInstance.tahun = tahun;
 		modalRef.componentInstance.bulan = bulan;
+		modalRef.componentInstance.id_bulan = id_bulan;
 		modalRef.componentInstance.jumlah = jumlah;
     modalRef.componentInstance.jumlah_baki_peruntukan = this.balance_peruntukan;
 
@@ -156,6 +157,7 @@ export class TambahSkbComponent implements OnInit {
           let d = this.rows.find(e => e.id == response.id);
           d.tahun = response.tahun;
           d.bulan = response.bulan;
+          d.id_bulan = response.id_bulan;
           d.jumlah = response.jumlah;
           this.getAddSKB();
           this.calculateTotal();
@@ -230,6 +232,7 @@ export class TambahSkbComponent implements OnInit {
       const monthly = new InputSkbBulananDto();
       monthly.tahun = this.rows[i].tahun;
       monthly.bulan = this.rows[i].bulan;
+      monthly.id_bulan = this.rows[i].id_bulan;
       monthly.jumlah = this.rows[i].jumlah;
       this.bulanan.push(monthly);
     }
