@@ -123,11 +123,11 @@
 										Bencana
 										<p-sortIcon field="nama_jenis_bencana"></p-sortIcon>
 									</th>
-									<th style="width: 150px" pSortableColumn="bencanaNegeri">
+									<th style="width: 200px" pSortableColumn="bencanaNegeri">
 										Negeri
 										<p-sortIcon field="bencanaNegeri"></p-sortIcon>
 									</th>
-									<th style="width: 130px">Tindakan</th>
+									<th style="width:70px;">Tindakan</th>
 								</tr>
 							</ng-template>
 							<ng-template pTemplate="body" let-record="$implicit">
@@ -144,11 +144,11 @@
 										<span class="p-column-title">Jenis Bencana</span>
 										{{record.bencana.nama_jenis_bencana}}
 									</td>
-									<td style="width: 150px">
+									<td style="width: 200px">
 										<span class="p-column-title">Negeri</span>
 										{{record.bencanaNegeri}}
 									</td>
-									<td style="width: 130px">
+									<td style="width: 70px; text-align: center;">
 										<div ngbDropdown class="btn-group" role="group" container="body">
 											<button
 												type="button"

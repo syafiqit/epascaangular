@@ -11,6 +11,7 @@ import {DashboardServiceProxy, GetJumlahBantuanDto} from "../../shared/proxy/ser
 @Component({
 	selector: 'app-muka-halaman',
 	templateUrl: './muka-halaman.component.html',
+	styleUrls: ['./muka-halaman.component.scss'],
   providers: [DashboardServiceProxy]
 })
 export class MukaHalamanComponent implements OnInit, AfterViewInit {
