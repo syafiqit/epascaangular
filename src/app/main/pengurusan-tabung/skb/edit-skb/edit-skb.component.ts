@@ -45,6 +45,7 @@ export class EditSkbComponent implements OnInit {
   agencies: any;
   filter: string;
   saving = false;
+  tarikhSurat: string;
   tarikhMula: string;
   tarikhTamat: string;
   rows = [];
@@ -58,6 +59,7 @@ export class EditSkbComponent implements OnInit {
   catatan_skb: string;
 
   date = new Date();
+  modelSurat: NgbDateStruct;
   modelBencana: NgbDateStruct;
   modelMula: NgbDateStruct;
   modelTamat: NgbDateStruct;
@@ -125,6 +127,9 @@ export class EditSkbComponent implements OnInit {
       this.edit.tabung_bayaran_skb = result.tabung_bayaran_skb;
       this.id_status_skb = result.tabung_bayaran_skb.id_status_skb;
       this.catatan_skb = result.tabung_bayaran_skb.catatan;
+      if(result.tabung_bayaran_skb.tarikh_surat_skb){
+        this.modelSurat = this.fromModel(result.tabung_bayaran_skb.tarikh_surat_skb.format('YYYY-MM-DD'));
+      }
       if(result.tabung_bayaran_skb.tarikh_bencana){
         this.modelBencana = this.fromModel(result.tabung_bayaran_skb.tarikh_bencana.format('YYYY-MM-DD'));
       }
@@ -277,6 +282,10 @@ export class EditSkbComponent implements OnInit {
 	save() {
     this.saving = true;
     this.bayaranSKB.skb = this.edit.tabung_bayaran_skb;
+    if(this.modelSurat){
+      this.tarikhSurat = this.toModel(this.modelSurat);
+      this.bayaranSKB.skb.tarikh_surat_skb = moment(this.tarikhSurat, "YYYY-MM-DD");
+    }
     if(this.modelMula){
       this.tarikhMula = this.toModel(this.modelMula);
       this.bayaranSKB.skb.tarikh_mula = moment(this.tarikhMula, "YYYY-MM-DD");

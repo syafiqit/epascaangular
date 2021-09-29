@@ -40,15 +40,17 @@ export class TambahSkbComponent implements OnInit {
   agencies: any;
   filter: string;
   saving = false;
+  tarikhSurat: string;
+  tarikh_bencana: string;
   tarikhMula: string;
   tarikhTamat: string;
   idBulan: number = 0;
   rows = [];
   belanja: number = 0;
   balance_peruntukan: number = 0;
-  tarikh_bencana: string;
 
   date = new Date();
+  modelSurat: NgbDateStruct;
   modelBencana: NgbDateStruct;
   modelMula: NgbDateStruct;
   modelTamat: NgbDateStruct;
@@ -238,6 +240,10 @@ export class TambahSkbComponent implements OnInit {
     }
 
     this.bayaranSKB.skb = this.skb;
+    if(this.modelSurat){
+      this.tarikhSurat = this.toModel(this.modelSurat);
+      this.bayaranSKB.skb.tarikh_surat_skb = moment(this.tarikhSurat, "YYYY-MM-DD");
+    }
     if(this.modelMula){
       this.tarikhMula = this.toModel(this.modelMula);
       this.bayaranSKB.skb.tarikh_mula = moment(this.tarikhMula, "YYYY-MM-DD");

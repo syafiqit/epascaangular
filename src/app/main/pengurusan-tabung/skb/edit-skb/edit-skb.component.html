@@ -50,9 +50,67 @@
                     class="js-example-placeholder-multiple"
                     name="kategori_skb"
                     [(ngModel)]="edit.tabung_bayaran_skb.id_kategori_bayaran"
+                    #skbCategory="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && skbCategory.invalid }"
+                    required
                   ></ng-select>
+                  <div *ngIf="f.submitted && skbCategory.invalid" class="invalid-feedback">
+                    <div *ngIf="skbCategory.errors.required">Kategori Wajib Dipilih</div>
+                  </div>
 								</div>
 							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Rujukan Surat</label>
+									<input
+                    class="form-control"
+                    type="text"
+                    placeholder="Rujukan Surat"
+                    name="rujukanSurat"
+                    [(ngModel)]="edit.tabung_bayaran_skb.rujukan_surat_skb"
+                    #refLetter="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && refLetter.invalid }"
+                    required
+                  />
+                  <div *ngIf="f.submitted && refLetter.invalid" class="invalid-feedback">
+                    <div *ngIf="refLetter.errors.required">Rujukan Surat Wajib Diisi</div>
+                  </div>
+								</div>
+							</div>
+
+              <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
+                <label>Tarikh Surat</label>
+                <div class="input-group">
+                  <input
+                    class="form-control"
+                    placeholder="dd-mm-yyyy"
+                    name="dp4"
+                    [(ngModel)]="modelSurat"
+                    ngbDatepicker
+                    [footerTemplate]="footerTemplate"
+                    #d4="ngbDatepicker"
+                    style="border: 1px solid #efefef !important;"
+                    #letterDate="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && letterDate.invalid }"
+                    required
+                  >
+                  <div class="input-group-append">
+                    <button class="btn btn-light" (click)="d4.toggle()" type="button"><i
+                      class="fa fa-calendar"></i></button>
+                  </div>
+                  <div *ngIf="f.submitted && letterDate.invalid" class="invalid-feedback">
+                    <div *ngIf="letterDate.errors.required">Tarikh Surat Wajib Dipilih</div>
+                  </div>
+                </div>
+              </div>
+              <ng-template #footerTemplate>
+                <hr class="my-0">
+                <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelSurat = today; d4.close()">Hari Ini</button>
+                <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d4.close()">Tutup</button>
+              </ng-template>
 						</div>
 
             <div class="row">
