@@ -53,6 +53,10 @@ import { BwiSuratKuasaBelanjaComponent } from './wang-ihsan/pilih-pembayaran/bwi
 import { BwiBayaranSecaraTerusComponent } from './wang-ihsan/pilih-pembayaran/bwi-bayaran-secara-terus/bwi-bayaran-secara-terus.component';
 import { NgbDateCustomParserFormatter } from '@app/shared/date-parser/NgbDateCustomParserFormatter';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { WaranComponent } from './waran/waran.component';
+import { TambahWaranComponent } from './waran/tambah-waran/tambah-waran.component';
+import { EditWaranComponent } from './waran/edit-waran/edit-waran.component';
+import { WaranBulananComponent } from './waran/waran-bulanan/waran-bulanan.component';
 
 @NgModule({
 	imports: [
@@ -105,12 +109,16 @@ import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
     PerbelanjaanComponent,
     JenisBayaranSkbComponent,
     JenisBayaranTerusComponent,
-	PeruntukanDiambilListComponent,
-	KategoriSkbComponent,
-	KategoriTerusComponent,
-	BwiSuratKuasaBelanjaComponent,
-	BwiBayaranSecaraTerusComponent,
-	KategoriTerusComponent
+    PeruntukanDiambilListComponent,
+    KategoriSkbComponent,
+    KategoriTerusComponent,
+    BwiSuratKuasaBelanjaComponent,
+    BwiBayaranSecaraTerusComponent,
+    KategoriTerusComponent,
+    WaranComponent,
+    TambahWaranComponent,
+    EditWaranComponent,
+    WaranBulananComponent
 	],
 	providers: [
 		{provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter}

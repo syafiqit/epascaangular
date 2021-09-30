@@ -17547,6 +17547,67 @@ export class TabungBayaranWaranBulananServiceProxy {
         }
         return _observableOf<OutputCreateWaranBulananDto>(<any>null);
     }
+
+    /**
+     * delete Bayaran Skb Bulanan
+     * @param id Waran Bulanan Id
+     * @return Success
+     */
+    delete(id: number): Observable<OutputCreateWaranBulananDto> {
+        let url_ = this.baseUrl + "/api/tabungBayaranWaranBulanan/delete?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<OutputCreateWaranBulananDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<OutputCreateWaranBulananDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<OutputCreateWaranBulananDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = OutputCreateWaranBulananDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<OutputCreateWaranBulananDto>(<any>null);
+    }
 }
 
 @Injectable()
@@ -17953,6 +18014,67 @@ export class TabungBayaranWaranServiceProxy {
     }
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<OutputCreateBayaranWaranDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = OutputCreateBayaranWaranDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<OutputCreateBayaranWaranDto>(<any>null);
+    }
+
+    /**
+     * delete Bayaran Waran
+     * @param id Waran Id
+     * @return Success
+     */
+    delete(id: number): Observable<OutputCreateBayaranWaranDto> {
+        let url_ = this.baseUrl + "/api/tabungBayaranWaran/delete?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<OutputCreateBayaranWaranDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<OutputCreateBayaranWaranDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<OutputCreateBayaranWaranDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -39230,6 +39352,7 @@ export class CreateOrEditTabungBayaranWaranBulananDto implements ICreateOrEditTa
     id_tabung_bayaran_waran!: number;
     id_tabung!: number;
     bulan!: string;
+    id_bulan!: number;
     tahun!: number;
     jumlah!: number;
     jumlah_lama!: number;
@@ -39253,6 +39376,7 @@ export class CreateOrEditTabungBayaranWaranBulananDto implements ICreateOrEditTa
             this.id_tabung_bayaran_waran = _data["id_tabung_bayaran_waran"];
             this.id_tabung = _data["id_tabung"];
             this.bulan = _data["bulan"];
+            this.id_bulan = _data["id_bulan"];
             this.tahun = _data["tahun"];
             this.jumlah = _data["jumlah"];
             this.jumlah_lama = _data["jumlah_lama"];
@@ -39276,6 +39400,7 @@ export class CreateOrEditTabungBayaranWaranBulananDto implements ICreateOrEditTa
         data["id_tabung_bayaran_waran"] = this.id_tabung_bayaran_waran;
         data["id_tabung"] = this.id_tabung;
         data["bulan"] = this.bulan;
+        data["id_bulan"] = this.id_bulan;
         data["tahun"] = this.tahun;
         data["jumlah"] = this.jumlah;
         data["jumlah_lama"] = this.jumlah_lama;
@@ -39292,6 +39417,7 @@ export interface ICreateOrEditTabungBayaranWaranBulananDto {
     id_tabung_bayaran_waran: number;
     id_tabung: number;
     bulan: string;
+    id_bulan: number;
     tahun: number;
     jumlah: number;
     jumlah_lama: number;
@@ -39341,6 +39467,7 @@ export class GetTabungBayaranWaranBulananForViewDto implements IGetTabungBayaran
     id!: number;
     id_tabung_bayaran_waran!: number;
     bulan!: string;
+    id_bulan!: number;
     tahun!: string;
     jumlah!: string;
 
@@ -39358,6 +39485,7 @@ export class GetTabungBayaranWaranBulananForViewDto implements IGetTabungBayaran
             this.id = _data["id"];
             this.id_tabung_bayaran_waran = _data["id_tabung_bayaran_waran"];
             this.bulan = _data["bulan"];
+            this.id_bulan = _data["id_bulan"];
             this.tahun = _data["tahun"];
             this.jumlah = _data["jumlah"];
         }
@@ -39375,6 +39503,7 @@ export class GetTabungBayaranWaranBulananForViewDto implements IGetTabungBayaran
         data["id"] = this.id;
         data["id_tabung_bayaran_waran"] = this.id_tabung_bayaran_waran;
         data["bulan"] = this.bulan;
+        data["id_bulan"] = this.id_bulan;
         data["tahun"] = this.tahun;
         data["jumlah"] = this.jumlah;
         return data; 
@@ -39385,6 +39514,7 @@ export interface IGetTabungBayaranWaranBulananForViewDto {
     id: number;
     id_tabung_bayaran_waran: number;
     bulan: string;
+    id_bulan: number;
     tahun: string;
     jumlah: string;
 }
@@ -40083,6 +40213,7 @@ export class InputWaranBulananDto implements IInputWaranBulananDto {
     bulan!: string;
     tahun!: string;
     jumlah!: number;
+    id_bulan!: number;
 
     constructor(data?: IInputWaranBulananDto) {
         if (data) {
@@ -40098,6 +40229,7 @@ export class InputWaranBulananDto implements IInputWaranBulananDto {
             this.bulan = _data["bulan"];
             this.tahun = _data["tahun"];
             this.jumlah = _data["jumlah"];
+            this.id_bulan = _data["id_bulan"];
         }
     }
 
@@ -40113,6 +40245,7 @@ export class InputWaranBulananDto implements IInputWaranBulananDto {
         data["bulan"] = this.bulan;
         data["tahun"] = this.tahun;
         data["jumlah"] = this.jumlah;
+        data["id_bulan"] = this.id_bulan;
         return data; 
     }
 }
@@ -40121,6 +40254,7 @@ export interface IInputWaranBulananDto {
     bulan: string;
     tahun: string;
     jumlah: number;
+    id_bulan: number;
 }
 
 export class OutputCreateBayaranWaranDto implements IOutputCreateBayaranWaranDto {

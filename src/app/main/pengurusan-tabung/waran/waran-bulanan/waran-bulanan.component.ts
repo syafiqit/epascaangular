@@ -1,18 +1,18 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { NgbActiveModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import {
-  CreateOrEditTabungBayaranSkbBulananDto,
-  TabungBayaranSkbBulananServiceProxy,
-  OutputCreateSkbBulananDto
+  CreateOrEditTabungBayaranWaranBulananDto,
+  OutputCreateWaranBulananDto,
+  TabungBayaranWaranBulananServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 @Component({
-	selector: 'app-tambah-belanja-bulanan',
-	templateUrl: './tambah-belanja-bulanan.component.html',
+	selector: 'app-waran-bulanan',
+	templateUrl: './waran-bulanan.component.html',
 	encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig]
 })
-export class TambahBelanjaBulanan implements OnInit {
+export class WaranBulananComponent implements OnInit {
 	@Input() name;
 	@Input() id;
   @Input() idBulan;
@@ -21,12 +21,12 @@ export class TambahBelanjaBulanan implements OnInit {
 	@Input() id_bulan;
 	@Input() jumlah;
   @Input() kategori;
-  @Input() id_tabung_bayaran_skb;
+  @Input() id_tabung_bayaran_waran;
   @Input() id_tabung;
   @Input() jumlah_baki_peruntukan;
 
-	bulanan: CreateOrEditTabungBayaranSkbBulananDto = new CreateOrEditTabungBayaranSkbBulananDto();
-  output: OutputCreateSkbBulananDto = new OutputCreateSkbBulananDto();
+	bulanan: CreateOrEditTabungBayaranWaranBulananDto = new CreateOrEditTabungBayaranWaranBulananDto();
+  output: OutputCreateWaranBulananDto = new OutputCreateWaranBulananDto();
 
 	saving = false;
   arrayYear:any[];
@@ -42,7 +42,7 @@ export class TambahBelanjaBulanan implements OnInit {
 
 	constructor(
 		public activeModal: NgbActiveModal,
-    private _tabungBayaranSkbBulananServiceProxy: TabungBayaranSkbBulananServiceProxy
+    private _tabungBayaranWaranBulananServiceProxy: TabungBayaranWaranBulananServiceProxy
 	) {}
 
 	ngOnInit(): void {
@@ -52,17 +52,17 @@ export class TambahBelanjaBulanan implements OnInit {
 
 	show() {
 		if (!this.id) {
-			this.bulanan = new CreateOrEditTabungBayaranSkbBulananDto();
+			this.bulanan = new CreateOrEditTabungBayaranWaranBulananDto();
       this.bulanan.tahun = this.tahun;
       this.bulanan.bulan = this.bulan;
       this.bulan_id = this.id_bulan;
       this.bulanan.jumlah = this.jumlah;
 		}
     else {
-			this._tabungBayaranSkbBulananServiceProxy.getTabungBayaranSkbBulananForEdit(this.id).subscribe((result) => {
-				this.bulanan = result.tabung_bayaran_skb_bulanan;
-        this.bulan_id = result.tabung_bayaran_skb_bulanan.id_bulan;
-        this.jumlah_lama = result.tabung_bayaran_skb_bulanan.jumlah;
+			this._tabungBayaranWaranBulananServiceProxy.getTabungBayaranWaranBulananForEdit(this.id).subscribe((result) => {
+				this.bulanan = result.tabung_bayaran_waran_bulanan;
+        this.bulan_id = result.tabung_bayaran_waran_bulanan.id_bulan;
+        this.jumlah_lama = result.tabung_bayaran_waran_bulanan.jumlah;
 			});
 		}
 	}
@@ -87,7 +87,7 @@ export class TambahBelanjaBulanan implements OnInit {
       if(jumlah <= this.jumlah_baki_peruntukan) {
         this.activeModal.close({tahun: tahun, bulan: bulan, id_bulan: id_bulan, jumlah: jumlah });
       } else{
-        swalError.fire('Tidak Berjaya!', 'Jumlah Belanja Bulanan Melebihi Jumlah Baki Siling SKB', 'error')
+        swalError.fire('Tidak Berjaya!', 'Jumlah Belanja Bulanan Melebihi Jumlah Baki Siling Waran', 'error')
       }
     }
     else if (this.kategori == 1 && this.idBulan){
@@ -95,27 +95,27 @@ export class TambahBelanjaBulanan implements OnInit {
       if(jumlah <= this.baki_baru) {
         this.activeModal.close({ id: this.idBulan, tahun: tahun, bulan: bulan, id_bulan: id_bulan, jumlah: jumlah });
       } else{
-        swalError.fire('Tidak Berjaya!', 'Jumlah Belanja Bulanan Melebihi Jumlah Baki Siling SKB', 'error')
+        swalError.fire('Tidak Berjaya!', 'Jumlah Belanja Bulanan Melebihi Jumlah Baki Siling Waran', 'error')
       }
     }
     else {
       this.saving = true;
-      this.bulanan.id_tabung_bayaran_skb = this.id_tabung_bayaran_skb;
+      this.bulanan.id_tabung_bayaran_waran = this.id_tabung_bayaran_waran;
       this.bulanan.id_tabung = this.id_tabung;
       this.bulanan.id_bulan = this.bulan_id;
       this.bulanan.jumlah_lama = this.jumlah_lama;
-      this._tabungBayaranSkbBulananServiceProxy
+      this._tabungBayaranWaranBulananServiceProxy
       .createOrEdit(this.bulanan)
       .pipe()
       .subscribe((result) => {
         this.output = result;
-        if(this.output.message == "Maklumat SKB Bulanan Berjaya Ditambah!"){
-          swalSuccess.fire('Berjaya!', 'Maklumat Belanja Bulanan SKB Berjaya Dihantar', 'success').then(() => {
+        if(this.output.message == "Maklumat Waran Bulanan Berjaya Ditambah!"){
+          swalSuccess.fire('Berjaya!', 'Maklumat Belanja Bulanan Waran Berjaya Dihantar', 'success').then(() => {
             this.activeModal.close(true);
           });
         }
-        else if(this.output.message == "Maklumat SKB Bulanan Berjaya Dikemaskini!"){
-          swalSuccess.fire('Berjaya!', 'Maklumat Belanja Bulanan SKB Berjaya Disimpan', 'success').then(() => {
+        else if(this.output.message == "Maklumat Waran Bulanan Berjaya Dikemaskini!"){
+          swalSuccess.fire('Berjaya!', 'Maklumat Belanja Bulanan Waran Berjaya Disimpan', 'success').then(() => {
             this.activeModal.close(true);
           });
         }else{
