@@ -1070,7 +1070,7 @@
       .product-details {
         padding: 0 !important;
       }
-      
+
     }
     &.new-products {
       .product-box {
@@ -1193,7 +1193,7 @@
         flex-basis: auto;
 
         &+.mega-box {
-          &+.mega-box { 
+          &+.mega-box {
             border-left: 0px;
             padding-left: 15px;
           }
@@ -1776,7 +1776,7 @@
     div {
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 209px;
+      max-width: 100%;
     }
   }
 

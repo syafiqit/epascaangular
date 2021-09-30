@@ -4,342 +4,157 @@
 	[active_item]="'Senarai'"
 ></app-breadcrumb>
 <div class="container-fluid">
-	<div class="row">
-		<div class="col-sm-12">
-			<div class="card">
-				<div class="card-body">
-					<div class="row">
-            <div class="col-lg-3">
-              <div class="card bg-primary">
-                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/ringkasan'">
-                  <div class="row">
-                    <div class="col-lg-12" style="font-size:17px; line-height: 19pt;">
-                      <div class="row no-gutters">
-                        <a style="font-weight:400">Ringkasan</a>
-                      </div>
-                      <div class="row no-gutters">
-                        <a style="font-weight:400">Laporan</a>
-                      </div>
-                    </div>
-                  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row icon-lists feather-icons">
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/ringkasan'">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Ringkasan Laporan</h6>
                 </div>
               </div>
             </div>
 
-            <div class="col-lg-3">
-              <div class="card bg-primary">
-                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/kelulusan'">
-                  <div class="row">
-                    <div class="col-lg-12" style="font-size:17px; line-height: 19pt;">
-                      <div class="row no-gutters">
-                        <a style="font-weight:400">Laporan Tabung</a>
-                      </div>
-                      <div class="row no-gutters">
-                        <a style="font-weight:400">Kelulusan</a>
-                      </div>
-                    </div>
-                  </div>
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/kelulusan'">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Laporan Tabung Kelulusan</h6>
                 </div>
               </div>
             </div>
 
-            <div class="col-lg-3">
-              <div class="card bg-primary">
-                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/bayaran/skb'">
-                  <div class="row">
-                    <div class="col-lg-12" style="font-size:16px; line-height: 19pt;">
-                      <div class="row no-gutters">
-                        <a style="font-weight:400">Laporan Surat</a>
-                      </div>
-                      <div class="row no-gutters">
-                        <a style="font-weight:400">Kuasa Belanja (SKB)</a>
-                      </div>
-                    </div>
-                  </div>
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bayaran/skb'">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Laporan Surat Kuasa Belanja</h6>
                 </div>
               </div>
             </div>
 
-            <div class="col-lg-3">
-              <div class="card bg-primary">
-                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/bayaran/skb/bulan'">
-                  <div class="row">
-                    <div class="col-lg-12" style="font-size:17px; line-height: 19pt;">
-                      <div class="row no-gutters">
-                        <a style="font-weight:400">Laporan SKB</a>
-                      </div>
-                      <div class="row no-gutters">
-                        <a style="font-weight:400">Mengikut Bulan</a>
-                      </div>
-                    </div>
-                  </div>
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bayaran/terus'">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Laporan Bayaran Terus</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bwi'">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Laporan Bantuan Wang Ihsan</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bwi/bencana-kir'">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Laporan BWI (Bencana - KIR)</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bwi/bencana-kelulusan'">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Laporan BWI (Bencana - Kelulusan</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bwi/negeri'">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Laporan BWI (Negeri)</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bwi/kematian'">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Laporan BWI (Pengurusan Kematian)</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/mangsa/pendaftaran'">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Laporan Mangsa Berdaftar</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/mangsa/tiada-bantuan'">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Laporan Mangsa (Belum Terima Bantuan)</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/lain-lain'">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Laporan Bantuan Lain-lain</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/antarabangsa'">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Laporan Bantuan Antarabangsa</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/pinjaman'">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Laporan Bantuan Pinjaman Khas</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/pertanian'">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Laporan Bantuan Pertanian</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/rumah/bina-baru'" [queryParams]="{id: 2}">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Laporan Bantuan Bina Rumah Baru</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/rumah/baik-pulih'" [queryParams]="{id: 3}">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Laporan Bantuan Baik Pulih Rumah</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bwi/penerima'">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Laporan Penerima BWI</h6>
                 </div>
               </div>
             </div>
           </div>
-
-          <div class="row">
-            <div class="col-lg-3">
-              <div class="card bg-primary">
-                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/bayaran/terus'">
-                  <div class="row">
-                    <div class="col-lg-12" style="font-size:17px; line-height: 19pt;">
-                      <div class="row no-gutters">
-                        <a style="font-weight:400">Laporan</a>
-                      </div>
-                      <div class="row no-gutters">
-                        <a style="font-weight:400">Bayaran Terus</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-3">
-              <div class="card bg-primary">
-                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/bwi'">
-                  <div class="row">
-                    <div class="col-lg-12" style="font-size:17px; line-height: 19pt;">
-                      <div class="row no-gutters">
-                        <a style="font-weight:400">Laporan Bantuan</a>
-                      </div>
-                      <div class="row no-gutters">
-                        <a style="font-weight:400">Wang Ihsan (BWI)</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-3">
-              <div class="card bg-primary">
-                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/bwi/bencana-kir'">
-                  <div class="row">
-                    <div class="col-lg-12" style="line-height: 19pt;">
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:17px;">Laporan BWI</a>
-                      </div>
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:16px;">(Bencana-KIR)</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-3">
-              <div class="card bg-primary">
-                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/bwi/bencana-kelulusan'">
-                  <div class="row">
-                    <div class="col-lg-12" style="line-height: 19pt;">
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:17px;">Laporan BWI</a>
-                      </div>
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:15px;">(Bencana-Kelulusan)</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-lg-3">
-              <div class="card bg-primary">
-                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/bwi/negeri'">
-                  <div class="row">
-                    <div class="col-lg-12" style="line-height: 19pt;">
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:17px;">Laporan BWI</a>
-                      </div>
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:16px;">(Negeri)</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-3">
-              <div class="card bg-primary">
-                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/bwi/kematian'">
-                  <div class="row">
-                    <div class="col-lg-12" style="line-height: 19pt;">
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:17px;">Laporan BWI</a>
-                      </div>
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:16px;">(Kematian)</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-3">
-              <div class="card bg-primary">
-                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/mangsa/pendaftaran'">
-                  <div class="row">
-                    <div class="col-lg-12" style="line-height: 19pt;">
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:17px;">Laporan Mangsa</a>
-                      </div>
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:16px;">(Pendaftaran)</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-3">
-              <div class="card bg-primary">
-                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/mangsa/tiada-bantuan'">
-                  <div class="row">
-                    <div class="col-lg-12" style="line-height: 19pt;">
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:17px;">Laporan Mangsa</a>
-                      </div>
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:13px;">(Belum Terima Bantuan)</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-3">
-              <div class="card bg-primary">
-                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/bantuan/lain-lain'">
-                  <div class="row">
-                    <div class="col-lg-12" style="line-height: 19pt;">
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:17px;">Laporan Bantuan</a>
-                      </div>
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:16px;">(Lain-lain)</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-3">
-              <div class="card bg-primary">
-                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/bantuan/antarabangsa'">
-                  <div class="row">
-                    <div class="col-lg-12" style="line-height: 19pt;">
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:17px;">Laporan Bantuan</a>
-                      </div>
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:16px;">(Antarabangsa)</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-3">
-              <div class="card bg-primary">
-                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/bantuan/pinjaman'">
-                  <div class="row">
-                    <div class="col-lg-12" style="line-height: 19pt;">
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:17px;">Laporan Bantuan</a>
-                      </div>
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:16px;">(Pinjaman Khas)</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-3">
-              <div class="card bg-primary">
-                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/bantuan/pertanian'">
-                  <div class="row">
-                    <div class="col-lg-12" style="line-height: 19pt;">
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:17px;">Laporan Bantuan</a>
-                      </div>
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:16px;">(Pertanian)</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-lg-3">
-              <div class="card bg-primary">
-                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/bantuan/rumah/bina-baru'" [queryParams]="{id: 2}">
-                  <div class="row">
-                    <div class="col-lg-12" style="line-height: 19pt;">
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:17px;">Laporan Bantuan</a>
-                      </div>
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:16px;">(Bina Rumah Baru)</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-3">
-              <div class="card bg-primary">
-                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/bantuan/rumah/baik-pulih'" [queryParams]="{id: 3}">
-                  <div class="row">
-                    <div class="col-lg-12" style="line-height: 19pt;">
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:17px;">Laporan Bantuan</a>
-                      </div>
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:16px;">(Baik Pulih Rumah)</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-3">
-              <div class="card bg-primary">
-                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/bwi/penerima'">
-                  <div class="row">
-                    <div class="col-lg-12" style="line-height: 19pt;">
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:17px;">Laporan Bantuan</a>
-                      </div>
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:16px;">(Penerima BWI)</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-				</div>
-			</div>
-		</div>
-	</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
