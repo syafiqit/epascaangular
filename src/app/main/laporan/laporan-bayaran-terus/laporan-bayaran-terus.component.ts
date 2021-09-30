@@ -42,7 +42,7 @@ export class LaporanBayaranTerusComponent implements OnInit {
 
 	ngOnInit(): void {
     this.getKategori();
-	  this.generateArrayOfYears()
+	  this.generateArrayOfYears();
 
     this.terms$.pipe(
       debounceTime(500), distinctUntilChanged()
