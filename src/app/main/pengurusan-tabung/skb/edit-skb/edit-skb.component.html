@@ -86,7 +86,7 @@
                 <div class="input-group">
                   <input
                     class="form-control"
-                    placeholder="dd-mm-yyyy"
+                    placeholder="DD/MM/YYYY"
                     name="dp4"
                     [(ngModel)]="modelSurat"
                     ngbDatepicker
@@ -125,7 +125,13 @@
                     class="js-example-placeholder-multiple"
                     name="jenisBayaran"
                     [(ngModel)]="edit.tabung_bayaran_skb.id_jenis_bayaran"
+                    #jenisBayar="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && jenisBayar.invalid }"
+                    required
                   ></ng-select>
+                  <div *ngIf="f.submitted && jenisBayar.invalid" class="invalid-feedback">
+                    <div *ngIf="jenisBayar.errors.required">Jenis Bayaran Wajib Dipilih</div>
+                  </div>
 							  </div>
 						  </div>
 
@@ -161,7 +167,7 @@
                 <div class="input-group">
                   <input
                     class="form-control"
-                    placeholder="dd-mm-yyyy"
+                    placeholder="DD/MM/YYYY"
                     name="dp3"
                     [(ngModel)]="modelBencana"
                     ngbDatepicker
@@ -224,7 +230,7 @@
                 <div class="input-group">
                   <input
                     class="form-control"
-                    placeholder="dd-mm-yyyy"
+                    placeholder="DD/MM/YYYY"
                     name="dp"
                     [(ngModel)]="modelMula"
                     ngbDatepicker
@@ -255,7 +261,7 @@
                 <div class="input-group">
                   <input
                     class="form-control"
-                    placeholder="dd-mm-yyyy"
+                    placeholder="DD/MM/YYYY"
                     name="dp2"
                     [(ngModel)]="modelTamat"
                     ngbDatepicker

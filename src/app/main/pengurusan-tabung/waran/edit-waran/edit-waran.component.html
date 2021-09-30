@@ -1,7 +1,7 @@
 <app-breadcrumb
-	[title]="'Tambah Surat Kuasa Belanja'"
+	[title]="'Kemaskini Bayaran Waran'"
 	[items]="['Pengurusan Tabung','Pembayaran']"
-	[active_item]="['Tambah SKB']"
+	[active_item]="'Kemaskini Waran'"
 ></app-breadcrumb>
 
 <div class="container-fluid">
@@ -9,7 +9,7 @@
 		<div class="col-sm-12">
 			<div class="card">
 				<div class="card-body">
-					<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && checkBulanan()" novalidate>
+					<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
 						<h6>Maklumat Kelulusan</h6>
 						<div class="row">
 							<div class="col-lg-6">
@@ -21,7 +21,7 @@
                       type="text"
                       placeholder="No. Rujukan Kelulusan"
                       name="no_kelulusan"
-                      [(ngModel)]="skb.no_rujukan_kelulusan"
+                      [(ngModel)]="edit.tabung_bayaran_waran.no_rujukan_kelulusan"
                       #rujukanKelulusan="ngModel"
                       [ngClass]="{ 'is-invalid': f.submitted && rujukanKelulusan.invalid }"
                       required
@@ -48,18 +48,18 @@
                     bindValue="id"
                     placeholder="Sila Pilih"
                     class="js-example-placeholder-multiple"
-                    name="kategori_skb"
-                    [(ngModel)]="skb.id_kategori_bayaran"
-                    #skbCategory="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && skbCategory.invalid }"
+                    name="kategori_waran"
+                    [(ngModel)]="edit.tabung_bayaran_waran.id_kategori_bayaran"
+                    #waranCategory="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && waranCategory.invalid }"
                     required
                   ></ng-select>
-                  <div *ngIf="f.submitted && skbCategory.invalid" class="invalid-feedback">
-                    <div *ngIf="skbCategory.errors.required">Kategori Wajib Dipilih</div>
+                  <div *ngIf="f.submitted && waranCategory.invalid" class="invalid-feedback">
+                    <div *ngIf="waranCategory.errors.required">Kategori Wajib Dipilih</div>
                   </div>
 								</div>
 							</div>
-            </div>
+						</div>
 
 						<div class="row">
 							<div class="col-lg-6">
@@ -70,7 +70,7 @@
                     type="text"
                     placeholder="Rujukan Surat"
                     name="rujukanSurat"
-                    [(ngModel)]="skb.rujukan_surat_skb"
+                    [(ngModel)]="edit.tabung_bayaran_waran.rujukan_surat_waran"
                     #refLetter="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && refLetter.invalid }"
                     required
@@ -124,7 +124,7 @@
                     placeholder="Sila Pilih"
                     class="js-example-placeholder-multiple"
                     name="jenisBayaran"
-                    [(ngModel)]="skb.id_jenis_bayaran"
+                    [(ngModel)]="edit.tabung_bayaran_waran.id_jenis_bayaran"
                     #jenisBayar="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && jenisBayar.invalid }"
                     required
@@ -135,7 +135,7 @@
 							  </div>
 						  </div>
 
-              <div class="col-lg-6" *ngIf="skb.id_jenis_bayaran == 1" [@fadeVerticalAnimation]>
+              <div class="col-lg-6" *ngIf="edit.tabung_bayaran_waran.id_jenis_bayaran == 1" [@fadeVerticalAnimation]>
 								<div class="form-group">
 									<label>Jenis Bencana</label>
 									<div class="input-group">
@@ -144,7 +144,7 @@
                       type="text"
                       placeholder="Nama Bencana"
                       name="bencana"
-                      [(ngModel)]="skb.nama_bencana"
+                      [(ngModel)]="edit.tabung_bayaran_waran.nama_bencana"
                       #namaBencana="ngModel"
                       [ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
                       required
@@ -162,7 +162,7 @@
 						    </div>
               </div>
 
-							<div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown" *ngIf="skb.id_jenis_bayaran == 1" [@fadeVerticalAnimation]>
+							<div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown" *ngIf="edit.tabung_bayaran_waran.id_jenis_bayaran == 1" [@fadeVerticalAnimation]>
                 <label>Tarikh Bencana</label>
                 <div class="input-group">
                   <input
@@ -189,9 +189,9 @@
 									<input
                     class="form-control"
                     type="text"
-                    placeholder="Pegawai Diberi Kuasa"
+                    placeholder="Pegawai"
                     name="officer"
-                    [(ngModel)]="skb.nama_pegawai"
+                    [(ngModel)]="edit.tabung_bayaran_waran.nama_pegawai"
                     #officerName="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && officerName.invalid }"
                     required
@@ -212,7 +212,7 @@
                     placeholder="Sila Pilih"
                     class="js-example-placeholder-multiple"
                     name="nama_agensi"
-                    [(ngModel)]="skb.id_agensi"
+                    [(ngModel)]="edit.tabung_bayaran_waran.id_agensi"
                     #namaAgensi="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && namaAgensi.invalid }"
                     required
@@ -295,8 +295,42 @@
                   <textarea
                     class="form-control"
                     placeholder="Perihal"
-                    name="perihalSkb"
-                    [(ngModel)]="skb.perihal"
+                    name="perihalWaran"
+                    [(ngModel)]="edit.tabung_bayaran_waran.perihal"
+                  >
+                  </textarea>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Status</label>
+                  <ng-select
+                    [items]="statuses"
+                    bindLabel="nama"
+                    bindValue="id"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
+                    name="status_waran"
+                    [(ngModel)]="id_status_waran"
+                    #statusWaran="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && statusWaran.invalid }"
+                    required
+                  ></ng-select>
+                  <div *ngIf="f.submitted && statusWaran.invalid" class="invalid-feedback">
+                    <div *ngIf="statusWaran.errors.required">Status Wajib Dipilih</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6" *ngIf="id_status_waran == 3" [@fadeVerticalAnimation]>
+                <div class="form-group">
+                  <label>Catatan</label>
+                  <textarea
+                    class="form-control"
+                    placeholder=""
+                    name="note"
+                    [(ngModel)]="catatan_waran"
                   >
                   </textarea>
                 </div>
@@ -305,7 +339,7 @@
 						<hr />
 
 						<h6>Maklumat Belanja Bulanan</h6>
-            <div class="row">
+            <div class="row mt-3">
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Siling Peruntukan (RM)</label>
@@ -314,16 +348,9 @@
                     type="text"
                     name="siling_peruntukan"
                     placeholder="Jumlah Siling Peruntukan"
-                    [(ngModel)]="skb.jumlah_siling_peruntukan"
-                    (ngModelChange)="calculateBalance()"
-                    #silingPeruntukan="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && silingPeruntukan.invalid }"
-                    required
-                    onlyNumbers
+                    value="{{edit.tabung_bayaran_waran.jumlah_siling_peruntukan | number: '1.2-2'}}"
+                    disabled
                   />
-                  <div *ngIf="f.submitted && silingPeruntukan.invalid" class="invalid-feedback">
-                    <div *ngIf="silingPeruntukan.errors.required">Jumlah Siling Peruntukan Wajib Diisi</div>
-                  </div>
 								</div>
 							</div>
 
@@ -335,8 +362,7 @@
                     type="text"
                     name="baki_peruntukan"
                     placeholder="Jumlah Baki Peruntukan"
-                    value="{{balance_peruntukan | number: '1.2-2'}}"
-                    onlyNumbers
+                    value="{{edit.tabung_bayaran_waran.jumlah_baki_peruntukan | number: '1.2-2'}}"
                     disabled
                   />
 								</div>
@@ -347,7 +373,7 @@
               <button
                 type="button"
                 class="btn btn-primary pull-right"
-                (click)="addBulanan()"
+                (click)="addBulanan(edit.tabung_bayaran_waran.id)"
               >
                 <i class="fa fa-plus mr-2"></i>
                 <b>Tambah</b>
@@ -361,7 +387,7 @@
                     #dataTable
                     styleClass="p-datatable-striped"
                     [resizableColumns]="true"
-                    (onLazyLoad)="getAddSKB($event)"
+                    (onLazyLoad)="getBulananWaran($event)"
                     [value]="primengTableHelper.records"
                     rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
                     [paginator]="false"
@@ -418,13 +444,13 @@
                             <div ngbDropdownMenu aria-labelledby="action">
                               <button
                                 class="dropdown-item"
-                                (click)="editBulanan(record.id, record.tahun, record.bulan, record.id_bulan, record.jumlah)"
+                                (click)="editBulanan(record.id, record.id_tabung_bayaran_waran)"
                               >
                                 Lihat
                               </button>
                               <button
                                 class="dropdown-item"
-                                (click)="deleteBulanan(record.id)"
+                                (click)="deleteWaranBulanan(record.id)"
                               >
                                 Padam
                               </button>
@@ -441,7 +467,7 @@
                     <p-paginator
                       [rows]="primengTableHelper.defaultRecordsCountPerPage"
                       #paginator
-                      (onPageChange)="getAddSKB($event)"
+                      (onPageChange)="getBulananWaran($event)"
                       [totalRecords]="primengTableHelper.totalRecordsCount"
                       [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
                     ></p-paginator>
@@ -451,7 +477,7 @@
                   </div>
                 </div>
               </div>
-						</div>
+            </div>
 
             <div class="row">
 							<div class="col-lg-6">
@@ -463,17 +489,16 @@
                     name="jumlah_belanja"
                     placeholder="Jumlah Perbelanjaan"
                     value="{{belanja | number: '1.2-2'}}"
-                    onlyNumbers
                     disabled
                   />
 								</div>
 							</div>
             </div>
 
-						<button class="btn btn-primary pull-right" type="submit">Hantar</button>
+						<button class="btn btn-primary pull-right" type="submit">Simpan</button>
 						<button
 							class="btn btn-light pull-right mr-2"
-							[routerLink]="['/app/tabung/skb/senarai']"
+							[routerLink]="['/app/tabung/waran/senarai']"
 							type="button"
 						>
 							Kembali

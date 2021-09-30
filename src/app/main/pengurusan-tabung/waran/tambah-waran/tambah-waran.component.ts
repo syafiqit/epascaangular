@@ -4,38 +4,38 @@ import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { NgbActiveModal, NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { PilihanRujukanKelulusanComponent } from '../pilihan-rujukan-kelulusan/pilihan-rujukan-kelulusan.component';
 import {
-  CreateOrEditTabungBayaranSkbDto,
-  InputCreateBayaranSkbDto,
-  InputSkbBulananDto,
-  OutputCreateBayaranSkbDto,
+  CreateOrEditTabungBayaranWaranDto,
+  InputCreateBayaranWaranDto,
+  InputWaranBulananDto,
+  OutputCreateBayaranWaranDto,
   RefAgensiServiceProxy,
-  TabungBayaranSkbServiceProxy
+  TabungBayaranWaranServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
-import { TambahBelanjaBulanan } from '../tambah-belanja-bulanan/tambah-belanja-bulanan.component';
 import * as moment from 'moment';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
-import { PilihanBencanaComponent } from '../pilihan-bencana/pilihan-bencana.component';
 import { fadeVerticalAnimation } from '@app/shared/data/router-animation/fade-vertical-animation';
+import { PilihanRujukanKelulusanComponent } from '../../skb/pilihan-rujukan-kelulusan/pilihan-rujukan-kelulusan.component';
+import { PilihanBencanaComponent } from '../../skb/pilihan-bencana/pilihan-bencana.component';
+import { WaranBulananComponent } from '../waran-bulanan/waran-bulanan.component';
 @Component({
-	selector: 'app-tambah-skb',
-	templateUrl: './tambah-skb.component.html',
+	selector: 'app-tambah-waran',
+	templateUrl: './tambah-waran.component.html',
 	encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig, NgbModal, NgbActiveModal],
   animations: [fadeVerticalAnimation]
 })
-export class TambahSkbComponent implements OnInit {
+export class TambahWaranComponent implements OnInit {
 	@ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
 	primengTableHelper: PrimengTableHelper;
 
-  bayaranSKB: InputCreateBayaranSkbDto =  new InputCreateBayaranSkbDto();
-  skb: CreateOrEditTabungBayaranSkbDto = new CreateOrEditTabungBayaranSkbDto();
-  output: OutputCreateBayaranSkbDto = new OutputCreateBayaranSkbDto();
-  bulanan: InputSkbBulananDto[] = [];
+  bayaranWaran: InputCreateBayaranWaranDto =  new InputCreateBayaranWaranDto();
+  waran: CreateOrEditTabungBayaranWaranDto = new CreateOrEditTabungBayaranWaranDto();
+  output: OutputCreateBayaranWaranDto = new OutputCreateBayaranWaranDto();
+  bulanan: InputWaranBulananDto[] = [];
 
   agencies: any;
   filter: string;
@@ -71,14 +71,11 @@ export class TambahSkbComponent implements OnInit {
     config: NgbModalConfig,
     private modalService: NgbModal,
     public activeModal: NgbActiveModal,
-    private _activatedRoute: ActivatedRoute,
-    private _tabungBayaranSkbServiceProxy: TabungBayaranSkbServiceProxy,
+    private _tabungBayaranWaranServiceProxy: TabungBayaranWaranServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
     private router: Router,
     private calendar: NgbCalendar
   ) {
-    this.skb.id_tabung_kelulusan = this._activatedRoute.snapshot.queryParams['kelulusan'];
-    this.skb.no_rujukan_kelulusan = this._activatedRoute.snapshot.queryParams['no_ruj'];
     this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
@@ -86,7 +83,7 @@ export class TambahSkbComponent implements OnInit {
 
 	ngOnInit(): void {
     this.getAgensi();
-    this.getAddSKB();
+    this.getWaranBulanan();
   }
 
   fromModel(value: string | null): NgbDateStruct | null {
@@ -111,7 +108,7 @@ export class TambahSkbComponent implements OnInit {
 		});
 	}
 
-	getAddSKB(event?: LazyLoadEvent) {
+	getWaranBulanan(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
@@ -124,7 +121,7 @@ export class TambahSkbComponent implements OnInit {
 	}
 
   addBulanan() {
-		const modalRef = this.modalService.open(TambahBelanjaBulanan, { size: 'md' });
+		const modalRef = this.modalService.open(WaranBulananComponent, { size: 'md' });
 		modalRef.componentInstance.name = 'add';
     modalRef.componentInstance.kategori = 1;
     modalRef.componentInstance.jumlah_baki_peruntukan = this.balance_peruntukan;
@@ -134,7 +131,7 @@ export class TambahSkbComponent implements OnInit {
 				if (response) {
           this.idBulan = this.idBulan + 1;
           this.rows.push({ id: this.idBulan, tahun: response.tahun, bulan: response.bulan, id_bulan: response.id_bulan, jumlah: response.jumlah });
-          this.getAddSKB();
+          this.getWaranBulanan();
           this.calculateTotal();
           this.calculateBalance();
 				}
@@ -143,7 +140,7 @@ export class TambahSkbComponent implements OnInit {
 	}
 
   editBulanan(idBulan, tahun, bulan, id_bulan, jumlah) {
-		const modalRef = this.modalService.open(TambahBelanjaBulanan, { size: 'md' });
+		const modalRef = this.modalService.open(WaranBulananComponent, { size: 'md' });
 		modalRef.componentInstance.name = 'edit';
     modalRef.componentInstance.kategori = 1;
 		modalRef.componentInstance.idBulan = idBulan;
@@ -161,7 +158,7 @@ export class TambahSkbComponent implements OnInit {
           d.bulan = response.bulan;
           d.id_bulan = response.id_bulan;
           d.jumlah = response.jumlah;
-          this.getAddSKB();
+          this.getWaranBulanan();
           this.calculateTotal();
           this.calculateBalance();
 				}
@@ -171,7 +168,7 @@ export class TambahSkbComponent implements OnInit {
 
   deleteBulanan(id) {
     this.rows.splice(this.rows.findIndex(e=> e.id == id), 1);
-    this.getAddSKB();
+    this.getWaranBulanan();
     this.calculateTotal();
     this.calculateBalance();
 	}
@@ -186,9 +183,9 @@ export class TambahSkbComponent implements OnInit {
     modalRef.result.then(
 			(response) => {
 				if (response) {
-          this.skb.id_tabung_kelulusan = response.id;
-					this.skb.no_rujukan_kelulusan = response.no_rujukan_kelulusan;
-          this.skb.id_tabung = response.id_tabung;
+          this.waran.id_tabung_kelulusan = response.id;
+					this.waran.no_rujukan_kelulusan = response.no_rujukan_kelulusan;
+          this.waran.id_tabung = response.id_tabung;
 				}
 			}
 		);
@@ -200,8 +197,8 @@ export class TambahSkbComponent implements OnInit {
     modalRef.result.then(
 			(response) => {
 				if (response) {
-          this.skb.id_bencana = response.id;
-          this.skb.nama_bencana = response.nama_bencana;
+          this.waran.id_bencana = response.id;
+          this.waran.nama_bencana = response.nama_bencana;
           this.modelBencana = this.fromModel(response.tarikh_bencana.format('YYYY-MM-DD'));
 				}
 			}
@@ -209,7 +206,7 @@ export class TambahSkbComponent implements OnInit {
 	}
 
   calculateBalance() {
-    this.balance_peruntukan = this.skb.jumlah_siling_peruntukan - this.belanja;
+    this.balance_peruntukan = this.waran.jumlah_siling_peruntukan - this.belanja;
   }
 
   calculateTotal() {
@@ -221,7 +218,7 @@ export class TambahSkbComponent implements OnInit {
 
   checkBulanan() {
     if(this.rows.length == 0) {
-      swalError.fire('Tidak Berjaya!', "Maklumat Perbelanjaan Bulanan SKB Wajib Dimasukkan.", 'error');
+      swalError.fire('Tidak Berjaya!', "Maklumat Perbelanjaan Bulanan Waran Wajib Dimasukkan.", 'error');
     }
     else {
       this.save();
@@ -231,7 +228,7 @@ export class TambahSkbComponent implements OnInit {
 	save() {
     this.saving = true;
     for(let i = 0; i < this.rows.length; i++){
-      const monthly = new InputSkbBulananDto();
+      const monthly = new InputWaranBulananDto();
       monthly.tahun = this.rows[i].tahun;
       monthly.bulan = this.rows[i].bulan;
       monthly.id_bulan = this.rows[i].id_bulan;
@@ -239,29 +236,29 @@ export class TambahSkbComponent implements OnInit {
       this.bulanan.push(monthly);
     }
 
-    this.bayaranSKB.skb = this.skb;
+    this.bayaranWaran.waran = this.waran;
     if(this.modelSurat){
       this.tarikhSurat = this.toModel(this.modelSurat);
-      this.bayaranSKB.skb.tarikh_surat_skb = moment(this.tarikhSurat, "YYYY-MM-DD");
+      this.bayaranWaran.waran.tarikh_surat_waran = moment(this.tarikhSurat, "YYYY-MM-DD");
     }
     if(this.modelMula){
       this.tarikhMula = this.toModel(this.modelMula);
-      this.bayaranSKB.skb.tarikh_mula = moment(this.tarikhMula, "YYYY-MM-DD");
+      this.bayaranWaran.waran.tarikh_mula = moment(this.tarikhMula, "YYYY-MM-DD");
     }
     if(this.modelTamat){
       this.tarikhTamat = this.toModel(this.modelTamat);
-      this.bayaranSKB.skb.tarikh_tamat = moment(this.tarikhTamat, "YYYY-MM-DD");
+      this.bayaranWaran.waran.tarikh_tamat = moment(this.tarikhTamat, "YYYY-MM-DD");
     }
-    this.bayaranSKB.skb.jumlah_baki_peruntukan = this.balance_peruntukan;
-    this.bayaranSKB.skbBulanan = this.bulanan;
-		this._tabungBayaranSkbServiceProxy
-			.createOrEdit(this.bayaranSKB)
+    this.bayaranWaran.waran.jumlah_baki_peruntukan = this.balance_peruntukan;
+    this.bayaranWaran.waranBulanan = this.bulanan;
+		this._tabungBayaranWaranServiceProxy
+			.createOrEdit(this.bayaranWaran)
 			.pipe()
 			.subscribe((result) => {
         this.output = result;
         if(this.output.message == "Maklumat Berjaya Ditambah!"){
-          swalSuccess.fire('Berjaya!', 'Maklumat Surat Kuasa Belanja Berjaya Dihantar.', 'success').then(() => {
-            this.router.navigateByUrl('/app/tabung/skb/senarai');
+          swalSuccess.fire('Berjaya!', 'Maklumat Bayaran Secara Waran Berjaya Dihantar.', 'success').then(() => {
+            this.router.navigateByUrl('/app/tabung/waran/senarai');
           });
         }else{
           swalError.fire('Tidak Berjaya!', this.output.message, 'error');

@@ -4,44 +4,44 @@ import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { NgbActiveModal, NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { PilihanRujukanKelulusanComponent } from '../pilihan-rujukan-kelulusan/pilihan-rujukan-kelulusan.component';
 import {
-  CreateOrEditTabungBayaranSkbDto,
-  GetTabungBayaranSkbForEditDto,
-  InputCreateBayaranSkbDto,
-  InputSkbBulananDto,
-  OutputCreateSkbBulananDto,
+  CreateOrEditTabungBayaranWaranDto,
+  GetTabungBayaranWaranForEditDto,
+  InputCreateBayaranWaranDto,
+  InputWaranBulananDto,
+  OutputCreateWaranBulananDto,
   RefAgensiServiceProxy,
-  TabungBayaranSkbBulananServiceProxy,
-  TabungBayaranSkbServiceProxy
+  TabungBayaranWaranBulananServiceProxy,
+  TabungBayaranWaranServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PilihanBencanaComponent } from '../pilihan-bencana/pilihan-bencana.component';
 import { swalSuccess, swalWarning } from '@shared/sweet-alert/swal-constant';
 import { fadeVerticalAnimation } from '@app/shared/data/router-animation/fade-vertical-animation';
 import { finalize } from 'rxjs/operators';
-import { TambahBelanjaBulanan } from '../tambah-belanja-bulanan/tambah-belanja-bulanan.component';
+import { PilihanRujukanKelulusanComponent } from '../../skb/pilihan-rujukan-kelulusan/pilihan-rujukan-kelulusan.component';
+import { PilihanBencanaComponent } from '../../skb/pilihan-bencana/pilihan-bencana.component';
+import { WaranBulananComponent } from '../waran-bulanan/waran-bulanan.component';
 @Component({
-	selector: 'app-edit-skb',
-	templateUrl: './edit-skb.component.html',
+	selector: 'app-edit-waran',
+	templateUrl: './edit-waran.component.html',
 	encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig, NgbModal, NgbActiveModal],
   animations: [fadeVerticalAnimation]
 })
-export class EditSkbComponent implements OnInit {
+export class EditWaranComponent implements OnInit {
 	@ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
 	primengTableHelper: PrimengTableHelper;
 
-  edit: GetTabungBayaranSkbForEditDto = new GetTabungBayaranSkbForEditDto();
-  bayaranSKB: InputCreateBayaranSkbDto =  new InputCreateBayaranSkbDto();
-  skb: CreateOrEditTabungBayaranSkbDto = new CreateOrEditTabungBayaranSkbDto();
-  bulanan: InputSkbBulananDto[] = [];
-  output: OutputCreateSkbBulananDto = new OutputCreateSkbBulananDto();
+  edit: GetTabungBayaranWaranForEditDto = new GetTabungBayaranWaranForEditDto();
+  bayaranWaran: InputCreateBayaranWaranDto =  new InputCreateBayaranWaranDto();
+  waran: CreateOrEditTabungBayaranWaranDto = new CreateOrEditTabungBayaranWaranDto();
+  bulanan: InputWaranBulananDto[] = [];
+  output: OutputCreateWaranBulananDto = new OutputCreateWaranBulananDto();
 
-  idSkb: any;
+  idWaran: any;
   agencies: any;
   filter: string;
   saving = false;
@@ -50,13 +50,13 @@ export class EditSkbComponent implements OnInit {
   tarikhTamat: string;
   rows = [];
   id_jenis_bencana: number;
-  id_kategori_skb: number;
+  id_kategori_waran: number;
   nama_bencana: string;
   tarikh_bencana: string;
-  status_skb_bulanan: any = 1;
+  status_waran_bulanan: any = 1;
   belanja: number = 0;
-  id_status_skb: number;
-  catatan_skb: string;
+  id_status_waran: number;
+  catatan_waran: string;
 
   date = new Date();
   modelSurat: NgbDateStruct;
@@ -87,15 +87,15 @@ export class EditSkbComponent implements OnInit {
     private modalService: NgbModal,
     public activeModal: NgbActiveModal,
     private _activatedRoute: ActivatedRoute,
-    private _tabungBayaranSkbServiceProxy: TabungBayaranSkbServiceProxy,
-    private _tabungBayaranSkbBulananServiceProxy: TabungBayaranSkbBulananServiceProxy,
+    private _tabungBayaranWaranServiceProxy: TabungBayaranWaranServiceProxy,
+    private _tabungBayaranWaranBulananServiceProxy: TabungBayaranWaranBulananServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
     private calendar: NgbCalendar,
     private router: Router
   ) {
-    this.idSkb = this._activatedRoute.snapshot.queryParams['id'];
+    this.idWaran = this._activatedRoute.snapshot.queryParams['id'];
     this.primengTableHelper = new PrimengTableHelper();
-    this.edit.tabung_bayaran_skb = new CreateOrEditTabungBayaranSkbDto();
+    this.edit.tabung_bayaran_waran = new CreateOrEditTabungBayaranWaranDto();
 		config.backdrop = 'static';
 		config.keyboard = false;
 	}
@@ -122,24 +122,24 @@ export class EditSkbComponent implements OnInit {
   }
 
   show() {
-    this._tabungBayaranSkbServiceProxy.getTabungBayaranSkbForEdit(this.idSkb).subscribe((result)=>{
+    this._tabungBayaranWaranServiceProxy.getTabungBayaranWaranForEdit(this.idWaran).subscribe((result)=>{
       this.edit = result;
-      this.edit.tabung_bayaran_skb = result.tabung_bayaran_skb;
-      this.id_status_skb = result.tabung_bayaran_skb.id_status_skb;
-      this.catatan_skb = result.tabung_bayaran_skb.catatan;
-      if(result.tabung_bayaran_skb.tarikh_surat_skb){
-        this.modelSurat = this.fromModel(result.tabung_bayaran_skb.tarikh_surat_skb.format('YYYY-MM-DD'));
+      this.edit.tabung_bayaran_waran = result.tabung_bayaran_waran;
+      this.id_status_waran = result.tabung_bayaran_waran.id_status_waran;
+      this.catatan_waran = result.tabung_bayaran_waran.catatan;
+      if(result.tabung_bayaran_waran.tarikh_surat_waran){
+        this.modelSurat = this.fromModel(result.tabung_bayaran_waran.tarikh_surat_waran.format('YYYY-MM-DD'));
       }
-      if(result.tabung_bayaran_skb.tarikh_bencana){
-        this.modelBencana = this.fromModel(result.tabung_bayaran_skb.tarikh_bencana.format('YYYY-MM-DD'));
+      if(result.tabung_bayaran_waran.tarikh_bencana){
+        this.modelBencana = this.fromModel(result.tabung_bayaran_waran.tarikh_bencana.format('YYYY-MM-DD'));
       }
-      if(result.tabung_bayaran_skb.tarikh_mula){
-        this.modelMula = this.fromModel(result.tabung_bayaran_skb.tarikh_mula.format('YYYY-MM-DD'));
+      if(result.tabung_bayaran_waran.tarikh_mula){
+        this.modelMula = this.fromModel(result.tabung_bayaran_waran.tarikh_mula.format('YYYY-MM-DD'));
       }
-      if(result.tabung_bayaran_skb.tarikh_tamat){
-        this.modelTamat = this.fromModel(result.tabung_bayaran_skb.tarikh_tamat.format('YYYY-MM-DD'));
+      if(result.tabung_bayaran_waran.tarikh_tamat){
+        this.modelTamat = this.fromModel(result.tabung_bayaran_waran.tarikh_tamat.format('YYYY-MM-DD'));
       }
-      this.belanja = result.tabung_bayaran_skb.jumlah_siling_peruntukan - result.tabung_bayaran_skb.jumlah_baki_peruntukan;
+      this.belanja = result.tabung_bayaran_waran.jumlah_siling_peruntukan - result.tabung_bayaran_waran.jumlah_baki_peruntukan;
     })
   }
 
@@ -149,17 +149,17 @@ export class EditSkbComponent implements OnInit {
 		});
 	}
 
-	getBulananSKB(event?: LazyLoadEvent) {
+	getBulananWaran(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
 		}
 
 		this.primengTableHelper.showLoadingIndicator();
-		this._tabungBayaranSkbBulananServiceProxy
-			.getAllBulananbyIdSkb(
+		this._tabungBayaranWaranBulananServiceProxy
+			.getAllBulananbyIdWaran(
 				this.filter,
-        this.idSkb,
+        this.idWaran,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -183,9 +183,9 @@ export class EditSkbComponent implements OnInit {
     modalRef.result.then(
 			(response) => {
 				if (response) {
-          this.edit.tabung_bayaran_skb.id_tabung_kelulusan = response.id;
-					this.edit.tabung_bayaran_skb.no_rujukan_kelulusan = response.no_rujukan_kelulusan;
-          this.edit.tabung_bayaran_skb.id_tabung = response.id_tabung;
+          this.edit.tabung_bayaran_waran.id_tabung_kelulusan = response.id;
+					this.edit.tabung_bayaran_waran.no_rujukan_kelulusan = response.no_rujukan_kelulusan;
+          this.edit.tabung_bayaran_waran.id_tabung = response.id_tabung;
 				}
 			},
 			() => {}
@@ -198,27 +198,27 @@ export class EditSkbComponent implements OnInit {
     modalRef.result.then(
 			(response) => {
 				if (response) {
-          this.edit.tabung_bayaran_skb.id_bencana = response.id;
-          this.edit.tabung_bayaran_skb.nama_bencana = response.nama_bencana;
+          this.edit.tabung_bayaran_waran.id_bencana = response.id;
+          this.edit.tabung_bayaran_waran.nama_bencana = response.nama_bencana;
           this.modelBencana = this.fromModel(response.tarikh_bencana.format('YYYY-MM-DD'));
 				}
 			}
 		);
 	}
 
-  addBulanan(id_tabung_bayaran_skb) {
-		const modalRef = this.modalService.open(TambahBelanjaBulanan, { size: 'md' });
+  addBulanan(id_tabung_bayaran_waran) {
+		const modalRef = this.modalService.open(WaranBulananComponent, { size: 'md' });
 		modalRef.componentInstance.name = 'add';
     modalRef.componentInstance.kategori = 2;
-    modalRef.componentInstance.id_tabung_bayaran_skb = id_tabung_bayaran_skb;
-    modalRef.componentInstance.id_tabung = this.edit.tabung_bayaran_skb.id_tabung;
+    modalRef.componentInstance.id_tabung_bayaran_waran = id_tabung_bayaran_waran;
+    modalRef.componentInstance.id_tabung = this.edit.tabung_bayaran_waran.id_tabung;
     modalRef.result.then(
 			(response) => {
 				if (response) {
           this.rows.push({ tahun: response.tahun, bulan: response.bulan, id_bulan: response.id_bulan, jumlah: response.jumlah });
-          this.getBulananSKB();
+          this.getBulananWaran();
           this.show();
-          const monthly = new InputSkbBulananDto();
+          const monthly = new InputWaranBulananDto();
           monthly.tahun = response.tahun;
           monthly.bulan = response.bulan;
           monthly.id_bulan = response.id_bulan;
@@ -230,20 +230,20 @@ export class EditSkbComponent implements OnInit {
 		);
   }
 
-  editBulanan(id, id_tabung_bayaran_skb) {
-		const modalRef = this.modalService.open(TambahBelanjaBulanan, { size: 'md' });
+  editBulanan(id, id_tabung_bayaran_waran) {
+		const modalRef = this.modalService.open(WaranBulananComponent, { size: 'md' });
 		modalRef.componentInstance.name = 'edit';
 		modalRef.componentInstance.id = id;
-		modalRef.componentInstance.id_tabung_bayaran_skb = id_tabung_bayaran_skb;
-    modalRef.componentInstance.id_tabung = this.edit.tabung_bayaran_skb.id_tabung;
-    modalRef.componentInstance.jumlah_baki_peruntukan = this.edit.tabung_bayaran_skb.jumlah_baki_peruntukan;
+		modalRef.componentInstance.id_tabung_bayaran_waran = id_tabung_bayaran_waran;
+    modalRef.componentInstance.id_tabung = this.edit.tabung_bayaran_waran.id_tabung;
+    modalRef.componentInstance.jumlah_baki_peruntukan = this.edit.tabung_bayaran_waran.jumlah_baki_peruntukan;
     modalRef.result.then(
 			(response) => {
 				if (response) {
           this.rows.push({ tahun: response.tahun, bulan: response.bulan, id_bulan: response.id_bulan, jumlah: response.jumlah });
-          this.getBulananSKB();
+          this.getBulananWaran();
           this.show();
-          const monthly = new InputSkbBulananDto();
+          const monthly = new InputWaranBulananDto();
           monthly.tahun = response.tahun;
           monthly.bulan = response.bulan;
           monthly.id_bulan = response.id_bulan;
@@ -255,10 +255,10 @@ export class EditSkbComponent implements OnInit {
 		);
   }
 
-  deleteSkbBulanan(id){
+  deleteWaranBulanan(id){
 		swalWarning.fire({
 			title: 'Anda Pasti?',
-			text: 'Adakah anda pasti ingin maklumat Belanja Bulanan SKB ini?',
+			text: 'Adakah anda pasti ingin maklumat Belanja Bulanan Waran ini?',
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
@@ -266,11 +266,11 @@ export class EditSkbComponent implements OnInit {
 			confirmButtonText: 'Ya'
 		}).then((result) => {
 			if (result.value) {
-				this._tabungBayaranSkbBulananServiceProxy.delete(id).subscribe((result)=>{
+				this._tabungBayaranWaranBulananServiceProxy.delete(id).subscribe((result)=>{
           this.output = result;
-          if(this.output.message == "Surat Kuasa Belanja Bulanan Berjaya Dibuang"){
-            swalSuccess.fire('Berjaya!', 'Maklumat Belanja Bulanan SKB Dipilih Berjaya Dipadam!').then(()=>{
-              this.getBulananSKB();
+          if(this.output.message == "Belanja Bulanan Waran Berjaya Dibuang"){
+            swalSuccess.fire('Berjaya!', 'Maklumat Belanja Bulanan Waran Dipilih Berjaya Dipadam!').then(()=>{
+              this.getBulananWaran();
               this.show();
             });
           }
@@ -281,33 +281,33 @@ export class EditSkbComponent implements OnInit {
 
 	save() {
     this.saving = true;
-    this.bayaranSKB.skb = this.edit.tabung_bayaran_skb;
+    this.bayaranWaran.waran = this.edit.tabung_bayaran_waran;
     if(this.modelSurat){
       this.tarikhSurat = this.toModel(this.modelSurat);
-      this.bayaranSKB.skb.tarikh_surat_skb = moment(this.tarikhSurat, "YYYY-MM-DD");
+      this.bayaranWaran.waran.tarikh_surat_waran = moment(this.tarikhSurat, "YYYY-MM-DD");
     }
     if(this.modelMula){
       this.tarikhMula = this.toModel(this.modelMula);
-      this.bayaranSKB.skb.tarikh_mula = moment(this.tarikhMula, "YYYY-MM-DD");
+      this.bayaranWaran.waran.tarikh_mula = moment(this.tarikhMula, "YYYY-MM-DD");
     }
     if(this.modelTamat){
       this.tarikhTamat = this.toModel(this.modelTamat);
-      this.bayaranSKB.skb.tarikh_tamat = moment(this.tarikhTamat, "YYYY-MM-DD");
+      this.bayaranWaran.waran.tarikh_tamat = moment(this.tarikhTamat, "YYYY-MM-DD");
     }
-    if(this.id_status_skb != this.edit.tabung_bayaran_skb.id_status_skb) {
-      this.bayaranSKB.changeStatus = this.id_status_skb;
-      this.bayaranSKB.catatan = this.catatan_skb ?? null;
+    if(this.id_status_waran != this.edit.tabung_bayaran_waran.id_status_waran) {
+      this.bayaranWaran.changeStatus = this.id_status_waran;
+      this.bayaranWaran.catatan = this.catatan_waran ?? null;
     }
-    if(this.id_status_skb == this.edit.tabung_bayaran_skb.id_status_skb) {
-      this.bayaranSKB.changeStatus = null;
-      this.bayaranSKB.catatan = this.catatan_skb ?? null;
+    if(this.id_status_waran == this.edit.tabung_bayaran_waran.id_status_waran) {
+      this.bayaranWaran.changeStatus = null;
+      this.bayaranWaran.catatan = this.catatan_waran ?? null;
     }
-		this._tabungBayaranSkbServiceProxy
-			.createOrEdit(this.bayaranSKB)
+		this._tabungBayaranWaranServiceProxy
+			.createOrEdit(this.bayaranWaran)
 			.pipe()
 			.subscribe((result) => {
-				swalSuccess.fire('Berjaya!', 'Maklumat Surat Kuasa Belanja Berjaya Dikemaskini.', 'success').then(() => {
-					this.router.navigateByUrl('/app/tabung/skb/senarai');
+				swalSuccess.fire('Berjaya!', 'Maklumat Bayaran Secara Waran Berjaya Dikemaskini.', 'success').then(() => {
+					this.router.navigateByUrl('/app/tabung/waran/senarai');
 				});
 			});
 	}
