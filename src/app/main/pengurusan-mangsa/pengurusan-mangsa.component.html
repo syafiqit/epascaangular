@@ -33,13 +33,33 @@
             </div>
 
             <div class="col-4 justify-content-end pr-0">
-              <button
-                  [routerLink]="['/app/mangsa/tambah-pengurusan-mangsa']"
-                  class="btn btn-primary pull-right"
-                >
-                  <i class="fa fa-plus mr-2"></i>
-                  <b>Tambah</b>
-                </button>
+				  <div ngbDropdown class="btn-group pull-right mr-1" role="group">
+					<button type="button" class="btn btn-primary dropdown-toggle" id="dropdownBasic1"
+					  ngbDropdownToggle>
+					  <i class="fa fa-plus mr-2"></i>
+					  <b>Tambah</b>
+					</button>
+					<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+					  <button 
+						class="dropdown-item" 
+						[routerLink]="['/app/mangsa/tambah-pengurusan-mangsa']">Manual
+					  </button>
+					  <button class="dropdown-item">Pukal (Excel)</button>
+					</div>
+				  </div>
+				  <div ngbDropdown class="btn-group pull-right mr-1" role="group">
+					<button type="button" class="btn btn-primary dropdown-toggle" id="dropdownBasic1"
+					  ngbDropdownToggle>
+					  <i class="fa fa-plus mr-2"></i>
+					  <b>Kemaskini</b>
+					</button>
+					<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+					  <button 
+						class="dropdown-item" 
+						(click)="editIhsanModal()">Kemaskini BWI
+					  </button>
+					</div>
+				  </div>
             </div>
           </div>
 
@@ -126,6 +146,10 @@
 							>
 								<ng-template pTemplate="header">
 									<tr>
+										<th style="width: 40px">
+											<input class="checkbox" type="checkbox"
+											(change)="checkedAll($event.target.checked)">
+										</th>
 										<th style="width: 159px" pSortableColumn="no_kp">
 											Kad Pengenalan
 											<p-sortIcon field="no_kp"></p-sortIcon>
@@ -159,6 +183,12 @@
 								</ng-template>
 								<ng-template pTemplate="body" let-record="$implicit">
 									<tr>
+										<td style="width: 40px">
+											<input class="checkbox"
+												   name="{{ record.id }}" type="checkbox"
+												   id="{{record.id}}"
+												   [checked]="checked">
+										</td>
 										<td style="width: 159px">
 											<span class="p-column-title">Kad Pengenalan</span>
 											{{record.no_kp}}
