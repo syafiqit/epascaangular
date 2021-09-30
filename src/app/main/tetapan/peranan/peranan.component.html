@@ -48,23 +48,18 @@
         >
           <ng-template pTemplate="header">
             <tr>
-              <th style="width: 150px" pSortableColumn="peranan">
+              <th style="padding-left: 20px;width: 150px" pSortableColumn="peranan">
                 Nama Peranan
                 <p-sortIcon field="peranan"></p-sortIcon>
               </th>
-              <th style="width: 130px">Status</th>
               <th style="width: 130px">Tindakan</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-record="$implicit">
             <tr>
-              <td style="width: 150px">
+              <td style="padding-left: 20px; width: 150px">
                 <span class="p-column-title">Nama Peranan</span>
                 {{record.peranan}}
-              </td>
-              <td style="width: 130px">
-                <span class="p-column-title">Status</span>
-                {{"Aktif"}}
               </td>
               <td style="width: 130px">
                 <div ngbDropdown class="btn-group" role="group" container="body">
