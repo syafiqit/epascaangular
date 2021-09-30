@@ -21506,6 +21506,7 @@ export class UserServiceProxy {
     }
 }
 
+/** Class AuthChangePasswordDto */
 export class AuthChangePasswordDto implements IAuthChangePasswordDto {
     kata_laluan_baru!: string;
     ulang_kata_laluan_baru!: string;
@@ -21541,11 +21542,13 @@ export class AuthChangePasswordDto implements IAuthChangePasswordDto {
     }
 }
 
+/** Class AuthChangePasswordDto */
 export interface IAuthChangePasswordDto {
     kata_laluan_baru: string;
     ulang_kata_laluan_baru: string;
 }
 
+/** Class InputForgotPasswordDto */
 export class InputForgotPasswordDto implements IInputForgotPasswordDto {
     emel!: string;
 
@@ -21578,10 +21581,12 @@ export class InputForgotPasswordDto implements IInputForgotPasswordDto {
     }
 }
 
+/** Class InputForgotPasswordDto */
 export interface IInputForgotPasswordDto {
     emel: string;
 }
 
+/** Class InputLoginDto */
 export class InputLoginDto implements IInputLoginDto {
     emel!: string;
     kata_laluan!: string;
@@ -21617,11 +21622,13 @@ export class InputLoginDto implements IInputLoginDto {
     }
 }
 
+/** Class InputLoginDto */
 export interface IInputLoginDto {
     emel: string;
     kata_laluan: string;
 }
 
+/** Class InputResetPasswordDto */
 export class InputResetPasswordDto implements IInputResetPasswordDto {
     emel!: string;
     kod_akses!: string;
@@ -21663,6 +21670,7 @@ export class InputResetPasswordDto implements IInputResetPasswordDto {
     }
 }
 
+/** Class InputResetPasswordDto */
 export interface IInputResetPasswordDto {
     emel: string;
     kod_akses: string;
@@ -21670,6 +21678,7 @@ export interface IInputResetPasswordDto {
     ulang_kata_laluan: string;
 }
 
+/** Class OutputLoginDto */
 export class OutputLoginDto implements IOutputLoginDto {
     access_token!: string;
     token_type!: string;
@@ -21714,6 +21723,7 @@ export class OutputLoginDto implements IOutputLoginDto {
     }
 }
 
+/** Class OutputLoginDto */
 export interface IOutputLoginDto {
     access_token: string;
     token_type: string;
@@ -21722,6 +21732,7 @@ export interface IOutputLoginDto {
     message: string;
 }
 
+/** Class RegisterPenggunaDto */
 export class RegisterPenggunaDto implements IRegisterPenggunaDto {
     id!: number;
     nama!: string;
@@ -21802,6 +21813,7 @@ export class RegisterPenggunaDto implements IRegisterPenggunaDto {
     }
 }
 
+/** Class RegisterPenggunaDto */
 export interface IRegisterPenggunaDto {
     id: number;
     nama: string;
@@ -22196,6 +22208,7 @@ export interface IGetJumlahBantuanDto {
     jumlah: number;
 }
 
+/** Class GetTotalBantuanByNegeriDto */
 export class GetTotalBantuanByNegeriDto implements IGetTotalBantuanByNegeriDto {
     id!: number;
     bilMangsa!: number;
@@ -22240,6 +22253,7 @@ export class GetTotalBantuanByNegeriDto implements IGetTotalBantuanByNegeriDto {
     }
 }
 
+/** Class GetTotalBantuanByNegeriDto */
 export interface IGetTotalBantuanByNegeriDto {
     id: number;
     bilMangsa: number;
@@ -22248,6 +22262,7 @@ export interface IGetTotalBantuanByNegeriDto {
     nama_negeri: string;
 }
 
+/** Class GetTotalMangsaBencanaByNegeriDto */
 export class GetTotalMangsaBencanaByNegeriDto implements IGetTotalMangsaBencanaByNegeriDto {
     id!: number;
     bilBencana!: number;
@@ -22289,6 +22304,7 @@ export class GetTotalMangsaBencanaByNegeriDto implements IGetTotalMangsaBencanaB
     }
 }
 
+/** Class GetTotalMangsaBencanaByNegeriDto */
 export interface IGetTotalMangsaBencanaByNegeriDto {
     id: number;
     bilBencana: number;
@@ -22504,6 +22520,7 @@ export interface IOutputDownloadTempDto {
     file_token: string;
 }
 
+/** Class OutputFileUpload */
 export class OutputFileUpload implements IOutputFileUpload {
     url!: string;
 
@@ -22536,10 +22553,12 @@ export class OutputFileUpload implements IOutputFileUpload {
     }
 }
 
+/** Class OutputFileUpload */
 export interface IOutputFileUpload {
     url: string;
 }
 
+/** Class GetBwiByNegeriDto */
 export class GetBwiByNegeriDto implements IGetBwiByNegeriDto {
     nama_negeri!: string;
     bil!: number;
@@ -22584,6 +22603,7 @@ export class GetBwiByNegeriDto implements IGetBwiByNegeriDto {
     }
 }
 
+/** Class GetBwiByNegeriDto */
 export interface IGetBwiByNegeriDto {
     nama_negeri: string;
     bil: number;
@@ -22592,6 +22612,7 @@ export interface IGetBwiByNegeriDto {
     jumlah_diagihkan: number;
 }
 
+/** Class GetLaporanBayaranTerusDto */
 export class GetLaporanBayaranTerusDto implements IGetLaporanBayaranTerusDto {
     no_rujukan_terus!: string;
     no_rujukan_kelulusan!: string;
@@ -22648,6 +22669,7 @@ export class GetLaporanBayaranTerusDto implements IGetLaporanBayaranTerusDto {
     }
 }
 
+/** Class GetLaporanBayaranTerusDto */
 export interface IGetLaporanBayaranTerusDto {
     no_rujukan_terus: string;
     no_rujukan_kelulusan: string;
@@ -22660,6 +22682,7 @@ export interface IGetLaporanBayaranTerusDto {
     jumlah: number;
 }
 
+/** Class GetLaporanBwiBencanaKirDto */
 export class GetLaporanBwiBencanaKirDto implements IGetLaporanBwiBencanaKirDto {
     id_bencana!: number;
     nama_bencana!: string;
@@ -22710,6 +22733,7 @@ export class GetLaporanBwiBencanaKirDto implements IGetLaporanBwiBencanaKirDto {
     }
 }
 
+/** Class GetLaporanBwiBencanaKirDto */
 export interface IGetLaporanBwiBencanaKirDto {
     id_bencana: number;
     nama_bencana: string;
@@ -22720,6 +22744,7 @@ export interface IGetLaporanBwiBencanaKirDto {
     jumlah_diagihkan: number;
 }
 
+/** Class GetLaporanBwiDto */
 export class GetLaporanBwiDto implements IGetLaporanBwiDto {
     id!: number;
     no_rujukan_bwi!: string;
@@ -22818,6 +22843,7 @@ export class GetLaporanBwiDto implements IGetLaporanBwiDto {
     }
 }
 
+/** Class GetLaporanBwiDto */
 export interface IGetLaporanBwiDto {
     id: number;
     no_rujukan_bwi: string;
@@ -22844,6 +22870,7 @@ export interface IGetLaporanBwiDto {
     catatan: string;
 }
 
+/** Class GetLaporanBwiKematianDto */
 export class GetLaporanBwiKematianDto implements IGetLaporanBwiKematianDto {
     nama_negeri!: string;
     nama_daerah!: string;
@@ -22894,6 +22921,7 @@ export class GetLaporanBwiKematianDto implements IGetLaporanBwiKematianDto {
     }
 }
 
+/** Class GetLaporanBwiKematianDto */
 export interface IGetLaporanBwiKematianDto {
     nama_negeri: string;
     nama_daerah: string;
@@ -22904,6 +22932,7 @@ export interface IGetLaporanBwiKematianDto {
     jumlah: number;
 }
 
+/** Class GetLaporanKelulusanDto */
 export class GetLaporanKelulusanDto implements IGetLaporanKelulusanDto {
     id!: number;
     no_rujukan_kelulusan!: string;
@@ -22975,6 +23004,7 @@ export class GetLaporanKelulusanDto implements IGetLaporanKelulusanDto {
     }
 }
 
+/** Class GetLaporanKelulusanDto */
 export interface IGetLaporanKelulusanDto {
     id: number;
     no_rujukan_kelulusan: string;
@@ -22992,6 +23022,7 @@ export interface IGetLaporanKelulusanDto {
     jumlah_terus_bukan_covid_sebelum: number;
 }
 
+/** Class GetLaporanSkbDto */
 export class GetLaporanSkbDto implements IGetLaporanSkbDto {
     id!: number;
     no_rujukan_skb!: string;
@@ -23096,6 +23127,7 @@ export class GetLaporanSkbDto implements IGetLaporanSkbDto {
     }
 }
 
+/** Class GetLaporanSkbDto */
 export interface IGetLaporanSkbDto {
     id: number;
     no_rujukan_skb: string;
@@ -23124,6 +23156,7 @@ export interface IGetLaporanSkbDto {
     jumlah_keseluruhan: number;
 }
 
+/** Class GetLaporanWaranDto */
 export class GetLaporanWaranDto implements IGetLaporanWaranDto {
     id!: number;
     no_rujukan_waran!: string;
@@ -23228,6 +23261,7 @@ export class GetLaporanWaranDto implements IGetLaporanWaranDto {
     }
 }
 
+/** Class GetLaporanWaranDto */
 export interface IGetLaporanWaranDto {
     id: number;
     no_rujukan_waran: string;
@@ -23256,6 +23290,7 @@ export interface IGetLaporanWaranDto {
     jumlah_keseluruhan: number;
 }
 
+/** Class GetMangsaBantuanAntarabangsaLaporanDto */
 export class GetMangsaBantuanAntarabangsaLaporanDto implements IGetMangsaBantuanAntarabangsaLaporanDto {
     id!: number;
     nama!: string;
@@ -23321,6 +23356,7 @@ export class GetMangsaBantuanAntarabangsaLaporanDto implements IGetMangsaBantuan
     }
 }
 
+/** Class GetMangsaBantuanAntarabangsaLaporanDto */
 export interface IGetMangsaBantuanAntarabangsaLaporanDto {
     id: number;
     nama: string;
@@ -23336,6 +23372,7 @@ export interface IGetMangsaBantuanAntarabangsaLaporanDto {
     catatan: string;
 }
 
+/** Class GetMangsaBantuanLainLaporanDto */
 export class GetMangsaBantuanLainLaporanDto implements IGetMangsaBantuanLainLaporanDto {
     id!: number;
     nama!: string;
@@ -23407,6 +23444,7 @@ export class GetMangsaBantuanLainLaporanDto implements IGetMangsaBantuanLainLapo
     }
 }
 
+/** Class GetMangsaBantuanLainLaporanDto */
 export interface IGetMangsaBantuanLainLaporanDto {
     id: number;
     nama: string;
@@ -23424,6 +23462,7 @@ export interface IGetMangsaBantuanLainLaporanDto {
     catatan: string;
 }
 
+/** Class GetMangsaBantuanPertanianLaporanDto */
 export class GetMangsaBantuanPertanianLaporanDto implements IGetMangsaBantuanPertanianLaporanDto {
     id!: number;
     nama!: string;
@@ -23507,6 +23546,7 @@ export class GetMangsaBantuanPertanianLaporanDto implements IGetMangsaBantuanPer
     }
 }
 
+/** Class GetMangsaBantuanPertanianLaporanDto */
 export interface IGetMangsaBantuanPertanianLaporanDto {
     id: number;
     nama: string;
@@ -23528,6 +23568,7 @@ export interface IGetMangsaBantuanPertanianLaporanDto {
     catatan: string;
 }
 
+/** Class GetMangsaBantuanPinjamanLaporanDto */
 export class GetMangsaBantuanPinjamanLaporanDto implements IGetMangsaBantuanPinjamanLaporanDto {
     id!: number;
     nama!: string;
@@ -23593,6 +23634,7 @@ export class GetMangsaBantuanPinjamanLaporanDto implements IGetMangsaBantuanPinj
     }
 }
 
+/** Class GetMangsaBantuanPinjamanLaporanDto */
 export interface IGetMangsaBantuanPinjamanLaporanDto {
     id: number;
     nama: string;
@@ -23608,6 +23650,7 @@ export interface IGetMangsaBantuanPinjamanLaporanDto {
     jumlah_pinjaman: string;
 }
 
+/** Class GetMangsaBantuanRumahLaporanDto */
 export class GetMangsaBantuanRumahLaporanDto implements IGetMangsaBantuanRumahLaporanDto {
     id!: number;
     nama!: string;
@@ -23685,6 +23728,7 @@ export class GetMangsaBantuanRumahLaporanDto implements IGetMangsaBantuanRumahLa
     }
 }
 
+/** Class GetMangsaBantuanRumahLaporanDto */
 export interface IGetMangsaBantuanRumahLaporanDto {
     id: number;
     nama: string;
@@ -23704,6 +23748,7 @@ export interface IGetMangsaBantuanRumahLaporanDto {
     kos_sebenar: string;
 }
 
+/** Class GetMangsaBantuanWangIhsanLaporanDto */
 export class GetMangsaBantuanWangIhsanLaporanDto implements IGetMangsaBantuanWangIhsanLaporanDto {
     id!: number;
     nama!: string;
@@ -23763,6 +23808,7 @@ export class GetMangsaBantuanWangIhsanLaporanDto implements IGetMangsaBantuanWan
     }
 }
 
+/** Class GetMangsaBantuanWangIhsanLaporanDto */
 export interface IGetMangsaBantuanWangIhsanLaporanDto {
     id: number;
     nama: string;
@@ -23776,6 +23822,7 @@ export interface IGetMangsaBantuanWangIhsanLaporanDto {
     jumlah: string;
 }
 
+/** Class GetMangsaLaporanDto */
 export class GetMangsaLaporanDto implements IGetMangsaLaporanDto {
     id!: number;
     nama!: string;
@@ -23835,6 +23882,7 @@ export class GetMangsaLaporanDto implements IGetMangsaLaporanDto {
     }
 }
 
+/** Class GetMangsaLaporanDto */
 export interface IGetMangsaLaporanDto {
     id: number;
     nama: string;
@@ -23986,6 +24034,7 @@ export interface IGetTotalBantuanForViewDto {
     bantuan: GetTotalBantuanByJenisBantuanDto[];
 }
 
+/** Class InputLaporanKelulusanDto */
 export class InputLaporanKelulusanDto implements IInputLaporanKelulusanDto {
     kelulusan!: GetLaporanKelulusanDto;
     jumlah_skb_covid_semasa!: number;
@@ -24042,6 +24091,7 @@ export class InputLaporanKelulusanDto implements IInputLaporanKelulusanDto {
     }
 }
 
+/** Class InputLaporanKelulusanDto */
 export interface IInputLaporanKelulusanDto {
     kelulusan: GetLaporanKelulusanDto;
     jumlah_skb_covid_semasa: number;
@@ -24864,6 +24914,7 @@ export interface IPegedResultOfLaporanBwiByNegeriDto {
     items: GetBwiByNegeriDto[];
 }
 
+/** Class TotalSumberDanaRumahForViewDto */
 export class TotalSumberDanaRumahForViewDto implements ITotalSumberDanaRumahForViewDto {
     nama_sumber_dana!: string;
     jumlah!: number;
@@ -24899,11 +24950,13 @@ export class TotalSumberDanaRumahForViewDto implements ITotalSumberDanaRumahForV
     }
 }
 
+/** Class TotalSumberDanaRumahForViewDto */
 export interface ITotalSumberDanaRumahForViewDto {
     nama_sumber_dana: string;
     jumlah: number;
 }
 
+/** Class CreateOrEditMangsaAirDto */
 export class CreateOrEditMangsaAirDto implements ICreateOrEditMangsaAirDto {
     id!: number;
     id_mangsa!: number;
@@ -24975,6 +25028,7 @@ export class CreateOrEditMangsaAirDto implements ICreateOrEditMangsaAirDto {
     }
 }
 
+/** Class CreateOrEditMangsaAirDto */
 export interface ICreateOrEditMangsaAirDto {
     id: number;
     id_mangsa: number;
@@ -24992,6 +25046,7 @@ export interface ICreateOrEditMangsaAirDto {
     sebab_hapus: string;
 }
 
+/** Class GetMangsaAirForEditDto */
 export class GetMangsaAirForEditDto implements IGetMangsaAirForEditDto {
     mangsa_air!: CreateOrEditMangsaAirDto;
 
@@ -25024,10 +25079,12 @@ export class GetMangsaAirForEditDto implements IGetMangsaAirForEditDto {
     }
 }
 
+/** Class GetMangsaAirForEditDto */
 export interface IGetMangsaAirForEditDto {
     mangsa_air: CreateOrEditMangsaAirDto;
 }
 
+/** Class GetMangsaAirForViewDto */
 export class GetMangsaAirForViewDto implements IGetMangsaAirForViewDto {
     id!: number;
     id_mangsa!: number;
@@ -25102,6 +25159,7 @@ export class GetMangsaAirForViewDto implements IGetMangsaAirForViewDto {
     }
 }
 
+/** Class GetMangsaAirForViewDto */
 export interface IGetMangsaAirForViewDto {
     id: number;
     id_mangsa: number;
@@ -25174,6 +25232,7 @@ export interface IPagedResultDtoOfMangsaAirForViewDto {
     items: GetMangsaAirForViewDto[];
 }
 
+/** Class CreateOrEditMangsaAntarabangsaDto */
 export class CreateOrEditMangsaAntarabangsaDto implements ICreateOrEditMangsaAntarabangsaDto {
     id!: number;
     id_bencana!: number;
@@ -25251,6 +25310,7 @@ export class CreateOrEditMangsaAntarabangsaDto implements ICreateOrEditMangsaAnt
     }
 }
 
+/** Class CreateOrEditMangsaAntarabangsaDto */
 export interface ICreateOrEditMangsaAntarabangsaDto {
     id: number;
     id_bencana: number;
@@ -25270,6 +25330,7 @@ export interface ICreateOrEditMangsaAntarabangsaDto {
     nama_bencana: string;
 }
 
+/** Class GetMangsaAntarabangsaForEditDto */
 export class GetMangsaAntarabangsaForEditDto implements IGetMangsaAntarabangsaForEditDto {
     mangsa_antarabangsa!: CreateOrEditMangsaAntarabangsaDto;
 
@@ -25302,10 +25363,12 @@ export class GetMangsaAntarabangsaForEditDto implements IGetMangsaAntarabangsaFo
     }
 }
 
+/** Class GetMangsaAntarabangsaForEditDto */
 export interface IGetMangsaAntarabangsaForEditDto {
     mangsa_antarabangsa: CreateOrEditMangsaAntarabangsaDto;
 }
 
+/** Class GetMangsaAntarabangsaForViewDto */
 export class GetMangsaAntarabangsaForViewDto implements IGetMangsaAntarabangsaForViewDto {
     id!: number;
     id_bencana!: number;
@@ -25377,6 +25440,7 @@ export class GetMangsaAntarabangsaForViewDto implements IGetMangsaAntarabangsaFo
     }
 }
 
+/** Class GetMangsaAntarabangsaForViewDto */
 export interface IGetMangsaAntarabangsaForViewDto {
     id: number;
     id_bencana: number;
@@ -25448,6 +25512,7 @@ export interface IPagedResultDtoOfMangsaAntarabangsaForViewDto {
     items: GetMangsaAntarabangsaForViewDto[];
 }
 
+/** Class CreateOrEditMangsaBantuanDto */
 export class CreateOrEditMangsaBantuanDto implements ICreateOrEditMangsaBantuanDto {
     id!: number;
     id_bencana!: number;
@@ -25534,6 +25599,7 @@ export class CreateOrEditMangsaBantuanDto implements ICreateOrEditMangsaBantuanD
     }
 }
 
+/** Class CreateOrEditMangsaBantuanDto */
 export interface ICreateOrEditMangsaBantuanDto {
     id: number;
     id_bencana: number;
@@ -25556,6 +25622,7 @@ export interface ICreateOrEditMangsaBantuanDto {
     nama_bencana: string;
 }
 
+/** Class GetMangsaBantuanForEditDto */
 export class GetMangsaBantuanForEditDto implements IGetMangsaBantuanForEditDto {
     mangsa_bantuan!: CreateOrEditMangsaBantuanDto;
 
@@ -25588,10 +25655,12 @@ export class GetMangsaBantuanForEditDto implements IGetMangsaBantuanForEditDto {
     }
 }
 
+/** Class GetMangsaBantuanForEditDto */
 export interface IGetMangsaBantuanForEditDto {
     mangsa_bantuan: CreateOrEditMangsaBantuanDto;
 }
 
+/** Class GetMangsaBantuanForViewDto */
 export class GetMangsaBantuanForViewDto implements IGetMangsaBantuanForViewDto {
     id!: number;
     id_bencana!: number;
@@ -25672,6 +25741,7 @@ export class GetMangsaBantuanForViewDto implements IGetMangsaBantuanForViewDto {
     }
 }
 
+/** Class GetMangsaBantuanForViewDto */
 export interface IGetMangsaBantuanForViewDto {
     id: number;
     id_bencana: number;
@@ -25746,6 +25816,7 @@ export interface IPagedResultDtoOfMangsaBantuanForViewDto {
     items: GetMangsaBantuanForViewDto[];
 }
 
+/** Class CreateOrEditMangsaBencanaDto */
 export class CreateOrEditMangsaBencanaDto implements ICreateOrEditMangsaBencanaDto {
     id!: number;
     id_bencana!: number;
@@ -25820,6 +25891,7 @@ export class CreateOrEditMangsaBencanaDto implements ICreateOrEditMangsaBencanaD
     }
 }
 
+/** Class CreateOrEditMangsaBencanaDto */
 export interface ICreateOrEditMangsaBencanaDto {
     id: number;
     id_bencana: number;
@@ -25838,6 +25910,7 @@ export interface ICreateOrEditMangsaBencanaDto {
     tarikh_bencana: moment.Moment;
 }
 
+/** Class GetMangsaBencanaForEditDto */
 export class GetMangsaBencanaForEditDto implements IGetMangsaBencanaForEditDto {
     mangsa_bencana!: CreateOrEditMangsaBencanaDto;
 
@@ -25870,10 +25943,12 @@ export class GetMangsaBencanaForEditDto implements IGetMangsaBencanaForEditDto {
     }
 }
 
+/** Class GetMangsaBencanaForEditDto */
 export interface IGetMangsaBencanaForEditDto {
     mangsa_bencana: CreateOrEditMangsaBencanaDto;
 }
 
+/** Class GetMangsaBencanaForLookupDto */
 export class GetMangsaBencanaForLookupDto implements IGetMangsaBencanaForLookupDto {
     id_bencana!: number;
     nama_bencana!: string;
@@ -25915,6 +25990,7 @@ export class GetMangsaBencanaForLookupDto implements IGetMangsaBencanaForLookupD
     }
 }
 
+/** Class GetMangsaBencanaForLookupDto */
 export interface IGetMangsaBencanaForLookupDto {
     id_bencana: number;
     nama_bencana: string;
@@ -25922,6 +25998,7 @@ export interface IGetMangsaBencanaForLookupDto {
     tahun_bencana: number;
 }
 
+/** Class GetMangsaBencanaForViewDto */
 export class GetMangsaBencanaForViewDto implements IGetMangsaBencanaForViewDto {
     id!: number;
     id_bencana!: number;
@@ -25999,6 +26076,7 @@ export class GetMangsaBencanaForViewDto implements IGetMangsaBencanaForViewDto {
     }
 }
 
+/** Class GetMangsaBencanaForViewDto */
 export interface IGetMangsaBencanaForViewDto {
     id: number;
     id_bencana: number;
@@ -26126,6 +26204,7 @@ export interface IPagedResultDtoOfMangsaBencanaForViewDto {
     items: GetMangsaBencanaForViewDto[];
 }
 
+/** Class CreateOrEditMangsaKerosakanDto */
 export class CreateOrEditMangsaKerosakanDto implements ICreateOrEditMangsaKerosakanDto {
     id!: number;
     id_mangsa!: number;
@@ -26188,6 +26267,7 @@ export class CreateOrEditMangsaKerosakanDto implements ICreateOrEditMangsaKerosa
     }
 }
 
+/** Class CreateOrEditMangsaKerosakanDto */
 export interface ICreateOrEditMangsaKerosakanDto {
     id: number;
     id_mangsa: number;
@@ -26202,6 +26282,7 @@ export interface ICreateOrEditMangsaKerosakanDto {
     sebab_hapus: string;
 }
 
+/** Class GetMangsaKerosakanForEditDto */
 export class GetMangsaKerosakanForEditDto implements IGetMangsaKerosakanForEditDto {
     mangsa_kerosakan!: CreateOrEditMangsaKerosakanDto;
 
@@ -26234,10 +26315,12 @@ export class GetMangsaKerosakanForEditDto implements IGetMangsaKerosakanForEditD
     }
 }
 
+/** Class GetMangsaKerosakanForEditDto */
 export interface IGetMangsaKerosakanForEditDto {
     mangsa_kerosakan: CreateOrEditMangsaKerosakanDto;
 }
 
+/** Class GetMangsaKerosakanForViewDto */
 export class GetMangsaKerosakanForViewDto implements IGetMangsaKerosakanForViewDto {
     id!: number;
     id_mangsa!: number;
@@ -26300,6 +26383,7 @@ export class GetMangsaKerosakanForViewDto implements IGetMangsaKerosakanForViewD
     }
 }
 
+/** Class GetMangsaKerosakanForViewDto */
 export interface IGetMangsaKerosakanForViewDto {
     id: number;
     id_mangsa: number;
@@ -26368,6 +26452,7 @@ export interface IPagedResultDtoOfMangsaKerosakanForViewDto {
     items: GetMangsaKerosakanForViewDto[];
 }
 
+/** Class CreateOrEditMangsaPertanianDto */
 export class CreateOrEditMangsaPertanianDto implements ICreateOrEditMangsaPertanianDto {
     id!: number;
     id_bencana!: number;
@@ -26463,6 +26548,7 @@ export class CreateOrEditMangsaPertanianDto implements ICreateOrEditMangsaPertan
     }
 }
 
+/** Class CreateOrEditMangsaPertanianDto */
 export interface ICreateOrEditMangsaPertanianDto {
     id: number;
     id_bencana: number;
@@ -26488,6 +26574,7 @@ export interface ICreateOrEditMangsaPertanianDto {
     nama_bencana: string;
 }
 
+/** Class GetMangsaPertanianForEditDto */
 export class GetMangsaPertanianForEditDto implements IGetMangsaPertanianForEditDto {
     mangsa_pertanian!: CreateOrEditMangsaPertanianDto;
 
@@ -26520,10 +26607,12 @@ export class GetMangsaPertanianForEditDto implements IGetMangsaPertanianForEditD
     }
 }
 
+/** Class GetMangsaPertanianForEditDto */
 export interface IGetMangsaPertanianForEditDto {
     mangsa_pertanian: CreateOrEditMangsaPertanianDto;
 }
 
+/** Class GetMangsaPertanianForViewDto */
 export class GetMangsaPertanianForViewDto implements IGetMangsaPertanianForViewDto {
     id!: number;
     id_bencana!: number;
@@ -26625,6 +26714,7 @@ export class GetMangsaPertanianForViewDto implements IGetMangsaPertanianForViewD
     }
 }
 
+/** Class GetMangsaPertanianForViewDto */
 export interface IGetMangsaPertanianForViewDto {
     id: number;
     id_bencana: number;
@@ -26706,6 +26796,7 @@ export interface IPagedResultDtoOfMangsaPertanianForViewDto {
     items: GetMangsaPertanianForViewDto[];
 }
 
+/** Class CreateOrEditMangsaPinjamanDto */
 export class CreateOrEditMangsaPinjamanDto implements ICreateOrEditMangsaPinjamanDto {
     id!: number;
     id_bencana!: number;
@@ -26789,6 +26880,7 @@ export class CreateOrEditMangsaPinjamanDto implements ICreateOrEditMangsaPinjama
     }
 }
 
+/** Class CreateOrEditMangsaPinjamanDto */
 export interface ICreateOrEditMangsaPinjamanDto {
     id: number;
     id_bencana: number;
@@ -26810,6 +26902,7 @@ export interface ICreateOrEditMangsaPinjamanDto {
     tarikh_bencana: moment.Moment;
 }
 
+/** Class GetMangsaPinjamanForEditDto */
 export class GetMangsaPinjamanForEditDto implements IGetMangsaPinjamanForEditDto {
     mangsa_pinjaman!: CreateOrEditMangsaPinjamanDto;
 
@@ -26842,10 +26935,12 @@ export class GetMangsaPinjamanForEditDto implements IGetMangsaPinjamanForEditDto
     }
 }
 
+/** Class GetMangsaPinjamanForEditDto */
 export interface IGetMangsaPinjamanForEditDto {
     mangsa_pinjaman: CreateOrEditMangsaPinjamanDto;
 }
 
+/** Class GetMangsaPinjamanForViewDto */
 export class GetMangsaPinjamanForViewDto implements IGetMangsaPinjamanForViewDto {
     id!: number;
     id_bencana!: number;
@@ -26929,6 +27024,7 @@ export class GetMangsaPinjamanForViewDto implements IGetMangsaPinjamanForViewDto
     }
 }
 
+/** Class GetMangsaPinjamanForViewDto */
 export interface IGetMangsaPinjamanForViewDto {
     id: number;
     id_bencana: number;
@@ -27004,6 +27100,7 @@ export interface IPagedResultDtoOfMangsaPinjamanForViewDto {
     items: GetMangsaPinjamanForViewDto[];
 }
 
+/** Class CreateOrEditMangsaRumahDto */
 export class CreateOrEditMangsaRumahDto implements ICreateOrEditMangsaRumahDto {
     id!: number;
     id_bencana!: number;
@@ -27132,6 +27229,7 @@ export class CreateOrEditMangsaRumahDto implements ICreateOrEditMangsaRumahDto {
     }
 }
 
+/** Class CreateOrEditMangsaRumahDto */
 export interface ICreateOrEditMangsaRumahDto {
     id: number;
     id_bencana: number;
@@ -27168,6 +27266,7 @@ export interface ICreateOrEditMangsaRumahDto {
     nama_bencana: string;
 }
 
+/** Class GetMangsaRumahForEditDto */
 export class GetMangsaRumahForEditDto implements IGetMangsaRumahForEditDto {
     mangsa_rumah!: CreateOrEditMangsaRumahDto;
 
@@ -27200,10 +27299,12 @@ export class GetMangsaRumahForEditDto implements IGetMangsaRumahForEditDto {
     }
 }
 
+/** Class GetMangsaRumahForEditDto */
 export interface IGetMangsaRumahForEditDto {
     mangsa_rumah: CreateOrEditMangsaRumahDto;
 }
 
+/** Class GetMangsaRumahForViewDto */
 export class GetMangsaRumahForViewDto implements IGetMangsaRumahForViewDto {
     id!: number;
     id_bencana!: number;
@@ -27326,6 +27427,7 @@ export class GetMangsaRumahForViewDto implements IGetMangsaRumahForViewDto {
     }
 }
 
+/** Class GetMangsaRumahForViewDto */
 export interface IGetMangsaRumahForViewDto {
     id: number;
     id_bencana: number;
@@ -27414,6 +27516,7 @@ export interface IPagedResultDtoOfMangsaRumahForViewDto {
     items: GetMangsaRumahForViewDto[];
 }
 
+/** Class CreateMultipleMangsaWangIhsanDto */
 export class CreateMultipleMangsaWangIhsanDto implements ICreateMultipleMangsaWangIhsanDto {
     id_bencana!: number;
     id_agensi_bantuan!: number;
@@ -27461,6 +27564,7 @@ export class CreateMultipleMangsaWangIhsanDto implements ICreateMultipleMangsaWa
     }
 }
 
+/** Class CreateMultipleMangsaWangIhsanDto */
 export interface ICreateMultipleMangsaWangIhsanDto {
     id_bencana: number;
     id_agensi_bantuan: number;
@@ -27470,6 +27574,7 @@ export interface ICreateMultipleMangsaWangIhsanDto {
     id_jenis_bwi: number;
 }
 
+/** Class CreateOrEditMangsaWangIhsanDto */
 export class CreateOrEditMangsaWangIhsanDto implements ICreateOrEditMangsaWangIhsanDto {
     id!: number;
     id_bencana!: number;
@@ -27547,6 +27652,7 @@ export class CreateOrEditMangsaWangIhsanDto implements ICreateOrEditMangsaWangIh
     }
 }
 
+/** Class CreateOrEditMangsaWangIhsanDto */
 export interface ICreateOrEditMangsaWangIhsanDto {
     id: number;
     id_bencana: number;
@@ -27566,6 +27672,7 @@ export interface ICreateOrEditMangsaWangIhsanDto {
     tarikh_bencana: moment.Moment;
 }
 
+/** Class GetMangsaWangIhsanForEditDto */
 export class GetMangsaWangIhsanForEditDto implements IGetMangsaWangIhsanForEditDto {
     mangsa_wang_ihsan!: CreateOrEditMangsaWangIhsanDto;
 
@@ -27598,10 +27705,12 @@ export class GetMangsaWangIhsanForEditDto implements IGetMangsaWangIhsanForEditD
     }
 }
 
+/** Class GetMangsaWangIhsanForEditDto */
 export interface IGetMangsaWangIhsanForEditDto {
     mangsa_wang_ihsan: CreateOrEditMangsaWangIhsanDto;
 }
 
+/** Class GetMangsaWangIhsanForViewDto */
 export class GetMangsaWangIhsanForViewDto implements IGetMangsaWangIhsanForViewDto {
     id!: number;
     id_bencana!: number;
@@ -27700,6 +27809,7 @@ export class GetMangsaWangIhsanForViewDto implements IGetMangsaWangIhsanForViewD
     }
 }
 
+/** Class GetMangsaWangIhsanForViewDto */
 export interface IGetMangsaWangIhsanForViewDto {
     id: number;
     id_bencana: number;
@@ -27726,6 +27836,7 @@ export interface IGetMangsaWangIhsanForViewDto {
     nama_jenis_bwi: string;
 }
 
+/** Class InputCreateMultipleWangIhsanDto */
 export class InputCreateMultipleWangIhsanDto implements IInputCreateMultipleWangIhsanDto {
     mangsaBwi!: CreateMultipleMangsaWangIhsanDto;
     /** Id Mangsa in array of integer */
@@ -27770,12 +27881,14 @@ export class InputCreateMultipleWangIhsanDto implements IInputCreateMultipleWang
     }
 }
 
+/** Class InputCreateMultipleWangIhsanDto */
 export interface IInputCreateMultipleWangIhsanDto {
     mangsaBwi: CreateMultipleMangsaWangIhsanDto;
     /** Id Mangsa in array of integer */
     id_mangsa: number[];
 }
 
+/** Class InputTotalWangIhsanDto */
 export class InputTotalWangIhsanDto implements IInputTotalWangIhsanDto {
     jumlah_belum_dibayar!: number;
     bil_belum_dibayar!: number;
@@ -27823,6 +27936,7 @@ export class InputTotalWangIhsanDto implements IInputTotalWangIhsanDto {
     }
 }
 
+/** Class InputTotalWangIhsanDto */
 export interface IInputTotalWangIhsanDto {
     jumlah_belum_dibayar: number;
     bil_belum_dibayar: number;
@@ -27886,6 +28000,7 @@ export interface IPagedResultDtoOfMangsaWangIhsanForViewDto {
     items: GetMangsaWangIhsanForViewDto[];
 }
 
+/** Class CreateOrEditMangsaDto */
 export class CreateOrEditMangsaDto implements ICreateOrEditMangsaDto {
     id!: number;
     nama!: string;
@@ -27981,6 +28096,7 @@ export class CreateOrEditMangsaDto implements ICreateOrEditMangsaDto {
     }
 }
 
+/** Class CreateOrEditMangsaDto */
 export interface ICreateOrEditMangsaDto {
     id: number;
     nama: string;
@@ -28006,6 +28122,7 @@ export interface ICreateOrEditMangsaDto {
     tarikh_bantuan: moment.Moment;
 }
 
+/** Class GetMangsaForEditDto */
 export class GetMangsaForEditDto implements IGetMangsaForEditDto {
     mangsa!: CreateOrEditMangsaDto;
 
@@ -28038,10 +28155,12 @@ export class GetMangsaForEditDto implements IGetMangsaForEditDto {
     }
 }
 
+/** Class GetMangsaForEditDto */
 export interface IGetMangsaForEditDto {
     mangsa: CreateOrEditMangsaDto;
 }
 
+/** Class GetMangsaForViewDto */
 export class GetMangsaForViewDto implements IGetMangsaForViewDto {
     id!: number;
     nama!: string;
@@ -28095,6 +28214,7 @@ export class GetMangsaForViewDto implements IGetMangsaForViewDto {
     }
 }
 
+/** Class GetMangsaForViewDto */
 export interface IGetMangsaForViewDto {
     id: number;
     nama: string;
@@ -28106,6 +28226,7 @@ export interface IGetMangsaForViewDto {
     jumlah_bantuan: string;
 }
 
+/** Class InputBencanaMangsaDto */
 export class InputBencanaMangsaDto implements IInputBencanaMangsaDto {
     id!: number;
     id_bencana!: number;
@@ -28174,6 +28295,7 @@ export class InputBencanaMangsaDto implements IInputBencanaMangsaDto {
     }
 }
 
+/** Class InputBencanaMangsaDto */
 export interface IInputBencanaMangsaDto {
     id: number;
     id_bencana: number;
@@ -28190,6 +28312,7 @@ export interface IInputBencanaMangsaDto {
     sebab_hapus: string;
 }
 
+/** Class InputCreateMangsaDto */
 export class InputCreateMangsaDto implements IInputCreateMangsaDto {
     mangsa!: CreateOrEditMangsaDto;
     bencana!: InputBencanaMangsaDto;
@@ -28225,11 +28348,13 @@ export class InputCreateMangsaDto implements IInputCreateMangsaDto {
     }
 }
 
+/** Class InputCreateMangsaDto */
 export interface IInputCreateMangsaDto {
     mangsa: CreateOrEditMangsaDto;
     bencana: InputBencanaMangsaDto;
 }
 
+/** Class OutputGambarProfilMangsaDto */
 export class OutputGambarProfilMangsaDto implements IOutputGambarProfilMangsaDto {
     url!: string;
 
@@ -28262,6 +28387,7 @@ export class OutputGambarProfilMangsaDto implements IOutputGambarProfilMangsaDto
     }
 }
 
+/** Class OutputGambarProfilMangsaDto */
 export interface IOutputGambarProfilMangsaDto {
     url: string;
 }
@@ -28320,6 +28446,7 @@ export interface IPagedResultDtoOfMangsaForViewDto {
     items: GetMangsaForViewDto[];
 }
 
+/** Class CreateOrEditRefAgamaDto */
 export class CreateOrEditRefAgamaDto implements ICreateOrEditRefAgamaDto {
     id!: number;
     nama_agama!: string;
@@ -28358,12 +28485,14 @@ export class CreateOrEditRefAgamaDto implements ICreateOrEditRefAgamaDto {
     }
 }
 
+/** Class CreateOrEditRefAgamaDto */
 export interface ICreateOrEditRefAgamaDto {
     id: number;
     nama_agama: string;
     status_agama: number;
 }
 
+/** Class GetRefAgamaForEditDto */
 export class GetRefAgamaForEditDto implements IGetRefAgamaForEditDto {
     ref_agama!: CreateOrEditRefAgamaDto;
 
@@ -28396,6 +28525,7 @@ export class GetRefAgamaForEditDto implements IGetRefAgamaForEditDto {
     }
 }
 
+/** Class GetRefAgamaForEditDto */
 export interface IGetRefAgamaForEditDto {
     ref_agama: CreateOrEditRefAgamaDto;
 }
@@ -28448,6 +28578,7 @@ export interface IGetRefAgamaForListDto {
     items: RefAgamaDto[];
 }
 
+/** Class GetRefAgamaForViewDto */
 export class GetRefAgamaForViewDto implements IGetRefAgamaForViewDto {
     id!: number;
     nama_agama!: string;
@@ -28486,6 +28617,7 @@ export class GetRefAgamaForViewDto implements IGetRefAgamaForViewDto {
     }
 }
 
+/** Class GetRefAgamaForViewDto */
 export interface IGetRefAgamaForViewDto {
     id: number;
     nama_agama: string;
@@ -28546,6 +28678,7 @@ export interface IPagedResultDtoOfRefAgamaForViewDto {
     items: GetRefAgamaForViewDto[];
 }
 
+/** Class RefAgamaDto */
 export class RefAgamaDto implements IRefAgamaDto {
     id!: number;
     nama_agama!: string;
@@ -28584,12 +28717,14 @@ export class RefAgamaDto implements IRefAgamaDto {
     }
 }
 
+/** Class RefAgamaDto */
 export interface IRefAgamaDto {
     id: number;
     nama_agama: string;
     status_agama: number;
 }
 
+/** Class CreateOrEditRefAgensiDto */
 export class CreateOrEditRefAgensiDto implements ICreateOrEditRefAgensiDto {
     id!: number;
     id_kementerian!: number;
@@ -28643,6 +28778,7 @@ export class CreateOrEditRefAgensiDto implements ICreateOrEditRefAgensiDto {
     }
 }
 
+/** Class CreateOrEditRefAgensiDto */
 export interface ICreateOrEditRefAgensiDto {
     id: number;
     id_kementerian: number;
@@ -28654,6 +28790,7 @@ export interface ICreateOrEditRefAgensiDto {
     status_agensi: number;
 }
 
+/** Class GetRefAgensiForEditDto */
 export class GetRefAgensiForEditDto implements IGetRefAgensiForEditDto {
     ref_agensi!: CreateOrEditRefAgensiDto;
 
@@ -28686,6 +28823,7 @@ export class GetRefAgensiForEditDto implements IGetRefAgensiForEditDto {
     }
 }
 
+/** Class GetRefAgensiForEditDto */
 export interface IGetRefAgensiForEditDto {
     ref_agensi: CreateOrEditRefAgensiDto;
 }
@@ -28738,6 +28876,7 @@ export interface IGetRefAgensiForListDto {
     items: RefAgensiDto[];
 }
 
+/** Class GetRefAgensiForViewDto */
 export class GetRefAgensiForViewDto implements IGetRefAgensiForViewDto {
     id!: number;
     id_kementerian!: number;
@@ -28794,6 +28933,7 @@ export class GetRefAgensiForViewDto implements IGetRefAgensiForViewDto {
     }
 }
 
+/** Class GetRefAgensiForViewDto */
 export interface IGetRefAgensiForViewDto {
     id: number;
     id_kementerian: number;
@@ -28860,6 +29000,7 @@ export interface IPagedResultDtoOfRefAgensiForViewDto {
     items: GetRefAgensiForViewDto[];
 }
 
+/** Class RefAgensiDto */
 export class RefAgensiDto implements IRefAgensiDto {
     id!: number;
     id_kementerian!: number;
@@ -28913,6 +29054,7 @@ export class RefAgensiDto implements IRefAgensiDto {
     }
 }
 
+/** Class RefAgensiDto */
 export interface IRefAgensiDto {
     id: number;
     id_kementerian: number;
@@ -28924,6 +29066,7 @@ export interface IRefAgensiDto {
     status_agensi: number;
 }
 
+/** Class CreateOrEditRefBantuanDto */
 export class CreateOrEditRefBantuanDto implements ICreateOrEditRefBantuanDto {
     id!: number;
     nama_bantuan!: string;
@@ -28962,12 +29105,14 @@ export class CreateOrEditRefBantuanDto implements ICreateOrEditRefBantuanDto {
     }
 }
 
+/** Class CreateOrEditRefBantuanDto */
 export interface ICreateOrEditRefBantuanDto {
     id: number;
     nama_bantuan: string;
     status_bantuan: number;
 }
 
+/** Class GetRefBantuanForEditDto */
 export class GetRefBantuanForEditDto implements IGetRefBantuanForEditDto {
     ref_bantuan!: CreateOrEditRefBantuanDto;
 
@@ -29000,6 +29145,7 @@ export class GetRefBantuanForEditDto implements IGetRefBantuanForEditDto {
     }
 }
 
+/** Class GetRefBantuanForEditDto */
 export interface IGetRefBantuanForEditDto {
     ref_bantuan: CreateOrEditRefBantuanDto;
 }
@@ -29052,6 +29198,7 @@ export interface IGetRefBantuanForListDto {
     items: RefBantuanDto[];
 }
 
+/** Class GetRefBantuanForViewDto */
 export class GetRefBantuanForViewDto implements IGetRefBantuanForViewDto {
     id!: number;
     nama_bantuan!: string;
@@ -29090,6 +29237,7 @@ export class GetRefBantuanForViewDto implements IGetRefBantuanForViewDto {
     }
 }
 
+/** Class GetRefBantuanForViewDto */
 export interface IGetRefBantuanForViewDto {
     id: number;
     nama_bantuan: string;
@@ -29150,6 +29298,7 @@ export interface IPagedResultDtoOfRefBantuanForViewDto {
     items: GetRefBantuanForViewDto[];
 }
 
+/** Class RefBantuanDto */
 export class RefBantuanDto implements IRefBantuanDto {
     id!: number;
     nama_bantuan!: string;
@@ -29188,12 +29337,14 @@ export class RefBantuanDto implements IRefBantuanDto {
     }
 }
 
+/** Class RefBantuanDto */
 export interface IRefBantuanDto {
     id: number;
     nama_bantuan: string;
     status_bantuan: number;
 }
 
+/** Class CreateOrEditRefBencanaNegeriDto */
 export class CreateOrEditRefBencanaNegeriDto implements ICreateOrEditRefBencanaNegeriDto {
     id!: number;
     id_bencana!: number;
@@ -29247,6 +29398,7 @@ export class CreateOrEditRefBencanaNegeriDto implements ICreateOrEditRefBencanaN
     }
 }
 
+/** Class CreateOrEditRefBencanaNegeriDto */
 export interface ICreateOrEditRefBencanaNegeriDto {
     id: number;
     id_bencana: number;
@@ -29258,6 +29410,7 @@ export interface ICreateOrEditRefBencanaNegeriDto {
     id_pengguna_kemaskini: number;
 }
 
+/** Class GetRefBencanaNegeriForEditDto */
 export class GetRefBencanaNegeriForEditDto implements IGetRefBencanaNegeriForEditDto {
     ref_bencana_negeri!: CreateOrEditRefBencanaNegeriDto;
 
@@ -29290,6 +29443,7 @@ export class GetRefBencanaNegeriForEditDto implements IGetRefBencanaNegeriForEdi
     }
 }
 
+/** Class GetRefBencanaNegeriForEditDto */
 export interface IGetRefBencanaNegeriForEditDto {
     ref_bencana_negeri: CreateOrEditRefBencanaNegeriDto;
 }
@@ -29390,6 +29544,7 @@ export interface IGetRefBencanaNegeriForListDto {
     items: RefBencanaNegeriDto[];
 }
 
+/** Class GetRefBencanaNegeriForViewDto */
 export class GetRefBencanaNegeriForViewDto implements IGetRefBencanaNegeriForViewDto {
     id!: number;
     id_bencana!: number;
@@ -29443,6 +29598,7 @@ export class GetRefBencanaNegeriForViewDto implements IGetRefBencanaNegeriForVie
     }
 }
 
+/** Class GetRefBencanaNegeriForViewDto */
 export interface IGetRefBencanaNegeriForViewDto {
     id: number;
     id_bencana: number;
@@ -29508,6 +29664,7 @@ export interface IPagedResultDtoOfRefBencanaNegeriForViewDto {
     items: GetRefBencanaNegeriForViewDto[];
 }
 
+/** Class RefBencanaNegeriByBencanaDto */
 export class RefBencanaNegeriByBencanaDto implements IRefBencanaNegeriByBencanaDto {
     id_negeri!: number;
     nama_negeri!: string;
@@ -29543,11 +29700,13 @@ export class RefBencanaNegeriByBencanaDto implements IRefBencanaNegeriByBencanaD
     }
 }
 
+/** Class RefBencanaNegeriByBencanaDto */
 export interface IRefBencanaNegeriByBencanaDto {
     id_negeri: number;
     nama_negeri: string;
 }
 
+/** Class RefBencanaNegeriDto */
 export class RefBencanaNegeriDto implements IRefBencanaNegeriDto {
     id!: number;
     id_bencana!: number;
@@ -29601,6 +29760,7 @@ export class RefBencanaNegeriDto implements IRefBencanaNegeriDto {
     }
 }
 
+/** Class RefBencanaNegeriDto */
 export interface IRefBencanaNegeriDto {
     id: number;
     id_bencana: number;
@@ -29612,6 +29772,7 @@ export interface IRefBencanaNegeriDto {
     id_pengguna_kemaskini: number;
 }
 
+/** Class CreateOrEditRefBencanaDto */
 export class CreateOrEditRefBencanaDto implements ICreateOrEditRefBencanaDto {
     id!: number;
     tarikh_bencana!: moment.Moment;
@@ -29665,6 +29826,7 @@ export class CreateOrEditRefBencanaDto implements ICreateOrEditRefBencanaDto {
     }
 }
 
+/** Class CreateOrEditRefBencanaDto */
 export interface ICreateOrEditRefBencanaDto {
     id: number;
     tarikh_bencana: moment.Moment;
@@ -29676,6 +29838,7 @@ export interface ICreateOrEditRefBencanaDto {
     status_bencana: number;
 }
 
+/** Class GetListBencanaNegeriForViewDto */
 export class GetListBencanaNegeriForViewDto implements IGetListBencanaNegeriForViewDto {
     bencana!: GetRefBencanaForViewDto;
     /** Id Negeri in array of integer */
@@ -29720,12 +29883,14 @@ export class GetListBencanaNegeriForViewDto implements IGetListBencanaNegeriForV
     }
 }
 
+/** Class GetListBencanaNegeriForViewDto */
 export interface IGetListBencanaNegeriForViewDto {
     bencana: GetRefBencanaForViewDto;
     /** Id Negeri in array of integer */
     bencanaNegeri: number[];
 }
 
+/** Class GetRefBencanaForEditDto */
 export class GetRefBencanaForEditDto implements IGetRefBencanaForEditDto {
     ref_bencana!: CreateOrEditRefBencanaDto;
     /** Id Negeri in array of integer */
@@ -29770,6 +29935,7 @@ export class GetRefBencanaForEditDto implements IGetRefBencanaForEditDto {
     }
 }
 
+/** Class GetRefBencanaForEditDto */
 export interface IGetRefBencanaForEditDto {
     ref_bencana: CreateOrEditRefBencanaDto;
     /** Id Negeri in array of integer */
@@ -29824,6 +29990,7 @@ export interface IGetRefBencanaForListDto {
     items: RefBencanaDto[];
 }
 
+/** Class GetRefBencanaForViewDto */
 export class GetRefBencanaForViewDto implements IGetRefBencanaForViewDto {
     id!: number;
     no_rujukan_bencana!: string;
@@ -29883,6 +30050,7 @@ export class GetRefBencanaForViewDto implements IGetRefBencanaForViewDto {
     }
 }
 
+/** Class GetRefBencanaForViewDto */
 export interface IGetRefBencanaForViewDto {
     id: number;
     no_rujukan_bencana: string;
@@ -29896,6 +30064,7 @@ export interface IGetRefBencanaForViewDto {
     nama_jenis_bencana: string;
 }
 
+/** Class InputCreateBencanaDto */
 export class InputCreateBencanaDto implements IInputCreateBencanaDto {
     bencana!: CreateOrEditRefBencanaDto;
     /** Id Negeri in array of integer */
@@ -29940,12 +30109,14 @@ export class InputCreateBencanaDto implements IInputCreateBencanaDto {
     }
 }
 
+/** Class InputCreateBencanaDto */
 export interface IInputCreateBencanaDto {
     bencana: CreateOrEditRefBencanaDto;
     /** Id Negeri in array of integer */
     id_negeri: number[];
 }
 
+/** Class OutputCreateBencanaDto */
 export class OutputCreateBencanaDto implements IOutputCreateBencanaDto {
     message!: string;
 
@@ -29978,6 +30149,7 @@ export class OutputCreateBencanaDto implements IOutputCreateBencanaDto {
     }
 }
 
+/** Class OutputCreateBencanaDto */
 export interface IOutputCreateBencanaDto {
     message: string;
 }
@@ -30036,6 +30208,7 @@ export interface IPagedResultDtoOfRefBencanaForViewDto {
     items: GetListBencanaNegeriForViewDto[];
 }
 
+/** Class RefBencanaDto */
 export class RefBencanaDto implements IRefBencanaDto {
     id!: number;
     tarikh_bencana!: moment.Moment;
@@ -30089,6 +30262,7 @@ export class RefBencanaDto implements IRefBencanaDto {
     }
 }
 
+/** Class RefBencanaDto */
 export interface IRefBencanaDto {
     id: number;
     tarikh_bencana: moment.Moment;
@@ -30100,6 +30274,7 @@ export interface IRefBencanaDto {
     status_bencana: number;
 }
 
+/** Class CreateOrEditRefDaerahDto */
 export class CreateOrEditRefDaerahDto implements ICreateOrEditRefDaerahDto {
     id!: number;
     id_negeri!: number;
@@ -30141,6 +30316,7 @@ export class CreateOrEditRefDaerahDto implements ICreateOrEditRefDaerahDto {
     }
 }
 
+/** Class CreateOrEditRefDaerahDto */
 export interface ICreateOrEditRefDaerahDto {
     id: number;
     id_negeri: number;
@@ -30148,6 +30324,7 @@ export interface ICreateOrEditRefDaerahDto {
     status_daerah: number;
 }
 
+/** Class GetRefDaerahForEditDto */
 export class GetRefDaerahForEditDto implements IGetRefDaerahForEditDto {
     ref_daerah!: CreateOrEditRefDaerahDto;
 
@@ -30180,6 +30357,7 @@ export class GetRefDaerahForEditDto implements IGetRefDaerahForEditDto {
     }
 }
 
+/** Class GetRefDaerahForEditDto */
 export interface IGetRefDaerahForEditDto {
     ref_daerah: CreateOrEditRefDaerahDto;
 }
@@ -30232,6 +30410,7 @@ export interface IGetRefDaerahForListDto {
     items: RefDaerahDto[];
 }
 
+/** Class GetRefDaerahForViewDto */
 export class GetRefDaerahForViewDto implements IGetRefDaerahForViewDto {
     id!: number;
     id_negeri!: number;
@@ -30276,6 +30455,7 @@ export class GetRefDaerahForViewDto implements IGetRefDaerahForViewDto {
     }
 }
 
+/** Class GetRefDaerahForViewDto */
 export interface IGetRefDaerahForViewDto {
     id: number;
     id_negeri: number;
@@ -30338,6 +30518,7 @@ export interface IPagedResultDtoOfRefDaerahForViewDto {
     items: GetRefDaerahForViewDto[];
 }
 
+/** Class RefDaerahDto */
 export class RefDaerahDto implements IRefDaerahDto {
     id!: number;
     id_negeri!: number;
@@ -30379,6 +30560,7 @@ export class RefDaerahDto implements IRefDaerahDto {
     }
 }
 
+/** Class RefDaerahDto */
 export interface IRefDaerahDto {
     id: number;
     id_negeri: number;
@@ -30386,6 +30568,7 @@ export interface IRefDaerahDto {
     status_daerah: number;
 }
 
+/** Class CreateOrEditRefDunDto */
 export class CreateOrEditRefDunDto implements ICreateOrEditRefDunDto {
     id!: number;
     id_negeri!: number;
@@ -30433,6 +30616,7 @@ export class CreateOrEditRefDunDto implements ICreateOrEditRefDunDto {
     }
 }
 
+/** Class CreateOrEditRefDunDto */
 export interface ICreateOrEditRefDunDto {
     id: number;
     id_negeri: number;
@@ -30442,6 +30626,7 @@ export interface ICreateOrEditRefDunDto {
     status_dun: number;
 }
 
+/** Class GetRefDunForEditDto */
 export class GetRefDunForEditDto implements IGetRefDunForEditDto {
     ref_dun!: CreateOrEditRefDunDto;
 
@@ -30474,6 +30659,7 @@ export class GetRefDunForEditDto implements IGetRefDunForEditDto {
     }
 }
 
+/** Class GetRefDunForEditDto */
 export interface IGetRefDunForEditDto {
     ref_dun: CreateOrEditRefDunDto;
 }
@@ -30526,6 +30712,7 @@ export interface IGetRefDunForListDto {
     items: RefDunDto[];
 }
 
+/** Class GetRefDunForViewDto */
 export class GetRefDunForViewDto implements IGetRefDunForViewDto {
     id!: number;
     id_negeri!: number;
@@ -30579,6 +30766,7 @@ export class GetRefDunForViewDto implements IGetRefDunForViewDto {
     }
 }
 
+/** Class GetRefDunForViewDto */
 export interface IGetRefDunForViewDto {
     id: number;
     id_negeri: number;
@@ -30644,6 +30832,7 @@ export interface IPagedResultDtoOfRefDunForViewDto {
     items: GetRefDunForViewDto[];
 }
 
+/** Class RefDunDto */
 export class RefDunDto implements IRefDunDto {
     id!: number;
     id_negeri!: number;
@@ -30691,6 +30880,7 @@ export class RefDunDto implements IRefDunDto {
     }
 }
 
+/** Class RefDunDto */
 export interface IRefDunDto {
     id: number;
     id_negeri: number;
@@ -30700,6 +30890,7 @@ export interface IRefDunDto {
     status_dun: number;
 }
 
+/** Class CreateOrEditRefHubunganDto */
 export class CreateOrEditRefHubunganDto implements ICreateOrEditRefHubunganDto {
     id!: number;
     nama_hubungan!: string;
@@ -30738,12 +30929,14 @@ export class CreateOrEditRefHubunganDto implements ICreateOrEditRefHubunganDto {
     }
 }
 
+/** Class CreateOrEditRefHubunganDto */
 export interface ICreateOrEditRefHubunganDto {
     id: number;
     nama_hubungan: string;
     status_hubungan: number;
 }
 
+/** Class GetRefHubunganForEditDto */
 export class GetRefHubunganForEditDto implements IGetRefHubunganForEditDto {
     ref_hubungan!: CreateOrEditRefHubunganDto;
 
@@ -30776,6 +30969,7 @@ export class GetRefHubunganForEditDto implements IGetRefHubunganForEditDto {
     }
 }
 
+/** Class GetRefHubunganForEditDto */
 export interface IGetRefHubunganForEditDto {
     ref_hubungan: CreateOrEditRefHubunganDto;
 }
@@ -30828,6 +31022,7 @@ export interface IGetRefHubunganForListDto {
     items: RefHubunganDto[];
 }
 
+/** Class GetRefHubunganForViewDto */
 export class GetRefHubunganForViewDto implements IGetRefHubunganForViewDto {
     id!: number;
     nama_hubungan!: string;
@@ -30866,6 +31061,7 @@ export class GetRefHubunganForViewDto implements IGetRefHubunganForViewDto {
     }
 }
 
+/** Class GetRefHubunganForViewDto */
 export interface IGetRefHubunganForViewDto {
     id: number;
     nama_hubungan: string;
@@ -30926,6 +31122,7 @@ export interface IPagedResultDtoOfRefHubunganForViewDto {
     items: GetRefHubunganForViewDto[];
 }
 
+/** Class RefHubunganDto */
 export class RefHubunganDto implements IRefHubunganDto {
     id!: number;
     nama_hubungan!: string;
@@ -30964,12 +31161,14 @@ export class RefHubunganDto implements IRefHubunganDto {
     }
 }
 
+/** Class RefHubunganDto */
 export interface IRefHubunganDto {
     id: number;
     nama_hubungan: string;
     status_hubungan: number;
 }
 
+/** Class CreateOrEditRefJenisBayaranDto */
 export class CreateOrEditRefJenisBayaranDto implements ICreateOrEditRefJenisBayaranDto {
     id!: number;
     nama_jenis_bayaran!: string;
@@ -31008,12 +31207,14 @@ export class CreateOrEditRefJenisBayaranDto implements ICreateOrEditRefJenisBaya
     }
 }
 
+/** Class CreateOrEditRefJenisBayaranDto */
 export interface ICreateOrEditRefJenisBayaranDto {
     id: number;
     nama_jenis_bayaran: string;
     status_jenis_bayaran: number;
 }
 
+/** Class GetRefJenisBayaranForEditDto */
 export class GetRefJenisBayaranForEditDto implements IGetRefJenisBayaranForEditDto {
     ref_jenis_bayaran!: CreateOrEditRefJenisBayaranDto;
 
@@ -31046,6 +31247,7 @@ export class GetRefJenisBayaranForEditDto implements IGetRefJenisBayaranForEditD
     }
 }
 
+/** Class GetRefJenisBayaranForEditDto */
 export interface IGetRefJenisBayaranForEditDto {
     ref_jenis_bayaran: CreateOrEditRefJenisBayaranDto;
 }
@@ -31098,6 +31300,7 @@ export interface IGetRefJenisBayaranForListDto {
     items: RefJenisBayaranDto[];
 }
 
+/** Class GetRefJenisBayaranForViewDto */
 export class GetRefJenisBayaranForViewDto implements IGetRefJenisBayaranForViewDto {
     id!: number;
     nama_jenis_bayaran!: string;
@@ -31136,6 +31339,7 @@ export class GetRefJenisBayaranForViewDto implements IGetRefJenisBayaranForViewD
     }
 }
 
+/** Class GetRefJenisBayaranForViewDto */
 export interface IGetRefJenisBayaranForViewDto {
     id: number;
     nama_jenis_bayaran: string;
@@ -31196,6 +31400,7 @@ export interface IPagedResultDtoOfRefJenisBayaranForViewDto {
     items: GetRefJenisBayaranForViewDto[];
 }
 
+/** Class RefJenisBayaranDto */
 export class RefJenisBayaranDto implements IRefJenisBayaranDto {
     id!: number;
     nama_jenis_bayaran!: string;
@@ -31234,12 +31439,14 @@ export class RefJenisBayaranDto implements IRefJenisBayaranDto {
     }
 }
 
+/** Class RefJenisBayaranDto */
 export interface IRefJenisBayaranDto {
     id: number;
     nama_jenis_bayaran: string;
     status_jenis_bayaran: number;
 }
 
+/** Class CreateOrEditRefJenisBencanaDto */
 export class CreateOrEditRefJenisBencanaDto implements ICreateOrEditRefJenisBencanaDto {
     id!: number;
     nama_jenis_bencana!: string;
@@ -31284,6 +31491,7 @@ export class CreateOrEditRefJenisBencanaDto implements ICreateOrEditRefJenisBenc
     }
 }
 
+/** Class CreateOrEditRefJenisBencanaDto */
 export interface ICreateOrEditRefJenisBencanaDto {
     id: number;
     nama_jenis_bencana: string;
@@ -31292,6 +31500,7 @@ export interface ICreateOrEditRefJenisBencanaDto {
     id_pengguna: number;
 }
 
+/** Class GetRefJenisBencanaForEditDto */
 export class GetRefJenisBencanaForEditDto implements IGetRefJenisBencanaForEditDto {
     ref_jenis_bencana!: CreateOrEditRefJenisBencanaDto;
 
@@ -31324,6 +31533,7 @@ export class GetRefJenisBencanaForEditDto implements IGetRefJenisBencanaForEditD
     }
 }
 
+/** Class GetRefJenisBencanaForEditDto */
 export interface IGetRefJenisBencanaForEditDto {
     ref_jenis_bencana: CreateOrEditRefJenisBencanaDto;
 }
@@ -31376,6 +31586,7 @@ export interface IGetRefJenisBencanaForListDto {
     items: RefJenisBencanaDto[];
 }
 
+/** Class GetRefJenisBencanaForViewDto */
 export class GetRefJenisBencanaForViewDto implements IGetRefJenisBencanaForViewDto {
     id!: number;
     nama_jenis_bencana!: string;
@@ -31420,6 +31631,7 @@ export class GetRefJenisBencanaForViewDto implements IGetRefJenisBencanaForViewD
     }
 }
 
+/** Class GetRefJenisBencanaForViewDto */
 export interface IGetRefJenisBencanaForViewDto {
     id: number;
     nama_jenis_bencana: string;
@@ -31482,6 +31694,7 @@ export interface IPagedResultDtoOfRefJenisBencanaForViewDto {
     items: GetRefJenisBencanaForViewDto[];
 }
 
+/** Class RefJenisBencanaDto */
 export class RefJenisBencanaDto implements IRefJenisBencanaDto {
     id!: number;
     nama_jenis_bencana!: string;
@@ -31526,6 +31739,7 @@ export class RefJenisBencanaDto implements IRefJenisBencanaDto {
     }
 }
 
+/** Class RefJenisBencanaDto */
 export interface IRefJenisBencanaDto {
     id: number;
     nama_jenis_bencana: string;
@@ -31534,6 +31748,7 @@ export interface IRefJenisBencanaDto {
     id_pengguna: number;
 }
 
+/** Class CreateOrEditRefJenisBwiDto */
 export class CreateOrEditRefJenisBwiDto implements ICreateOrEditRefJenisBwiDto {
     id!: number;
     nama_jenis_bwi!: string;
@@ -31572,12 +31787,14 @@ export class CreateOrEditRefJenisBwiDto implements ICreateOrEditRefJenisBwiDto {
     }
 }
 
+/** Class CreateOrEditRefJenisBwiDto */
 export interface ICreateOrEditRefJenisBwiDto {
     id: number;
     nama_jenis_bwi: string;
     status_jenis_bwi: number;
 }
 
+/** Class GetRefJenisBwiForEditDto */
 export class GetRefJenisBwiForEditDto implements IGetRefJenisBwiForEditDto {
     ref_jenis_bwi!: CreateOrEditRefJenisBwiDto;
 
@@ -31610,6 +31827,7 @@ export class GetRefJenisBwiForEditDto implements IGetRefJenisBwiForEditDto {
     }
 }
 
+/** Class GetRefJenisBwiForEditDto */
 export interface IGetRefJenisBwiForEditDto {
     ref_jenis_bwi: CreateOrEditRefJenisBwiDto;
 }
@@ -31662,6 +31880,7 @@ export interface IGetRefJenisBwiForListDto {
     items: RefJenisBwiDto[];
 }
 
+/** Class GetRefJenisBwiForViewDto */
 export class GetRefJenisBwiForViewDto implements IGetRefJenisBwiForViewDto {
     id!: number;
     nama_jenis_bwi!: string;
@@ -31700,6 +31919,7 @@ export class GetRefJenisBwiForViewDto implements IGetRefJenisBwiForViewDto {
     }
 }
 
+/** Class GetRefJenisBwiForViewDto */
 export interface IGetRefJenisBwiForViewDto {
     id: number;
     nama_jenis_bwi: string;
@@ -31760,6 +31980,7 @@ export interface IPagedResultDtoOfRefJenisBwiForViewDto {
     items: GetRefJenisBwiForViewDto[];
 }
 
+/** Class RefJenisBwiDto */
 export class RefJenisBwiDto implements IRefJenisBwiDto {
     id!: number;
     nama_jenis_bwi!: string;
@@ -31798,12 +32019,14 @@ export class RefJenisBwiDto implements IRefJenisBwiDto {
     }
 }
 
+/** Class RefJenisBwiDto */
 export interface IRefJenisBwiDto {
     id: number;
     nama_jenis_bwi: string;
     status_jenis_bwi: number;
 }
 
+/** Class CreateOrEditRefJenisPertanianDto */
 export class CreateOrEditRefJenisPertanianDto implements ICreateOrEditRefJenisPertanianDto {
     id!: number;
     nama_jenis_pertanian!: string;
@@ -31842,12 +32065,14 @@ export class CreateOrEditRefJenisPertanianDto implements ICreateOrEditRefJenisPe
     }
 }
 
+/** Class CreateOrEditRefJenisPertanianDto */
 export interface ICreateOrEditRefJenisPertanianDto {
     id: number;
     nama_jenis_pertanian: string;
     status_jenis_pertanian: number;
 }
 
+/** Class GetRefJenisPertanianForEditDto */
 export class GetRefJenisPertanianForEditDto implements IGetRefJenisPertanianForEditDto {
     ref_jenis_pertanian!: CreateOrEditRefJenisPertanianDto;
 
@@ -31880,6 +32105,7 @@ export class GetRefJenisPertanianForEditDto implements IGetRefJenisPertanianForE
     }
 }
 
+/** Class GetRefJenisPertanianForEditDto */
 export interface IGetRefJenisPertanianForEditDto {
     ref_jenis_pertanian: CreateOrEditRefJenisPertanianDto;
 }
@@ -31932,6 +32158,7 @@ export interface IGetRefJenisPertanianForListDto {
     items: RefJenisPertanianDto[];
 }
 
+/** Class GetRefJenisPertanianForViewDto */
 export class GetRefJenisPertanianForViewDto implements IGetRefJenisPertanianForViewDto {
     id!: number;
     nama_jenis_pertanian!: string;
@@ -31970,6 +32197,7 @@ export class GetRefJenisPertanianForViewDto implements IGetRefJenisPertanianForV
     }
 }
 
+/** Class GetRefJenisPertanianForViewDto */
 export interface IGetRefJenisPertanianForViewDto {
     id: number;
     nama_jenis_pertanian: string;
@@ -32030,6 +32258,7 @@ export interface IPagedResultDtoOfRefJenisPertanianForViewDto {
     items: GetRefJenisPertanianForViewDto[];
 }
 
+/** Class RefJenisPertanianDto */
 export class RefJenisPertanianDto implements IRefJenisPertanianDto {
     id!: number;
     nama_jenis_pertanian!: string;
@@ -32068,12 +32297,14 @@ export class RefJenisPertanianDto implements IRefJenisPertanianDto {
     }
 }
 
+/** Class RefJenisPertanianDto */
 export interface IRefJenisPertanianDto {
     id: number;
     nama_jenis_pertanian: string;
     status_jenis_pertanian: number;
 }
 
+/** Class CreateOrEditRefJenisPeruntukanDto */
 export class CreateOrEditRefJenisPeruntukanDto implements ICreateOrEditRefJenisPeruntukanDto {
     id!: number;
     nama_jenis_peruntukan!: string;
@@ -32109,11 +32340,13 @@ export class CreateOrEditRefJenisPeruntukanDto implements ICreateOrEditRefJenisP
     }
 }
 
+/** Class CreateOrEditRefJenisPeruntukanDto */
 export interface ICreateOrEditRefJenisPeruntukanDto {
     id: number;
     nama_jenis_peruntukan: string;
 }
 
+/** Class GetRefJenisPeruntukanForEditDto */
 export class GetRefJenisPeruntukanForEditDto implements IGetRefJenisPeruntukanForEditDto {
     ref_jenis_peruntukan!: CreateOrEditRefJenisPeruntukanDto;
 
@@ -32146,6 +32379,7 @@ export class GetRefJenisPeruntukanForEditDto implements IGetRefJenisPeruntukanFo
     }
 }
 
+/** Class GetRefJenisPeruntukanForEditDto */
 export interface IGetRefJenisPeruntukanForEditDto {
     ref_jenis_peruntukan: CreateOrEditRefJenisPeruntukanDto;
 }
@@ -32198,6 +32432,7 @@ export interface IGetRefJenisPeruntukanForListDto {
     items: RefJenisPeruntukanDto[];
 }
 
+/** Class GetRefJenisPeruntukanForViewDto */
 export class GetRefJenisPeruntukanForViewDto implements IGetRefJenisPeruntukanForViewDto {
     id!: number;
     nama_jenis_peruntukan!: string;
@@ -32233,6 +32468,7 @@ export class GetRefJenisPeruntukanForViewDto implements IGetRefJenisPeruntukanFo
     }
 }
 
+/** Class GetRefJenisPeruntukanForViewDto */
 export interface IGetRefJenisPeruntukanForViewDto {
     id: number;
     nama_jenis_peruntukan: string;
@@ -32292,6 +32528,7 @@ export interface IPagedResultDtoOfRefJenisPeruntukanForViewDto {
     items: GetRefJenisPeruntukanForViewDto[];
 }
 
+/** Class RefJenisPeruntukanDto */
 export class RefJenisPeruntukanDto implements IRefJenisPeruntukanDto {
     id!: number;
     nama_jenis_peruntukan!: string;
@@ -32327,11 +32564,13 @@ export class RefJenisPeruntukanDto implements IRefJenisPeruntukanDto {
     }
 }
 
+/** Class RefJenisPeruntukanDto */
 export interface IRefJenisPeruntukanDto {
     id: number;
     nama_jenis_peruntukan: string;
 }
 
+/** Class CreateOrEditRefKadarBwiDto */
 export class CreateOrEditRefKadarBwiDto implements ICreateOrEditRefKadarBwiDto {
     id!: number;
     nilai!: number;
@@ -32376,6 +32615,7 @@ export class CreateOrEditRefKadarBwiDto implements ICreateOrEditRefKadarBwiDto {
     }
 }
 
+/** Class CreateOrEditRefKadarBwiDto */
 export interface ICreateOrEditRefKadarBwiDto {
     id: number;
     nilai: number;
@@ -32384,6 +32624,7 @@ export interface ICreateOrEditRefKadarBwiDto {
     id_pengguna_cipta: string;
 }
 
+/** Class GetRefKadarBwiForEditDto */
 export class GetRefKadarBwiForEditDto implements IGetRefKadarBwiForEditDto {
     ref_kadar_bwi!: CreateOrEditRefKadarBwiDto;
 
@@ -32416,6 +32657,7 @@ export class GetRefKadarBwiForEditDto implements IGetRefKadarBwiForEditDto {
     }
 }
 
+/** Class GetRefKadarBwiForEditDto */
 export interface IGetRefKadarBwiForEditDto {
     ref_kadar_bwi: CreateOrEditRefKadarBwiDto;
 }
@@ -32468,6 +32710,7 @@ export interface IGetRefKadarBwiForListDto {
     items: RefKadarBwiDto[];
 }
 
+/** Class GetRefKadarBwiForViewDto */
 export class GetRefKadarBwiForViewDto implements IGetRefKadarBwiForViewDto {
     id!: number;
     nilai!: number;
@@ -32512,6 +32755,7 @@ export class GetRefKadarBwiForViewDto implements IGetRefKadarBwiForViewDto {
     }
 }
 
+/** Class GetRefKadarBwiForViewDto */
 export interface IGetRefKadarBwiForViewDto {
     id: number;
     nilai: number;
@@ -32574,6 +32818,7 @@ export interface IPagedResultDtoOfRefKadarBwiForViewDto {
     items: GetRefKadarBwiForViewDto[];
 }
 
+/** Class RefKadarBwiDto */
 export class RefKadarBwiDto implements IRefKadarBwiDto {
     id!: number;
     nilai!: number;
@@ -32609,11 +32854,13 @@ export class RefKadarBwiDto implements IRefKadarBwiDto {
     }
 }
 
+/** Class RefKadarBwiDto */
 export interface IRefKadarBwiDto {
     id: number;
     nilai: number;
 }
 
+/** Class CreateOrEditRefKategoriBayaranDto */
 export class CreateOrEditRefKategoriBayaranDto implements ICreateOrEditRefKategoriBayaranDto {
     id!: number;
     nama_kategori_bayaran!: string;
@@ -32652,12 +32899,14 @@ export class CreateOrEditRefKategoriBayaranDto implements ICreateOrEditRefKatego
     }
 }
 
+/** Class CreateOrEditRefKategoriBayaranDto */
 export interface ICreateOrEditRefKategoriBayaranDto {
     id: number;
     nama_kategori_bayaran: string;
     status_kategori_bayaran: number;
 }
 
+/** Class GetRefKategoriBayaranForEditDto */
 export class GetRefKategoriBayaranForEditDto implements IGetRefKategoriBayaranForEditDto {
     ref_kategori_bayaran!: CreateOrEditRefKategoriBayaranDto;
 
@@ -32690,6 +32939,7 @@ export class GetRefKategoriBayaranForEditDto implements IGetRefKategoriBayaranFo
     }
 }
 
+/** Class GetRefKategoriBayaranForEditDto */
 export interface IGetRefKategoriBayaranForEditDto {
     ref_kategori_bayaran: CreateOrEditRefKategoriBayaranDto;
 }
@@ -32742,6 +32992,7 @@ export interface IGetRefKategoriBayaranForListDto {
     items: RefKategoriBayaranDto[];
 }
 
+/** Class GetRefKategoriBayaranForViewDto */
 export class GetRefKategoriBayaranForViewDto implements IGetRefKategoriBayaranForViewDto {
     id!: number;
     nama_kategori_bayaran!: string;
@@ -32780,6 +33031,7 @@ export class GetRefKategoriBayaranForViewDto implements IGetRefKategoriBayaranFo
     }
 }
 
+/** Class GetRefKategoriBayaranForViewDto */
 export interface IGetRefKategoriBayaranForViewDto {
     id: number;
     nama_kategori_bayaran: string;
@@ -32840,6 +33092,7 @@ export interface IPagedResultDtoOfRefKategoriBayaranForViewDto {
     items: GetRefKategoriBayaranForViewDto[];
 }
 
+/** Class RefKategoriBayaranDto */
 export class RefKategoriBayaranDto implements IRefKategoriBayaranDto {
     id!: number;
     nama_kategori_bayaran!: string;
@@ -32878,12 +33131,14 @@ export class RefKategoriBayaranDto implements IRefKategoriBayaranDto {
     }
 }
 
+/** Class RefKategoriBayaranDto */
 export interface IRefKategoriBayaranDto {
     id: number;
     nama_kategori_bayaran: string;
     status_kategori_bayaran: number;
 }
 
+/** Class CreateOrEditRefKementerianDto */
 export class CreateOrEditRefKementerianDto implements ICreateOrEditRefKementerianDto {
     id!: number;
     nama_kementerian!: string;
@@ -32925,6 +33180,7 @@ export class CreateOrEditRefKementerianDto implements ICreateOrEditRefKementeria
     }
 }
 
+/** Class CreateOrEditRefKementerianDto */
 export interface ICreateOrEditRefKementerianDto {
     id: number;
     nama_kementerian: string;
@@ -32932,6 +33188,7 @@ export interface ICreateOrEditRefKementerianDto {
     status_kementerian: number;
 }
 
+/** Class GetRefKementerianForEditDto */
 export class GetRefKementerianForEditDto implements IGetRefKementerianForEditDto {
     ref_kementerian!: CreateOrEditRefKementerianDto;
 
@@ -32964,6 +33221,7 @@ export class GetRefKementerianForEditDto implements IGetRefKementerianForEditDto
     }
 }
 
+/** Class GetRefKementerianForEditDto */
 export interface IGetRefKementerianForEditDto {
     ref_kementerian: CreateOrEditRefKementerianDto;
 }
@@ -33016,6 +33274,7 @@ export interface IGetRefKementerianForListDto {
     items: RefKementerianDto[];
 }
 
+/** Class GetRefKementerianForViewDto */
 export class GetRefKementerianForViewDto implements IGetRefKementerianForViewDto {
     id!: number;
     nama_kementerian!: string;
@@ -33057,6 +33316,7 @@ export class GetRefKementerianForViewDto implements IGetRefKementerianForViewDto
     }
 }
 
+/** Class GetRefKementerianForViewDto */
 export interface IGetRefKementerianForViewDto {
     id: number;
     nama_kementerian: string;
@@ -33118,6 +33378,7 @@ export interface IPagedResultDtoOfRefKementerianForViewDto {
     items: GetRefKementerianForViewDto[];
 }
 
+/** Class RefKementerianDto */
 export class RefKementerianDto implements IRefKementerianDto {
     id!: number;
     nama_kementerian!: string;
@@ -33159,6 +33420,7 @@ export class RefKementerianDto implements IRefKementerianDto {
     }
 }
 
+/** Class RefKementerianDto */
 export interface IRefKementerianDto {
     id: number;
     nama_kementerian: string;
@@ -33166,6 +33428,7 @@ export interface IRefKementerianDto {
     status_kementerian: number;
 }
 
+/** Class CreateOrEditRefKerosakanDto */
 export class CreateOrEditRefKerosakanDto implements ICreateOrEditRefKerosakanDto {
     id!: number;
     nama_kerosakan!: string;
@@ -33204,12 +33467,14 @@ export class CreateOrEditRefKerosakanDto implements ICreateOrEditRefKerosakanDto
     }
 }
 
+/** Class CreateOrEditRefKerosakanDto */
 export interface ICreateOrEditRefKerosakanDto {
     id: number;
     nama_kerosakan: string;
     status_kerosakan: number;
 }
 
+/** Class GetRefKerosakanForEditDto */
 export class GetRefKerosakanForEditDto implements IGetRefKerosakanForEditDto {
     ref_kerosakan!: CreateOrEditRefKerosakanDto;
 
@@ -33242,6 +33507,7 @@ export class GetRefKerosakanForEditDto implements IGetRefKerosakanForEditDto {
     }
 }
 
+/** Class GetRefKerosakanForEditDto */
 export interface IGetRefKerosakanForEditDto {
     ref_kerosakan: CreateOrEditRefKerosakanDto;
 }
@@ -33294,6 +33560,7 @@ export interface IGetRefKerosakanForListDto {
     items: RefKerosakanDto[];
 }
 
+/** Class GetRefKerosakanForViewDto */
 export class GetRefKerosakanForViewDto implements IGetRefKerosakanForViewDto {
     id!: number;
     nama_kerosakan!: string;
@@ -33332,6 +33599,7 @@ export class GetRefKerosakanForViewDto implements IGetRefKerosakanForViewDto {
     }
 }
 
+/** Class GetRefKerosakanForViewDto */
 export interface IGetRefKerosakanForViewDto {
     id: number;
     nama_kerosakan: string;
@@ -33392,6 +33660,7 @@ export interface IPagedResultDtoOfRefKerosakanForViewDto {
     items: GetRefKerosakanForViewDto[];
 }
 
+/** Class RefKerosakanDto */
 export class RefKerosakanDto implements IRefKerosakanDto {
     id!: number;
     nama_kerosakan!: string;
@@ -33430,12 +33699,14 @@ export class RefKerosakanDto implements IRefKerosakanDto {
     }
 }
 
+/** Class RefKerosakanDto */
 export interface IRefKerosakanDto {
     id: number;
     nama_kerosakan: string;
     status_kerosakan: number;
 }
 
+/** Class CreateOrEditRefMukimDto */
 export class CreateOrEditRefMukimDto implements ICreateOrEditRefMukimDto {
     id!: number;
     id_negeri!: number;
@@ -33477,6 +33748,7 @@ export class CreateOrEditRefMukimDto implements ICreateOrEditRefMukimDto {
     }
 }
 
+/** Class CreateOrEditRefMukimDto */
 export interface ICreateOrEditRefMukimDto {
     id: number;
     id_negeri: number;
@@ -33484,6 +33756,7 @@ export interface ICreateOrEditRefMukimDto {
     nama_mukim: string;
 }
 
+/** Class GetRefMukimForEditDto */
 export class GetRefMukimForEditDto implements IGetRefMukimForEditDto {
     ref_mukim!: CreateOrEditRefMukimDto;
 
@@ -33516,6 +33789,7 @@ export class GetRefMukimForEditDto implements IGetRefMukimForEditDto {
     }
 }
 
+/** Class GetRefMukimForEditDto */
 export interface IGetRefMukimForEditDto {
     ref_mukim: CreateOrEditRefMukimDto;
 }
@@ -33568,6 +33842,7 @@ export interface IGetRefMukimForListDto {
     items: RefMukimDto[];
 }
 
+/** Class GetRefMukimForViewDto */
 export class GetRefMukimForViewDto implements IGetRefMukimForViewDto {
     id!: number;
     id_negeri!: number;
@@ -33609,6 +33884,7 @@ export class GetRefMukimForViewDto implements IGetRefMukimForViewDto {
     }
 }
 
+/** Class GetRefMukimForViewDto */
 export interface IGetRefMukimForViewDto {
     id: number;
     id_negeri: number;
@@ -33670,6 +33946,7 @@ export interface IPagedResultDtoOfRefMukimForViewDto {
     items: GetRefMukimForViewDto[];
 }
 
+/** Class RefMukimDto */
 export class RefMukimDto implements IRefMukimDto {
     id!: number;
     id_negeri!: number;
@@ -33711,6 +33988,7 @@ export class RefMukimDto implements IRefMukimDto {
     }
 }
 
+/** Class RefMukimDto */
 export interface IRefMukimDto {
     id: number;
     id_negeri: number;
@@ -33718,6 +33996,7 @@ export interface IRefMukimDto {
     nama_mukim: string;
 }
 
+/** Class CreateOrEditRefNegeriDto */
 export class CreateOrEditRefNegeriDto implements ICreateOrEditRefNegeriDto {
     id!: number;
     nama_negeri!: string;
@@ -33759,6 +34038,7 @@ export class CreateOrEditRefNegeriDto implements ICreateOrEditRefNegeriDto {
     }
 }
 
+/** Class CreateOrEditRefNegeriDto */
 export interface ICreateOrEditRefNegeriDto {
     id: number;
     nama_negeri: string;
@@ -33766,6 +34046,7 @@ export interface ICreateOrEditRefNegeriDto {
     status_negeri: number;
 }
 
+/** Class GetRefNegeriForEditDto */
 export class GetRefNegeriForEditDto implements IGetRefNegeriForEditDto {
     ref_negeri!: CreateOrEditRefNegeriDto;
 
@@ -33798,6 +34079,7 @@ export class GetRefNegeriForEditDto implements IGetRefNegeriForEditDto {
     }
 }
 
+/** Class GetRefNegeriForEditDto */
 export interface IGetRefNegeriForEditDto {
     ref_negeri: CreateOrEditRefNegeriDto;
 }
@@ -33850,6 +34132,7 @@ export interface IGetRefNegeriForListDto {
     items: RefNegeriDto[];
 }
 
+/** Class GetRefNegeriForViewDto */
 export class GetRefNegeriForViewDto implements IGetRefNegeriForViewDto {
     id!: number;
     nama_negeri!: string;
@@ -33891,6 +34174,7 @@ export class GetRefNegeriForViewDto implements IGetRefNegeriForViewDto {
     }
 }
 
+/** Class GetRefNegeriForViewDto */
 export interface IGetRefNegeriForViewDto {
     id: number;
     nama_negeri: string;
@@ -33952,6 +34236,7 @@ export interface IPagedResultDtoOfRefNegeriForViewDto {
     items: GetRefNegeriForViewDto[];
 }
 
+/** Class RefNegeriDto */
 export class RefNegeriDto implements IRefNegeriDto {
     id!: number;
     nama_negeri!: string;
@@ -33993,6 +34278,7 @@ export class RefNegeriDto implements IRefNegeriDto {
     }
 }
 
+/** Class RefNegeriDto */
 export interface IRefNegeriDto {
     id: number;
     nama_negeri: string;
@@ -34000,6 +34286,7 @@ export interface IRefNegeriDto {
     status_negeri: number;
 }
 
+/** Class CreateOrEditRefParlimenDto */
 export class CreateOrEditRefParlimenDto implements ICreateOrEditRefParlimenDto {
     id!: number;
     id_negeri!: number;
@@ -34044,6 +34331,7 @@ export class CreateOrEditRefParlimenDto implements ICreateOrEditRefParlimenDto {
     }
 }
 
+/** Class CreateOrEditRefParlimenDto */
 export interface ICreateOrEditRefParlimenDto {
     id: number;
     id_negeri: number;
@@ -34052,6 +34340,7 @@ export interface ICreateOrEditRefParlimenDto {
     status_parlimen: number;
 }
 
+/** Class GetRefParlimenForEditDto */
 export class GetRefParlimenForEditDto implements IGetRefParlimenForEditDto {
     ref_parlimen!: CreateOrEditRefParlimenDto;
 
@@ -34084,6 +34373,7 @@ export class GetRefParlimenForEditDto implements IGetRefParlimenForEditDto {
     }
 }
 
+/** Class GetRefParlimenForEditDto */
 export interface IGetRefParlimenForEditDto {
     ref_parlimen: CreateOrEditRefParlimenDto;
 }
@@ -34136,6 +34426,7 @@ export interface IGetRefParlimenForListDto {
     items: RefParlimenDto[];
 }
 
+/** Class GetRefParlimenForViewDto */
 export class GetRefParlimenForViewDto implements IGetRefParlimenForViewDto {
     id!: number;
     id_negeri!: number;
@@ -34183,6 +34474,7 @@ export class GetRefParlimenForViewDto implements IGetRefParlimenForViewDto {
     }
 }
 
+/** Class GetRefParlimenForViewDto */
 export interface IGetRefParlimenForViewDto {
     id: number;
     id_negeri: number;
@@ -34246,6 +34538,7 @@ export interface IPagedResultDtoOfRefParlimenForViewDto {
     items: GetRefParlimenForViewDto[];
 }
 
+/** Class RefParlimenDto */
 export class RefParlimenDto implements IRefParlimenDto {
     id!: number;
     id_negeri!: number;
@@ -34290,6 +34583,7 @@ export class RefParlimenDto implements IRefParlimenDto {
     }
 }
 
+/** Class RefParlimenDto */
 export interface IRefParlimenDto {
     id: number;
     id_negeri: number;
@@ -34298,6 +34592,7 @@ export interface IRefParlimenDto {
     status_parlimen: number;
 }
 
+/** Class CreateOrEditRefPelaksanaDto */
 export class CreateOrEditRefPelaksanaDto implements ICreateOrEditRefPelaksanaDto {
     id!: number;
     nama_pelaksana!: string;
@@ -34336,12 +34631,14 @@ export class CreateOrEditRefPelaksanaDto implements ICreateOrEditRefPelaksanaDto
     }
 }
 
+/** Class CreateOrEditRefPelaksanaDto */
 export interface ICreateOrEditRefPelaksanaDto {
     id: number;
     nama_pelaksana: string;
     status_pelaksana: number;
 }
 
+/** Class GetRefPelaksanaForEditDto */
 export class GetRefPelaksanaForEditDto implements IGetRefPelaksanaForEditDto {
     ref_pelaksana!: CreateOrEditRefPelaksanaDto;
 
@@ -34374,6 +34671,7 @@ export class GetRefPelaksanaForEditDto implements IGetRefPelaksanaForEditDto {
     }
 }
 
+/** Class GetRefPelaksanaForEditDto */
 export interface IGetRefPelaksanaForEditDto {
     ref_pelaksana: CreateOrEditRefPelaksanaDto;
 }
@@ -34426,6 +34724,7 @@ export interface IGetRefPelaksanaForListDto {
     items: RefPelaksanaDto[];
 }
 
+/** Class GetRefPelaksanaForViewDto */
 export class GetRefPelaksanaForViewDto implements IGetRefPelaksanaForViewDto {
     id!: number;
     nama_pelaksana!: string;
@@ -34464,6 +34763,7 @@ export class GetRefPelaksanaForViewDto implements IGetRefPelaksanaForViewDto {
     }
 }
 
+/** Class GetRefPelaksanaForViewDto */
 export interface IGetRefPelaksanaForViewDto {
     id: number;
     nama_pelaksana: string;
@@ -34524,6 +34824,7 @@ export interface IPagedResultDtoOfRefPelaksanaForViewDto {
     items: GetRefPelaksanaForViewDto[];
 }
 
+/** Class RefPelaksanaDto */
 export class RefPelaksanaDto implements IRefPelaksanaDto {
     id!: number;
     nama_pelaksana!: string;
@@ -34562,12 +34863,14 @@ export class RefPelaksanaDto implements IRefPelaksanaDto {
     }
 }
 
+/** Class RefPelaksanaDto */
 export interface IRefPelaksanaDto {
     id: number;
     nama_pelaksana: string;
     status_pelaksana: number;
 }
 
+/** Class CreateOrEditRefPemilikDto */
 export class CreateOrEditRefPemilikDto implements ICreateOrEditRefPemilikDto {
     id!: number;
     nama_pemilik!: string;
@@ -34606,12 +34909,14 @@ export class CreateOrEditRefPemilikDto implements ICreateOrEditRefPemilikDto {
     }
 }
 
+/** Class CreateOrEditRefPemilikDto */
 export interface ICreateOrEditRefPemilikDto {
     id: number;
     nama_pemilik: string;
     status_pemilik: number;
 }
 
+/** Class GetRefPemilikForEditDto */
 export class GetRefPemilikForEditDto implements IGetRefPemilikForEditDto {
     ref_pemilik!: CreateOrEditRefPemilikDto;
 
@@ -34644,6 +34949,7 @@ export class GetRefPemilikForEditDto implements IGetRefPemilikForEditDto {
     }
 }
 
+/** Class GetRefPemilikForEditDto */
 export interface IGetRefPemilikForEditDto {
     ref_pemilik: CreateOrEditRefPemilikDto;
 }
@@ -34696,6 +35002,7 @@ export interface IGetRefPemilikForListDto {
     items: RefPemilikDto[];
 }
 
+/** Class GetRefPemilikForViewDto */
 export class GetRefPemilikForViewDto implements IGetRefPemilikForViewDto {
     id!: number;
     nama_pemilik!: string;
@@ -34734,6 +35041,7 @@ export class GetRefPemilikForViewDto implements IGetRefPemilikForViewDto {
     }
 }
 
+/** Class GetRefPemilikForViewDto */
 export interface IGetRefPemilikForViewDto {
     id: number;
     nama_pemilik: string;
@@ -34794,6 +35102,7 @@ export interface IPagedResultDtoOfRefPemilikForViewDto {
     items: GetRefPemilikForViewDto[];
 }
 
+/** Class RefPemilikDto */
 export class RefPemilikDto implements IRefPemilikDto {
     id!: number;
     nama_pemilik!: string;
@@ -34832,12 +35141,14 @@ export class RefPemilikDto implements IRefPemilikDto {
     }
 }
 
+/** Class RefPemilikDto */
 export interface IRefPemilikDto {
     id: number;
     nama_pemilik: string;
     status_pemilik: number;
 }
 
+/** Class CreateOrEditRefPerananDto */
 export class CreateOrEditRefPerananDto implements ICreateOrEditRefPerananDto {
     id!: number;
     peranan!: string;
@@ -34885,6 +35196,7 @@ export class CreateOrEditRefPerananDto implements ICreateOrEditRefPerananDto {
     }
 }
 
+/** Class CreateOrEditRefPerananDto */
 export interface ICreateOrEditRefPerananDto {
     id: number;
     peranan: string;
@@ -34892,6 +35204,7 @@ export interface ICreateOrEditRefPerananDto {
     capaian_dibenarkan: string[];
 }
 
+/** Class GetAllRefCapaianDto */
 export class GetAllRefCapaianDto implements IGetAllRefCapaianDto {
     /** Items in array of object */
     ref_capaian!: RefCapaianDto[];
@@ -34933,11 +35246,13 @@ export class GetAllRefCapaianDto implements IGetAllRefCapaianDto {
     }
 }
 
+/** Class GetAllRefCapaianDto */
 export interface IGetAllRefCapaianDto {
     /** Items in array of object */
     ref_capaian: RefCapaianDto[];
 }
 
+/** Class GetCapaianPerananDto */
 export class GetCapaianPerananDto implements IGetCapaianPerananDto {
     /** Capaian in array of string */
     capaian!: string[];
@@ -34979,11 +35294,13 @@ export class GetCapaianPerananDto implements IGetCapaianPerananDto {
     }
 }
 
+/** Class GetCapaianPerananDto */
 export interface IGetCapaianPerananDto {
     /** Capaian in array of string */
     capaian: string[];
 }
 
+/** Class GetRefPerananForEditDto */
 export class GetRefPerananForEditDto implements IGetRefPerananForEditDto {
     ref_peranan!: CreateOrEditRefPerananDto;
 
@@ -35016,6 +35333,7 @@ export class GetRefPerananForEditDto implements IGetRefPerananForEditDto {
     }
 }
 
+/** Class GetRefPerananForEditDto */
 export interface IGetRefPerananForEditDto {
     ref_peranan: CreateOrEditRefPerananDto;
 }
@@ -35068,6 +35386,7 @@ export interface IGetRefPerananForListDto {
     items: RefPerananDto[];
 }
 
+/** Class GetRefPerananForViewDto */
 export class GetRefPerananForViewDto implements IGetRefPerananForViewDto {
     id!: number;
     peranan!: string;
@@ -35103,6 +35422,7 @@ export class GetRefPerananForViewDto implements IGetRefPerananForViewDto {
     }
 }
 
+/** Class GetRefPerananForViewDto */
 export interface IGetRefPerananForViewDto {
     id: number;
     peranan: string;
@@ -35162,6 +35482,7 @@ export interface IPagedResultDtoOfRefPerananForViewDto {
     items: GetRefPerananForViewDto[];
 }
 
+/** Class RefCapaianDto */
 export class RefCapaianDto implements IRefCapaianDto {
     nama!: string;
     nama_paparan!: string;
@@ -35200,12 +35521,14 @@ export class RefCapaianDto implements IRefCapaianDto {
     }
 }
 
+/** Class RefCapaianDto */
 export interface IRefCapaianDto {
     nama: string;
     nama_paparan: string;
     pendahulu: string;
 }
 
+/** Class RefPerananDto */
 export class RefPerananDto implements IRefPerananDto {
     id!: number;
     peranan!: string;
@@ -35241,11 +35564,13 @@ export class RefPerananDto implements IRefPerananDto {
     }
 }
 
+/** Class RefPerananDto */
 export interface IRefPerananDto {
     id: number;
     peranan: string;
 }
 
+/** Class CreateOrEditRefPindahDto */
 export class CreateOrEditRefPindahDto implements ICreateOrEditRefPindahDto {
     id!: number;
     pindah!: string;
@@ -35284,12 +35609,14 @@ export class CreateOrEditRefPindahDto implements ICreateOrEditRefPindahDto {
     }
 }
 
+/** Class CreateOrEditRefPindahDto */
 export interface ICreateOrEditRefPindahDto {
     id: number;
     pindah: string;
     status_pindah: number;
 }
 
+/** Class GetRefPindahForEditDto */
 export class GetRefPindahForEditDto implements IGetRefPindahForEditDto {
     ref_pindah!: CreateOrEditRefPindahDto;
 
@@ -35322,6 +35649,7 @@ export class GetRefPindahForEditDto implements IGetRefPindahForEditDto {
     }
 }
 
+/** Class GetRefPindahForEditDto */
 export interface IGetRefPindahForEditDto {
     ref_pindah: CreateOrEditRefPindahDto;
 }
@@ -35374,6 +35702,7 @@ export interface IGetRefPindahForListDto {
     items: RefPindahDto[];
 }
 
+/** Class GetRefPindahForViewDto */
 export class GetRefPindahForViewDto implements IGetRefPindahForViewDto {
     id!: number;
     pindah!: string;
@@ -35412,6 +35741,7 @@ export class GetRefPindahForViewDto implements IGetRefPindahForViewDto {
     }
 }
 
+/** Class GetRefPindahForViewDto */
 export interface IGetRefPindahForViewDto {
     id: number;
     pindah: string;
@@ -35472,6 +35802,7 @@ export interface IPagedResultDtoOfRefPindahForViewDto {
     items: GetRefPindahForViewDto[];
 }
 
+/** Class RefPindahDto */
 export class RefPindahDto implements IRefPindahDto {
     id!: number;
     pindah!: string;
@@ -35510,12 +35841,14 @@ export class RefPindahDto implements IRefPindahDto {
     }
 }
 
+/** Class RefPindahDto */
 export interface IRefPindahDto {
     id: number;
     pindah: string;
     status_pindah: number;
 }
 
+/** Class CreateOrEditRefPinjamanPerniagaanDto */
 export class CreateOrEditRefPinjamanPerniagaanDto implements ICreateOrEditRefPinjamanPerniagaanDto {
     id!: number;
     nama_agensi_pinjaman!: string;
@@ -35554,12 +35887,14 @@ export class CreateOrEditRefPinjamanPerniagaanDto implements ICreateOrEditRefPin
     }
 }
 
+/** Class CreateOrEditRefPinjamanPerniagaanDto */
 export interface ICreateOrEditRefPinjamanPerniagaanDto {
     id: number;
     nama_agensi_pinjaman: string;
     status_agensi_pinjaman: number;
 }
 
+/** Class GetRefPinjamanPerniagaanForEditDto */
 export class GetRefPinjamanPerniagaanForEditDto implements IGetRefPinjamanPerniagaanForEditDto {
     ref_pinjaman_perniagaan!: CreateOrEditRefPinjamanPerniagaanDto;
 
@@ -35592,6 +35927,7 @@ export class GetRefPinjamanPerniagaanForEditDto implements IGetRefPinjamanPernia
     }
 }
 
+/** Class GetRefPinjamanPerniagaanForEditDto */
 export interface IGetRefPinjamanPerniagaanForEditDto {
     ref_pinjaman_perniagaan: CreateOrEditRefPinjamanPerniagaanDto;
 }
@@ -35644,6 +35980,7 @@ export interface IGetRefPinjamanPerniagaanForListDto {
     items: RefPinjamanPerniagaanDto[];
 }
 
+/** Class GetRefPinjamanPerniagaanForViewDto */
 export class GetRefPinjamanPerniagaanForViewDto implements IGetRefPinjamanPerniagaanForViewDto {
     id!: number;
     nama_agensi_pinjaman!: string;
@@ -35682,6 +36019,7 @@ export class GetRefPinjamanPerniagaanForViewDto implements IGetRefPinjamanPernia
     }
 }
 
+/** Class GetRefPinjamanPerniagaanForViewDto */
 export interface IGetRefPinjamanPerniagaanForViewDto {
     id: number;
     nama_agensi_pinjaman: string;
@@ -35742,6 +36080,7 @@ export interface IPagedResultDtoOfRefPinjamanPerniagaanForViewDto {
     items: GetRefPinjamanPerniagaanForViewDto[];
 }
 
+/** Class RefPinjamanPerniagaanDto */
 export class RefPinjamanPerniagaanDto implements IRefPinjamanPerniagaanDto {
     id!: number;
     nama_agensi_pinjaman!: string;
@@ -35780,12 +36119,14 @@ export class RefPinjamanPerniagaanDto implements IRefPinjamanPerniagaanDto {
     }
 }
 
+/** Class RefPinjamanPerniagaanDto */
 export interface IRefPinjamanPerniagaanDto {
     id: number;
     nama_agensi_pinjaman: string;
     status_agensi_pinjaman: number;
 }
 
+/** Class CreateOrEditRefRujukanDto */
 export class CreateOrEditRefRujukanDto implements ICreateOrEditRefRujukanDto {
     id!: number;
     nama_rujukan!: string;
@@ -35845,6 +36186,7 @@ export class CreateOrEditRefRujukanDto implements ICreateOrEditRefRujukanDto {
     }
 }
 
+/** Class CreateOrEditRefRujukanDto */
 export interface ICreateOrEditRefRujukanDto {
     id: number;
     nama_rujukan: string;
@@ -35858,6 +36200,7 @@ export interface ICreateOrEditRefRujukanDto {
     id_pengguna_kemaskini: number;
 }
 
+/** Class GetRefRujukanForEditDto */
 export class GetRefRujukanForEditDto implements IGetRefRujukanForEditDto {
     ref_rujukan!: CreateOrEditRefRujukanDto;
 
@@ -35890,10 +36233,12 @@ export class GetRefRujukanForEditDto implements IGetRefRujukanForEditDto {
     }
 }
 
+/** Class GetRefRujukanForEditDto */
 export interface IGetRefRujukanForEditDto {
     ref_rujukan: CreateOrEditRefRujukanDto;
 }
 
+/** Class GetRefRujukanForViewDto */
 export class GetRefRujukanForViewDto implements IGetRefRujukanForViewDto {
     id!: number;
     nama_rujukan!: string;
@@ -35953,6 +36298,7 @@ export class GetRefRujukanForViewDto implements IGetRefRujukanForViewDto {
     }
 }
 
+/** Class GetRefRujukanForViewDto */
 export interface IGetRefRujukanForViewDto {
     id: number;
     nama_rujukan: string;
@@ -35966,6 +36312,7 @@ export interface IGetRefRujukanForViewDto {
     id_pengguna_kemaskini: number;
 }
 
+/** Class OutputFail */
 export class OutputFail implements IOutputFail {
     file_extension!: string;
     file_location!: string;
@@ -36004,6 +36351,7 @@ export class OutputFail implements IOutputFail {
     }
 }
 
+/** Class OutputFail */
 export interface IOutputFail {
     file_extension: string;
     file_location: string;
@@ -36064,6 +36412,7 @@ export interface IPagedResultDtoOfRefRujukanForViewDto {
     items: GetRefRujukanForViewDto[];
 }
 
+/** Class RefRujukanDto */
 export class RefRujukanDto implements IRefRujukanDto {
     id!: number;
     nama_rujukan!: string;
@@ -36123,6 +36472,7 @@ export class RefRujukanDto implements IRefRujukanDto {
     }
 }
 
+/** Class RefRujukanDto */
 export interface IRefRujukanDto {
     id: number;
     nama_rujukan: string;
@@ -36136,6 +36486,7 @@ export interface IRefRujukanDto {
     id_pengguna_kemaskini: number;
 }
 
+/** Class CreateOrEditRefSektorDto */
 export class CreateOrEditRefSektorDto implements ICreateOrEditRefSektorDto {
     id!: number;
     nama_sektor!: string;
@@ -36174,12 +36525,14 @@ export class CreateOrEditRefSektorDto implements ICreateOrEditRefSektorDto {
     }
 }
 
+/** Class CreateOrEditRefSektorDto */
 export interface ICreateOrEditRefSektorDto {
     id: number;
     nama_sektor: string;
     status_sektor: number;
 }
 
+/** Class GetRefSektorForEditDto */
 export class GetRefSektorForEditDto implements IGetRefSektorForEditDto {
     ref_sektor!: CreateOrEditRefSektorDto;
 
@@ -36212,6 +36565,7 @@ export class GetRefSektorForEditDto implements IGetRefSektorForEditDto {
     }
 }
 
+/** Class GetRefSektorForEditDto */
 export interface IGetRefSektorForEditDto {
     ref_sektor: CreateOrEditRefSektorDto;
 }
@@ -36264,6 +36618,7 @@ export interface IGetRefSektorForListDto {
     items: RefSektorDto[];
 }
 
+/** Class GetRefSektorForViewDto */
 export class GetRefSektorForViewDto implements IGetRefSektorForViewDto {
     id!: number;
     nama_sektor!: string;
@@ -36302,6 +36657,7 @@ export class GetRefSektorForViewDto implements IGetRefSektorForViewDto {
     }
 }
 
+/** Class GetRefSektorForViewDto */
 export interface IGetRefSektorForViewDto {
     id: number;
     nama_sektor: string;
@@ -36362,6 +36718,7 @@ export interface IPagedResultDtoOfRefSektorForViewDto {
     items: GetRefSektorForViewDto[];
 }
 
+/** Class RefSektorDto */
 export class RefSektorDto implements IRefSektorDto {
     id!: number;
     nama_sektor!: string;
@@ -36400,12 +36757,14 @@ export class RefSektorDto implements IRefSektorDto {
     }
 }
 
+/** Class RefSektorDto */
 export interface IRefSektorDto {
     id: number;
     nama_sektor: string;
     status_sektor: number;
 }
 
+/** Class CreateOrEditRefStatusKemajuanDto */
 export class CreateOrEditRefStatusKemajuanDto implements ICreateOrEditRefStatusKemajuanDto {
     id!: number;
     status_kemajuan!: string;
@@ -36447,6 +36806,7 @@ export class CreateOrEditRefStatusKemajuanDto implements ICreateOrEditRefStatusK
     }
 }
 
+/** Class CreateOrEditRefStatusKemajuanDto */
 export interface ICreateOrEditRefStatusKemajuanDto {
     id: number;
     status_kemajuan: string;
@@ -36454,6 +36814,7 @@ export interface ICreateOrEditRefStatusKemajuanDto {
     kod_status_kemajuan: string;
 }
 
+/** Class GetRefStatusKemajuanForEditDto */
 export class GetRefStatusKemajuanForEditDto implements IGetRefStatusKemajuanForEditDto {
     ref_status_kemajuan!: CreateOrEditRefStatusKemajuanDto;
 
@@ -36486,6 +36847,7 @@ export class GetRefStatusKemajuanForEditDto implements IGetRefStatusKemajuanForE
     }
 }
 
+/** Class GetRefStatusKemajuanForEditDto */
 export interface IGetRefStatusKemajuanForEditDto {
     ref_status_kemajuan: CreateOrEditRefStatusKemajuanDto;
 }
@@ -36538,6 +36900,7 @@ export interface IGetRefStatusKemajuanForListDto {
     items: RefStatusKemajuanDto[];
 }
 
+/** Class GetRefStatusKemajuanForViewDto */
 export class GetRefStatusKemajuanForViewDto implements IGetRefStatusKemajuanForViewDto {
     id!: number;
     status_kemajuan!: string;
@@ -36579,6 +36942,7 @@ export class GetRefStatusKemajuanForViewDto implements IGetRefStatusKemajuanForV
     }
 }
 
+/** Class GetRefStatusKemajuanForViewDto */
 export interface IGetRefStatusKemajuanForViewDto {
     id: number;
     status_kemajuan: string;
@@ -36640,6 +37004,7 @@ export interface IPagedResultDtoOfRefStatusKemajuanForViewDto {
     items: GetRefStatusKemajuanForViewDto[];
 }
 
+/** Class RefStatusKemajuanDto */
 export class RefStatusKemajuanDto implements IRefStatusKemajuanDto {
     id!: number;
     status_kemajuan!: string;
@@ -36681,6 +37046,7 @@ export class RefStatusKemajuanDto implements IRefStatusKemajuanDto {
     }
 }
 
+/** Class RefStatusKemajuanDto */
 export interface IRefStatusKemajuanDto {
     id: number;
     status_kemajuan: string;
@@ -36688,6 +37054,7 @@ export interface IRefStatusKemajuanDto {
     kod_status_kemajuan: string;
 }
 
+/** Class CreateOrEditRefStatusKerosakanDto */
 export class CreateOrEditRefStatusKerosakanDto implements ICreateOrEditRefStatusKerosakanDto {
     id!: number;
     nama_status_kerosakan!: string;
@@ -36726,12 +37093,14 @@ export class CreateOrEditRefStatusKerosakanDto implements ICreateOrEditRefStatus
     }
 }
 
+/** Class CreateOrEditRefStatusKerosakanDto */
 export interface ICreateOrEditRefStatusKerosakanDto {
     id: number;
     nama_status_kerosakan: string;
     status: number;
 }
 
+/** Class GetRefStatusKerosakanForEditDto */
 export class GetRefStatusKerosakanForEditDto implements IGetRefStatusKerosakanForEditDto {
     ref_status_kerosakan!: CreateOrEditRefStatusKerosakanDto;
 
@@ -36764,6 +37133,7 @@ export class GetRefStatusKerosakanForEditDto implements IGetRefStatusKerosakanFo
     }
 }
 
+/** Class GetRefStatusKerosakanForEditDto */
 export interface IGetRefStatusKerosakanForEditDto {
     ref_status_kerosakan: CreateOrEditRefStatusKerosakanDto;
 }
@@ -36816,6 +37186,7 @@ export interface IGetRefStatusKerosakanForListDto {
     items: RefStatusKerosakanDto[];
 }
 
+/** Class GetRefStatusKerosakanForViewDto */
 export class GetRefStatusKerosakanForViewDto implements IGetRefStatusKerosakanForViewDto {
     id!: number;
     nama_status_kerosakan!: string;
@@ -36854,6 +37225,7 @@ export class GetRefStatusKerosakanForViewDto implements IGetRefStatusKerosakanFo
     }
 }
 
+/** Class GetRefStatusKerosakanForViewDto */
 export interface IGetRefStatusKerosakanForViewDto {
     id: number;
     nama_status_kerosakan: string;
@@ -36914,6 +37286,7 @@ export interface IPagedResultDtoOfRefStatusKerosakanForViewDto {
     items: GetRefStatusKerosakanForViewDto[];
 }
 
+/** Class RefStatusKerosakanDto */
 export class RefStatusKerosakanDto implements IRefStatusKerosakanDto {
     id!: number;
     nama_status_kerosakan!: string;
@@ -36952,12 +37325,14 @@ export class RefStatusKerosakanDto implements IRefStatusKerosakanDto {
     }
 }
 
+/** Class RefStatusKerosakanDto */
 export interface IRefStatusKerosakanDto {
     id: number;
     nama_status_kerosakan: string;
     status: number;
 }
 
+/** Class CreateOrEditRefSumberDanaDto */
 export class CreateOrEditRefSumberDanaDto implements ICreateOrEditRefSumberDanaDto {
     id!: number;
     nama_sumber_dana!: string;
@@ -36999,6 +37374,7 @@ export class CreateOrEditRefSumberDanaDto implements ICreateOrEditRefSumberDanaD
     }
 }
 
+/** Class CreateOrEditRefSumberDanaDto */
 export interface ICreateOrEditRefSumberDanaDto {
     id: number;
     nama_sumber_dana: string;
@@ -37006,6 +37382,7 @@ export interface ICreateOrEditRefSumberDanaDto {
     status_sumber_dana: number;
 }
 
+/** Class GetRefSumberDanaForEditDto */
 export class GetRefSumberDanaForEditDto implements IGetRefSumberDanaForEditDto {
     ref_sumber_dana!: CreateOrEditRefSumberDanaDto;
 
@@ -37038,6 +37415,7 @@ export class GetRefSumberDanaForEditDto implements IGetRefSumberDanaForEditDto {
     }
 }
 
+/** Class GetRefSumberDanaForEditDto */
 export interface IGetRefSumberDanaForEditDto {
     ref_sumber_dana: CreateOrEditRefSumberDanaDto;
 }
@@ -37090,6 +37468,7 @@ export interface IGetRefSumberDanaForListDto {
     items: RefSumberDanaDto[];
 }
 
+/** Class GetRefSumberDanaForViewDto */
 export class GetRefSumberDanaForViewDto implements IGetRefSumberDanaForViewDto {
     id!: number;
     nama_sumber_dana!: string;
@@ -37131,6 +37510,7 @@ export class GetRefSumberDanaForViewDto implements IGetRefSumberDanaForViewDto {
     }
 }
 
+/** Class GetRefSumberDanaForViewDto */
 export interface IGetRefSumberDanaForViewDto {
     id: number;
     nama_sumber_dana: string;
@@ -37192,6 +37572,7 @@ export interface IPagedResultDtoOfRefSumberDanaForViewDto {
     items: GetRefSumberDanaForViewDto[];
 }
 
+/** Class RefSumberDanaDto */
 export class RefSumberDanaDto implements IRefSumberDanaDto {
     id!: number;
     nama_sumber_dana!: string;
@@ -37233,6 +37614,7 @@ export class RefSumberDanaDto implements IRefSumberDanaDto {
     }
 }
 
+/** Class RefSumberDanaDto */
 export interface IRefSumberDanaDto {
     id: number;
     nama_sumber_dana: string;
@@ -37240,6 +37622,7 @@ export interface IRefSumberDanaDto {
     status_sumber_dana: number;
 }
 
+/** Class CreateOrEditRefSumberPeruntukanDto */
 export class CreateOrEditRefSumberPeruntukanDto implements ICreateOrEditRefSumberPeruntukanDto {
     id!: number;
     nama_sumber_peruntukan!: string;
@@ -37278,12 +37661,14 @@ export class CreateOrEditRefSumberPeruntukanDto implements ICreateOrEditRefSumbe
     }
 }
 
+/** Class CreateOrEditRefSumberPeruntukanDto */
 export interface ICreateOrEditRefSumberPeruntukanDto {
     id: number;
     nama_sumber_peruntukan: string;
     status_sumber_peruntukan: number;
 }
 
+/** Class GetRefSumberPeruntukanForEditDto */
 export class GetRefSumberPeruntukanForEditDto implements IGetRefSumberPeruntukanForEditDto {
     ref_sumber_peruntukan!: CreateOrEditRefSumberPeruntukanDto;
 
@@ -37316,6 +37701,7 @@ export class GetRefSumberPeruntukanForEditDto implements IGetRefSumberPeruntukan
     }
 }
 
+/** Class GetRefSumberPeruntukanForEditDto */
 export interface IGetRefSumberPeruntukanForEditDto {
     ref_sumber_peruntukan: CreateOrEditRefSumberPeruntukanDto;
 }
@@ -37368,6 +37754,7 @@ export interface IGetRefSumberPeruntukanForListDto {
     items: RefSumberPeruntukanDto[];
 }
 
+/** Class GetRefSumberPeruntukanForViewDto */
 export class GetRefSumberPeruntukanForViewDto implements IGetRefSumberPeruntukanForViewDto {
     id!: number;
     nama_sumber_peruntukan!: string;
@@ -37406,6 +37793,7 @@ export class GetRefSumberPeruntukanForViewDto implements IGetRefSumberPeruntukan
     }
 }
 
+/** Class GetRefSumberPeruntukanForViewDto */
 export interface IGetRefSumberPeruntukanForViewDto {
     id: number;
     nama_sumber_peruntukan: string;
@@ -37466,6 +37854,7 @@ export interface IPagedResultDtoOfRefSumberPeruntukanForViewDto {
     items: GetRefSumberPeruntukanForViewDto[];
 }
 
+/** Class RefSumberPeruntukanDto */
 export class RefSumberPeruntukanDto implements IRefSumberPeruntukanDto {
     id!: number;
     nama_sumber_peruntukan!: string;
@@ -37504,12 +37893,14 @@ export class RefSumberPeruntukanDto implements IRefSumberPeruntukanDto {
     }
 }
 
+/** Class RefSumberPeruntukanDto */
 export interface IRefSumberPeruntukanDto {
     id: number;
     nama_sumber_peruntukan: string;
     status_sumber_peruntukan: number;
 }
 
+/** Class CreateOrEditRefTapakRumahDto */
 export class CreateOrEditRefTapakRumahDto implements ICreateOrEditRefTapakRumahDto {
     id!: number;
     nama_tapak_rumah!: string;
@@ -37548,12 +37939,14 @@ export class CreateOrEditRefTapakRumahDto implements ICreateOrEditRefTapakRumahD
     }
 }
 
+/** Class CreateOrEditRefTapakRumahDto */
 export interface ICreateOrEditRefTapakRumahDto {
     id: number;
     nama_tapak_rumah: string;
     status_tapak_rumah: number;
 }
 
+/** Class GetRefTapakRumahForEditDto */
 export class GetRefTapakRumahForEditDto implements IGetRefTapakRumahForEditDto {
     ref_tapak_rumah!: CreateOrEditRefTapakRumahDto;
 
@@ -37586,6 +37979,7 @@ export class GetRefTapakRumahForEditDto implements IGetRefTapakRumahForEditDto {
     }
 }
 
+/** Class GetRefTapakRumahForEditDto */
 export interface IGetRefTapakRumahForEditDto {
     ref_tapak_rumah: CreateOrEditRefTapakRumahDto;
 }
@@ -37638,6 +38032,7 @@ export interface IGetRefTapakRumahForListDto {
     items: RefTapakRumahDto[];
 }
 
+/** Class GetRefTapakRumahForViewDto */
 export class GetRefTapakRumahForViewDto implements IGetRefTapakRumahForViewDto {
     id!: number;
     nama_tapak_rumah!: string;
@@ -37676,6 +38071,7 @@ export class GetRefTapakRumahForViewDto implements IGetRefTapakRumahForViewDto {
     }
 }
 
+/** Class GetRefTapakRumahForViewDto */
 export interface IGetRefTapakRumahForViewDto {
     id: number;
     nama_tapak_rumah: string;
@@ -37736,6 +38132,7 @@ export interface IPagedResultDtoOfRefTapakRumahForViewDto {
     items: GetRefTapakRumahForViewDto[];
 }
 
+/** Class RefTapakRumahDto */
 export class RefTapakRumahDto implements IRefTapakRumahDto {
     id!: number;
     nama_tapak_rumah!: string;
@@ -37774,12 +38171,14 @@ export class RefTapakRumahDto implements IRefTapakRumahDto {
     }
 }
 
+/** Class RefTapakRumahDto */
 export interface IRefTapakRumahDto {
     id: number;
     nama_tapak_rumah: string;
     status_tapak_rumah: number;
 }
 
+/** Class CreateOrEditRefWarganegaraDto */
 export class CreateOrEditRefWarganegaraDto implements ICreateOrEditRefWarganegaraDto {
     id!: number;
     kod_warganegara!: string;
@@ -37821,6 +38220,7 @@ export class CreateOrEditRefWarganegaraDto implements ICreateOrEditRefWarganegar
     }
 }
 
+/** Class CreateOrEditRefWarganegaraDto */
 export interface ICreateOrEditRefWarganegaraDto {
     id: number;
     kod_warganegara: string;
@@ -37828,6 +38228,7 @@ export interface ICreateOrEditRefWarganegaraDto {
     status_warganegara: number;
 }
 
+/** Class GetRefWarganegaraForEditDto */
 export class GetRefWarganegaraForEditDto implements IGetRefWarganegaraForEditDto {
     ref_warganegara!: CreateOrEditRefWarganegaraDto;
 
@@ -37860,6 +38261,7 @@ export class GetRefWarganegaraForEditDto implements IGetRefWarganegaraForEditDto
     }
 }
 
+/** Class GetRefWarganegaraForEditDto */
 export interface IGetRefWarganegaraForEditDto {
     ref_warganegara: CreateOrEditRefWarganegaraDto;
 }
@@ -37912,6 +38314,7 @@ export interface IGetRefWarganegaraForListDto {
     items: RefWarganegaraDto[];
 }
 
+/** Class GetRefWarganegaraForViewDto */
 export class GetRefWarganegaraForViewDto implements IGetRefWarganegaraForViewDto {
     id!: number;
     kod_warganegara!: string;
@@ -37953,6 +38356,7 @@ export class GetRefWarganegaraForViewDto implements IGetRefWarganegaraForViewDto
     }
 }
 
+/** Class GetRefWarganegaraForViewDto */
 export interface IGetRefWarganegaraForViewDto {
     id: number;
     kod_warganegara: string;
@@ -38014,6 +38418,7 @@ export interface IPagedResultDtoOfRefWarganegaraForViewDto {
     items: GetRefWarganegaraForViewDto[];
 }
 
+/** Class RefWarganegaraDto */
 export class RefWarganegaraDto implements IRefWarganegaraDto {
     id!: number;
     kod_warganegara!: string;
@@ -38055,6 +38460,7 @@ export class RefWarganegaraDto implements IRefWarganegaraDto {
     }
 }
 
+/** Class RefWarganegaraDto */
 export interface IRefWarganegaraDto {
     id: number;
     kod_warganegara: string;
@@ -38062,6 +38468,7 @@ export interface IRefWarganegaraDto {
     status_warganegara: number;
 }
 
+/** Class ChangePasswordDto */
 export class ChangePasswordDto implements IChangePasswordDto {
     kata_laluan_lama!: string;
     kata_laluan_baru!: string;
@@ -38100,12 +38507,14 @@ export class ChangePasswordDto implements IChangePasswordDto {
     }
 }
 
+/** Class ChangePasswordDto */
 export interface IChangePasswordDto {
     kata_laluan_lama: string;
     kata_laluan_baru: string;
     ulang_kata_laluan_baru: string;
 }
 
+/** Class GetProfilDto */
 export class GetProfilDto implements IGetProfilDto {
     pengguna!: PenggunaProfilDto;
     daerah!: string;
@@ -38153,6 +38562,7 @@ export class GetProfilDto implements IGetProfilDto {
     }
 }
 
+/** Class GetProfilDto */
 export interface IGetProfilDto {
     pengguna: PenggunaProfilDto;
     daerah: string;
@@ -38162,6 +38572,7 @@ export interface IGetProfilDto {
     agensi: string;
 }
 
+/** Class OutputGambarProfil */
 export class OutputGambarProfil implements IOutputGambarProfil {
     gambar!: string;
 
@@ -38194,10 +38605,12 @@ export class OutputGambarProfil implements IOutputGambarProfil {
     }
 }
 
+/** Class OutputGambarProfil */
 export interface IOutputGambarProfil {
     gambar: string;
 }
 
+/** Class PenggunaProfilDto */
 export class PenggunaProfilDto implements IPenggunaProfilDto {
     id!: number;
     nama!: string;
@@ -38281,6 +38694,7 @@ export class PenggunaProfilDto implements IPenggunaProfilDto {
     }
 }
 
+/** Class PenggunaProfilDto */
 export interface IPenggunaProfilDto {
     id: number;
     nama: string;
@@ -38302,6 +38716,7 @@ export interface IPenggunaProfilDto {
     gambar: string;
 }
 
+/** Class UpdateProfilDto */
 export class UpdateProfilDto implements IUpdateProfilDto {
     pengguna!: PenggunaProfilDto;
 
@@ -38334,10 +38749,12 @@ export class UpdateProfilDto implements IUpdateProfilDto {
     }
 }
 
+/** Class UpdateProfilDto */
 export interface IUpdateProfilDto {
     pengguna: PenggunaProfilDto;
 }
 
+/** Class CreateOrEditTabungBayaranSkbBulananDto */
 export class CreateOrEditTabungBayaranSkbBulananDto implements ICreateOrEditTabungBayaranSkbBulananDto {
     id!: number;
     id_tabung_bayaran_skb!: number;
@@ -38403,6 +38820,7 @@ export class CreateOrEditTabungBayaranSkbBulananDto implements ICreateOrEditTabu
     }
 }
 
+/** Class CreateOrEditTabungBayaranSkbBulananDto */
 export interface ICreateOrEditTabungBayaranSkbBulananDto {
     id: number;
     id_tabung_bayaran_skb: number;
@@ -38418,6 +38836,7 @@ export interface ICreateOrEditTabungBayaranSkbBulananDto {
     tarikh_kemaskini: moment.Moment;
 }
 
+/** Class GetTabungBayaranSkbBulananForEditDto */
 export class GetTabungBayaranSkbBulananForEditDto implements IGetTabungBayaranSkbBulananForEditDto {
     tabung_bayaran_skb_bulanan!: CreateOrEditTabungBayaranSkbBulananDto;
 
@@ -38450,10 +38869,12 @@ export class GetTabungBayaranSkbBulananForEditDto implements IGetTabungBayaranSk
     }
 }
 
+/** Class GetTabungBayaranSkbBulananForEditDto */
 export interface IGetTabungBayaranSkbBulananForEditDto {
     tabung_bayaran_skb_bulanan: CreateOrEditTabungBayaranSkbBulananDto;
 }
 
+/** Class GetTabungBayaranSkbBulananForViewDto */
 export class GetTabungBayaranSkbBulananForViewDto implements IGetTabungBayaranSkbBulananForViewDto {
     id!: number;
     id_tabung_bayaran_skb!: number;
@@ -38501,6 +38922,7 @@ export class GetTabungBayaranSkbBulananForViewDto implements IGetTabungBayaranSk
     }
 }
 
+/** Class GetTabungBayaranSkbBulananForViewDto */
 export interface IGetTabungBayaranSkbBulananForViewDto {
     id: number;
     id_tabung_bayaran_skb: number;
@@ -38510,6 +38932,7 @@ export interface IGetTabungBayaranSkbBulananForViewDto {
     jumlah: string;
 }
 
+/** Class OutputCreateSkbBulananDto */
 export class OutputCreateSkbBulananDto implements IOutputCreateSkbBulananDto {
     message!: string;
 
@@ -38542,6 +38965,7 @@ export class OutputCreateSkbBulananDto implements IOutputCreateSkbBulananDto {
     }
 }
 
+/** Class OutputCreateSkbBulananDto */
 export interface IOutputCreateSkbBulananDto {
     message: string;
 }
@@ -38600,6 +39024,7 @@ export interface IPagedResultDtoOfTabungBayaranSkbBulananForViewDto {
     items: GetTabungBayaranSkbBulananForViewDto[];
 }
 
+/** Class CreateOrEditTabungBayaranSkbStatusDto */
 export class CreateOrEditTabungBayaranSkbStatusDto implements ICreateOrEditTabungBayaranSkbStatusDto {
     id!: number;
     id_tabung_bayaran_skb!: number;
@@ -38647,6 +39072,7 @@ export class CreateOrEditTabungBayaranSkbStatusDto implements ICreateOrEditTabun
     }
 }
 
+/** Class CreateOrEditTabungBayaranSkbStatusDto */
 export interface ICreateOrEditTabungBayaranSkbStatusDto {
     id: number;
     id_tabung_bayaran_skb: number;
@@ -38656,6 +39082,7 @@ export interface ICreateOrEditTabungBayaranSkbStatusDto {
     id_pengguna_cipta: number;
 }
 
+/** Class GetTabungBayaranSkbStatusForEditDto */
 export class GetTabungBayaranSkbStatusForEditDto implements IGetTabungBayaranSkbStatusForEditDto {
     tabungBayaranSkbStatus!: CreateOrEditTabungBayaranSkbStatusDto;
 
@@ -38688,10 +39115,12 @@ export class GetTabungBayaranSkbStatusForEditDto implements IGetTabungBayaranSkb
     }
 }
 
+/** Class GetTabungBayaranSkbStatusForEditDto */
 export interface IGetTabungBayaranSkbStatusForEditDto {
     tabungBayaranSkbStatus: CreateOrEditTabungBayaranSkbStatusDto;
 }
 
+/** Class GetTabungBayaranSkbStatusForViewDto */
 export class GetTabungBayaranSkbStatusForViewDto implements IGetTabungBayaranSkbStatusForViewDto {
     id!: number;
     id_tabung_bayaran_skb!: number;
@@ -38739,6 +39168,7 @@ export class GetTabungBayaranSkbStatusForViewDto implements IGetTabungBayaranSkb
     }
 }
 
+/** Class GetTabungBayaranSkbStatusForViewDto */
 export interface IGetTabungBayaranSkbStatusForViewDto {
     id: number;
     id_tabung_bayaran_skb: number;
@@ -38802,6 +39232,7 @@ export interface IPagedResultDtoOfTabungBayaranSkbStatusForViewDto {
     items: GetTabungBayaranSkbStatusForViewDto[];
 }
 
+/** Class CreateOrEditTabungBayaranSkbDto */
 export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayaranSkbDto {
     id!: number;
     no_rujukan_skb!: string;
@@ -38933,6 +39364,7 @@ export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayar
     }
 }
 
+/** Class CreateOrEditTabungBayaranSkbDto */
 export interface ICreateOrEditTabungBayaranSkbDto {
     id: number;
     no_rujukan_skb: string;
@@ -38970,6 +39402,7 @@ export interface ICreateOrEditTabungBayaranSkbDto {
     catatan: string;
 }
 
+/** Class GetRujukanKelulusanSkbDto */
 export class GetRujukanKelulusanSkbDto implements IGetRujukanKelulusanSkbDto {
     no_rujukan_kelulusan!: string;
     id_tabung!: number;
@@ -39005,11 +39438,13 @@ export class GetRujukanKelulusanSkbDto implements IGetRujukanKelulusanSkbDto {
     }
 }
 
+/** Class GetRujukanKelulusanSkbDto */
 export interface IGetRujukanKelulusanSkbDto {
     no_rujukan_kelulusan: string;
     id_tabung: number;
 }
 
+/** Class GetTabungBayaranSkbForEditDto */
 export class GetTabungBayaranSkbForEditDto implements IGetTabungBayaranSkbForEditDto {
     tabung_bayaran_skb!: CreateOrEditTabungBayaranSkbDto;
 
@@ -39042,10 +39477,12 @@ export class GetTabungBayaranSkbForEditDto implements IGetTabungBayaranSkbForEdi
     }
 }
 
+/** Class GetTabungBayaranSkbForEditDto */
 export interface IGetTabungBayaranSkbForEditDto {
     tabung_bayaran_skb: CreateOrEditTabungBayaranSkbDto;
 }
 
+/** Class GetTabungBayaranSkbForViewDto */
 export class GetTabungBayaranSkbForViewDto implements IGetTabungBayaranSkbForViewDto {
     id!: number;
     no_rujukan_skb!: string;
@@ -39126,6 +39563,7 @@ export class GetTabungBayaranSkbForViewDto implements IGetTabungBayaranSkbForVie
     }
 }
 
+/** Class GetTabungBayaranSkbForViewDto */
 export interface IGetTabungBayaranSkbForViewDto {
     id: number;
     no_rujukan_skb: string;
@@ -39146,6 +39584,7 @@ export interface IGetTabungBayaranSkbForViewDto {
     jumlah_belanja: number;
 }
 
+/** Class InputCreateBayaranSkbDto */
 export class InputCreateBayaranSkbDto implements IInputCreateBayaranSkbDto {
     skb!: CreateOrEditTabungBayaranSkbDto;
     /** Array of kluster object */
@@ -39196,6 +39635,7 @@ export class InputCreateBayaranSkbDto implements IInputCreateBayaranSkbDto {
     }
 }
 
+/** Class InputCreateBayaranSkbDto */
 export interface IInputCreateBayaranSkbDto {
     skb: CreateOrEditTabungBayaranSkbDto;
     /** Array of kluster object */
@@ -39204,6 +39644,7 @@ export interface IInputCreateBayaranSkbDto {
     changeStatus: number;
 }
 
+/** Class InputSkbBulananDto */
 export class InputSkbBulananDto implements IInputSkbBulananDto {
     bulan!: string;
     tahun!: string;
@@ -39245,6 +39686,7 @@ export class InputSkbBulananDto implements IInputSkbBulananDto {
     }
 }
 
+/** Class InputSkbBulananDto */
 export interface IInputSkbBulananDto {
     bulan: string;
     tahun: string;
@@ -39252,6 +39694,7 @@ export interface IInputSkbBulananDto {
     id_bulan: number;
 }
 
+/** Class OutputCreateBayaranSkbDto */
 export class OutputCreateBayaranSkbDto implements IOutputCreateBayaranSkbDto {
     message!: string;
 
@@ -39284,6 +39727,7 @@ export class OutputCreateBayaranSkbDto implements IOutputCreateBayaranSkbDto {
     }
 }
 
+/** Class OutputCreateBayaranSkbDto */
 export interface IOutputCreateBayaranSkbDto {
     message: string;
 }
@@ -39342,6 +39786,7 @@ export interface IPagedResultDtoOfTabungBayaranSkbForViewDto {
     items: GetTabungBayaranSkbForViewDto[];
 }
 
+/** Class CreateOrEditTabungBayaranTerusDto */
 export class CreateOrEditTabungBayaranTerusDto implements ICreateOrEditTabungBayaranTerusDto {
     id!: number;
     id_tabung_kelulusan!: number;
@@ -39440,6 +39885,7 @@ export class CreateOrEditTabungBayaranTerusDto implements ICreateOrEditTabungBay
     }
 }
 
+/** Class CreateOrEditTabungBayaranTerusDto */
 export interface ICreateOrEditTabungBayaranTerusDto {
     id: number;
     id_tabung_kelulusan: number;
@@ -39466,6 +39912,7 @@ export interface ICreateOrEditTabungBayaranTerusDto {
     nama_kategori_bayaran: string;
 }
 
+/** Class GetRujukanKelulusanTerusDto */
 export class GetRujukanKelulusanTerusDto implements IGetRujukanKelulusanTerusDto {
     no_rujukan_kelulusan!: string;
     id_tabung!: number;
@@ -39501,11 +39948,13 @@ export class GetRujukanKelulusanTerusDto implements IGetRujukanKelulusanTerusDto
     }
 }
 
+/** Class GetRujukanKelulusanTerusDto */
 export interface IGetRujukanKelulusanTerusDto {
     no_rujukan_kelulusan: string;
     id_tabung: number;
 }
 
+/** Class GetTabungBayaranTerusForEditDto */
 export class GetTabungBayaranTerusForEditDto implements IGetTabungBayaranTerusForEditDto {
     tabung_bayaran_terus!: CreateOrEditTabungBayaranTerusDto;
 
@@ -39538,10 +39987,12 @@ export class GetTabungBayaranTerusForEditDto implements IGetTabungBayaranTerusFo
     }
 }
 
+/** Class GetTabungBayaranTerusForEditDto */
 export interface IGetTabungBayaranTerusForEditDto {
     tabung_bayaran_terus: CreateOrEditTabungBayaranTerusDto;
 }
 
+/** Class GetTabungBayaranTerusForViewDto */
 export class GetTabungBayaranTerusForViewDto implements IGetTabungBayaranTerusForViewDto {
     id!: number;
     id_tabung_kelulusan!: number;
@@ -39637,6 +40088,7 @@ export class GetTabungBayaranTerusForViewDto implements IGetTabungBayaranTerusFo
     }
 }
 
+/** Class GetTabungBayaranTerusForViewDto */
 export interface IGetTabungBayaranTerusForViewDto {
     id: number;
     id_tabung_kelulusan: number;
@@ -39662,6 +40114,7 @@ export interface IGetTabungBayaranTerusForViewDto {
     id_kategori_bayaran: number;
 }
 
+/** Class GetTabungBayaranTerusLookupDto */
 export class GetTabungBayaranTerusLookupDto implements IGetTabungBayaranTerusLookupDto {
     id!: number;
     no_rujukan_terus!: number;
@@ -39709,6 +40162,7 @@ export class GetTabungBayaranTerusLookupDto implements IGetTabungBayaranTerusLoo
     }
 }
 
+/** Class GetTabungBayaranTerusLookupDto */
 export interface IGetTabungBayaranTerusLookupDto {
     id: number;
     no_rujukan_terus: number;
@@ -39718,6 +40172,7 @@ export interface IGetTabungBayaranTerusLookupDto {
     no_rujukan_kelulusan: string;
 }
 
+/** Class OutputCreateBayaranTerusDto */
 export class OutputCreateBayaranTerusDto implements IOutputCreateBayaranTerusDto {
     message!: string;
 
@@ -39750,6 +40205,7 @@ export class OutputCreateBayaranTerusDto implements IOutputCreateBayaranTerusDto
     }
 }
 
+/** Class OutputCreateBayaranTerusDto */
 export interface IOutputCreateBayaranTerusDto {
     message: string;
 }
@@ -39862,6 +40318,7 @@ export interface IPagedResultDtoOfTabungBayaranTerusForViewDto {
     items: GetTabungBayaranTerusForViewDto[];
 }
 
+/** Class CreateOrEditTabungBayaranWaranBulananDto */
 export class CreateOrEditTabungBayaranWaranBulananDto implements ICreateOrEditTabungBayaranWaranBulananDto {
     id!: number;
     id_tabung_bayaran_waran!: number;
@@ -39927,6 +40384,7 @@ export class CreateOrEditTabungBayaranWaranBulananDto implements ICreateOrEditTa
     }
 }
 
+/** Class CreateOrEditTabungBayaranWaranBulananDto */
 export interface ICreateOrEditTabungBayaranWaranBulananDto {
     id: number;
     id_tabung_bayaran_waran: number;
@@ -39942,6 +40400,7 @@ export interface ICreateOrEditTabungBayaranWaranBulananDto {
     tarikh_kemaskini: moment.Moment;
 }
 
+/** Class GetTabungBayaranWaranBulananForEditDto */
 export class GetTabungBayaranWaranBulananForEditDto implements IGetTabungBayaranWaranBulananForEditDto {
     tabung_bayaran_waran_bulanan!: CreateOrEditTabungBayaranWaranBulananDto;
 
@@ -39974,10 +40433,12 @@ export class GetTabungBayaranWaranBulananForEditDto implements IGetTabungBayaran
     }
 }
 
+/** Class GetTabungBayaranWaranBulananForEditDto */
 export interface IGetTabungBayaranWaranBulananForEditDto {
     tabung_bayaran_waran_bulanan: CreateOrEditTabungBayaranWaranBulananDto;
 }
 
+/** Class GetTabungBayaranWaranBulananForViewDto */
 export class GetTabungBayaranWaranBulananForViewDto implements IGetTabungBayaranWaranBulananForViewDto {
     id!: number;
     id_tabung_bayaran_waran!: number;
@@ -40025,6 +40486,7 @@ export class GetTabungBayaranWaranBulananForViewDto implements IGetTabungBayaran
     }
 }
 
+/** Class GetTabungBayaranWaranBulananForViewDto */
 export interface IGetTabungBayaranWaranBulananForViewDto {
     id: number;
     id_tabung_bayaran_waran: number;
@@ -40034,6 +40496,7 @@ export interface IGetTabungBayaranWaranBulananForViewDto {
     jumlah: string;
 }
 
+/** Class OutputCreateWaranBulananDto */
 export class OutputCreateWaranBulananDto implements IOutputCreateWaranBulananDto {
     message!: string;
 
@@ -40066,6 +40529,7 @@ export class OutputCreateWaranBulananDto implements IOutputCreateWaranBulananDto
     }
 }
 
+/** Class OutputCreateWaranBulananDto */
 export interface IOutputCreateWaranBulananDto {
     message: string;
 }
@@ -40124,6 +40588,7 @@ export interface IPagedResultDtoOfTabungBayaranWaranBulananForViewDto {
     items: GetTabungBayaranWaranBulananForViewDto[];
 }
 
+/** Class CreateOrEditTabungBayaranWaranStatusDto */
 export class CreateOrEditTabungBayaranWaranStatusDto implements ICreateOrEditTabungBayaranWaranStatusDto {
     id!: number;
     id_tabung_bayaran_waran!: number;
@@ -40171,6 +40636,7 @@ export class CreateOrEditTabungBayaranWaranStatusDto implements ICreateOrEditTab
     }
 }
 
+/** Class CreateOrEditTabungBayaranWaranStatusDto */
 export interface ICreateOrEditTabungBayaranWaranStatusDto {
     id: number;
     id_tabung_bayaran_waran: number;
@@ -40180,6 +40646,7 @@ export interface ICreateOrEditTabungBayaranWaranStatusDto {
     id_pengguna_cipta: number;
 }
 
+/** Class GetTabungBayaranWaranStatusForEditDto */
 export class GetTabungBayaranWaranStatusForEditDto implements IGetTabungBayaranWaranStatusForEditDto {
     tabungBayaranWaranStatus!: CreateOrEditTabungBayaranWaranStatusDto;
 
@@ -40212,10 +40679,12 @@ export class GetTabungBayaranWaranStatusForEditDto implements IGetTabungBayaranW
     }
 }
 
+/** Class GetTabungBayaranWaranStatusForEditDto */
 export interface IGetTabungBayaranWaranStatusForEditDto {
     tabungBayaranWaranStatus: CreateOrEditTabungBayaranWaranStatusDto;
 }
 
+/** Class GetTabungBayaranWaranStatusForViewDto */
 export class GetTabungBayaranWaranStatusForViewDto implements IGetTabungBayaranWaranStatusForViewDto {
     id!: number;
     id_tabung_bayaran_waran!: number;
@@ -40263,6 +40732,7 @@ export class GetTabungBayaranWaranStatusForViewDto implements IGetTabungBayaranW
     }
 }
 
+/** Class GetTabungBayaranWaranStatusForViewDto */
 export interface IGetTabungBayaranWaranStatusForViewDto {
     id: number;
     id_tabung_bayaran_waran: number;
@@ -40326,6 +40796,7 @@ export interface IPagedResultDtoOfTabungBayaranWaranStatusForViewDto {
     items: GetTabungBayaranWaranStatusForViewDto[];
 }
 
+/** Class CreateOrEditTabungBayaranWaranDto */
 export class CreateOrEditTabungBayaranWaranDto implements ICreateOrEditTabungBayaranWaranDto {
     id!: number;
     no_rujukan_waran!: string;
@@ -40457,6 +40928,7 @@ export class CreateOrEditTabungBayaranWaranDto implements ICreateOrEditTabungBay
     }
 }
 
+/** Class CreateOrEditTabungBayaranWaranDto */
 export interface ICreateOrEditTabungBayaranWaranDto {
     id: number;
     no_rujukan_waran: string;
@@ -40494,6 +40966,7 @@ export interface ICreateOrEditTabungBayaranWaranDto {
     catatan: string;
 }
 
+/** Class GetRujukanKelulusanWaranDto */
 export class GetRujukanKelulusanWaranDto implements IGetRujukanKelulusanWaranDto {
     no_rujukan_kelulusan!: string;
     id_tabung!: number;
@@ -40529,11 +41002,13 @@ export class GetRujukanKelulusanWaranDto implements IGetRujukanKelulusanWaranDto
     }
 }
 
+/** Class GetRujukanKelulusanWaranDto */
 export interface IGetRujukanKelulusanWaranDto {
     no_rujukan_kelulusan: string;
     id_tabung: number;
 }
 
+/** Class GetTabungBayaranWaranForEditDto */
 export class GetTabungBayaranWaranForEditDto implements IGetTabungBayaranWaranForEditDto {
     tabung_bayaran_waran!: CreateOrEditTabungBayaranWaranDto;
 
@@ -40566,10 +41041,12 @@ export class GetTabungBayaranWaranForEditDto implements IGetTabungBayaranWaranFo
     }
 }
 
+/** Class GetTabungBayaranWaranForEditDto */
 export interface IGetTabungBayaranWaranForEditDto {
     tabung_bayaran_waran: CreateOrEditTabungBayaranWaranDto;
 }
 
+/** Class GetTabungBayaranWaranForViewDto */
 export class GetTabungBayaranWaranForViewDto implements IGetTabungBayaranWaranForViewDto {
     id!: number;
     no_rujukan_waran!: string;
@@ -40647,6 +41124,7 @@ export class GetTabungBayaranWaranForViewDto implements IGetTabungBayaranWaranFo
     }
 }
 
+/** Class GetTabungBayaranWaranForViewDto */
 export interface IGetTabungBayaranWaranForViewDto {
     id: number;
     no_rujukan_waran: string;
@@ -40666,6 +41144,7 @@ export interface IGetTabungBayaranWaranForViewDto {
     jumlah_belanja: number;
 }
 
+/** Class InputCreateBayaranWaranDto */
 export class InputCreateBayaranWaranDto implements IInputCreateBayaranWaranDto {
     waran!: CreateOrEditTabungBayaranWaranDto;
     /** Array of kluster object */
@@ -40716,6 +41195,7 @@ export class InputCreateBayaranWaranDto implements IInputCreateBayaranWaranDto {
     }
 }
 
+/** Class InputCreateBayaranWaranDto */
 export interface IInputCreateBayaranWaranDto {
     waran: CreateOrEditTabungBayaranWaranDto;
     /** Array of kluster object */
@@ -40724,6 +41204,7 @@ export interface IInputCreateBayaranWaranDto {
     changeStatus: number;
 }
 
+/** Class InputWaranBulananDto */
 export class InputWaranBulananDto implements IInputWaranBulananDto {
     bulan!: string;
     tahun!: string;
@@ -40765,6 +41246,7 @@ export class InputWaranBulananDto implements IInputWaranBulananDto {
     }
 }
 
+/** Class InputWaranBulananDto */
 export interface IInputWaranBulananDto {
     bulan: string;
     tahun: string;
@@ -40772,6 +41254,7 @@ export interface IInputWaranBulananDto {
     id_bulan: number;
 }
 
+/** Class OutputCreateBayaranWaranDto */
 export class OutputCreateBayaranWaranDto implements IOutputCreateBayaranWaranDto {
     message!: string;
 
@@ -40804,6 +41287,7 @@ export class OutputCreateBayaranWaranDto implements IOutputCreateBayaranWaranDto
     }
 }
 
+/** Class OutputCreateBayaranWaranDto */
 export interface IOutputCreateBayaranWaranDto {
     message: string;
 }
@@ -40862,6 +41346,7 @@ export interface IPagedResultDtoOfTabungBayaranWaranForViewDto {
     items: GetTabungBayaranWaranForViewDto[];
 }
 
+/** Class CreateOrEditTabungBwiBayaranDto */
 export class CreateOrEditTabungBwiBayaranDto implements ICreateOrEditTabungBwiBayaranDto {
     id!: number;
     id_tabung_bwi!: number;
@@ -40918,6 +41403,7 @@ export class CreateOrEditTabungBwiBayaranDto implements ICreateOrEditTabungBwiBa
     }
 }
 
+/** Class CreateOrEditTabungBwiBayaranDto */
 export interface ICreateOrEditTabungBwiBayaranDto {
     id: number;
     id_tabung_bwi: number;
@@ -40930,6 +41416,7 @@ export interface ICreateOrEditTabungBwiBayaranDto {
     id_pengguna_hapus: number;
 }
 
+/** Class GetTabungBwiBayaranForEditDto */
 export class GetTabungBwiBayaranForEditDto implements IGetTabungBwiBayaranForEditDto {
     tabung_bwi_bayaran!: CreateOrEditTabungBwiBayaranDto;
 
@@ -40962,10 +41449,12 @@ export class GetTabungBwiBayaranForEditDto implements IGetTabungBwiBayaranForEdi
     }
 }
 
+/** Class GetTabungBwiBayaranForEditDto */
 export interface IGetTabungBwiBayaranForEditDto {
     tabung_bwi_bayaran: CreateOrEditTabungBwiBayaranDto;
 }
 
+/** Class GetTabungBwiBayaranForViewDto */
 export class GetTabungBwiBayaranForViewDto implements IGetTabungBwiBayaranForViewDto {
     id!: number;
     id_tabung_bwi!: number;
@@ -41037,6 +41526,7 @@ export class GetTabungBwiBayaranForViewDto implements IGetTabungBwiBayaranForVie
     }
 }
 
+/** Class GetTabungBwiBayaranForViewDto */
 export interface IGetTabungBwiBayaranForViewDto {
     id: number;
     id_tabung_bwi: number;
@@ -41054,6 +41544,7 @@ export interface IGetTabungBwiBayaranForViewDto {
     perihal: string;
 }
 
+/** Class InputCreateBwiTabungBayaranDto */
 export class InputCreateBwiTabungBayaranDto implements IInputCreateBwiTabungBayaranDto {
     /** Array of kluster object */
     bwi_bayaran!: UpdateBwiBayaranDto[];
@@ -41098,6 +41589,7 @@ export class InputCreateBwiTabungBayaranDto implements IInputCreateBwiTabungBaya
     }
 }
 
+/** Class InputCreateBwiTabungBayaranDto */
 export interface IInputCreateBwiTabungBayaranDto {
     /** Array of kluster object */
     bwi_bayaran: UpdateBwiBayaranDto[];
@@ -41158,6 +41650,7 @@ export interface IPagedResultDtoOfTabungBwiBayaranForViewDto {
     items: GetTabungBwiBayaranForViewDto[];
 }
 
+/** Class UpdateBwiBayaranDto */
 export class UpdateBwiBayaranDto implements IUpdateBwiBayaranDto {
     id_tabung_bayaran_skb!: number;
     id_tabung_bayaran_terus!: number;
@@ -41193,11 +41686,13 @@ export class UpdateBwiBayaranDto implements IUpdateBwiBayaranDto {
     }
 }
 
+/** Class UpdateBwiBayaranDto */
 export interface IUpdateBwiBayaranDto {
     id_tabung_bayaran_skb: number;
     id_tabung_bayaran_terus: number;
 }
 
+/** Class CreateOrEditTabungBwiKawasanDto */
 export class CreateOrEditTabungBwiKawasanDto implements ICreateOrEditTabungBwiKawasanDto {
     id!: number;
     id_tabung_bwi!: number;
@@ -41311,6 +41806,7 @@ export class CreateOrEditTabungBwiKawasanDto implements ICreateOrEditTabungBwiKa
     }
 }
 
+/** Class CreateOrEditTabungBwiKawasanDto */
 export interface ICreateOrEditTabungBwiKawasanDto {
     id: number;
     id_tabung_bwi: number;
@@ -41342,6 +41838,7 @@ export interface ICreateOrEditTabungBwiKawasanDto {
     tarikh_majlis_drp_apm: moment.Moment;
 }
 
+/** Class GetTabungBwiKawasanForEditDto */
 export class GetTabungBwiKawasanForEditDto implements IGetTabungBwiKawasanForEditDto {
     tabung_bwi_kawasan!: CreateOrEditTabungBwiKawasanDto;
 
@@ -41374,10 +41871,12 @@ export class GetTabungBwiKawasanForEditDto implements IGetTabungBwiKawasanForEdi
     }
 }
 
+/** Class GetTabungBwiKawasanForEditDto */
 export interface IGetTabungBwiKawasanForEditDto {
     tabung_bwi_kawasan: CreateOrEditTabungBwiKawasanDto;
 }
 
+/** Class GetTabungBwiKawasanForViewDto */
 export class GetTabungBwiKawasanForViewDto implements IGetTabungBwiKawasanForViewDto {
     id!: number;
     id_tabung_bwi!: number;
@@ -41434,6 +41933,7 @@ export class GetTabungBwiKawasanForViewDto implements IGetTabungBwiKawasanForVie
     }
 }
 
+/** Class GetTabungBwiKawasanForViewDto */
 export interface IGetTabungBwiKawasanForViewDto {
     id: number;
     id_tabung_bwi: number;
@@ -41446,6 +41946,7 @@ export interface IGetTabungBwiKawasanForViewDto {
     nama_daerah: string;
 }
 
+/** Class InputCreateBwiTabungKawasanDto */
 export class InputCreateBwiTabungKawasanDto implements IInputCreateBwiTabungKawasanDto {
     /** Array of kluster object */
     bwi_kawasan!: CreateOrEditTabungBwiKawasanDto[];
@@ -41490,6 +41991,7 @@ export class InputCreateBwiTabungKawasanDto implements IInputCreateBwiTabungKawa
     }
 }
 
+/** Class InputCreateBwiTabungKawasanDto */
 export interface IInputCreateBwiTabungKawasanDto {
     /** Array of kluster object */
     bwi_kawasan: CreateOrEditTabungBwiKawasanDto[];
@@ -41550,6 +42052,7 @@ export interface IPagedResultDtoOfTabungBwiKawasanForViewDto {
     items: GetTabungBwiKawasanForViewDto[];
 }
 
+/** Class CreateOrEditTabungBwiDto */
 export class CreateOrEditTabungBwiDto implements ICreateOrEditTabungBwiDto {
     id!: number;
     id_jenis_bwi!: number;
@@ -41600,6 +42103,7 @@ export class CreateOrEditTabungBwiDto implements ICreateOrEditTabungBwiDto {
     }
 }
 
+/** Class CreateOrEditTabungBwiDto */
 export interface ICreateOrEditTabungBwiDto {
     id: number;
     id_jenis_bwi: number;
@@ -41610,6 +42114,7 @@ export interface ICreateOrEditTabungBwiDto {
     tarikh_bencana: moment.Moment;
 }
 
+/** Class GetAllKirForViewDto */
 export class GetAllKirForViewDto implements IGetAllKirForViewDto {
     id!: number;
     nama!: string;
@@ -41663,6 +42168,7 @@ export class GetAllKirForViewDto implements IGetAllKirForViewDto {
     }
 }
 
+/** Class GetAllKirForViewDto */
 export interface IGetAllKirForViewDto {
     id: number;
     nama: string;
@@ -41674,6 +42180,7 @@ export interface IGetAllKirForViewDto {
     jumlah_bwi: string;
 }
 
+/** Class GetRujukanKelulusanBwiDto */
 export class GetRujukanKelulusanBwiDto implements IGetRujukanKelulusanBwiDto {
     no_rujukan_kelulusan!: string;
     id_tabung!: number;
@@ -41718,6 +42225,7 @@ export class GetRujukanKelulusanBwiDto implements IGetRujukanKelulusanBwiDto {
     }
 }
 
+/** Class GetRujukanKelulusanBwiDto */
 export interface IGetRujukanKelulusanBwiDto {
     no_rujukan_kelulusan: string;
     id_tabung: number;
@@ -41726,6 +42234,7 @@ export interface IGetRujukanKelulusanBwiDto {
     perihal_surat: string;
 }
 
+/** Class GetTabungBwiForEditDto */
 export class GetTabungBwiForEditDto implements IGetTabungBwiForEditDto {
     tabung_bwi!: CreateOrEditTabungBwiDto;
     jumlah_keseluruhan!: number;
@@ -41764,12 +42273,14 @@ export class GetTabungBwiForEditDto implements IGetTabungBwiForEditDto {
     }
 }
 
+/** Class GetTabungBwiForEditDto */
 export interface IGetTabungBwiForEditDto {
     tabung_bwi: CreateOrEditTabungBwiDto;
     jumlah_keseluruhan: number;
     jumlah_dipulangkan: number;
 }
 
+/** Class GetTabungBwiForViewDto */
 export class GetTabungBwiForViewDto implements IGetTabungBwiForViewDto {
     id!: number;
     no_rujukan_bwi!: string;
@@ -41832,6 +42343,7 @@ export class GetTabungBwiForViewDto implements IGetTabungBwiForViewDto {
     }
 }
 
+/** Class GetTabungBwiForViewDto */
 export interface IGetTabungBwiForViewDto {
     id: number;
     no_rujukan_bwi: string;
@@ -41846,6 +42358,7 @@ export interface IGetTabungBwiForViewDto {
     jumlah_bayaran_bwi: number;
 }
 
+/** Class InputBwiBayaranDto */
 export class InputBwiBayaranDto implements IInputBwiBayaranDto {
     id_skb!: number;
     id_terus!: number;
@@ -41881,11 +42394,13 @@ export class InputBwiBayaranDto implements IInputBwiBayaranDto {
     }
 }
 
+/** Class InputBwiBayaranDto */
 export interface IInputBwiBayaranDto {
     id_skb: number;
     id_terus: number;
 }
 
+/** Class InputBwiKawasanDto */
 export class InputBwiKawasanDto implements IInputBwiKawasanDto {
     id_daerah!: number;
     id_negeri!: number;
@@ -41924,12 +42439,14 @@ export class InputBwiKawasanDto implements IInputBwiKawasanDto {
     }
 }
 
+/** Class InputBwiKawasanDto */
 export interface IInputBwiKawasanDto {
     id_daerah: number;
     id_negeri: number;
     jumlah_bwi: number;
 }
 
+/** Class InputCreateTabungBwiDto */
 export class InputCreateTabungBwiDto implements IInputCreateTabungBwiDto {
     bwi!: CreateOrEditTabungBwiDto;
     /** Array of kluster object */
@@ -41986,6 +42503,7 @@ export class InputCreateTabungBwiDto implements IInputCreateTabungBwiDto {
     }
 }
 
+/** Class InputCreateTabungBwiDto */
 export interface IInputCreateTabungBwiDto {
     bwi: CreateOrEditTabungBwiDto;
     /** Array of kluster object */
@@ -42102,6 +42620,7 @@ export interface IPagedResultDtoOfTabungBwiForViewDto {
     items: GetTabungBwiForViewDto[];
 }
 
+/** Class CreateOrEditTabungKelulusanAmbilanDto */
 export class CreateOrEditTabungKelulusanAmbilanDto implements ICreateOrEditTabungKelulusanAmbilanDto {
     id!: number;
     id_tabung_kelulusan!: number;
@@ -42155,6 +42674,7 @@ export class CreateOrEditTabungKelulusanAmbilanDto implements ICreateOrEditTabun
     }
 }
 
+/** Class CreateOrEditTabungKelulusanAmbilanDto */
 export interface ICreateOrEditTabungKelulusanAmbilanDto {
     id: number;
     id_tabung_kelulusan: number;
@@ -42166,6 +42686,7 @@ export interface ICreateOrEditTabungKelulusanAmbilanDto {
     id_pengguna_cipta: number;
 }
 
+/** Class GetTabungKelulusanAmbilanForEditDto */
 export class GetTabungKelulusanAmbilanForEditDto implements IGetTabungKelulusanAmbilanForEditDto {
     tabung_kelulusan_ambilan!: CreateOrEditTabungKelulusanAmbilanDto;
 
@@ -42198,10 +42719,12 @@ export class GetTabungKelulusanAmbilanForEditDto implements IGetTabungKelulusanA
     }
 }
 
+/** Class GetTabungKelulusanAmbilanForEditDto */
 export interface IGetTabungKelulusanAmbilanForEditDto {
     tabung_kelulusan_ambilan: CreateOrEditTabungKelulusanAmbilanDto;
 }
 
+/** Class GetTabungKelulusanAmbilanForViewDto */
 export class GetTabungKelulusanAmbilanForViewDto implements IGetTabungKelulusanAmbilanForViewDto {
     id!: number;
     id_tabung_kelulusan!: number;
@@ -42258,6 +42781,7 @@ export class GetTabungKelulusanAmbilanForViewDto implements IGetTabungKelulusanA
     }
 }
 
+/** Class GetTabungKelulusanAmbilanForViewDto */
 export interface IGetTabungKelulusanAmbilanForViewDto {
     id: number;
     id_tabung_kelulusan: number;
@@ -42324,6 +42848,7 @@ export interface IPagedResultDtoOfTabungKelulusanAmbilanForViewDto {
     items: GetTabungKelulusanAmbilanForViewDto[];
 }
 
+/** Class CreateOrEditTabungKelulusanDto */
 export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulusanDto {
     id!: number;
     no_rujukan_kelulusan!: string;
@@ -42419,6 +42944,7 @@ export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulu
     }
 }
 
+/** Class CreateOrEditTabungKelulusanDto */
 export interface ICreateOrEditTabungKelulusanDto {
     id: number;
     no_rujukan_kelulusan: string;
@@ -42444,6 +42970,7 @@ export interface ICreateOrEditTabungKelulusanDto {
     sebab_hapus: string;
 }
 
+/** Class GetBayaranTerusByIdKelulusanDto */
 export class GetBayaranTerusByIdKelulusanDto implements IGetBayaranTerusByIdKelulusanDto {
     no_rujukan_terus!: string;
     jumlah!: number;
@@ -42479,11 +43006,13 @@ export class GetBayaranTerusByIdKelulusanDto implements IGetBayaranTerusByIdKelu
     }
 }
 
+/** Class GetBayaranTerusByIdKelulusanDto */
 export interface IGetBayaranTerusByIdKelulusanDto {
     no_rujukan_terus: string;
     jumlah: number;
 }
 
+/** Class GetKelulusanAndBelanjaForViewDto */
 export class GetKelulusanAndBelanjaForViewDto implements IGetKelulusanAndBelanjaForViewDto {
     kelulusan!: GetTabungKelulusanForViewDto;
     belanja!: number;
@@ -42519,11 +43048,13 @@ export class GetKelulusanAndBelanjaForViewDto implements IGetKelulusanAndBelanja
     }
 }
 
+/** Class GetKelulusanAndBelanjaForViewDto */
 export interface IGetKelulusanAndBelanjaForViewDto {
     kelulusan: GetTabungKelulusanForViewDto;
     belanja: number;
 }
 
+/** Class GetKelulusanByKategoriBayaranDto */
 export class GetKelulusanByKategoriBayaranDto implements IGetKelulusanByKategoriBayaranDto {
     kategori!: string;
     jumlah!: number;
@@ -42559,11 +43090,13 @@ export class GetKelulusanByKategoriBayaranDto implements IGetKelulusanByKategori
     }
 }
 
+/** Class GetKelulusanByKategoriBayaranDto */
 export interface IGetKelulusanByKategoriBayaranDto {
     kategori: string;
     jumlah: number;
 }
 
+/** Class GetKelulusanLookupTableForViewDto */
 export class GetKelulusanLookupTableForViewDto implements IGetKelulusanLookupTableForViewDto {
     id!: number;
     no_rujukan_kelulusan!: string;
@@ -42608,6 +43141,7 @@ export class GetKelulusanLookupTableForViewDto implements IGetKelulusanLookupTab
     }
 }
 
+/** Class GetKelulusanLookupTableForViewDto */
 export interface IGetKelulusanLookupTableForViewDto {
     id: number;
     no_rujukan_kelulusan: string;
@@ -42616,6 +43150,7 @@ export interface IGetKelulusanLookupTableForViewDto {
     baki_jumlah_siling: string;
 }
 
+/** Class GetSkbByIdKelulusanDto */
 export class GetSkbByIdKelulusanDto implements IGetSkbByIdKelulusanDto {
     no_rujukan_skb!: string;
     jumlah!: number;
@@ -42651,11 +43186,13 @@ export class GetSkbByIdKelulusanDto implements IGetSkbByIdKelulusanDto {
     }
 }
 
+/** Class GetSkbByIdKelulusanDto */
 export interface IGetSkbByIdKelulusanDto {
     no_rujukan_skb: string;
     jumlah: number;
 }
 
+/** Class GetTabungKelulusanForEditDto */
 export class GetTabungKelulusanForEditDto implements IGetTabungKelulusanForEditDto {
     tabung_kelulusan!: CreateOrEditTabungKelulusanDto;
 
@@ -42688,10 +43225,12 @@ export class GetTabungKelulusanForEditDto implements IGetTabungKelulusanForEditD
     }
 }
 
+/** Class GetTabungKelulusanForEditDto */
 export interface IGetTabungKelulusanForEditDto {
     tabung_kelulusan: CreateOrEditTabungKelulusanDto;
 }
 
+/** Class GetTabungKelulusanForViewDto */
 export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewDto {
     id!: number;
     no_rujukan_kelulusan!: string;
@@ -42763,6 +43302,7 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
     }
 }
 
+/** Class GetTabungKelulusanForViewDto */
 export interface IGetTabungKelulusanForViewDto {
     id: number;
     no_rujukan_kelulusan: string;
@@ -42780,6 +43320,7 @@ export interface IGetTabungKelulusanForViewDto {
     perihal_surat: string;
 }
 
+/** Class OutputCreateTabungKelulusanDto */
 export class OutputCreateTabungKelulusanDto implements IOutputCreateTabungKelulusanDto {
     message!: string;
 
@@ -42812,6 +43353,7 @@ export class OutputCreateTabungKelulusanDto implements IOutputCreateTabungKelulu
     }
 }
 
+/** Class OutputCreateTabungKelulusanDto */
 export interface IOutputCreateTabungKelulusanDto {
     message: string;
 }
@@ -43098,6 +43640,7 @@ export interface IPagedResultDtoOfTabungKelulusanLookupTableForViewDto {
     items: GetKelulusanLookupTableForViewDto[];
 }
 
+/** Class CreateOrEditTabungPeruntukanDto */
 export class CreateOrEditTabungPeruntukanDto implements ICreateOrEditTabungPeruntukanDto {
     id!: number;
     id_tabung!: number;
@@ -43160,6 +43703,7 @@ export class CreateOrEditTabungPeruntukanDto implements ICreateOrEditTabungPerun
     }
 }
 
+/** Class CreateOrEditTabungPeruntukanDto */
 export interface ICreateOrEditTabungPeruntukanDto {
     id: number;
     id_tabung: number;
@@ -43174,6 +43718,7 @@ export interface ICreateOrEditTabungPeruntukanDto {
     jumlah_baru: number;
 }
 
+/** Class GetTabungPeruntukanForEditDto */
 export class GetTabungPeruntukanForEditDto implements IGetTabungPeruntukanForEditDto {
     tabung_peruntukan!: CreateOrEditTabungPeruntukanDto;
 
@@ -43206,10 +43751,12 @@ export class GetTabungPeruntukanForEditDto implements IGetTabungPeruntukanForEdi
     }
 }
 
+/** Class GetTabungPeruntukanForEditDto */
 export interface IGetTabungPeruntukanForEditDto {
     tabung_peruntukan: CreateOrEditTabungPeruntukanDto;
 }
 
+/** Class GetTabungPeruntukanForViewDto */
 export class GetTabungPeruntukanForViewDto implements IGetTabungPeruntukanForViewDto {
     id!: number;
     id_tabung!: number;
@@ -43269,6 +43816,7 @@ export class GetTabungPeruntukanForViewDto implements IGetTabungPeruntukanForVie
     }
 }
 
+/** Class GetTabungPeruntukanForViewDto */
 export interface IGetTabungPeruntukanForViewDto {
     id: number;
     id_tabung: number;
@@ -43282,6 +43830,7 @@ export interface IGetTabungPeruntukanForViewDto {
     nama: string;
 }
 
+/** Class OutputCreateEditTabungPeruntukanDto */
 export class OutputCreateEditTabungPeruntukanDto implements IOutputCreateEditTabungPeruntukanDto {
     message!: string;
 
@@ -43314,6 +43863,7 @@ export class OutputCreateEditTabungPeruntukanDto implements IOutputCreateEditTab
     }
 }
 
+/** Class OutputCreateEditTabungPeruntukanDto */
 export interface IOutputCreateEditTabungPeruntukanDto {
     message: string;
 }
@@ -43372,6 +43922,7 @@ export interface IPagedResultDtoOfTabungPeruntukanForViewDto {
     items: GetTabungPeruntukanForViewDto[];
 }
 
+/** Class CreateOrEditTabungDto */
 export class CreateOrEditTabungDto implements ICreateOrEditTabungDto {
     id!: number;
     nama_tabung!: string;
@@ -43452,6 +44003,7 @@ export class CreateOrEditTabungDto implements ICreateOrEditTabungDto {
     }
 }
 
+/** Class CreateOrEditTabungDto */
 export interface ICreateOrEditTabungDto {
     id: number;
     nama_tabung: string;
@@ -43472,6 +44024,7 @@ export interface ICreateOrEditTabungDto {
     jumlah_perbelanjaan_semasa: number;
 }
 
+/** Class GetTabungForEditDto */
 export class GetTabungForEditDto implements IGetTabungForEditDto {
     tabung!: CreateOrEditTabungDto;
     dana_awal!: number;
@@ -43516,6 +44069,7 @@ export class GetTabungForEditDto implements IGetTabungForEditDto {
     }
 }
 
+/** Class GetTabungForEditDto */
 export interface IGetTabungForEditDto {
     tabung: CreateOrEditTabungDto;
     dana_awal: number;
@@ -43572,6 +44126,7 @@ export interface IGetTabungForListDto {
     items: GetTabungForViewDto[];
 }
 
+/** Class GetTabungForViewDto */
 export class GetTabungForViewDto implements IGetTabungForViewDto {
     id!: number;
     nama_tabung!: string;
@@ -43643,6 +44198,7 @@ export class GetTabungForViewDto implements IGetTabungForViewDto {
     }
 }
 
+/** Class GetTabungForViewDto */
 export interface IGetTabungForViewDto {
     id: number;
     nama_tabung: string;
@@ -43760,6 +44316,7 @@ export interface IPagedResultDtoOfTabungForViewDto {
     items: GetTabungForViewDto[];
 }
 
+/** Class TotalTabungCardForViewDto */
 export class TotalTabungCardForViewDto implements ITotalTabungCardForViewDto {
     total_keseluruhan_semasa!: string;
     total_peruntukan!: string;
@@ -43801,6 +44358,7 @@ export class TotalTabungCardForViewDto implements ITotalTabungCardForViewDto {
     }
 }
 
+/** Class TotalTabungCardForViewDto */
 export interface ITotalTabungCardForViewDto {
     total_keseluruhan_semasa: string;
     total_peruntukan: string;
@@ -43808,6 +44366,7 @@ export interface ITotalTabungCardForViewDto {
     total_baki_bawaan: string;
 }
 
+/** Class ChangeEmelPasswordDto */
 export class ChangeEmelPasswordDto implements IChangeEmelPasswordDto {
     id!: number;
     changeEmel!: string;
@@ -43846,12 +44405,14 @@ export class ChangeEmelPasswordDto implements IChangeEmelPasswordDto {
     }
 }
 
+/** Class ChangeEmelPasswordDto */
 export interface IChangeEmelPasswordDto {
     id: number;
     changeEmel: string;
     changePassword: string;
 }
 
+/** Class CreateOrEditPenggunaDto */
 export class CreateOrEditPenggunaDto implements ICreateOrEditPenggunaDto {
     pengguna!: CreatePenggunaDto;
 
@@ -43884,10 +44445,12 @@ export class CreateOrEditPenggunaDto implements ICreateOrEditPenggunaDto {
     }
 }
 
+/** Class CreateOrEditPenggunaDto */
 export interface ICreateOrEditPenggunaDto {
     pengguna: CreatePenggunaDto;
 }
 
+/** Class CreatePenggunaDto */
 export class CreatePenggunaDto implements ICreatePenggunaDto {
     id!: number;
     nama!: string;
@@ -43980,6 +44543,7 @@ export class CreatePenggunaDto implements ICreatePenggunaDto {
     }
 }
 
+/** Class CreatePenggunaDto */
 export interface ICreatePenggunaDto {
     id: number;
     nama: string;
@@ -44004,6 +44568,7 @@ export interface ICreatePenggunaDto {
     catatan: string;
 }
 
+/** Class EditUserDto */
 export class EditUserDto implements IEditUserDto {
     id!: number;
     nama!: string;
@@ -44096,6 +44661,7 @@ export class EditUserDto implements IEditUserDto {
     }
 }
 
+/** Class EditUserDto */
 export interface IEditUserDto {
     id: number;
     nama: string;
@@ -44120,6 +44686,7 @@ export interface IEditUserDto {
     catatan: string;
 }
 
+/** Class GetCapaianPenggunaDto */
 export class GetCapaianPenggunaDto implements IGetCapaianPenggunaDto {
     /** Capaian in array of string */
     capaian!: string[];
@@ -44161,11 +44728,13 @@ export class GetCapaianPenggunaDto implements IGetCapaianPenggunaDto {
     }
 }
 
+/** Class GetCapaianPenggunaDto */
 export interface IGetCapaianPenggunaDto {
     /** Capaian in array of string */
     capaian: string[];
 }
 
+/** Class GetUserForEditDto */
 export class GetUserForEditDto implements IGetUserForEditDto {
     pengguna!: EditUserDto;
 
@@ -44198,10 +44767,12 @@ export class GetUserForEditDto implements IGetUserForEditDto {
     }
 }
 
+/** Class GetUserForEditDto */
 export interface IGetUserForEditDto {
     pengguna: EditUserDto;
 }
 
+/** Class GetUserForViewDto */
 export class GetUserForViewDto implements IGetUserForViewDto {
     id!: number;
     nama!: string;
@@ -44267,6 +44838,7 @@ export class GetUserForViewDto implements IGetUserForViewDto {
     }
 }
 
+/** Class GetUserForViewDto */
 export interface IGetUserForViewDto {
     id: number;
     nama: string;
@@ -44282,6 +44854,7 @@ export interface IGetUserForViewDto {
     emel: string;
 }
 
+/** Class OutputChangeEmelPasswordDto */
 export class OutputChangeEmelPasswordDto implements IOutputChangeEmelPasswordDto {
     message!: string;
 
@@ -44314,6 +44887,7 @@ export class OutputChangeEmelPasswordDto implements IOutputChangeEmelPasswordDto
     }
 }
 
+/** Class OutputChangeEmelPasswordDto */
 export interface IOutputChangeEmelPasswordDto {
     message: string;
 }
@@ -44372,6 +44946,7 @@ export interface IPagedResultDtoOfUserForViewDto {
     items: GetUserForViewDto[];
 }
 
+/** Class UpdateCapaianPenggunaDto */
 export class UpdateCapaianPenggunaDto implements IUpdateCapaianPenggunaDto {
     user_id!: number;
     /** Capaian in array of string */
@@ -44416,6 +44991,7 @@ export class UpdateCapaianPenggunaDto implements IUpdateCapaianPenggunaDto {
     }
 }
 
+/** Class UpdateCapaianPenggunaDto */
 export interface IUpdateCapaianPenggunaDto {
     user_id: number;
     /** Capaian in array of string */
