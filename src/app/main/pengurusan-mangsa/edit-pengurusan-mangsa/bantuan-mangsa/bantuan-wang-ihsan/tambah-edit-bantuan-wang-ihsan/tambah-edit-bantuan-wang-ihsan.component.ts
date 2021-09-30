@@ -5,7 +5,8 @@ import {
   GetMangsaWangIhsanForEditDto,
   MangsaWangIhsanServiceProxy,
   RefAgensiServiceProxy,
-  RefJenisBwiServiceProxy
+  RefJenisBwiServiceProxy,
+  RefKadarBwiServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import * as moment from 'moment';
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
@@ -15,7 +16,7 @@ import { LookupBencanaComponent } from '../../lookup-bencana/lookup-bencana.comp
   selector: 'app-tambah-edit-bantuan-wang-ihsan',
   templateUrl: './tambah-edit-bantuan-wang-ihsan.component.html',
   encapsulation: ViewEncapsulation.None,
-	providers: [NgbModalConfig, NgbModal]
+	providers: [NgbModalConfig, NgbModal, RefKadarBwiServiceProxy]
 })
 export class TambahEditBantuanWangIhsanComponent implements OnInit {
 
@@ -52,6 +53,7 @@ export class TambahEditBantuanWangIhsanComponent implements OnInit {
 		private _mangsaWangIhsanServiceProxy: MangsaWangIhsanServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
     private _refJenisBwiServiceProxy: RefJenisBwiServiceProxy,
+    private _refKadarBwiServiceProxy: RefKadarBwiServiceProxy,
     private calendar: NgbCalendar
     ) {
       this.editWangIhsan.mangsa_wang_ihsan = new CreateOrEditMangsaWangIhsanDto();
@@ -61,6 +63,7 @@ export class TambahEditBantuanWangIhsanComponent implements OnInit {
       this.show();
       this.getJenisBwi();
       this.getAgensi();
+      this.getJumlahBwi();
     }
 
     fromModel(value: string | null): NgbDateStruct | null {
@@ -107,10 +110,10 @@ export class TambahEditBantuanWangIhsanComponent implements OnInit {
       });
     }
 
-    getJumlahBwi(idBencana, filter?){
-      // this._refBencanaBwiServiceProxy.getRefBencanaBwiForDropdown(filter).subscribe((result) => {
-      //   this.jumlahBwi = result.items;
-      // });
+    getJumlahBwi(filter?){
+      this._refKadarBwiServiceProxy.getRefKadarBwiForDropdown(filter).subscribe((result) => {
+        this.jumlahBwi = result.items;
+      });
     }
 
     pilihBencana() {
@@ -124,7 +127,6 @@ export class TambahEditBantuanWangIhsanComponent implements OnInit {
             this.wangIhsan.nama_bencana = response.nama_bencana;
             this.modelBencana = this.fromModel(response.tarikh_bencana.format('YYYY-MM-DD'));
           }
-          this.getJumlahBwi(this.wangIhsan.id_bencana);
         }
       );
     }
