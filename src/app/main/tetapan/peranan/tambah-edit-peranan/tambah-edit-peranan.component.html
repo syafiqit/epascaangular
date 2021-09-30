@@ -9,14 +9,14 @@
 <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()">
 	<div class="modal-body">
 		<div class="row">
-			<div class="col-lg-6">
+			<div class="col-lg-12">
 				<div class="form-group">
 					<label>Nama Peranan</label>
 					<input
 						class="form-control"
 						id="peranan"
 						type="text"
-						placeholder="Sumber Dana"
+						placeholder="Nama Peranan"
 						[(ngModel)]="peranan.peranan"
 						#nama_peranan="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && nama_peranan.invalid }"
@@ -28,17 +28,9 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="col-lg-6">
-				<div class="form-group">
-					<label>Status</label>
-					<select class="form-control digits">
-						<option>Sila PIlih</option>
-						<option>Aktif</option>
-						<option>Tidak Aktif</option>
-					</select>
-				</div>
-			</div>
+      <div class="col-lg-12">
+        <app-peranan-tree #permissionTree [singleSelect]="singleSelect"></app-peranan-tree>
+      </div>
 		</div>
 	</div>
 	<div class="modal-footer">

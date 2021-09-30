@@ -42,6 +42,10 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './services/interceptor.service';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { PerananTreeComponent } from './components/peranan-tree/peranan-tree.component';
+import {TreeModule} from 'primeng/tree';
+import { ArrayToTreeConverterService } from './helpers/array-to-tree-converter.service';
+import { TreeDataHelperService } from './helpers/tree-data-helper.service';
 
 const NSWAG = [
 	ApiServiceProxies.RefAgamaServiceProxy,
@@ -133,7 +137,8 @@ const NSWAG = [
 		MyAccountComponent,
 		ImageUploaderComponent,
 		FocusInvalidInputDirective,
-		KpValidatorDirective
+		KpValidatorDirective,
+    PerananTreeComponent
 	],
 	imports: [
 		CommonModule,
@@ -144,11 +149,14 @@ const NSWAG = [
 		DragulaModule.forRoot(),
 		TranslateModule,
 		ImageCropperModule,
-		FileUploadModule
+		FileUploadModule,
+    TreeModule
 	],
 	providers: [
 		NavService,
 		LayoutService,
+    ArrayToTreeConverterService,
+    TreeDataHelperService,
 		...NSWAG,
 		{ provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }
 	],
@@ -168,7 +176,8 @@ const NSWAG = [
 		BusyIfDirective,
 		ButtonBusyDirective,
 		FocusInvalidInputDirective,
-		KpValidatorDirective
+		KpValidatorDirective,
+    PerananTreeComponent
 	]
 })
 export class SharedModule {}

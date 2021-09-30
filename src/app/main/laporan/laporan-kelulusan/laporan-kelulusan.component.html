@@ -16,6 +16,7 @@
                   type="text"
                   name="searchReportKelulusan"
                   placeholder="Carian..."
+                  (keyup)="applyFilter($event.target.value)"
                 />
                 <i class="search-icon" data-feather="search"></i>
               </div>
@@ -43,73 +44,52 @@
             </div>
           </div>
 
-          <div class="row mb-2">
+          <div class="row mt-2 mt-1">
             <div class="col-lg-12">
-              <div class="row">
+              <div class="row no-gutters">
                 <div class="col-lg-12">
                   <div id="collapseExample" [ngbCollapse]="!isCollapsed">
-                    <form>
-                      <div class="row mt-2">
-                        <div class="col-lg-4">
-                          <div class="form-group custom-datepicker custom-datepicker-dropdown">
-                            <label>Tarikh Kelulusan</label>
-                            <div class="input-group">
-                              <input
-                                class="form-control"
-                                placeholder="yyyy-mm-dd"
-                                name="dp1"
-                                [(ngModel)]="modelMula"
-                                ngbDatepicker
-                                #d="ngbDatepicker"
-                                style="border: 1px solid #efefef !important;"
-                              >
-                              <div class="input-group-append">
-                                <button class="btn btn-light" (click)="d.toggle()" type="button"><i
-                                  class="fa fa-calendar"></i></button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                          <div class="form-group custom-datepicker custom-datepicker-dropdown">
-                            <div class="input-group pt-4 mt-1">
-                              <input
-                                class="form-control"
-                                placeholder="yyyy-mm-dd"
-                                name="dp2"
-                                [(ngModel)]="modelTamat"
-                                ngbDatepicker
-                                #a="ngbDatepicker"
-                                style="border: 1px solid #efefef !important;"
-                              >
-                              <div class="input-group-append">
-                                <button class="btn btn-light" (click)="a.toggle()" type="button"><i
-                                  class="fa fa-calendar"></i></button>
-                              </div>
-                            </div>
-                          </div>
+                    <div class="row">
+                      <div class="col-lg-2">
+                        <div class="form-group">
+                          <label>Tahun Kelulusan</label>
+                          <select class="form-control" [(ngModel)]="filterPastYear" name="pastYear">
+                            <option selected disabled [value]="undefined">Sila Pilih</option>
+                            <option *ngFor="let year of arrayYear">{{year}}</option>
+                          </select>
                         </div>
                       </div>
 
-                      <div class="row justify-content-end mb-3 pr-2">
-                        <button
-                          class="btn btn-light mr-2"
-                          type="button"
-                        >
-                        <i class="fa fa-refresh mr-2"></i>
-                          <b>Reset</b>
-                        </button>
-
-                        <button
-                          class="btn btn-primary pull-right mr-2"
-                          type="button"
-                        >
-                        <i class="fa fa-search mr-2"></i>
-                          <b>Cari</b>
-                        </button>
+                      <div class="col-lg-2">
+                        <div class="form-group">
+                          <label>&nbsp;</label>
+                          <select class="form-control" [(ngModel)]="filterYear" name="year">
+                            <option selected disabled [value]="undefined">Sila Pilih</option>
+                            <option *ngFor="let year of arrayYear">{{year}}</option>
+                          </select>
+                        </div>
                       </div>
-                    </form>
+
+                    </div>
+
+                    <div class="row justify-content-end mb-2 pr-2">
+                      <button
+                        class="btn btn-light mr-2"
+                        type="button"
+                      >
+                      <i class="fa fa-refresh mr-2"></i>
+                        <b>Reset</b>
+                      </button>
+
+                      <button
+                        class="btn btn-primary pull-right mr-2"
+                        type="button"
+                        (click)="getKelulusanReport()"
+                      >
+                      <i class="fa fa-search mr-2"></i>
+                        <b>Cari</b>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -143,7 +123,7 @@
 											Tarikh Surat
 											<p-sortIcon field="tarikh_surat"></p-sortIcon>
 										</th>
-										<th style="width: 145px" pSortableColumn="rujukan_surat">
+										<th style="width: 300px" pSortableColumn="rujukan_surat">
 											Rujukan Surat
 											<p-sortIcon field="rujukan_surat"></p-sortIcon>
 										</th>
@@ -159,113 +139,191 @@
 											Siling Peruntukan
 											<p-sortIcon field="siling_peruntukan"></p-sortIcon>
 										</th>
-										<th style="width: 170px" pSortableColumn="peruntukan_diambil">
+										<th style="width: 190px" pSortableColumn="jumlah_diambil">
 											Peruntukan Diambil
-											<p-sortIcon field="peruntukan_diambil"></p-sortIcon>
+											<p-sortIcon field="jumlah_diambil"></p-sortIcon>
 										</th>
-										<th style="width: 150px" pSortableColumn="perihal_surat">
+										<th style="width: 300px" pSortableColumn="perihal_surat">
 											Perihal Surat
 											<p-sortIcon field="perihal_surat"></p-sortIcon>
 										</th>
-										<th style="width: 170px" pSortableColumn="belanja_covid">
-											Belanja Sebelum/Covid
+										<th style="width: 300px; text-align:center; border-left: solid darkslategrey; border-left-width: 1px;" colspan="2" pSortableColumn="belanja_covid">
+											Belanja (Tahun Sebelum)
 											<p-sortIcon field="belanja_covid"></p-sortIcon>
 										</th>
-										<th style="width: 170px" pSortableColumn="belanja_bukan_covid">
-											Belanja Sebelum/Bukan Covid
-											<p-sortIcon field="belanja_bukan_covid"></p-sortIcon>
-										</th>
-										<th style="width: 130px" pSortableColumn="skb_covid">
-											SKB/Covid
+										<th style="width: 300px; text-align:center; border-left: solid darkslategrey; border-left-width: 1px;" colspan="2" pSortableColumn="skb_covid">
+											SKB (Tahun Semasa)
 											<p-sortIcon field="skb_covid"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="skb_bukan_covid">
-											SKB/Bukan Covid
-											<p-sortIcon field="skb_bukan_covid"></p-sortIcon>
+                    <th style="width: 300px; text-align:center; border-left: solid darkslategrey; border-left-width: 1px;" colspan="2" pSortableColumn="skb_covid">
+											Bayaran Terus (Tahun Semasa)
+											<p-sortIcon field="skb_covid"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="belanja_semasa">
-											Belanja Semasa
+										<th style="width: 300px; text-align:center; border-left: solid darkslategrey; border-right: solid darkslategrey; border-right-width: 1px; border-left-width: 1px;"  colspan="2" pSortableColumn="belanja_semasa">
+											Belanja (Tahun Semasa)
 											<p-sortIcon field="belanja_semasa"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="jumlah_belanja">
+                    <th style="width: 160px" pSortableColumn="jumlah_waran_semasa">
+											Jumlah Waran
+											<p-sortIcon field="jumlah_waran_semasa"></p-sortIcon>
+										</th>
+										<th style="width: 160px" pSortableColumn="jumlah_belanja">
 											Jumlah Belanja
 											<p-sortIcon field="jumlah_belanja"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="baki_peruntukan">
+										<th style="width: 170px" pSortableColumn="baki_peruntukan">
 											Baki Peruntukan
 											<p-sortIcon field="baki_peruntukan"></p-sortIcon>
 										</th>
-										<th style="width: 100px" pSortableColumn="rujukan">
+										<th style="width: 170px" pSortableColumn="rujukan">
 											Rujukan
 											<p-sortIcon field="rujukan"></p-sortIcon>
 										</th>
+									</tr>
+                  <tr>
+										<th style="width: 145px"></th>
+										<th style="width: 135px"></th>
+										<th style="width: 300px"></th>
+										<th style="width: 130px"></th>
+										<th style="width: 140px"></th>
+										<th style="width: 170px"></th>
+										<th style="width: 190px"></th>
+										<th style="width: 300px"></th>
+										<th style="width: 150px; border-left: solid darkslategrey; border-left-width: 1px;" pSortableColumn="belanja_sebelum_covid">
+											Covid
+											<p-sortIcon field="belanja_sebelum_covid"></p-sortIcon>
+										</th>
+                    <th style="width: 150px;" pSortableColumn="belanja_sebelum_bukan_covid">
+											Bukan Covid
+											<p-sortIcon field="belanja_sebelum_bukan_covid"></p-sortIcon>
+										</th>
+										<th style="width: 150px; border-left: solid darkslategrey; border-left-width: 1px;" pSortableColumn="skb_covid">
+											Covid
+											<p-sortIcon field="skb_covid"></p-sortIcon>
+										</th>
+                    <th style="width: 150px;" pSortableColumn="skb_bukan_covid">
+											Bukan Covid
+											<p-sortIcon field="skb_bukan_covid"></p-sortIcon>
+										</th>
+                    <th style="width: 150px; border-left: solid darkslategrey; border-left-width: 1px;" pSortableColumn="jumlah_terus_covid_semasa">
+											Covid
+											<p-sortIcon field="jumlah_terus_covid_semasa"></p-sortIcon>
+										</th>
+                    <th style="width: 150px;" pSortableColumn="jumlah_terus_bukan_covid_semasa">
+											Bukan Covid
+											<p-sortIcon field="jumlah_terus_bukan_covid_semasa"></p-sortIcon>
+										</th>
+										<th style="width: 150px; border-left: solid darkslategrey; border-left-width: 1px;" pSortableColumn="belanja_semasa_covid">
+											Covid
+											<p-sortIcon field="belanja_semasa_covid"></p-sortIcon>
+										</th>
+                    <th style="width: 150px; border-right: solid darkslategrey; border-right-width: 1px;" pSortableColumn="belanja_semasa_bukan_covid">
+											Bukan Covid
+											<p-sortIcon field="belanja_semasa_bukan_covid"></p-sortIcon>
+										</th>
+                    <th style="width: 160px"></th>
+										<th style="width: 160px"></th>
+										<th style="width: 170px"></th>
+										<th style="width: 170px"></th>
 									</tr>
 								</ng-template>
 								<ng-template pTemplate="body" let-record="$implicit">
 									<tr>
 										<td style="width: 145px">
 											<span class="p-column-title">No. Kelulusan</span>
-											{{record.no_kelulusan}}
+											{{record.kelulusan.no_rujukan_kelulusan}}
 										</td>
 										<td style="width: 135px">
 											<span class="p-column-title">Tarikh Surat</span>
-											{{record.tarikh_surat}}
+											{{record.kelulusan.tarikh_surat | date:'dd-MM-yyyy'}}
 										</td>
-										<td style="width: 145px">
+										<td style="width: 300px">
 											<span class="p-column-title">Rujukan Surat</span>
-											{{record.rujukan_surat}}
+											<label *ngIf="record.kelulusan.rujukan">{{record.kelulusan.rujukan}}</label>
+                      <label *ngIf="!record.kelulusan.rujukan">-</label>
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Tarikh Mula</span>
-											{{record.tarikh_mula}}
+                      <label *ngIf="record.kelulusan.tarikh_mula_kelulusan">{{record.kelulusan.tarikh_mula_kelulusan | date:'dd-MM-yyyy'}}</label>
+                      <label *ngIf="!record.kelulusan.tarikh_mula_kelulusan">-</label>
 										</td>
 										<td style="width: 140px">
 											<span class="p-column-title">Tarikh Tamat</span>
-											{{record.tarikh_tamat}}
+                      <label *ngIf="record.kelulusan.tarikh_tamat_kelulusan">{{record.kelulusan.tarikh_tamat_kelulusan | date:'dd-MM-yyyy'}}</label>
+                      <label *ngIf="!record.kelulusan.tarikh_tamat_kelulusan">-</label>
 										</td>
 										<td style="width: 170px">
 											<span class="p-column-title">Siling Peruntukan</span>
-											RM {{record.siling_peruntukan}}
+											RM {{record.kelulusan.jumlah_siling | number: '1.2-2'}}
 										</td>
-										<td style="width: 170px">
+										<td style="width: 190px">
 											<span class="p-column-title">Peruntukan Diambil</span>
-											RM {{record.peruntukan_diambil}}
+											RM {{record.kelulusan.jumlah_diambil | number: '1.2-2'}}
+										</td>
+										<td style="width: 300px">
+											<span class="p-column-title">Perihal Surat</span>
+                      <label *ngIf="record.kelulusan.perihal_surat">{{record.kelulusan.perihal_surat}}</label>
+                      <label *ngIf="!record.kelulusan.perihal_surat">-</label>
 										</td>
 										<td style="width: 150px">
-											<span class="p-column-title">Perihal Surat</span>
-											{{record.perihal_surat}}
+											<span class="p-column-title">Belanja (Tahun Sebelum) Covid</span>
+                      <label *ngIf="record.belanja_covid_sebelum">RM {{record.belanja_covid_sebelum | number: '1.2-2'}}</label>
+                      <label *ngIf="!record.belanja_covid_sebelum">RM 0.00</label>
 										</td>
-										<td style="width: 170px">
-											<span class="p-column-title">Belanja Sebelum/Covid</span>
-											RM {{record.belanja_covid}}
+                    <td style="width: 150px">
+											<span class="p-column-title">Belanja (Tahun Sebelum) Bukan Covid</span>
+                      <label *ngIf="record.belanja_bukan_covid_sebelum">RM {{record.belanja_bukan_covid_sebelum | number: '1.2-2'}}</label>
+                      <label *ngIf="!record.belanja_bukan_covid_sebelum">RM 0.00</label>
 										</td>
-										<td style="width: 170px">
-											<span class="p-column-title">Belanja Sebelum/Bukan Covid</span>
-											RM {{record.belanja_bukan_covid}}
+										<td style="width: 150px">
+											<span class="p-column-title">SKB (Tahun Semasa) Covid</span>
+                      <label *ngIf="record.jumlah_skb_covid_semasa">RM {{record.jumlah_skb_covid_semasa | number: '1.2-2'}}</label>
+                      <label *ngIf="!record.jumlah_skb_covid_semasa">RM 0.00</label>
 										</td>
-										<td style="width: 130px">
-											<span class="p-column-title">SKB/Covid</span>
-											RM {{record.skb_covid}}
+										<td style="width: 150px">
+											<span class="p-column-title">SKB (Tahun Semasa) Bukan Covid</span>
+                      <label *ngIf="record.jumlah_skb_bukan_covid_semasa">RM {{record.jumlah_skb_bukan_covid_semasa | number: '1.2-2'}}</label>
+                      <label *ngIf="!record.jumlah_skb_bukan_covid_semasa">RM 0.00</label>
 										</td>
-										<td style="width: 130px">
-											<span class="p-column-title">SKB/Bukan Covid</span>
-											RM {{record.skb_bukan_covid}}
+                    <td style="width: 150px">
+											<span class="p-column-title">Bayaran Terus (Tahun Semasa) Covid</span>
+                      <label *ngIf="record.kelulusan.jumlah_terus_covid_semasa">RM {{record.kelulusan.jumlah_terus_covid_semasa | number: '1.2-2'}}</label>
+                      <label *ngIf="!record.kelulusan.jumlah_terus_covid_semasa">RM 0.00</label>
 										</td>
-										<td style="width: 130px">
-											<span class="p-column-title">Belanja Semasa</span>
-											RM {{record.belanja_semasa}}
+                    <td style="width: 150px">
+											<span class="p-column-title">Bayaran Terus (Tahun Semasa) Bukan Covid</span>
+                      <label *ngIf="record.kelulusan.jumlah_terus_bukan_covid_semasa">RM {{record.kelulusan.jumlah_terus_bukan_covid_semasa | number: '1.2-2'}}</label>
+                      <label *ngIf="!record.kelulusan.jumlah_terus_bukan_covid_semasa">RM 0.00</label>
 										</td>
-										<td style="width: 130px">
+										<td style="width: 150px">
+											<span class="p-column-title">Belanja (Tahun Semasa) Covid</span>
+                      <label *ngIf="record.belanja_covid_semasa">RM {{record.belanja_covid_semasa | number: '1.2-2'}}</label>
+                      <label *ngIf="!record.belanja_covid_semasa">RM 0.00</label>
+										</td>
+                    <td style="width: 150px">
+											<span class="p-column-title">Belanja (Tahun Semasa) Bukan Covid</span>
+                      <label *ngIf="record.belanja_bukan_covid_semasa">RM {{record.belanja_bukan_covid_semasa | number: '1.2-2'}}</label>
+                      <label *ngIf="!record.belanja_bukan_covid_semasa">RM 0.00</label>
+										</td>
+                    <td style="width: 160px">
+											<span class="p-column-title">Jumlah Waran</span>
+                      <label *ngIf="record.jumlah_waran_semasa">RM {{record.jumlah_waran_semasa | number: '1.2-2'}}</label>
+                      <label *ngIf="!record.jumlah_waran_semasa">RM 0.00</label>
+										</td>
+										<td style="width: 160px">
 											<span class="p-column-title">Jumlah Belanja</span>
-											RM {{record.jumlah_belanja}}
+                      <label *ngIf="record.jumlah_belanja">RM {{record.jumlah_belanja | number: '1.2-2'}}</label>
+                      <label *ngIf="!record.jumlah_belanja">RM 0.00</label>
 										</td>
-										<td style="width: 130px">
+										<td style="width: 170px">
 											<span class="p-column-title">Baki Peruntukan</span>
-											RM {{record.baki_peruntukan}}
+                      <label *ngIf="record.kelulusan.baki_jumlah_siling">RM {{record.kelulusan.baki_jumlah_siling | number: '1.2-2'}}</label>
+                      <label *ngIf="!record.kelulusan.baki_jumlah_siling">RM 0.00</label>
 										</td>
-										<td style="width: 100px">
+										<td style="width: 170px">
 											<span class="p-column-title">Rujukan</span>
-											{{record.rujukan}}
+                      <label *ngIf="record.kelulusan.rujukan">{{record.kelulusan.rujukan}}</label>
+                      <label *ngIf="!record.kelulusan.rujukan">-</label>
 										</td>
 									</tr>
 								</ng-template>
