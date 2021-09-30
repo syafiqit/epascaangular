@@ -19,6 +19,7 @@ import { LaporanMangsaComponent } from './laporan-mangsa/laporan-mangsa.componen
 import { LaporanTiadaBantuanComponent } from './laporan-tiada-bantuan/laporan-tiada-bantuan.component';
 import { LaporanBantuanLainComponent } from './laporan-bantuan-lain/laporan-bantuan-lain.component';
 import { LaporanAntarabangsaComponent } from './laporan-antarabangsa/laporan-antarabangsa.component';
+import { LaporanWaranComponent } from './laporan-waran/laporan-waran.component';
 
 const routes: Routes = [
 	{
@@ -103,6 +104,10 @@ const routes: Routes = [
 			{
 				path: 'bantuan/antarabangsa',
 				component: LaporanAntarabangsaComponent
+			},
+      {
+				path: 'waran',
+				component: LaporanWaranComponent
 			},
 		]
 	}
