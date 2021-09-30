@@ -1,0 +1,171 @@
+<div class="modal-header">
+	<h4 class="modal-title" *ngIf="name === 'add'">Tambah Bantuan Wang Ihsan</h4>
+  <h4 class="modal-title" *ngIf="name === 'edit'">Kemaskini Bantuan Wang Ihsan</h4>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
+  <div class="modal-body">
+		<div class="row">
+			<div class="col-lg-6">
+        <div class="form-group">
+          <label>Kategori</label>
+          <div>
+            <ng-select
+              [items]="types"
+              bindLabel="nama_jenis_bwi"
+              bindValue="id"
+              placeholder="Sila Pilih"
+              class="js-example-placeholder-multiple"
+              name="id_jenis_bwi"
+              
+              required
+            ></ng-select>
+          </div>
+        </div>
+      </div>
+
+			<div class="col-lg-6">
+        <div class="form-group">
+          <label>Bencana</label>
+          <div class="input-group">
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Bencana"
+              name="bencana"
+              required
+              readonly
+            />
+            <div class="input-group-append">
+              <button class="btn btn-primary" (click)="pilihBencana()" type="button">
+                <i class="fa fa-search text-white"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+		</div>
+
+		<div class="row">
+      <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
+        <label>Tarikh Bencana</label>
+        <div class="input-group">
+          <input
+            class="form-control"
+            placeholder="DD/MM/YYYY"
+            name="dp3"
+            [(ngModel)]="modelBencana"
+            ngbDatepicker
+            [footerTemplate]="footerTemplate"
+            #d3="ngbDatepicker"
+            style="border: 1px solid #efefef !important;"
+            readonly
+          >
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label>Agensi Pemberi Bantuan</label>
+          <div>
+            <ng-select
+              [items]="agency"
+              bindLabel="nama_agensi"
+              bindValue="id"
+              placeholder="Sila Pilih"
+              class="js-example-placeholder-multiple"
+              name="id_agensi"
+              required
+            ></ng-select>
+          </div>
+        </div>
+      </div>
+		</div>
+
+    <div class="row">
+			<div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
+        <label>Tarikh Serahan</label>
+        <div class="input-group">
+          <input
+            class="form-control"
+            placeholder="yyyy-mm-dd"
+            name="dp"
+            [(ngModel)]="model"
+            ngbDatepicker
+            [footerTemplate]="footerTemplate"
+            #d="ngbDatepicker"
+            style="border: 1px solid #efefef !important;"
+						#tarikhSerahan="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && tarikhSerahan.invalid }"
+						required
+          >
+          <div class="input-group-append">
+            <button class="btn btn-light" (click)="d.toggle()" type="button"><i
+              class="fa fa-calendar"></i></button>
+          </div>
+					<div *ngIf="f.submitted && tarikhSerahan.invalid" class="invalid-feedback">
+						<div *ngIf="tarikhSerahan.errors.required">Tarikh Serahan Wajib Dipilih</div>
+					</div>
+        </div>
+      </div>
+      <ng-template #footerTemplate>
+        <hr class="my-0">
+        <button class="btn btn-primary btn-sm m-2 float-left" (click)="model = today; d.close()">Hari Ini</button>
+        <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Tutup</button>
+      </ng-template>
+
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label>Jumlah (RM)</label>
+          <ng-select
+              [items]="jumlahBwi"
+              bindLabel="nilai"
+              bindValue="nilai"
+              placeholder="Sila Pilih"
+              class="js-example-placeholder-multiple"
+              name="jumlah_bwi"
+              required
+            ></ng-select>
+        </div>
+      </div>
+		</div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label>Status</label>
+          <div>
+            <ng-select
+              [items]="status"
+              bindLabel="nama_status"
+              bindValue="id"
+              placeholder="Sila Pilih"
+              class="js-example-placeholder-multiple"
+              name="id_status"
+            ></ng-select>
+            <!-- [(ngModel)]="wangIhsan.status_mangsa_wang_ihsan"
+              #namaStatus="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && namaStatus.invalid }"
+              required -->
+            <!-- <div
+              *ngIf="f.submitted && namaStatus.invalid"
+              class="invalid-feedback"
+                >
+              <div *ngIf="namaStatus.errors.required">
+                Status Wajib Dipilih
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
+    <button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Simpan</button>
+  </div>
+</form>
