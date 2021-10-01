@@ -21,7 +21,7 @@
               <a class="nav-link" routerLinkActive="active" [routerLink]="['/app/tetapan', { outlets: { 'menu': 'pinjaman'}}]"><span class="title"><i class="icofont icofont-people"></i>Pinjaman Usahawan</span></a>
               <a class="nav-link" routerLinkActive="active" [routerLink]="['/app/tetapan', { outlets: { 'menu': 'hubungan'}}]"><span class="title"><i class="icofont icofont-site-map"></i>Hubungan</span></a>
               <a class="nav-link" routerLinkActive="active" [routerLink]="['/app/tetapan', { outlets: { 'menu': 'jenis-bantuan'}}]"><span class="title"><i class="icofont icofont-school-bus"></i>Jenis Bantuan</span></a>
-              <a class="nav-link" routerLinkActive="active" [routerLink]="['/app/tetapan', { outlets: { 'menu': 'rujukan'}}]"><span class="title"><i class="icofont icofont-list"></i>Rujukan</span></a>
+              <a *ngIf="_appSession.isGranted('Halaman.Tetapan.Rujukan')" class="nav-link" routerLinkActive="active" [routerLink]="['/app/tetapan', { outlets: { 'menu': 'rujukan'}}]"><span class="title"><i class="icofont icofont-list"></i>Rujukan</span></a>
               <a class="nav-link" routerLinkActive="active" [routerLink]="['/app/tetapan', { outlets: { 'menu': 'pengumuman'}}]"><span class="title"><i class="icofont icofont-support"></i>Pengumuman</span></a>
               <a class="nav-link" routerLinkActive="active" [routerLink]="['/app/tetapan', { outlets: { 'menu': 'peranan'}}]"><span class="title"><i class="icofont icofont-gears"></i>Peranan</span></a>
               <a class="nav-link" routerLinkActive="active" [routerLink]="['/app/tetapan', { outlets: { 'menu': 'bencana'}}]"><span class="title"><i class="icofont icofont-barricade"></i>Kategori Bencana</span></a>

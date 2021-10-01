@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { APP_INITIALIZER, Injectable, Injector, NgModule } from '@angular/core';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -38,10 +41,10 @@ export class MyHammerConfig extends HammerGestureConfig {
 }
 
 export function configureMomentTimezone(){
-  moment.fn.toJSON = function () {
+  moment.fn.toJSON = function() {
     return this.locale('en').format();
   };
-  moment.fn.toISOString = function () {
+  moment.fn.toISOString = function() {
       return this.locale('en').format();
   };
 }
@@ -56,8 +59,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 export function appInitializerFactory(injector: Injector) {
   configureMomentTimezone();
-	return (): Promise<boolean> => {
-		return new Promise<boolean>((resolve, reject) => {
+	return (): Promise<boolean> => new Promise<boolean>((resolve, reject) => {
 			const appSessionService: AppSessionService = injector.get(AppSessionService);
 			const cookieService: CookieService = injector.get(CookieService);
 			if (cookieService.get('token')) {
@@ -75,7 +77,6 @@ export function appInitializerFactory(injector: Injector) {
 				resolve(true);
 			}
 		});
-	};
 }
 
 @NgModule({

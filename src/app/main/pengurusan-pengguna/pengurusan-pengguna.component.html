@@ -31,7 +31,7 @@
             </button>
           </div>
 
-          <div class="col-4 justify-content-end pr-0">
+          <div *ngIf="_appSession.isGranted('Halaman.Pengguna.Tambah')" class="col-4 justify-content-end pr-0">
             <button
                 [routerLink]="['/app/pengguna/tambah-edit']"
                 class="btn btn-primary pull-right"

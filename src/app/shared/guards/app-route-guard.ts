@@ -16,7 +16,7 @@ export class AppRouteGuard implements CanActivate, CanActivateChild {
 	constructor(private _router: Router, private _sessionService: AppSessionService) {}
 
 	canActivateInternal(data: any, state: RouterStateSnapshot): Observable<boolean> {
-		if (!this._sessionService.token) {
+		if (!this._sessionService.pengguna) {
 			this._router.navigate(['/akaun/log-masuk']);
 			return of(false);
 		}
@@ -24,6 +24,10 @@ export class AppRouteGuard implements CanActivate, CanActivateChild {
 		if (!data || !data['permission']) {
 			return of(true);
 		}
+
+    if (this._sessionService.isGranted(data['permission'])) {
+      return of(true);
+    }
 
 		this._router.navigate([this.selectBestRoute()]);
 		return of(false);
@@ -38,11 +42,11 @@ export class AppRouteGuard implements CanActivate, CanActivateChild {
 	}
 
 	selectBestRoute(): string {
-		if (!this._sessionService.token) {
+		if (!this._sessionService.pengguna) {
 			return '/akaun/log-masuk';
 		}
 
-		if (this._sessionService.token) {
+		if (this._sessionService.pengguna) {
 			return '/app/muka-halaman';
 		}
 

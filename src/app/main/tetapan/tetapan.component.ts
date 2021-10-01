@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
+import { AppSessionService } from '@app/shared/services/app-session.service';
 
 @Component({
 	selector: 'app-tetapan',
@@ -7,7 +8,10 @@ import { Router, Event, NavigationEnd } from '@angular/router';
 })
 export class TetapanComponent implements OnInit {
 
-	constructor(private router: Router) {
+	constructor(
+      private router: Router,
+      public _appSession: AppSessionService
+    ) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         if(this.router.url === '/app/tetapan'){
