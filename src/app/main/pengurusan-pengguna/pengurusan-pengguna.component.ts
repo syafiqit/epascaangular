@@ -11,6 +11,7 @@ import {
 } from 'src/app/shared/proxy/service-proxies';
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { AppSessionService } from '@app/shared/services/app-session.service';
 
 @Component({
 	selector: 'app-pengurusan-pengguna',
@@ -36,16 +37,17 @@ export class PengurusanPenggunaComponent implements OnInit {
   terms$ = new Subject<string>();
 
   statusPengguna = [
-    { id: 2, nama: "Berdaftar" },
-    { id: 3, nama: "Tidak Aktif" },
-    { id: 4, nama: "Ditolak" }
-  ]
+    { id: 2, nama: 'Berdaftar' },
+    { id: 3, nama: 'Tidak Aktif' },
+    { id: 4, nama: 'Ditolak' }
+  ];
 
 	constructor(
     config: NgbModalConfig,
     private _userServiceProxy: UserServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
-    private _refPerananServiceProxy: RefPerananServiceProxy
+    private _refPerananServiceProxy: RefPerananServiceProxy,
+    public _appSession: AppSessionService
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
@@ -118,10 +120,8 @@ export class PengurusanPenggunaComponent implements OnInit {
 		});
 	}
 
-  getStatus (id){
-    this.statuses = this.statusPengguna.map((data) => {
-      return data.nama;
-    });
+  getStatus(id){
+    this.statuses = this.statusPengguna.map(data => data.nama);
     return this.statuses[id - 2];
   }
 

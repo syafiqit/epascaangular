@@ -124,7 +124,8 @@ const routes: Routes = [
 			{
 				path: 'rujukan',
         outlet: 'menu',
-				component: RujukanComponent
+				component: RujukanComponent,
+        data: { permission: 'Halaman.Tetapan.Rujukan' }
 			},
 			{
 				path: 'kadar',
