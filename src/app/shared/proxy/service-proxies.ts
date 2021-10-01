@@ -4855,6 +4855,67 @@ export class MangsaBencanaServiceProxy {
         }
         return _observableOf<CreateOrEditMangsaBencanaDto>(<any>null);
     }
+
+    /**
+     * Multiple Create MangsaBencana
+     * @param body Create or edit object
+     * @return Success
+     */
+    multipleCreateMangsaBencana(body: InputCreateMultipleMangsaBencanaDto): Observable<OutputCreateMangsaBencanaDto> {
+        let url_ = this.baseUrl + "/api/mangsaBencana/multipleCreateMangsaBencana";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processMultipleCreateMangsaBencana(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processMultipleCreateMangsaBencana(<any>response_);
+                } catch (e) {
+                    return <Observable<OutputCreateMangsaBencanaDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<OutputCreateMangsaBencanaDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processMultipleCreateMangsaBencana(response: HttpResponseBase): Observable<OutputCreateMangsaBencanaDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = OutputCreateMangsaBencanaDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<OutputCreateMangsaBencanaDto>(<any>null);
+    }
 }
 
 @Injectable()
@@ -7986,12 +8047,13 @@ export class RefBencanaServiceProxy {
      * @param filterTahun (optional) Filter records with a integer
      * @param filterBencana (optional) Filter records with a string
      * @param filterJenis (optional) Filter records with a string
+     * @param filterNegeri (optional) Filter records with a string
      * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
      * @param skipCount (optional) Skip n-value of a record
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAll(filter: string | undefined, filterTahun: number | undefined, filterBencana: string | undefined, filterJenis: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfRefBencanaForViewDto> {
+    getAll(filter: string | undefined, filterTahun: number | undefined, filterBencana: string | undefined, filterJenis: number | undefined, filterNegeri: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfRefBencanaForViewDto> {
         let url_ = this.baseUrl + "/api/refBencana/getAll?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -8009,6 +8071,10 @@ export class RefBencanaServiceProxy {
             throw new Error("The parameter 'filterJenis' cannot be null.");
         else if (filterJenis !== undefined)
             url_ += "filterJenis=" + encodeURIComponent("" + filterJenis) + "&";
+        if (filterNegeri === null)
+            throw new Error("The parameter 'filterNegeri' cannot be null.");
+        else if (filterNegeri !== undefined)
+            url_ += "filterNegeri=" + encodeURIComponent("" + filterNegeri) + "&";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
@@ -26018,6 +26084,92 @@ export interface IGetMangsaBencanaForViewDto {
     tarikh_bencana: moment.Moment;
 }
 
+export class InputCreateMultipleMangsaBencanaDto implements IInputCreateMultipleMangsaBencanaDto {
+    mangsaBencana!: CreateOrEditMangsaBencanaDto;
+    /** Id Mangsa in array of integer */
+    id_mangsa!: number[];
+
+    constructor(data?: IInputCreateMultipleMangsaBencanaDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.mangsaBencana = _data["mangsaBencana"] ? CreateOrEditMangsaBencanaDto.fromJS(_data["mangsaBencana"]) : <any>undefined;
+            if (Array.isArray(_data["id_mangsa"])) {
+                this.id_mangsa = [] as any;
+                for (let item of _data["id_mangsa"])
+                    this.id_mangsa!.push(item);
+            }
+        }
+    }
+
+    static fromJS(data: any): InputCreateMultipleMangsaBencanaDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new InputCreateMultipleMangsaBencanaDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["mangsaBencana"] = this.mangsaBencana ? this.mangsaBencana.toJSON() : <any>undefined;
+        if (Array.isArray(this.id_mangsa)) {
+            data["id_mangsa"] = [];
+            for (let item of this.id_mangsa)
+                data["id_mangsa"].push(item);
+        }
+        return data; 
+    }
+}
+
+export interface IInputCreateMultipleMangsaBencanaDto {
+    mangsaBencana: CreateOrEditMangsaBencanaDto;
+    /** Id Mangsa in array of integer */
+    id_mangsa: number[];
+}
+
+export class OutputCreateMangsaBencanaDto implements IOutputCreateMangsaBencanaDto {
+    message!: string;
+
+    constructor(data?: IOutputCreateMangsaBencanaDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.message = _data["message"];
+        }
+    }
+
+    static fromJS(data: any): OutputCreateMangsaBencanaDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new OutputCreateMangsaBencanaDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["message"] = this.message;
+        return data; 
+    }
+}
+
+export interface IOutputCreateMangsaBencanaDto {
+    message: string;
+}
+
 /** MangsaBencana List in Tabular model */
 export class PagedResultDtoMangsBencanaLookupTableDto implements IPagedResultDtoMangsBencanaLookupTableDto {
     /** Total Count */
@@ -29679,7 +29831,7 @@ export interface ICreateOrEditRefBencanaDto {
 export class GetListBencanaNegeriForViewDto implements IGetListBencanaNegeriForViewDto {
     bencana!: GetRefBencanaForViewDto;
     /** Id Negeri in array of integer */
-    bencanaNegeri!: number[];
+    bencanaNegeri!: string[];
 
     constructor(data?: IGetListBencanaNegeriForViewDto) {
         if (data) {
@@ -29723,7 +29875,7 @@ export class GetListBencanaNegeriForViewDto implements IGetListBencanaNegeriForV
 export interface IGetListBencanaNegeriForViewDto {
     bencana: GetRefBencanaForViewDto;
     /** Id Negeri in array of integer */
-    bencanaNegeri: number[];
+    bencanaNegeri: string[];
 }
 
 export class GetRefBencanaForEditDto implements IGetRefBencanaForEditDto {
