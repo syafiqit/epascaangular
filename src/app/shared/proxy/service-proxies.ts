@@ -848,7 +848,7 @@ export class FileServiceProxy {
 
     /**
      * Store image into temporary folder and get its temp url
-     * @param image (optional)
+     * @param image (optional) 
      * @return Success
      */
     uploadTempImage(image: FileParameter | undefined): Observable<OutputFileUpload> {
@@ -6817,7 +6817,7 @@ export class MangsaServiceProxy {
 
     /**
      * Store profile mangsa image
-     * @param image (optional)
+     * @param image (optional) 
      * @return Success
      */
     uploadGambarProfilMangsa(image: FileParameter | undefined): Observable<OutputGambarProfilMangsaDto> {
@@ -14013,7 +14013,7 @@ export class RefRujukanServiceProxy {
 
     /**
      * Store Rujukan fail
-     * @param fail (optional)
+     * @param fail (optional) 
      * @return Success
      */
     uploadFail(fail: FileParameter | undefined): Observable<OutputFail> {
@@ -16156,7 +16156,7 @@ export class SessionServiceProxy {
 
     /**
      * Store profile image
-     * @param image (optional)
+     * @param image (optional) 
      * @return Success
      */
     uploadGambarProfil(image: FileParameter | undefined): Observable<OutputGambarProfil> {
@@ -20077,6 +20077,77 @@ export class TabungKelulusanServiceProxy {
     }
 
     /**
+     * Get TabungKelulusan by id
+     * @param id TabungKelulusan Id
+     * @param filterYear (optional) filterYear
+     * @param filterPastYear (optional) filterPastYear
+     * @return Success
+     */
+    getBelanjaByKelulusan(id: number, filterYear: number | undefined, filterPastYear: number | undefined): Observable<GetBelanjaTabungKelulusanDto> {
+        let url_ = this.baseUrl + "/api/tabungKelulusan/getBelanjaByKelulusan?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        if (filterYear === null)
+            throw new Error("The parameter 'filterYear' cannot be null.");
+        else if (filterYear !== undefined)
+            url_ += "filterYear=" + encodeURIComponent("" + filterYear) + "&";
+        if (filterPastYear === null)
+            throw new Error("The parameter 'filterPastYear' cannot be null.");
+        else if (filterPastYear !== undefined)
+            url_ += "filterPastYear=" + encodeURIComponent("" + filterPastYear) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetBelanjaByKelulusan(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetBelanjaByKelulusan(<any>response_);
+                } catch (e) {
+                    return <Observable<GetBelanjaTabungKelulusanDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetBelanjaTabungKelulusanDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetBelanjaByKelulusan(response: HttpResponseBase): Observable<GetBelanjaTabungKelulusanDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetBelanjaTabungKelulusanDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetBelanjaTabungKelulusanDto>(<any>null);
+    }
+
+    /**
      * Create or edit TabungKelulusan
      * @param body Create or edit object
      * @return Success
@@ -21452,127 +21523,8 @@ export class UserServiceProxy {
         }
         return _observableOf<OutputChangeEmelPasswordDto>(<any>null);
     }
-
-    /**
-     * Get All Capaian of a user in string list
-     * @param id (optional) User Id
-     * @return Success
-     */
-    getCapaianPengguna(id: number | undefined): Observable<GetCapaianPerananDto> {
-        let url_ = this.baseUrl + "/api/user/getCapaianPengguna?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetCapaianPengguna(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetCapaianPengguna(<any>response_);
-                } catch (e) {
-                    return <Observable<GetCapaianPerananDto>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<GetCapaianPerananDto>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processGetCapaianPengguna(response: HttpResponseBase): Observable<GetCapaianPerananDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GetCapaianPerananDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status === 500) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("Internal error has occured", status, _responseText, _headers);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<GetCapaianPerananDto>(<any>null);
-    }
-
-    /**
-     * Update capaian pengguna
-     * @param body Create or edit object
-     * @return Success
-     */
-    updateCapaianPengguna(body: UpdateCapaianPenggunaDto): Observable<void> {
-        let url_ = this.baseUrl + "/api/user/updateCapaianPengguna";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json",
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUpdateCapaianPengguna(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processUpdateCapaianPengguna(<any>response_);
-                } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
-                }
-            } else
-                return <Observable<void>><any>_observableThrow(response_);
-        }));
-    }
-
-    protected processUpdateCapaianPengguna(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
-            }));
-        } else if (status === 500) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("Internal error has occured", status, _responseText, _headers);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf<void>(<any>null);
-    }
 }
 
-/** Class AuthChangePasswordDto */
 export class AuthChangePasswordDto implements IAuthChangePasswordDto {
     kata_laluan_baru!: string;
     ulang_kata_laluan_baru!: string;
@@ -21604,17 +21556,15 @@ export class AuthChangePasswordDto implements IAuthChangePasswordDto {
         data = typeof data === 'object' ? data : {};
         data["kata_laluan_baru"] = this.kata_laluan_baru;
         data["ulang_kata_laluan_baru"] = this.ulang_kata_laluan_baru;
-        return data;
+        return data; 
     }
 }
 
-/** Class AuthChangePasswordDto */
 export interface IAuthChangePasswordDto {
     kata_laluan_baru: string;
     ulang_kata_laluan_baru: string;
 }
 
-/** Class InputForgotPasswordDto */
 export class InputForgotPasswordDto implements IInputForgotPasswordDto {
     emel!: string;
 
@@ -21643,16 +21593,14 @@ export class InputForgotPasswordDto implements IInputForgotPasswordDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["emel"] = this.emel;
-        return data;
+        return data; 
     }
 }
 
-/** Class InputForgotPasswordDto */
 export interface IInputForgotPasswordDto {
     emel: string;
 }
 
-/** Class InputLoginDto */
 export class InputLoginDto implements IInputLoginDto {
     emel!: string;
     kata_laluan!: string;
@@ -21684,17 +21632,15 @@ export class InputLoginDto implements IInputLoginDto {
         data = typeof data === 'object' ? data : {};
         data["emel"] = this.emel;
         data["kata_laluan"] = this.kata_laluan;
-        return data;
+        return data; 
     }
 }
 
-/** Class InputLoginDto */
 export interface IInputLoginDto {
     emel: string;
     kata_laluan: string;
 }
 
-/** Class InputResetPasswordDto */
 export class InputResetPasswordDto implements IInputResetPasswordDto {
     emel!: string;
     kod_akses!: string;
@@ -21732,11 +21678,10 @@ export class InputResetPasswordDto implements IInputResetPasswordDto {
         data["kod_akses"] = this.kod_akses;
         data["kata_laluan"] = this.kata_laluan;
         data["ulang_kata_laluan"] = this.ulang_kata_laluan;
-        return data;
+        return data; 
     }
 }
 
-/** Class InputResetPasswordDto */
 export interface IInputResetPasswordDto {
     emel: string;
     kod_akses: string;
@@ -21744,7 +21689,6 @@ export interface IInputResetPasswordDto {
     ulang_kata_laluan: string;
 }
 
-/** Class OutputLoginDto */
 export class OutputLoginDto implements IOutputLoginDto {
     access_token!: string;
     token_type!: string;
@@ -21785,11 +21729,10 @@ export class OutputLoginDto implements IOutputLoginDto {
         data["tukar_kata_laluan"] = this.tukar_kata_laluan;
         data["expires_in"] = this.expires_in;
         data["message"] = this.message;
-        return data;
+        return data; 
     }
 }
 
-/** Class OutputLoginDto */
 export interface IOutputLoginDto {
     access_token: string;
     token_type: string;
@@ -21798,7 +21741,6 @@ export interface IOutputLoginDto {
     message: string;
 }
 
-/** Class RegisterPenggunaDto */
 export class RegisterPenggunaDto implements IRegisterPenggunaDto {
     id!: number;
     nama!: string;
@@ -21875,11 +21817,10 @@ export class RegisterPenggunaDto implements IRegisterPenggunaDto {
         data["poskod"] = this.poskod;
         data["id_daerah"] = this.id_daerah;
         data["id_negeri"] = this.id_negeri;
-        return data;
+        return data; 
     }
 }
 
-/** Class RegisterPenggunaDto */
 export interface IRegisterPenggunaDto {
     id: number;
     nama: string;
@@ -21932,7 +21873,7 @@ export class GetBelanjaTanggunganByTabungForViewDto implements IGetBelanjaTanggu
         data = typeof data === 'object' ? data : {};
         data["kategori"] = this.kategori;
         data["jumlah"] = this.jumlah;
-        return data;
+        return data; 
     }
 }
 
@@ -21980,7 +21921,7 @@ export class GetTabungBelanjaTanggunganForViewDto implements IGetTabungBelanjaTa
             for (let item of this.tabung)
                 data["tabung"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -22028,7 +21969,7 @@ export class GetTotalBayaranTerusByMonthForViewDto implements IGetTotalBayaranTe
         data["month"] = this.month;
         data["year"] = this.year;
         data["bayaran_terus"] = this.bayaran_terus;
-        return data;
+        return data; 
     }
 }
 
@@ -22078,7 +22019,7 @@ export class GetTotalByTabungForViewDto implements IGetTotalByTabungForViewDto {
         data["jumlah_perbelanjaan_semasa"] = this.jumlah_perbelanjaan_semasa;
         data["jumlah_tanggungan"] = this.jumlah_tanggungan;
         data["jumlah_bersih"] = this.jumlah_bersih;
-        return data;
+        return data; 
     }
 }
 
@@ -22125,7 +22066,7 @@ export class GetTotalSkbByMonthForViewDto implements IGetTotalSkbByMonthForViewD
         data["bulan"] = this.bulan;
         data["bayaran_skb"] = this.bayaran_skb;
         data["year"] = this.year;
-        return data;
+        return data; 
     }
 }
 
@@ -22174,7 +22115,7 @@ export class TotalBayaranTerusByMonth implements ITotalBayaranTerusByMonth {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -22222,7 +22163,7 @@ export class TotalSkbByMonth implements ITotalSkbByMonth {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -22264,7 +22205,7 @@ export class GetJumlahBantuanDto implements IGetJumlahBantuanDto {
         data = typeof data === 'object' ? data : {};
         data["penerima"] = this.penerima;
         data["jumlah"] = this.jumlah;
-        return data;
+        return data; 
     }
 }
 
@@ -22274,7 +22215,6 @@ export interface IGetJumlahBantuanDto {
     jumlah: number;
 }
 
-/** Class GetTotalBantuanByNegeriDto */
 export class GetTotalBantuanByNegeriDto implements IGetTotalBantuanByNegeriDto {
     id!: number;
     bilMangsa!: number;
@@ -22315,11 +22255,10 @@ export class GetTotalBantuanByNegeriDto implements IGetTotalBantuanByNegeriDto {
         data["jumlahBantuan"] = this.jumlahBantuan;
         data["year"] = this.year;
         data["nama_negeri"] = this.nama_negeri;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTotalBantuanByNegeriDto */
 export interface IGetTotalBantuanByNegeriDto {
     id: number;
     bilMangsa: number;
@@ -22328,7 +22267,6 @@ export interface IGetTotalBantuanByNegeriDto {
     nama_negeri: string;
 }
 
-/** Class GetTotalMangsaBencanaByNegeriDto */
 export class GetTotalMangsaBencanaByNegeriDto implements IGetTotalMangsaBencanaByNegeriDto {
     id!: number;
     bilBencana!: number;
@@ -22366,11 +22304,10 @@ export class GetTotalMangsaBencanaByNegeriDto implements IGetTotalMangsaBencanaB
         data["bilBencana"] = this.bilBencana;
         data["bilMangsa"] = this.bilMangsa;
         data["nama_negeri"] = this.nama_negeri;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTotalMangsaBencanaByNegeriDto */
 export interface IGetTotalMangsaBencanaByNegeriDto {
     id: number;
     bilBencana: number;
@@ -22416,7 +22353,7 @@ export class TotalBantuanByNegeriForViewDto implements ITotalBantuanByNegeriForV
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -22476,7 +22413,7 @@ export class TotalJumlahBantuanForViewDto implements ITotalJumlahBantuanForViewD
         data["bantuanLain"] = this.bantuanLain ? this.bantuanLain.toJSON() : <any>undefined;
         data["bantuanRumahBaikPulih"] = this.bantuanRumahBaikPulih ? this.bantuanRumahBaikPulih.toJSON() : <any>undefined;
         data["bantuanRumahKekal"] = this.bantuanRumahKekal ? this.bantuanRumahKekal.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -22530,7 +22467,7 @@ export class TotalMangsaBencanaByNegeriForViewDto implements ITotalMangsaBencana
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -22575,7 +22512,7 @@ export class OutputDownloadTempDto implements IOutputDownloadTempDto {
         data["file_name"] = this.file_name;
         data["file_type"] = this.file_type;
         data["file_token"] = this.file_token;
-        return data;
+        return data; 
     }
 }
 
@@ -22586,7 +22523,6 @@ export interface IOutputDownloadTempDto {
     file_token: string;
 }
 
-/** Class OutputFileUpload */
 export class OutputFileUpload implements IOutputFileUpload {
     url!: string;
 
@@ -22615,16 +22551,14 @@ export class OutputFileUpload implements IOutputFileUpload {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["url"] = this.url;
-        return data;
+        return data; 
     }
 }
 
-/** Class OutputFileUpload */
 export interface IOutputFileUpload {
     url: string;
 }
 
-/** Class GetBwiByNegeriDto */
 export class GetBwiByNegeriDto implements IGetBwiByNegeriDto {
     nama_negeri!: string;
     bil!: number;
@@ -22665,11 +22599,10 @@ export class GetBwiByNegeriDto implements IGetBwiByNegeriDto {
         data["jumlah"] = this.jumlah;
         data["jumlah_dipulangkan"] = this.jumlah_dipulangkan;
         data["jumlah_diagihkan"] = this.jumlah_diagihkan;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetBwiByNegeriDto */
 export interface IGetBwiByNegeriDto {
     nama_negeri: string;
     bil: number;
@@ -22678,7 +22611,6 @@ export interface IGetBwiByNegeriDto {
     jumlah_diagihkan: number;
 }
 
-/** Class GetLaporanBayaranTerusDto */
 export class GetLaporanBayaranTerusDto implements IGetLaporanBayaranTerusDto {
     no_rujukan_terus!: string;
     no_rujukan_kelulusan!: string;
@@ -22731,11 +22663,10 @@ export class GetLaporanBayaranTerusDto implements IGetLaporanBayaranTerusDto {
         data["id_kategori_bayaran"] = this.id_kategori_bayaran;
         data["nama_kategori_bayaran"] = this.nama_kategori_bayaran;
         data["jumlah"] = this.jumlah;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetLaporanBayaranTerusDto */
 export interface IGetLaporanBayaranTerusDto {
     no_rujukan_terus: string;
     no_rujukan_kelulusan: string;
@@ -22748,7 +22679,6 @@ export interface IGetLaporanBayaranTerusDto {
     jumlah: number;
 }
 
-/** Class GetLaporanBwiBencanaKirDto */
 export class GetLaporanBwiBencanaKirDto implements IGetLaporanBwiBencanaKirDto {
     id_bencana!: number;
     nama_bencana!: string;
@@ -22795,11 +22725,10 @@ export class GetLaporanBwiBencanaKirDto implements IGetLaporanBwiBencanaKirDto {
         data["jumlah_peruntukan"] = this.jumlah_peruntukan;
         data["jumlah_dipulangkan"] = this.jumlah_dipulangkan;
         data["jumlah_diagihkan"] = this.jumlah_diagihkan;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetLaporanBwiBencanaKirDto */
 export interface IGetLaporanBwiBencanaKirDto {
     id_bencana: number;
     nama_bencana: string;
@@ -22810,7 +22739,6 @@ export interface IGetLaporanBwiBencanaKirDto {
     jumlah_diagihkan: number;
 }
 
-/** Class GetLaporanBwiDto */
 export class GetLaporanBwiDto implements IGetLaporanBwiDto {
     id!: number;
     no_rujukan_bwi!: string;
@@ -22905,11 +22833,10 @@ export class GetLaporanBwiDto implements IGetLaporanBwiDto {
         data["no_rujukan_laporan_kpd_bkp"] = this.no_rujukan_laporan_kpd_bkp;
         data["tarikh_laporan_kpd_bkp"] = this.tarikh_laporan_kpd_bkp ? this.tarikh_laporan_kpd_bkp.toISOString() : <any>undefined;
         data["catatan"] = this.catatan;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetLaporanBwiDto */
 export interface IGetLaporanBwiDto {
     id: number;
     no_rujukan_bwi: string;
@@ -22936,7 +22863,6 @@ export interface IGetLaporanBwiDto {
     catatan: string;
 }
 
-/** Class GetLaporanBwiKematianDto */
 export class GetLaporanBwiKematianDto implements IGetLaporanBwiKematianDto {
     nama_negeri!: string;
     nama_daerah!: string;
@@ -22983,11 +22909,10 @@ export class GetLaporanBwiKematianDto implements IGetLaporanBwiKematianDto {
         data["catatan"] = this.catatan;
         data["bil_kir"] = this.bil_kir;
         data["jumlah"] = this.jumlah;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetLaporanBwiKematianDto */
 export interface IGetLaporanBwiKematianDto {
     nama_negeri: string;
     nama_daerah: string;
@@ -22998,7 +22923,6 @@ export interface IGetLaporanBwiKematianDto {
     jumlah: number;
 }
 
-/** Class GetLaporanKelulusanDto */
 export class GetLaporanKelulusanDto implements IGetLaporanKelulusanDto {
     id!: number;
     no_rujukan_kelulusan!: string;
@@ -23066,11 +22990,10 @@ export class GetLaporanKelulusanDto implements IGetLaporanKelulusanDto {
         data["jumlah_terus_bukan_covid_semasa"] = this.jumlah_terus_bukan_covid_semasa;
         data["jumlah_terus_covid_sebelum"] = this.jumlah_terus_covid_sebelum;
         data["jumlah_terus_bukan_covid_sebelum"] = this.jumlah_terus_bukan_covid_sebelum;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetLaporanKelulusanDto */
 export interface IGetLaporanKelulusanDto {
     id: number;
     no_rujukan_kelulusan: string;
@@ -23088,7 +23011,6 @@ export interface IGetLaporanKelulusanDto {
     jumlah_terus_bukan_covid_sebelum: number;
 }
 
-/** Class GetLaporanSkbDto */
 export class GetLaporanSkbDto implements IGetLaporanSkbDto {
     id!: number;
     no_rujukan_skb!: string;
@@ -23189,11 +23111,10 @@ export class GetLaporanSkbDto implements IGetLaporanSkbDto {
         data["jumlah_november"] = this.jumlah_november;
         data["jumlah_disember"] = this.jumlah_disember;
         data["jumlah_keseluruhan"] = this.jumlah_keseluruhan;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetLaporanSkbDto */
 export interface IGetLaporanSkbDto {
     id: number;
     no_rujukan_skb: string;
@@ -23222,7 +23143,6 @@ export interface IGetLaporanSkbDto {
     jumlah_keseluruhan: number;
 }
 
-/** Class GetLaporanWaranDto */
 export class GetLaporanWaranDto implements IGetLaporanWaranDto {
     id!: number;
     no_rujukan_waran!: string;
@@ -23323,11 +23243,10 @@ export class GetLaporanWaranDto implements IGetLaporanWaranDto {
         data["jumlah_november"] = this.jumlah_november;
         data["jumlah_disember"] = this.jumlah_disember;
         data["jumlah_keseluruhan"] = this.jumlah_keseluruhan;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetLaporanWaranDto */
 export interface IGetLaporanWaranDto {
     id: number;
     no_rujukan_waran: string;
@@ -23356,7 +23275,6 @@ export interface IGetLaporanWaranDto {
     jumlah_keseluruhan: number;
 }
 
-/** Class GetMangsaBantuanAntarabangsaLaporanDto */
 export class GetMangsaBantuanAntarabangsaLaporanDto implements IGetMangsaBantuanAntarabangsaLaporanDto {
     id!: number;
     nama!: string;
@@ -23418,11 +23336,10 @@ export class GetMangsaBantuanAntarabangsaLaporanDto implements IGetMangsaBantuan
         data["tarikh_bantuan"] = this.tarikh_bantuan ? this.tarikh_bantuan.toISOString() : <any>undefined;
         data["kos_bantuan"] = this.kos_bantuan;
         data["catatan"] = this.catatan;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaBantuanAntarabangsaLaporanDto */
 export interface IGetMangsaBantuanAntarabangsaLaporanDto {
     id: number;
     nama: string;
@@ -23438,7 +23355,6 @@ export interface IGetMangsaBantuanAntarabangsaLaporanDto {
     catatan: string;
 }
 
-/** Class GetMangsaBantuanLainLaporanDto */
 export class GetMangsaBantuanLainLaporanDto implements IGetMangsaBantuanLainLaporanDto {
     id!: number;
     nama!: string;
@@ -23506,11 +23422,10 @@ export class GetMangsaBantuanLainLaporanDto implements IGetMangsaBantuanLainLapo
         data["tarikh_bantuan"] = this.tarikh_bantuan ? this.tarikh_bantuan.toISOString() : <any>undefined;
         data["kos_bantuan"] = this.kos_bantuan;
         data["catatan"] = this.catatan;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaBantuanLainLaporanDto */
 export interface IGetMangsaBantuanLainLaporanDto {
     id: number;
     nama: string;
@@ -23528,7 +23443,6 @@ export interface IGetMangsaBantuanLainLaporanDto {
     catatan: string;
 }
 
-/** Class GetMangsaBantuanPertanianLaporanDto */
 export class GetMangsaBantuanPertanianLaporanDto implements IGetMangsaBantuanPertanianLaporanDto {
     id!: number;
     nama!: string;
@@ -23608,11 +23522,10 @@ export class GetMangsaBantuanPertanianLaporanDto implements IGetMangsaBantuanPer
         data["tarikh_bantuan"] = this.tarikh_bantuan ? this.tarikh_bantuan.toISOString() : <any>undefined;
         data["kos_bantuan"] = this.kos_bantuan;
         data["catatan"] = this.catatan;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaBantuanPertanianLaporanDto */
 export interface IGetMangsaBantuanPertanianLaporanDto {
     id: number;
     nama: string;
@@ -23634,7 +23547,6 @@ export interface IGetMangsaBantuanPertanianLaporanDto {
     catatan: string;
 }
 
-/** Class GetMangsaBantuanPinjamanLaporanDto */
 export class GetMangsaBantuanPinjamanLaporanDto implements IGetMangsaBantuanPinjamanLaporanDto {
     id!: number;
     nama!: string;
@@ -23696,11 +23608,10 @@ export class GetMangsaBantuanPinjamanLaporanDto implements IGetMangsaBantuanPinj
         data["tarikh_mula"] = this.tarikh_mula ? this.tarikh_mula.toISOString() : <any>undefined;
         data["tempoh_pinjaman"] = this.tempoh_pinjaman;
         data["jumlah_pinjaman"] = this.jumlah_pinjaman;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaBantuanPinjamanLaporanDto */
 export interface IGetMangsaBantuanPinjamanLaporanDto {
     id: number;
     nama: string;
@@ -23716,7 +23627,6 @@ export interface IGetMangsaBantuanPinjamanLaporanDto {
     jumlah_pinjaman: string;
 }
 
-/** Class GetMangsaBantuanRumahLaporanDto */
 export class GetMangsaBantuanRumahLaporanDto implements IGetMangsaBantuanRumahLaporanDto {
     id!: number;
     nama!: string;
@@ -23790,11 +23700,10 @@ export class GetMangsaBantuanRumahLaporanDto implements IGetMangsaBantuanRumahLa
         data["status_kemajuan"] = this.status_kemajuan;
         data["kos_anggaran"] = this.kos_anggaran;
         data["kos_sebenar"] = this.kos_sebenar;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaBantuanRumahLaporanDto */
 export interface IGetMangsaBantuanRumahLaporanDto {
     id: number;
     nama: string;
@@ -23814,7 +23723,6 @@ export interface IGetMangsaBantuanRumahLaporanDto {
     kos_sebenar: string;
 }
 
-/** Class GetMangsaBantuanWangIhsanLaporanDto */
 export class GetMangsaBantuanWangIhsanLaporanDto implements IGetMangsaBantuanWangIhsanLaporanDto {
     id!: number;
     nama!: string;
@@ -23870,11 +23778,10 @@ export class GetMangsaBantuanWangIhsanLaporanDto implements IGetMangsaBantuanWan
         data["nama_daerah"] = this.nama_daerah;
         data["tarikh_serahan"] = this.tarikh_serahan ? this.tarikh_serahan.toISOString() : <any>undefined;
         data["jumlah"] = this.jumlah;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaBantuanWangIhsanLaporanDto */
 export interface IGetMangsaBantuanWangIhsanLaporanDto {
     id: number;
     nama: string;
@@ -23888,7 +23795,6 @@ export interface IGetMangsaBantuanWangIhsanLaporanDto {
     jumlah: string;
 }
 
-/** Class GetMangsaLaporanDto */
 export class GetMangsaLaporanDto implements IGetMangsaLaporanDto {
     id!: number;
     nama!: string;
@@ -23944,11 +23850,10 @@ export class GetMangsaLaporanDto implements IGetMangsaLaporanDto {
         data["nama_agensi"] = this.nama_agensi;
         data["nama_kementerian"] = this.nama_kementerian;
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaLaporanDto */
 export interface IGetMangsaLaporanDto {
     id: number;
     nama: string;
@@ -24000,7 +23905,7 @@ export class GetSumberDanaRumahForViewDto implements IGetSumberDanaRumahForViewD
             for (let item of this.sumber_dana)
                 data["sumber_dana"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -24042,7 +23947,7 @@ export class GetTotalBantuanByJenisBantuanDto implements IGetTotalBantuanByJenis
         data = typeof data === 'object' ? data : {};
         data["kategori"] = this.kategori;
         data["jumlah"] = this.jumlah;
-        return data;
+        return data; 
     }
 }
 
@@ -24090,7 +23995,7 @@ export class GetTotalBantuanForViewDto implements IGetTotalBantuanForViewDto {
             for (let item of this.bantuan)
                 data["bantuan"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -24100,7 +24005,6 @@ export interface IGetTotalBantuanForViewDto {
     bantuan: GetTotalBantuanByJenisBantuanDto[];
 }
 
-/** Class InputLaporanKelulusanDto */
 export class InputLaporanKelulusanDto implements IInputLaporanKelulusanDto {
     kelulusan!: GetLaporanKelulusanDto;
     jumlah_skb_covid_semasa!: number;
@@ -24153,11 +24057,10 @@ export class InputLaporanKelulusanDto implements IInputLaporanKelulusanDto {
         data["belanja_covid_sebelum"] = this.belanja_covid_sebelum;
         data["belanja_bukan_covid_sebelum"] = this.belanja_bukan_covid_sebelum;
         data["jumlah_belanja"] = this.jumlah_belanja;
-        return data;
+        return data; 
     }
 }
 
-/** Class InputLaporanKelulusanDto */
 export interface IInputLaporanKelulusanDto {
     kelulusan: GetLaporanKelulusanDto;
     jumlah_skb_covid_semasa: number;
@@ -24212,7 +24115,7 @@ export class PagedResultOfLaporanBwiBencanaKirDto implements IPagedResultOfLapor
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -24266,7 +24169,7 @@ export class PagedResultOfLaporanBwiDto implements IPagedResultOfLaporanBwiDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -24320,7 +24223,7 @@ export class PagedResultOfLaporanBwiKematianDto implements IPagedResultOfLaporan
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -24374,7 +24277,7 @@ export class PagedResultOfLaporanKelulusanForViewDto implements IPagedResultOfLa
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -24428,7 +24331,7 @@ export class PagedResultOfLaporanMangsaBantuanAntarabangsaForViewDto implements 
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -24482,7 +24385,7 @@ export class PagedResultOfLaporanMangsaBantuanLainForViewDto implements IPagedRe
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -24536,7 +24439,7 @@ export class PagedResultOfLaporanMangsaBantuanPertanianForViewDto implements IPa
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -24590,7 +24493,7 @@ export class PagedResultOfLaporanMangsaBantuanPinjamanForViewDto implements IPag
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -24644,7 +24547,7 @@ export class PagedResultOfLaporanMangsaBantuanRumahForViewDto implements IPagedR
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -24698,7 +24601,7 @@ export class PagedResultOfLaporanMangsaBantuanWangIhsanForViewDto implements IPa
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -24752,7 +24655,7 @@ export class PagedResultOfLaporanMangsaForViewDto implements IPagedResultOfLapor
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -24806,7 +24709,7 @@ export class PagedResultOfLaporanSkbDto implements IPagedResultOfLaporanSkbDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -24860,7 +24763,7 @@ export class PagedResultOfLaporanTabungBayaranTerusDto implements IPagedResultOf
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -24914,7 +24817,7 @@ export class PagedResultOfLaporanWaranDto implements IPagedResultOfLaporanWaranD
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -24968,7 +24871,7 @@ export class PegedResultOfLaporanBwiByNegeriDto implements IPegedResultOfLaporan
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -24980,7 +24883,6 @@ export interface IPegedResultOfLaporanBwiByNegeriDto {
     items: GetBwiByNegeriDto[];
 }
 
-/** Class TotalSumberDanaRumahForViewDto */
 export class TotalSumberDanaRumahForViewDto implements ITotalSumberDanaRumahForViewDto {
     nama_sumber_dana!: string;
     jumlah!: number;
@@ -25012,17 +24914,15 @@ export class TotalSumberDanaRumahForViewDto implements ITotalSumberDanaRumahForV
         data = typeof data === 'object' ? data : {};
         data["nama_sumber_dana"] = this.nama_sumber_dana;
         data["jumlah"] = this.jumlah;
-        return data;
+        return data; 
     }
 }
 
-/** Class TotalSumberDanaRumahForViewDto */
 export interface ITotalSumberDanaRumahForViewDto {
     nama_sumber_dana: string;
     jumlah: number;
 }
 
-/** Class CreateOrEditMangsaAirDto */
 export class CreateOrEditMangsaAirDto implements ICreateOrEditMangsaAirDto {
     id!: number;
     id_mangsa!: number;
@@ -25090,11 +24990,10 @@ export class CreateOrEditMangsaAirDto implements ICreateOrEditMangsaAirDto {
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditMangsaAirDto */
 export interface ICreateOrEditMangsaAirDto {
     id: number;
     id_mangsa: number;
@@ -25112,7 +25011,6 @@ export interface ICreateOrEditMangsaAirDto {
     sebab_hapus: string;
 }
 
-/** Class GetMangsaAirForEditDto */
 export class GetMangsaAirForEditDto implements IGetMangsaAirForEditDto {
     mangsa_air!: CreateOrEditMangsaAirDto;
 
@@ -25141,16 +25039,14 @@ export class GetMangsaAirForEditDto implements IGetMangsaAirForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["mangsa_air"] = this.mangsa_air ? this.mangsa_air.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaAirForEditDto */
 export interface IGetMangsaAirForEditDto {
     mangsa_air: CreateOrEditMangsaAirDto;
 }
 
-/** Class GetMangsaAirForViewDto */
 export class GetMangsaAirForViewDto implements IGetMangsaAirForViewDto {
     id!: number;
     id_mangsa!: number;
@@ -25221,11 +25117,10 @@ export class GetMangsaAirForViewDto implements IGetMangsaAirForViewDto {
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
         data["nama_hubungan"] = this.nama_hubungan;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaAirForViewDto */
 export interface IGetMangsaAirForViewDto {
     id: number;
     id_mangsa: number;
@@ -25286,7 +25181,7 @@ export class PagedResultDtoOfMangsaAirForViewDto implements IPagedResultDtoOfMan
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -25298,7 +25193,6 @@ export interface IPagedResultDtoOfMangsaAirForViewDto {
     items: GetMangsaAirForViewDto[];
 }
 
-/** Class CreateOrEditMangsaAntarabangsaDto */
 export class CreateOrEditMangsaAntarabangsaDto implements ICreateOrEditMangsaAntarabangsaDto {
     id!: number;
     id_bencana!: number;
@@ -25372,11 +25266,10 @@ export class CreateOrEditMangsaAntarabangsaDto implements ICreateOrEditMangsaAnt
         data["nama_bantuan"] = this.nama_bantuan;
         data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
         data["nama_bencana"] = this.nama_bencana;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditMangsaAntarabangsaDto */
 export interface ICreateOrEditMangsaAntarabangsaDto {
     id: number;
     id_bencana: number;
@@ -25396,7 +25289,6 @@ export interface ICreateOrEditMangsaAntarabangsaDto {
     nama_bencana: string;
 }
 
-/** Class GetMangsaAntarabangsaForEditDto */
 export class GetMangsaAntarabangsaForEditDto implements IGetMangsaAntarabangsaForEditDto {
     mangsa_antarabangsa!: CreateOrEditMangsaAntarabangsaDto;
 
@@ -25425,16 +25317,14 @@ export class GetMangsaAntarabangsaForEditDto implements IGetMangsaAntarabangsaFo
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["mangsa_antarabangsa"] = this.mangsa_antarabangsa ? this.mangsa_antarabangsa.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaAntarabangsaForEditDto */
 export interface IGetMangsaAntarabangsaForEditDto {
     mangsa_antarabangsa: CreateOrEditMangsaAntarabangsaDto;
 }
 
-/** Class GetMangsaAntarabangsaForViewDto */
 export class GetMangsaAntarabangsaForViewDto implements IGetMangsaAntarabangsaForViewDto {
     id!: number;
     id_bencana!: number;
@@ -25502,11 +25392,10 @@ export class GetMangsaAntarabangsaForViewDto implements IGetMangsaAntarabangsaFo
         data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
         data["kos_bantuan"] = this.kos_bantuan;
         data["nama_bencana"] = this.nama_bencana;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaAntarabangsaForViewDto */
 export interface IGetMangsaAntarabangsaForViewDto {
     id: number;
     id_bencana: number;
@@ -25566,7 +25455,7 @@ export class PagedResultDtoOfMangsaAntarabangsaForViewDto implements IPagedResul
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -25578,7 +25467,6 @@ export interface IPagedResultDtoOfMangsaAntarabangsaForViewDto {
     items: GetMangsaAntarabangsaForViewDto[];
 }
 
-/** Class CreateOrEditMangsaBantuanDto */
 export class CreateOrEditMangsaBantuanDto implements ICreateOrEditMangsaBantuanDto {
     id!: number;
     id_bencana!: number;
@@ -25661,11 +25549,10 @@ export class CreateOrEditMangsaBantuanDto implements ICreateOrEditMangsaBantuanD
         data["nama_bantuan"] = this.nama_bantuan;
         data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
         data["nama_bencana"] = this.nama_bencana;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditMangsaBantuanDto */
 export interface ICreateOrEditMangsaBantuanDto {
     id: number;
     id_bencana: number;
@@ -25688,7 +25575,6 @@ export interface ICreateOrEditMangsaBantuanDto {
     nama_bencana: string;
 }
 
-/** Class GetMangsaBantuanForEditDto */
 export class GetMangsaBantuanForEditDto implements IGetMangsaBantuanForEditDto {
     mangsa_bantuan!: CreateOrEditMangsaBantuanDto;
 
@@ -25717,16 +25603,14 @@ export class GetMangsaBantuanForEditDto implements IGetMangsaBantuanForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["mangsa_bantuan"] = this.mangsa_bantuan ? this.mangsa_bantuan.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaBantuanForEditDto */
 export interface IGetMangsaBantuanForEditDto {
     mangsa_bantuan: CreateOrEditMangsaBantuanDto;
 }
 
-/** Class GetMangsaBantuanForViewDto */
 export class GetMangsaBantuanForViewDto implements IGetMangsaBantuanForViewDto {
     id!: number;
     id_bencana!: number;
@@ -25803,11 +25687,10 @@ export class GetMangsaBantuanForViewDto implements IGetMangsaBantuanForViewDto {
         data["nama_bencana"] = this.nama_bencana;
         data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
         data["kos_bantuan"] = this.kos_bantuan;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaBantuanForViewDto */
 export interface IGetMangsaBantuanForViewDto {
     id: number;
     id_bencana: number;
@@ -25870,7 +25753,7 @@ export class PagedResultDtoOfMangsaBantuanForViewDto implements IPagedResultDtoO
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -25882,7 +25765,6 @@ export interface IPagedResultDtoOfMangsaBantuanForViewDto {
     items: GetMangsaBantuanForViewDto[];
 }
 
-/** Class CreateOrEditMangsaBencanaDto */
 export class CreateOrEditMangsaBencanaDto implements ICreateOrEditMangsaBencanaDto {
     id!: number;
     id_bencana!: number;
@@ -25953,11 +25835,10 @@ export class CreateOrEditMangsaBencanaDto implements ICreateOrEditMangsaBencanaD
         data["sebab_hapus"] = this.sebab_hapus;
         data["nama_bencana"] = this.nama_bencana;
         data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditMangsaBencanaDto */
 export interface ICreateOrEditMangsaBencanaDto {
     id: number;
     id_bencana: number;
@@ -25976,7 +25857,6 @@ export interface ICreateOrEditMangsaBencanaDto {
     tarikh_bencana: moment.Moment;
 }
 
-/** Class GetMangsaBencanaForEditDto */
 export class GetMangsaBencanaForEditDto implements IGetMangsaBencanaForEditDto {
     mangsa_bencana!: CreateOrEditMangsaBencanaDto;
 
@@ -26005,16 +25885,14 @@ export class GetMangsaBencanaForEditDto implements IGetMangsaBencanaForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["mangsa_bencana"] = this.mangsa_bencana ? this.mangsa_bencana.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaBencanaForEditDto */
 export interface IGetMangsaBencanaForEditDto {
     mangsa_bencana: CreateOrEditMangsaBencanaDto;
 }
 
-/** Class GetMangsaBencanaForLookupDto */
 export class GetMangsaBencanaForLookupDto implements IGetMangsaBencanaForLookupDto {
     id_bencana!: number;
     nama_bencana!: string;
@@ -26052,11 +25930,10 @@ export class GetMangsaBencanaForLookupDto implements IGetMangsaBencanaForLookupD
         data["nama_bencana"] = this.nama_bencana;
         data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
         data["tahun_bencana"] = this.tahun_bencana;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaBencanaForLookupDto */
 export interface IGetMangsaBencanaForLookupDto {
     id_bencana: number;
     nama_bencana: string;
@@ -26064,7 +25941,6 @@ export interface IGetMangsaBencanaForLookupDto {
     tahun_bencana: number;
 }
 
-/** Class GetMangsaBencanaForViewDto */
 export class GetMangsaBencanaForViewDto implements IGetMangsaBencanaForViewDto {
     id!: number;
     id_bencana!: number;
@@ -26138,11 +26014,10 @@ export class GetMangsaBencanaForViewDto implements IGetMangsaBencanaForViewDto {
         data["nama_bencana"] = this.nama_bencana;
         data["pindah"] = this.pindah;
         data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaBencanaForViewDto */
 export interface IGetMangsaBencanaForViewDto {
     id: number;
     id_bencana: number;
@@ -26162,7 +26037,6 @@ export interface IGetMangsaBencanaForViewDto {
     tarikh_bencana: moment.Moment;
 }
 
-/** Class InputCreateMultipleMangsaBencanaDto */
 export class InputCreateMultipleMangsaBencanaDto implements IInputCreateMultipleMangsaBencanaDto {
     mangsaBencana!: CreateOrEditMangsaBencanaDto;
     /** Id Mangsa in array of integer */
@@ -26203,18 +26077,16 @@ export class InputCreateMultipleMangsaBencanaDto implements IInputCreateMultiple
             for (let item of this.id_mangsa)
                 data["id_mangsa"].push(item);
         }
-        return data;
+        return data; 
     }
 }
 
-/** Class InputCreateMultipleMangsaBencanaDto */
 export interface IInputCreateMultipleMangsaBencanaDto {
     mangsaBencana: CreateOrEditMangsaBencanaDto;
     /** Id Mangsa in array of integer */
     id_mangsa: number[];
 }
 
-/** Class OutputCreateMangsaBencanaDto */
 export class OutputCreateMangsaBencanaDto implements IOutputCreateMangsaBencanaDto {
     message!: string;
 
@@ -26243,11 +26115,10 @@ export class OutputCreateMangsaBencanaDto implements IOutputCreateMangsaBencanaD
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["message"] = this.message;
-        return data;
+        return data; 
     }
 }
 
-/** Class OutputCreateMangsaBencanaDto */
 export interface IOutputCreateMangsaBencanaDto {
     message: string;
 }
@@ -26294,7 +26165,7 @@ export class PagedResultDtoMangsBencanaLookupTableDto implements IPagedResultDto
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -26348,7 +26219,7 @@ export class PagedResultDtoOfMangsaBencanaForViewDto implements IPagedResultDtoO
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -26360,7 +26231,6 @@ export interface IPagedResultDtoOfMangsaBencanaForViewDto {
     items: GetMangsaBencanaForViewDto[];
 }
 
-/** Class CreateOrEditMangsaKerosakanDto */
 export class CreateOrEditMangsaKerosakanDto implements ICreateOrEditMangsaKerosakanDto {
     id!: number;
     id_mangsa!: number;
@@ -26419,11 +26289,10 @@ export class CreateOrEditMangsaKerosakanDto implements ICreateOrEditMangsaKerosa
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditMangsaKerosakanDto */
 export interface ICreateOrEditMangsaKerosakanDto {
     id: number;
     id_mangsa: number;
@@ -26438,7 +26307,6 @@ export interface ICreateOrEditMangsaKerosakanDto {
     sebab_hapus: string;
 }
 
-/** Class GetMangsaKerosakanForEditDto */
 export class GetMangsaKerosakanForEditDto implements IGetMangsaKerosakanForEditDto {
     mangsa_kerosakan!: CreateOrEditMangsaKerosakanDto;
 
@@ -26467,16 +26335,14 @@ export class GetMangsaKerosakanForEditDto implements IGetMangsaKerosakanForEditD
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["mangsa_kerosakan"] = this.mangsa_kerosakan ? this.mangsa_kerosakan.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaKerosakanForEditDto */
 export interface IGetMangsaKerosakanForEditDto {
     mangsa_kerosakan: CreateOrEditMangsaKerosakanDto;
 }
 
-/** Class GetMangsaKerosakanForViewDto */
 export class GetMangsaKerosakanForViewDto implements IGetMangsaKerosakanForViewDto {
     id!: number;
     id_mangsa!: number;
@@ -26535,11 +26401,10 @@ export class GetMangsaKerosakanForViewDto implements IGetMangsaKerosakanForViewD
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaKerosakanForViewDto */
 export interface IGetMangsaKerosakanForViewDto {
     id: number;
     id_mangsa: number;
@@ -26596,7 +26461,7 @@ export class PagedResultDtoOfMangsaKerosakanForViewDto implements IPagedResultDt
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -26608,7 +26473,6 @@ export interface IPagedResultDtoOfMangsaKerosakanForViewDto {
     items: GetMangsaKerosakanForViewDto[];
 }
 
-/** Class CreateOrEditMangsaPertanianDto */
 export class CreateOrEditMangsaPertanianDto implements ICreateOrEditMangsaPertanianDto {
     id!: number;
     id_bencana!: number;
@@ -26700,11 +26564,10 @@ export class CreateOrEditMangsaPertanianDto implements ICreateOrEditMangsaPertan
         data["catatan"] = this.catatan;
         data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
         data["nama_bencana"] = this.nama_bencana;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditMangsaPertanianDto */
 export interface ICreateOrEditMangsaPertanianDto {
     id: number;
     id_bencana: number;
@@ -26730,7 +26593,6 @@ export interface ICreateOrEditMangsaPertanianDto {
     nama_bencana: string;
 }
 
-/** Class GetMangsaPertanianForEditDto */
 export class GetMangsaPertanianForEditDto implements IGetMangsaPertanianForEditDto {
     mangsa_pertanian!: CreateOrEditMangsaPertanianDto;
 
@@ -26759,16 +26621,14 @@ export class GetMangsaPertanianForEditDto implements IGetMangsaPertanianForEditD
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["mangsa_pertanian"] = this.mangsa_pertanian ? this.mangsa_pertanian.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaPertanianForEditDto */
 export interface IGetMangsaPertanianForEditDto {
     mangsa_pertanian: CreateOrEditMangsaPertanianDto;
 }
 
-/** Class GetMangsaPertanianForViewDto */
 export class GetMangsaPertanianForViewDto implements IGetMangsaPertanianForViewDto {
     id!: number;
     id_bencana!: number;
@@ -26866,11 +26726,10 @@ export class GetMangsaPertanianForViewDto implements IGetMangsaPertanianForViewD
         data["kos_bantuan"] = this.kos_bantuan;
         data["tarikh_bantuan"] = this.tarikh_bantuan ? this.tarikh_bantuan.toISOString() : <any>undefined;
         data["catatan"] = this.catatan;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaPertanianForViewDto */
 export interface IGetMangsaPertanianForViewDto {
     id: number;
     id_bencana: number;
@@ -26940,7 +26799,7 @@ export class PagedResultDtoOfMangsaPertanianForViewDto implements IPagedResultDt
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -26952,7 +26811,6 @@ export interface IPagedResultDtoOfMangsaPertanianForViewDto {
     items: GetMangsaPertanianForViewDto[];
 }
 
-/** Class CreateOrEditMangsaPinjamanDto */
 export class CreateOrEditMangsaPinjamanDto implements ICreateOrEditMangsaPinjamanDto {
     id!: number;
     id_bencana!: number;
@@ -27032,11 +26890,10 @@ export class CreateOrEditMangsaPinjamanDto implements ICreateOrEditMangsaPinjama
         data["tarikh_mula"] = this.tarikh_mula ? this.tarikh_mula.toISOString() : <any>undefined;
         data["nama_bencana"] = this.nama_bencana;
         data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditMangsaPinjamanDto */
 export interface ICreateOrEditMangsaPinjamanDto {
     id: number;
     id_bencana: number;
@@ -27058,7 +26915,6 @@ export interface ICreateOrEditMangsaPinjamanDto {
     tarikh_bencana: moment.Moment;
 }
 
-/** Class GetMangsaPinjamanForEditDto */
 export class GetMangsaPinjamanForEditDto implements IGetMangsaPinjamanForEditDto {
     mangsa_pinjaman!: CreateOrEditMangsaPinjamanDto;
 
@@ -27087,16 +26943,14 @@ export class GetMangsaPinjamanForEditDto implements IGetMangsaPinjamanForEditDto
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["mangsa_pinjaman"] = this.mangsa_pinjaman ? this.mangsa_pinjaman.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaPinjamanForEditDto */
 export interface IGetMangsaPinjamanForEditDto {
     mangsa_pinjaman: CreateOrEditMangsaPinjamanDto;
 }
 
-/** Class GetMangsaPinjamanForViewDto */
 export class GetMangsaPinjamanForViewDto implements IGetMangsaPinjamanForViewDto {
     id!: number;
     id_bencana!: number;
@@ -27176,11 +27030,10 @@ export class GetMangsaPinjamanForViewDto implements IGetMangsaPinjamanForViewDto
         data["nama_agensi"] = this.nama_agensi;
         data["nama_bencana"] = this.nama_bencana;
         data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaPinjamanForViewDto */
 export interface IGetMangsaPinjamanForViewDto {
     id: number;
     id_bencana: number;
@@ -27244,7 +27097,7 @@ export class PagedResultDtoOfMangsaPinjamanForViewDto implements IPagedResultDto
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -27256,7 +27109,6 @@ export interface IPagedResultDtoOfMangsaPinjamanForViewDto {
     items: GetMangsaPinjamanForViewDto[];
 }
 
-/** Class CreateOrEditMangsaRumahDto */
 export class CreateOrEditMangsaRumahDto implements ICreateOrEditMangsaRumahDto {
     id!: number;
     id_bencana!: number;
@@ -27381,11 +27233,10 @@ export class CreateOrEditMangsaRumahDto implements ICreateOrEditMangsaRumahDto {
         data["catatan"] = this.catatan;
         data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
         data["nama_bencana"] = this.nama_bencana;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditMangsaRumahDto */
 export interface ICreateOrEditMangsaRumahDto {
     id: number;
     id_bencana: number;
@@ -27422,7 +27273,6 @@ export interface ICreateOrEditMangsaRumahDto {
     nama_bencana: string;
 }
 
-/** Class GetMangsaRumahForEditDto */
 export class GetMangsaRumahForEditDto implements IGetMangsaRumahForEditDto {
     mangsa_rumah!: CreateOrEditMangsaRumahDto;
 
@@ -27451,16 +27301,14 @@ export class GetMangsaRumahForEditDto implements IGetMangsaRumahForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["mangsa_rumah"] = this.mangsa_rumah ? this.mangsa_rumah.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaRumahForEditDto */
 export interface IGetMangsaRumahForEditDto {
     mangsa_rumah: CreateOrEditMangsaRumahDto;
 }
 
-/** Class GetMangsaRumahForViewDto */
 export class GetMangsaRumahForViewDto implements IGetMangsaRumahForViewDto {
     id!: number;
     id_bencana!: number;
@@ -27579,11 +27427,10 @@ export class GetMangsaRumahForViewDto implements IGetMangsaRumahForViewDto {
         data["nama_bantuan"] = this.nama_bantuan;
         data["kos_anggaran"] = this.kos_anggaran;
         data["kos_sebenar"] = this.kos_sebenar;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaRumahForViewDto */
 export interface IGetMangsaRumahForViewDto {
     id: number;
     id_bencana: number;
@@ -27660,7 +27507,7 @@ export class PagedResultDtoOfMangsaRumahForViewDto implements IPagedResultDtoOfM
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -27672,7 +27519,6 @@ export interface IPagedResultDtoOfMangsaRumahForViewDto {
     items: GetMangsaRumahForViewDto[];
 }
 
-/** Class CreateMultipleMangsaWangIhsanDto */
 export class CreateMultipleMangsaWangIhsanDto implements ICreateMultipleMangsaWangIhsanDto {
     id_bencana!: number;
     id_agensi_bantuan!: number;
@@ -27716,11 +27562,10 @@ export class CreateMultipleMangsaWangIhsanDto implements ICreateMultipleMangsaWa
         data["status_mangsa_wang_ihsan"] = this.status_mangsa_wang_ihsan;
         data["jumlah"] = this.jumlah;
         data["id_jenis_bwi"] = this.id_jenis_bwi;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateMultipleMangsaWangIhsanDto */
 export interface ICreateMultipleMangsaWangIhsanDto {
     id_bencana: number;
     id_agensi_bantuan: number;
@@ -27730,7 +27575,6 @@ export interface ICreateMultipleMangsaWangIhsanDto {
     id_jenis_bwi: number;
 }
 
-/** Class CreateOrEditMangsaWangIhsanDto */
 export class CreateOrEditMangsaWangIhsanDto implements ICreateOrEditMangsaWangIhsanDto {
     id!: number;
     id_bencana!: number;
@@ -27804,11 +27648,10 @@ export class CreateOrEditMangsaWangIhsanDto implements ICreateOrEditMangsaWangIh
         data["id_jenis_bwi"] = this.id_jenis_bwi;
         data["nama_bencana"] = this.nama_bencana;
         data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditMangsaWangIhsanDto */
 export interface ICreateOrEditMangsaWangIhsanDto {
     id: number;
     id_bencana: number;
@@ -27828,7 +27671,6 @@ export interface ICreateOrEditMangsaWangIhsanDto {
     tarikh_bencana: moment.Moment;
 }
 
-/** Class GetMangsaWangIhsanForEditDto */
 export class GetMangsaWangIhsanForEditDto implements IGetMangsaWangIhsanForEditDto {
     mangsa_wang_ihsan!: CreateOrEditMangsaWangIhsanDto;
 
@@ -27857,16 +27699,14 @@ export class GetMangsaWangIhsanForEditDto implements IGetMangsaWangIhsanForEditD
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["mangsa_wang_ihsan"] = this.mangsa_wang_ihsan ? this.mangsa_wang_ihsan.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaWangIhsanForEditDto */
 export interface IGetMangsaWangIhsanForEditDto {
     mangsa_wang_ihsan: CreateOrEditMangsaWangIhsanDto;
 }
 
-/** Class GetMangsaWangIhsanForViewDto */
 export class GetMangsaWangIhsanForViewDto implements IGetMangsaWangIhsanForViewDto {
     id!: number;
     id_bencana!: number;
@@ -27961,11 +27801,10 @@ export class GetMangsaWangIhsanForViewDto implements IGetMangsaWangIhsanForViewD
         data["nama_negeri"] = this.nama_negeri;
         data["id_jenis_bwi"] = this.id_jenis_bwi;
         data["nama_jenis_bwi"] = this.nama_jenis_bwi;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaWangIhsanForViewDto */
 export interface IGetMangsaWangIhsanForViewDto {
     id: number;
     id_bencana: number;
@@ -27992,7 +27831,6 @@ export interface IGetMangsaWangIhsanForViewDto {
     nama_jenis_bwi: string;
 }
 
-/** Class InputCreateMultipleWangIhsanDto */
 export class InputCreateMultipleWangIhsanDto implements IInputCreateMultipleWangIhsanDto {
     mangsaBwi!: CreateMultipleMangsaWangIhsanDto;
     /** Id Mangsa in array of integer */
@@ -28033,18 +27871,16 @@ export class InputCreateMultipleWangIhsanDto implements IInputCreateMultipleWang
             for (let item of this.id_mangsa)
                 data["id_mangsa"].push(item);
         }
-        return data;
+        return data; 
     }
 }
 
-/** Class InputCreateMultipleWangIhsanDto */
 export interface IInputCreateMultipleWangIhsanDto {
     mangsaBwi: CreateMultipleMangsaWangIhsanDto;
     /** Id Mangsa in array of integer */
     id_mangsa: number[];
 }
 
-/** Class InputTotalWangIhsanDto */
 export class InputTotalWangIhsanDto implements IInputTotalWangIhsanDto {
     jumlah_belum_dibayar!: number;
     bil_belum_dibayar!: number;
@@ -28088,11 +27924,10 @@ export class InputTotalWangIhsanDto implements IInputTotalWangIhsanDto {
         data["bil_dibayar"] = this.bil_dibayar;
         data["jumlah_dipulangkan"] = this.jumlah_dipulangkan;
         data["bil_dipulangkan"] = this.bil_dipulangkan;
-        return data;
+        return data; 
     }
 }
 
-/** Class InputTotalWangIhsanDto */
 export interface IInputTotalWangIhsanDto {
     jumlah_belum_dibayar: number;
     bil_belum_dibayar: number;
@@ -28144,7 +27979,7 @@ export class PagedResultDtoOfMangsaWangIhsanForViewDto implements IPagedResultDt
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -28156,7 +27991,6 @@ export interface IPagedResultDtoOfMangsaWangIhsanForViewDto {
     items: GetMangsaWangIhsanForViewDto[];
 }
 
-/** Class CreateOrEditMangsaDto */
 export class CreateOrEditMangsaDto implements ICreateOrEditMangsaDto {
     id!: number;
     nama!: string;
@@ -28248,11 +28082,10 @@ export class CreateOrEditMangsaDto implements ICreateOrEditMangsaDto {
         data["gambar"] = this.gambar;
         data["nama_bantuan"] = this.nama_bantuan;
         data["tarikh_bantuan"] = this.tarikh_bantuan ? this.tarikh_bantuan.toISOString() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditMangsaDto */
 export interface ICreateOrEditMangsaDto {
     id: number;
     nama: string;
@@ -28278,7 +28111,6 @@ export interface ICreateOrEditMangsaDto {
     tarikh_bantuan: moment.Moment;
 }
 
-/** Class GetMangsaForEditDto */
 export class GetMangsaForEditDto implements IGetMangsaForEditDto {
     mangsa!: CreateOrEditMangsaDto;
 
@@ -28307,16 +28139,14 @@ export class GetMangsaForEditDto implements IGetMangsaForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["mangsa"] = this.mangsa ? this.mangsa.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaForEditDto */
 export interface IGetMangsaForEditDto {
     mangsa: CreateOrEditMangsaDto;
 }
 
-/** Class GetMangsaForViewDto */
 export class GetMangsaForViewDto implements IGetMangsaForViewDto {
     id!: number;
     nama!: string;
@@ -28366,11 +28196,10 @@ export class GetMangsaForViewDto implements IGetMangsaForViewDto {
         data["status_verifikasi"] = this.status_verifikasi;
         data["isi_rumah"] = this.isi_rumah;
         data["jumlah_bantuan"] = this.jumlah_bantuan;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetMangsaForViewDto */
 export interface IGetMangsaForViewDto {
     id: number;
     nama: string;
@@ -28382,7 +28211,6 @@ export interface IGetMangsaForViewDto {
     jumlah_bantuan: string;
 }
 
-/** Class InputBencanaMangsaDto */
 export class InputBencanaMangsaDto implements IInputBencanaMangsaDto {
     id!: number;
     id_bencana!: number;
@@ -28447,11 +28275,10 @@ export class InputBencanaMangsaDto implements IInputBencanaMangsaDto {
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
         data["id_agensi"] = this.id_agensi;
         data["sebab_hapus"] = this.sebab_hapus;
-        return data;
+        return data; 
     }
 }
 
-/** Class InputBencanaMangsaDto */
 export interface IInputBencanaMangsaDto {
     id: number;
     id_bencana: number;
@@ -28468,7 +28295,6 @@ export interface IInputBencanaMangsaDto {
     sebab_hapus: string;
 }
 
-/** Class InputCreateMangsaDto */
 export class InputCreateMangsaDto implements IInputCreateMangsaDto {
     mangsa!: CreateOrEditMangsaDto;
     bencana!: InputBencanaMangsaDto;
@@ -28500,17 +28326,15 @@ export class InputCreateMangsaDto implements IInputCreateMangsaDto {
         data = typeof data === 'object' ? data : {};
         data["mangsa"] = this.mangsa ? this.mangsa.toJSON() : <any>undefined;
         data["bencana"] = this.bencana ? this.bencana.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class InputCreateMangsaDto */
 export interface IInputCreateMangsaDto {
     mangsa: CreateOrEditMangsaDto;
     bencana: InputBencanaMangsaDto;
 }
 
-/** Class OutputGambarProfilMangsaDto */
 export class OutputGambarProfilMangsaDto implements IOutputGambarProfilMangsaDto {
     url!: string;
 
@@ -28539,11 +28363,10 @@ export class OutputGambarProfilMangsaDto implements IOutputGambarProfilMangsaDto
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["url"] = this.url;
-        return data;
+        return data; 
     }
 }
 
-/** Class OutputGambarProfilMangsaDto */
 export interface IOutputGambarProfilMangsaDto {
     url: string;
 }
@@ -28590,7 +28413,7 @@ export class PagedResultDtoOfMangsaForViewDto implements IPagedResultDtoOfMangsa
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -28602,7 +28425,6 @@ export interface IPagedResultDtoOfMangsaForViewDto {
     items: GetMangsaForViewDto[];
 }
 
-/** Class CreateOrEditRefAgamaDto */
 export class CreateOrEditRefAgamaDto implements ICreateOrEditRefAgamaDto {
     id!: number;
     nama_agama!: string;
@@ -28637,18 +28459,16 @@ export class CreateOrEditRefAgamaDto implements ICreateOrEditRefAgamaDto {
         data["id"] = this.id;
         data["nama_agama"] = this.nama_agama;
         data["status_agama"] = this.status_agama;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefAgamaDto */
 export interface ICreateOrEditRefAgamaDto {
     id: number;
     nama_agama: string;
     status_agama: number;
 }
 
-/** Class GetRefAgamaForEditDto */
 export class GetRefAgamaForEditDto implements IGetRefAgamaForEditDto {
     ref_agama!: CreateOrEditRefAgamaDto;
 
@@ -28677,11 +28497,10 @@ export class GetRefAgamaForEditDto implements IGetRefAgamaForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_agama"] = this.ref_agama ? this.ref_agama.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefAgamaForEditDto */
 export interface IGetRefAgamaForEditDto {
     ref_agama: CreateOrEditRefAgamaDto;
 }
@@ -28724,7 +28543,7 @@ export class GetRefAgamaForListDto implements IGetRefAgamaForListDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -28734,7 +28553,6 @@ export interface IGetRefAgamaForListDto {
     items: RefAgamaDto[];
 }
 
-/** Class GetRefAgamaForViewDto */
 export class GetRefAgamaForViewDto implements IGetRefAgamaForViewDto {
     id!: number;
     nama_agama!: string;
@@ -28769,11 +28587,10 @@ export class GetRefAgamaForViewDto implements IGetRefAgamaForViewDto {
         data["id"] = this.id;
         data["nama_agama"] = this.nama_agama;
         data["status_agama"] = this.status_agama;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefAgamaForViewDto */
 export interface IGetRefAgamaForViewDto {
     id: number;
     nama_agama: string;
@@ -28822,7 +28639,7 @@ export class PagedResultDtoOfRefAgamaForViewDto implements IPagedResultDtoOfRefA
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -28834,7 +28651,6 @@ export interface IPagedResultDtoOfRefAgamaForViewDto {
     items: GetRefAgamaForViewDto[];
 }
 
-/** Class RefAgamaDto */
 export class RefAgamaDto implements IRefAgamaDto {
     id!: number;
     nama_agama!: string;
@@ -28869,18 +28685,16 @@ export class RefAgamaDto implements IRefAgamaDto {
         data["id"] = this.id;
         data["nama_agama"] = this.nama_agama;
         data["status_agama"] = this.status_agama;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefAgamaDto */
 export interface IRefAgamaDto {
     id: number;
     nama_agama: string;
     status_agama: number;
 }
 
-/** Class CreateOrEditRefAgensiDto */
 export class CreateOrEditRefAgensiDto implements ICreateOrEditRefAgensiDto {
     id!: number;
     id_kementerian!: number;
@@ -28930,11 +28744,10 @@ export class CreateOrEditRefAgensiDto implements ICreateOrEditRefAgensiDto {
         data["pemberi_pinjaman"] = this.pemberi_pinjaman;
         data["pengguna_sistem"] = this.pengguna_sistem;
         data["status_agensi"] = this.status_agensi;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefAgensiDto */
 export interface ICreateOrEditRefAgensiDto {
     id: number;
     id_kementerian: number;
@@ -28946,7 +28759,6 @@ export interface ICreateOrEditRefAgensiDto {
     status_agensi: number;
 }
 
-/** Class GetRefAgensiForEditDto */
 export class GetRefAgensiForEditDto implements IGetRefAgensiForEditDto {
     ref_agensi!: CreateOrEditRefAgensiDto;
 
@@ -28975,11 +28787,10 @@ export class GetRefAgensiForEditDto implements IGetRefAgensiForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_agensi"] = this.ref_agensi ? this.ref_agensi.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefAgensiForEditDto */
 export interface IGetRefAgensiForEditDto {
     ref_agensi: CreateOrEditRefAgensiDto;
 }
@@ -29022,7 +28833,7 @@ export class GetRefAgensiForListDto implements IGetRefAgensiForListDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -29032,7 +28843,6 @@ export interface IGetRefAgensiForListDto {
     items: RefAgensiDto[];
 }
 
-/** Class GetRefAgensiForViewDto */
 export class GetRefAgensiForViewDto implements IGetRefAgensiForViewDto {
     id!: number;
     id_kementerian!: number;
@@ -29085,11 +28895,10 @@ export class GetRefAgensiForViewDto implements IGetRefAgensiForViewDto {
         data["pengguna_sistem"] = this.pengguna_sistem;
         data["status_agensi"] = this.status_agensi;
         data["nama_kementerian"] = this.nama_kementerian;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefAgensiForViewDto */
 export interface IGetRefAgensiForViewDto {
     id: number;
     id_kementerian: number;
@@ -29144,7 +28953,7 @@ export class PagedResultDtoOfRefAgensiForViewDto implements IPagedResultDtoOfRef
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -29156,7 +28965,6 @@ export interface IPagedResultDtoOfRefAgensiForViewDto {
     items: GetRefAgensiForViewDto[];
 }
 
-/** Class RefAgensiDto */
 export class RefAgensiDto implements IRefAgensiDto {
     id!: number;
     id_kementerian!: number;
@@ -29206,11 +29014,10 @@ export class RefAgensiDto implements IRefAgensiDto {
         data["pemberi_pinjaman"] = this.pemberi_pinjaman;
         data["pengguna_sistem"] = this.pengguna_sistem;
         data["status_agensi"] = this.status_agensi;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefAgensiDto */
 export interface IRefAgensiDto {
     id: number;
     id_kementerian: number;
@@ -29222,7 +29029,6 @@ export interface IRefAgensiDto {
     status_agensi: number;
 }
 
-/** Class CreateOrEditRefBantuanDto */
 export class CreateOrEditRefBantuanDto implements ICreateOrEditRefBantuanDto {
     id!: number;
     nama_bantuan!: string;
@@ -29257,18 +29063,16 @@ export class CreateOrEditRefBantuanDto implements ICreateOrEditRefBantuanDto {
         data["id"] = this.id;
         data["nama_bantuan"] = this.nama_bantuan;
         data["status_bantuan"] = this.status_bantuan;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefBantuanDto */
 export interface ICreateOrEditRefBantuanDto {
     id: number;
     nama_bantuan: string;
     status_bantuan: number;
 }
 
-/** Class GetRefBantuanForEditDto */
 export class GetRefBantuanForEditDto implements IGetRefBantuanForEditDto {
     ref_bantuan!: CreateOrEditRefBantuanDto;
 
@@ -29297,11 +29101,10 @@ export class GetRefBantuanForEditDto implements IGetRefBantuanForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_bantuan"] = this.ref_bantuan ? this.ref_bantuan.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefBantuanForEditDto */
 export interface IGetRefBantuanForEditDto {
     ref_bantuan: CreateOrEditRefBantuanDto;
 }
@@ -29344,7 +29147,7 @@ export class GetRefBantuanForListDto implements IGetRefBantuanForListDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -29354,7 +29157,6 @@ export interface IGetRefBantuanForListDto {
     items: RefBantuanDto[];
 }
 
-/** Class GetRefBantuanForViewDto */
 export class GetRefBantuanForViewDto implements IGetRefBantuanForViewDto {
     id!: number;
     nama_bantuan!: string;
@@ -29389,11 +29191,10 @@ export class GetRefBantuanForViewDto implements IGetRefBantuanForViewDto {
         data["id"] = this.id;
         data["nama_bantuan"] = this.nama_bantuan;
         data["status_bantuan"] = this.status_bantuan;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefBantuanForViewDto */
 export interface IGetRefBantuanForViewDto {
     id: number;
     nama_bantuan: string;
@@ -29442,7 +29243,7 @@ export class PagedResultDtoOfRefBantuanForViewDto implements IPagedResultDtoOfRe
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -29454,7 +29255,6 @@ export interface IPagedResultDtoOfRefBantuanForViewDto {
     items: GetRefBantuanForViewDto[];
 }
 
-/** Class RefBantuanDto */
 export class RefBantuanDto implements IRefBantuanDto {
     id!: number;
     nama_bantuan!: string;
@@ -29489,18 +29289,16 @@ export class RefBantuanDto implements IRefBantuanDto {
         data["id"] = this.id;
         data["nama_bantuan"] = this.nama_bantuan;
         data["status_bantuan"] = this.status_bantuan;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefBantuanDto */
 export interface IRefBantuanDto {
     id: number;
     nama_bantuan: string;
     status_bantuan: number;
 }
 
-/** Class CreateOrEditRefBencanaNegeriDto */
 export class CreateOrEditRefBencanaNegeriDto implements ICreateOrEditRefBencanaNegeriDto {
     id!: number;
     id_bencana!: number;
@@ -29550,11 +29348,10 @@ export class CreateOrEditRefBencanaNegeriDto implements ICreateOrEditRefBencanaN
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefBencanaNegeriDto */
 export interface ICreateOrEditRefBencanaNegeriDto {
     id: number;
     id_bencana: number;
@@ -29566,7 +29363,6 @@ export interface ICreateOrEditRefBencanaNegeriDto {
     id_pengguna_kemaskini: number;
 }
 
-/** Class GetRefBencanaNegeriForEditDto */
 export class GetRefBencanaNegeriForEditDto implements IGetRefBencanaNegeriForEditDto {
     ref_bencana_negeri!: CreateOrEditRefBencanaNegeriDto;
 
@@ -29595,11 +29391,10 @@ export class GetRefBencanaNegeriForEditDto implements IGetRefBencanaNegeriForEdi
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_bencana_negeri"] = this.ref_bencana_negeri ? this.ref_bencana_negeri.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefBencanaNegeriForEditDto */
 export interface IGetRefBencanaNegeriForEditDto {
     ref_bencana_negeri: CreateOrEditRefBencanaNegeriDto;
 }
@@ -29642,7 +29437,7 @@ export class GetRefBencanaNegeriForListByBencanaDto implements IGetRefBencanaNeg
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -29690,7 +29485,7 @@ export class GetRefBencanaNegeriForListDto implements IGetRefBencanaNegeriForLis
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -29700,7 +29495,6 @@ export interface IGetRefBencanaNegeriForListDto {
     items: RefBencanaNegeriDto[];
 }
 
-/** Class GetRefBencanaNegeriForViewDto */
 export class GetRefBencanaNegeriForViewDto implements IGetRefBencanaNegeriForViewDto {
     id!: number;
     id_bencana!: number;
@@ -29750,11 +29544,10 @@ export class GetRefBencanaNegeriForViewDto implements IGetRefBencanaNegeriForVie
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefBencanaNegeriForViewDto */
 export interface IGetRefBencanaNegeriForViewDto {
     id: number;
     id_bencana: number;
@@ -29808,7 +29601,7 @@ export class PagedResultDtoOfRefBencanaNegeriForViewDto implements IPagedResultD
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -29820,7 +29613,6 @@ export interface IPagedResultDtoOfRefBencanaNegeriForViewDto {
     items: GetRefBencanaNegeriForViewDto[];
 }
 
-/** Class RefBencanaNegeriByBencanaDto */
 export class RefBencanaNegeriByBencanaDto implements IRefBencanaNegeriByBencanaDto {
     id_negeri!: number;
     nama_negeri!: string;
@@ -29852,17 +29644,15 @@ export class RefBencanaNegeriByBencanaDto implements IRefBencanaNegeriByBencanaD
         data = typeof data === 'object' ? data : {};
         data["id_negeri"] = this.id_negeri;
         data["nama_negeri"] = this.nama_negeri;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefBencanaNegeriByBencanaDto */
 export interface IRefBencanaNegeriByBencanaDto {
     id_negeri: number;
     nama_negeri: string;
 }
 
-/** Class RefBencanaNegeriDto */
 export class RefBencanaNegeriDto implements IRefBencanaNegeriDto {
     id!: number;
     id_bencana!: number;
@@ -29912,11 +29702,10 @@ export class RefBencanaNegeriDto implements IRefBencanaNegeriDto {
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefBencanaNegeriDto */
 export interface IRefBencanaNegeriDto {
     id: number;
     id_bencana: number;
@@ -29928,7 +29717,6 @@ export interface IRefBencanaNegeriDto {
     id_pengguna_kemaskini: number;
 }
 
-/** Class CreateOrEditRefBencanaDto */
 export class CreateOrEditRefBencanaDto implements ICreateOrEditRefBencanaDto {
     id!: number;
     tarikh_bencana!: moment.Moment;
@@ -29978,11 +29766,10 @@ export class CreateOrEditRefBencanaDto implements ICreateOrEditRefBencanaDto {
         data["id_negeri"] = this.id_negeri;
         data["catatan"] = this.catatan;
         data["status_bencana"] = this.status_bencana;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefBencanaDto */
 export interface ICreateOrEditRefBencanaDto {
     id: number;
     tarikh_bencana: moment.Moment;
@@ -29994,7 +29781,6 @@ export interface ICreateOrEditRefBencanaDto {
     status_bencana: number;
 }
 
-/** Class GetListBencanaNegeriForViewDto */
 export class GetListBencanaNegeriForViewDto implements IGetListBencanaNegeriForViewDto {
     bencana!: GetRefBencanaForViewDto;
     /** Id Negeri in array of integer */
@@ -30035,18 +29821,16 @@ export class GetListBencanaNegeriForViewDto implements IGetListBencanaNegeriForV
             for (let item of this.bencanaNegeri)
                 data["bencanaNegeri"].push(item);
         }
-        return data;
+        return data; 
     }
 }
 
-/** Class GetListBencanaNegeriForViewDto */
 export interface IGetListBencanaNegeriForViewDto {
     bencana: GetRefBencanaForViewDto;
     /** Id Negeri in array of integer */
     bencanaNegeri: string[];
 }
 
-/** Class GetRefBencanaForEditDto */
 export class GetRefBencanaForEditDto implements IGetRefBencanaForEditDto {
     ref_bencana!: CreateOrEditRefBencanaDto;
     /** Id Negeri in array of integer */
@@ -30087,11 +29871,10 @@ export class GetRefBencanaForEditDto implements IGetRefBencanaForEditDto {
             for (let item of this.bencanaNegeri)
                 data["bencanaNegeri"].push(item);
         }
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefBencanaForEditDto */
 export interface IGetRefBencanaForEditDto {
     ref_bencana: CreateOrEditRefBencanaDto;
     /** Id Negeri in array of integer */
@@ -30136,7 +29919,7 @@ export class GetRefBencanaForListDto implements IGetRefBencanaForListDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -30146,7 +29929,6 @@ export interface IGetRefBencanaForListDto {
     items: RefBencanaDto[];
 }
 
-/** Class GetRefBencanaForViewDto */
 export class GetRefBencanaForViewDto implements IGetRefBencanaForViewDto {
     id!: number;
     no_rujukan_bencana!: string;
@@ -30202,11 +29984,10 @@ export class GetRefBencanaForViewDto implements IGetRefBencanaForViewDto {
         data["catatan"] = this.catatan;
         data["status_bencana"] = this.status_bencana;
         data["nama_jenis_bencana"] = this.nama_jenis_bencana;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefBencanaForViewDto */
 export interface IGetRefBencanaForViewDto {
     id: number;
     no_rujukan_bencana: string;
@@ -30220,7 +30001,6 @@ export interface IGetRefBencanaForViewDto {
     nama_jenis_bencana: string;
 }
 
-/** Class InputCreateBencanaDto */
 export class InputCreateBencanaDto implements IInputCreateBencanaDto {
     bencana!: CreateOrEditRefBencanaDto;
     /** Id Negeri in array of integer */
@@ -30261,18 +30041,16 @@ export class InputCreateBencanaDto implements IInputCreateBencanaDto {
             for (let item of this.id_negeri)
                 data["id_negeri"].push(item);
         }
-        return data;
+        return data; 
     }
 }
 
-/** Class InputCreateBencanaDto */
 export interface IInputCreateBencanaDto {
     bencana: CreateOrEditRefBencanaDto;
     /** Id Negeri in array of integer */
     id_negeri: number[];
 }
 
-/** Class OutputCreateBencanaDto */
 export class OutputCreateBencanaDto implements IOutputCreateBencanaDto {
     message!: string;
 
@@ -30301,11 +30079,10 @@ export class OutputCreateBencanaDto implements IOutputCreateBencanaDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["message"] = this.message;
-        return data;
+        return data; 
     }
 }
 
-/** Class OutputCreateBencanaDto */
 export interface IOutputCreateBencanaDto {
     message: string;
 }
@@ -30352,7 +30129,7 @@ export class PagedResultDtoOfRefBencanaForViewDto implements IPagedResultDtoOfRe
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -30364,7 +30141,6 @@ export interface IPagedResultDtoOfRefBencanaForViewDto {
     items: GetListBencanaNegeriForViewDto[];
 }
 
-/** Class RefBencanaDto */
 export class RefBencanaDto implements IRefBencanaDto {
     id!: number;
     tarikh_bencana!: moment.Moment;
@@ -30414,11 +30190,10 @@ export class RefBencanaDto implements IRefBencanaDto {
         data["id_negeri"] = this.id_negeri;
         data["catatan"] = this.catatan;
         data["status_bencana"] = this.status_bencana;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefBencanaDto */
 export interface IRefBencanaDto {
     id: number;
     tarikh_bencana: moment.Moment;
@@ -30430,7 +30205,6 @@ export interface IRefBencanaDto {
     status_bencana: number;
 }
 
-/** Class CreateOrEditRefDaerahDto */
 export class CreateOrEditRefDaerahDto implements ICreateOrEditRefDaerahDto {
     id!: number;
     id_negeri!: number;
@@ -30468,11 +30242,10 @@ export class CreateOrEditRefDaerahDto implements ICreateOrEditRefDaerahDto {
         data["id_negeri"] = this.id_negeri;
         data["nama_daerah"] = this.nama_daerah;
         data["status_daerah"] = this.status_daerah;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefDaerahDto */
 export interface ICreateOrEditRefDaerahDto {
     id: number;
     id_negeri: number;
@@ -30480,7 +30253,6 @@ export interface ICreateOrEditRefDaerahDto {
     status_daerah: number;
 }
 
-/** Class GetRefDaerahForEditDto */
 export class GetRefDaerahForEditDto implements IGetRefDaerahForEditDto {
     ref_daerah!: CreateOrEditRefDaerahDto;
 
@@ -30509,11 +30281,10 @@ export class GetRefDaerahForEditDto implements IGetRefDaerahForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_daerah"] = this.ref_daerah ? this.ref_daerah.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefDaerahForEditDto */
 export interface IGetRefDaerahForEditDto {
     ref_daerah: CreateOrEditRefDaerahDto;
 }
@@ -30556,7 +30327,7 @@ export class GetRefDaerahForListDto implements IGetRefDaerahForListDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -30566,7 +30337,6 @@ export interface IGetRefDaerahForListDto {
     items: RefDaerahDto[];
 }
 
-/** Class GetRefDaerahForViewDto */
 export class GetRefDaerahForViewDto implements IGetRefDaerahForViewDto {
     id!: number;
     id_negeri!: number;
@@ -30607,11 +30377,10 @@ export class GetRefDaerahForViewDto implements IGetRefDaerahForViewDto {
         data["nama_daerah"] = this.nama_daerah;
         data["status_daerah"] = this.status_daerah;
         data["nama_negeri"] = this.nama_negeri;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefDaerahForViewDto */
 export interface IGetRefDaerahForViewDto {
     id: number;
     id_negeri: number;
@@ -30662,7 +30431,7 @@ export class PagedResultDtoOfRefDaerahForViewDto implements IPagedResultDtoOfRef
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -30674,7 +30443,6 @@ export interface IPagedResultDtoOfRefDaerahForViewDto {
     items: GetRefDaerahForViewDto[];
 }
 
-/** Class RefDaerahDto */
 export class RefDaerahDto implements IRefDaerahDto {
     id!: number;
     id_negeri!: number;
@@ -30712,11 +30480,10 @@ export class RefDaerahDto implements IRefDaerahDto {
         data["id_negeri"] = this.id_negeri;
         data["nama_daerah"] = this.nama_daerah;
         data["status_daerah"] = this.status_daerah;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefDaerahDto */
 export interface IRefDaerahDto {
     id: number;
     id_negeri: number;
@@ -30724,7 +30491,6 @@ export interface IRefDaerahDto {
     status_daerah: number;
 }
 
-/** Class CreateOrEditRefDunDto */
 export class CreateOrEditRefDunDto implements ICreateOrEditRefDunDto {
     id!: number;
     id_negeri!: number;
@@ -30768,11 +30534,10 @@ export class CreateOrEditRefDunDto implements ICreateOrEditRefDunDto {
         data["kod_dun"] = this.kod_dun;
         data["nama_dun"] = this.nama_dun;
         data["status_dun"] = this.status_dun;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefDunDto */
 export interface ICreateOrEditRefDunDto {
     id: number;
     id_negeri: number;
@@ -30782,7 +30547,6 @@ export interface ICreateOrEditRefDunDto {
     status_dun: number;
 }
 
-/** Class GetRefDunForEditDto */
 export class GetRefDunForEditDto implements IGetRefDunForEditDto {
     ref_dun!: CreateOrEditRefDunDto;
 
@@ -30811,11 +30575,10 @@ export class GetRefDunForEditDto implements IGetRefDunForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_dun"] = this.ref_dun ? this.ref_dun.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefDunForEditDto */
 export interface IGetRefDunForEditDto {
     ref_dun: CreateOrEditRefDunDto;
 }
@@ -30858,7 +30621,7 @@ export class GetRefDunForListDto implements IGetRefDunForListDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -30868,7 +30631,6 @@ export interface IGetRefDunForListDto {
     items: RefDunDto[];
 }
 
-/** Class GetRefDunForViewDto */
 export class GetRefDunForViewDto implements IGetRefDunForViewDto {
     id!: number;
     id_negeri!: number;
@@ -30918,11 +30680,10 @@ export class GetRefDunForViewDto implements IGetRefDunForViewDto {
         data["status_dun"] = this.status_dun;
         data["nama_negeri"] = this.nama_negeri;
         data["nama_parlimen"] = this.nama_parlimen;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefDunForViewDto */
 export interface IGetRefDunForViewDto {
     id: number;
     id_negeri: number;
@@ -30976,7 +30737,7 @@ export class PagedResultDtoOfRefDunForViewDto implements IPagedResultDtoOfRefDun
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -30988,7 +30749,6 @@ export interface IPagedResultDtoOfRefDunForViewDto {
     items: GetRefDunForViewDto[];
 }
 
-/** Class RefDunDto */
 export class RefDunDto implements IRefDunDto {
     id!: number;
     id_negeri!: number;
@@ -31032,11 +30792,10 @@ export class RefDunDto implements IRefDunDto {
         data["kod_dun"] = this.kod_dun;
         data["nama_dun"] = this.nama_dun;
         data["status_dun"] = this.status_dun;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefDunDto */
 export interface IRefDunDto {
     id: number;
     id_negeri: number;
@@ -31046,7 +30805,6 @@ export interface IRefDunDto {
     status_dun: number;
 }
 
-/** Class CreateOrEditRefHubunganDto */
 export class CreateOrEditRefHubunganDto implements ICreateOrEditRefHubunganDto {
     id!: number;
     nama_hubungan!: string;
@@ -31081,18 +30839,16 @@ export class CreateOrEditRefHubunganDto implements ICreateOrEditRefHubunganDto {
         data["id"] = this.id;
         data["nama_hubungan"] = this.nama_hubungan;
         data["status_hubungan"] = this.status_hubungan;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefHubunganDto */
 export interface ICreateOrEditRefHubunganDto {
     id: number;
     nama_hubungan: string;
     status_hubungan: number;
 }
 
-/** Class GetRefHubunganForEditDto */
 export class GetRefHubunganForEditDto implements IGetRefHubunganForEditDto {
     ref_hubungan!: CreateOrEditRefHubunganDto;
 
@@ -31121,11 +30877,10 @@ export class GetRefHubunganForEditDto implements IGetRefHubunganForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_hubungan"] = this.ref_hubungan ? this.ref_hubungan.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefHubunganForEditDto */
 export interface IGetRefHubunganForEditDto {
     ref_hubungan: CreateOrEditRefHubunganDto;
 }
@@ -31168,7 +30923,7 @@ export class GetRefHubunganForListDto implements IGetRefHubunganForListDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -31178,7 +30933,6 @@ export interface IGetRefHubunganForListDto {
     items: RefHubunganDto[];
 }
 
-/** Class GetRefHubunganForViewDto */
 export class GetRefHubunganForViewDto implements IGetRefHubunganForViewDto {
     id!: number;
     nama_hubungan!: string;
@@ -31213,11 +30967,10 @@ export class GetRefHubunganForViewDto implements IGetRefHubunganForViewDto {
         data["id"] = this.id;
         data["nama_hubungan"] = this.nama_hubungan;
         data["status_hubungan"] = this.status_hubungan;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefHubunganForViewDto */
 export interface IGetRefHubunganForViewDto {
     id: number;
     nama_hubungan: string;
@@ -31266,7 +31019,7 @@ export class PagedResultDtoOfRefHubunganForViewDto implements IPagedResultDtoOfR
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -31278,7 +31031,6 @@ export interface IPagedResultDtoOfRefHubunganForViewDto {
     items: GetRefHubunganForViewDto[];
 }
 
-/** Class RefHubunganDto */
 export class RefHubunganDto implements IRefHubunganDto {
     id!: number;
     nama_hubungan!: string;
@@ -31313,18 +31065,16 @@ export class RefHubunganDto implements IRefHubunganDto {
         data["id"] = this.id;
         data["nama_hubungan"] = this.nama_hubungan;
         data["status_hubungan"] = this.status_hubungan;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefHubunganDto */
 export interface IRefHubunganDto {
     id: number;
     nama_hubungan: string;
     status_hubungan: number;
 }
 
-/** Class CreateOrEditRefJenisBayaranDto */
 export class CreateOrEditRefJenisBayaranDto implements ICreateOrEditRefJenisBayaranDto {
     id!: number;
     nama_jenis_bayaran!: string;
@@ -31359,18 +31109,16 @@ export class CreateOrEditRefJenisBayaranDto implements ICreateOrEditRefJenisBaya
         data["id"] = this.id;
         data["nama_jenis_bayaran"] = this.nama_jenis_bayaran;
         data["status_jenis_bayaran"] = this.status_jenis_bayaran;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefJenisBayaranDto */
 export interface ICreateOrEditRefJenisBayaranDto {
     id: number;
     nama_jenis_bayaran: string;
     status_jenis_bayaran: number;
 }
 
-/** Class GetRefJenisBayaranForEditDto */
 export class GetRefJenisBayaranForEditDto implements IGetRefJenisBayaranForEditDto {
     ref_jenis_bayaran!: CreateOrEditRefJenisBayaranDto;
 
@@ -31399,11 +31147,10 @@ export class GetRefJenisBayaranForEditDto implements IGetRefJenisBayaranForEditD
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_jenis_bayaran"] = this.ref_jenis_bayaran ? this.ref_jenis_bayaran.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefJenisBayaranForEditDto */
 export interface IGetRefJenisBayaranForEditDto {
     ref_jenis_bayaran: CreateOrEditRefJenisBayaranDto;
 }
@@ -31446,7 +31193,7 @@ export class GetRefJenisBayaranForListDto implements IGetRefJenisBayaranForListD
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -31456,7 +31203,6 @@ export interface IGetRefJenisBayaranForListDto {
     items: RefJenisBayaranDto[];
 }
 
-/** Class GetRefJenisBayaranForViewDto */
 export class GetRefJenisBayaranForViewDto implements IGetRefJenisBayaranForViewDto {
     id!: number;
     nama_jenis_bayaran!: string;
@@ -31491,11 +31237,10 @@ export class GetRefJenisBayaranForViewDto implements IGetRefJenisBayaranForViewD
         data["id"] = this.id;
         data["nama_jenis_bayaran"] = this.nama_jenis_bayaran;
         data["status_jenis_bayaran"] = this.status_jenis_bayaran;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefJenisBayaranForViewDto */
 export interface IGetRefJenisBayaranForViewDto {
     id: number;
     nama_jenis_bayaran: string;
@@ -31544,7 +31289,7 @@ export class PagedResultDtoOfRefJenisBayaranForViewDto implements IPagedResultDt
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -31556,7 +31301,6 @@ export interface IPagedResultDtoOfRefJenisBayaranForViewDto {
     items: GetRefJenisBayaranForViewDto[];
 }
 
-/** Class RefJenisBayaranDto */
 export class RefJenisBayaranDto implements IRefJenisBayaranDto {
     id!: number;
     nama_jenis_bayaran!: string;
@@ -31591,18 +31335,16 @@ export class RefJenisBayaranDto implements IRefJenisBayaranDto {
         data["id"] = this.id;
         data["nama_jenis_bayaran"] = this.nama_jenis_bayaran;
         data["status_jenis_bayaran"] = this.status_jenis_bayaran;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefJenisBayaranDto */
 export interface IRefJenisBayaranDto {
     id: number;
     nama_jenis_bayaran: string;
     status_jenis_bayaran: number;
 }
 
-/** Class CreateOrEditRefJenisBencanaDto */
 export class CreateOrEditRefJenisBencanaDto implements ICreateOrEditRefJenisBencanaDto {
     id!: number;
     nama_jenis_bencana!: string;
@@ -31643,11 +31385,10 @@ export class CreateOrEditRefJenisBencanaDto implements ICreateOrEditRefJenisBenc
         data["catatan"] = this.catatan;
         data["status_bencana"] = this.status_bencana;
         data["id_pengguna"] = this.id_pengguna;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefJenisBencanaDto */
 export interface ICreateOrEditRefJenisBencanaDto {
     id: number;
     nama_jenis_bencana: string;
@@ -31656,7 +31397,6 @@ export interface ICreateOrEditRefJenisBencanaDto {
     id_pengguna: number;
 }
 
-/** Class GetRefJenisBencanaForEditDto */
 export class GetRefJenisBencanaForEditDto implements IGetRefJenisBencanaForEditDto {
     ref_jenis_bencana!: CreateOrEditRefJenisBencanaDto;
 
@@ -31685,11 +31425,10 @@ export class GetRefJenisBencanaForEditDto implements IGetRefJenisBencanaForEditD
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_jenis_bencana"] = this.ref_jenis_bencana ? this.ref_jenis_bencana.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefJenisBencanaForEditDto */
 export interface IGetRefJenisBencanaForEditDto {
     ref_jenis_bencana: CreateOrEditRefJenisBencanaDto;
 }
@@ -31732,7 +31471,7 @@ export class GetRefJenisBencanaForListDto implements IGetRefJenisBencanaForListD
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -31742,7 +31481,6 @@ export interface IGetRefJenisBencanaForListDto {
     items: RefJenisBencanaDto[];
 }
 
-/** Class GetRefJenisBencanaForViewDto */
 export class GetRefJenisBencanaForViewDto implements IGetRefJenisBencanaForViewDto {
     id!: number;
     nama_jenis_bencana!: string;
@@ -31783,11 +31521,10 @@ export class GetRefJenisBencanaForViewDto implements IGetRefJenisBencanaForViewD
         data["catatan"] = this.catatan;
         data["status_bencana"] = this.status_bencana;
         data["id_pengguna"] = this.id_pengguna;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefJenisBencanaForViewDto */
 export interface IGetRefJenisBencanaForViewDto {
     id: number;
     nama_jenis_bencana: string;
@@ -31838,7 +31575,7 @@ export class PagedResultDtoOfRefJenisBencanaForViewDto implements IPagedResultDt
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -31850,7 +31587,6 @@ export interface IPagedResultDtoOfRefJenisBencanaForViewDto {
     items: GetRefJenisBencanaForViewDto[];
 }
 
-/** Class RefJenisBencanaDto */
 export class RefJenisBencanaDto implements IRefJenisBencanaDto {
     id!: number;
     nama_jenis_bencana!: string;
@@ -31891,11 +31627,10 @@ export class RefJenisBencanaDto implements IRefJenisBencanaDto {
         data["catatan"] = this.catatan;
         data["status_bencana"] = this.status_bencana;
         data["id_pengguna"] = this.id_pengguna;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefJenisBencanaDto */
 export interface IRefJenisBencanaDto {
     id: number;
     nama_jenis_bencana: string;
@@ -31904,7 +31639,6 @@ export interface IRefJenisBencanaDto {
     id_pengguna: number;
 }
 
-/** Class CreateOrEditRefJenisBwiDto */
 export class CreateOrEditRefJenisBwiDto implements ICreateOrEditRefJenisBwiDto {
     id!: number;
     nama_jenis_bwi!: string;
@@ -31939,18 +31673,16 @@ export class CreateOrEditRefJenisBwiDto implements ICreateOrEditRefJenisBwiDto {
         data["id"] = this.id;
         data["nama_jenis_bwi"] = this.nama_jenis_bwi;
         data["status_jenis_bwi"] = this.status_jenis_bwi;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefJenisBwiDto */
 export interface ICreateOrEditRefJenisBwiDto {
     id: number;
     nama_jenis_bwi: string;
     status_jenis_bwi: number;
 }
 
-/** Class GetRefJenisBwiForEditDto */
 export class GetRefJenisBwiForEditDto implements IGetRefJenisBwiForEditDto {
     ref_jenis_bwi!: CreateOrEditRefJenisBwiDto;
 
@@ -31979,11 +31711,10 @@ export class GetRefJenisBwiForEditDto implements IGetRefJenisBwiForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_jenis_bwi"] = this.ref_jenis_bwi ? this.ref_jenis_bwi.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefJenisBwiForEditDto */
 export interface IGetRefJenisBwiForEditDto {
     ref_jenis_bwi: CreateOrEditRefJenisBwiDto;
 }
@@ -32026,7 +31757,7 @@ export class GetRefJenisBwiForListDto implements IGetRefJenisBwiForListDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -32036,7 +31767,6 @@ export interface IGetRefJenisBwiForListDto {
     items: RefJenisBwiDto[];
 }
 
-/** Class GetRefJenisBwiForViewDto */
 export class GetRefJenisBwiForViewDto implements IGetRefJenisBwiForViewDto {
     id!: number;
     nama_jenis_bwi!: string;
@@ -32071,11 +31801,10 @@ export class GetRefJenisBwiForViewDto implements IGetRefJenisBwiForViewDto {
         data["id"] = this.id;
         data["nama_jenis_bwi"] = this.nama_jenis_bwi;
         data["status_jenis_bwi"] = this.status_jenis_bwi;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefJenisBwiForViewDto */
 export interface IGetRefJenisBwiForViewDto {
     id: number;
     nama_jenis_bwi: string;
@@ -32124,7 +31853,7 @@ export class PagedResultDtoOfRefJenisBwiForViewDto implements IPagedResultDtoOfR
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -32136,7 +31865,6 @@ export interface IPagedResultDtoOfRefJenisBwiForViewDto {
     items: GetRefJenisBwiForViewDto[];
 }
 
-/** Class RefJenisBwiDto */
 export class RefJenisBwiDto implements IRefJenisBwiDto {
     id!: number;
     nama_jenis_bwi!: string;
@@ -32171,18 +31899,16 @@ export class RefJenisBwiDto implements IRefJenisBwiDto {
         data["id"] = this.id;
         data["nama_jenis_bwi"] = this.nama_jenis_bwi;
         data["status_jenis_bwi"] = this.status_jenis_bwi;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefJenisBwiDto */
 export interface IRefJenisBwiDto {
     id: number;
     nama_jenis_bwi: string;
     status_jenis_bwi: number;
 }
 
-/** Class CreateOrEditRefJenisPertanianDto */
 export class CreateOrEditRefJenisPertanianDto implements ICreateOrEditRefJenisPertanianDto {
     id!: number;
     nama_jenis_pertanian!: string;
@@ -32217,18 +31943,16 @@ export class CreateOrEditRefJenisPertanianDto implements ICreateOrEditRefJenisPe
         data["id"] = this.id;
         data["nama_jenis_pertanian"] = this.nama_jenis_pertanian;
         data["status_jenis_pertanian"] = this.status_jenis_pertanian;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefJenisPertanianDto */
 export interface ICreateOrEditRefJenisPertanianDto {
     id: number;
     nama_jenis_pertanian: string;
     status_jenis_pertanian: number;
 }
 
-/** Class GetRefJenisPertanianForEditDto */
 export class GetRefJenisPertanianForEditDto implements IGetRefJenisPertanianForEditDto {
     ref_jenis_pertanian!: CreateOrEditRefJenisPertanianDto;
 
@@ -32257,11 +31981,10 @@ export class GetRefJenisPertanianForEditDto implements IGetRefJenisPertanianForE
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_jenis_pertanian"] = this.ref_jenis_pertanian ? this.ref_jenis_pertanian.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefJenisPertanianForEditDto */
 export interface IGetRefJenisPertanianForEditDto {
     ref_jenis_pertanian: CreateOrEditRefJenisPertanianDto;
 }
@@ -32304,7 +32027,7 @@ export class GetRefJenisPertanianForListDto implements IGetRefJenisPertanianForL
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -32314,7 +32037,6 @@ export interface IGetRefJenisPertanianForListDto {
     items: RefJenisPertanianDto[];
 }
 
-/** Class GetRefJenisPertanianForViewDto */
 export class GetRefJenisPertanianForViewDto implements IGetRefJenisPertanianForViewDto {
     id!: number;
     nama_jenis_pertanian!: string;
@@ -32349,11 +32071,10 @@ export class GetRefJenisPertanianForViewDto implements IGetRefJenisPertanianForV
         data["id"] = this.id;
         data["nama_jenis_pertanian"] = this.nama_jenis_pertanian;
         data["status_jenis_pertanian"] = this.status_jenis_pertanian;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefJenisPertanianForViewDto */
 export interface IGetRefJenisPertanianForViewDto {
     id: number;
     nama_jenis_pertanian: string;
@@ -32402,7 +32123,7 @@ export class PagedResultDtoOfRefJenisPertanianForViewDto implements IPagedResult
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -32414,7 +32135,6 @@ export interface IPagedResultDtoOfRefJenisPertanianForViewDto {
     items: GetRefJenisPertanianForViewDto[];
 }
 
-/** Class RefJenisPertanianDto */
 export class RefJenisPertanianDto implements IRefJenisPertanianDto {
     id!: number;
     nama_jenis_pertanian!: string;
@@ -32449,18 +32169,16 @@ export class RefJenisPertanianDto implements IRefJenisPertanianDto {
         data["id"] = this.id;
         data["nama_jenis_pertanian"] = this.nama_jenis_pertanian;
         data["status_jenis_pertanian"] = this.status_jenis_pertanian;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefJenisPertanianDto */
 export interface IRefJenisPertanianDto {
     id: number;
     nama_jenis_pertanian: string;
     status_jenis_pertanian: number;
 }
 
-/** Class CreateOrEditRefJenisPeruntukanDto */
 export class CreateOrEditRefJenisPeruntukanDto implements ICreateOrEditRefJenisPeruntukanDto {
     id!: number;
     nama_jenis_peruntukan!: string;
@@ -32492,17 +32210,15 @@ export class CreateOrEditRefJenisPeruntukanDto implements ICreateOrEditRefJenisP
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["nama_jenis_peruntukan"] = this.nama_jenis_peruntukan;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefJenisPeruntukanDto */
 export interface ICreateOrEditRefJenisPeruntukanDto {
     id: number;
     nama_jenis_peruntukan: string;
 }
 
-/** Class GetRefJenisPeruntukanForEditDto */
 export class GetRefJenisPeruntukanForEditDto implements IGetRefJenisPeruntukanForEditDto {
     ref_jenis_peruntukan!: CreateOrEditRefJenisPeruntukanDto;
 
@@ -32531,11 +32247,10 @@ export class GetRefJenisPeruntukanForEditDto implements IGetRefJenisPeruntukanFo
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_jenis_peruntukan"] = this.ref_jenis_peruntukan ? this.ref_jenis_peruntukan.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefJenisPeruntukanForEditDto */
 export interface IGetRefJenisPeruntukanForEditDto {
     ref_jenis_peruntukan: CreateOrEditRefJenisPeruntukanDto;
 }
@@ -32578,7 +32293,7 @@ export class GetRefJenisPeruntukanForListDto implements IGetRefJenisPeruntukanFo
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -32588,7 +32303,6 @@ export interface IGetRefJenisPeruntukanForListDto {
     items: RefJenisPeruntukanDto[];
 }
 
-/** Class GetRefJenisPeruntukanForViewDto */
 export class GetRefJenisPeruntukanForViewDto implements IGetRefJenisPeruntukanForViewDto {
     id!: number;
     nama_jenis_peruntukan!: string;
@@ -32620,11 +32334,10 @@ export class GetRefJenisPeruntukanForViewDto implements IGetRefJenisPeruntukanFo
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["nama_jenis_peruntukan"] = this.nama_jenis_peruntukan;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefJenisPeruntukanForViewDto */
 export interface IGetRefJenisPeruntukanForViewDto {
     id: number;
     nama_jenis_peruntukan: string;
@@ -32672,7 +32385,7 @@ export class PagedResultDtoOfRefJenisPeruntukanForViewDto implements IPagedResul
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -32684,7 +32397,6 @@ export interface IPagedResultDtoOfRefJenisPeruntukanForViewDto {
     items: GetRefJenisPeruntukanForViewDto[];
 }
 
-/** Class RefJenisPeruntukanDto */
 export class RefJenisPeruntukanDto implements IRefJenisPeruntukanDto {
     id!: number;
     nama_jenis_peruntukan!: string;
@@ -32716,17 +32428,15 @@ export class RefJenisPeruntukanDto implements IRefJenisPeruntukanDto {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["nama_jenis_peruntukan"] = this.nama_jenis_peruntukan;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefJenisPeruntukanDto */
 export interface IRefJenisPeruntukanDto {
     id: number;
     nama_jenis_peruntukan: string;
 }
 
-/** Class CreateOrEditRefKadarBwiDto */
 export class CreateOrEditRefKadarBwiDto implements ICreateOrEditRefKadarBwiDto {
     id!: number;
     nilai!: number;
@@ -32767,11 +32477,10 @@ export class CreateOrEditRefKadarBwiDto implements ICreateOrEditRefKadarBwiDto {
         data["status_bencana_bwi"] = this.status_bencana_bwi;
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefKadarBwiDto */
 export interface ICreateOrEditRefKadarBwiDto {
     id: number;
     nilai: number;
@@ -32780,7 +32489,6 @@ export interface ICreateOrEditRefKadarBwiDto {
     id_pengguna_cipta: string;
 }
 
-/** Class GetRefKadarBwiForEditDto */
 export class GetRefKadarBwiForEditDto implements IGetRefKadarBwiForEditDto {
     ref_kadar_bwi!: CreateOrEditRefKadarBwiDto;
 
@@ -32809,11 +32517,10 @@ export class GetRefKadarBwiForEditDto implements IGetRefKadarBwiForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_kadar_bwi"] = this.ref_kadar_bwi ? this.ref_kadar_bwi.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefKadarBwiForEditDto */
 export interface IGetRefKadarBwiForEditDto {
     ref_kadar_bwi: CreateOrEditRefKadarBwiDto;
 }
@@ -32856,7 +32563,7 @@ export class GetRefKadarBwiForListDto implements IGetRefKadarBwiForListDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -32866,7 +32573,6 @@ export interface IGetRefKadarBwiForListDto {
     items: RefKadarBwiDto[];
 }
 
-/** Class GetRefKadarBwiForViewDto */
 export class GetRefKadarBwiForViewDto implements IGetRefKadarBwiForViewDto {
     id!: number;
     nilai!: number;
@@ -32907,11 +32613,10 @@ export class GetRefKadarBwiForViewDto implements IGetRefKadarBwiForViewDto {
         data["status_bencana_bwi"] = this.status_bencana_bwi;
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefKadarBwiForViewDto */
 export interface IGetRefKadarBwiForViewDto {
     id: number;
     nilai: number;
@@ -32962,7 +32667,7 @@ export class PagedResultDtoOfRefKadarBwiForViewDto implements IPagedResultDtoOfR
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -32974,7 +32679,6 @@ export interface IPagedResultDtoOfRefKadarBwiForViewDto {
     items: GetRefKadarBwiForViewDto[];
 }
 
-/** Class RefKadarBwiDto */
 export class RefKadarBwiDto implements IRefKadarBwiDto {
     id!: number;
     nilai!: number;
@@ -33006,17 +32710,15 @@ export class RefKadarBwiDto implements IRefKadarBwiDto {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["nilai"] = this.nilai;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefKadarBwiDto */
 export interface IRefKadarBwiDto {
     id: number;
     nilai: number;
 }
 
-/** Class CreateOrEditRefKategoriBayaranDto */
 export class CreateOrEditRefKategoriBayaranDto implements ICreateOrEditRefKategoriBayaranDto {
     id!: number;
     nama_kategori_bayaran!: string;
@@ -33051,18 +32753,16 @@ export class CreateOrEditRefKategoriBayaranDto implements ICreateOrEditRefKatego
         data["id"] = this.id;
         data["nama_kategori_bayaran"] = this.nama_kategori_bayaran;
         data["status_kategori_bayaran"] = this.status_kategori_bayaran;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefKategoriBayaranDto */
 export interface ICreateOrEditRefKategoriBayaranDto {
     id: number;
     nama_kategori_bayaran: string;
     status_kategori_bayaran: number;
 }
 
-/** Class GetRefKategoriBayaranForEditDto */
 export class GetRefKategoriBayaranForEditDto implements IGetRefKategoriBayaranForEditDto {
     ref_kategori_bayaran!: CreateOrEditRefKategoriBayaranDto;
 
@@ -33091,11 +32791,10 @@ export class GetRefKategoriBayaranForEditDto implements IGetRefKategoriBayaranFo
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_kategori_bayaran"] = this.ref_kategori_bayaran ? this.ref_kategori_bayaran.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefKategoriBayaranForEditDto */
 export interface IGetRefKategoriBayaranForEditDto {
     ref_kategori_bayaran: CreateOrEditRefKategoriBayaranDto;
 }
@@ -33138,7 +32837,7 @@ export class GetRefKategoriBayaranForListDto implements IGetRefKategoriBayaranFo
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -33148,7 +32847,6 @@ export interface IGetRefKategoriBayaranForListDto {
     items: RefKategoriBayaranDto[];
 }
 
-/** Class GetRefKategoriBayaranForViewDto */
 export class GetRefKategoriBayaranForViewDto implements IGetRefKategoriBayaranForViewDto {
     id!: number;
     nama_kategori_bayaran!: string;
@@ -33183,11 +32881,10 @@ export class GetRefKategoriBayaranForViewDto implements IGetRefKategoriBayaranFo
         data["id"] = this.id;
         data["nama_kategori_bayaran"] = this.nama_kategori_bayaran;
         data["status_kategori_bayaran"] = this.status_kategori_bayaran;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefKategoriBayaranForViewDto */
 export interface IGetRefKategoriBayaranForViewDto {
     id: number;
     nama_kategori_bayaran: string;
@@ -33236,7 +32933,7 @@ export class PagedResultDtoOfRefKategoriBayaranForViewDto implements IPagedResul
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -33248,7 +32945,6 @@ export interface IPagedResultDtoOfRefKategoriBayaranForViewDto {
     items: GetRefKategoriBayaranForViewDto[];
 }
 
-/** Class RefKategoriBayaranDto */
 export class RefKategoriBayaranDto implements IRefKategoriBayaranDto {
     id!: number;
     nama_kategori_bayaran!: string;
@@ -33283,18 +32979,16 @@ export class RefKategoriBayaranDto implements IRefKategoriBayaranDto {
         data["id"] = this.id;
         data["nama_kategori_bayaran"] = this.nama_kategori_bayaran;
         data["status_kategori_bayaran"] = this.status_kategori_bayaran;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefKategoriBayaranDto */
 export interface IRefKategoriBayaranDto {
     id: number;
     nama_kategori_bayaran: string;
     status_kategori_bayaran: number;
 }
 
-/** Class CreateOrEditRefKementerianDto */
 export class CreateOrEditRefKementerianDto implements ICreateOrEditRefKementerianDto {
     id!: number;
     nama_kementerian!: string;
@@ -33332,11 +33026,10 @@ export class CreateOrEditRefKementerianDto implements ICreateOrEditRefKementeria
         data["nama_kementerian"] = this.nama_kementerian;
         data["kod_kementerian"] = this.kod_kementerian;
         data["status_kementerian"] = this.status_kementerian;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefKementerianDto */
 export interface ICreateOrEditRefKementerianDto {
     id: number;
     nama_kementerian: string;
@@ -33344,7 +33037,6 @@ export interface ICreateOrEditRefKementerianDto {
     status_kementerian: number;
 }
 
-/** Class GetRefKementerianForEditDto */
 export class GetRefKementerianForEditDto implements IGetRefKementerianForEditDto {
     ref_kementerian!: CreateOrEditRefKementerianDto;
 
@@ -33373,11 +33065,10 @@ export class GetRefKementerianForEditDto implements IGetRefKementerianForEditDto
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_kementerian"] = this.ref_kementerian ? this.ref_kementerian.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefKementerianForEditDto */
 export interface IGetRefKementerianForEditDto {
     ref_kementerian: CreateOrEditRefKementerianDto;
 }
@@ -33420,7 +33111,7 @@ export class GetRefKementerianForListDto implements IGetRefKementerianForListDto
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -33430,7 +33121,6 @@ export interface IGetRefKementerianForListDto {
     items: RefKementerianDto[];
 }
 
-/** Class GetRefKementerianForViewDto */
 export class GetRefKementerianForViewDto implements IGetRefKementerianForViewDto {
     id!: number;
     nama_kementerian!: string;
@@ -33468,11 +33158,10 @@ export class GetRefKementerianForViewDto implements IGetRefKementerianForViewDto
         data["nama_kementerian"] = this.nama_kementerian;
         data["kod_kementerian"] = this.kod_kementerian;
         data["status_kementerian"] = this.status_kementerian;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefKementerianForViewDto */
 export interface IGetRefKementerianForViewDto {
     id: number;
     nama_kementerian: string;
@@ -33522,7 +33211,7 @@ export class PagedResultDtoOfRefKementerianForViewDto implements IPagedResultDto
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -33534,7 +33223,6 @@ export interface IPagedResultDtoOfRefKementerianForViewDto {
     items: GetRefKementerianForViewDto[];
 }
 
-/** Class RefKementerianDto */
 export class RefKementerianDto implements IRefKementerianDto {
     id!: number;
     nama_kementerian!: string;
@@ -33572,11 +33260,10 @@ export class RefKementerianDto implements IRefKementerianDto {
         data["nama_kementerian"] = this.nama_kementerian;
         data["kod_kementerian"] = this.kod_kementerian;
         data["status_kementerian"] = this.status_kementerian;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefKementerianDto */
 export interface IRefKementerianDto {
     id: number;
     nama_kementerian: string;
@@ -33584,7 +33271,6 @@ export interface IRefKementerianDto {
     status_kementerian: number;
 }
 
-/** Class CreateOrEditRefKerosakanDto */
 export class CreateOrEditRefKerosakanDto implements ICreateOrEditRefKerosakanDto {
     id!: number;
     nama_kerosakan!: string;
@@ -33619,18 +33305,16 @@ export class CreateOrEditRefKerosakanDto implements ICreateOrEditRefKerosakanDto
         data["id"] = this.id;
         data["nama_kerosakan"] = this.nama_kerosakan;
         data["status_kerosakan"] = this.status_kerosakan;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefKerosakanDto */
 export interface ICreateOrEditRefKerosakanDto {
     id: number;
     nama_kerosakan: string;
     status_kerosakan: number;
 }
 
-/** Class GetRefKerosakanForEditDto */
 export class GetRefKerosakanForEditDto implements IGetRefKerosakanForEditDto {
     ref_kerosakan!: CreateOrEditRefKerosakanDto;
 
@@ -33659,11 +33343,10 @@ export class GetRefKerosakanForEditDto implements IGetRefKerosakanForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_kerosakan"] = this.ref_kerosakan ? this.ref_kerosakan.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefKerosakanForEditDto */
 export interface IGetRefKerosakanForEditDto {
     ref_kerosakan: CreateOrEditRefKerosakanDto;
 }
@@ -33706,7 +33389,7 @@ export class GetRefKerosakanForListDto implements IGetRefKerosakanForListDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -33716,7 +33399,6 @@ export interface IGetRefKerosakanForListDto {
     items: RefKerosakanDto[];
 }
 
-/** Class GetRefKerosakanForViewDto */
 export class GetRefKerosakanForViewDto implements IGetRefKerosakanForViewDto {
     id!: number;
     nama_kerosakan!: string;
@@ -33751,11 +33433,10 @@ export class GetRefKerosakanForViewDto implements IGetRefKerosakanForViewDto {
         data["id"] = this.id;
         data["nama_kerosakan"] = this.nama_kerosakan;
         data["status_kerosakan"] = this.status_kerosakan;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefKerosakanForViewDto */
 export interface IGetRefKerosakanForViewDto {
     id: number;
     nama_kerosakan: string;
@@ -33804,7 +33485,7 @@ export class PagedResultDtoOfRefKerosakanForViewDto implements IPagedResultDtoOf
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -33816,7 +33497,6 @@ export interface IPagedResultDtoOfRefKerosakanForViewDto {
     items: GetRefKerosakanForViewDto[];
 }
 
-/** Class RefKerosakanDto */
 export class RefKerosakanDto implements IRefKerosakanDto {
     id!: number;
     nama_kerosakan!: string;
@@ -33851,18 +33531,16 @@ export class RefKerosakanDto implements IRefKerosakanDto {
         data["id"] = this.id;
         data["nama_kerosakan"] = this.nama_kerosakan;
         data["status_kerosakan"] = this.status_kerosakan;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefKerosakanDto */
 export interface IRefKerosakanDto {
     id: number;
     nama_kerosakan: string;
     status_kerosakan: number;
 }
 
-/** Class CreateOrEditRefMukimDto */
 export class CreateOrEditRefMukimDto implements ICreateOrEditRefMukimDto {
     id!: number;
     id_negeri!: number;
@@ -33900,11 +33578,10 @@ export class CreateOrEditRefMukimDto implements ICreateOrEditRefMukimDto {
         data["id_negeri"] = this.id_negeri;
         data["id_daerah"] = this.id_daerah;
         data["nama_mukim"] = this.nama_mukim;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefMukimDto */
 export interface ICreateOrEditRefMukimDto {
     id: number;
     id_negeri: number;
@@ -33912,7 +33589,6 @@ export interface ICreateOrEditRefMukimDto {
     nama_mukim: string;
 }
 
-/** Class GetRefMukimForEditDto */
 export class GetRefMukimForEditDto implements IGetRefMukimForEditDto {
     ref_mukim!: CreateOrEditRefMukimDto;
 
@@ -33941,11 +33617,10 @@ export class GetRefMukimForEditDto implements IGetRefMukimForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_mukim"] = this.ref_mukim ? this.ref_mukim.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefMukimForEditDto */
 export interface IGetRefMukimForEditDto {
     ref_mukim: CreateOrEditRefMukimDto;
 }
@@ -33988,7 +33663,7 @@ export class GetRefMukimForListDto implements IGetRefMukimForListDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -33998,7 +33673,6 @@ export interface IGetRefMukimForListDto {
     items: RefMukimDto[];
 }
 
-/** Class GetRefMukimForViewDto */
 export class GetRefMukimForViewDto implements IGetRefMukimForViewDto {
     id!: number;
     id_negeri!: number;
@@ -34036,11 +33710,10 @@ export class GetRefMukimForViewDto implements IGetRefMukimForViewDto {
         data["id_negeri"] = this.id_negeri;
         data["id_daerah"] = this.id_daerah;
         data["nama_mukim"] = this.nama_mukim;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefMukimForViewDto */
 export interface IGetRefMukimForViewDto {
     id: number;
     id_negeri: number;
@@ -34090,7 +33763,7 @@ export class PagedResultDtoOfRefMukimForViewDto implements IPagedResultDtoOfRefM
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -34102,7 +33775,6 @@ export interface IPagedResultDtoOfRefMukimForViewDto {
     items: GetRefMukimForViewDto[];
 }
 
-/** Class RefMukimDto */
 export class RefMukimDto implements IRefMukimDto {
     id!: number;
     id_negeri!: number;
@@ -34140,11 +33812,10 @@ export class RefMukimDto implements IRefMukimDto {
         data["id_negeri"] = this.id_negeri;
         data["id_daerah"] = this.id_daerah;
         data["nama_mukim"] = this.nama_mukim;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefMukimDto */
 export interface IRefMukimDto {
     id: number;
     id_negeri: number;
@@ -34152,7 +33823,6 @@ export interface IRefMukimDto {
     nama_mukim: string;
 }
 
-/** Class CreateOrEditRefNegeriDto */
 export class CreateOrEditRefNegeriDto implements ICreateOrEditRefNegeriDto {
     id!: number;
     nama_negeri!: string;
@@ -34190,11 +33860,10 @@ export class CreateOrEditRefNegeriDto implements ICreateOrEditRefNegeriDto {
         data["nama_negeri"] = this.nama_negeri;
         data["kod_negeri"] = this.kod_negeri;
         data["status_negeri"] = this.status_negeri;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefNegeriDto */
 export interface ICreateOrEditRefNegeriDto {
     id: number;
     nama_negeri: string;
@@ -34202,7 +33871,6 @@ export interface ICreateOrEditRefNegeriDto {
     status_negeri: number;
 }
 
-/** Class GetRefNegeriForEditDto */
 export class GetRefNegeriForEditDto implements IGetRefNegeriForEditDto {
     ref_negeri!: CreateOrEditRefNegeriDto;
 
@@ -34231,11 +33899,10 @@ export class GetRefNegeriForEditDto implements IGetRefNegeriForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_negeri"] = this.ref_negeri ? this.ref_negeri.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefNegeriForEditDto */
 export interface IGetRefNegeriForEditDto {
     ref_negeri: CreateOrEditRefNegeriDto;
 }
@@ -34278,7 +33945,7 @@ export class GetRefNegeriForListDto implements IGetRefNegeriForListDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -34288,7 +33955,6 @@ export interface IGetRefNegeriForListDto {
     items: RefNegeriDto[];
 }
 
-/** Class GetRefNegeriForViewDto */
 export class GetRefNegeriForViewDto implements IGetRefNegeriForViewDto {
     id!: number;
     nama_negeri!: string;
@@ -34326,11 +33992,10 @@ export class GetRefNegeriForViewDto implements IGetRefNegeriForViewDto {
         data["nama_negeri"] = this.nama_negeri;
         data["kod_negeri"] = this.kod_negeri;
         data["status_negeri"] = this.status_negeri;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefNegeriForViewDto */
 export interface IGetRefNegeriForViewDto {
     id: number;
     nama_negeri: string;
@@ -34380,7 +34045,7 @@ export class PagedResultDtoOfRefNegeriForViewDto implements IPagedResultDtoOfRef
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -34392,7 +34057,6 @@ export interface IPagedResultDtoOfRefNegeriForViewDto {
     items: GetRefNegeriForViewDto[];
 }
 
-/** Class RefNegeriDto */
 export class RefNegeriDto implements IRefNegeriDto {
     id!: number;
     nama_negeri!: string;
@@ -34430,11 +34094,10 @@ export class RefNegeriDto implements IRefNegeriDto {
         data["nama_negeri"] = this.nama_negeri;
         data["kod_negeri"] = this.kod_negeri;
         data["status_negeri"] = this.status_negeri;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefNegeriDto */
 export interface IRefNegeriDto {
     id: number;
     nama_negeri: string;
@@ -34442,7 +34105,6 @@ export interface IRefNegeriDto {
     status_negeri: number;
 }
 
-/** Class CreateOrEditRefParlimenDto */
 export class CreateOrEditRefParlimenDto implements ICreateOrEditRefParlimenDto {
     id!: number;
     id_negeri!: number;
@@ -34483,11 +34145,10 @@ export class CreateOrEditRefParlimenDto implements ICreateOrEditRefParlimenDto {
         data["nama_parlimen"] = this.nama_parlimen;
         data["kod_parlimen"] = this.kod_parlimen;
         data["status_parlimen"] = this.status_parlimen;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefParlimenDto */
 export interface ICreateOrEditRefParlimenDto {
     id: number;
     id_negeri: number;
@@ -34496,7 +34157,6 @@ export interface ICreateOrEditRefParlimenDto {
     status_parlimen: number;
 }
 
-/** Class GetRefParlimenForEditDto */
 export class GetRefParlimenForEditDto implements IGetRefParlimenForEditDto {
     ref_parlimen!: CreateOrEditRefParlimenDto;
 
@@ -34525,11 +34185,10 @@ export class GetRefParlimenForEditDto implements IGetRefParlimenForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_parlimen"] = this.ref_parlimen ? this.ref_parlimen.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefParlimenForEditDto */
 export interface IGetRefParlimenForEditDto {
     ref_parlimen: CreateOrEditRefParlimenDto;
 }
@@ -34572,7 +34231,7 @@ export class GetRefParlimenForListDto implements IGetRefParlimenForListDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -34582,7 +34241,6 @@ export interface IGetRefParlimenForListDto {
     items: RefParlimenDto[];
 }
 
-/** Class GetRefParlimenForViewDto */
 export class GetRefParlimenForViewDto implements IGetRefParlimenForViewDto {
     id!: number;
     id_negeri!: number;
@@ -34626,11 +34284,10 @@ export class GetRefParlimenForViewDto implements IGetRefParlimenForViewDto {
         data["kod_parlimen"] = this.kod_parlimen;
         data["status_parlimen"] = this.status_parlimen;
         data["nama_negeri"] = this.nama_negeri;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefParlimenForViewDto */
 export interface IGetRefParlimenForViewDto {
     id: number;
     id_negeri: number;
@@ -34682,7 +34339,7 @@ export class PagedResultDtoOfRefParlimenForViewDto implements IPagedResultDtoOfR
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -34694,7 +34351,6 @@ export interface IPagedResultDtoOfRefParlimenForViewDto {
     items: GetRefParlimenForViewDto[];
 }
 
-/** Class RefParlimenDto */
 export class RefParlimenDto implements IRefParlimenDto {
     id!: number;
     id_negeri!: number;
@@ -34735,11 +34391,10 @@ export class RefParlimenDto implements IRefParlimenDto {
         data["nama_parlimen"] = this.nama_parlimen;
         data["kod_parlimen"] = this.kod_parlimen;
         data["status_parlimen"] = this.status_parlimen;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefParlimenDto */
 export interface IRefParlimenDto {
     id: number;
     id_negeri: number;
@@ -34748,7 +34403,6 @@ export interface IRefParlimenDto {
     status_parlimen: number;
 }
 
-/** Class CreateOrEditRefPelaksanaDto */
 export class CreateOrEditRefPelaksanaDto implements ICreateOrEditRefPelaksanaDto {
     id!: number;
     nama_pelaksana!: string;
@@ -34783,18 +34437,16 @@ export class CreateOrEditRefPelaksanaDto implements ICreateOrEditRefPelaksanaDto
         data["id"] = this.id;
         data["nama_pelaksana"] = this.nama_pelaksana;
         data["status_pelaksana"] = this.status_pelaksana;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefPelaksanaDto */
 export interface ICreateOrEditRefPelaksanaDto {
     id: number;
     nama_pelaksana: string;
     status_pelaksana: number;
 }
 
-/** Class GetRefPelaksanaForEditDto */
 export class GetRefPelaksanaForEditDto implements IGetRefPelaksanaForEditDto {
     ref_pelaksana!: CreateOrEditRefPelaksanaDto;
 
@@ -34823,11 +34475,10 @@ export class GetRefPelaksanaForEditDto implements IGetRefPelaksanaForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_pelaksana"] = this.ref_pelaksana ? this.ref_pelaksana.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefPelaksanaForEditDto */
 export interface IGetRefPelaksanaForEditDto {
     ref_pelaksana: CreateOrEditRefPelaksanaDto;
 }
@@ -34870,7 +34521,7 @@ export class GetRefPelaksanaForListDto implements IGetRefPelaksanaForListDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -34880,7 +34531,6 @@ export interface IGetRefPelaksanaForListDto {
     items: RefPelaksanaDto[];
 }
 
-/** Class GetRefPelaksanaForViewDto */
 export class GetRefPelaksanaForViewDto implements IGetRefPelaksanaForViewDto {
     id!: number;
     nama_pelaksana!: string;
@@ -34915,11 +34565,10 @@ export class GetRefPelaksanaForViewDto implements IGetRefPelaksanaForViewDto {
         data["id"] = this.id;
         data["nama_pelaksana"] = this.nama_pelaksana;
         data["status_pelaksana"] = this.status_pelaksana;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefPelaksanaForViewDto */
 export interface IGetRefPelaksanaForViewDto {
     id: number;
     nama_pelaksana: string;
@@ -34968,7 +34617,7 @@ export class PagedResultDtoOfRefPelaksanaForViewDto implements IPagedResultDtoOf
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -34980,7 +34629,6 @@ export interface IPagedResultDtoOfRefPelaksanaForViewDto {
     items: GetRefPelaksanaForViewDto[];
 }
 
-/** Class RefPelaksanaDto */
 export class RefPelaksanaDto implements IRefPelaksanaDto {
     id!: number;
     nama_pelaksana!: string;
@@ -35015,18 +34663,16 @@ export class RefPelaksanaDto implements IRefPelaksanaDto {
         data["id"] = this.id;
         data["nama_pelaksana"] = this.nama_pelaksana;
         data["status_pelaksana"] = this.status_pelaksana;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefPelaksanaDto */
 export interface IRefPelaksanaDto {
     id: number;
     nama_pelaksana: string;
     status_pelaksana: number;
 }
 
-/** Class CreateOrEditRefPemilikDto */
 export class CreateOrEditRefPemilikDto implements ICreateOrEditRefPemilikDto {
     id!: number;
     nama_pemilik!: string;
@@ -35061,18 +34707,16 @@ export class CreateOrEditRefPemilikDto implements ICreateOrEditRefPemilikDto {
         data["id"] = this.id;
         data["nama_pemilik"] = this.nama_pemilik;
         data["status_pemilik"] = this.status_pemilik;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefPemilikDto */
 export interface ICreateOrEditRefPemilikDto {
     id: number;
     nama_pemilik: string;
     status_pemilik: number;
 }
 
-/** Class GetRefPemilikForEditDto */
 export class GetRefPemilikForEditDto implements IGetRefPemilikForEditDto {
     ref_pemilik!: CreateOrEditRefPemilikDto;
 
@@ -35101,11 +34745,10 @@ export class GetRefPemilikForEditDto implements IGetRefPemilikForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_pemilik"] = this.ref_pemilik ? this.ref_pemilik.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefPemilikForEditDto */
 export interface IGetRefPemilikForEditDto {
     ref_pemilik: CreateOrEditRefPemilikDto;
 }
@@ -35148,7 +34791,7 @@ export class GetRefPemilikForListDto implements IGetRefPemilikForListDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -35158,7 +34801,6 @@ export interface IGetRefPemilikForListDto {
     items: RefPemilikDto[];
 }
 
-/** Class GetRefPemilikForViewDto */
 export class GetRefPemilikForViewDto implements IGetRefPemilikForViewDto {
     id!: number;
     nama_pemilik!: string;
@@ -35193,11 +34835,10 @@ export class GetRefPemilikForViewDto implements IGetRefPemilikForViewDto {
         data["id"] = this.id;
         data["nama_pemilik"] = this.nama_pemilik;
         data["status_pemilik"] = this.status_pemilik;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefPemilikForViewDto */
 export interface IGetRefPemilikForViewDto {
     id: number;
     nama_pemilik: string;
@@ -35246,7 +34887,7 @@ export class PagedResultDtoOfRefPemilikForViewDto implements IPagedResultDtoOfRe
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -35258,7 +34899,6 @@ export interface IPagedResultDtoOfRefPemilikForViewDto {
     items: GetRefPemilikForViewDto[];
 }
 
-/** Class RefPemilikDto */
 export class RefPemilikDto implements IRefPemilikDto {
     id!: number;
     nama_pemilik!: string;
@@ -35293,18 +34933,16 @@ export class RefPemilikDto implements IRefPemilikDto {
         data["id"] = this.id;
         data["nama_pemilik"] = this.nama_pemilik;
         data["status_pemilik"] = this.status_pemilik;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefPemilikDto */
 export interface IRefPemilikDto {
     id: number;
     nama_pemilik: string;
     status_pemilik: number;
 }
 
-/** Class CreateOrEditRefPerananDto */
 export class CreateOrEditRefPerananDto implements ICreateOrEditRefPerananDto {
     id!: number;
     peranan!: string;
@@ -35348,11 +34986,10 @@ export class CreateOrEditRefPerananDto implements ICreateOrEditRefPerananDto {
             for (let item of this.capaian_dibenarkan)
                 data["capaian_dibenarkan"].push(item);
         }
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefPerananDto */
 export interface ICreateOrEditRefPerananDto {
     id: number;
     peranan: string;
@@ -35360,7 +34997,6 @@ export interface ICreateOrEditRefPerananDto {
     capaian_dibenarkan: string[];
 }
 
-/** Class GetAllRefCapaianDto */
 export class GetAllRefCapaianDto implements IGetAllRefCapaianDto {
     /** Items in array of object */
     ref_capaian!: RefCapaianDto[];
@@ -35398,17 +35034,15 @@ export class GetAllRefCapaianDto implements IGetAllRefCapaianDto {
             for (let item of this.ref_capaian)
                 data["ref_capaian"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
-/** Class GetAllRefCapaianDto */
 export interface IGetAllRefCapaianDto {
     /** Items in array of object */
     ref_capaian: RefCapaianDto[];
 }
 
-/** Class GetCapaianPerananDto */
 export class GetCapaianPerananDto implements IGetCapaianPerananDto {
     /** Capaian in array of string */
     capaian!: string[];
@@ -35446,17 +35080,15 @@ export class GetCapaianPerananDto implements IGetCapaianPerananDto {
             for (let item of this.capaian)
                 data["capaian"].push(item);
         }
-        return data;
+        return data; 
     }
 }
 
-/** Class GetCapaianPerananDto */
 export interface IGetCapaianPerananDto {
     /** Capaian in array of string */
     capaian: string[];
 }
 
-/** Class GetRefPerananForEditDto */
 export class GetRefPerananForEditDto implements IGetRefPerananForEditDto {
     ref_peranan!: CreateOrEditRefPerananDto;
 
@@ -35485,11 +35117,10 @@ export class GetRefPerananForEditDto implements IGetRefPerananForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_peranan"] = this.ref_peranan ? this.ref_peranan.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefPerananForEditDto */
 export interface IGetRefPerananForEditDto {
     ref_peranan: CreateOrEditRefPerananDto;
 }
@@ -35532,7 +35163,7 @@ export class GetRefPerananForListDto implements IGetRefPerananForListDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -35542,7 +35173,6 @@ export interface IGetRefPerananForListDto {
     items: RefPerananDto[];
 }
 
-/** Class GetRefPerananForViewDto */
 export class GetRefPerananForViewDto implements IGetRefPerananForViewDto {
     id!: number;
     peranan!: string;
@@ -35574,11 +35204,10 @@ export class GetRefPerananForViewDto implements IGetRefPerananForViewDto {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["peranan"] = this.peranan;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefPerananForViewDto */
 export interface IGetRefPerananForViewDto {
     id: number;
     peranan: string;
@@ -35626,7 +35255,7 @@ export class PagedResultDtoOfRefPerananForViewDto implements IPagedResultDtoOfRe
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -35638,7 +35267,6 @@ export interface IPagedResultDtoOfRefPerananForViewDto {
     items: GetRefPerananForViewDto[];
 }
 
-/** Class RefCapaianDto */
 export class RefCapaianDto implements IRefCapaianDto {
     nama!: string;
     nama_paparan!: string;
@@ -35673,18 +35301,16 @@ export class RefCapaianDto implements IRefCapaianDto {
         data["nama"] = this.nama;
         data["nama_paparan"] = this.nama_paparan;
         data["pendahulu"] = this.pendahulu;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefCapaianDto */
 export interface IRefCapaianDto {
     nama: string;
     nama_paparan: string;
     pendahulu: string;
 }
 
-/** Class RefPerananDto */
 export class RefPerananDto implements IRefPerananDto {
     id!: number;
     peranan!: string;
@@ -35716,17 +35342,15 @@ export class RefPerananDto implements IRefPerananDto {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["peranan"] = this.peranan;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefPerananDto */
 export interface IRefPerananDto {
     id: number;
     peranan: string;
 }
 
-/** Class CreateOrEditRefPindahDto */
 export class CreateOrEditRefPindahDto implements ICreateOrEditRefPindahDto {
     id!: number;
     pindah!: string;
@@ -35761,18 +35385,16 @@ export class CreateOrEditRefPindahDto implements ICreateOrEditRefPindahDto {
         data["id"] = this.id;
         data["pindah"] = this.pindah;
         data["status_pindah"] = this.status_pindah;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefPindahDto */
 export interface ICreateOrEditRefPindahDto {
     id: number;
     pindah: string;
     status_pindah: number;
 }
 
-/** Class GetRefPindahForEditDto */
 export class GetRefPindahForEditDto implements IGetRefPindahForEditDto {
     ref_pindah!: CreateOrEditRefPindahDto;
 
@@ -35801,11 +35423,10 @@ export class GetRefPindahForEditDto implements IGetRefPindahForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_pindah"] = this.ref_pindah ? this.ref_pindah.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefPindahForEditDto */
 export interface IGetRefPindahForEditDto {
     ref_pindah: CreateOrEditRefPindahDto;
 }
@@ -35848,7 +35469,7 @@ export class GetRefPindahForListDto implements IGetRefPindahForListDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -35858,7 +35479,6 @@ export interface IGetRefPindahForListDto {
     items: RefPindahDto[];
 }
 
-/** Class GetRefPindahForViewDto */
 export class GetRefPindahForViewDto implements IGetRefPindahForViewDto {
     id!: number;
     pindah!: string;
@@ -35893,11 +35513,10 @@ export class GetRefPindahForViewDto implements IGetRefPindahForViewDto {
         data["id"] = this.id;
         data["pindah"] = this.pindah;
         data["status_pindah"] = this.status_pindah;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefPindahForViewDto */
 export interface IGetRefPindahForViewDto {
     id: number;
     pindah: string;
@@ -35946,7 +35565,7 @@ export class PagedResultDtoOfRefPindahForViewDto implements IPagedResultDtoOfRef
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -35958,7 +35577,6 @@ export interface IPagedResultDtoOfRefPindahForViewDto {
     items: GetRefPindahForViewDto[];
 }
 
-/** Class RefPindahDto */
 export class RefPindahDto implements IRefPindahDto {
     id!: number;
     pindah!: string;
@@ -35993,18 +35611,16 @@ export class RefPindahDto implements IRefPindahDto {
         data["id"] = this.id;
         data["pindah"] = this.pindah;
         data["status_pindah"] = this.status_pindah;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefPindahDto */
 export interface IRefPindahDto {
     id: number;
     pindah: string;
     status_pindah: number;
 }
 
-/** Class CreateOrEditRefPinjamanPerniagaanDto */
 export class CreateOrEditRefPinjamanPerniagaanDto implements ICreateOrEditRefPinjamanPerniagaanDto {
     id!: number;
     nama_agensi_pinjaman!: string;
@@ -36039,18 +35655,16 @@ export class CreateOrEditRefPinjamanPerniagaanDto implements ICreateOrEditRefPin
         data["id"] = this.id;
         data["nama_agensi_pinjaman"] = this.nama_agensi_pinjaman;
         data["status_agensi_pinjaman"] = this.status_agensi_pinjaman;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefPinjamanPerniagaanDto */
 export interface ICreateOrEditRefPinjamanPerniagaanDto {
     id: number;
     nama_agensi_pinjaman: string;
     status_agensi_pinjaman: number;
 }
 
-/** Class GetRefPinjamanPerniagaanForEditDto */
 export class GetRefPinjamanPerniagaanForEditDto implements IGetRefPinjamanPerniagaanForEditDto {
     ref_pinjaman_perniagaan!: CreateOrEditRefPinjamanPerniagaanDto;
 
@@ -36079,11 +35693,10 @@ export class GetRefPinjamanPerniagaanForEditDto implements IGetRefPinjamanPernia
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_pinjaman_perniagaan"] = this.ref_pinjaman_perniagaan ? this.ref_pinjaman_perniagaan.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefPinjamanPerniagaanForEditDto */
 export interface IGetRefPinjamanPerniagaanForEditDto {
     ref_pinjaman_perniagaan: CreateOrEditRefPinjamanPerniagaanDto;
 }
@@ -36126,7 +35739,7 @@ export class GetRefPinjamanPerniagaanForListDto implements IGetRefPinjamanPernia
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -36136,7 +35749,6 @@ export interface IGetRefPinjamanPerniagaanForListDto {
     items: RefPinjamanPerniagaanDto[];
 }
 
-/** Class GetRefPinjamanPerniagaanForViewDto */
 export class GetRefPinjamanPerniagaanForViewDto implements IGetRefPinjamanPerniagaanForViewDto {
     id!: number;
     nama_agensi_pinjaman!: string;
@@ -36171,11 +35783,10 @@ export class GetRefPinjamanPerniagaanForViewDto implements IGetRefPinjamanPernia
         data["id"] = this.id;
         data["nama_agensi_pinjaman"] = this.nama_agensi_pinjaman;
         data["status_agensi_pinjaman"] = this.status_agensi_pinjaman;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefPinjamanPerniagaanForViewDto */
 export interface IGetRefPinjamanPerniagaanForViewDto {
     id: number;
     nama_agensi_pinjaman: string;
@@ -36224,7 +35835,7 @@ export class PagedResultDtoOfRefPinjamanPerniagaanForViewDto implements IPagedRe
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -36236,7 +35847,6 @@ export interface IPagedResultDtoOfRefPinjamanPerniagaanForViewDto {
     items: GetRefPinjamanPerniagaanForViewDto[];
 }
 
-/** Class RefPinjamanPerniagaanDto */
 export class RefPinjamanPerniagaanDto implements IRefPinjamanPerniagaanDto {
     id!: number;
     nama_agensi_pinjaman!: string;
@@ -36271,18 +35881,16 @@ export class RefPinjamanPerniagaanDto implements IRefPinjamanPerniagaanDto {
         data["id"] = this.id;
         data["nama_agensi_pinjaman"] = this.nama_agensi_pinjaman;
         data["status_agensi_pinjaman"] = this.status_agensi_pinjaman;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefPinjamanPerniagaanDto */
 export interface IRefPinjamanPerniagaanDto {
     id: number;
     nama_agensi_pinjaman: string;
     status_agensi_pinjaman: number;
 }
 
-/** Class CreateOrEditRefRujukanDto */
 export class CreateOrEditRefRujukanDto implements ICreateOrEditRefRujukanDto {
     id!: number;
     nama_rujukan!: string;
@@ -36338,11 +35946,10 @@ export class CreateOrEditRefRujukanDto implements ICreateOrEditRefRujukanDto {
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefRujukanDto */
 export interface ICreateOrEditRefRujukanDto {
     id: number;
     nama_rujukan: string;
@@ -36356,7 +35963,6 @@ export interface ICreateOrEditRefRujukanDto {
     id_pengguna_kemaskini: number;
 }
 
-/** Class GetRefRujukanForEditDto */
 export class GetRefRujukanForEditDto implements IGetRefRujukanForEditDto {
     ref_rujukan!: CreateOrEditRefRujukanDto;
 
@@ -36385,16 +35991,14 @@ export class GetRefRujukanForEditDto implements IGetRefRujukanForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_rujukan"] = this.ref_rujukan ? this.ref_rujukan.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefRujukanForEditDto */
 export interface IGetRefRujukanForEditDto {
     ref_rujukan: CreateOrEditRefRujukanDto;
 }
 
-/** Class GetRefRujukanForViewDto */
 export class GetRefRujukanForViewDto implements IGetRefRujukanForViewDto {
     id!: number;
     nama_rujukan!: string;
@@ -36450,11 +36054,10 @@ export class GetRefRujukanForViewDto implements IGetRefRujukanForViewDto {
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefRujukanForViewDto */
 export interface IGetRefRujukanForViewDto {
     id: number;
     nama_rujukan: string;
@@ -36468,7 +36071,6 @@ export interface IGetRefRujukanForViewDto {
     id_pengguna_kemaskini: number;
 }
 
-/** Class OutputFail */
 export class OutputFail implements IOutputFail {
     file_extension!: string;
     file_location!: string;
@@ -36503,11 +36105,10 @@ export class OutputFail implements IOutputFail {
         data["file_extension"] = this.file_extension;
         data["file_location"] = this.file_location;
         data["file_name"] = this.file_name;
-        return data;
+        return data; 
     }
 }
 
-/** Class OutputFail */
 export interface IOutputFail {
     file_extension: string;
     file_location: string;
@@ -36556,7 +36157,7 @@ export class PagedResultDtoOfRefRujukanForViewDto implements IPagedResultDtoOfRe
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -36568,7 +36169,6 @@ export interface IPagedResultDtoOfRefRujukanForViewDto {
     items: GetRefRujukanForViewDto[];
 }
 
-/** Class RefRujukanDto */
 export class RefRujukanDto implements IRefRujukanDto {
     id!: number;
     nama_rujukan!: string;
@@ -36624,11 +36224,10 @@ export class RefRujukanDto implements IRefRujukanDto {
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefRujukanDto */
 export interface IRefRujukanDto {
     id: number;
     nama_rujukan: string;
@@ -36642,7 +36241,6 @@ export interface IRefRujukanDto {
     id_pengguna_kemaskini: number;
 }
 
-/** Class CreateOrEditRefSektorDto */
 export class CreateOrEditRefSektorDto implements ICreateOrEditRefSektorDto {
     id!: number;
     nama_sektor!: string;
@@ -36677,18 +36275,16 @@ export class CreateOrEditRefSektorDto implements ICreateOrEditRefSektorDto {
         data["id"] = this.id;
         data["nama_sektor"] = this.nama_sektor;
         data["status_sektor"] = this.status_sektor;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefSektorDto */
 export interface ICreateOrEditRefSektorDto {
     id: number;
     nama_sektor: string;
     status_sektor: number;
 }
 
-/** Class GetRefSektorForEditDto */
 export class GetRefSektorForEditDto implements IGetRefSektorForEditDto {
     ref_sektor!: CreateOrEditRefSektorDto;
 
@@ -36717,11 +36313,10 @@ export class GetRefSektorForEditDto implements IGetRefSektorForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_sektor"] = this.ref_sektor ? this.ref_sektor.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefSektorForEditDto */
 export interface IGetRefSektorForEditDto {
     ref_sektor: CreateOrEditRefSektorDto;
 }
@@ -36764,7 +36359,7 @@ export class GetRefSektorForListDto implements IGetRefSektorForListDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -36774,7 +36369,6 @@ export interface IGetRefSektorForListDto {
     items: RefSektorDto[];
 }
 
-/** Class GetRefSektorForViewDto */
 export class GetRefSektorForViewDto implements IGetRefSektorForViewDto {
     id!: number;
     nama_sektor!: string;
@@ -36809,11 +36403,10 @@ export class GetRefSektorForViewDto implements IGetRefSektorForViewDto {
         data["id"] = this.id;
         data["nama_sektor"] = this.nama_sektor;
         data["status_sektor"] = this.status_sektor;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefSektorForViewDto */
 export interface IGetRefSektorForViewDto {
     id: number;
     nama_sektor: string;
@@ -36862,7 +36455,7 @@ export class PagedResultDtoOfRefSektorForViewDto implements IPagedResultDtoOfRef
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -36874,7 +36467,6 @@ export interface IPagedResultDtoOfRefSektorForViewDto {
     items: GetRefSektorForViewDto[];
 }
 
-/** Class RefSektorDto */
 export class RefSektorDto implements IRefSektorDto {
     id!: number;
     nama_sektor!: string;
@@ -36909,18 +36501,16 @@ export class RefSektorDto implements IRefSektorDto {
         data["id"] = this.id;
         data["nama_sektor"] = this.nama_sektor;
         data["status_sektor"] = this.status_sektor;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefSektorDto */
 export interface IRefSektorDto {
     id: number;
     nama_sektor: string;
     status_sektor: number;
 }
 
-/** Class CreateOrEditRefStatusKemajuanDto */
 export class CreateOrEditRefStatusKemajuanDto implements ICreateOrEditRefStatusKemajuanDto {
     id!: number;
     status_kemajuan!: string;
@@ -36958,11 +36548,10 @@ export class CreateOrEditRefStatusKemajuanDto implements ICreateOrEditRefStatusK
         data["status_kemajuan"] = this.status_kemajuan;
         data["status"] = this.status;
         data["kod_status_kemajuan"] = this.kod_status_kemajuan;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefStatusKemajuanDto */
 export interface ICreateOrEditRefStatusKemajuanDto {
     id: number;
     status_kemajuan: string;
@@ -36970,7 +36559,6 @@ export interface ICreateOrEditRefStatusKemajuanDto {
     kod_status_kemajuan: string;
 }
 
-/** Class GetRefStatusKemajuanForEditDto */
 export class GetRefStatusKemajuanForEditDto implements IGetRefStatusKemajuanForEditDto {
     ref_status_kemajuan!: CreateOrEditRefStatusKemajuanDto;
 
@@ -36999,11 +36587,10 @@ export class GetRefStatusKemajuanForEditDto implements IGetRefStatusKemajuanForE
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_status_kemajuan"] = this.ref_status_kemajuan ? this.ref_status_kemajuan.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefStatusKemajuanForEditDto */
 export interface IGetRefStatusKemajuanForEditDto {
     ref_status_kemajuan: CreateOrEditRefStatusKemajuanDto;
 }
@@ -37046,7 +36633,7 @@ export class GetRefStatusKemajuanForListDto implements IGetRefStatusKemajuanForL
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -37056,7 +36643,6 @@ export interface IGetRefStatusKemajuanForListDto {
     items: RefStatusKemajuanDto[];
 }
 
-/** Class GetRefStatusKemajuanForViewDto */
 export class GetRefStatusKemajuanForViewDto implements IGetRefStatusKemajuanForViewDto {
     id!: number;
     status_kemajuan!: string;
@@ -37094,11 +36680,10 @@ export class GetRefStatusKemajuanForViewDto implements IGetRefStatusKemajuanForV
         data["status_kemajuan"] = this.status_kemajuan;
         data["status"] = this.status;
         data["kod_status_kemajuan"] = this.kod_status_kemajuan;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefStatusKemajuanForViewDto */
 export interface IGetRefStatusKemajuanForViewDto {
     id: number;
     status_kemajuan: string;
@@ -37148,7 +36733,7 @@ export class PagedResultDtoOfRefStatusKemajuanForViewDto implements IPagedResult
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -37160,7 +36745,6 @@ export interface IPagedResultDtoOfRefStatusKemajuanForViewDto {
     items: GetRefStatusKemajuanForViewDto[];
 }
 
-/** Class RefStatusKemajuanDto */
 export class RefStatusKemajuanDto implements IRefStatusKemajuanDto {
     id!: number;
     status_kemajuan!: string;
@@ -37198,11 +36782,10 @@ export class RefStatusKemajuanDto implements IRefStatusKemajuanDto {
         data["status_kemajuan"] = this.status_kemajuan;
         data["status"] = this.status;
         data["kod_status_kemajuan"] = this.kod_status_kemajuan;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefStatusKemajuanDto */
 export interface IRefStatusKemajuanDto {
     id: number;
     status_kemajuan: string;
@@ -37210,7 +36793,6 @@ export interface IRefStatusKemajuanDto {
     kod_status_kemajuan: string;
 }
 
-/** Class CreateOrEditRefStatusKerosakanDto */
 export class CreateOrEditRefStatusKerosakanDto implements ICreateOrEditRefStatusKerosakanDto {
     id!: number;
     nama_status_kerosakan!: string;
@@ -37245,18 +36827,16 @@ export class CreateOrEditRefStatusKerosakanDto implements ICreateOrEditRefStatus
         data["id"] = this.id;
         data["nama_status_kerosakan"] = this.nama_status_kerosakan;
         data["status"] = this.status;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefStatusKerosakanDto */
 export interface ICreateOrEditRefStatusKerosakanDto {
     id: number;
     nama_status_kerosakan: string;
     status: number;
 }
 
-/** Class GetRefStatusKerosakanForEditDto */
 export class GetRefStatusKerosakanForEditDto implements IGetRefStatusKerosakanForEditDto {
     ref_status_kerosakan!: CreateOrEditRefStatusKerosakanDto;
 
@@ -37285,11 +36865,10 @@ export class GetRefStatusKerosakanForEditDto implements IGetRefStatusKerosakanFo
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_status_kerosakan"] = this.ref_status_kerosakan ? this.ref_status_kerosakan.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefStatusKerosakanForEditDto */
 export interface IGetRefStatusKerosakanForEditDto {
     ref_status_kerosakan: CreateOrEditRefStatusKerosakanDto;
 }
@@ -37332,7 +36911,7 @@ export class GetRefStatusKerosakanForListDto implements IGetRefStatusKerosakanFo
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -37342,7 +36921,6 @@ export interface IGetRefStatusKerosakanForListDto {
     items: RefStatusKerosakanDto[];
 }
 
-/** Class GetRefStatusKerosakanForViewDto */
 export class GetRefStatusKerosakanForViewDto implements IGetRefStatusKerosakanForViewDto {
     id!: number;
     nama_status_kerosakan!: string;
@@ -37377,11 +36955,10 @@ export class GetRefStatusKerosakanForViewDto implements IGetRefStatusKerosakanFo
         data["id"] = this.id;
         data["nama_status_kerosakan"] = this.nama_status_kerosakan;
         data["status"] = this.status;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefStatusKerosakanForViewDto */
 export interface IGetRefStatusKerosakanForViewDto {
     id: number;
     nama_status_kerosakan: string;
@@ -37430,7 +37007,7 @@ export class PagedResultDtoOfRefStatusKerosakanForViewDto implements IPagedResul
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -37442,7 +37019,6 @@ export interface IPagedResultDtoOfRefStatusKerosakanForViewDto {
     items: GetRefStatusKerosakanForViewDto[];
 }
 
-/** Class RefStatusKerosakanDto */
 export class RefStatusKerosakanDto implements IRefStatusKerosakanDto {
     id!: number;
     nama_status_kerosakan!: string;
@@ -37477,18 +37053,16 @@ export class RefStatusKerosakanDto implements IRefStatusKerosakanDto {
         data["id"] = this.id;
         data["nama_status_kerosakan"] = this.nama_status_kerosakan;
         data["status"] = this.status;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefStatusKerosakanDto */
 export interface IRefStatusKerosakanDto {
     id: number;
     nama_status_kerosakan: string;
     status: number;
 }
 
-/** Class CreateOrEditRefSumberDanaDto */
 export class CreateOrEditRefSumberDanaDto implements ICreateOrEditRefSumberDanaDto {
     id!: number;
     nama_sumber_dana!: string;
@@ -37526,11 +37100,10 @@ export class CreateOrEditRefSumberDanaDto implements ICreateOrEditRefSumberDanaD
         data["nama_sumber_dana"] = this.nama_sumber_dana;
         data["ringkasan_sumber_dana"] = this.ringkasan_sumber_dana;
         data["status_sumber_dana"] = this.status_sumber_dana;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefSumberDanaDto */
 export interface ICreateOrEditRefSumberDanaDto {
     id: number;
     nama_sumber_dana: string;
@@ -37538,7 +37111,6 @@ export interface ICreateOrEditRefSumberDanaDto {
     status_sumber_dana: number;
 }
 
-/** Class GetRefSumberDanaForEditDto */
 export class GetRefSumberDanaForEditDto implements IGetRefSumberDanaForEditDto {
     ref_sumber_dana!: CreateOrEditRefSumberDanaDto;
 
@@ -37567,11 +37139,10 @@ export class GetRefSumberDanaForEditDto implements IGetRefSumberDanaForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_sumber_dana"] = this.ref_sumber_dana ? this.ref_sumber_dana.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefSumberDanaForEditDto */
 export interface IGetRefSumberDanaForEditDto {
     ref_sumber_dana: CreateOrEditRefSumberDanaDto;
 }
@@ -37614,7 +37185,7 @@ export class GetRefSumberDanaForListDto implements IGetRefSumberDanaForListDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -37624,7 +37195,6 @@ export interface IGetRefSumberDanaForListDto {
     items: RefSumberDanaDto[];
 }
 
-/** Class GetRefSumberDanaForViewDto */
 export class GetRefSumberDanaForViewDto implements IGetRefSumberDanaForViewDto {
     id!: number;
     nama_sumber_dana!: string;
@@ -37662,11 +37232,10 @@ export class GetRefSumberDanaForViewDto implements IGetRefSumberDanaForViewDto {
         data["nama_sumber_dana"] = this.nama_sumber_dana;
         data["ringkasan_sumber_dana"] = this.ringkasan_sumber_dana;
         data["status_sumber_dana"] = this.status_sumber_dana;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefSumberDanaForViewDto */
 export interface IGetRefSumberDanaForViewDto {
     id: number;
     nama_sumber_dana: string;
@@ -37716,7 +37285,7 @@ export class PagedResultDtoOfRefSumberDanaForViewDto implements IPagedResultDtoO
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -37728,7 +37297,6 @@ export interface IPagedResultDtoOfRefSumberDanaForViewDto {
     items: GetRefSumberDanaForViewDto[];
 }
 
-/** Class RefSumberDanaDto */
 export class RefSumberDanaDto implements IRefSumberDanaDto {
     id!: number;
     nama_sumber_dana!: string;
@@ -37766,11 +37334,10 @@ export class RefSumberDanaDto implements IRefSumberDanaDto {
         data["nama_sumber_dana"] = this.nama_sumber_dana;
         data["ringkasan_sumber_dana"] = this.ringkasan_sumber_dana;
         data["status_sumber_dana"] = this.status_sumber_dana;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefSumberDanaDto */
 export interface IRefSumberDanaDto {
     id: number;
     nama_sumber_dana: string;
@@ -37778,7 +37345,6 @@ export interface IRefSumberDanaDto {
     status_sumber_dana: number;
 }
 
-/** Class CreateOrEditRefSumberPeruntukanDto */
 export class CreateOrEditRefSumberPeruntukanDto implements ICreateOrEditRefSumberPeruntukanDto {
     id!: number;
     nama_sumber_peruntukan!: string;
@@ -37813,18 +37379,16 @@ export class CreateOrEditRefSumberPeruntukanDto implements ICreateOrEditRefSumbe
         data["id"] = this.id;
         data["nama_sumber_peruntukan"] = this.nama_sumber_peruntukan;
         data["status_sumber_peruntukan"] = this.status_sumber_peruntukan;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefSumberPeruntukanDto */
 export interface ICreateOrEditRefSumberPeruntukanDto {
     id: number;
     nama_sumber_peruntukan: string;
     status_sumber_peruntukan: number;
 }
 
-/** Class GetRefSumberPeruntukanForEditDto */
 export class GetRefSumberPeruntukanForEditDto implements IGetRefSumberPeruntukanForEditDto {
     ref_sumber_peruntukan!: CreateOrEditRefSumberPeruntukanDto;
 
@@ -37853,11 +37417,10 @@ export class GetRefSumberPeruntukanForEditDto implements IGetRefSumberPeruntukan
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_sumber_peruntukan"] = this.ref_sumber_peruntukan ? this.ref_sumber_peruntukan.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefSumberPeruntukanForEditDto */
 export interface IGetRefSumberPeruntukanForEditDto {
     ref_sumber_peruntukan: CreateOrEditRefSumberPeruntukanDto;
 }
@@ -37900,7 +37463,7 @@ export class GetRefSumberPeruntukanForListDto implements IGetRefSumberPeruntukan
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -37910,7 +37473,6 @@ export interface IGetRefSumberPeruntukanForListDto {
     items: RefSumberPeruntukanDto[];
 }
 
-/** Class GetRefSumberPeruntukanForViewDto */
 export class GetRefSumberPeruntukanForViewDto implements IGetRefSumberPeruntukanForViewDto {
     id!: number;
     nama_sumber_peruntukan!: string;
@@ -37945,11 +37507,10 @@ export class GetRefSumberPeruntukanForViewDto implements IGetRefSumberPeruntukan
         data["id"] = this.id;
         data["nama_sumber_peruntukan"] = this.nama_sumber_peruntukan;
         data["status_sumber_peruntukan"] = this.status_sumber_peruntukan;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefSumberPeruntukanForViewDto */
 export interface IGetRefSumberPeruntukanForViewDto {
     id: number;
     nama_sumber_peruntukan: string;
@@ -37998,7 +37559,7 @@ export class PagedResultDtoOfRefSumberPeruntukanForViewDto implements IPagedResu
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -38010,7 +37571,6 @@ export interface IPagedResultDtoOfRefSumberPeruntukanForViewDto {
     items: GetRefSumberPeruntukanForViewDto[];
 }
 
-/** Class RefSumberPeruntukanDto */
 export class RefSumberPeruntukanDto implements IRefSumberPeruntukanDto {
     id!: number;
     nama_sumber_peruntukan!: string;
@@ -38045,18 +37605,16 @@ export class RefSumberPeruntukanDto implements IRefSumberPeruntukanDto {
         data["id"] = this.id;
         data["nama_sumber_peruntukan"] = this.nama_sumber_peruntukan;
         data["status_sumber_peruntukan"] = this.status_sumber_peruntukan;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefSumberPeruntukanDto */
 export interface IRefSumberPeruntukanDto {
     id: number;
     nama_sumber_peruntukan: string;
     status_sumber_peruntukan: number;
 }
 
-/** Class CreateOrEditRefTapakRumahDto */
 export class CreateOrEditRefTapakRumahDto implements ICreateOrEditRefTapakRumahDto {
     id!: number;
     nama_tapak_rumah!: string;
@@ -38091,18 +37649,16 @@ export class CreateOrEditRefTapakRumahDto implements ICreateOrEditRefTapakRumahD
         data["id"] = this.id;
         data["nama_tapak_rumah"] = this.nama_tapak_rumah;
         data["status_tapak_rumah"] = this.status_tapak_rumah;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefTapakRumahDto */
 export interface ICreateOrEditRefTapakRumahDto {
     id: number;
     nama_tapak_rumah: string;
     status_tapak_rumah: number;
 }
 
-/** Class GetRefTapakRumahForEditDto */
 export class GetRefTapakRumahForEditDto implements IGetRefTapakRumahForEditDto {
     ref_tapak_rumah!: CreateOrEditRefTapakRumahDto;
 
@@ -38131,11 +37687,10 @@ export class GetRefTapakRumahForEditDto implements IGetRefTapakRumahForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_tapak_rumah"] = this.ref_tapak_rumah ? this.ref_tapak_rumah.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefTapakRumahForEditDto */
 export interface IGetRefTapakRumahForEditDto {
     ref_tapak_rumah: CreateOrEditRefTapakRumahDto;
 }
@@ -38178,7 +37733,7 @@ export class GetRefTapakRumahForListDto implements IGetRefTapakRumahForListDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -38188,7 +37743,6 @@ export interface IGetRefTapakRumahForListDto {
     items: RefTapakRumahDto[];
 }
 
-/** Class GetRefTapakRumahForViewDto */
 export class GetRefTapakRumahForViewDto implements IGetRefTapakRumahForViewDto {
     id!: number;
     nama_tapak_rumah!: string;
@@ -38223,11 +37777,10 @@ export class GetRefTapakRumahForViewDto implements IGetRefTapakRumahForViewDto {
         data["id"] = this.id;
         data["nama_tapak_rumah"] = this.nama_tapak_rumah;
         data["status_tapak_rumah"] = this.status_tapak_rumah;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefTapakRumahForViewDto */
 export interface IGetRefTapakRumahForViewDto {
     id: number;
     nama_tapak_rumah: string;
@@ -38276,7 +37829,7 @@ export class PagedResultDtoOfRefTapakRumahForViewDto implements IPagedResultDtoO
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -38288,7 +37841,6 @@ export interface IPagedResultDtoOfRefTapakRumahForViewDto {
     items: GetRefTapakRumahForViewDto[];
 }
 
-/** Class RefTapakRumahDto */
 export class RefTapakRumahDto implements IRefTapakRumahDto {
     id!: number;
     nama_tapak_rumah!: string;
@@ -38323,18 +37875,16 @@ export class RefTapakRumahDto implements IRefTapakRumahDto {
         data["id"] = this.id;
         data["nama_tapak_rumah"] = this.nama_tapak_rumah;
         data["status_tapak_rumah"] = this.status_tapak_rumah;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefTapakRumahDto */
 export interface IRefTapakRumahDto {
     id: number;
     nama_tapak_rumah: string;
     status_tapak_rumah: number;
 }
 
-/** Class CreateOrEditRefWarganegaraDto */
 export class CreateOrEditRefWarganegaraDto implements ICreateOrEditRefWarganegaraDto {
     id!: number;
     kod_warganegara!: string;
@@ -38372,11 +37922,10 @@ export class CreateOrEditRefWarganegaraDto implements ICreateOrEditRefWarganegar
         data["kod_warganegara"] = this.kod_warganegara;
         data["nama_warganegara"] = this.nama_warganegara;
         data["status_warganegara"] = this.status_warganegara;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditRefWarganegaraDto */
 export interface ICreateOrEditRefWarganegaraDto {
     id: number;
     kod_warganegara: string;
@@ -38384,7 +37933,6 @@ export interface ICreateOrEditRefWarganegaraDto {
     status_warganegara: number;
 }
 
-/** Class GetRefWarganegaraForEditDto */
 export class GetRefWarganegaraForEditDto implements IGetRefWarganegaraForEditDto {
     ref_warganegara!: CreateOrEditRefWarganegaraDto;
 
@@ -38413,11 +37961,10 @@ export class GetRefWarganegaraForEditDto implements IGetRefWarganegaraForEditDto
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["ref_warganegara"] = this.ref_warganegara ? this.ref_warganegara.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefWarganegaraForEditDto */
 export interface IGetRefWarganegaraForEditDto {
     ref_warganegara: CreateOrEditRefWarganegaraDto;
 }
@@ -38460,7 +38007,7 @@ export class GetRefWarganegaraForListDto implements IGetRefWarganegaraForListDto
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -38470,7 +38017,6 @@ export interface IGetRefWarganegaraForListDto {
     items: RefWarganegaraDto[];
 }
 
-/** Class GetRefWarganegaraForViewDto */
 export class GetRefWarganegaraForViewDto implements IGetRefWarganegaraForViewDto {
     id!: number;
     kod_warganegara!: string;
@@ -38508,11 +38054,10 @@ export class GetRefWarganegaraForViewDto implements IGetRefWarganegaraForViewDto
         data["kod_warganegara"] = this.kod_warganegara;
         data["nama_warganegara"] = this.nama_warganegara;
         data["status_warganegara"] = this.status_warganegara;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRefWarganegaraForViewDto */
 export interface IGetRefWarganegaraForViewDto {
     id: number;
     kod_warganegara: string;
@@ -38562,7 +38107,7 @@ export class PagedResultDtoOfRefWarganegaraForViewDto implements IPagedResultDto
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -38574,7 +38119,6 @@ export interface IPagedResultDtoOfRefWarganegaraForViewDto {
     items: GetRefWarganegaraForViewDto[];
 }
 
-/** Class RefWarganegaraDto */
 export class RefWarganegaraDto implements IRefWarganegaraDto {
     id!: number;
     kod_warganegara!: string;
@@ -38612,11 +38156,10 @@ export class RefWarganegaraDto implements IRefWarganegaraDto {
         data["kod_warganegara"] = this.kod_warganegara;
         data["nama_warganegara"] = this.nama_warganegara;
         data["status_warganegara"] = this.status_warganegara;
-        return data;
+        return data; 
     }
 }
 
-/** Class RefWarganegaraDto */
 export interface IRefWarganegaraDto {
     id: number;
     kod_warganegara: string;
@@ -38624,7 +38167,6 @@ export interface IRefWarganegaraDto {
     status_warganegara: number;
 }
 
-/** Class ChangePasswordDto */
 export class ChangePasswordDto implements IChangePasswordDto {
     kata_laluan_lama!: string;
     kata_laluan_baru!: string;
@@ -38659,18 +38201,16 @@ export class ChangePasswordDto implements IChangePasswordDto {
         data["kata_laluan_lama"] = this.kata_laluan_lama;
         data["kata_laluan_baru"] = this.kata_laluan_baru;
         data["ulang_kata_laluan_baru"] = this.ulang_kata_laluan_baru;
-        return data;
+        return data; 
     }
 }
 
-/** Class ChangePasswordDto */
 export interface IChangePasswordDto {
     kata_laluan_lama: string;
     kata_laluan_baru: string;
     ulang_kata_laluan_baru: string;
 }
 
-/** Class GetProfilDto */
 export class GetProfilDto implements IGetProfilDto {
     pengguna!: PenggunaProfilDto;
     daerah!: string;
@@ -38678,6 +38218,8 @@ export class GetProfilDto implements IGetProfilDto {
     peranan!: string;
     kementerian!: string;
     agensi!: string;
+    /** Capaian in array of string */
+    capaian!: string[];
 
     constructor(data?: IGetProfilDto) {
         if (data) {
@@ -38696,6 +38238,11 @@ export class GetProfilDto implements IGetProfilDto {
             this.peranan = _data["peranan"];
             this.kementerian = _data["kementerian"];
             this.agensi = _data["agensi"];
+            if (Array.isArray(_data["capaian"])) {
+                this.capaian = [] as any;
+                for (let item of _data["capaian"])
+                    this.capaian!.push(item);
+            }
         }
     }
 
@@ -38714,11 +38261,15 @@ export class GetProfilDto implements IGetProfilDto {
         data["peranan"] = this.peranan;
         data["kementerian"] = this.kementerian;
         data["agensi"] = this.agensi;
-        return data;
+        if (Array.isArray(this.capaian)) {
+            data["capaian"] = [];
+            for (let item of this.capaian)
+                data["capaian"].push(item);
+        }
+        return data; 
     }
 }
 
-/** Class GetProfilDto */
 export interface IGetProfilDto {
     pengguna: PenggunaProfilDto;
     daerah: string;
@@ -38726,9 +38277,10 @@ export interface IGetProfilDto {
     peranan: string;
     kementerian: string;
     agensi: string;
+    /** Capaian in array of string */
+    capaian: string[];
 }
 
-/** Class OutputGambarProfil */
 export class OutputGambarProfil implements IOutputGambarProfil {
     gambar!: string;
 
@@ -38757,16 +38309,14 @@ export class OutputGambarProfil implements IOutputGambarProfil {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["gambar"] = this.gambar;
-        return data;
+        return data; 
     }
 }
 
-/** Class OutputGambarProfil */
 export interface IOutputGambarProfil {
     gambar: string;
 }
 
-/** Class PenggunaProfilDto */
 export class PenggunaProfilDto implements IPenggunaProfilDto {
     id!: number;
     nama!: string;
@@ -38846,11 +38396,10 @@ export class PenggunaProfilDto implements IPenggunaProfilDto {
         data["id_daerah"] = this.id_daerah;
         data["id_negeri"] = this.id_negeri;
         data["gambar"] = this.gambar;
-        return data;
+        return data; 
     }
 }
 
-/** Class PenggunaProfilDto */
 export interface IPenggunaProfilDto {
     id: number;
     nama: string;
@@ -38872,7 +38421,6 @@ export interface IPenggunaProfilDto {
     gambar: string;
 }
 
-/** Class UpdateProfilDto */
 export class UpdateProfilDto implements IUpdateProfilDto {
     pengguna!: PenggunaProfilDto;
 
@@ -38901,16 +38449,14 @@ export class UpdateProfilDto implements IUpdateProfilDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["pengguna"] = this.pengguna ? this.pengguna.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class UpdateProfilDto */
 export interface IUpdateProfilDto {
     pengguna: PenggunaProfilDto;
 }
 
-/** Class CreateOrEditTabungBayaranSkbBulananDto */
 export class CreateOrEditTabungBayaranSkbBulananDto implements ICreateOrEditTabungBayaranSkbBulananDto {
     id!: number;
     id_tabung_bayaran_skb!: number;
@@ -38972,11 +38518,10 @@ export class CreateOrEditTabungBayaranSkbBulananDto implements ICreateOrEditTabu
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditTabungBayaranSkbBulananDto */
 export interface ICreateOrEditTabungBayaranSkbBulananDto {
     id: number;
     id_tabung_bayaran_skb: number;
@@ -38992,7 +38537,6 @@ export interface ICreateOrEditTabungBayaranSkbBulananDto {
     tarikh_kemaskini: moment.Moment;
 }
 
-/** Class GetTabungBayaranSkbBulananForEditDto */
 export class GetTabungBayaranSkbBulananForEditDto implements IGetTabungBayaranSkbBulananForEditDto {
     tabung_bayaran_skb_bulanan!: CreateOrEditTabungBayaranSkbBulananDto;
 
@@ -39021,16 +38565,14 @@ export class GetTabungBayaranSkbBulananForEditDto implements IGetTabungBayaranSk
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["tabung_bayaran_skb_bulanan"] = this.tabung_bayaran_skb_bulanan ? this.tabung_bayaran_skb_bulanan.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungBayaranSkbBulananForEditDto */
 export interface IGetTabungBayaranSkbBulananForEditDto {
     tabung_bayaran_skb_bulanan: CreateOrEditTabungBayaranSkbBulananDto;
 }
 
-/** Class GetTabungBayaranSkbBulananForViewDto */
 export class GetTabungBayaranSkbBulananForViewDto implements IGetTabungBayaranSkbBulananForViewDto {
     id!: number;
     id_tabung_bayaran_skb!: number;
@@ -39074,11 +38616,10 @@ export class GetTabungBayaranSkbBulananForViewDto implements IGetTabungBayaranSk
         data["id_bulan"] = this.id_bulan;
         data["tahun"] = this.tahun;
         data["jumlah"] = this.jumlah;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungBayaranSkbBulananForViewDto */
 export interface IGetTabungBayaranSkbBulananForViewDto {
     id: number;
     id_tabung_bayaran_skb: number;
@@ -39088,7 +38629,6 @@ export interface IGetTabungBayaranSkbBulananForViewDto {
     jumlah: string;
 }
 
-/** Class OutputCreateSkbBulananDto */
 export class OutputCreateSkbBulananDto implements IOutputCreateSkbBulananDto {
     message!: string;
 
@@ -39117,11 +38657,10 @@ export class OutputCreateSkbBulananDto implements IOutputCreateSkbBulananDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["message"] = this.message;
-        return data;
+        return data; 
     }
 }
 
-/** Class OutputCreateSkbBulananDto */
 export interface IOutputCreateSkbBulananDto {
     message: string;
 }
@@ -39168,7 +38707,7 @@ export class PagedResultDtoOfTabungBayaranSkbBulananForViewDto implements IPaged
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -39180,7 +38719,6 @@ export interface IPagedResultDtoOfTabungBayaranSkbBulananForViewDto {
     items: GetTabungBayaranSkbBulananForViewDto[];
 }
 
-/** Class CreateOrEditTabungBayaranSkbStatusDto */
 export class CreateOrEditTabungBayaranSkbStatusDto implements ICreateOrEditTabungBayaranSkbStatusDto {
     id!: number;
     id_tabung_bayaran_skb!: number;
@@ -39224,11 +38762,10 @@ export class CreateOrEditTabungBayaranSkbStatusDto implements ICreateOrEditTabun
         data["catatan"] = this.catatan;
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditTabungBayaranSkbStatusDto */
 export interface ICreateOrEditTabungBayaranSkbStatusDto {
     id: number;
     id_tabung_bayaran_skb: number;
@@ -39238,7 +38775,6 @@ export interface ICreateOrEditTabungBayaranSkbStatusDto {
     id_pengguna_cipta: number;
 }
 
-/** Class GetTabungBayaranSkbStatusForEditDto */
 export class GetTabungBayaranSkbStatusForEditDto implements IGetTabungBayaranSkbStatusForEditDto {
     tabungBayaranSkbStatus!: CreateOrEditTabungBayaranSkbStatusDto;
 
@@ -39267,16 +38803,14 @@ export class GetTabungBayaranSkbStatusForEditDto implements IGetTabungBayaranSkb
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["tabungBayaranSkbStatus"] = this.tabungBayaranSkbStatus ? this.tabungBayaranSkbStatus.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungBayaranSkbStatusForEditDto */
 export interface IGetTabungBayaranSkbStatusForEditDto {
     tabungBayaranSkbStatus: CreateOrEditTabungBayaranSkbStatusDto;
 }
 
-/** Class GetTabungBayaranSkbStatusForViewDto */
 export class GetTabungBayaranSkbStatusForViewDto implements IGetTabungBayaranSkbStatusForViewDto {
     id!: number;
     id_tabung_bayaran_skb!: number;
@@ -39320,11 +38854,10 @@ export class GetTabungBayaranSkbStatusForViewDto implements IGetTabungBayaranSkb
         data["catatan"] = this.catatan;
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungBayaranSkbStatusForViewDto */
 export interface IGetTabungBayaranSkbStatusForViewDto {
     id: number;
     id_tabung_bayaran_skb: number;
@@ -39376,7 +38909,7 @@ export class PagedResultDtoOfTabungBayaranSkbStatusForViewDto implements IPagedR
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -39388,7 +38921,6 @@ export interface IPagedResultDtoOfTabungBayaranSkbStatusForViewDto {
     items: GetTabungBayaranSkbStatusForViewDto[];
 }
 
-/** Class CreateOrEditTabungBayaranSkbDto */
 export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayaranSkbDto {
     id!: number;
     no_rujukan_skb!: string;
@@ -39516,11 +39048,10 @@ export class CreateOrEditTabungBayaranSkbDto implements ICreateOrEditTabungBayar
         data["nama_skb_status"] = this.nama_skb_status;
         data["id_status_skb"] = this.id_status_skb;
         data["catatan"] = this.catatan;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditTabungBayaranSkbDto */
 export interface ICreateOrEditTabungBayaranSkbDto {
     id: number;
     no_rujukan_skb: string;
@@ -39558,7 +39089,6 @@ export interface ICreateOrEditTabungBayaranSkbDto {
     catatan: string;
 }
 
-/** Class GetRujukanKelulusanSkbDto */
 export class GetRujukanKelulusanSkbDto implements IGetRujukanKelulusanSkbDto {
     no_rujukan_kelulusan!: string;
     id_tabung!: number;
@@ -39590,17 +39120,15 @@ export class GetRujukanKelulusanSkbDto implements IGetRujukanKelulusanSkbDto {
         data = typeof data === 'object' ? data : {};
         data["no_rujukan_kelulusan"] = this.no_rujukan_kelulusan;
         data["id_tabung"] = this.id_tabung;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRujukanKelulusanSkbDto */
 export interface IGetRujukanKelulusanSkbDto {
     no_rujukan_kelulusan: string;
     id_tabung: number;
 }
 
-/** Class GetTabungBayaranSkbForEditDto */
 export class GetTabungBayaranSkbForEditDto implements IGetTabungBayaranSkbForEditDto {
     tabung_bayaran_skb!: CreateOrEditTabungBayaranSkbDto;
 
@@ -39629,16 +39157,14 @@ export class GetTabungBayaranSkbForEditDto implements IGetTabungBayaranSkbForEdi
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["tabung_bayaran_skb"] = this.tabung_bayaran_skb ? this.tabung_bayaran_skb.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungBayaranSkbForEditDto */
 export interface IGetTabungBayaranSkbForEditDto {
     tabung_bayaran_skb: CreateOrEditTabungBayaranSkbDto;
 }
 
-/** Class GetTabungBayaranSkbForViewDto */
 export class GetTabungBayaranSkbForViewDto implements IGetTabungBayaranSkbForViewDto {
     id!: number;
     no_rujukan_skb!: string;
@@ -39715,11 +39241,10 @@ export class GetTabungBayaranSkbForViewDto implements IGetTabungBayaranSkbForVie
         data["nama_kategori_bayaran"] = this.nama_kategori_bayaran;
         data["nama_skb_status"] = this.nama_skb_status;
         data["jumlah_belanja"] = this.jumlah_belanja;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungBayaranSkbForViewDto */
 export interface IGetTabungBayaranSkbForViewDto {
     id: number;
     no_rujukan_skb: string;
@@ -39740,7 +39265,6 @@ export interface IGetTabungBayaranSkbForViewDto {
     jumlah_belanja: number;
 }
 
-/** Class InputCreateBayaranSkbDto */
 export class InputCreateBayaranSkbDto implements IInputCreateBayaranSkbDto {
     skb!: CreateOrEditTabungBayaranSkbDto;
     /** Array of kluster object */
@@ -39787,11 +39311,10 @@ export class InputCreateBayaranSkbDto implements IInputCreateBayaranSkbDto {
         }
         data["catatan"] = this.catatan;
         data["changeStatus"] = this.changeStatus;
-        return data;
+        return data; 
     }
 }
 
-/** Class InputCreateBayaranSkbDto */
 export interface IInputCreateBayaranSkbDto {
     skb: CreateOrEditTabungBayaranSkbDto;
     /** Array of kluster object */
@@ -39800,7 +39323,6 @@ export interface IInputCreateBayaranSkbDto {
     changeStatus: number;
 }
 
-/** Class InputSkbBulananDto */
 export class InputSkbBulananDto implements IInputSkbBulananDto {
     bulan!: string;
     tahun!: string;
@@ -39838,11 +39360,10 @@ export class InputSkbBulananDto implements IInputSkbBulananDto {
         data["tahun"] = this.tahun;
         data["jumlah"] = this.jumlah;
         data["id_bulan"] = this.id_bulan;
-        return data;
+        return data; 
     }
 }
 
-/** Class InputSkbBulananDto */
 export interface IInputSkbBulananDto {
     bulan: string;
     tahun: string;
@@ -39850,7 +39371,6 @@ export interface IInputSkbBulananDto {
     id_bulan: number;
 }
 
-/** Class OutputCreateBayaranSkbDto */
 export class OutputCreateBayaranSkbDto implements IOutputCreateBayaranSkbDto {
     message!: string;
 
@@ -39879,11 +39399,10 @@ export class OutputCreateBayaranSkbDto implements IOutputCreateBayaranSkbDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["message"] = this.message;
-        return data;
+        return data; 
     }
 }
 
-/** Class OutputCreateBayaranSkbDto */
 export interface IOutputCreateBayaranSkbDto {
     message: string;
 }
@@ -39930,7 +39449,7 @@ export class PagedResultDtoOfTabungBayaranSkbForViewDto implements IPagedResultD
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -39942,7 +39461,6 @@ export interface IPagedResultDtoOfTabungBayaranSkbForViewDto {
     items: GetTabungBayaranSkbForViewDto[];
 }
 
-/** Class CreateOrEditTabungBayaranTerusDto */
 export class CreateOrEditTabungBayaranTerusDto implements ICreateOrEditTabungBayaranTerusDto {
     id!: number;
     id_tabung_kelulusan!: number;
@@ -40037,11 +39555,10 @@ export class CreateOrEditTabungBayaranTerusDto implements ICreateOrEditTabungBay
         data["nama_bencana"] = this.nama_bencana;
         data["nama_jenis_bayaran"] = this.nama_jenis_bayaran;
         data["nama_kategori_bayaran"] = this.nama_kategori_bayaran;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditTabungBayaranTerusDto */
 export interface ICreateOrEditTabungBayaranTerusDto {
     id: number;
     id_tabung_kelulusan: number;
@@ -40068,7 +39585,6 @@ export interface ICreateOrEditTabungBayaranTerusDto {
     nama_kategori_bayaran: string;
 }
 
-/** Class GetRujukanKelulusanTerusDto */
 export class GetRujukanKelulusanTerusDto implements IGetRujukanKelulusanTerusDto {
     no_rujukan_kelulusan!: string;
     id_tabung!: number;
@@ -40100,17 +39616,15 @@ export class GetRujukanKelulusanTerusDto implements IGetRujukanKelulusanTerusDto
         data = typeof data === 'object' ? data : {};
         data["no_rujukan_kelulusan"] = this.no_rujukan_kelulusan;
         data["id_tabung"] = this.id_tabung;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRujukanKelulusanTerusDto */
 export interface IGetRujukanKelulusanTerusDto {
     no_rujukan_kelulusan: string;
     id_tabung: number;
 }
 
-/** Class GetTabungBayaranTerusForEditDto */
 export class GetTabungBayaranTerusForEditDto implements IGetTabungBayaranTerusForEditDto {
     tabung_bayaran_terus!: CreateOrEditTabungBayaranTerusDto;
 
@@ -40139,16 +39653,14 @@ export class GetTabungBayaranTerusForEditDto implements IGetTabungBayaranTerusFo
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["tabung_bayaran_terus"] = this.tabung_bayaran_terus ? this.tabung_bayaran_terus.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungBayaranTerusForEditDto */
 export interface IGetTabungBayaranTerusForEditDto {
     tabung_bayaran_terus: CreateOrEditTabungBayaranTerusDto;
 }
 
-/** Class GetTabungBayaranTerusForViewDto */
 export class GetTabungBayaranTerusForViewDto implements IGetTabungBayaranTerusForViewDto {
     id!: number;
     id_tabung_kelulusan!: number;
@@ -40240,11 +39752,10 @@ export class GetTabungBayaranTerusForViewDto implements IGetTabungBayaranTerusFo
         data["id_jenis_bayaran"] = this.id_jenis_bayaran;
         data["nama_kategori_bayaran"] = this.nama_kategori_bayaran;
         data["id_kategori_bayaran"] = this.id_kategori_bayaran;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungBayaranTerusForViewDto */
 export interface IGetTabungBayaranTerusForViewDto {
     id: number;
     id_tabung_kelulusan: number;
@@ -40270,7 +39781,6 @@ export interface IGetTabungBayaranTerusForViewDto {
     id_kategori_bayaran: number;
 }
 
-/** Class GetTabungBayaranTerusLookupDto */
 export class GetTabungBayaranTerusLookupDto implements IGetTabungBayaranTerusLookupDto {
     id!: number;
     no_rujukan_terus!: number;
@@ -40314,11 +39824,10 @@ export class GetTabungBayaranTerusLookupDto implements IGetTabungBayaranTerusLoo
         data["jumlah"] = this.jumlah;
         data["id_tabung_kelulusan"] = this.id_tabung_kelulusan;
         data["no_rujukan_kelulusan"] = this.no_rujukan_kelulusan;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungBayaranTerusLookupDto */
 export interface IGetTabungBayaranTerusLookupDto {
     id: number;
     no_rujukan_terus: number;
@@ -40328,7 +39837,6 @@ export interface IGetTabungBayaranTerusLookupDto {
     no_rujukan_kelulusan: string;
 }
 
-/** Class OutputCreateBayaranTerusDto */
 export class OutputCreateBayaranTerusDto implements IOutputCreateBayaranTerusDto {
     message!: string;
 
@@ -40357,11 +39865,10 @@ export class OutputCreateBayaranTerusDto implements IOutputCreateBayaranTerusDto
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["message"] = this.message;
-        return data;
+        return data; 
     }
 }
 
-/** Class OutputCreateBayaranTerusDto */
 export interface IOutputCreateBayaranTerusDto {
     message: string;
 }
@@ -40408,7 +39915,7 @@ export class PagedResultDtoOfBayaranTerusLookupDto implements IPagedResultDtoOfB
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -40462,7 +39969,7 @@ export class PagedResultDtoOfTabungBayaranTerusForViewDto implements IPagedResul
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -40474,7 +39981,6 @@ export interface IPagedResultDtoOfTabungBayaranTerusForViewDto {
     items: GetTabungBayaranTerusForViewDto[];
 }
 
-/** Class CreateOrEditTabungBayaranWaranBulananDto */
 export class CreateOrEditTabungBayaranWaranBulananDto implements ICreateOrEditTabungBayaranWaranBulananDto {
     id!: number;
     id_tabung_bayaran_waran!: number;
@@ -40536,11 +40042,10 @@ export class CreateOrEditTabungBayaranWaranBulananDto implements ICreateOrEditTa
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditTabungBayaranWaranBulananDto */
 export interface ICreateOrEditTabungBayaranWaranBulananDto {
     id: number;
     id_tabung_bayaran_waran: number;
@@ -40556,7 +40061,6 @@ export interface ICreateOrEditTabungBayaranWaranBulananDto {
     tarikh_kemaskini: moment.Moment;
 }
 
-/** Class GetTabungBayaranWaranBulananForEditDto */
 export class GetTabungBayaranWaranBulananForEditDto implements IGetTabungBayaranWaranBulananForEditDto {
     tabung_bayaran_waran_bulanan!: CreateOrEditTabungBayaranWaranBulananDto;
 
@@ -40585,16 +40089,14 @@ export class GetTabungBayaranWaranBulananForEditDto implements IGetTabungBayaran
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["tabung_bayaran_waran_bulanan"] = this.tabung_bayaran_waran_bulanan ? this.tabung_bayaran_waran_bulanan.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungBayaranWaranBulananForEditDto */
 export interface IGetTabungBayaranWaranBulananForEditDto {
     tabung_bayaran_waran_bulanan: CreateOrEditTabungBayaranWaranBulananDto;
 }
 
-/** Class GetTabungBayaranWaranBulananForViewDto */
 export class GetTabungBayaranWaranBulananForViewDto implements IGetTabungBayaranWaranBulananForViewDto {
     id!: number;
     id_tabung_bayaran_waran!: number;
@@ -40638,11 +40140,10 @@ export class GetTabungBayaranWaranBulananForViewDto implements IGetTabungBayaran
         data["id_bulan"] = this.id_bulan;
         data["tahun"] = this.tahun;
         data["jumlah"] = this.jumlah;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungBayaranWaranBulananForViewDto */
 export interface IGetTabungBayaranWaranBulananForViewDto {
     id: number;
     id_tabung_bayaran_waran: number;
@@ -40652,7 +40153,6 @@ export interface IGetTabungBayaranWaranBulananForViewDto {
     jumlah: string;
 }
 
-/** Class OutputCreateWaranBulananDto */
 export class OutputCreateWaranBulananDto implements IOutputCreateWaranBulananDto {
     message!: string;
 
@@ -40681,11 +40181,10 @@ export class OutputCreateWaranBulananDto implements IOutputCreateWaranBulananDto
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["message"] = this.message;
-        return data;
+        return data; 
     }
 }
 
-/** Class OutputCreateWaranBulananDto */
 export interface IOutputCreateWaranBulananDto {
     message: string;
 }
@@ -40732,7 +40231,7 @@ export class PagedResultDtoOfTabungBayaranWaranBulananForViewDto implements IPag
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -40744,7 +40243,6 @@ export interface IPagedResultDtoOfTabungBayaranWaranBulananForViewDto {
     items: GetTabungBayaranWaranBulananForViewDto[];
 }
 
-/** Class CreateOrEditTabungBayaranWaranStatusDto */
 export class CreateOrEditTabungBayaranWaranStatusDto implements ICreateOrEditTabungBayaranWaranStatusDto {
     id!: number;
     id_tabung_bayaran_waran!: number;
@@ -40788,11 +40286,10 @@ export class CreateOrEditTabungBayaranWaranStatusDto implements ICreateOrEditTab
         data["catatan"] = this.catatan;
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditTabungBayaranWaranStatusDto */
 export interface ICreateOrEditTabungBayaranWaranStatusDto {
     id: number;
     id_tabung_bayaran_waran: number;
@@ -40802,7 +40299,6 @@ export interface ICreateOrEditTabungBayaranWaranStatusDto {
     id_pengguna_cipta: number;
 }
 
-/** Class GetTabungBayaranWaranStatusForEditDto */
 export class GetTabungBayaranWaranStatusForEditDto implements IGetTabungBayaranWaranStatusForEditDto {
     tabungBayaranWaranStatus!: CreateOrEditTabungBayaranWaranStatusDto;
 
@@ -40831,16 +40327,14 @@ export class GetTabungBayaranWaranStatusForEditDto implements IGetTabungBayaranW
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["tabungBayaranWaranStatus"] = this.tabungBayaranWaranStatus ? this.tabungBayaranWaranStatus.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungBayaranWaranStatusForEditDto */
 export interface IGetTabungBayaranWaranStatusForEditDto {
     tabungBayaranWaranStatus: CreateOrEditTabungBayaranWaranStatusDto;
 }
 
-/** Class GetTabungBayaranWaranStatusForViewDto */
 export class GetTabungBayaranWaranStatusForViewDto implements IGetTabungBayaranWaranStatusForViewDto {
     id!: number;
     id_tabung_bayaran_waran!: number;
@@ -40884,11 +40378,10 @@ export class GetTabungBayaranWaranStatusForViewDto implements IGetTabungBayaranW
         data["catatan"] = this.catatan;
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungBayaranWaranStatusForViewDto */
 export interface IGetTabungBayaranWaranStatusForViewDto {
     id: number;
     id_tabung_bayaran_waran: number;
@@ -40940,7 +40433,7 @@ export class PagedResultDtoOfTabungBayaranWaranStatusForViewDto implements IPage
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -40952,7 +40445,6 @@ export interface IPagedResultDtoOfTabungBayaranWaranStatusForViewDto {
     items: GetTabungBayaranWaranStatusForViewDto[];
 }
 
-/** Class CreateOrEditTabungBayaranWaranDto */
 export class CreateOrEditTabungBayaranWaranDto implements ICreateOrEditTabungBayaranWaranDto {
     id!: number;
     no_rujukan_waran!: string;
@@ -41080,11 +40572,10 @@ export class CreateOrEditTabungBayaranWaranDto implements ICreateOrEditTabungBay
         data["nama_waran_status"] = this.nama_waran_status;
         data["id_status_waran"] = this.id_status_waran;
         data["catatan"] = this.catatan;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditTabungBayaranWaranDto */
 export interface ICreateOrEditTabungBayaranWaranDto {
     id: number;
     no_rujukan_waran: string;
@@ -41122,7 +40613,6 @@ export interface ICreateOrEditTabungBayaranWaranDto {
     catatan: string;
 }
 
-/** Class GetRujukanKelulusanWaranDto */
 export class GetRujukanKelulusanWaranDto implements IGetRujukanKelulusanWaranDto {
     no_rujukan_kelulusan!: string;
     id_tabung!: number;
@@ -41154,17 +40644,15 @@ export class GetRujukanKelulusanWaranDto implements IGetRujukanKelulusanWaranDto
         data = typeof data === 'object' ? data : {};
         data["no_rujukan_kelulusan"] = this.no_rujukan_kelulusan;
         data["id_tabung"] = this.id_tabung;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRujukanKelulusanWaranDto */
 export interface IGetRujukanKelulusanWaranDto {
     no_rujukan_kelulusan: string;
     id_tabung: number;
 }
 
-/** Class GetTabungBayaranWaranForEditDto */
 export class GetTabungBayaranWaranForEditDto implements IGetTabungBayaranWaranForEditDto {
     tabung_bayaran_waran!: CreateOrEditTabungBayaranWaranDto;
 
@@ -41193,16 +40681,14 @@ export class GetTabungBayaranWaranForEditDto implements IGetTabungBayaranWaranFo
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["tabung_bayaran_waran"] = this.tabung_bayaran_waran ? this.tabung_bayaran_waran.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungBayaranWaranForEditDto */
 export interface IGetTabungBayaranWaranForEditDto {
     tabung_bayaran_waran: CreateOrEditTabungBayaranWaranDto;
 }
 
-/** Class GetTabungBayaranWaranForViewDto */
 export class GetTabungBayaranWaranForViewDto implements IGetTabungBayaranWaranForViewDto {
     id!: number;
     no_rujukan_waran!: string;
@@ -41276,11 +40762,10 @@ export class GetTabungBayaranWaranForViewDto implements IGetTabungBayaranWaranFo
         data["nama_kategori_bayaran"] = this.nama_kategori_bayaran;
         data["nama_waran_status"] = this.nama_waran_status;
         data["jumlah_belanja"] = this.jumlah_belanja;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungBayaranWaranForViewDto */
 export interface IGetTabungBayaranWaranForViewDto {
     id: number;
     no_rujukan_waran: string;
@@ -41300,7 +40785,6 @@ export interface IGetTabungBayaranWaranForViewDto {
     jumlah_belanja: number;
 }
 
-/** Class InputCreateBayaranWaranDto */
 export class InputCreateBayaranWaranDto implements IInputCreateBayaranWaranDto {
     waran!: CreateOrEditTabungBayaranWaranDto;
     /** Array of kluster object */
@@ -41347,11 +40831,10 @@ export class InputCreateBayaranWaranDto implements IInputCreateBayaranWaranDto {
         }
         data["catatan"] = this.catatan;
         data["changeStatus"] = this.changeStatus;
-        return data;
+        return data; 
     }
 }
 
-/** Class InputCreateBayaranWaranDto */
 export interface IInputCreateBayaranWaranDto {
     waran: CreateOrEditTabungBayaranWaranDto;
     /** Array of kluster object */
@@ -41360,7 +40843,6 @@ export interface IInputCreateBayaranWaranDto {
     changeStatus: number;
 }
 
-/** Class InputWaranBulananDto */
 export class InputWaranBulananDto implements IInputWaranBulananDto {
     bulan!: string;
     tahun!: string;
@@ -41398,11 +40880,10 @@ export class InputWaranBulananDto implements IInputWaranBulananDto {
         data["tahun"] = this.tahun;
         data["jumlah"] = this.jumlah;
         data["id_bulan"] = this.id_bulan;
-        return data;
+        return data; 
     }
 }
 
-/** Class InputWaranBulananDto */
 export interface IInputWaranBulananDto {
     bulan: string;
     tahun: string;
@@ -41410,7 +40891,6 @@ export interface IInputWaranBulananDto {
     id_bulan: number;
 }
 
-/** Class OutputCreateBayaranWaranDto */
 export class OutputCreateBayaranWaranDto implements IOutputCreateBayaranWaranDto {
     message!: string;
 
@@ -41439,11 +40919,10 @@ export class OutputCreateBayaranWaranDto implements IOutputCreateBayaranWaranDto
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["message"] = this.message;
-        return data;
+        return data; 
     }
 }
 
-/** Class OutputCreateBayaranWaranDto */
 export interface IOutputCreateBayaranWaranDto {
     message: string;
 }
@@ -41490,7 +40969,7 @@ export class PagedResultDtoOfTabungBayaranWaranForViewDto implements IPagedResul
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -41502,7 +40981,6 @@ export interface IPagedResultDtoOfTabungBayaranWaranForViewDto {
     items: GetTabungBayaranWaranForViewDto[];
 }
 
-/** Class CreateOrEditTabungBwiBayaranDto */
 export class CreateOrEditTabungBwiBayaranDto implements ICreateOrEditTabungBwiBayaranDto {
     id!: number;
     id_tabung_bwi!: number;
@@ -41555,11 +41033,10 @@ export class CreateOrEditTabungBwiBayaranDto implements ICreateOrEditTabungBwiBa
         data["hapus"] = this.hapus;
         data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
         data["id_pengguna_hapus"] = this.id_pengguna_hapus;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditTabungBwiBayaranDto */
 export interface ICreateOrEditTabungBwiBayaranDto {
     id: number;
     id_tabung_bwi: number;
@@ -41572,7 +41049,6 @@ export interface ICreateOrEditTabungBwiBayaranDto {
     id_pengguna_hapus: number;
 }
 
-/** Class GetTabungBwiBayaranForEditDto */
 export class GetTabungBwiBayaranForEditDto implements IGetTabungBwiBayaranForEditDto {
     tabung_bwi_bayaran!: CreateOrEditTabungBwiBayaranDto;
 
@@ -41601,16 +41077,14 @@ export class GetTabungBwiBayaranForEditDto implements IGetTabungBwiBayaranForEdi
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["tabung_bwi_bayaran"] = this.tabung_bwi_bayaran ? this.tabung_bwi_bayaran.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungBwiBayaranForEditDto */
 export interface IGetTabungBwiBayaranForEditDto {
     tabung_bwi_bayaran: CreateOrEditTabungBwiBayaranDto;
 }
 
-/** Class GetTabungBwiBayaranForViewDto */
 export class GetTabungBwiBayaranForViewDto implements IGetTabungBwiBayaranForViewDto {
     id!: number;
     id_tabung_bwi!: number;
@@ -41678,11 +41152,10 @@ export class GetTabungBwiBayaranForViewDto implements IGetTabungBwiBayaranForVie
         data["no_rujukan_kelulusan"] = this.no_rujukan_kelulusan;
         data["jumlah"] = this.jumlah;
         data["perihal"] = this.perihal;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungBwiBayaranForViewDto */
 export interface IGetTabungBwiBayaranForViewDto {
     id: number;
     id_tabung_bwi: number;
@@ -41700,7 +41173,6 @@ export interface IGetTabungBwiBayaranForViewDto {
     perihal: string;
 }
 
-/** Class InputCreateBwiTabungBayaranDto */
 export class InputCreateBwiTabungBayaranDto implements IInputCreateBwiTabungBayaranDto {
     /** Array of kluster object */
     bwi_bayaran!: UpdateBwiBayaranDto[];
@@ -41741,11 +41213,10 @@ export class InputCreateBwiTabungBayaranDto implements IInputCreateBwiTabungBaya
                 data["bwi_bayaran"].push(item.toJSON());
         }
         data["id_tabung_bwi"] = this.id_tabung_bwi;
-        return data;
+        return data; 
     }
 }
 
-/** Class InputCreateBwiTabungBayaranDto */
 export interface IInputCreateBwiTabungBayaranDto {
     /** Array of kluster object */
     bwi_bayaran: UpdateBwiBayaranDto[];
@@ -41794,7 +41265,7 @@ export class PagedResultDtoOfTabungBwiBayaranForViewDto implements IPagedResultD
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -41806,7 +41277,6 @@ export interface IPagedResultDtoOfTabungBwiBayaranForViewDto {
     items: GetTabungBwiBayaranForViewDto[];
 }
 
-/** Class UpdateBwiBayaranDto */
 export class UpdateBwiBayaranDto implements IUpdateBwiBayaranDto {
     id_tabung_bayaran_skb!: number;
     id_tabung_bayaran_terus!: number;
@@ -41838,17 +41308,15 @@ export class UpdateBwiBayaranDto implements IUpdateBwiBayaranDto {
         data = typeof data === 'object' ? data : {};
         data["id_tabung_bayaran_skb"] = this.id_tabung_bayaran_skb;
         data["id_tabung_bayaran_terus"] = this.id_tabung_bayaran_terus;
-        return data;
+        return data; 
     }
 }
 
-/** Class UpdateBwiBayaranDto */
 export interface IUpdateBwiBayaranDto {
     id_tabung_bayaran_skb: number;
     id_tabung_bayaran_terus: number;
 }
 
-/** Class CreateOrEditTabungBwiKawasanDto */
 export class CreateOrEditTabungBwiKawasanDto implements ICreateOrEditTabungBwiKawasanDto {
     id!: number;
     id_tabung_bwi!: number;
@@ -41958,11 +41426,10 @@ export class CreateOrEditTabungBwiKawasanDto implements ICreateOrEditTabungBwiKa
         data["due_report"] = this.due_report ? this.due_report.toISOString() : <any>undefined;
         data["no_rujukan_majlis_drp_apm"] = this.no_rujukan_majlis_drp_apm;
         data["tarikh_majlis_drp_apm"] = this.tarikh_majlis_drp_apm ? this.tarikh_majlis_drp_apm.toISOString() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditTabungBwiKawasanDto */
 export interface ICreateOrEditTabungBwiKawasanDto {
     id: number;
     id_tabung_bwi: number;
@@ -41994,7 +41461,6 @@ export interface ICreateOrEditTabungBwiKawasanDto {
     tarikh_majlis_drp_apm: moment.Moment;
 }
 
-/** Class GetTabungBwiKawasanForEditDto */
 export class GetTabungBwiKawasanForEditDto implements IGetTabungBwiKawasanForEditDto {
     tabung_bwi_kawasan!: CreateOrEditTabungBwiKawasanDto;
 
@@ -42023,16 +41489,14 @@ export class GetTabungBwiKawasanForEditDto implements IGetTabungBwiKawasanForEdi
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["tabung_bwi_kawasan"] = this.tabung_bwi_kawasan ? this.tabung_bwi_kawasan.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungBwiKawasanForEditDto */
 export interface IGetTabungBwiKawasanForEditDto {
     tabung_bwi_kawasan: CreateOrEditTabungBwiKawasanDto;
 }
 
-/** Class GetTabungBwiKawasanForViewDto */
 export class GetTabungBwiKawasanForViewDto implements IGetTabungBwiKawasanForViewDto {
     id!: number;
     id_tabung_bwi!: number;
@@ -42091,11 +41555,10 @@ export class GetTabungBwiKawasanForViewDto implements IGetTabungBwiKawasanForVie
         data["nama_daerah"] = this.nama_daerah;
         data["bil_kir"] = this.bil_kir;
         data["jumlah_dipulangkan"] = this.jumlah_dipulangkan;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungBwiKawasanForViewDto */
 export interface IGetTabungBwiKawasanForViewDto {
     id: number;
     id_tabung_bwi: number;
@@ -42110,7 +41573,6 @@ export interface IGetTabungBwiKawasanForViewDto {
     jumlah_dipulangkan: number;
 }
 
-/** Class InputCreateBwiTabungKawasanDto */
 export class InputCreateBwiTabungKawasanDto implements IInputCreateBwiTabungKawasanDto {
     /** Array of kluster object */
     bwi_kawasan!: CreateOrEditTabungBwiKawasanDto[];
@@ -42151,11 +41613,10 @@ export class InputCreateBwiTabungKawasanDto implements IInputCreateBwiTabungKawa
                 data["bwi_kawasan"].push(item.toJSON());
         }
         data["id_tabung_bwi"] = this.id_tabung_bwi;
-        return data;
+        return data; 
     }
 }
 
-/** Class InputCreateBwiTabungKawasanDto */
 export interface IInputCreateBwiTabungKawasanDto {
     /** Array of kluster object */
     bwi_kawasan: CreateOrEditTabungBwiKawasanDto[];
@@ -42204,7 +41665,7 @@ export class PagedResultDtoOfTabungBwiKawasanForViewDto implements IPagedResultD
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -42216,7 +41677,6 @@ export interface IPagedResultDtoOfTabungBwiKawasanForViewDto {
     items: GetTabungBwiKawasanForViewDto[];
 }
 
-/** Class CreateOrEditTabungBwiDto */
 export class CreateOrEditTabungBwiDto implements ICreateOrEditTabungBwiDto {
     id!: number;
     id_jenis_bwi!: number;
@@ -42263,11 +41723,10 @@ export class CreateOrEditTabungBwiDto implements ICreateOrEditTabungBwiDto {
         data["nama_jenis_bwi"] = this.nama_jenis_bwi;
         data["nama_bencana"] = this.nama_bencana;
         data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditTabungBwiDto */
 export interface ICreateOrEditTabungBwiDto {
     id: number;
     id_jenis_bwi: number;
@@ -42278,7 +41737,6 @@ export interface ICreateOrEditTabungBwiDto {
     tarikh_bencana: moment.Moment;
 }
 
-/** Class GetAllKirForViewDto */
 export class GetAllKirForViewDto implements IGetAllKirForViewDto {
     id!: number;
     nama!: string;
@@ -42328,11 +41786,10 @@ export class GetAllKirForViewDto implements IGetAllKirForViewDto {
         data["nama_daerah"] = this.nama_daerah;
         data["isi_rumah"] = this.isi_rumah;
         data["jumlah_bwi"] = this.jumlah_bwi;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetAllKirForViewDto */
 export interface IGetAllKirForViewDto {
     id: number;
     nama: string;
@@ -42344,7 +41801,6 @@ export interface IGetAllKirForViewDto {
     jumlah_bwi: string;
 }
 
-/** Class GetRujukanKelulusanBwiDto */
 export class GetRujukanKelulusanBwiDto implements IGetRujukanKelulusanBwiDto {
     no_rujukan_kelulusan!: string;
     id_tabung!: number;
@@ -42385,11 +41841,10 @@ export class GetRujukanKelulusanBwiDto implements IGetRujukanKelulusanBwiDto {
         data["id_bencana"] = this.id_bencana;
         data["rujukan_surat"] = this.rujukan_surat;
         data["perihal_surat"] = this.perihal_surat;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetRujukanKelulusanBwiDto */
 export interface IGetRujukanKelulusanBwiDto {
     no_rujukan_kelulusan: string;
     id_tabung: number;
@@ -42398,7 +41853,6 @@ export interface IGetRujukanKelulusanBwiDto {
     perihal_surat: string;
 }
 
-/** Class GetTabungBwiForEditDto */
 export class GetTabungBwiForEditDto implements IGetTabungBwiForEditDto {
     tabung_bwi!: CreateOrEditTabungBwiDto;
     jumlah_keseluruhan!: number;
@@ -42433,18 +41887,16 @@ export class GetTabungBwiForEditDto implements IGetTabungBwiForEditDto {
         data["tabung_bwi"] = this.tabung_bwi ? this.tabung_bwi.toJSON() : <any>undefined;
         data["jumlah_keseluruhan"] = this.jumlah_keseluruhan;
         data["jumlah_dipulangkan"] = this.jumlah_dipulangkan;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungBwiForEditDto */
 export interface IGetTabungBwiForEditDto {
     tabung_bwi: CreateOrEditTabungBwiDto;
     jumlah_keseluruhan: number;
     jumlah_dipulangkan: number;
 }
 
-/** Class GetTabungBwiForViewDto */
 export class GetTabungBwiForViewDto implements IGetTabungBwiForViewDto {
     id!: number;
     no_rujukan_bwi!: string;
@@ -42503,11 +41955,10 @@ export class GetTabungBwiForViewDto implements IGetTabungBwiForViewDto {
         data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
         data["jumlah_negeri"] = this.jumlah_negeri;
         data["jumlah_bayaran_bwi"] = this.jumlah_bayaran_bwi;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungBwiForViewDto */
 export interface IGetTabungBwiForViewDto {
     id: number;
     no_rujukan_bwi: string;
@@ -42522,7 +41973,6 @@ export interface IGetTabungBwiForViewDto {
     jumlah_bayaran_bwi: number;
 }
 
-/** Class InputBwiBayaranDto */
 export class InputBwiBayaranDto implements IInputBwiBayaranDto {
     id_skb!: number;
     id_terus!: number;
@@ -42554,17 +42004,15 @@ export class InputBwiBayaranDto implements IInputBwiBayaranDto {
         data = typeof data === 'object' ? data : {};
         data["id_skb"] = this.id_skb;
         data["id_terus"] = this.id_terus;
-        return data;
+        return data; 
     }
 }
 
-/** Class InputBwiBayaranDto */
 export interface IInputBwiBayaranDto {
     id_skb: number;
     id_terus: number;
 }
 
-/** Class InputBwiKawasanDto */
 export class InputBwiKawasanDto implements IInputBwiKawasanDto {
     id_daerah!: number;
     id_negeri!: number;
@@ -42599,18 +42047,16 @@ export class InputBwiKawasanDto implements IInputBwiKawasanDto {
         data["id_daerah"] = this.id_daerah;
         data["id_negeri"] = this.id_negeri;
         data["jumlah_bwi"] = this.jumlah_bwi;
-        return data;
+        return data; 
     }
 }
 
-/** Class InputBwiKawasanDto */
 export interface IInputBwiKawasanDto {
     id_daerah: number;
     id_negeri: number;
     jumlah_bwi: number;
 }
 
-/** Class InputCreateTabungBwiDto */
 export class InputCreateTabungBwiDto implements IInputCreateTabungBwiDto {
     bwi!: CreateOrEditTabungBwiDto;
     /** Array of kluster object */
@@ -42663,11 +42109,10 @@ export class InputCreateTabungBwiDto implements IInputCreateTabungBwiDto {
             for (let item of this.bwi_kawasan)
                 data["bwi_kawasan"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
-/** Class InputCreateTabungBwiDto */
 export interface IInputCreateTabungBwiDto {
     bwi: CreateOrEditTabungBwiDto;
     /** Array of kluster object */
@@ -42718,7 +42163,7 @@ export class InputResultKirForViewDto implements IInputResultKirForViewDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -42772,7 +42217,7 @@ export class PagedResultDtoOfTabungBwiForViewDto implements IPagedResultDtoOfTab
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -42784,7 +42229,6 @@ export interface IPagedResultDtoOfTabungBwiForViewDto {
     items: GetTabungBwiForViewDto[];
 }
 
-/** Class CreateOrEditTabungKelulusanAmbilanDto */
 export class CreateOrEditTabungKelulusanAmbilanDto implements ICreateOrEditTabungKelulusanAmbilanDto {
     id!: number;
     id_tabung_kelulusan!: number;
@@ -42834,11 +42278,10 @@ export class CreateOrEditTabungKelulusanAmbilanDto implements ICreateOrEditTabun
         data["catatan"] = this.catatan;
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditTabungKelulusanAmbilanDto */
 export interface ICreateOrEditTabungKelulusanAmbilanDto {
     id: number;
     id_tabung_kelulusan: number;
@@ -42850,7 +42293,6 @@ export interface ICreateOrEditTabungKelulusanAmbilanDto {
     id_pengguna_cipta: number;
 }
 
-/** Class GetTabungKelulusanAmbilanForEditDto */
 export class GetTabungKelulusanAmbilanForEditDto implements IGetTabungKelulusanAmbilanForEditDto {
     tabung_kelulusan_ambilan!: CreateOrEditTabungKelulusanAmbilanDto;
 
@@ -42879,16 +42321,14 @@ export class GetTabungKelulusanAmbilanForEditDto implements IGetTabungKelulusanA
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["tabung_kelulusan_ambilan"] = this.tabung_kelulusan_ambilan ? this.tabung_kelulusan_ambilan.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungKelulusanAmbilanForEditDto */
 export interface IGetTabungKelulusanAmbilanForEditDto {
     tabung_kelulusan_ambilan: CreateOrEditTabungKelulusanAmbilanDto;
 }
 
-/** Class GetTabungKelulusanAmbilanForViewDto */
 export class GetTabungKelulusanAmbilanForViewDto implements IGetTabungKelulusanAmbilanForViewDto {
     id!: number;
     id_tabung_kelulusan!: number;
@@ -42941,11 +42381,10 @@ export class GetTabungKelulusanAmbilanForViewDto implements IGetTabungKelulusanA
         data["catatan"] = this.catatan;
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         data["id_pengguna_cipta"] = this.id_pengguna_cipta;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungKelulusanAmbilanForViewDto */
 export interface IGetTabungKelulusanAmbilanForViewDto {
     id: number;
     id_tabung_kelulusan: number;
@@ -43000,7 +42439,7 @@ export class PagedResultDtoOfTabungKelulusanAmbilanForViewDto implements IPagedR
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -43012,7 +42451,6 @@ export interface IPagedResultDtoOfTabungKelulusanAmbilanForViewDto {
     items: GetTabungKelulusanAmbilanForViewDto[];
 }
 
-/** Class CreateOrEditTabungKelulusanDto */
 export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulusanDto {
     id!: number;
     no_rujukan_kelulusan!: string;
@@ -43104,11 +42542,10 @@ export class CreateOrEditTabungKelulusanDto implements ICreateOrEditTabungKelulu
         data["id_pengguna_hapus"] = this.id_pengguna_hapus;
         data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditTabungKelulusanDto */
 export interface ICreateOrEditTabungKelulusanDto {
     id: number;
     no_rujukan_kelulusan: string;
@@ -43134,7 +42571,6 @@ export interface ICreateOrEditTabungKelulusanDto {
     sebab_hapus: string;
 }
 
-/** Class GetBayaranTerusByIdKelulusanDto */
 export class GetBayaranTerusByIdKelulusanDto implements IGetBayaranTerusByIdKelulusanDto {
     no_rujukan_terus!: string;
     jumlah!: number;
@@ -43166,17 +42602,59 @@ export class GetBayaranTerusByIdKelulusanDto implements IGetBayaranTerusByIdKelu
         data = typeof data === 'object' ? data : {};
         data["no_rujukan_terus"] = this.no_rujukan_terus;
         data["jumlah"] = this.jumlah;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetBayaranTerusByIdKelulusanDto */
 export interface IGetBayaranTerusByIdKelulusanDto {
     no_rujukan_terus: string;
     jumlah: number;
 }
 
-/** Class GetKelulusanAndBelanjaForViewDto */
+export class GetBelanjaTabungKelulusanDto implements IGetBelanjaTabungKelulusanDto {
+    belanjaSemasa!: number;
+    belanjaSebelum!: number;
+    jumlahBelanja!: number;
+
+    constructor(data?: IGetBelanjaTabungKelulusanDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.belanjaSemasa = _data["belanjaSemasa"];
+            this.belanjaSebelum = _data["belanjaSebelum"];
+            this.jumlahBelanja = _data["jumlahBelanja"];
+        }
+    }
+
+    static fromJS(data: any): GetBelanjaTabungKelulusanDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetBelanjaTabungKelulusanDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["belanjaSemasa"] = this.belanjaSemasa;
+        data["belanjaSebelum"] = this.belanjaSebelum;
+        data["jumlahBelanja"] = this.jumlahBelanja;
+        return data; 
+    }
+}
+
+export interface IGetBelanjaTabungKelulusanDto {
+    belanjaSemasa: number;
+    belanjaSebelum: number;
+    jumlahBelanja: number;
+}
+
 export class GetKelulusanAndBelanjaForViewDto implements IGetKelulusanAndBelanjaForViewDto {
     kelulusan!: GetTabungKelulusanForViewDto;
     belanja!: number;
@@ -43208,17 +42686,15 @@ export class GetKelulusanAndBelanjaForViewDto implements IGetKelulusanAndBelanja
         data = typeof data === 'object' ? data : {};
         data["kelulusan"] = this.kelulusan ? this.kelulusan.toJSON() : <any>undefined;
         data["belanja"] = this.belanja;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetKelulusanAndBelanjaForViewDto */
 export interface IGetKelulusanAndBelanjaForViewDto {
     kelulusan: GetTabungKelulusanForViewDto;
     belanja: number;
 }
 
-/** Class GetKelulusanByKategoriBayaranDto */
 export class GetKelulusanByKategoriBayaranDto implements IGetKelulusanByKategoriBayaranDto {
     kategori!: string;
     jumlah!: number;
@@ -43250,17 +42726,15 @@ export class GetKelulusanByKategoriBayaranDto implements IGetKelulusanByKategori
         data = typeof data === 'object' ? data : {};
         data["kategori"] = this.kategori;
         data["jumlah"] = this.jumlah;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetKelulusanByKategoriBayaranDto */
 export interface IGetKelulusanByKategoriBayaranDto {
     kategori: string;
     jumlah: number;
 }
 
-/** Class GetKelulusanLookupTableForViewDto */
 export class GetKelulusanLookupTableForViewDto implements IGetKelulusanLookupTableForViewDto {
     id!: number;
     no_rujukan_kelulusan!: string;
@@ -43301,11 +42775,10 @@ export class GetKelulusanLookupTableForViewDto implements IGetKelulusanLookupTab
         data["nama_tabung"] = this.nama_tabung;
         data["jumlah_siling"] = this.jumlah_siling;
         data["baki_jumlah_siling"] = this.baki_jumlah_siling;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetKelulusanLookupTableForViewDto */
 export interface IGetKelulusanLookupTableForViewDto {
     id: number;
     no_rujukan_kelulusan: string;
@@ -43314,7 +42787,6 @@ export interface IGetKelulusanLookupTableForViewDto {
     baki_jumlah_siling: string;
 }
 
-/** Class GetSkbByIdKelulusanDto */
 export class GetSkbByIdKelulusanDto implements IGetSkbByIdKelulusanDto {
     no_rujukan_skb!: string;
     jumlah!: number;
@@ -43346,17 +42818,15 @@ export class GetSkbByIdKelulusanDto implements IGetSkbByIdKelulusanDto {
         data = typeof data === 'object' ? data : {};
         data["no_rujukan_skb"] = this.no_rujukan_skb;
         data["jumlah"] = this.jumlah;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetSkbByIdKelulusanDto */
 export interface IGetSkbByIdKelulusanDto {
     no_rujukan_skb: string;
     jumlah: number;
 }
 
-/** Class GetTabungKelulusanForEditDto */
 export class GetTabungKelulusanForEditDto implements IGetTabungKelulusanForEditDto {
     tabung_kelulusan!: CreateOrEditTabungKelulusanDto;
 
@@ -43385,16 +42855,14 @@ export class GetTabungKelulusanForEditDto implements IGetTabungKelulusanForEditD
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["tabung_kelulusan"] = this.tabung_kelulusan ? this.tabung_kelulusan.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungKelulusanForEditDto */
 export interface IGetTabungKelulusanForEditDto {
     tabung_kelulusan: CreateOrEditTabungKelulusanDto;
 }
 
-/** Class GetTabungKelulusanForViewDto */
 export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewDto {
     id!: number;
     no_rujukan_kelulusan!: string;
@@ -43462,11 +42930,10 @@ export class GetTabungKelulusanForViewDto implements IGetTabungKelulusanForViewD
         data["peruntukan"] = this.peruntukan;
         data["status_tabung"] = this.status_tabung;
         data["perihal_surat"] = this.perihal_surat;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungKelulusanForViewDto */
 export interface IGetTabungKelulusanForViewDto {
     id: number;
     no_rujukan_kelulusan: string;
@@ -43484,7 +42951,6 @@ export interface IGetTabungKelulusanForViewDto {
     perihal_surat: string;
 }
 
-/** Class OutputCreateTabungKelulusanDto */
 export class OutputCreateTabungKelulusanDto implements IOutputCreateTabungKelulusanDto {
     message!: string;
 
@@ -43513,11 +42979,10 @@ export class OutputCreateTabungKelulusanDto implements IOutputCreateTabungKelulu
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["message"] = this.message;
-        return data;
+        return data; 
     }
 }
 
-/** Class OutputCreateTabungKelulusanDto */
 export interface IOutputCreateTabungKelulusanDto {
     message: string;
 }
@@ -43568,7 +43033,7 @@ export class PagedResultDtoOfBayaranTerusByKelulusanDto implements IPagedResultD
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -43624,7 +43089,7 @@ export class PagedResultDtoOfKategoriBayaranDto implements IPagedResultDtoOfKate
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -43682,7 +43147,7 @@ export class PagedResultDtoOfSkbByKelulusanDto implements IPagedResultDtoOfSkbBy
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -43738,7 +43203,7 @@ export class PagedResultDtoOfTabungKelulusanForViewDto implements IPagedResultDt
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -43792,7 +43257,7 @@ export class PagedResultDtoOfTabungKelulusanLookupTableForViewDto implements IPa
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -43804,7 +43269,6 @@ export interface IPagedResultDtoOfTabungKelulusanLookupTableForViewDto {
     items: GetKelulusanLookupTableForViewDto[];
 }
 
-/** Class CreateOrEditTabungPeruntukanDto */
 export class CreateOrEditTabungPeruntukanDto implements ICreateOrEditTabungPeruntukanDto {
     id!: number;
     id_tabung!: number;
@@ -43863,11 +43327,10 @@ export class CreateOrEditTabungPeruntukanDto implements ICreateOrEditTabungPerun
         data["catatan"] = this.catatan;
         data["jumlah_lama"] = this.jumlah_lama;
         data["jumlah_baru"] = this.jumlah_baru;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditTabungPeruntukanDto */
 export interface ICreateOrEditTabungPeruntukanDto {
     id: number;
     id_tabung: number;
@@ -43882,7 +43345,6 @@ export interface ICreateOrEditTabungPeruntukanDto {
     jumlah_baru: number;
 }
 
-/** Class GetTabungPeruntukanForEditDto */
 export class GetTabungPeruntukanForEditDto implements IGetTabungPeruntukanForEditDto {
     tabung_peruntukan!: CreateOrEditTabungPeruntukanDto;
 
@@ -43911,16 +43373,14 @@ export class GetTabungPeruntukanForEditDto implements IGetTabungPeruntukanForEdi
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["tabung_peruntukan"] = this.tabung_peruntukan ? this.tabung_peruntukan.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungPeruntukanForEditDto */
 export interface IGetTabungPeruntukanForEditDto {
     tabung_peruntukan: CreateOrEditTabungPeruntukanDto;
 }
 
-/** Class GetTabungPeruntukanForViewDto */
 export class GetTabungPeruntukanForViewDto implements IGetTabungPeruntukanForViewDto {
     id!: number;
     id_tabung!: number;
@@ -43976,11 +43436,10 @@ export class GetTabungPeruntukanForViewDto implements IGetTabungPeruntukanForVie
         data["jumlah"] = this.jumlah;
         data["catatan"] = this.catatan;
         data["nama"] = this.nama;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungPeruntukanForViewDto */
 export interface IGetTabungPeruntukanForViewDto {
     id: number;
     id_tabung: number;
@@ -43994,7 +43453,6 @@ export interface IGetTabungPeruntukanForViewDto {
     nama: string;
 }
 
-/** Class OutputCreateEditTabungPeruntukanDto */
 export class OutputCreateEditTabungPeruntukanDto implements IOutputCreateEditTabungPeruntukanDto {
     message!: string;
 
@@ -44023,11 +43481,10 @@ export class OutputCreateEditTabungPeruntukanDto implements IOutputCreateEditTab
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["message"] = this.message;
-        return data;
+        return data; 
     }
 }
 
-/** Class OutputCreateEditTabungPeruntukanDto */
 export interface IOutputCreateEditTabungPeruntukanDto {
     message: string;
 }
@@ -44074,7 +43531,7 @@ export class PagedResultDtoOfTabungPeruntukanForViewDto implements IPagedResultD
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -44086,7 +43543,6 @@ export interface IPagedResultDtoOfTabungPeruntukanForViewDto {
     items: GetTabungPeruntukanForViewDto[];
 }
 
-/** Class CreateOrEditTabungDto */
 export class CreateOrEditTabungDto implements ICreateOrEditTabungDto {
     id!: number;
     nama_tabung!: string;
@@ -44163,11 +43619,10 @@ export class CreateOrEditTabungDto implements ICreateOrEditTabungDto {
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
         data["id_tabung_sebelum"] = this.id_tabung_sebelum;
         data["jumlah_perbelanjaan_semasa"] = this.jumlah_perbelanjaan_semasa;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreateOrEditTabungDto */
 export interface ICreateOrEditTabungDto {
     id: number;
     nama_tabung: string;
@@ -44188,7 +43643,6 @@ export interface ICreateOrEditTabungDto {
     jumlah_perbelanjaan_semasa: number;
 }
 
-/** Class GetTabungForEditDto */
 export class GetTabungForEditDto implements IGetTabungForEditDto {
     tabung!: CreateOrEditTabungDto;
     dana_awal!: number;
@@ -44229,11 +43683,10 @@ export class GetTabungForEditDto implements IGetTabungForEditDto {
         data["dana_tambahan"] = this.dana_tambahan;
         data["peruntukan_diambil"] = this.peruntukan_diambil;
         data["jumlah_tanggungan"] = this.jumlah_tanggungan;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungForEditDto */
 export interface IGetTabungForEditDto {
     tabung: CreateOrEditTabungDto;
     dana_awal: number;
@@ -44280,7 +43733,7 @@ export class GetTabungForListDto implements IGetTabungForListDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -44290,7 +43743,6 @@ export interface IGetTabungForListDto {
     items: GetTabungForViewDto[];
 }
 
-/** Class GetTabungForViewDto */
 export class GetTabungForViewDto implements IGetTabungForViewDto {
     id!: number;
     nama_tabung!: string;
@@ -44358,11 +43810,10 @@ export class GetTabungForViewDto implements IGetTabungForViewDto {
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetTabungForViewDto */
 export interface IGetTabungForViewDto {
     id: number;
     nama_tabung: string;
@@ -44415,7 +43866,7 @@ export class GetTotalTabungCardForViewDto implements IGetTotalTabungCardForViewD
         data["jumlah_keseluruhan"] = this.jumlah_keseluruhan;
         data["jumlah_perbelanjaan_semasa"] = this.jumlah_perbelanjaan_semasa;
         data["jumlah_tanggungan"] = this.jumlah_tanggungan;
-        return data;
+        return data; 
     }
 }
 
@@ -44468,7 +43919,7 @@ export class PagedResultDtoOfTabungForViewDto implements IPagedResultDtoOfTabung
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -44480,7 +43931,6 @@ export interface IPagedResultDtoOfTabungForViewDto {
     items: GetTabungForViewDto[];
 }
 
-/** Class TotalTabungCardForViewDto */
 export class TotalTabungCardForViewDto implements ITotalTabungCardForViewDto {
     total_keseluruhan_semasa!: string;
     total_peruntukan!: string;
@@ -44518,11 +43968,10 @@ export class TotalTabungCardForViewDto implements ITotalTabungCardForViewDto {
         data["total_peruntukan"] = this.total_peruntukan;
         data["total_baki_semasa"] = this.total_baki_semasa;
         data["total_baki_bawaan"] = this.total_baki_bawaan;
-        return data;
+        return data; 
     }
 }
 
-/** Class TotalTabungCardForViewDto */
 export interface ITotalTabungCardForViewDto {
     total_keseluruhan_semasa: string;
     total_peruntukan: string;
@@ -44530,7 +43979,6 @@ export interface ITotalTabungCardForViewDto {
     total_baki_bawaan: string;
 }
 
-/** Class ChangeEmelPasswordDto */
 export class ChangeEmelPasswordDto implements IChangeEmelPasswordDto {
     id!: number;
     changeEmel!: string;
@@ -44565,20 +44013,20 @@ export class ChangeEmelPasswordDto implements IChangeEmelPasswordDto {
         data["id"] = this.id;
         data["changeEmel"] = this.changeEmel;
         data["changePassword"] = this.changePassword;
-        return data;
+        return data; 
     }
 }
 
-/** Class ChangeEmelPasswordDto */
 export interface IChangeEmelPasswordDto {
     id: number;
     changeEmel: string;
     changePassword: string;
 }
 
-/** Class CreateOrEditPenggunaDto */
 export class CreateOrEditPenggunaDto implements ICreateOrEditPenggunaDto {
     pengguna!: CreatePenggunaDto;
+    /** Capaian in array of string */
+    capaian_dibenarkan!: string[];
 
     constructor(data?: ICreateOrEditPenggunaDto) {
         if (data) {
@@ -44592,6 +44040,11 @@ export class CreateOrEditPenggunaDto implements ICreateOrEditPenggunaDto {
     init(_data?: any) {
         if (_data) {
             this.pengguna = _data["pengguna"] ? CreatePenggunaDto.fromJS(_data["pengguna"]) : <any>undefined;
+            if (Array.isArray(_data["capaian_dibenarkan"])) {
+                this.capaian_dibenarkan = [] as any;
+                for (let item of _data["capaian_dibenarkan"])
+                    this.capaian_dibenarkan!.push(item);
+            }
         }
     }
 
@@ -44605,16 +44058,21 @@ export class CreateOrEditPenggunaDto implements ICreateOrEditPenggunaDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["pengguna"] = this.pengguna ? this.pengguna.toJSON() : <any>undefined;
-        return data;
+        if (Array.isArray(this.capaian_dibenarkan)) {
+            data["capaian_dibenarkan"] = [];
+            for (let item of this.capaian_dibenarkan)
+                data["capaian_dibenarkan"].push(item);
+        }
+        return data; 
     }
 }
 
-/** Class CreateOrEditPenggunaDto */
 export interface ICreateOrEditPenggunaDto {
     pengguna: CreatePenggunaDto;
+    /** Capaian in array of string */
+    capaian_dibenarkan: string[];
 }
 
-/** Class CreatePenggunaDto */
 export class CreatePenggunaDto implements ICreatePenggunaDto {
     id!: number;
     nama!: string;
@@ -44703,11 +44161,10 @@ export class CreatePenggunaDto implements ICreatePenggunaDto {
         data["nama_negeri"] = this.nama_negeri;
         data["status_pengguna"] = this.status_pengguna;
         data["catatan"] = this.catatan;
-        return data;
+        return data; 
     }
 }
 
-/** Class CreatePenggunaDto */
 export interface ICreatePenggunaDto {
     id: number;
     nama: string;
@@ -44732,7 +44189,6 @@ export interface ICreatePenggunaDto {
     catatan: string;
 }
 
-/** Class EditUserDto */
 export class EditUserDto implements IEditUserDto {
     id!: number;
     nama!: string;
@@ -44821,11 +44277,10 @@ export class EditUserDto implements IEditUserDto {
         data["nama_negeri"] = this.nama_negeri;
         data["kata_laluan"] = this.kata_laluan;
         data["catatan"] = this.catatan;
-        return data;
+        return data; 
     }
 }
 
-/** Class EditUserDto */
 export interface IEditUserDto {
     id: number;
     nama: string;
@@ -44850,57 +44305,10 @@ export interface IEditUserDto {
     catatan: string;
 }
 
-/** Class GetCapaianPenggunaDto */
-export class GetCapaianPenggunaDto implements IGetCapaianPenggunaDto {
-    /** Capaian in array of string */
-    capaian!: string[];
-
-    constructor(data?: IGetCapaianPenggunaDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            if (Array.isArray(_data["capaian"])) {
-                this.capaian = [] as any;
-                for (let item of _data["capaian"])
-                    this.capaian!.push(item);
-            }
-        }
-    }
-
-    static fromJS(data: any): GetCapaianPenggunaDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetCapaianPenggunaDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        if (Array.isArray(this.capaian)) {
-            data["capaian"] = [];
-            for (let item of this.capaian)
-                data["capaian"].push(item);
-        }
-        return data;
-    }
-}
-
-/** Class GetCapaianPenggunaDto */
-export interface IGetCapaianPenggunaDto {
-    /** Capaian in array of string */
-    capaian: string[];
-}
-
-/** Class GetUserForEditDto */
 export class GetUserForEditDto implements IGetUserForEditDto {
     pengguna!: EditUserDto;
+    /** Capaian in array of string */
+    capaian_dibenarkan!: string[];
 
     constructor(data?: IGetUserForEditDto) {
         if (data) {
@@ -44914,6 +44322,11 @@ export class GetUserForEditDto implements IGetUserForEditDto {
     init(_data?: any) {
         if (_data) {
             this.pengguna = _data["pengguna"] ? EditUserDto.fromJS(_data["pengguna"]) : <any>undefined;
+            if (Array.isArray(_data["capaian_dibenarkan"])) {
+                this.capaian_dibenarkan = [] as any;
+                for (let item of _data["capaian_dibenarkan"])
+                    this.capaian_dibenarkan!.push(item);
+            }
         }
     }
 
@@ -44927,16 +44340,21 @@ export class GetUserForEditDto implements IGetUserForEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["pengguna"] = this.pengguna ? this.pengguna.toJSON() : <any>undefined;
-        return data;
+        if (Array.isArray(this.capaian_dibenarkan)) {
+            data["capaian_dibenarkan"] = [];
+            for (let item of this.capaian_dibenarkan)
+                data["capaian_dibenarkan"].push(item);
+        }
+        return data; 
     }
 }
 
-/** Class GetUserForEditDto */
 export interface IGetUserForEditDto {
     pengguna: EditUserDto;
+    /** Capaian in array of string */
+    capaian_dibenarkan: string[];
 }
 
-/** Class GetUserForViewDto */
 export class GetUserForViewDto implements IGetUserForViewDto {
     id!: number;
     nama!: string;
@@ -44998,11 +44416,10 @@ export class GetUserForViewDto implements IGetUserForViewDto {
         data["peranan"] = this.peranan;
         data["no_kp"] = this.no_kp;
         data["emel"] = this.emel;
-        return data;
+        return data; 
     }
 }
 
-/** Class GetUserForViewDto */
 export interface IGetUserForViewDto {
     id: number;
     nama: string;
@@ -45018,7 +44435,6 @@ export interface IGetUserForViewDto {
     emel: string;
 }
 
-/** Class OutputChangeEmelPasswordDto */
 export class OutputChangeEmelPasswordDto implements IOutputChangeEmelPasswordDto {
     message!: string;
 
@@ -45047,11 +44463,10 @@ export class OutputChangeEmelPasswordDto implements IOutputChangeEmelPasswordDto
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["message"] = this.message;
-        return data;
+        return data; 
     }
 }
 
-/** Class OutputChangeEmelPasswordDto */
 export interface IOutputChangeEmelPasswordDto {
     message: string;
 }
@@ -45098,7 +44513,7 @@ export class PagedResultDtoOfUserForViewDto implements IPagedResultDtoOfUserForV
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -45108,58 +44523,6 @@ export interface IPagedResultDtoOfUserForViewDto {
     total_count: number;
     /** Items in array of object */
     items: GetUserForViewDto[];
-}
-
-/** Class UpdateCapaianPenggunaDto */
-export class UpdateCapaianPenggunaDto implements IUpdateCapaianPenggunaDto {
-    user_id!: number;
-    /** Capaian in array of string */
-    capaian!: string[];
-
-    constructor(data?: IUpdateCapaianPenggunaDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.user_id = _data["user_id"];
-            if (Array.isArray(_data["capaian"])) {
-                this.capaian = [] as any;
-                for (let item of _data["capaian"])
-                    this.capaian!.push(item);
-            }
-        }
-    }
-
-    static fromJS(data: any): UpdateCapaianPenggunaDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new UpdateCapaianPenggunaDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["user_id"] = this.user_id;
-        if (Array.isArray(this.capaian)) {
-            data["capaian"] = [];
-            for (let item of this.capaian)
-                data["capaian"].push(item);
-        }
-        return data;
-    }
-}
-
-/** Class UpdateCapaianPenggunaDto */
-export interface IUpdateCapaianPenggunaDto {
-    user_id: number;
-    /** Capaian in array of string */
-    capaian: string[];
 }
 
 export interface FileParameter {
