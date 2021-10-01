@@ -26,6 +26,7 @@ import { LaporanTiadaBantuanComponent } from './laporan-tiada-bantuan/laporan-ti
 import { LaporanMangsaComponent } from './laporan-mangsa/laporan-mangsa.component';
 import { LaporanBantuanLainComponent } from './laporan-bantuan-lain/laporan-bantuan-lain.component';
 import { LaporanAntarabangsaComponent } from './laporan-antarabangsa/laporan-antarabangsa.component';
+import { LaporanWaranComponent } from './laporan-waran/laporan-waran.component';
 
 @NgModule({
 	imports: [
@@ -57,7 +58,8 @@ import { LaporanAntarabangsaComponent } from './laporan-antarabangsa/laporan-ant
     LaporanTiadaBantuanComponent,
     LaporanMangsaComponent,
     LaporanBantuanLainComponent,
-    LaporanAntarabangsaComponent
+    LaporanAntarabangsaComponent,
+    LaporanWaranComponent
 	]
 })
 export class LaporanModule {}

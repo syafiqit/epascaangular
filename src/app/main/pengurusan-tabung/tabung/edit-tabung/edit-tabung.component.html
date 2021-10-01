@@ -291,9 +291,9 @@
                         Rujukan Surat
                         <p-sortIcon field="kelulusan.rujukan_surat"></p-sortIcon>
                       </th>
-                      <th style="width: 170px" pSortableColumn="kelulusan.peruntukan">
+                      <th style="width: 170px" pSortableColumn="kelulusan.jumlah_siling">
                         Siling Peruntukan
-                        <p-sortIcon field="kelulusan.peruntukan"></p-sortIcon>
+                        <p-sortIcon field="kelulusan.jumlah_siling"></p-sortIcon>
                       </th>
                       <th style="width: 186px" pSortableColumn="kelulusan.tarikh_mula_kelulusan">
                         Tarikh Mula
@@ -338,8 +338,8 @@
                       </td>
                       <td style="width: 170px">
                         <span class="p-column-title">Siling Peruntukan</span>
-                        <label *ngIf="records.kelulusan.peruntukan">{{records.kelulusan.peruntukan | number: '1.2-2'}}</label>
-                        <label *ngIf="!records.kelulusan.peruntukan">RM 0.00</label>
+                        <label *ngIf="records.kelulusan.jumlah_siling">{{records.kelulusan.jumlah_siling | number: '1.2-2'}}</label>
+                        <label *ngIf="!records.kelulusan.jumlah_siling">RM 0.00</label>
                       </td>
                       <td style="width: 186px">
                         <span class="p-column-title">Tarikh Mula</span>
