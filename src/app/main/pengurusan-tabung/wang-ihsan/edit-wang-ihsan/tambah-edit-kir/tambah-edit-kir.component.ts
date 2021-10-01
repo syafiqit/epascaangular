@@ -86,7 +86,6 @@ export class TambahEditKirComponent implements OnInit {
   ngOnInit(): void {
     this.getJumlahBayaran();
     this.getBantuanKawasan();
-    this.getKir();
   }
 
   fromModel(value: string | null): NgbDateStruct | null {
