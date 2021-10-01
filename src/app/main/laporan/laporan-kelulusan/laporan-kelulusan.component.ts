@@ -7,6 +7,7 @@ import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { FileDownloadService } from '@app/shared/services/file-download.service';
 
 @Component({
 	selector: 'app-laporan-kelulusan',
@@ -34,7 +35,8 @@ export class LaporanKelulusanComponent implements OnInit {
 
 	constructor(
     config: NgbModalConfig,
-    private _laporanServiceProxy: LaporanServiceProxy
+    private _laporanServiceProxy: LaporanServiceProxy,
+    private _fileDownloadService: FileDownloadService
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
@@ -87,6 +89,16 @@ export class LaporanKelulusanComponent implements OnInit {
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
 	}
+
+  exportToExcel(){
+    this._laporanServiceProxy.exportAllLaporanKelulusanToExcel(
+      this.filter ?? undefined,
+      this.filterYear  ?? undefined,
+      this.filterPastYear ?? undefined,
+    ).subscribe(e=>{
+      this._fileDownloadService.downloadTempFile(e);
+    })
+  }
 
   generateArrayOfYears() {
     let max = new Date().getFullYear();
