@@ -128,13 +128,13 @@
             Jumlah Diberikan
             <p-sortIcon field="jumlah_bwi"></p-sortIcon>
           </th>
-          <th style="width: 145px" pSortableColumn="jumlah_pulangan">
+          <th style="width: 145px" pSortableColumn="jumlah_dipulangkan">
             Jumlah Dipulangkan
-            <p-sortIcon field="jumlah_pulangan"></p-sortIcon>
+            <p-sortIcon field="jumlah_dipulangkan"></p-sortIcon>
           </th>
-          <th style="width: 100px" pSortableColumn="jumlah_kir">
+          <th style="width: 100px" pSortableColumn="bil_kir">
             Bil. KIR
-            <p-sortIcon field="jumlah_kir"></p-sortIcon>
+            <p-sortIcon field="bil_kir"></p-sortIcon>
           </th>
           <th style="width: 150px">Tindakan</th>
         </tr>
@@ -155,13 +155,13 @@
           </td>
           <td style="width: 145px">
             <span class="p-column-title">Jumlah Dipulangkan</span>
-            <label *ngIf="record.jumlah_kembali">RM {{record.jumlah_kembali}}</label>
-            <label *ngIf="!record.jumlah_kembali">RM 0.00</label>
+            <label *ngIf="record.jumlah_dipulangkan">RM {{record.jumlah_dipulangkan}}</label>
+            <label *ngIf="!record.jumlah_dipulangkan">RM 0.00</label>
           </td>
           <td style="width: 100px">
             <span class="p-column-title">Bil. KIR</span>
-            <label *ngIf="record.jumlah_kir">{{record.jumlah_kir}}</label>
-            <label *ngIf="!record.jumlah_kir">0</label>
+            <label *ngIf="record.bil_kir">{{record.bil_kir}}</label>
+            <label *ngIf="!record.bil_kir">0</label>
           </td>
           <td style="width: 150px">
             <div ngbDropdown class="btn-group" role="group" container="body">
