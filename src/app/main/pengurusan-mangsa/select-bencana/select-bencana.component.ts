@@ -21,11 +21,13 @@ export class SelectBencanaComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
 
 	@Input() name;
+	@Input() id_negeri;
 
   filter: string;
   filterTahun: number;
   filterBencana: string;
   filterJenis: number;
+  filterNegeri: number;
   terms$ = new Subject<string>();
 
 	constructor(
@@ -64,6 +66,7 @@ export class SelectBencanaComponent implements OnInit {
         this.filterTahun,
         this.filterBencana,
         this.filterJenis,
+        this.id_negeri,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)

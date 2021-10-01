@@ -18,6 +18,7 @@ import * as moment from 'moment';
 export class TambahEditMangsaBencanaComponent implements OnInit {
 	@Input() name;
 	@Input() id;
+  @Input() id_negeri;
 
   addBencana: CreateOrEditMangsaBencanaDto = new CreateOrEditMangsaBencanaDto();
 
@@ -81,6 +82,7 @@ export class TambahEditMangsaBencanaComponent implements OnInit {
 	pilihBencana() {
 		const modalRef = this.modalService.open(SelectBencanaComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
+    modalRef.componentInstance.id_negeri = this.id_negeri;
     modalRef.result.then(
 			(response) => {
 				if (response) {
