@@ -97,11 +97,13 @@
 									</td>
 									<td style="width: 100px">
 										<span class="p-column-title">Tarikh</span>
-										{{record.tarikh | date:'dd-MM-yyyy'}}
+										<label *ngIf="record.tarikh">{{record.tarikh | date:'dd-MM-yyyy'}}</label>
+                    <label *ngIf="!record.tarikh">-</label>
 									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">No. Baucar</span>
-										{{record.no_baucar}}
+										<label *ngIf="record.no_baucar">{{record.no_baucar}}</label>
+                    <label *ngIf="!record.no_baucar">-</label>
 									</td>
 									<td style="width: 130px">
 										<span class="p-column-title">Kepada</span>
@@ -114,7 +116,8 @@
 									</td>
                   <td style="width: 100px">
 										<span class="p-column-title">Jumlah</span>
-										{{record.jumlah}}
+										<label *ngIf="record.jumlah">RM {{record.jumlah | number: '1.2-2'}}</label>
+                    <label *ngIf="!record.jumlah">RM 0.00</label>
 									</td>
                   <td style="width: 130px">
 										<div ngbDropdown class="btn-group" role="group" container="body">
