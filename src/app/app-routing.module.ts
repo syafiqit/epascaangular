@@ -18,7 +18,7 @@ const routes: Routes = [
 	},
 	{
 		path: 'akaun',
-		loadChildren: () => import('./akaun/akaun.module').then((m) => m.AkaunModule), //Lazy load account module
+		loadChildren: () => import('./akaun/akaun.module').then(m => m.AkaunModule), //Lazy load account module
 		data: { preload: true }
 	}
 ];

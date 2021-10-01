@@ -12,7 +12,7 @@ export class AccountRouteGuard implements CanActivate {
 			return of(true);
 		}
 
-		if (this._sessionService.token) {
+		if (this._sessionService.pengguna) {
 			this._router.navigate([this.selectBestRoute()]);
 			return of(false);
 		}

@@ -1,33 +1,41 @@
 import { Injectable } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
+import { GetProfilDto, PenggunaProfilDto, SessionServiceProxy } from '../proxy/service-proxies';
 
 @Injectable()
 export class AppSessionService {
-	private _token: string;
-	private _role: string;
+  private _profile: GetProfilDto;
 
-	constructor(private _cookieService: CookieService) {}
+	constructor(
+      private _sessionService: SessionServiceProxy
+    ) {}
 
-	get token(): string {
-		return this._token;
-	}
+  get permissions(): string[] {
+    return this._profile.capaian;
+  }
 
 	get role(): string {
-		return this._role;
+		return this._profile.peranan;
 	}
 
-	/* todo: modify to server sided */
-	init(): Promise<string> {
-		return new Promise<string>((resolve, reject) => {
-			setTimeout(() => {
-				this._token = this._cookieService.get('token') ?? null;
-				this._role = this._cookieService.get('role') ?? null;
-				if (this._token) {
-					resolve(this._token);
-				} else {
-					reject('error');
-				}
-			}, 1500);
+  get pengguna(): PenggunaProfilDto {
+    return this._profile.pengguna;
+  }
+
+  isGranted(permissionName: string): boolean {
+    const val = this._profile.capaian.find(e => e === permissionName);
+
+
+    return !val ? false : true;
+  }
+
+	init(): Promise<GetProfilDto> {
+		return new Promise<GetProfilDto>((resolve, reject) => {
+      this._sessionService.getProfil().toPromise().then((result: GetProfilDto)=>{
+        this._profile = result;
+        resolve(result);
+      }, (err) => {
+        reject(err);
+      });
 		});
 	}
 }

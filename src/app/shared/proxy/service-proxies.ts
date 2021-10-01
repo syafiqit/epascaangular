@@ -37995,6 +37995,8 @@ export class GetProfilDto implements IGetProfilDto {
     peranan!: string;
     kementerian!: string;
     agensi!: string;
+    /** Capaian in array of string */
+    capaian!: string[];
 
     constructor(data?: IGetProfilDto) {
         if (data) {
@@ -38013,6 +38015,11 @@ export class GetProfilDto implements IGetProfilDto {
             this.peranan = _data["peranan"];
             this.kementerian = _data["kementerian"];
             this.agensi = _data["agensi"];
+            if (Array.isArray(_data["capaian"])) {
+                this.capaian = [] as any;
+                for (let item of _data["capaian"])
+                    this.capaian!.push(item);
+            }
         }
     }
 
@@ -38031,6 +38038,11 @@ export class GetProfilDto implements IGetProfilDto {
         data["peranan"] = this.peranan;
         data["kementerian"] = this.kementerian;
         data["agensi"] = this.agensi;
+        if (Array.isArray(this.capaian)) {
+            data["capaian"] = [];
+            for (let item of this.capaian)
+                data["capaian"].push(item);
+        }
         return data; 
     }
 }
@@ -38042,6 +38054,8 @@ export interface IGetProfilDto {
     peranan: string;
     kementerian: string;
     agensi: string;
+    /** Capaian in array of string */
+    capaian: string[];
 }
 
 export class OutputGambarProfil implements IOutputGambarProfil {
