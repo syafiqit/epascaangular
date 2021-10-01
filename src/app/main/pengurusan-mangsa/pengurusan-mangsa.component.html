@@ -40,8 +40,8 @@
 					  <b>Tambah</b>
 					</button>
 					<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-					  <button 
-						class="dropdown-item" 
+					  <button
+						class="dropdown-item"
 						[routerLink]="['/app/mangsa/tambah-pengurusan-mangsa']">Manual
 					  </button>
 					  <button class="dropdown-item">Pukal (Excel)</button>
@@ -54,8 +54,8 @@
 					  <b>Kemaskini</b>
 					</button>
 					<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-					  <button 
-						class="dropdown-item" 
+					  <button
+						class="dropdown-item"
 						(click)="editIhsanModal()">Kemaskini BWI
 					  </button>
 					</div>
@@ -234,7 +234,7 @@
 													<button
 														class="dropdown-item"
 														[routerLink]="['/app/mangsa/edit-pengurusan-mangsa']"
-                            [queryParams]="{id: record.id }"
+                            [queryParams]="{id: record.id}"
 													>
 														Lihat
 													</button>

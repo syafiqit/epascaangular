@@ -45,12 +45,8 @@
 								Tarikh Bencana
 								<p-sortIcon field="tarikh_bencana"></p-sortIcon>
 							</th>
-							<th style="width: 135px" pSortableColumn="nama_jenis_bencana">
-								Kategori Bencana
-								<p-sortIcon field="nama_jenis_bencana"></p-sortIcon>
-							</th>
 							<th style="width: 130px" pSortableColumn="nama_bencana">
-								Nama Bencana
+								Jenis Bencana
 								<p-sortIcon field="nama_bencana"></p-sortIcon>
 							</th>
 							<th style="width: 150px" pSortableColumn="catatan">
@@ -65,10 +61,6 @@
 							<td style="width: 130px">
 								<span class="p-column-title">Tarikh Bencana</span>
 								{{record.bencana.tarikh_bencana | date:'dd-MM-yyyy'}}
-							</td>
-							<td style="width: 135px">
-								<span class="p-column-title">Kategori Bencana</span>
-								{{record.bencana.nama_jenis_bencana}}
 							</td>
 							<td style="width: 130px">
 								<span class="p-column-title">Nama Bencana</span>

@@ -30,6 +30,7 @@ export class PengurusanBencanaComponent implements OnInit {
   filterTahun: number;
   filterBencana: string;
   filterJenis: number;
+  filterNegeri: number;
   terms$ = new Subject<string>();
 
   sorting: string;
@@ -77,6 +78,7 @@ export class PengurusanBencanaComponent implements OnInit {
         this.filterTahun ?? undefined,
         this.filterBencana ?? undefined,
         this.filterJenis ?? undefined,
+        this.filterNegeri ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)

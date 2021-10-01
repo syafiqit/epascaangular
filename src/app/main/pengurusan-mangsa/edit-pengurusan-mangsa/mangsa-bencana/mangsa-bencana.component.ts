@@ -97,6 +97,8 @@ export class MangsaBencanaComponent implements OnInit {
 	addVictimDisasterModal() {
 		const modalRef = this.modalService.open(TambahEditMangsaBencanaComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
+    modalRef.componentInstance.id_negeri = this.getMangsa.mangsa.id_negeri;
+
 		modalRef.result.then((response) => {
 			if (response) {
 				this.getDisaster();
@@ -107,6 +109,8 @@ export class MangsaBencanaComponent implements OnInit {
 	editVictimDisasterModal(id) {
 		const modalRef = this.modalService.open(TambahEditMangsaBencanaComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'edit';
+    modalRef.componentInstance.id_negeri = this.getMangsa.mangsa.id_negeri;
+
 		modalRef.componentInstance.id = id;
 		modalRef.result.then((response) => {
 			if (response) {

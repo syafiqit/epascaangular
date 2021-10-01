@@ -6,7 +6,7 @@
 	</button>
 </div>
 
-<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
+<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate focusInvalidInput>
     <div class="modal-body">
 		<div class="row">
 			<div class="col-lg-6">
@@ -30,22 +30,28 @@
 
 			<div class="col-lg-6 custom-datepicker custom-datepicker-dropdown">
         <div class="form-group">
-        <label>Tarikh</label>
+        <label>Tarikh*</label>
         <div class="input-group">
           <input
             class="form-control"
             placeholder="yyyy-mm-dd"
-            name="tarikhBayaran"
+            name="tarikh_peruntukan"
             [(ngModel)]="modelTarikhPeruntukan"
+            #tarikhPeruntukan="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && tarikhPeruntukan.invalid }"
             ngbDatepicker
             [footerTemplate]="footerTemplate"
             #d="ngbDatepicker"
             style="border: 1px solid #efefef !important;"
+            required
           >
           <div class="input-group-append">
             <button class="btn btn-light" (click)="d.toggle()" type="button"><i
               class="fa fa-calendar"></i></button>
           </div>
+          <div *ngIf="f.submitted && tarikhPeruntukan.invalid" class="invalid-feedback">
+						<div *ngIf="tarikhPeruntukan.errors.required">Tarikh Peruntukan Wajib Dipilih</div>
+					</div>
         </div>
       </div>
       </div>
