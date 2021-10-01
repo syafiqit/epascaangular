@@ -23,9 +23,22 @@ export class AppSessionService {
 
   isGranted(permissionName: string): boolean {
     const val = this._profile.capaian.find(e => e === permissionName);
-
-
     return !val ? false : true;
+  }
+
+  isGrantedAny(...permissions: string []): boolean {
+    if (!permissions) {
+      return false;
+    }
+
+    for (const permission of permissions) {
+      if (this.isGranted(permission)) {
+        return true;
+      }
+    }
+    console.log();
+
+    return false;
   }
 
 	init(): Promise<GetProfilDto> {

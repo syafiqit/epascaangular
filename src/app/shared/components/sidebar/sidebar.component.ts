@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation, HostListener } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Menu, NavService } from '../../services/nav.service';
 import { LayoutService } from '../../services/layout.service';
+import { AppSessionService } from '@app/shared/services/app-session.service';
 
 @Component({
 	selector: 'app-sidebar',
@@ -21,7 +22,13 @@ export class SidebarComponent {
 	public leftArrowNone = true;
 	public rightArrowNone = false;
 
-	constructor(private router: Router, public navServices: NavService, public layout: LayoutService) {
+	constructor(
+    private router: Router,
+    public navServices: NavService,
+    public layout: LayoutService,
+    public _appSession: AppSessionService
+  )
+  {
 		this.navServices.items.subscribe((menuItems) => {
 			this.menuItems = menuItems;
 			this.router.events.subscribe((event) => {
