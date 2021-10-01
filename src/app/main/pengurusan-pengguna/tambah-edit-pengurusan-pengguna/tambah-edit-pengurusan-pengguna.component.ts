@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+/* eslint-disable @typescript-eslint/naming-convention */
+import { Component, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
@@ -13,12 +14,14 @@ import {
   RefDaerahServiceProxy,
   RefKementerianServiceProxy,
   RefNegeriServiceProxy,
+  RefPerananServiceProxy,
   UserServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { finalize } from 'rxjs/operators';
 import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { fadeVerticalAnimation } from 'src/app/shared/data/router-animation/fade-vertical-animation';
 import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { PerananTreeComponent } from '@app/shared/components/peranan-tree/peranan-tree.component';
 
 @Component({
 	selector: 'app-tambah-edit-pengurusan-pengguna',
@@ -28,8 +31,11 @@ import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
   animations: [fadeVerticalAnimation]
 })
 export class TambahEditPengurusanPenggunaComponent implements OnInit {
+  @Input() singleSelect: boolean;
+
 	@ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
+  @ViewChild('permissionTree') permissionTree: PerananTreeComponent;
 
 	active;
   idPengguna: any;
@@ -59,48 +65,48 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
   daftar: CreateOrEditPenggunaDto = new CreateOrEditPenggunaDto();
   editEmailPassword: ChangeEmelPasswordDto = new ChangeEmelPasswordDto();
   outputEmailPassword: OutputChangeEmelPasswordDto = new OutputChangeEmelPasswordDto();
-  passwordPattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
-  emailPattern = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}";
+  passwordPattern='^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$';
+  emailPattern = '[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}';
 
   statusPengesahan = [
-    { id: 1, nama: "Permohonan" },
-    { id: 2, nama: "Berdaftar" },
-    { id: 4, nama: "Ditolak" }
-  ]
+    { id: 1, nama: 'Permohonan' },
+    { id: 2, nama: 'Berdaftar' },
+    { id: 4, nama: 'Ditolak' }
+  ];
 
   statusBerdaftar = [
-    { id: 2, nama: "Berdaftar" },
-    { id: 3, nama: "Tidak Aktif" }
-  ]
+    { id: 2, nama: 'Berdaftar' },
+    { id: 3, nama: 'Tidak Aktif' }
+  ];
 
   statusDitolak = [
-    { id: 4, nama: "Ditolak" },
-    { id: 2, nama: "Berdaftar" }
-  ]
+    { id: 4, nama: 'Ditolak' },
+    { id: 2, nama: 'Berdaftar' }
+  ];
 
   tambahPeranan = [
-    { id: 1, nama_peranan: "Admin Sekretariat" },
-    { id: 3, nama_peranan: "Penyelia" },
-    { id: 4, nama_peranan: "Sekretariat" },
-    { id: 5, nama_peranan: "Kewangan" }
-  ]
+    { id: 1, nama_peranan: 'Admin Sekretariat' },
+    { id: 3, nama_peranan: 'Penyelia' },
+    { id: 4, nama_peranan: 'Sekretariat' },
+    { id: 5, nama_peranan: 'Kewangan' }
+  ];
 
   viewPeranan = [
-    { id: 1, nama_peranan: "Admin Sekretariat" },
-    { id: 2, nama_peranan: "Agensi/Jabatan" },
-    { id: 3, nama_peranan: "Penyelia" },
-    { id: 4, nama_peranan: "Sekretariat" },
-    { id: 5, nama_peranan: "Kewangan" }
-  ]
+    { id: 1, nama_peranan: 'Admin Sekretariat' },
+    { id: 2, nama_peranan: 'Agensi/Jabatan' },
+    { id: 3, nama_peranan: 'Penyelia' },
+    { id: 4, nama_peranan: 'Sekretariat' },
+    { id: 5, nama_peranan: 'Kewangan' }
+  ];
 
 	constructor(
-    config: NgbModalConfig,
     private _activatedRoute: ActivatedRoute,
     private _userServiceProxy: UserServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
     private _refDaerahServiceProxy: RefDaerahServiceProxy,
     private _refNegeriServiceProxy: RefNegeriServiceProxy,
     private _refKementerianServiceProxy: RefKementerianServiceProxy,
+    private _refPerananServiceProxy: RefPerananServiceProxy,
     private router: Router
     ) {
 		this.primengTableHelper = new PrimengTableHelper();
@@ -120,16 +126,17 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
 			this._userServiceProxy.getUserForEdit(this.idPengguna).subscribe((result) => {
 				this.edit = result;
         this.statusId = result.pengguna.status_pengguna;
-        if(result.pengguna.status_pengguna != 1) {
+        if(result.pengguna.status_pengguna !== 1) {
           this.viewTab = true;
         }
-        if(result.pengguna.id_peranan == 2) {
+        if(result.pengguna.id_peranan === 2) {
           this.agensiNadma = false;
         }
         this.getAgensi(result.pengguna.id_kementerian ?? undefined);
         this.getKementerian();
         this.getDaerah(result.pengguna.id_daerah ?? undefined);
         this.getNegeri();
+        this.loadAllPermissionsToFilterTree(result.capaian_dibenarkan);
 			});
 		}
   }
@@ -141,9 +148,7 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
   getAgensi(idAgensi, filter?) {
 		this._refAgensiServiceProxy.getRefAgensiForDropdown(filter).subscribe((result) => {
 			this.agency = result.items;
-      this.agensi = this.agency.find((data)=>{
-        return data.id == idAgensi;
-      })
+      this.agensi = this.agency.find(data=>data.id === idAgensi);
       return this.agensi.nama_agensi;
 		});
 	}
@@ -151,10 +156,8 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
   getDaerah(idDaerah, filter?) {
       this._refDaerahServiceProxy.getRefDaerahForDropdown(filter, this.filterIdNegeri ?? undefined).subscribe((result) => {
 			this.districts = result.items;
-      if(this.edit.pengguna.id_peranan == 2) {
-        this.daerah = this.districts.find((data)=>{
-          return data.id == idDaerah;
-        })
+      if(this.edit.pengguna.id_peranan === 2) {
+        this.daerah = this.districts.find(data=>data.id === idDaerah);
           return this.daerah.nama_daerah;
       }
 		  });
@@ -198,24 +201,26 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
 	}
 
   preSave() {
-    if(this.edit.pengguna.status_pengguna == 1) {
+    if(this.edit.pengguna.status_pengguna === 1) {
       this.savePermohonan();
     }
-    if(this.edit.pengguna.status_pengguna != 1) {
+    if(this.edit.pengguna.status_pengguna !== 1) {
       this.save();
     }
   }
 
   save() {
+    const self = this;
 		this.saving = true;
-    this.daftar.pengguna = this.edit.pengguna;
-    if(this.daftar.pengguna.id_peranan != 2) {
-      this.daftar.pengguna.id_agensi = this.idAgensi;
-      this.daftar.pengguna.id_kementerian = this.idKementerian;
+    const input = new CreateOrEditPenggunaDto();
+    input.pengguna = self.edit.pengguna;
+    if(input.pengguna.id_peranan !== 2) {
+      input.pengguna.id_agensi = self.idAgensi;
+      input.pengguna.id_kementerian = self.idKementerian;
     }
 		if(!this.idPengguna) {
       this._userServiceProxy
-			.createOrEdit(this.daftar)
+			.createOrEdit(input)
 			.pipe()
 			.subscribe((result) => {
 				swalSuccess.fire('Berjaya!', 'Pengguna Baru Berjaya Didaftarkan.', 'success').then(() => {
@@ -223,8 +228,9 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
 				});
 			});
     } else {
+      input.capaian_dibenarkan = self.permissionTree.getGrantedPermissionNames();
       this._userServiceProxy
-			.createOrEdit(this.daftar)
+			.createOrEdit(input)
 			.pipe()
 			.subscribe((result) => {
 				swalSuccess.fire('Berjaya!', 'Maklumat Pengguna Berjaya Dikemaskini.', 'success').then(() => {
@@ -253,12 +259,12 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
     this.editEmailPassword.changeEmel = this.new_email ?? null;
     this.editEmailPassword.changePassword = this.new_password ?? null;
 
-    if(this.new_password == this.repeat_new_password) {
+    if(this.new_password === this.repeat_new_password) {
       this._userServiceProxy
       .changeEmelAndPassword(this.editEmailPassword)
       .pipe(finalize(() => {this.saving = false;})).subscribe((result) => {
         this.outputEmailPassword = result;
-        if(this.outputEmailPassword.message == "Emel atau Kata Laluan Berjaya Ditukar") {
+        if(this.outputEmailPassword.message === 'Emel atau Kata Laluan Berjaya Ditukar') {
           swalSuccess.fire('Berjaya!', this.outputEmailPassword.message, 'success').then(() => {
             this.router.navigateByUrl('/app/pengguna/senarai');
           });
@@ -269,6 +275,12 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
     } else {
 			swalError.fire('Tidak Berjaya!', 'Kata Laluan Baru Dan Ulang Kata Laluan Tidak Sepadan ', 'error');
 		}
+  }
+
+  loadAllPermissionsToFilterTree(grantedPermissions?) {
+    this._refPerananServiceProxy.getAllRefCapaian().subscribe((result) => {
+        this.permissionTree.editData = { ref_capaian:  result.ref_capaian, capaian: grantedPermissions};
+    });
   }
 
 }

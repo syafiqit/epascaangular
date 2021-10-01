@@ -482,7 +482,6 @@
           </form>
         </ng-template>
       </li>
-
       <li [ngbNavItem]="2" [destroyOnHide]="true" [hidden]="viewTab == false">
         <a ngbNavLink>Emel & Kata Laluan</a>
         <ng-template ngbNavContent>
@@ -563,6 +562,27 @@
               </div>
             </div>
 
+            <div class="row mt-3 no-gutters justify-content-end">
+              <button class="btn btn-light mr-2" type="button" [routerLink]="['/app/pengguna/senarai']">
+                Kembali
+              </button>
+              <button class="btn btn-primary" type="submit">Simpan</button>
+            </div>
+          </form>
+        </ng-template>
+      </li>
+
+      <li [ngbNavItem]="3" [destroyOnHide]="false" [hidden]="!edit.pengguna.id">
+        <a ngbNavLink>Capaian</a>
+        <ng-template ngbNavContent>
+          <form class="form theme-form" (ngSubmit)="preSave()" novalidate autocomplete="off">
+            <h6>Kemaskini Capaian</h6>
+            <div class="row">
+              <div class="col-lg-12">
+                <app-peranan-tree #permissionTree [singleSelect]="singleSelect"></app-peranan-tree>
+
+              </div>
+            </div>
             <div class="row mt-3 no-gutters justify-content-end">
               <button class="btn btn-light mr-2" type="button" [routerLink]="['/app/pengguna/senarai']">
                 Kembali
