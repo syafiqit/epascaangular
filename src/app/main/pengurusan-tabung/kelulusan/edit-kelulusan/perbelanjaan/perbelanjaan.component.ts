@@ -1,19 +1,18 @@
-import { Component, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { NgbCalendar, NgbDateStruct, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import {
-  CreateOrEditTabungKelulusanDto, RefBantuanServiceProxy, RefBencanaServiceProxy,
-  TabungKelulusanServiceProxy, TabungServiceProxy
+  CreateOrEditTabungKelulusanDto,
+  GetBelanjaTabungKelulusanDto,
+  TabungKelulusanServiceProxy
 } from "../../../../../shared/proxy/service-proxies";
 import {finalize} from "rxjs/operators";
 import * as moment from "moment";
 import {ActivatedRoute, Router} from "@angular/router";
-import { TambahRujukanBencanaComponent } from '../../tambah-kelulusan/tambah-rujukan-bencana/tambah-rujukan-bencana.component';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
-import { PilihBencanaKelulusanComponent } from '../../pilih-bencana-kelulusan/pilih-bencana-kelulusan.component';
 
 @Component({
   selector: 'app-perbelanjaan',
@@ -48,6 +47,10 @@ export class PerbelanjaanComponent implements OnInit {
   bencana:any;
   bantuan:any;
   namaBencana: string;
+  arrayYear:any[];
+  filterTahun: number;
+  filterYear: number;
+  filterPastYear: number;
 
   date = new Date();
   modelSurat: NgbDateStruct;
@@ -57,27 +60,15 @@ export class PerbelanjaanComponent implements OnInit {
   readonly DELIMITER = '-';
 
   kelulusan: CreateOrEditTabungKelulusanDto = new CreateOrEditTabungKelulusanDto();
+  belanja: GetBelanjaTabungKelulusanDto = new GetBelanjaTabungKelulusanDto();
 
   bayaranTerus: any;
 
-  rowBwi = [
-		{
-      bil: '1', no_rujukan: 'Covid-19', negeri: 'Penang', daerah:'SPT', jenis_bencana:'Banjir',tahun:'2020',
-      w_kir:'500', jumlah_kir:'500', jumlah:'76', tarikh_eft:'21/2/2020'
-		},
-    {
-      bil: '1', no_rujukan: 'Covid-19', negeri: 'Penang', daerah:'SPT', jenis_bencana:'Banjir',tahun:'2020',
-      w_kir:'500', jumlah_kir:'700', jumlah:'76', tarikh_eft:'21/2/2020'
-		}
-	];
-
 	constructor(
 	  config: NgbModalConfig,
-    private modalService: NgbModal,
     private router: Router,
     private _activatedRoute: ActivatedRoute,
     private _tabungKelulusanServiceProxy: TabungKelulusanServiceProxy,
-    private _tabungServiceProxy: TabungServiceProxy,
     private calendar: NgbCalendar
   ) {
     this.id = this._activatedRoute.snapshot.queryParams['id'];
@@ -89,6 +80,8 @@ export class PerbelanjaanComponent implements OnInit {
 
 	ngOnInit(): void {
     this.show();
+    this.getBelanja();
+    this.generateArrayOfYears();
   }
 
   fromModel(value: string | null): NgbDateStruct | null {
@@ -126,6 +119,19 @@ export class PerbelanjaanComponent implements OnInit {
     }
   }
 
+  getBelanja() {
+    this._tabungKelulusanServiceProxy.getBelanjaByKelulusan(this.id, this.filterYear ?? undefined, this.filterPastYear ?? undefined)
+      .subscribe((result) => {
+        this.belanja = result;
+      })
+  }
+
+  getTahun() {
+    this.filterYear = this.filterTahun;
+    this.filterPastYear = this.filterTahun - 1;
+    this.getBelanja();
+  }
+
   save(): void {
     this.saving = true;
     if(this.modelSurat){
@@ -140,7 +146,7 @@ export class PerbelanjaanComponent implements OnInit {
       this.tarikhTamat = this.toModel(this.modelTamat);
       this.kelulusan.tarikh_tamat_kelulusan = moment(this.tarikhTamat, "YYYY-MM-DD");
     }
-    
+
     this._tabungKelulusanServiceProxy
       .createOrEdit(this.kelulusan)
       .pipe()
@@ -172,16 +178,15 @@ export class PerbelanjaanComponent implements OnInit {
 			});
 	}
 
-  getSejarahBwi(event?: LazyLoadEvent) {
-		if (this.primengTableHelperTabung.shouldResetPaging(event)) {
-			this.paginatorBwi.changePage(0);
-			return;
-		}
+  generateArrayOfYears() {
+    let max = new Date().getFullYear();
+    let min = max - 9;
+    let years = [];
 
-		this.primengTableHelperBwi.showLoadingIndicator();
-		this.primengTableHelperBwi.totalRecordsCount = this.rowBwi.length;
-		this.primengTableHelperBwi.records = this.rowBwi;
-		this.primengTableHelperBwi.hideLoadingIndicator();
-	}
-  
+    for (let i = max; i >= min; i--) {
+      years.push(i)
+    }
+    this.arrayYear = years;
+  }
+
 }
