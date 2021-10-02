@@ -17,18 +17,74 @@
               </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/kelulusan'">
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/mangsa/pendaftaran'">
               <div class="media"><i data-feather="tag"></i>
                 <div class="media-body align-self-center">
-                  <h6 class="mt-0">Laporan Tabung Kelulusan</h6>
+                  <h6 class="mt-0">Laporan Mangsa Berdaftar</h6>
                 </div>
               </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bayaran/skb'">
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/mangsa/tiada-bantuan'">
               <div class="media"><i data-feather="tag"></i>
                 <div class="media-body align-self-center">
-                  <h6 class="mt-0">Laporan Surat Kuasa Belanja</h6>
+                  <h6 class="mt-0">Laporan Mangsa (Belum Terima Bantuan)</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bwi/penerima'">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Laporan Mangsa Penerima BWI</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/rumah/bina-baru'" [queryParams]="{id: 2}">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Laporan Bantuan Bina Rumah Baru</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/rumah/baik-pulih'" [queryParams]="{id: 3}">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Laporan Bantuan Baik Pulih Rumah</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/pinjaman'">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Laporan Bantuan Pinjaman Khas</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/pertanian'">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Laporan Bantuan Pertanian</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/antarabangsa'">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Laporan Bantuan Antarabangsa</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/lain-lain'">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Laporan Bantuan Lain-lain</h6>
                 </div>
               </div>
             </div>
@@ -36,7 +92,31 @@
             <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bayaran/terus'">
               <div class="media"><i data-feather="tag"></i>
                 <div class="media-body align-self-center">
-                  <h6 class="mt-0">Laporan Bayaran Terus</h6>
+                  <h6 class="mt-0">Laporan Bayaran Secara Terus</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bayaran/skb'">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Laporan Bayaran Surat Kuasa Belanja</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/waran'">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Laporan Bayaran Secara Waran</h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/kelulusan'">
+              <div class="media"><i data-feather="tag"></i>
+                <div class="media-body align-self-center">
+                  <h6 class="mt-0">Laporan Tabung Kelulusan</h6>
                 </div>
               </div>
             </div>
@@ -60,7 +140,7 @@
             <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bwi/bencana-kelulusan'">
               <div class="media"><i data-feather="tag"></i>
                 <div class="media-body align-self-center">
-                  <h6 class="mt-0">Laporan BWI (Bencana - Kelulusan</h6>
+                  <h6 class="mt-0">Laporan BWI (Bencana - Kelulusan)</h6>
                 </div>
               </div>
             </div>
@@ -77,95 +157,6 @@
               <div class="media"><i data-feather="tag"></i>
                 <div class="media-body align-self-center">
                   <h6 class="mt-0">Laporan BWI (Pengurusan Kematian)</h6>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/mangsa/pendaftaran'">
-              <div class="media"><i data-feather="tag"></i>
-                <div class="media-body align-self-center">
-                  <h6 class="mt-0">Laporan Mangsa Berdaftar</h6>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/mangsa/tiada-bantuan'">
-              <div class="media"><i data-feather="tag"></i>
-                <div class="media-body align-self-center">
-                  <h6 class="mt-0">Laporan Mangsa (Belum Terima Bantuan)</h6>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/lain-lain'">
-              <div class="media"><i data-feather="tag"></i>
-                <div class="media-body align-self-center">
-                  <h6 class="mt-0">Laporan Bantuan Lain-lain</h6>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/antarabangsa'">
-              <div class="media"><i data-feather="tag"></i>
-                <div class="media-body align-self-center">
-                  <h6 class="mt-0">Laporan Bantuan Antarabangsa</h6>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/pinjaman'">
-              <div class="media"><i data-feather="tag"></i>
-                <div class="media-body align-self-center">
-                  <h6 class="mt-0">Laporan Bantuan Pinjaman Khas</h6>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/pertanian'">
-              <div class="media"><i data-feather="tag"></i>
-                <div class="media-body align-self-center">
-                  <h6 class="mt-0">Laporan Bantuan Pertanian</h6>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/rumah/bina-baru'" [queryParams]="{id: 2}">
-              <div class="media"><i data-feather="tag"></i>
-                <div class="media-body align-self-center">
-                  <h6 class="mt-0">Laporan Bantuan Bina Rumah Baru</h6>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/rumah/baik-pulih'" [queryParams]="{id: 3}">
-              <div class="media"><i data-feather="tag"></i>
-                <div class="media-body align-self-center">
-                  <h6 class="mt-0">Laporan Bantuan Baik Pulih Rumah</h6>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bwi/penerima'">
-              <div class="media"><i data-feather="tag"></i>
-                <div class="media-body align-self-center">
-                  <h6 class="mt-0">Laporan Penerima BWI</h6>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-3">
-              <div class="card bg-primary">
-                <div class="card-body" style="text-align:left; padding:20px; border-radius:8px; cursor: pointer;" [routerLink]="'/app/laporan/waran'">
-                  <div class="row">
-                    <div class="col-lg-12" style="line-height: 19pt;">
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:17px;">Laporan</a>
-                      </div>
-                      <div class="row no-gutters">
-                        <a style="font-weight:400; font-size:16px;">Waran</a>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
