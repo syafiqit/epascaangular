@@ -26,6 +26,7 @@ export class TambahEditMangsaBencanaComponent implements OnInit {
   idMangsa: number;
   evacuates: any;
   tarikhBencana: string;
+  statusPindah:boolean;
   modelBencana: NgbDateStruct;
   readonly DELIMITER = '-';
 
@@ -93,6 +94,15 @@ export class TambahEditMangsaBencanaComponent implements OnInit {
 			}
 		);
 	}
+
+  statusPindahValidate(id){
+    if(id == 1){
+      this.statusPindah = false;
+    }
+    else{
+      this.statusPindah = true;
+    }
+  }
 
 	save(): void {
 		this.saving = true;

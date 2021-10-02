@@ -20,9 +20,14 @@
               placeholder="Sila Pilih"
               class="js-example-placeholder-multiple"
               name="id_jenis_bwi"
-              
+              [(ngModel)]="wangIhsan.id_jenis_bwi"
+              #jenisBwi="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && jenisBwi.invalid }"
               required
             ></ng-select>
+            <div *ngIf="f.submitted && jenisBwi.invalid" class="invalid-feedback">
+              <div *ngIf="jenisBwi.errors.required">Jenis BWI Wajib Dipilih</div>
+            </div>
           </div>
         </div>
       </div>
@@ -30,21 +35,22 @@
 			<div class="col-lg-6">
         <div class="form-group">
           <label>Bencana</label>
-          <div class="input-group">
-            <input
-              class="form-control"
-              type="text"
-              placeholder="Bencana"
+          <ng-select
+              [items]="bencanaList"
+              bindLabel="nama_bencana"
+              bindValue="id"
+              placeholder="Sila Pilih"
+              class="js-example-placeholder-multiple"
               name="bencana"
+              (change)="getTarikhBencana($event.tarikh_bencana)"
+              [(ngModel)]="wangIhsan.id_bencana"
+              #namaBencana="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
               required
-              readonly
-            />
-            <div class="input-group-append">
-              <button class="btn btn-primary" (click)="pilihBencana()" type="button">
-                <i class="fa fa-search text-white"></i>
-              </button>
+            ></ng-select>
+            <div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
+              <div *ngIf="namaBencana.errors.required">Bencana Wajib Dipilih</div>
             </div>
-          </div>
         </div>
       </div>
 		</div>
@@ -78,8 +84,19 @@
               placeholder="Sila Pilih"
               class="js-example-placeholder-multiple"
               name="id_agensi"
+              [(ngModel)]="wangIhsan.id_agensi_bantuan"
+              #namaAgensi="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && namaAgensi.invalid }"
               required
             ></ng-select>
+            <div
+              *ngIf="f.submitted && namaAgensi.invalid"
+              class="invalid-feedback"
+            >
+              <div *ngIf="namaAgensi.errors.required">
+                Nama Agensi Wajib Dipilih
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -127,8 +144,14 @@
               placeholder="Sila Pilih"
               class="js-example-placeholder-multiple"
               name="jumlah_bwi"
+              [(ngModel)]="wangIhsan.jumlah"
+              #jumlah="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && jumlah.invalid }"
               required
             ></ng-select>
+          <div *ngIf="f.submitted && jumlah.invalid" class="invalid-feedback">
+            <div *ngIf="jumlah.errors.required">Jumlah Wajib Dipilih</div>
+          </div>
         </div>
       </div>
 		</div>
@@ -145,19 +168,19 @@
               placeholder="Sila Pilih"
               class="js-example-placeholder-multiple"
               name="id_status"
-            ></ng-select>
-            <!-- [(ngModel)]="wangIhsan.status_mangsa_wang_ihsan"
+              [(ngModel)]="wangIhsan.status_mangsa_wang_ihsan"
               #namaStatus="ngModel"
               [ngClass]="{ 'is-invalid': f.submitted && namaStatus.invalid }"
-              required -->
-            <!-- <div
+              required
+            ></ng-select>
+            <div
               *ngIf="f.submitted && namaStatus.invalid"
               class="invalid-feedback"
-                >
+            >
               <div *ngIf="namaStatus.errors.required">
                 Status Wajib Dipilih
               </div>
-            </div> -->
+            </div>
           </div>
         </div>
       </div>
@@ -166,6 +189,6 @@
 
   <div class="modal-footer">
     <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
-    <button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Simpan</button>
+    <button type="submit" class="btn btn-primary">Simpan</button>
   </div>
 </form>

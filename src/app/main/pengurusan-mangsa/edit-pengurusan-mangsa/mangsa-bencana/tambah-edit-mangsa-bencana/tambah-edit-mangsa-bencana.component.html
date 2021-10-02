@@ -65,15 +65,16 @@
 						class="js-example-placeholder-multiple"
 						name="id_pindah"
 						[(ngModel)]="addBencana.id_pindah"
+						(change)="statusPindahValidate($event.id)"
 					></ng-select>
 				</div>
 			</div>
-			<div class="col-lg-6">
+			<div class="col-lg-6" *ngIf="statusPindah">
 				<div class="form-group">
 					<label>Nama Pusat</label>
 					<input
 						class="form-control"
-            id="pusatPindah"
+            			id="pusatPindah"
 						type="text"
 						name="nama_pusat_pemindahan"
 						[(ngModel)]="addBencana.nama_pusat_pemindahan"
@@ -85,6 +86,20 @@
 					<div *ngIf="f.submitted && namaPusat.invalid" class="invalid-feedback">
 						<div *ngIf="namaPusat.errors.required">Nama Pusat Wajib Diisi</div>
 					</div>
+				</div>
+			</div>
+			<div class="col-lg-6" *ngIf="!statusPindah">
+				<div class="form-group">
+					<label>Nama Pusat</label>
+					<input
+						class="form-control"
+            			id="pusatPindah"
+						type="text"
+						name="nama_pusat_pemindahan"
+						[(ngModel)]="addBencana.nama_pusat_pemindahan"
+						placeholder="Nama Pusat"
+						disabled
+					/>
 				</div>
 			</div>
 		</div>

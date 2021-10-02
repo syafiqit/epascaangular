@@ -1,13 +1,16 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgbActiveModal, NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import {
+  CreateMultipleMangsaWangIhsanDto,
+  InputCreateMultipleWangIhsanDto,
+  MangsaWangIhsanServiceProxy,
   RefAgensiServiceProxy,
+  RefBencanaServiceProxy,
   RefJenisBwiServiceProxy,
   RefKadarBwiServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import * as moment from 'moment';
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
-import { LookupBencanaComponent } from '../edit-pengurusan-mangsa/bantuan-mangsa/lookup-bencana/lookup-bencana.component';
 
 @Component({
   selector: 'app-edit-multiple-bantuan-wang-ihsan',
@@ -28,12 +31,15 @@ export class EditMultipleBantuanWangIhsanComponent implements OnInit {
   agency: any;
   jumlahBwi: any;
   bencana: any;
+  bencanaList: any;
   date = new Date();
   model: NgbDateStruct;
   modelBencana: NgbDateStruct;
   today = this.calendar.getToday();
   tarikhSerahan: string;
   tarikhBencana: string;
+  mangsaBwi: InputCreateMultipleWangIhsanDto = new InputCreateMultipleWangIhsanDto();
+  wangIhsan: CreateMultipleMangsaWangIhsanDto = new CreateMultipleMangsaWangIhsanDto();
   readonly DELIMITER = '-';
 
   status=[
@@ -43,11 +49,12 @@ export class EditMultipleBantuanWangIhsanComponent implements OnInit {
   ]
 
   constructor(
-    private modalService: NgbModal,
 		public activeModal: NgbActiveModal,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
+    private _refBencanaServiceProxy: RefBencanaServiceProxy,
     private _refJenisBwiServiceProxy: RefJenisBwiServiceProxy,
     private _refKadarBwiServiceProxy: RefKadarBwiServiceProxy,
+    private _mangsaWangIhsanServiceProxy: MangsaWangIhsanServiceProxy,
     private calendar: NgbCalendar
     ) {
     }
@@ -56,6 +63,8 @@ export class EditMultipleBantuanWangIhsanComponent implements OnInit {
       this.getJenisBwi();
       this.getAgensi();
       this.getJumlahBwi();
+      this.getBencana();
+      console.log(this.idMangsa);
     }
 
     fromModel(value: string | null): NgbDateStruct | null {
@@ -92,40 +101,36 @@ export class EditMultipleBantuanWangIhsanComponent implements OnInit {
       });
     }
 
-    pilihBencana() {
-      const modalRef = this.modalService.open(LookupBencanaComponent, { size: 'lg' });
-      modalRef.componentInstance.name = 'add';
-      modalRef.componentInstance.mangsaId = this.idMangsa;
-      modalRef.result.then(
-        (response) => {
-          if (response) {
-            this.modelBencana = this.fromModel(response.tarikh_bencana.format('YYYY-MM-DD'));
-          }
-        }
-      );
+    getBencana(filter?) {
+      this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
+        this.bencanaList = result.items;
+      });
+    }
+
+    getTarikhBencana(tarikh?){
+      this.modelBencana = this.fromModel(tarikh.format('YYYY-MM-DD'));
     }
 
     save() {
       this.saving = true;
-      if(this.modelBencana){
-        this.tarikhBencana = this.toModel(this.modelBencana);
-        // this.wangIhsan.tarikh_bencana = moment(this.tarikhBencana, "YYYY-MM-DD");
-      }
       if(this.model){
         this.tarikhSerahan = this.toModel(this.model);
-        // this.wangIhsan.tarikh_serahan = moment(this.tarikhSerahan, "YYYY-MM-DD");
+        this.wangIhsan.tarikh_serahan = moment(this.tarikhSerahan, "YYYY-MM-DD");
       }
-      // this._mangsaWangIhsanServiceProxy
-      //   .createOrEdit(this.wangIhsan)
-      //   .pipe()
-      //   .subscribe((result) => {
-      //     if (this.name == 'add') {
-      //       swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Wang Ihsan Berjaya Ditambah.', 'success');
-      //     } else if (this.name == 'edit') {
-      //       swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Wang Ihsan Berjaya Dikemaskini.', 'success');
-      //     }
-      //     this.activeModal.close(true);
-      //   });
+      this.mangsaBwi.id_mangsa = this.idMangsa;
+      this.mangsaBwi.mangsaBwi = this.wangIhsan;
+
+      this._mangsaWangIhsanServiceProxy
+        .multipleCreateMangsaBwi(this.mangsaBwi)
+        .pipe()
+        .subscribe((result) => {
+          if (this.name == 'add') {
+            swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Wang Ihsan Berjaya Ditambah.', 'success');
+          } else if (this.name == 'edit') {
+            swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Wang Ihsan Berjaya Dikemaskini.', 'success');
+          }
+          this.activeModal.close(true);
+        });
     }
 
 }
