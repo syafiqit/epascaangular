@@ -10,19 +10,19 @@ export class AppSessionService {
     ) {}
 
   get permissions(): string[] {
-    return this._profile.capaian;
+    return this._profile?.capaian;
   }
 
 	get role(): string {
-		return this._profile.peranan;
+		return this._profile?.peranan;
 	}
 
   get pengguna(): PenggunaProfilDto {
-    return this._profile.pengguna;
+    return this._profile?.pengguna;
   }
 
   isGranted(permissionName: string): boolean {
-    const val = this._profile.capaian.find(e => e === permissionName);
+    const val = this._profile?.capaian.find(e => e === permissionName);
     return !val ? false : true;
   }
 
