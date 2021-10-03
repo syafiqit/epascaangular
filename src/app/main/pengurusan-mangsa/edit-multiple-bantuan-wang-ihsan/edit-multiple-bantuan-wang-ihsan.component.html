@@ -11,7 +11,7 @@
 		<div class="row">
 			<div class="col-lg-6">
         <div class="form-group">
-          <label>Kategori</label>
+          <label>Kategori*</label>
           <div>
             <ng-select
               [items]="types"
@@ -34,7 +34,7 @@
 
 			<div class="col-lg-6">
         <div class="form-group">
-          <label>Bencana</label>
+          <label>Bencana*</label>
           <ng-select
               [items]="bencanaList"
               bindLabel="nama_bencana"
@@ -57,7 +57,7 @@
 
 		<div class="row">
       <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
-        <label>Tarikh Bencana</label>
+        <label>Tarikh Bencana*</label>
         <div class="input-group">
           <input
             class="form-control"
@@ -75,7 +75,7 @@
 
       <div class="col-lg-6">
         <div class="form-group">
-          <label>Agensi Pemberi Bantuan</label>
+          <label>Agensi Pemberi Bantuan*</label>
           <div>
             <ng-select
               [items]="agency"
@@ -115,17 +115,11 @@
             [footerTemplate]="footerTemplate"
             #d="ngbDatepicker"
             style="border: 1px solid #efefef !important;"
-						#tarikhSerahan="ngModel"
-						[ngClass]="{ 'is-invalid': f.submitted && tarikhSerahan.invalid }"
-						required
           >
           <div class="input-group-append">
             <button class="btn btn-light" (click)="d.toggle()" type="button"><i
               class="fa fa-calendar"></i></button>
           </div>
-					<div *ngIf="f.submitted && tarikhSerahan.invalid" class="invalid-feedback">
-						<div *ngIf="tarikhSerahan.errors.required">Tarikh Serahan Wajib Dipilih</div>
-					</div>
         </div>
       </div>
       <ng-template #footerTemplate>
@@ -136,7 +130,7 @@
 
       <div class="col-lg-6">
         <div class="form-group">
-          <label>Jumlah (RM)</label>
+          <label>Jumlah (RM)*</label>
           <ng-select
               [items]="jumlahBwi"
               bindLabel="nilai"
@@ -159,7 +153,7 @@
     <div class="row">
       <div class="col-lg-6">
         <div class="form-group">
-          <label>Status</label>
+          <label>Status*</label>
           <div>
             <ng-select
               [items]="status"
