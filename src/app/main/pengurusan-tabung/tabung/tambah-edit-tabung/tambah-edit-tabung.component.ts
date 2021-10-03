@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { CreateOrEditTabungDto, GetTabungForViewDto, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import { CreateOrEditTabungDto, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { CurrencyPipe } from '@angular/common';
 

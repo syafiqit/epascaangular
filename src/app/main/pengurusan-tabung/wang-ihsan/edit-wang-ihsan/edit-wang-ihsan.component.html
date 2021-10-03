@@ -9,13 +9,12 @@
 			<div class="card">
 				<div class="card-body">
           <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="save()" novalidate>
-            <h6>Maklumat Pembayaran</h6>
             <app-tambah-edit-pembayaran [idBwi]="idBwi" (idBayaranSkb)="getIdBayaranSkb($event)" (idBayaranTerus)="getIdBayaranTerus($event)"></app-tambah-edit-pembayaran>
 
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label>Jenis BWI</label>
+                  <label>Jenis BWI*</label>
                   <ng-select
                     [items]="jenisBwi"
                     bindLabel="nama_jenis_bwi"
@@ -56,7 +55,7 @@
                 <div class="input-group">
                   <input
                     class="form-control"
-                    placeholder="yyyy-mm-dd"
+                    placeholder="DD/MM/YYYY"
                     name="dp"
                     [(ngModel)]="tarikh_bencana"
                     disabled
@@ -81,8 +80,7 @@
                     type="text"
                     name="jumlah_bayaran"
                     placeholder="Jumlah Pembayaran"
-                    [(ngModel)]="edit.jumlah_keseluruhan"
-                    onlyNumbers
+                    value="{{edit.jumlah_keseluruhan | number: '1.2-2'}}"
                     disabled
                   />
                 </div>
@@ -96,8 +94,7 @@
                     type="text"
                     name="jumlah_pulangan"
                     placeholder="Jumlah Pulangan"
-                    [(ngModel)]="edit.jumlah_dipulangkan"
-                    onlyNumbers
+                    value="{{edit.jumlah_dipulangkan | number: '1.2-2'}}"
                     disabled
                   />
                 </div>

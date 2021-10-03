@@ -9,16 +9,21 @@
 			<div class="card">
 				<div class="card-body">
 					<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
-						<h6>Maklumat Pembayaran</h6>
-            <div class="row no-gutters justify-content-end">
-              <button
-                type="button"
-                class="btn btn-primary pull-right"
-                (click)="pilihPembayaran()"
-              >
-                <i class="fa fa-plus mr-2"></i>
-                <b>Pembayaran</b>
-              </button>
+            <div class="row no-gutters">
+              <div class="col-lg-6 justify-content-start">
+                <h6>Maklumat Pembayaran</h6>
+              </div>
+
+              <div class="col-lg-6 justify-content-end">
+                <button
+                  type="button"
+                  class="btn btn-primary pull-right"
+                  (click)="pilihPembayaran()"
+                >
+                  <i class="fa fa-plus mr-2"></i>
+                  <b>Pembayaran</b>
+                </button>
+              </div>
             </div>
 
             <div class="row no-gutters align-items-center mt-3">
@@ -76,7 +81,7 @@
                       </td>
                       <td style="width: 110px">
                         <span class="p-column-title">Jumlah</span>
-                        {{record.jumlah}}
+                        RM {{record.jumlah | number: '1.2-2'}}
                       </td>
                       <td style="width: 150px">
                         <div ngbDropdown class="btn-group" role="group" container="body">
@@ -120,7 +125,7 @@
             <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label>Jenis BWI</label>
+                    <label>Jenis BWI*</label>
                     <ng-select
                       [items]="jenisBwi"
                       bindLabel="nama_jenis_bwi"
@@ -141,7 +146,7 @@
 
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label>Bencana</label>
+                    <label>Bencana*</label>
                     <div class="input-group">
                       <input
                         class="form-control"
@@ -159,9 +164,9 @@
                           <i class="fa fa-search text-white"></i>
                         </button>
                       </div>
-                    </div>
-                    <div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
-                      <div *ngIf="namaBencana.errors.required">Bencana Wajib Dipilih</div>
+                      <div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
+                        <div *ngIf="namaBencana.errors.required">Bencana Wajib Dipilih</div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -173,7 +178,7 @@
                   <div class="input-group">
                     <input
                       class="form-control"
-                      placeholder="yyyy-mm-dd"
+                      placeholder="DD/MM/YYYY"
                       name="dp"
                       [(ngModel)]="modelBencana"
                       readonly
@@ -183,16 +188,21 @@
               </div>
             <hr />
 
-						<h6>Maklumat Bantuan</h6>
-            <div class="row no-gutters justify-content-end">
-              <button
-                type="button"
-                class="btn btn-primary pull-right"
-                (click)="addBantuan()"
-              >
-                <i class="fa fa-plus mr-2"></i>
-                <b>Tambah</b>
-              </button>
+            <div class="row no-gutters">
+              <div class="col-lg-6 justify-content-start">
+                <h6>Maklumat Bantuan</h6>
+              </div>
+
+              <div class="col-lg-6 justify-content-end">
+                <button
+                  type="button"
+                  class="btn btn-primary pull-right"
+                  (click)="addBantuan()"
+                >
+                  <i class="fa fa-plus mr-2"></i>
+                  <b>Tambah</b>
+                </button>
+              </div>
             </div>
 
             <div class="row no-gutters align-items-center mt-3">
@@ -241,7 +251,7 @@
                       </td>
                       <td style="width: 120px">
                         <span class="p-column-title">Jumlah Diberikan</span>
-                        {{record.jumlah_bayaran}}
+                        RM {{record.jumlah_bayaran | number: '1.2-2'}}
                       </td>
                       <td style="width: 150px">
                         <div ngbDropdown class="btn-group" role="group" container="body">
@@ -290,8 +300,7 @@
                     type="text"
                     name="jumlah_bayaran"
                     placeholder="Jumlah Pembayaran"
-                    [(ngModel)]="totalBayaran"
-                    onlyNumbers
+                    value="{{totalBayaran | number: '1.2-2'}}"
                     disabled
                   />
 								</div>
