@@ -33,6 +33,7 @@ import { SelectBencanaComponent } from './select-bencana/select-bencana.componen
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateCustomParserFormatter } from '@app/shared/date-parser/NgbDateCustomParserFormatter';
 import { EditMultipleBantuanWangIhsanComponent } from './edit-multiple-bantuan-wang-ihsan/edit-multiple-bantuan-wang-ihsan.component';
+import { CreateMultipleBencanaComponent } from './create-multiple-bencana/create-multiple-bencana.component';
 
 @NgModule({
 	imports: [
@@ -69,7 +70,8 @@ import { EditMultipleBantuanWangIhsanComponent } from './edit-multiple-bantuan-w
 		TambahEditBantuanWangIhsanComponent,
     LookupBencanaComponent,
     SelectBencanaComponent,
-    EditMultipleBantuanWangIhsanComponent
+    EditMultipleBantuanWangIhsanComponent,
+    CreateMultipleBencanaComponent
 	],
 	providers: [
 		{provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter}
