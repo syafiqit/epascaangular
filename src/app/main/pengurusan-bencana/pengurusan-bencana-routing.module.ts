@@ -14,8 +14,7 @@ const routes: Routes = [
 			},
 			{
 				path: 'tambah-edit-pengurusan-bencana',
-				component: TambahEditPengurusanBencanaComponent,
-        data: { permission: 'Halaman.Bencana.Tambah,Halaman.Bencana.Edit' }
+				component: TambahEditPengurusanBencanaComponent
 			}
 		]
 	}
