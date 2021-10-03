@@ -221,7 +221,7 @@ export class NavService implements OnDestroy {
 				active: false,
 				children: [
           { path: '/app/mangsa/senarai-pengurusan-mangsa', title: 'Pengurusan Mangsa', type: 'link', permission: 'Halaman.Mangsa' },
-          { path: '/app/bencana/pengurusan-bencana', title: 'Pengurusan Bencana', type: 'link' }
+          { path: '/app/bencana/pengurusan-bencana', title: 'Pengurusan Bencana', type: 'link', permission: 'Halaman.Bencana' }
 				]
 			},
 			{

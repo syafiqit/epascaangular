@@ -9,11 +9,13 @@ const routes: Routes = [
 		children: [
 			{
 				path: 'pengurusan-bencana',
-				component: PengurusanBencanaComponent
+				component: PengurusanBencanaComponent,
+        data: { permission: 'Halaman.Bencana' }
 			},
 			{
 				path: 'tambah-edit-pengurusan-bencana',
-				component: TambahEditPengurusanBencanaComponent
+				component: TambahEditPengurusanBencanaComponent,
+        data: { permission: 'Halaman.Bencana.Tambah,Halaman.Bencana.Edit' }
 			}
 		]
 	}

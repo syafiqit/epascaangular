@@ -11,6 +11,7 @@ import {
 } from 'src/app/shared/proxy/service-proxies';
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { AppSessionService } from '@app/shared/services/app-session.service';
 
 @Component({
   selector: 'app-pengurusan-bencana',
@@ -42,7 +43,8 @@ export class PengurusanBencanaComponent implements OnInit {
 	constructor(
     config: NgbModalConfig,
     private _refBencanaServiceProxy: RefBencanaServiceProxy,
-    private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy
+    private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy,
+    public _appSession: AppSessionService
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';

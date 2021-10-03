@@ -32,7 +32,7 @@
             </button>
           </div>
 
-          <div class="col-4 justify-content-end pr-0">
+          <div class="col-4 justify-content-end pr-0" *ngIf="_appSession.isGranted('Halaman.Bencana.Tambah')">
             <button
                 class="btn btn-primary pull-right"
                 [routerLink]="['/app/bencana/tambah-edit-pengurusan-bencana']"
@@ -127,7 +127,7 @@
 										Negeri
 										<p-sortIcon field="bencanaNegeri"></p-sortIcon>
 									</th>
-									<th style="width:70px;">Tindakan</th>
+									<th *ngIf="_appSession.isGranted('Halaman.Bencana.Edit') || _appSession.isGranted('Halaman.Bencana.Hapus')" style="width:70px;">Tindakan</th>
 								</tr>
 							</ng-template>
 							<ng-template pTemplate="body" let-record="$implicit">
@@ -148,7 +148,7 @@
 										<span class="p-column-title">Negeri</span>
 										{{record.bencanaNegeri}}
 									</td>
-									<td style="width: 70px; text-align: center;">
+									<td style="width: 70px; text-align: center;" *ngIf="_appSession.isGranted('Halaman.Bencana.Edit') || _appSession.isGranted('Halaman.Bencana.Hapus')">
 										<div ngbDropdown class="btn-group" role="group" container="body">
 											<button
 												type="button"
@@ -164,9 +164,16 @@
 												<button
 													class="dropdown-item"
 													[routerLink]="['/app/bencana/tambah-edit-pengurusan-bencana']"
-                          							[queryParams]="{id: record.bencana.id}"
+                          [queryParams]="{id: record.bencana.id}"
+                          *ngIf="_appSession.isGranted('Halaman.Bencana.Edit')"
 												>
 													Lihat
+												</button>
+                        <button
+													class="dropdown-item"
+                          *ngIf="_appSession.isGranted('Halaman.Bencana.Hapus')"
+												>
+													Padam
 												</button>
 											</div>
 										</div>
