@@ -1,4 +1,4 @@
-<div class="row justify-content-end pr-0 mb-2">
+<div class="row justify-content-end pr-0 mb-2" *ngIf="_appSession.isGranted('Halaman.Mangsa.BWI.Tambah')">
   <button (click)="addIhsanModal(mangsaId)" class="btn btn-primary pull-right">
     <i class="fa fa-plus mr-2"></i>
     <b>Tambah</b>
@@ -44,7 +44,7 @@
           Status
           <p-sortIcon field="status_mangsa_wang_ihsan"></p-sortIcon>
         </th>
-        <th style="width: 130px">Tindakan</th>
+        <th *ngIf="_appSession.isGranted('Halaman.Mangsa.BWI.Edit') || _appSession.isGranted('Halaman.Mangsa.BWI.Hapus')" style="width: 130px">Tindakan</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-record="$implicit">
@@ -69,7 +69,7 @@
           <span class="p-column-title">Status</span>
           {{getStatus(record.status_mangsa_wang_ihsan)}}
         </td>
-        <td style="width: 130px">
+        <td style="width: 130px" *ngIf="_appSession.isGranted('Halaman.Mangsa.BWI.Edit') || _appSession.isGranted('Halaman.Mangsa.BWI.Hapus')">
           <div ngbDropdown class="btn-group" role="group" container="body">
             <button
               type="button"
@@ -81,7 +81,10 @@
               Tindakan
             </button>
             <div ngbDropdownMenu aria-labelledby="action">
-              <button class="dropdown-item" (click)="editIhsanModal(record.id, mangsaId)">
+              <button class="dropdown-item" (click)="editIhsanModal(record.id, mangsaId)" *ngIf="_appSession.isGranted('Halaman.Mangsa.BWI.Edit')">
+                Lihat
+              </button>
+              <button class="dropdown-item" (click)="editIhsanModal(record.id, mangsaId)" *ngIf="_appSession.isGranted('Halaman.Mangsa.BWI.Hapus')">
                 Lihat
               </button>
             </div>

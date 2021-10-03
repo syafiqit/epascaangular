@@ -7,6 +7,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import { finalize } from 'rxjs/operators';
 import { MangsaAntarabangsaServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import { TambahEditBantuanAntarabangsaComponent } from './tambah-edit-bantuan-antarabangsa/tambah-edit-bantuan-antarabangsa.component';
+import { AppSessionService } from '@app/shared/services/app-session.service';
 
 @Component({
 	selector: 'app-bantuan-antarabangsa',
@@ -31,7 +32,8 @@ export class BantuanAntarabangsaComponent implements OnInit {
 	constructor(
     config: NgbModalConfig,
 		private modalService: NgbModal,
-    private _refMangsaAntarabangsaServiceProxy: MangsaAntarabangsaServiceProxy
+    private _refMangsaAntarabangsaServiceProxy: MangsaAntarabangsaServiceProxy,
+    public _appSession: AppSessionService
   ) {
     this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';

@@ -13,6 +13,7 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { EditMultipleBantuanWangIhsanComponent } from './edit-multiple-bantuan-wang-ihsan/edit-multiple-bantuan-wang-ihsan.component';
 import { swalError } from '@app/shared/sweet-alert/swal-constant';
+import { AppSessionService } from '@app/shared/services/app-session.service';
 
 @Component({
 	selector: 'app-pengurusan-mangsa',
@@ -42,7 +43,8 @@ export class PengurusanMangsaComponent implements OnInit {
 		private modalService: NgbModal,
     private _mangsaServiceProxy: MangsaServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
-    private _refNegeriServiceProxy: RefNegeriServiceProxy
+    private _refNegeriServiceProxy: RefNegeriServiceProxy,
+    public _appSession: AppSessionService
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AppSessionService } from '@app/shared/services/app-session.service';
 
 @Component({
 	selector: 'app-edit-pengurusan-mangsa',
@@ -10,7 +11,8 @@ export class EditPengurusanMangsaComponent implements OnInit {
   id = undefined;
 
 	constructor(
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    public _appSession: AppSessionService
   ) {
     this._activatedRoute.queryParams.subscribe((p) => {
 			this.id = p['id'];

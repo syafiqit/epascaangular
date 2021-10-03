@@ -12,6 +12,7 @@ import {
 } from 'src/app/shared/proxy/service-proxies';
 import { finalize } from 'rxjs/operators';
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { AppSessionService } from '@app/shared/services/app-session.service';
 
 @Component({
 	selector: 'app-ahli-rumah-mangsa',
@@ -38,7 +39,8 @@ export class AhliRumahMangsaComponent implements OnInit {
     config: NgbModalConfig,
     private modalService: NgbModal,
     private _mangsaAirServiceProxy: MangsaAirServiceProxy,
-    private _mangsaServiceProxy: MangsaServiceProxy
+    private _mangsaServiceProxy: MangsaServiceProxy,
+    public _appSession: AppSessionService
     ) {
 		this.primengTableHelper = new PrimengTableHelper();
 	}
