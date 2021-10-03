@@ -238,17 +238,20 @@ export class NavService implements OnDestroy {
 					children: [
             { path: '/app/tabung/skb/senarai',
               title: 'Surat Kuasa Belanja',
-              type: 'link'
+              type: 'link',
+              permission: 'Halaman.Tabung.Bayaran.SKB'
             },
             {
               path: '/app/tabung/bayaran-terus/senarai',
               title: 'Bayaran Secara Terus',
-              type: 'link'
+              type: 'link',
+              permission: 'Halaman.Tabung.Bayaran.Terus'
             },
             {
               path: '/app/tabung/waran/senarai',
               title: 'Bayaran Secara Waran',
-              type: 'link'
+              type: 'link',
+              permission: 'Halaman.Tabung.Bayaran.Waran'
             }
 					]
 				},

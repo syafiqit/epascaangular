@@ -38,6 +38,7 @@
 
           <div class="col-4 justify-content-end pr-0">
             <button
+                *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.SKB.Tambah')"
                 [routerLink]="['/app/tabung/skb/tambah']"
                 class="btn btn-primary pull-right"
               >
@@ -170,7 +171,7 @@
 										Status
 										<p-sortIcon field="nama_skb_status"></p-sortIcon>
 									</th>
-									<th style="width: 150px">Tindakan</th>
+									<th *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.SKB.Edit') || _appSession.isGranted('Halaman.Tabung.Bayaran.SKB.Hapus')" style="width: 150px">Tindakan</th>
 								</tr>
 							</ng-template>
 							<ng-template pTemplate="body" let-record="$implicit">
@@ -215,7 +216,7 @@
 										<span class="p-column-title">Status</span>
 										{{record.nama_skb_status}}
 									</td>
-									<td style="width: 150px">
+									<td style="width: 150px" *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.SKB.Edit') || _appSession.isGranted('Halaman.Tabung.Bayaran.SKB.Hapus')">
 										<div ngbDropdown class="btn-group" role="group" container="body">
 											<button
 												type="button"
@@ -232,12 +233,14 @@
 													class="dropdown-item"
 													[routerLink]="['/app/tabung/skb/edit']"
                           [queryParams]="{id: record.id}"
+                          *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.SKB.Edit')"
 												>
 													Lihat
 												</button>
                         <button
                           class="dropdown-item"
                           (click)="deleteSkb(record.id)"
+                          *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.SKB.Hapus')"
                         >
                           Padam
                         </button>
