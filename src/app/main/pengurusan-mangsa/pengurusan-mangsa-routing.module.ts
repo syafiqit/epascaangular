@@ -10,15 +10,18 @@ const routes: Routes = [
 		children: [
 			{
 				path: 'senarai-pengurusan-mangsa',
-				component: PengurusanMangsaComponent
+				component: PengurusanMangsaComponent,
+        data: { permission: 'Halaman.Mangsa' }
 			},
 			{
 				path: 'tambah-pengurusan-mangsa',
-				component: TambahPengurusanMangsaComponent
+				component: TambahPengurusanMangsaComponent,
+        data: { permission: 'Halaman.Mangsa.Tambah' }
 			},
 			{
 				path: 'edit-pengurusan-mangsa',
-				component: EditPengurusanMangsaComponent
+				component: EditPengurusanMangsaComponent,
+        data: { permission: 'Halaman.Mangsa.Edit' }
 			}
 		]
 	}

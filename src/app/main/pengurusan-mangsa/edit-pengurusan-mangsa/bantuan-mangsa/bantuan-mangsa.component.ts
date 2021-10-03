@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AppSessionService } from '@app/shared/services/app-session.service';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { GetMangsaForEditDto, MangsaServiceProxy } from 'src/app/shared/proxy/service-proxies';
 
@@ -19,7 +20,8 @@ export class BantuanMangsaComponent implements OnInit {
 
 	constructor(
     private _activatedRoute: ActivatedRoute,
-    private _mangsaServiceProxy: MangsaServiceProxy
+    private _mangsaServiceProxy: MangsaServiceProxy,
+    public _appSession: AppSessionService
   ) {
     this._activatedRoute.queryParams.subscribe((p) => {
 			this.id = p['id'];

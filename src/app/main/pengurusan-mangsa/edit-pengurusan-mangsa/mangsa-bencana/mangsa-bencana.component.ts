@@ -13,6 +13,7 @@ import {
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { Subject } from 'rxjs';
+import { AppSessionService } from '@app/shared/services/app-session.service';
 
 @Component({
 	selector: 'app-mangsa-bencana',
@@ -36,7 +37,8 @@ export class MangsaBencanaComponent implements OnInit {
     config: NgbModalConfig,
     private modalService: NgbModal,
     private _mangsaBencanaServiceProxy: MangsaBencanaServiceProxy,
-    private _mangsaServiceProxy: MangsaServiceProxy
+    private _mangsaServiceProxy: MangsaServiceProxy,
+    public _appSession: AppSessionService
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
 	}

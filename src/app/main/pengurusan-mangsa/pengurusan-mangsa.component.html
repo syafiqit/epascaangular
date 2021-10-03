@@ -33,7 +33,7 @@
             </div>
 
             <div class="col-4 justify-content-end pr-0">
-				  <div ngbDropdown class="btn-group pull-right mr-1" role="group">
+				  <div ngbDropdown class="btn-group pull-right mr-1" role="group" *ngIf="_appSession.isGranted('Halaman.Mangsa.Tambah')">
 					<button type="button" class="btn btn-primary dropdown-toggle" id="dropdownBasic1"
 					  ngbDropdownToggle>
 					  <i class="fa fa-plus mr-2"></i>
@@ -178,7 +178,7 @@
 											Varifikasi
 											<p-sortIcon field="status_verifikasi"></p-sortIcon>
 										</th>
-										<th style="width: 130px">Tindakan</th>
+										<th *ngIf="_appSession.isGranted('Halaman.Mangsa.Edit') || _appSession.isGranted('Halaman.Mangsa.Hapus')" style="width: 130px">Tindakan</th>
 									</tr>
 								</ng-template>
 								<ng-template pTemplate="body" let-record="$implicit">
@@ -220,7 +220,7 @@
                       <label *ngIf="record.status_verifikasi == 1" style="color: green;">Sudah</label>
                       <label *ngIf="record.status_verifikasi == 0" style="color: red;">Belum</label>
 										</td>
-										<td style="width: 130px">
+										<td style="width: 130px" *ngIf="_appSession.isGranted('Halaman.Mangsa.Edit') || _appSession.isGranted('Halaman.Mangsa.Hapus')">
 											<div ngbDropdown class="btn-group" role="group" container="body">
 												<button
 													type="button"
@@ -237,8 +237,15 @@
 														class="dropdown-item"
 														[routerLink]="['/app/mangsa/edit-pengurusan-mangsa']"
                             [queryParams]="{id: record.id}"
+                            *ngIf="_appSession.isGranted('Halaman.Mangsa.Edit')"
 													>
 														Lihat
+													</button>
+                          <button
+														class="dropdown-item"
+                            *ngIf="_appSession.isGranted('Halaman.Mangsa.Hapus')"
+													>
+														Padam
 													</button>
 												</div>
 											</div>
