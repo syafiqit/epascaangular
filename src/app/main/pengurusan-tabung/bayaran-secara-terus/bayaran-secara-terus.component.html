@@ -53,11 +53,11 @@
 						>
 							<ng-template pTemplate="header">
 								<tr>
-                  <th style="width: 130px" pSortableColumn="no_rujukan_kelulusan">
+                  <th style="width: 145px" pSortableColumn="no_rujukan_kelulusan">
 										No. Kelulusan
 										<p-sortIcon field="no_rujukan_kelulusan"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="no_rujukan_terus">
+									<th style="width: 145px" pSortableColumn="no_rujukan_terus">
 										No. Bayaran
 										<p-sortIcon field="no_rujukan_terus"></p-sortIcon>
 									</th>
@@ -69,28 +69,28 @@
 										No. Baucar
 										<p-sortIcon field="no_baucar"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="penerima">
+									<th style="width: 150px" pSortableColumn="penerima">
 										Kepada
 										<p-sortIcon field="penerima"></p-sortIcon>
 									</th>
-									<th style="width: 100px" pSortableColumn="nama_bencana">
+									<th style="width: 160px" pSortableColumn="nama_bencana">
 										Bencana
 										<p-sortIcon field="nama_bencana"></p-sortIcon>
 									</th>
-                  <th style="width: 100px" pSortableColumn="jumlah">
+                  <th style="width: 110px" pSortableColumn="jumlah">
 										Jumlah
 										<p-sortIcon field="jumlah"></p-sortIcon>
 									</th>
-                  <th style="width: 130px">Tindakan</th>
+                  <th style="width: 140px">Tindakan</th>
 								</tr>
 							</ng-template>
 							<ng-template pTemplate="body" let-record="$implicit">
 								<tr>
-									<td style="width: 130px">
+									<td style="width: 145px">
 										<span class="p-column-title">No. Rujukan Kelulusan</span>
 										{{record.no_rujukan_kelulusan}}
 									</td>
-									<td style="width: 130px">
+									<td style="width: 145px">
 										<span class="p-column-title">No. Rujukan Bayaran</span>
 										<label *ngIf="record.no_rujukan_terus">{{record.no_rujukan_terus}}</label>
                     <label *ngIf="!record.no_rujukan_terus">-</label>
@@ -105,21 +105,21 @@
 										<label *ngIf="record.no_baucar">{{record.no_baucar}}</label>
                     <label *ngIf="!record.no_baucar">-</label>
 									</td>
-									<td style="width: 130px">
+									<td style="width: 150px">
 										<span class="p-column-title">Kepada</span>
 										{{record.penerima}}
 									</td>
-									<td style="width: 100px">
+									<td style="width: 160px">
 										<span class="p-column-title">Bencana</span>
                     <label *ngIf="record.nama_bencana">{{record.nama_bencana}}</label>
                     <label *ngIf="!record.nama_bencana">-</label>
 									</td>
-                  <td style="width: 100px">
+                  <td style="width: 110px">
 										<span class="p-column-title">Jumlah</span>
 										<label *ngIf="record.jumlah">RM {{record.jumlah | number: '1.2-2'}}</label>
                     <label *ngIf="!record.jumlah">RM 0.00</label>
 									</td>
-                  <td style="width: 130px">
+                  <td style="width: 140px">
 										<div ngbDropdown class="btn-group" role="group" container="body">
 											<button
 												type="button"

@@ -279,7 +279,7 @@
                         No. Rujukan
                         <p-sortIcon field="kelulusan.no_rujukan_kelulusan"></p-sortIcon>
                       </th>
-                      <th style="width: 130px" pSortableColumn="kelulusan.nama_tabung">
+                      <th style="width: 160px" pSortableColumn="kelulusan.nama_tabung">
                         Tabung
                         <p-sortIcon field="kelulusan.nama_tabung"></p-sortIcon>
                       </th>
@@ -295,11 +295,11 @@
                         Siling Peruntukan
                         <p-sortIcon field="kelulusan.jumlah_siling"></p-sortIcon>
                       </th>
-                      <th style="width: 186px" pSortableColumn="kelulusan.tarikh_mula_kelulusan">
+                      <th style="width: 130px" pSortableColumn="kelulusan.tarikh_mula_kelulusan">
                         Tarikh Mula
                         <p-sortIcon field="kelulusan.tarikh_mula_kelulusan"></p-sortIcon>
                       </th>
-                      <th style="width: 170px" pSortableColumn="kelulusan.tarikh_tamat_kelulusan">
+                      <th style="width: 137px" pSortableColumn="kelulusan.tarikh_tamat_kelulusan">
                         Tarikh Tamat
                         <p-sortIcon field="kelulusan.tarikh_tamat_kelulusan"></p-sortIcon>
                       </th>
@@ -324,7 +324,7 @@
                         <span class="p-column-title">No. Rujukan</span>
                         {{records.kelulusan.no_rujukan_kelulusan}}
                       </td>
-                      <td style="width: 130px">
+                      <td style="width: 160px">
                         <span class="p-column-title">Tabung</span>
                         {{records.kelulusan.nama_tabung}}
                       </td>
@@ -338,14 +338,14 @@
                       </td>
                       <td style="width: 170px">
                         <span class="p-column-title">Siling Peruntukan</span>
-                        <label *ngIf="records.kelulusan.jumlah_siling">{{records.kelulusan.jumlah_siling | number: '1.2-2'}}</label>
+                        <label *ngIf="records.kelulusan.jumlah_siling">RM {{records.kelulusan.jumlah_siling | number: '1.2-2'}}</label>
                         <label *ngIf="!records.kelulusan.jumlah_siling">RM 0.00</label>
                       </td>
-                      <td style="width: 186px">
+                      <td style="width: 130px">
                         <span class="p-column-title">Tarikh Mula</span>
                         {{records.kelulusan.tarikh_mula_kelulusan | date:'dd-MM-yyyy'}}
                       </td>
-                      <td style="width: 170px">
+                      <td style="width: 137px">
                         <span class="p-column-title">Tarikh Tamat</span>
                         <label *ngIf="records.kelulusan.tarikh_tamat_kelulusan">{{records.kelulusan.tarikh_tamat_kelulusan | date:'dd-MM-yyyy'}}</label>
                         <label *ngIf="!records.kelulusan.tarikh_tamat_kelulusan">-</label>
