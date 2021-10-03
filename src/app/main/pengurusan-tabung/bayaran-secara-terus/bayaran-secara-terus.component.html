@@ -24,6 +24,7 @@
 
           <div class="col-6 justify-content-end pr-0">
             <button
+              *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.Terus.Tambah')"
               class="btn btn-primary pull-right"
               type="button"
               [routerLink]="['/app/tabung/bayaran-terus/tambah']"
@@ -81,7 +82,7 @@
 										Jumlah
 										<p-sortIcon field="jumlah"></p-sortIcon>
 									</th>
-                  <th style="width: 140px">Tindakan</th>
+                  <th *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.Terus.Edit') || _appSession.isGranted('Halaman.Tabung.Bayaran.Terus.Hapus')" style="width: 130px">Tindakan</th>
 								</tr>
 							</ng-template>
 							<ng-template pTemplate="body" let-record="$implicit">
@@ -119,7 +120,7 @@
 										<label *ngIf="record.jumlah">RM {{record.jumlah | number: '1.2-2'}}</label>
                     <label *ngIf="!record.jumlah">RM 0.00</label>
 									</td>
-                  <td style="width: 140px">
+                  <td style="width: 130px" *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.Terus.Edit') || _appSession.isGranted('Halaman.Tabung.Bayaran.Terus.Hapus')">
 										<div ngbDropdown class="btn-group" role="group" container="body">
 											<button
 												type="button"
@@ -136,12 +137,14 @@
 													class="dropdown-item"
 													[routerLink]="['/app/tabung/bayaran-terus/edit']"
                           [queryParams]="{id: record.id}"
+                          *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.Terus.Edit')"
 												>
 													Lihat
 												</button>
 												<button
 													class="dropdown-item"
                           (click)="padamBayaranTerus(record.id)"
+                          *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.Terus.Hapus')"
 												>
 													Padam
 												</button>

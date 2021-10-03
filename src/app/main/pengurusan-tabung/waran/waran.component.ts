@@ -13,6 +13,7 @@ import {
   TabungBayaranWaranServiceProxy,
   TabungServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
+import { AppSessionService } from '@app/shared/services/app-session.service';
 
 @Component({
 	selector: 'app-waran',
@@ -39,7 +40,8 @@ export class WaranComponent implements OnInit {
     config: NgbModalConfig,
     private _tabungBayaranWaranServiceProxy: TabungBayaranWaranServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
-    private _tabungServiceProxy: TabungServiceProxy
+    private _tabungServiceProxy: TabungServiceProxy,
+    public _appSession: AppSessionService
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';

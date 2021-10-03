@@ -9,6 +9,7 @@ import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { OutputCreateBayaranSkbDto, RefAgensiServiceProxy, TabungBayaranSkbServiceProxy, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import { AppSessionService } from '@app/shared/services/app-session.service';
 
 @Component({
 	selector: 'app-skb',
@@ -37,7 +38,8 @@ export class SkbComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private _tabungBayaranSkbServiceProxy: TabungBayaranSkbServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
-    private _tabungServiceProxy: TabungServiceProxy
+    private _tabungServiceProxy: TabungServiceProxy,
+    public _appSession: AppSessionService
   ) {
     this.idSkb = this._activatedRoute.snapshot.queryParams['id'];
 		this.primengTableHelper = new PrimengTableHelper();

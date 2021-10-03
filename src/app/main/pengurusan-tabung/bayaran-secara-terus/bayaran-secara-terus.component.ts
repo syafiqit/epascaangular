@@ -5,9 +5,10 @@ import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
-import { TabungBayaranTerusServiceProxy, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import { TabungBayaranTerusServiceProxy} from 'src/app/shared/proxy/service-proxies';
 import { Subject } from 'rxjs';
 import { swalError, swalSuccess, swalWarning } from '@app/shared/sweet-alert/swal-constant';
+import { AppSessionService } from '@app/shared/services/app-session.service';
 
 @Component({
 	selector: 'app-bayaran-secara-terus',
@@ -26,8 +27,8 @@ export class BayaranSecaraTerusComponent implements OnInit {
 
 	constructor(
     config: NgbModalConfig,
-    private modalService: NgbModal,
-    private _tabungBayaranTerusServiceProxy: TabungBayaranTerusServiceProxy
+    private _tabungBayaranTerusServiceProxy: TabungBayaranTerusServiceProxy,
+    public _appSession: AppSessionService
     ) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';

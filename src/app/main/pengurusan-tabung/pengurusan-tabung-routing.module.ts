@@ -45,27 +45,33 @@ const routes: Routes = [
 			},
 			{
 				path: 'skb/senarai',
-				component: SkbComponent
+				component: SkbComponent,
+        data: { permission: 'Halaman.Tabung.Bayaran.SKB' }
 			},
 			{
 				path: 'skb/tambah',
-				component: TambahSkbComponent
+				component: TambahSkbComponent,
+        data: { permission: 'Halaman.Tabung.Bayaran.SKB.Tambah' }
 			},
 			{
 				path: 'skb/edit',
-				component: EditSkbComponent
+				component: EditSkbComponent,
+        data: { permission: 'Halaman.Tabung.Bayaran.SKB.Edit' }
 			},
 			{
 				path: 'bayaran-terus/senarai',
-				component: BayaranSecaraTerusComponent
+				component: BayaranSecaraTerusComponent,
+        data: { permission: 'Halaman.Tabung.Bayaran.Terus' }
 			},
 			{
 				path: 'bayaran-terus/tambah',
-				component: TambahEditBayaranSecaraTerusComponent
+				component: TambahEditBayaranSecaraTerusComponent,
+        data: { permission: 'Halaman.Tabung.Bayaran.Terus.Tambah' }
 			},
 			{
 				path: 'bayaran-terus/edit',
-				component: TambahEditBayaranSecaraTerusComponent
+				component: TambahEditBayaranSecaraTerusComponent,
+        data: { permission: 'Halaman.Tabung.Bayaran.Terus.Edit' }
 			},
 			{
 				path: 'senarai-kelulusan',
@@ -89,15 +95,18 @@ const routes: Routes = [
 			},
 			{
 				path: 'waran/senarai',
-				component: WaranComponent
+				component: WaranComponent,
+        data: { permission: 'Halaman.Tabung.Bayaran.Waran' }
 			},
 			{
 				path: 'waran/tambah',
-				component: TambahWaranComponent
+				component: TambahWaranComponent,
+        data: { permission: 'Halaman.Tabung.Bayaran.Waran.Tambah' }
 			},
 			{
 				path: 'waran/edit',
-				component: EditWaranComponent
+				component: EditWaranComponent,
+        data: { permission: 'Halaman.Tabung.Bayaran.Waran.Edit' }
 			}
 		]
 	}
