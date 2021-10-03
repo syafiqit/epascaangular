@@ -12,7 +12,7 @@ import {
 } from 'src/app/shared/proxy/service-proxies';
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { AppSessionService } from '@app/shared/services/app-session.service';
 @Component({
 	selector: 'app-wang-ihsan',
 	templateUrl: './wang-ihsan.component.html',
@@ -42,7 +42,8 @@ export class WangIhsanComponent implements OnInit {
      private tabungBwiServiceProxy: TabungBwiServiceProxy,
      private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy,
      private _refDaerahServiceProxy: RefDaerahServiceProxy,
-     private _refNegeriServiceProxy: RefNegeriServiceProxy
+     private _refNegeriServiceProxy: RefNegeriServiceProxy,
+     public _appSession: AppSessionService
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';

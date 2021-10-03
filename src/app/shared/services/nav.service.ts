@@ -255,7 +255,11 @@ export class NavService implements OnDestroy {
             }
 					]
 				},
-				  { path: '/app/tabung/senarai-wang-ihsan', title: 'Bantuan Wang Ihsan', type: 'link' }
+				  { path: '/app/tabung/senarai-wang-ihsan',
+            title: 'Bantuan Wang Ihsan',
+            type: 'link',
+            permission: 'Halaman.Tabung.BWI'
+          }
 				]
 			},
 			{
