@@ -8,6 +8,7 @@ import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { AppSessionService } from '@app/shared/services/app-session.service';
 
 @Component({
 	selector: 'app-tabung',
@@ -31,7 +32,8 @@ export class TabungComponent implements OnInit {
 	constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,
-    private tabungServiceProxy: TabungServiceProxy
+    private tabungServiceProxy: TabungServiceProxy,
+    public _appSession: AppSessionService
     ) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';

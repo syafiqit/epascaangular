@@ -37,7 +37,7 @@
             </button>
           </div>
 
-          <div class="col-4 justify-content-end pr-0">
+          <div class="col-4 justify-content-end pr-0" *ngIf="_appSession.isGranted('Halaman.Tabung.Kelulusan.Tambah')">
             <button
               [routerLink]="['/app/tabung/tambah-kelulusan']"
               class="btn btn-primary pull-right"
@@ -156,7 +156,8 @@
 										Status
 										<p-sortIcon field="status_tabung"></p-sortIcon>
 									</th>
-									<th style="width: 150px">Tindakan</th>
+									<th *ngIf="_appSession.isGranted('Halaman.Tabung.Kelulusan.Edit') || _appSession.isGranted('Halaman.Tabung.Kelulusan.Hapus') ||
+                  _appSession.isGranted('Halaman.Tabung.Bayaran.SKB.Tambah') || _appSession.isGranted('Halaman.Tabung.Bayaran.Terus.Tambah')" style="width: 150px">Tindakan</th>
 								</tr>
 							</ng-template>
 							<ng-template pTemplate="body" let-record="$implicit">
@@ -202,7 +203,8 @@
 										<span class="p-column-title">Status</span>
 										{{record.kelulusan.status_tabung_kelulusan == 1? "Aktif":"Tidak Aktif"}}
 									</td>
-									<td style="width: 150px">
+									<td style="width: 150px" *ngIf="_appSession.isGranted('Halaman.Tabung.Kelulusan.Edit') || _appSession.isGranted('Halaman.Tabung.Kelulusan.Hapus') ||
+                  _appSession.isGranted('Halaman.Tabung.Bayaran.SKB.Tambah') || _appSession.isGranted('Halaman.Tabung.Bayaran.Terus.Tambah')">
 										<div ngbDropdown class="btn-group" role="group" container="body">
 											<button
 												type="button"
@@ -219,12 +221,14 @@
 													class="dropdown-item"
 													[routerLink]="['/app/tabung/edit-kelulusan']"
                           [queryParams]="{id: record.kelulusan.id}"
+                          *ngIf="_appSession.isGranted('Halaman.Tabung.Kelulusan.Edit')"
 												>
 													Lihat
 												</button>
 												<button
 													class="dropdown-item"
 													(click)="peruntukanDiambilModal(record.kelulusan.id, record.kelulusan.id_tabung, record.kelulusan.baki_jumlah_siling)"
+                          *ngIf="_appSession.isGranted('Halaman.Tabung.Kelulusan.Edit')"
 												>
 													Peruntukan Diambil
 												</button>
@@ -232,6 +236,7 @@
 													class="dropdown-item"
 													[routerLink]="['/app/tabung/skb/tambah']"
                           [queryParams]="{kelulusan: record.kelulusan.id, no_ruj: record.kelulusan.no_rujukan_kelulusan}"
+                          *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.SKB.Tambah')"
 												>
                           Pembayaran SKB
 												</button>
@@ -239,11 +244,13 @@
 													class="dropdown-item"
 													[routerLink]="['/app/tabung/bayaran-terus/tambah']"
                           [queryParams]="{kelulusan: record.kelulusan.id, no_ruj: record.kelulusan.no_rujukan_kelulusan}"
+                          *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.Terus.Tambah')"
 												>
                           Pembayaran Secara Terus
 												</button>
 												<button class="dropdown-item"
 												(click)="deleteConfirmation(record.kelulusan.id)"
+                        *ngIf="_appSession.isGranted('Halaman.Tabung.Kelulusan.Hapus')"
 												>Padam</button>
 											</div>
 										</div>

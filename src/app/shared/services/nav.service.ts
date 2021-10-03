@@ -229,9 +229,10 @@ export class NavService implements OnDestroy {
 				icon: 'folder-plus',
 				type: 'sub',
 				active: false,
+        permission: 'Halaman.Tabung',
 				children: [
-          { path: '/app/tabung/senarai', title: 'Tabung', type: 'link' },
-          { path: '/app/tabung/senarai-kelulusan', title: 'Kelulusan', type: 'link' },
+          { path: '/app/tabung/senarai', title: 'Tabung', type: 'link', permission: 'Halaman.Tabung'},
+          { path: '/app/tabung/senarai-kelulusan', title: 'Kelulusan', type: 'link', permission: 'Halaman.Tabung.Kelulusan' },
 				{
 					title: 'Pembayaran',
 					type: 'sub',

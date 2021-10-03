@@ -13,6 +13,7 @@ import {
 } from "../../../shared/proxy/service-proxies";
 import { PeruntukanDiambilComponent } from './peruntukan-diambil/peruntukan-diambil.component';
 import { swalError, swalSuccess, swalWarning } from '@shared/sweet-alert/swal-constant';
+import { AppSessionService } from '@app/shared/services/app-session.service';
 
 @Component({
 	selector: 'app-kelulusan',
@@ -43,7 +44,8 @@ export class KelulusanComponent implements OnInit {
 	  private calendar: NgbCalendar,
     private _tabungKelulusanServiceProxy: TabungKelulusanServiceProxy,
     private _tabungServiceProxy: TabungServiceProxy,
-    private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy
+    private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy,
+    public _appSession: AppSessionService
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
@@ -142,7 +144,7 @@ export class KelulusanComponent implements OnInit {
             swalSuccess.fire('Berjaya!', 'Maklumat Kelulusan Bayaran Berjaya Dibuang');
             this.getTabungKelulusanList();
           }
-          
+
         })
 			}
 		},(error)=>{

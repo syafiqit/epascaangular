@@ -25,7 +25,8 @@ const routes: Routes = [
 		children: [
 			{
 				path: 'senarai',
-				component: TabungComponent
+				component: TabungComponent,
+        data: { permission: 'Halaman.Tabung'}
 			},
 			{
 				path: 'senarai-wang-ihsan',
@@ -41,7 +42,8 @@ const routes: Routes = [
       },
 			{
 				path: 'muka-halaman-tabung',
-				component: MukaHalamanTabungComponent
+				component: MukaHalamanTabungComponent,
+        data: { permission: 'Halaman.Tabung.Dashboard'}
 			},
 			{
 				path: 'skb/senarai',
@@ -75,19 +77,23 @@ const routes: Routes = [
 			},
 			{
 				path: 'senarai-kelulusan',
-				component: KelulusanComponent
+				component: KelulusanComponent,
+        data: { permission: 'Halaman.Tabung.Kelulusan'}
 			},
 			{
 				path: 'tambah-kelulusan',
-				component: TambahKelulusanComponent
+				component: TambahKelulusanComponent,
+        data: { permission: 'Halaman.Tabung.Kelulusan.Tambah'}
 			},
 			{
 				path: 'edit-kelulusan',
-				component: EditKelulusanComponent
+				component: EditKelulusanComponent,
+        data: { permission: 'Halaman.Tabung.Kelulusan.Edit'}
 			},
 			{
 				path: 'edit',
-				component: EditTabungComponent
+				component: EditTabungComponent,
+        data: { permission: 'Halaman.Tabung.Edit'}
 			},
 			{
 				path: 'edit-wang-ihsan/kir',
