@@ -262,7 +262,8 @@ export class NavService implements OnDestroy {
 				title: 'Laporan',
 				path: '/app/laporan/senarai',
 				icon: 'trending-up',
-				type: 'link'
+				type: 'link',
+        permission: 'Halaman.Laporan'
 			},
 			{
 				title: 'Tetapan',
