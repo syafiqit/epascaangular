@@ -11,6 +11,7 @@ import {
 } from 'src/app/shared/proxy/service-proxies';
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { AppSessionService } from '@app/shared/services/app-session.service';
 
 @Component({
 	selector: 'app-permohonan-pengguna',
@@ -44,7 +45,8 @@ export class PermohonanPenggunaComponent implements OnInit {
     config: NgbModalConfig,
     private _userServiceProxy: UserServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
-    private _refPerananServiceProxy: RefPerananServiceProxy
+    private _refPerananServiceProxy: RefPerananServiceProxy,
+    public _appSession: AppSessionService
   ) {
     this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';

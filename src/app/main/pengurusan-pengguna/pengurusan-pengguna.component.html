@@ -160,7 +160,7 @@
 										Status
 										<p-sortIcon field="jawatan_pengguna"></p-sortIcon>
 									</th>
-									<th style="width: 130px">Tindakan</th>
+									<th *ngIf="_appSession.isGranted('Halaman.Pengguna.Edit')" style="width: 130px">Tindakan</th>
 								</tr>
 							</ng-template>
 							<ng-template pTemplate="body" let-record="$implicit">
@@ -185,7 +185,7 @@
 										<span class="p-column-title">Status</span>
 										{{getStatus(record.status_pengguna)}}
 									</td>
-									<td style="width: 130px">
+									<td style="width: 130px" *ngIf="_appSession.isGranted('Halaman.Pengguna.Edit')">
 										<div ngbDropdown class="btn-group" role="group" container="body">
 											<button
 												type="button"
@@ -202,6 +202,7 @@
 													class="dropdown-item"
 													[routerLink]="['/app/pengguna/tambah-edit']"
                           [queryParams]="{id: record.id}"
+                          *ngIf="_appSession.isGranted('Halaman.Pengguna.Edit')"
 												>
 													Lihat
 												</button>

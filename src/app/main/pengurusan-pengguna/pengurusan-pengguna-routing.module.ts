@@ -10,7 +10,8 @@ const routes: Routes = [
 		children: [
 			{
 				path: 'senarai',
-				component: PengurusanPenggunaComponent
+				component: PengurusanPenggunaComponent,
+        data: { permission: 'Halaman.Pengguna' }
 			},
 			{
 				path: 'tambah-edit',
