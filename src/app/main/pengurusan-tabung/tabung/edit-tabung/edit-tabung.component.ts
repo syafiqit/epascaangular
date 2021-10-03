@@ -12,6 +12,7 @@ import * as moment from 'moment';
 import { finalize } from 'rxjs/operators';
 import { swalError, swalSuccess, swalWarning } from '@shared/sweet-alert/swal-constant';
 import { PeruntukanDiambilComponent } from '../../kelulusan/peruntukan-diambil/peruntukan-diambil.component';
+import { AppSessionService } from '@app/shared/services/app-session.service';
 
 @Component({
 	selector: 'app-edit-tabung',
@@ -71,7 +72,8 @@ export class EditTabungComponent implements OnInit {
     private tabungKelulusanServiceProxy: TabungKelulusanServiceProxy,
     private _refSumberPeruntukanServiceProxy: RefSumberPeruntukanServiceProxy,
     private calendar: NgbCalendar,
-    private router: Router
+    private router: Router,
+    public _appSession: AppSessionService
     ) {
 		this.primengTableHelper = new PrimengTableHelper();
     this.primengTableHelperSejarah = new PrimengTableHelper();

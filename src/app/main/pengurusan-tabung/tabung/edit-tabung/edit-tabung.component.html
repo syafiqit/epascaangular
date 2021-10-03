@@ -248,15 +248,15 @@
               </div>
             </div>
 
-            <h6>Kelulusan</h6>
-            <div class="row no-gutters justify-content-end mb-2">
+            <h6 *ngIf="_appSession.isGranted('Halaman.Tabung.Kelulusan')">Kelulusan</h6>
+            <div class="row no-gutters justify-content-end mb-2" *ngIf="_appSession.isGranted('Halaman.Tabung.Kelulusan.Tambah')">
               <button class="btn btn-primary" type="button" [routerLink]="'/app/tabung/tambah-kelulusan'" [queryParams]="{idTabung: idTabung, namaTabung: getTabung.tabung.nama_tabung}">
                 <i class="fa fa-plus mr-2"></i>
                 <b>Tambah</b>
               </button>
             </div>
 
-            <div class="row no-gutters align-items-center">
+            <div class="row no-gutters align-items-center" *ngIf="_appSession.isGranted('Halaman.Tabung.Kelulusan')">
               <div class="primeng-datatable-container">
                 <p-table
                   #dataTable
@@ -315,7 +315,8 @@
                         Status
                         <p-sortIcon field="kelulusan.status_tabung"></p-sortIcon>
                       </th>
-                      <th style="width: 160px">Tindakan</th>
+                      <th *ngIf="_appSession.isGranted('Halaman.Tabung.Kelulusan.Edit') ||
+                      _appSession.isGranted('Halaman.Tabung.Bayaran.SKB.Tambah') || _appSession.isGranted('Halaman.Tabung.Bayaran.Terus.Tambah')" style="width: 160px">Tindakan</th>
                     </tr>
                   </ng-template>
                   <ng-template pTemplate="body" let-records="$implicit">
@@ -364,7 +365,8 @@
                         <span class="p-column-title">Status</span>
                         {{records.kelulusan.status_tabung == 1? "Aktif":"Tidak Aktif"}}
                       </td>
-                      <td style="width: 160px">
+                      <td style="width: 160px" *ngIf="_appSession.isGranted('Halaman.Tabung.Kelulusan.Edit') ||
+                      _appSession.isGranted('Halaman.Tabung.Bayaran.SKB.Tambah') || _appSession.isGranted('Halaman.Tabung.Bayaran.Terus.Tambah')">
                         <div ngbDropdown class="btn-group" role="group" container="body">
                           <button
                             type="button"
@@ -381,6 +383,7 @@
                               class="dropdown-item"
                               [routerLink]="'/app/tabung/edit-kelulusan'"
                               [queryParams]="{id: records.kelulusan.id}"
+                              *ngIf="_appSession.isGranted('Halaman.Tabung.Kelulusan.Edit')"
                             >
                               Lihat
                             </a>
@@ -388,6 +391,7 @@
                               class="dropdown-item"
                               style="cursor: pointer;"
                               (click)="peruntukanDiambilModal(records.kelulusan.baki_jumlah_siling)"
+                              *ngIf="_appSession.isGranted('Halaman.Tabung.Kelulusan.Edit')"
                             >
                               Peruntukan Diambil
                             </a>
@@ -395,6 +399,7 @@
                               class="dropdown-item"
                               [routerLink]="['/app/tabung/skb/tambah']"
                               [queryParams]="{kelulusan: records.kelulusan.id, no_ruj: records.kelulusan.no_rujukan_kelulusan}"
+                              *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.SKB.Tambah')"
                             >
                               Pembayaran SKB
                             </a>
@@ -402,6 +407,7 @@
                               class="dropdown-item"
                               [routerLink]="['/app/tabung/bayaran-terus/tambah']"
                               [queryParams]="{kelulusan: records.kelulusan.id, no_ruj: records.kelulusan.no_rujukan_kelulusan}"
+                              *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.Terus.Tambah')"
                             >
                               Pembayaran Secara Terus
                             </a>
