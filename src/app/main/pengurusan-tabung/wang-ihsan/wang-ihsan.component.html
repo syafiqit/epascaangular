@@ -139,7 +139,7 @@
 										Jumlah Bayaran
 										<p-sortIcon field="jumlah_bayaran_bwi"></p-sortIcon>
 									</th>
-                  <th style="width: 150px" *ngIf="_appSession.isGranted('Halaman.Tabung.BWI.Edit')">Tindakan</th>
+                  <th style="width: 150px" *ngIf="_appSession.isGranted('Halaman.Tabung.BWI.Edit') || _appSession.isGranted('Halaman.Tabung.BWI.Hapus')">Tindakan</th>
 								</tr>
 							</ng-template>
 							<ng-template pTemplate="body" let-record="$implicit">
@@ -172,7 +172,7 @@
                     <label *ngIf="record.jumlah_bayaran_bwi">RM {{record.jumlah_bayaran_bwi | number: '1.2-2'}}</label>
                     <label *ngIf="!record.jumlah_bayaran_bwi">RM 0.00</label>
 									</td>
-                  <td style="width: 150px" *ngIf="_appSession.isGranted('Halaman.Tabung.BWI.Edit')">
+                  <td style="width: 150px" *ngIf="_appSession.isGranted('Halaman.Tabung.BWI.Edit') || _appSession.isGranted('Halaman.Tabung.BWI.Hapus')">
 										<div ngbDropdown class="btn-group" role="group" container="body">
 											<button
 												type="button"
@@ -192,6 +192,12 @@
                           *ngIf="_appSession.isGranted('Halaman.Tabung.BWI.Edit')"
 												>
 													Lihat
+												</button>
+                        <button
+													class="dropdown-item"
+                          *ngIf="_appSession.isGranted('Halaman.Tabung.BWI.Hapus')"
+												>
+													Padam
 												</button>
 											</div>
 										</div>
