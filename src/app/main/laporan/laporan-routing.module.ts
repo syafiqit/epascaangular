@@ -27,87 +27,108 @@ const routes: Routes = [
 		children: [
 			{
 				path: 'senarai',
-				component: LaporanComponent
+				component: LaporanComponent,
+        data: { permission: 'Halaman.Laporan'}
 			},
 			{
 				path: 'ringkasan',
-				component: LaporanRingkasanComponent
+				component: LaporanRingkasanComponent,
+        data: { permission: 'Halaman.Laporan.Ringkasan'}
 			},
 			{
 				path: 'bayaran/skb',
-				component: LaporanSkbComponent
+				component: LaporanSkbComponent,
+        data: { permission: 'Halaman.Laporan.Tabung.SKB'}
 			},
 			{
 				path: 'kelulusan',
-				component: LaporanKelulusanComponent
+				component: LaporanKelulusanComponent,
+        data: { permission: 'Halaman.Laporan.Tabung.Kelulusan'}
 			},
 			{
 				path: 'bayaran/skb/bulan',
-				component: LaporanSkbBulanComponent
+				component: LaporanSkbBulanComponent,
+        data: { permission: 'Halaman.Laporan.Tabung.SKB'}
 			},
 			{
 				path: 'bayaran/terus',
-				component: LaporanBayaranTerusComponent
+				component: LaporanBayaranTerusComponent,
+        data: { permission: 'Halaman.Laporan.Tabung.Terus'}
 			},
 			{
 				path: 'bwi',
-				component: LaporanBwiComponent
+				component: LaporanBwiComponent,
+        data: { permission: 'Halaman.Laporan.Tabung.BWI'}
 			},
 			{
 				path: 'bwi/bencana-kir',
-				component: LaporanBencanaKirComponent
+				component: LaporanBencanaKirComponent,
+        data: { permission: 'Halaman.Laporan.Tabung.BWI'}
 			},
 			{
 				path: 'bwi/bencana-kelulusan',
-				component: LaporanBencanaKelulusanComponent
+				component: LaporanBencanaKelulusanComponent,
+        data: { permission: 'Halaman.Laporan.Tabung.BWI'}
 			},
 			{
 				path: 'bwi/negeri',
-				component: LaporanBwiNegeriComponent
+				component: LaporanBwiNegeriComponent,
+        data: { permission: 'Halaman.Laporan.Tabung.BWI'}
 			},
 			{
 				path: 'bwi/kematian',
-				component: LaporanBwiKematianComponent
+				component: LaporanBwiKematianComponent,
+        data: { permission: 'Halaman.Laporan.Tabung.BWI'}
 			},
 			{
 				path: 'bantuan/pinjaman',
-				component: LaporanPinjamanComponent
+				component: LaporanPinjamanComponent,
+        data: { permission: 'Halaman.Laporan.Mangsa.BantuanPinjaman'}
 			},
 			{
 				path: 'bantuan/pertanian',
-				component: LaporanPertanianComponent
+				component: LaporanPertanianComponent,
+        data: { permission: 'Halaman.Laporan.Mangsa.BantuanPertanian'}
 			},
 			{
 				path: 'bantuan/rumah/bina-baru',
-				component: LaporanRumahComponent
+				component: LaporanRumahComponent,
+        data: { permission: 'Halaman.Laporan.Mangsa.BantuanRumah'}
 			},
       {
 				path: 'bantuan/rumah/baik-pulih',
-				component: LaporanRumahComponent
+				component: LaporanRumahComponent,
+        data: { permission: 'Halaman.Laporan.Mangsa.BantuanRumah'}
 			},
       {
 				path: 'bwi/penerima',
-				component: LaporanBwiPenerimaComponent
+				component: LaporanBwiPenerimaComponent,
+        data: { permission: 'Halaman.Laporan.Tabung.BWI'}
 			},
 			{
 				path: 'mangsa/pendaftaran',
-				component: LaporanMangsaComponent
+				component: LaporanMangsaComponent,
+        data: { permission: 'Halaman.Laporan.Mangsa'}
 			},
 			{
 				path: 'mangsa/tiada-bantuan',
-				component: LaporanTiadaBantuanComponent
+				component: LaporanTiadaBantuanComponent,
+        data: { permission: 'Halaman.Laporan.Mangsa'}
 			},
 			{
 				path: 'bantuan/lain-lain',
-				component: LaporanBantuanLainComponent
+				component: LaporanBantuanLainComponent,
+        data: { permission: 'Halaman.Laporan.Mangsa.BantuanLain'}
 			},
 			{
 				path: 'bantuan/antarabangsa',
-				component: LaporanAntarabangsaComponent
+				component: LaporanAntarabangsaComponent,
+        data: { permission: 'Halaman.Laporan.Mangsa.BantuanAntarabangsa'}
 			},
       {
 				path: 'waran',
-				component: LaporanWaranComponent
+				component: LaporanWaranComponent,
+        data: { permission: 'Halaman.Laporan.Tabung.Waran'}
 			},
 		]
 	}

@@ -9,7 +9,7 @@
       <div class="card">
         <div class="card-body">
           <div class="row icon-lists feather-icons">
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/ringkasan'">
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/ringkasan'" *ngIf="_appSession.isGranted('Halaman.Laporan.Ringkasan')">
               <div class="media"><i data-feather="tag"></i>
                 <div class="media-body align-self-center">
                   <h6 class="mt-0">Ringkasan Laporan</h6>
@@ -17,7 +17,7 @@
               </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/mangsa/pendaftaran'">
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/mangsa/pendaftaran'" *ngIf="_appSession.isGranted('Halaman.Laporan.Mangsa')">
               <div class="media"><i data-feather="tag"></i>
                 <div class="media-body align-self-center">
                   <h6 class="mt-0">Laporan Mangsa Berdaftar</h6>
@@ -25,7 +25,7 @@
               </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/mangsa/tiada-bantuan'">
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/mangsa/tiada-bantuan'" *ngIf="_appSession.isGranted('Halaman.Laporan.Mangsa')">
               <div class="media"><i data-feather="tag"></i>
                 <div class="media-body align-self-center">
                   <h6 class="mt-0">Laporan Mangsa (Belum Terima Bantuan)</h6>
@@ -33,7 +33,7 @@
               </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bwi/penerima'">
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bwi/penerima'" *ngIf="_appSession.isGranted('Halaman.Laporan.Mangsa.BWI')">
               <div class="media"><i data-feather="tag"></i>
                 <div class="media-body align-self-center">
                   <h6 class="mt-0">Laporan Mangsa Penerima BWI</h6>
@@ -41,7 +41,7 @@
               </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/rumah/bina-baru'" [queryParams]="{id: 2}">
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/rumah/bina-baru'" [queryParams]="{id: 2}" *ngIf="_appSession.isGranted('Halaman.Laporan.Mangsa.BantuanRumah')">
               <div class="media"><i data-feather="tag"></i>
                 <div class="media-body align-self-center">
                   <h6 class="mt-0">Laporan Bantuan Bina Rumah Baru</h6>
@@ -49,7 +49,7 @@
               </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/rumah/baik-pulih'" [queryParams]="{id: 3}">
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/rumah/baik-pulih'" [queryParams]="{id: 3}" *ngIf="_appSession.isGranted('Halaman.Laporan.Mangsa.BantuanRumah')">
               <div class="media"><i data-feather="tag"></i>
                 <div class="media-body align-self-center">
                   <h6 class="mt-0">Laporan Bantuan Baik Pulih Rumah</h6>
@@ -57,7 +57,7 @@
               </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/pinjaman'">
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/pinjaman'" *ngIf="_appSession.isGranted('Halaman.Laporan.Mangsa.BantuanPinjaman')">
               <div class="media"><i data-feather="tag"></i>
                 <div class="media-body align-self-center">
                   <h6 class="mt-0">Laporan Bantuan Pinjaman Khas</h6>
@@ -65,7 +65,7 @@
               </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/pertanian'">
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/pertanian'" *ngIf="_appSession.isGranted('Halaman.Laporan.Mangsa.BantuanPertanian')">
               <div class="media"><i data-feather="tag"></i>
                 <div class="media-body align-self-center">
                   <h6 class="mt-0">Laporan Bantuan Pertanian</h6>
@@ -73,7 +73,7 @@
               </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/antarabangsa'">
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/antarabangsa'" *ngIf="_appSession.isGranted('Halaman.Laporan.Mangsa.BantuanAntarabangsa')">
               <div class="media"><i data-feather="tag"></i>
                 <div class="media-body align-self-center">
                   <h6 class="mt-0">Laporan Bantuan Antarabangsa</h6>
@@ -81,7 +81,7 @@
               </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/lain-lain'">
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bantuan/lain-lain'" *ngIf="_appSession.isGranted('Halaman.Laporan.Mangsa.BantuanLain')">
               <div class="media"><i data-feather="tag"></i>
                 <div class="media-body align-self-center">
                   <h6 class="mt-0">Laporan Bantuan Lain-lain</h6>
@@ -89,7 +89,7 @@
               </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bayaran/terus'">
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bayaran/terus'" *ngIf="_appSession.isGranted('Halaman.Laporan.Tabung.Terus')">
               <div class="media"><i data-feather="tag"></i>
                 <div class="media-body align-self-center">
                   <h6 class="mt-0">Laporan Bayaran Secara Terus</h6>
@@ -97,7 +97,7 @@
               </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bayaran/skb'">
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bayaran/skb'" *ngIf="_appSession.isGranted('Halaman.Laporan.Tabung.SKB')">
               <div class="media"><i data-feather="tag"></i>
                 <div class="media-body align-self-center">
                   <h6 class="mt-0">Laporan Bayaran Surat Kuasa Belanja</h6>
@@ -105,7 +105,7 @@
               </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/waran'">
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/waran'" *ngIf="_appSession.isGranted('Halaman.Laporan.Tabung.Waran')">
               <div class="media"><i data-feather="tag"></i>
                 <div class="media-body align-self-center">
                   <h6 class="mt-0">Laporan Bayaran Secara Waran</h6>
@@ -113,7 +113,7 @@
               </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/kelulusan'">
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/kelulusan'" *ngIf="_appSession.isGranted('Halaman.Laporan.Tabung.Kelulusan')">
               <div class="media"><i data-feather="tag"></i>
                 <div class="media-body align-self-center">
                   <h6 class="mt-0">Laporan Tabung Kelulusan</h6>
@@ -121,7 +121,7 @@
               </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bwi'">
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bwi'" *ngIf="_appSession.isGranted('Halaman.Laporan.Tabung.BWI')">
               <div class="media"><i data-feather="tag"></i>
                 <div class="media-body align-self-center">
                   <h6 class="mt-0">Laporan Bantuan Wang Ihsan</h6>
@@ -129,7 +129,7 @@
               </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bwi/bencana-kir'">
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bwi/bencana-kir'" *ngIf="_appSession.isGranted('Halaman.Laporan.Tabung.BWI')">
               <div class="media"><i data-feather="tag"></i>
                 <div class="media-body align-self-center">
                   <h6 class="mt-0">Laporan BWI (Bencana - KIR)</h6>
@@ -137,7 +137,7 @@
               </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bwi/bencana-kelulusan'">
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bwi/bencana-kelulusan'" *ngIf="_appSession.isGranted('Halaman.Laporan.Tabung.BWI')">
               <div class="media"><i data-feather="tag"></i>
                 <div class="media-body align-self-center">
                   <h6 class="mt-0">Laporan BWI (Bencana - Kelulusan)</h6>
@@ -145,7 +145,7 @@
               </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bwi/negeri'">
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bwi/negeri'" *ngIf="_appSession.isGranted('Halaman.Laporan.Tabung.BWI')">
               <div class="media"><i data-feather="tag"></i>
                 <div class="media-body align-self-center">
                   <h6 class="mt-0">Laporan BWI (Negeri)</h6>
@@ -153,7 +153,7 @@
               </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bwi/kematian'">
+            <div class="col-12 col-sm-6 col-xl-4 mb-2" [routerLink]="'/app/laporan/bwi/kematian'" *ngIf="_appSession.isGranted('Halaman.Laporan.Tabung.BWI')">
               <div class="media"><i data-feather="tag"></i>
                 <div class="media-body align-self-center">
                   <h6 class="mt-0">Laporan BWI (Pengurusan Kematian)</h6>
