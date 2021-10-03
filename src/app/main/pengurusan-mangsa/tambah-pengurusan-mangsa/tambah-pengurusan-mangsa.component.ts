@@ -41,6 +41,7 @@ export class TambahPengurusanMangsaComponent implements OnInit {
   verify: number;
   filterIdNegeri: number;
   nama_bencana: string;
+  statusPindah:boolean;
   modelBencana: NgbDateStruct;
   readonly DELIMITER = '-';
 
@@ -152,6 +153,15 @@ export class TambahPengurusanMangsaComponent implements OnInit {
 			}
 		);
 	}
+
+  statusPindahValidate(id){
+    if(id == 1){
+      this.statusPindah = false;
+    }
+    else{
+      this.statusPindah = true;
+    }
+  }
 
 	save(): void {
 		this.saving = true;

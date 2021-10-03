@@ -12,6 +12,7 @@ import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { EditMultipleBantuanWangIhsanComponent } from './edit-multiple-bantuan-wang-ihsan/edit-multiple-bantuan-wang-ihsan.component';
+import { swalError } from '@app/shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-pengurusan-mangsa',
@@ -30,6 +31,7 @@ export class PengurusanMangsaComponent implements OnInit {
   filterAgensi: number;
   terms$ = new Subject<string>();
   checked: boolean;
+  idMangsa: any[];
 
 	public isCollapsed = false;
   states: any;
@@ -50,6 +52,7 @@ export class PengurusanMangsaComponent implements OnInit {
 	ngOnInit(): void {
     this.getNegeri();
     this.getAgensi();
+	this.idMangsa = [];
 
     this.terms$.pipe(
       debounceTime(500), distinctUntilChanged()
@@ -122,14 +125,39 @@ export class PengurusanMangsaComponent implements OnInit {
 		}
 	}
 
-	editIhsanModal() {
-		const modalRef = this.modalService.open(EditMultipleBantuanWangIhsanComponent, { size: 'lg' });
-		modalRef.componentInstance.name = 'edit';
+	pilihMangsa(id, isChecked: boolean) {
+		if (isChecked) {
+			this.idMangsa.push(id);
+		} else if (!isChecked) {
+			let index = this.idMangsa.indexOf(id);
+			this.idMangsa.splice(index, 1);
+			}
 
-		modalRef.result.then((response) => {
+			console.log(this.idMangsa);
+		}
+
+	checkMangsaExist(id?){
+		if(this.idMangsa.indexOf(id)  == -1){
+			return false;
+		}
+		else{
+			return true;
+		};
+	}
+
+	editIhsanModal() {
+		if(this.idMangsa.length == 0){
+			swalError.fire('Harap Maaf!', 'Tiada Mangsa Dipilih.');
+		}else{
+			const modalRef = this.modalService.open(EditMultipleBantuanWangIhsanComponent, { size: 'lg' });
+			modalRef.componentInstance.name = 'edit';
+			modalRef.componentInstance.idMangsa = this.idMangsa;
+
+			modalRef.result.then((response) => {
 			if (response) {
 				this.getVictim();
 			}
 		});
+		}
 	}
 }
