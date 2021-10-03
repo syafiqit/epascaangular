@@ -11,10 +11,10 @@
 				<div class="card-body">
 					<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && checkBulanan()" novalidate>
 						<h6>Maklumat Kelulusan</h6>
-						<div class="row">
+						<div class="row mt-3">
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>No. Rujukan Kelulusan</label>
+									<label>No. Rujukan Kelulusan*</label>
 									<div class="input-group">
 										<input
                       class="form-control"
@@ -32,16 +32,16 @@
 												<i class="fa fa-search text-white"></i>
 											</button>
 										</div>
+                    <div *ngIf="f.submitted && rujukanKelulusan.invalid" class="invalid-feedback">
+                      <div *ngIf="rujukanKelulusan.errors.required">No. Rujukan Kelulusan Wajib Dipilih</div>
+                    </div>
 									</div>
-                  <div *ngIf="f.submitted && rujukanKelulusan.invalid" class="invalid-feedback">
-                    <div *ngIf="rujukanKelulusan.errors.required">No. Rujukan Kelulusan Wajib Dipilih</div>
-                  </div>
 								</div>
 							</div>
 
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Kategori</label>
+									<label>Kategori*</label>
                   <ng-select
                     [items]="categories"
                     bindLabel="kategori"
@@ -64,7 +64,7 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Rujukan Surat</label>
+									<label>Rujukan Surat*</label>
 									<input
                     class="form-control"
                     type="text"
@@ -82,7 +82,7 @@
 							</div>
 
               <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
-                <label>Tarikh Surat</label>
+                <label>Tarikh Surat*</label>
                 <div class="input-group">
                   <input
                     class="form-control"
@@ -116,7 +116,7 @@
             <div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Jenis Bayaran</label>
+									<label>Jenis Bayaran*</label>
                   <ng-select
                     [items]="bayaran"
                     bindLabel="jenis_bayaran"
@@ -137,7 +137,7 @@
 
               <div class="col-lg-6" *ngIf="skb.id_jenis_bayaran == 1" [@fadeVerticalAnimation]>
 								<div class="form-group">
-									<label>Jenis Bencana</label>
+									<label>Jenis Bencana*</label>
 									<div class="input-group">
 										<input
                       class="form-control"
@@ -182,10 +182,10 @@
 						<hr />
 
 						<h6>Maklumat Diberi Kuasa</h6>
-						<div class="row">
+						<div class="row mt-3">
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Pegawai Diberi Kuasa</label>
+									<label>Pegawai Diberi Kuasa*</label>
 									<input
                     class="form-control"
                     type="text"
@@ -204,7 +204,7 @@
 
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Agensi Diberi Kuasa</label>
+									<label>Agensi Diberi Kuasa*</label>
                   <ng-select
                     [items]="agencies"
                     bindLabel="nama_agensi"
@@ -226,7 +226,7 @@
 
 						<div class="row">
               <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
-                <label>Tarikh Mula</label>
+                <label>Tarikh Mula*</label>
                 <div class="input-group">
                   <input
                     class="form-control"
@@ -257,7 +257,7 @@
               </ng-template>
 
               <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
-                <label>Tarikh Tamat</label>
+                <label>Tarikh Tamat*</label>
                 <div class="input-group">
                   <input
                     class="form-control"
@@ -305,10 +305,10 @@
 						<hr />
 
 						<h6>Maklumat Belanja Bulanan</h6>
-            <div class="row">
+            <div class="row mt-3">
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Siling Peruntukan (RM)</label>
+									<label>Siling Peruntukan (RM)*</label>
 									<input
                     class="form-control"
                     type="text"

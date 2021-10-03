@@ -17,7 +17,7 @@
 				<div class="card-body">
 					<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate focusInvalidInput>
 						<h6>Maklumat Kelulusan</h6>
-						<div class="row">
+						<div class="row mt-3">
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>No. Rujukan Kelulusan*</label>
@@ -39,10 +39,10 @@
 												<i class="fa fa-search text-white"></i>
 											</button>
 										</div>
+                    <div *ngIf="f.submitted && rujukanKelulusan.invalid" class="invalid-feedback">
+                      <div *ngIf="rujukanKelulusan.errors.required">No. Rujukan Kelulusan Wajib Dipilih</div>
+                    </div>
 									</div>
-                  <div *ngIf="f.submitted && rujukanKelulusan.invalid" class="invalid-feedback">
-                    <div *ngIf="rujukanKelulusan.errors.required">No. Rujukan Kelulusan Wajib Dipilih</div>
-                  </div>
 								</div>
 							</div>
 
@@ -125,7 +125,7 @@
                 <div class="input-group">
                   <input
                     class="form-control"
-                    placeholder="yyyy-mm-dd"
+                    placeholder="DD/MM/YYYY"
                     name="tarikhBencana"
                     [(ngModel)]="modelTarikhBencana"
                     ngbDatepicker
@@ -149,7 +149,7 @@
 						</div>
 						<hr />
 						<h6>Maklumat Bayaran</h6>
-						<div class="row">
+						<div class="row mt-3">
 							<div class="col-lg-6">
                 <div class="form-group">
                   <label>No. Baucar</label>
@@ -190,7 +190,7 @@
                 <div class="input-group">
                   <input
                     class="form-control"
-                    placeholder="yyyy-mm-dd"
+                    placeholder="DD/MM/YYYY"
                     name="tarikhBayaran"
                     [(ngModel)]="modelTarikh"
                     ngbDatepicker
@@ -244,6 +244,14 @@
             </div>
 
 						<button
+              *ngIf="!idBayaranTerus"
+							class="btn btn-primary pull-right"
+							type="submit"
+						>
+							Hantar
+						</button>
+            <button
+              *ngIf="idBayaranTerus"
 							class="btn btn-primary pull-right"
 							type="submit"
 						>

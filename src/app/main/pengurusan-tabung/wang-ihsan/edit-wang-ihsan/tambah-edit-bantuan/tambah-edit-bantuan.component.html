@@ -1,4 +1,4 @@
-<div class="row mb-2">
+<div class="row mt-3 mb-1">
   <div class="col-6 justify-content-start">
     <div class="faq-form">
       <input
@@ -97,7 +97,7 @@
   </div>
 </div>
 
-<div class="row no-gutters align-items-center mt-3">
+<div class="row no-gutters align-items-center">
   <div class="primeng-datatable-container">
     <p-table
       #dataTable
@@ -124,11 +124,11 @@
             Daerah
             <p-sortIcon field="nama_daerah"></p-sortIcon>
           </th>
-          <th style="width: 130px" pSortableColumn="jumlah_bwi">
+          <th style="width: 135px" pSortableColumn="jumlah_bwi">
             Jumlah Diberikan
             <p-sortIcon field="jumlah_bwi"></p-sortIcon>
           </th>
-          <th style="width: 145px" pSortableColumn="jumlah_dipulangkan">
+          <th style="width: 150px" pSortableColumn="jumlah_dipulangkan">
             Jumlah Dipulangkan
             <p-sortIcon field="jumlah_dipulangkan"></p-sortIcon>
           </th>
@@ -149,11 +149,11 @@
             <span class="p-column-title">Daerah</span>
             {{record.nama_daerah}}
           </td>
-          <td style="width: 130px">
+          <td style="width: 135px">
             <span class="p-column-title">Jumlah Diberikan</span>
             RM {{record.jumlah_bwi}}
           </td>
-          <td style="width: 145px">
+          <td style="width: 150px">
             <span class="p-column-title">Jumlah Dipulangkan</span>
             <label *ngIf="record.jumlah_dipulangkan">RM {{record.jumlah_dipulangkan}}</label>
             <label *ngIf="!record.jumlah_dipulangkan">RM 0.00</label>
