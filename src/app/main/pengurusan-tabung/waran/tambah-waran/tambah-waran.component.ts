@@ -48,6 +48,8 @@ export class TambahWaranComponent implements OnInit {
   rows = [];
   belanja: number = 0;
   balance_peruntukan: number = 0;
+  id_tabung_kelulusan: number;
+  no_rujukan_kelulusan: string;
 
   date = new Date();
   modelSurat: NgbDateStruct;
@@ -77,8 +79,8 @@ export class TambahWaranComponent implements OnInit {
     private router: Router,
     private calendar: NgbCalendar
   ) {
-    this.waran.id_tabung_kelulusan = this._activatedRoute.snapshot.queryParams['kelulusan'];
-    this.waran.no_rujukan_kelulusan = this._activatedRoute.snapshot.queryParams['no_ruj'];
+    this.id_tabung_kelulusan = this._activatedRoute.snapshot.queryParams['kelulusan'];
+    this.no_rujukan_kelulusan = this._activatedRoute.snapshot.queryParams['no_ruj'];
     this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
@@ -186,8 +188,8 @@ export class TambahWaranComponent implements OnInit {
     modalRef.result.then(
 			(response) => {
 				if (response) {
-          this.waran.id_tabung_kelulusan = response.id;
-					this.waran.no_rujukan_kelulusan = response.no_rujukan_kelulusan;
+          this.id_tabung_kelulusan = response.id;
+					this.no_rujukan_kelulusan = response.no_rujukan_kelulusan;
           this.waran.id_tabung = response.id_tabung;
 				}
 			}
@@ -252,6 +254,8 @@ export class TambahWaranComponent implements OnInit {
       this.tarikhTamat = this.toModel(this.modelTamat);
       this.bayaranWaran.waran.tarikh_tamat = moment(this.tarikhTamat, "YYYY-MM-DD");
     }
+    this.waran.id_tabung_kelulusan = this.id_tabung_kelulusan;
+    this.waran.no_rujukan_kelulusan = this.no_rujukan_kelulusan;
     this.bayaranWaran.waran.jumlah_baki_peruntukan = this.balance_peruntukan;
     this.bayaranWaran.waranBulanan = this.bulanan;
 		this._tabungBayaranWaranServiceProxy

@@ -29,6 +29,7 @@ export class TambahKelulusanComponent implements OnInit {
   tabung:any;
   bencana:any;
   bantuan:any;
+  id_tabung: number;
   namaTabung: string;
 
   date = new Date();
@@ -57,7 +58,7 @@ export class TambahKelulusanComponent implements OnInit {
     private calendar: NgbCalendar
   ) {
     this.id = this._activatedRoute.snapshot.queryParams['id'];
-    this.kelulusan.id_tabung = this._activatedRoute.snapshot.queryParams['idTabung'];
+    this.id_tabung = this._activatedRoute.snapshot.queryParams['idTabung'];
     this.namaTabung = this._activatedRoute.snapshot.queryParams['namaTabung'];
 		config.backdrop = 'static';
 		config.keyboard = false;
@@ -141,6 +142,7 @@ export class TambahKelulusanComponent implements OnInit {
       this.tarikhTamat = this.toModel(this.modelTamat);
       this.kelulusan.tarikh_tamat_kelulusan = moment(this.tarikhTamat, "YYYY-MM-DD");
     }
+    this.kelulusan.id_tabung = this.id_tabung;
     this._tabungKelulusanServiceProxy
       .createOrEdit(this.kelulusan)
       .pipe()
@@ -160,7 +162,7 @@ export class TambahKelulusanComponent implements OnInit {
     modalRef.result.then(
 			(response) => {
 				if (response) {
-          this.kelulusan.id_tabung = response.id;
+          this.id_tabung = response.id;
 					this.namaTabung = response.nama_tabung;
 				}
 			}
