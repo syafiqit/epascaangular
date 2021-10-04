@@ -6,6 +6,7 @@ import { TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ArchwizardModule } from 'angular-archwizard';
+import { TooltipModule } from 'primeng/tooltip';
 import { LaporanRoutingModule } from './laporan-routing.module';
 import { LaporanSkbComponent } from './laporan-skb/laporan-skb.component';
 import { LaporanRingkasanComponent } from './laporan-ringkasan/laporan-ringkasan.component';
@@ -37,7 +38,8 @@ import { LaporanWaranComponent } from './laporan-waran/laporan-waran.component';
 		TableModule,
 		PaginatorModule,
     NgSelectModule,
-    ArchwizardModule
+    ArchwizardModule,
+    TooltipModule
 	],
 	declarations: [
     LaporanSkbComponent,
