@@ -5,9 +5,10 @@ import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { finalize } from 'rxjs/operators';
-import { MangsaPertanianServiceProxy, MangsaPinjamanServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import { MangsaPertanianServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import { TambahEditBantuanPertanianComponent } from './tambah-edit-bantuan-pertanian/tambah-edit-bantuan-pertanian.component';
 import { AppSessionService } from '@app/shared/services/app-session.service';
+import { swalError, swalSuccess, swalWarning } from '@app/shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-bantuan-pertanian',
@@ -43,7 +44,7 @@ export class BantuanPertanianComponent implements OnInit {
 	ngOnInit(): void {
   }
 
-  getAgriculture(event?: LazyLoadEvent) {
+  getPertanian(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
@@ -68,19 +69,19 @@ export class BantuanPertanianComponent implements OnInit {
 	}
 
 
-  addAgricultureModal(mangsaId) {
+  addPertanianModal(mangsaId) {
 		const modalRef = this.modalService.open(TambahEditBantuanPertanianComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
 		modalRef.componentInstance.idMangsa = mangsaId;
 
 		modalRef.result.then((response) => {
 			if (response) {
-				this.getAgriculture();
+				this.getPertanian();
 			}
 		});
 	}
 
-	editAgricultureModal(id, mangsaId) {
+	editPertanianModal(id, mangsaId) {
 		const modalRef = this.modalService.open(TambahEditBantuanPertanianComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'edit';
 		modalRef.componentInstance.id = id;
@@ -88,7 +89,7 @@ export class BantuanPertanianComponent implements OnInit {
 
 		modalRef.result.then((response) => {
 			if (response) {
-				this.getAgriculture();
+				this.getPertanian();
 			}
 		});
 	}
@@ -96,5 +97,29 @@ export class BantuanPertanianComponent implements OnInit {
   reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
 	}
+
+  padamBantuanPertanian(id?) {
+    swalWarning.fire({
+      title: 'Anda Pasti?',
+      text: 'Adakah anda pasti ingin padam bantuan pertanian ini?',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Tidak',
+      confirmButtonText: 'Ya'
+    }).then((result) => {
+      if (result.value) {
+        this._refMangsaPertanianServiceProxy.delete(id).subscribe((result) => {
+          if(result.message == "Bantuan Pertanian Berjaya Dibuang"){
+            swalSuccess.fire('Berjaya!', result.message);
+          }
+          else{
+            swalError.fire('Tidak Berjaya!', 'Bantuan Pertanian Tidak Berjaya Dibuang');
+          }
+          this.getPertanian();
+        })
+      }
+    });
+  }
 
 }

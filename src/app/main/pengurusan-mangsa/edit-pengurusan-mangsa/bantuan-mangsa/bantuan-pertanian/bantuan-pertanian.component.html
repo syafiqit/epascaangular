@@ -1,5 +1,5 @@
 <div class="row justify-content-end pr-0 mb-2" *ngIf="_appSession.isGranted('Halaman.Mangsa.BantuanPertanian.Tambah')">
-  <button (click)="addAgricultureModal(mangsaId)" class="btn btn-primary pull-right">
+  <button (click)="addPertanianModal(mangsaId)" class="btn btn-primary pull-right">
     <i class="fa fa-plus mr-2"></i>
     <b>Tambah</b>
   </button>
@@ -11,7 +11,7 @@
       #dataTable
       styleClass="p-datatable-striped"
       [resizableColumns]="true"
-      (onLazyLoad)="getAgriculture($event)"
+      (onLazyLoad)="getPertanian($event)"
       [value]="primengTableHelper.records"
       rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
       [paginator]="false"
@@ -73,10 +73,10 @@
               Tindakan
             </button>
             <div ngbDropdownMenu aria-labelledby="action">
-              <button class="dropdown-item" (click)="editAgricultureModal(record.id, mangsaId)" *ngIf="_appSession.isGranted('Halaman.Mangsa.BantuanPertanian.Edit')">
+              <button class="dropdown-item" (click)="editPertanianModal(record.id, mangsaId)" *ngIf="_appSession.isGranted('Halaman.Mangsa.BantuanPertanian.Edit')">
                 Lihat
               </button>
-              <button class="dropdown-item" (click)="editAgricultureModal(record.id, mangsaId)" *ngIf="_appSession.isGranted('Halaman.Mangsa.BantuanPertanian.Hapus')">
+              <button class="dropdown-item" (click)="padamBantuanPertanian(record.id)" *ngIf="_appSession.isGranted('Halaman.Mangsa.BantuanPertanian.Hapus')">
                 Padam
               </button>
             </div>
@@ -90,7 +90,7 @@
       <p-paginator
         [rows]="primengTableHelper.defaultRecordsCountPerPage"
         #paginator
-        (onPageChange)="getAgriculture($event)"
+        (onPageChange)="getPertanian($event)"
         [totalRecords]="primengTableHelper.totalRecordsCount"
         [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
       ></p-paginator>
