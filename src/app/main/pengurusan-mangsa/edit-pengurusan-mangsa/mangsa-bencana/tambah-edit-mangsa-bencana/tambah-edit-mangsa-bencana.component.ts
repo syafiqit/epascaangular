@@ -5,9 +5,10 @@ import { finalize } from 'rxjs/operators';
 import {
   CreateOrEditMangsaBencanaDto,
   MangsaBencanaServiceProxy,
+  OutputCreateMangsaBencanaDto,
   RefPindahServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { SelectBencanaComponent } from '@app/main/pengurusan-mangsa/select-bencana/select-bencana.component';
 import * as moment from 'moment';
 @Component({
@@ -21,6 +22,7 @@ export class TambahEditMangsaBencanaComponent implements OnInit {
   @Input() id_negeri;
 
   addBencana: CreateOrEditMangsaBencanaDto = new CreateOrEditMangsaBencanaDto();
+  output: OutputCreateMangsaBencanaDto = new OutputCreateMangsaBencanaDto();
 
   saving = false;
   idMangsa: number;
@@ -118,13 +120,21 @@ export class TambahEditMangsaBencanaComponent implements OnInit {
 					this.saving = false;
 				})
 			)
-			.subscribe(() => {
-				if (this.name == 'add') {
-					swalSuccess.fire('Berjaya!', 'Maklumat Bencana Berjaya Ditambah.', 'success');
-				} else if (this.name == 'edit') {
-					swalSuccess.fire('Berjaya!', 'Maklumat Bencana Berjaya Dikemaskini.', 'success');
-				}
-				this.activeModal.close(true);
+			.subscribe((result) => {
+        this.output = result;
+        if(this.output.message == "Pendaftaran Mangsa Bencana Berjaya Disimpan!"){
+          swalSuccess.fire('Berjaya!', 'Maklumat Bencana Mangsa Berjaya Dihantar.', 'success').then(() => {
+            this.activeModal.close(true);
+          });
+        }
+        else if(this.output.message == "Mangsa Bencana Berjaya Di Kemaskini!"){
+          swalSuccess.fire('Berjaya!', 'Maklumat Bencana Mangsa Berjaya Disimpan.', 'success').then(() => {
+            this.activeModal.close(true);
+          });
+        }
+        else{
+          swalError.fire('Tidak Berjaya!', this.output.message, 'error');
+        }
 			});
 	}
 

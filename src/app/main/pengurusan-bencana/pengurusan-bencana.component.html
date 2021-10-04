@@ -111,15 +111,15 @@
 						>
 							<ng-template pTemplate="header">
 								<tr>
-									<th style="width: 80px" pSortableColumn="id">
+									<th style="width: 85px" pSortableColumn="id">
 										No. Bencana
 										<p-sortIcon field="id"></p-sortIcon>
 									</th>
-									<th style="width: 120px" pSortableColumn="tarikh_bencana">
+									<th style="width: 100px" pSortableColumn="tarikh_bencana">
 										Tarikh Bencana
 										<p-sortIcon field="tarikh_bencana"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="nama_jenis_bencana">
+									<th style="width: 120px" pSortableColumn="nama_jenis_bencana">
 										Bencana
 										<p-sortIcon field="nama_jenis_bencana"></p-sortIcon>
 									</th>
@@ -127,20 +127,20 @@
 										Negeri
 										<p-sortIcon field="bencanaNegeri"></p-sortIcon>
 									</th>
-									<th *ngIf="_appSession.isGranted('Halaman.Bencana.Edit') || _appSession.isGranted('Halaman.Bencana.Hapus')" style="width:70px;">Tindakan</th>
+									<th *ngIf="_appSession.isGranted('Halaman.Bencana.Edit') || _appSession.isGranted('Halaman.Bencana.Hapus')" style="width:100px;">Tindakan</th>
 								</tr>
 							</ng-template>
 							<ng-template pTemplate="body" let-record="$implicit">
 								<tr>
-									<td style="width: 80px">
+									<td style="width: 85px">
 										<span class="p-column-title">id</span>
 										{{record.bencana.no_rujukan_bencana}}
 									</td>
-									<td style="width: 120px">
+									<td style="width: 100px">
 										<span class="p-column-title">Tarikh Bencana</span>
 										{{record.bencana.tarikh_bencana | date:'dd-MM-yyyy'}}
 									</td>
-									<td style="width: 130px">
+									<td style="width: 120px">
 										<span class="p-column-title">Jenis Bencana</span>
 										{{record.bencana.nama_jenis_bencana}}
 									</td>
@@ -148,7 +148,7 @@
 										<span class="p-column-title">Negeri</span>
 										{{record.bencanaNegeri}}
 									</td>
-									<td style="width: 70px; text-align: center;" *ngIf="_appSession.isGranted('Halaman.Bencana.Edit') || _appSession.isGranted('Halaman.Bencana.Hapus')">
+									<td style="width: 100px; text-align: center;" *ngIf="_appSession.isGranted('Halaman.Bencana.Edit') || _appSession.isGranted('Halaman.Bencana.Hapus')">
 										<div ngbDropdown class="btn-group" role="group" container="body">
 											<button
 												type="button"
