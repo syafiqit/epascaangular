@@ -216,14 +216,18 @@ export class NavService implements OnDestroy {
 				]
 			},
 			{
-				title: 'Kemaskini Maklumat',
+				title: 'Kemaskini Mangsa',
+				path: '/app/mangsa/senarai-pengurusan-mangsa',
+				icon: 'clipboard',
+				type: 'link',
+        permission: 'Halaman.Mangsa'
+			},
+			{
+				title: 'Kemaskini Bencana',
+				path: '/app/bencana/pengurusan-bencana',
 				icon: 'folder',
-				type: 'sub',
-				active: false,
-				children: [
-          { path: '/app/mangsa/senarai-pengurusan-mangsa', title: 'Pengurusan Mangsa', type: 'link', permission: 'Halaman.Mangsa' },
-          { path: '/app/bencana/pengurusan-bencana', title: 'Pengurusan Bencana', type: 'link', permission: 'Halaman.Bencana' }
-				]
+				type: 'link',
+        permission: 'Halaman.Bencana'
 			},
 			{
 				title: 'Pengurusan Tabung',
