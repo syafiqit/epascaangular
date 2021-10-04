@@ -258,7 +258,7 @@ export class EditWaranComponent implements OnInit {
   deleteWaranBulanan(id){
 		swalWarning.fire({
 			title: 'Anda Pasti?',
-			text: 'Adakah anda pasti ingin maklumat Belanja Bulanan Waran ini?',
+			text: 'Adakah anda pasti ingin memadam maklumat Belanja Bulanan Waran ini?',
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',

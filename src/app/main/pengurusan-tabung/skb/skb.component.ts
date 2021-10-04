@@ -115,7 +115,7 @@ export class SkbComponent implements OnInit {
   deleteSkb(id){
 		swalWarning.fire({
 			title: 'Anda Pasti?',
-			text: 'Adakah anda pasti ingin maklumat Surat Kuasa Belanja ini?',
+			text: 'Adakah anda pasti ingin memadam maklumat Surat Kuasa Belanja ini?',
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',

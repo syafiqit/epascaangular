@@ -213,7 +213,7 @@ export class EditTabungComponent implements OnInit {
   deleteTabungPeruntukan(id?) {
     swalWarning.fire({
       title: 'Anda Pasti?',
-      text: 'Adakah anda pasti ingin padam terimaan tambahan ini?',
+      text: 'Adakah anda pasti ingin memadam maklumat terimaan tambahan ini?',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',

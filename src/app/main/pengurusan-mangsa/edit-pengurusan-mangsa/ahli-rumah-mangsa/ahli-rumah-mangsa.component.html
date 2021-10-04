@@ -90,10 +90,18 @@
                     Tindakan
                   </button>
                   <div ngbDropdownMenu aria-labelledby="action">
-                    <button class="dropdown-item" (click)="editAhliRumahModal(record.id)" *ngIf="_appSession.isGranted('Halaman.Mangsa.Air.Edit')">
+                    <button
+                      class="dropdown-item"
+                      (click)="editAhliRumahModal(record.id)"
+                      *ngIf="_appSession.isGranted('Halaman.Mangsa.Air.Edit')"
+                    >
                       Lihat
                     </button>
-                    <button class="dropdown-item" (click)="editAhliRumahModal(record.id)" *ngIf="_appSession.isGranted('Halaman.Mangsa.Air.Hapus')">
+                    <button
+                      class="dropdown-item"
+                      (click)="deleteAir(record.id)"
+                      *ngIf="_appSession.isGranted('Halaman.Mangsa.Air.Hapus')"
+                    >
                       Padam
                     </button>
                   </div>
