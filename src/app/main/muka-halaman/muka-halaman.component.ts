@@ -160,7 +160,7 @@ export class MukaHalamanComponent implements OnInit, AfterViewInit {
 	
 			// Configure series tooltip
 			const polygonTemplate = polygonSeries.mapPolygons.template;
-			polygonTemplate.tooltipText = '{nama_negeri}: {value}';
+			polygonTemplate.tooltipText = '{nama_negeri}\n Bilangan Mangsa: {value} \n Bilangan Bencana: {bilBencana}';
 			polygonTemplate.nonScalingStroke = true;
 			polygonTemplate.strokeWidth = 0.5;
 	
