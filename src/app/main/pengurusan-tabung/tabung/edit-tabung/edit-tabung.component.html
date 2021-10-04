@@ -411,6 +411,14 @@
                             >
                               Pembayaran Secara Terus
                             </a>
+                            <a
+                              class="dropdown-item"
+                              [routerLink]="['/app/tabung/waran/tambah']"
+                              [queryParams]="{kelulusan: records.kelulusan.id, no_ruj: records.kelulusan.no_rujukan_kelulusan}"
+                              *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.Waran.Tambah')"
+                            >
+                              Pembayaran Secara Waran
+                            </a>
                           </div>
                         </div>
                       </td>

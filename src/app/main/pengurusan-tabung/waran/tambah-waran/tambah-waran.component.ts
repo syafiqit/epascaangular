@@ -13,7 +13,7 @@ import {
   TabungBayaranWaranServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import * as moment from 'moment';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { fadeVerticalAnimation } from '@app/shared/data/router-animation/fade-vertical-animation';
 import { PilihanRujukanKelulusanComponent } from '../../skb/pilihan-rujukan-kelulusan/pilihan-rujukan-kelulusan.component';
@@ -71,11 +71,14 @@ export class TambahWaranComponent implements OnInit {
     config: NgbModalConfig,
     private modalService: NgbModal,
     public activeModal: NgbActiveModal,
+    private _activatedRoute: ActivatedRoute,
     private _tabungBayaranWaranServiceProxy: TabungBayaranWaranServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
     private router: Router,
     private calendar: NgbCalendar
   ) {
+    this.waran.id_tabung_kelulusan = this._activatedRoute.snapshot.queryParams['kelulusan'];
+    this.waran.no_rujukan_kelulusan = this._activatedRoute.snapshot.queryParams['no_ruj'];
     this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
