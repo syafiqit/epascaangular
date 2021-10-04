@@ -37,6 +37,7 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
   jenisBayaran: any;
   kategoriBayaran: any;
   id_jenis_bayaran: number;
+  id_tabung_kelulusan: number;
   no_rujukan_kelulusan: string;
   namaTabung: string;
   namaBencana: string;
@@ -62,7 +63,7 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
     private _refKategoriBayaranServiceProxy: RefKategoriBayaranServiceProxy
     ) {
     this.idBayaranTerus = this._activatedRoute.snapshot.queryParams['id'];
-    this.bayaranTerus.id_tabung_kelulusan = this._activatedRoute.snapshot.queryParams['kelulusan'];
+    this.id_tabung_kelulusan = this._activatedRoute.snapshot.queryParams['kelulusan'];
     this.no_rujukan_kelulusan = this._activatedRoute.snapshot.queryParams['no_ruj'];
 		config.backdrop = 'static';
 		config.keyboard = false;
@@ -124,7 +125,7 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
     modalRef.result.then(
 			(response) => {
 				if (response) {
-          this.bayaranTerus.id_tabung_kelulusan = response.id;
+          this.id_tabung_kelulusan = response.id;
 					this.no_rujukan_kelulusan = response.no_rujukan_kelulusan;
 				}
 			}
@@ -170,6 +171,8 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
       this.tarikhBencana = this.toModel(this.modelTarikhBencana);
       this.bayaranTerus.tarikh_bencana = moment(this.tarikhBencana, "YYYY-MM-DD");
     }
+    this.bayaranTerus.id_tabung_kelulusan = this.id_tabung_kelulusan;
+    this.bayaranTerus.no_rujukan_kelulusan = this.no_rujukan_kelulusan;
 
     if(!this.idBayaranTerus) {
       this.tabungBayaranTerusServiceProxy
