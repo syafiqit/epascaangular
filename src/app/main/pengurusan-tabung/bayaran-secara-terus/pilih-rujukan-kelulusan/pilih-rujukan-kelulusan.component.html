@@ -5,6 +5,22 @@
 	</button>
 </div>
 <div class="modal-body">
+  <div class="row no-gutters mb-3">
+    <div class="col-lg-6 pl-0">
+      <div class="faq-form">
+        <input
+          class="form-control"
+          type="text"
+          name="searchKelulusan"
+          placeholder="Carian..."
+          [(ngModel)]="filter"
+          (keyup)="applyFilter($event.target.value)"
+        />
+        <i class="icon-search search-icon" style="font-size: large; font-weight: bold;"></i>
+      </div>
+    </div>
+  </div>
+
 	<div class="col-lg-12">
 		<div class="row align-items-center">
 			<div class="primeng-datatable-container">
