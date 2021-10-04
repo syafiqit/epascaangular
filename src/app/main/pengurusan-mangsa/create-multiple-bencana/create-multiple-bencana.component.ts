@@ -6,7 +6,6 @@ import {
   CreateOrEditMangsaBencanaDto,
   InputCreateMultipleMangsaBencanaDto,
   MangsaBencanaServiceProxy,
-  RefBencanaServiceProxy,
   RefPindahServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { swalSuccess, swalWarning } from '@shared/sweet-alert/swal-constant';
@@ -36,7 +35,7 @@ export class CreateMultipleBencanaComponent implements OnInit {
 
 	constructor(
     public activeModal: NgbActiveModal,
-    private _refBencanaServiceProxy: RefBencanaServiceProxy,
+    private modalService: NgbModal,
     private _mangsaBencanaServiceProxy: MangsaBencanaServiceProxy,
     private _refPindahServiceProxy: RefPindahServiceProxy
   ) {
@@ -45,7 +44,6 @@ export class CreateMultipleBencanaComponent implements OnInit {
 	ngOnInit(): void {
     this.show();
     this.getPindah();
-    this.getBencana();
   }
 
   fromModel(value: string | null): NgbDateStruct | null {
@@ -84,14 +82,23 @@ export class CreateMultipleBencanaComponent implements OnInit {
 	}
 
 	getBencana(filter?) {
-    this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
-      this.bencanaList = result.items;
-    });
+    const modalRef = this.modalService.open(SelectBencanaComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'add';
+    modalRef.componentInstance.id_negeri = this.id_negeri;
+    modalRef.result.then(
+			(response) => {
+				if (response) {
+          this.bencana.id_bencana = response.id;
+          this.bencana.nama_bencana = response.nama_bencana;
+          this.modelBencana = this.fromModel(response.tarikh_bencana.format('YYYY-MM-DD'));
+				}
+			}
+		);
   }
 
-  getTarikhBencana(tarikh?){
-    this.modelBencana = this.fromModel(tarikh.format('YYYY-MM-DD'));
-  }
+  // getTarikhBencana(tarikh?){
+  //   this.modelBencana = this.fromModel(tarikh.format('YYYY-MM-DD'));
+  // }
 
   statusPindahValidate(id){
     if(id == 1){
