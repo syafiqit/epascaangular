@@ -21274,6 +21274,87 @@ export class TabungServiceProxy {
     }
 
     /**
+     * Get all Sejarah Tabung
+     * @param filter (optional) Filter records with a string
+     * @param filterTabung (optional) Filter records with a integer
+     * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
+     * @param skipCount (optional) Skip n-value of a record
+     * @param maxResultCount (optional) Maximum records per page. Default value is 10
+     * @return Success
+     */
+    getSejarahTransaksi(filter: string | undefined, filterTabung: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfSejarahTransaksiDto> {
+        let url_ = this.baseUrl + "/api/tabung/getSejarahTransaksi?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (filterTabung === null)
+            throw new Error("The parameter 'filterTabung' cannot be null.");
+        else if (filterTabung !== undefined)
+            url_ += "filterTabung=" + encodeURIComponent("" + filterTabung) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "skipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "maxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetSejarahTransaksi(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetSejarahTransaksi(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfSejarahTransaksiDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfSejarahTransaksiDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetSejarahTransaksi(response: HttpResponseBase): Observable<PagedResultDtoOfSejarahTransaksiDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfSejarahTransaksiDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfSejarahTransaksiDto>(<any>null);
+    }
+
+    /**
      * Get Tabung by id
      * @param id Tabung Id
      * @return Success
@@ -22697,7 +22778,7 @@ export interface IGetTotalBantuanByNegeriDto {
 export class GetTotalMangsaBencanaByNegeriDto implements IGetTotalMangsaBencanaByNegeriDto {
     id!: number;
     bilBencana!: number;
-    bilMangsa!: number;
+    value!: number;
     nama_negeri!: string;
 
     constructor(data?: IGetTotalMangsaBencanaByNegeriDto) {
@@ -22713,7 +22794,7 @@ export class GetTotalMangsaBencanaByNegeriDto implements IGetTotalMangsaBencanaB
         if (_data) {
             this.id = _data["id"];
             this.bilBencana = _data["bilBencana"];
-            this.bilMangsa = _data["bilMangsa"];
+            this.value = _data["value"];
             this.nama_negeri = _data["nama_negeri"];
         }
     }
@@ -22729,7 +22810,7 @@ export class GetTotalMangsaBencanaByNegeriDto implements IGetTotalMangsaBencanaB
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["bilBencana"] = this.bilBencana;
-        data["bilMangsa"] = this.bilMangsa;
+        data["value"] = this.value;
         data["nama_negeri"] = this.nama_negeri;
         return data; 
     }
@@ -22738,7 +22819,7 @@ export class GetTotalMangsaBencanaByNegeriDto implements IGetTotalMangsaBencanaB
 export interface IGetTotalMangsaBencanaByNegeriDto {
     id: number;
     bilBencana: number;
-    bilMangsa: number;
+    value: number;
     nama_negeri: string;
 }
 
@@ -44322,6 +44403,58 @@ export interface ICreateOrEditTabungDto {
     jumlah_perbelanjaan_semasa: number;
 }
 
+export class GetSejarahTransaksiDto implements IGetSejarahTransaksiDto {
+    tarikh!: moment.Moment;
+    no_ruj!: string;
+    aktiviti!: string;
+    jumlah!: number;
+    nama!: string;
+
+    constructor(data?: IGetSejarahTransaksiDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.tarikh = _data["tarikh"] ? moment(_data["tarikh"].toString()) : <any>undefined;
+            this.no_ruj = _data["no_ruj"];
+            this.aktiviti = _data["aktiviti"];
+            this.jumlah = _data["jumlah"];
+            this.nama = _data["nama"];
+        }
+    }
+
+    static fromJS(data: any): GetSejarahTransaksiDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetSejarahTransaksiDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["tarikh"] = this.tarikh ? this.tarikh.toISOString() : <any>undefined;
+        data["no_ruj"] = this.no_ruj;
+        data["aktiviti"] = this.aktiviti;
+        data["jumlah"] = this.jumlah;
+        data["nama"] = this.nama;
+        return data; 
+    }
+}
+
+export interface IGetSejarahTransaksiDto {
+    tarikh: moment.Moment;
+    no_ruj: string;
+    aktiviti: string;
+    jumlah: number;
+    nama: string;
+}
+
 export class GetTabungForEditDto implements IGetTabungForEditDto {
     tabung!: CreateOrEditTabungDto;
     dana_awal!: number;
@@ -44554,6 +44687,60 @@ export interface IGetTotalTabungCardForViewDto {
     jumlah_keseluruhan: number;
     jumlah_perbelanjaan_semasa: number;
     jumlah_tanggungan: number;
+}
+
+/** Tabung List in Tabular model */
+export class PagedResultDtoOfSejarahTransaksiDto implements IPagedResultDtoOfSejarahTransaksiDto {
+    /** Total Count */
+    total_count!: number;
+    /** Items in array of object */
+    items!: GetSejarahTransaksiDto[];
+
+    constructor(data?: IPagedResultDtoOfSejarahTransaksiDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetSejarahTransaksiDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfSejarahTransaksiDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfSejarahTransaksiDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** Tabung List in Tabular model */
+export interface IPagedResultDtoOfSejarahTransaksiDto {
+    /** Total Count */
+    total_count: number;
+    /** Items in array of object */
+    items: GetSejarahTransaksiDto[];
 }
 
 /** Tabung List in Tabular model */
