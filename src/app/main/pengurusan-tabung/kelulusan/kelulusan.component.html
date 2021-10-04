@@ -248,6 +248,14 @@
 												>
                           Pembayaran Secara Terus
 												</button>
+												<button
+													class="dropdown-item"
+													[routerLink]="['/app/tabung/waran/tambah']"
+                          [queryParams]="{kelulusan: record.kelulusan.id, no_ruj: record.kelulusan.no_rujukan_kelulusan}"
+                          *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.Waran.Tambah')"
+												>
+                          Pembayaran Secara Waran
+												</button>
 												<button class="dropdown-item"
 												(click)="deleteConfirmation(record.kelulusan.id)"
                         *ngIf="_appSession.isGranted('Halaman.Tabung.Kelulusan.Hapus')"
