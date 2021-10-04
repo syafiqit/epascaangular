@@ -1,0 +1,121 @@
+<div class="modal-header">
+	<h5 class="modal-title" *ngIf="name === 'add'">Tambah Maklumat Bencana</h5>
+	<h5 class="modal-title" *ngIf="name === 'edit'">Kemaskini Maklumat Bencana</h5>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.close()">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+
+<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
+  <div class="modal-body">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label>Bencana*</label>
+                    <ng-select
+              [items]="bencanaList"
+              bindLabel="nama_bencana"
+              bindValue="id"
+              placeholder="Sila Pilih"
+              class="js-example-placeholder-multiple"
+              name="bencana"
+              (change)="getTarikhBencana($event.tarikh_bencana)"
+              [(ngModel)]="bencana.id_bencana"
+              #namaBencana="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
+              required
+            ></ng-select>
+            <div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
+              <div *ngIf="namaBencana.errors.required">Bencana Wajib Dipilih</div>
+            </div>
+				</div>
+			</div>
+
+      <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
+        <label>Tarikh Bencana</label>
+        <div class="input-group">
+          <input
+            class="form-control"
+            placeholder="DD/MM/YYYY"
+            name="dp3"
+            [(ngModel)]="modelBencana"
+            ngbDatepicker
+            #d3="ngbDatepicker"
+            style="border: 1px solid #efefef !important;"
+            readonly
+          >
+        </div>
+      </div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label>Status Berpindah*</label>
+					<ng-select
+						[items]="evacuates"
+						bindLabel="pindah"
+						bindValue="id"
+						placeholder="Sila Pilih"
+						class="js-example-placeholder-multiple"
+						name="id_pindah"
+						[(ngModel)]="bencana.id_pindah"
+						(change)="statusPindahValidate($event.id)"
+					></ng-select>
+				</div>
+			</div>
+			<div class="col-lg-6" *ngIf="statusPindah">
+				<div class="form-group">
+					<label>Nama Pusat</label>
+					<input
+						class="form-control"
+            			id="pusatPindah"
+						type="text"
+						name="nama_pusat_pemindahan"
+						[(ngModel)]="bencana.nama_pusat_pemindahan"
+						placeholder="Nama Pusat"
+						#namaPusat="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && namaPusat.invalid }"
+						required
+					/>
+					<div *ngIf="f.submitted && namaPusat.invalid" class="invalid-feedback">
+						<div *ngIf="namaPusat.errors.required">Nama Pusat Wajib Diisi</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6" *ngIf="!statusPindah">
+				<div class="form-group">
+					<label>Nama Pusat</label>
+					<input
+						class="form-control"
+            			id="pusatPindah"
+						type="text"
+						name="nama_pusat_pemindahan"
+						[(ngModel)]="bencana.nama_pusat_pemindahan"
+						placeholder="Nama Pusat"
+						disabled
+					/>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+      <div class="col-lg-12">
+				<div class="form-group">
+					<label>Masalah Dihadapi</label>
+					<textarea
+						class="form-control"
+						rows="3"
+						name="masalah"
+						[(ngModel)]="bencana.masalah"
+						placeholder="Masalah yang dihadapi..."
+					></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="activeModal.close(false)">Tutup</button>
+		<button type="submit" class="btn btn-primary">Simpan</button>
+  </div>
+</form>

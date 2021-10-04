@@ -14,6 +14,7 @@ import { Subject } from 'rxjs';
 import { EditMultipleBantuanWangIhsanComponent } from './edit-multiple-bantuan-wang-ihsan/edit-multiple-bantuan-wang-ihsan.component';
 import { swalError } from '@app/shared/sweet-alert/swal-constant';
 import { AppSessionService } from '@app/shared/services/app-session.service';
+import { CreateMultipleBencanaComponent } from './create-multiple-bencana/create-multiple-bencana.component';
 
 @Component({
 	selector: 'app-pengurusan-mangsa',
@@ -152,6 +153,22 @@ export class PengurusanMangsaComponent implements OnInit {
 			swalError.fire('Harap Maaf!', 'Tiada Mangsa Dipilih.');
 		}else{
 			const modalRef = this.modalService.open(EditMultipleBantuanWangIhsanComponent, { size: 'lg' });
+			modalRef.componentInstance.name = 'edit';
+			modalRef.componentInstance.idMangsa = this.idMangsa;
+
+			modalRef.result.then((response) => {
+			if (response) {
+				this.getVictim();
+			}
+		});
+		}
+	}
+
+	editBencanaModal() {
+		if(this.idMangsa.length == 0){
+			swalError.fire('Harap Maaf!', 'Tiada Mangsa Dipilih.');
+		}else{
+			const modalRef = this.modalService.open(CreateMultipleBencanaComponent, { size: 'lg' });
 			modalRef.componentInstance.name = 'edit';
 			modalRef.componentInstance.idMangsa = this.idMangsa;
 
