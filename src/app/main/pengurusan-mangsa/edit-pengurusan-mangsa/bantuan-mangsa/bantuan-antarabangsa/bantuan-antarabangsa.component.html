@@ -76,8 +76,8 @@
               <button class="dropdown-item" (click)="editBantuanAntarabangsaModal(record.id, mangsaId)" *ngIf="_appSession.isGranted('Halaman.Mangsa.BantuanAntarabangsa.Edit')">
                 Lihat
               </button>
-              <button class="dropdown-item" (click)="editBantuanAntarabangsaModal(record.id, mangsaId)" *ngIf="_appSession.isGranted('Halaman.Mangsa.BantuanAntarabangsa.Hapus')">
-                Lihat
+              <button class="dropdown-item" (click)="padamBantuanAntarabangsa(record.id)" *ngIf="_appSession.isGranted('Halaman.Mangsa.BantuanAntarabangsa.Hapus')">
+                Padam
               </button>
             </div>
           </div>

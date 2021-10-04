@@ -8,6 +8,7 @@ import { finalize } from 'rxjs/operators';
 import { MangsaAntarabangsaServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import { TambahEditBantuanAntarabangsaComponent } from './tambah-edit-bantuan-antarabangsa/tambah-edit-bantuan-antarabangsa.component';
 import { AppSessionService } from '@app/shared/services/app-session.service';
+import { swalError, swalSuccess, swalWarning } from '@app/shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-bantuan-antarabangsa',
@@ -96,5 +97,29 @@ export class BantuanAntarabangsaComponent implements OnInit {
   reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
 	}
+
+  padamBantuanAntarabangsa(id?) {
+    swalWarning.fire({
+      title: 'Anda Pasti?',
+      text: 'Adakah anda pasti ingin padam bantuan antarabangsa ini?',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Tidak',
+      confirmButtonText: 'Ya'
+    }).then((result) => {
+      if (result.value) {
+        this._refMangsaAntarabangsaServiceProxy.delete(id).subscribe((result) => {
+          if(result.message == "Bantuan Antarabangsa Berjaya Dibuang"){
+            swalSuccess.fire('Berjaya!', result.message);
+          }
+          else{
+            swalError.fire('Tidak Berjaya!', 'Bantuan Antarabangsa Tidak Berjaya Dibuang');
+          }
+          this.getBantuanAntarabangsa();
+        })
+      }
+    });
+  }
 
 }
