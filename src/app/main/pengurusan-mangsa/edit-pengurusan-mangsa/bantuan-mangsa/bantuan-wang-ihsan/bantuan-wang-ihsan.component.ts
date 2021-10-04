@@ -111,28 +111,4 @@ export class BantuanWangIhsanComponent implements OnInit {
 		this.paginator.changePage(this.paginator.getPage());
 	}
 
-  padamBantuanBwi(id?) {
-    swalWarning.fire({
-      title: 'Anda Pasti?',
-      text: 'Adakah anda pasti ingin padam bantuan wang ihsan ini?',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      cancelButtonText: 'Tidak',
-      confirmButtonText: 'Ya'
-    }).then((result) => {
-      if (result.value) {
-        this._refMangsaWangIhsanServiceProxy.delete(id).subscribe((result) => {
-          if(result.message == "Bantuan Wang Ihsan Berjaya Dibuang"){
-            swalSuccess.fire('Berjaya!', result.message);
-          }
-          else{
-            swalError.fire('Tidak Berjaya!', 'Bantuan Wang Ihsan Tidak Berjaya Dibuang');
-          }
-          this.getIhsan();
-        })
-      }
-    });
-  }
-
 }
