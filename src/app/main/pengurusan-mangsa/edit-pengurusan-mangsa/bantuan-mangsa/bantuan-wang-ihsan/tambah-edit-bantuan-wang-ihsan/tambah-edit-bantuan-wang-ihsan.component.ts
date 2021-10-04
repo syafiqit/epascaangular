@@ -143,6 +143,9 @@ export class TambahEditBantuanWangIhsanComponent implements OnInit {
         this.tarikhSerahan = this.toModel(this.model);
         this.wangIhsan.tarikh_serahan = moment(this.tarikhSerahan, "YYYY-MM-DD");
       }
+      if(this.wangIhsan.status_mangsa_wang_ihsan == 3){
+        this.wangIhsan.jumlah_dipulangkan = this.wangIhsan.jumlah;
+      }
       this._mangsaWangIhsanServiceProxy
         .createOrEdit(this.wangIhsan)
         .pipe()

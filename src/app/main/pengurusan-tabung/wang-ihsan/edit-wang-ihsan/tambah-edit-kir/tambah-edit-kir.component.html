@@ -30,6 +30,10 @@
                 >
                   <ng-template pTemplate="header">
                     <tr>
+                      <th style="width: 130px" pSortableColumn="no_kp">
+                        No. KP
+                        <p-sortIcon field="no_kp"></p-sortIcon>
+                      </th>
                       <th style="width: 150px" pSortableColumn="nama">
                         Nama KIR
                         <p-sortIcon field="nama"></p-sortIcon>
@@ -46,11 +50,19 @@
                         Negeri
                         <p-sortIcon field="nama_negeri"></p-sortIcon>
                       </th>
+                      <th style="width: 130px" pSortableColumn="status_mangsa_wang_ihsan">
+                        Status
+                        <p-sortIcon field="status_mangsa_wang_ihsan"></p-sortIcon>
+                      </th>
                       <th style="width: 130px">Tindakan</th>
                     </tr>
                   </ng-template>
                   <ng-template pTemplate="body" let-record="$implicit">
                     <tr>
+                      <td style="width: 130px">
+                        <span class="p-column-title">No. KP</span>
+                        {{record.no_kp}}
+                      </td>
                       <td style="width: 150px">
                         <span class="p-column-title">Nama KIR</span>
                         {{record.nama}}
@@ -66,6 +78,10 @@
                       <td style="width: 130px">
                         <span class="p-column-title">Negeri</span>
                         {{record.nama_negeri}}
+                      </td>
+                      <td style="width: 130px">
+                        <span class="p-column-title">Status</span>
+                        {{getStatus(record.status_mangsa_wang_ihsan)}}
                       </td>
                       <td style="width: 130px">
                         <div ngbDropdown class="btn-group" role="group" container="body">

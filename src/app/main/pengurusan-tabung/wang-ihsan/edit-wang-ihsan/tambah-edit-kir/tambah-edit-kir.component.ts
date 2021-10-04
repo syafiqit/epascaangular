@@ -64,6 +64,13 @@ export class TambahEditKirComponent implements OnInit {
   modelSuratLaporan: NgbDateStruct;
   today = this.calendar.getToday();
   readonly DELIMITER = '-';
+  statuses: any;
+
+  status=[
+    {id: 1, nama_status: "Belum Dibayar"},
+    {id: 2, nama_status: "Dibayar"},
+    {id: 3, nama_status: "Dipulangkan"}
+  ]
 
   constructor(
     config: NgbModalConfig,
@@ -129,6 +136,13 @@ export class TambahEditKirComponent implements OnInit {
 				this.primengTableHelper.records = result.items;
 			});
 	}
+
+  getStatus (id){
+    this.statuses = this.status.map((data) => {
+      return data.nama_status;
+    });
+    return this.statuses[id - 1];
+  }
 
   getJumlahBayaran(){
     this.mangsaWangIhsanServiceProxy.getTotalBwiMangsaByIdBencana(this.idBencana, this.idJenisBwi,this.idDaerah).subscribe((result) => {
