@@ -5,12 +5,12 @@ import {
   InputCreateMultipleWangIhsanDto,
   MangsaWangIhsanServiceProxy,
   RefAgensiServiceProxy,
-  RefBencanaServiceProxy,
   RefJenisBwiServiceProxy,
   RefKadarBwiServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import * as moment from 'moment';
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { SelectBencanaComponent } from '../select-bencana/select-bencana.component';
 
 @Component({
   selector: 'app-edit-multiple-bantuan-wang-ihsan',
@@ -23,6 +23,7 @@ export class EditMultipleBantuanWangIhsanComponent implements OnInit {
 
   @Input() name;
 	@Input() id;
+  @Input() id_negeri;
 	@Input() idMangsa;
 
 	saving = true;
@@ -38,6 +39,7 @@ export class EditMultipleBantuanWangIhsanComponent implements OnInit {
   today = this.calendar.getToday();
   tarikhSerahan: string;
   tarikhBencana: string;
+  nama_bencana: string;
   mangsaBwi: InputCreateMultipleWangIhsanDto = new InputCreateMultipleWangIhsanDto();
   wangIhsan: CreateMultipleMangsaWangIhsanDto = new CreateMultipleMangsaWangIhsanDto();
   readonly DELIMITER = '-';
@@ -50,8 +52,8 @@ export class EditMultipleBantuanWangIhsanComponent implements OnInit {
 
   constructor(
 		public activeModal: NgbActiveModal,
+    private modalService: NgbModal,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
-    private _refBencanaServiceProxy: RefBencanaServiceProxy,
     private _refJenisBwiServiceProxy: RefJenisBwiServiceProxy,
     private _refKadarBwiServiceProxy: RefKadarBwiServiceProxy,
     private _mangsaWangIhsanServiceProxy: MangsaWangIhsanServiceProxy,
@@ -63,8 +65,6 @@ export class EditMultipleBantuanWangIhsanComponent implements OnInit {
       this.getJenisBwi();
       this.getAgensi();
       this.getJumlahBwi();
-      this.getBencana();
-      console.log(this.idMangsa);
     }
 
     fromModel(value: string | null): NgbDateStruct | null {
@@ -102,13 +102,18 @@ export class EditMultipleBantuanWangIhsanComponent implements OnInit {
     }
 
     getBencana(filter?) {
-      this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
-        this.bencanaList = result.items;
-      });
-    }
-
-    getTarikhBencana(tarikh?){
-      this.modelBencana = this.fromModel(tarikh.format('YYYY-MM-DD'));
+      const modalRef = this.modalService.open(SelectBencanaComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'add';
+    modalRef.componentInstance.id_negeri = this.id_negeri;
+    modalRef.result.then(
+			(response) => {
+				if (response) {
+          this.wangIhsan.id_bencana = response.id;
+          this.nama_bencana = response.nama_bencana;
+          this.modelBencana = this.fromModel(response.tarikh_bencana.format('YYYY-MM-DD'));
+				}
+			}
+		);
     }
 
     save() {

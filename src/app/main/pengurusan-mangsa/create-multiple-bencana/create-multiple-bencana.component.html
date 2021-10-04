@@ -11,23 +11,28 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label>Bencana*</label>
-                    <ng-select
-              [items]="bencanaList"
-              bindLabel="nama_bencana"
-              bindValue="id"
-              placeholder="Sila Pilih"
-              class="js-example-placeholder-multiple"
+					<label>Bencana</label>
+          <div class="input-group">
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Bencana"
               name="bencana"
-              (change)="getTarikhBencana($event.tarikh_bencana)"
-              [(ngModel)]="bencana.id_bencana"
+              [(ngModel)]="bencana.nama_bencana"
               #namaBencana="ngModel"
               [ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
               required
-            ></ng-select>
-            <div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
-              <div *ngIf="namaBencana.errors.required">Bencana Wajib Dipilih</div>
+              readonly
+            />
+            <div class="input-group-append">
+              <button class="btn btn-primary" (click)="getBencana()" type="button">
+                <i class="fa fa-search text-white"></i>
+              </button>
             </div>
+          </div>
+          <div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
+            <div *ngIf="namaBencana.errors.required">Bencana Wajib Dipilih</div>
+          </div>
 				</div>
 			</div>
 
