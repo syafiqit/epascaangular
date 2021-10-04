@@ -8,6 +8,7 @@ import { finalize } from 'rxjs/operators';
 import { MangsaRumahServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import { TambahEditBantuanRumahComponent } from './tambah-edit-bantuan-rumah/tambah-edit-bantuan-rumah.component';
 import { AppSessionService } from '@app/shared/services/app-session.service';
+import { swalError, swalSuccess, swalWarning } from '@app/shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-bantuan-rumah',
@@ -96,5 +97,29 @@ export class BantuanRumahComponent implements OnInit {
   reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
 	}
+
+  padamBantuanRumah(id?) {
+    swalWarning.fire({
+      title: 'Anda Pasti?',
+      text: 'Adakah anda pasti ingin padam bantuan rumah ini?',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Tidak',
+      confirmButtonText: 'Ya'
+    }).then((result) => {
+      if (result.value) {
+        this._refMangsaRumahServiceProxy.delete(id).subscribe((result) => {
+          if(result.message == "Bantuan Rumah Berjaya Dibuang"){
+            swalSuccess.fire('Berjaya!', result.message);
+          }
+          else{
+            swalError.fire('Tidak Berjaya!', 'Bantuan Rumah Tidak Berjaya Dibuang');
+          }
+          this.getRumah();
+        })
+      }
+    });
+  }
 
 }

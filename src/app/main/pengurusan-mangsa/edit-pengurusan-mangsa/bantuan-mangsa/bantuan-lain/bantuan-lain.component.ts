@@ -8,6 +8,7 @@ import { finalize } from 'rxjs/operators';
 import { TambahEditBantuanLainComponent } from './tambah-edit-bantuan-lain/tambah-edit-bantuan-lain.component';
 import { MangsaBantuanServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import { AppSessionService } from '@app/shared/services/app-session.service';
+import { swalError, swalSuccess, swalWarning } from '@app/shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-bantuan-lain',
@@ -96,5 +97,29 @@ export class BantuanLainComponent implements OnInit {
   reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
 	}
+
+  padamBantuanLain(id?) {
+    swalWarning.fire({
+      title: 'Anda Pasti?',
+      text: 'Adakah anda pasti ingin padam bantuan lain ini?',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Tidak',
+      confirmButtonText: 'Ya'
+    }).then((result) => {
+      if (result.value) {
+        this._refMangsaBantuanServiceProxy.delete(id).subscribe((result) => {
+          if(result.message == "Bantuan Lain Berjaya Dibuang"){
+            swalSuccess.fire('Berjaya!', result.message);
+          }
+          else{
+            swalError.fire('Tidak Berjaya!', 'Bantuan lain Tidak Berjaya Dibuang');
+          }
+          this.getBantuanLain();
+        })
+      }
+    });
+  }
 
 }
