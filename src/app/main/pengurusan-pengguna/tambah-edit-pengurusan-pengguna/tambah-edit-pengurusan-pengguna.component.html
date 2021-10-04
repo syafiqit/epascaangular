@@ -572,7 +572,7 @@
         </ng-template>
       </li>
 
-      <li [ngbNavItem]="3" [destroyOnHide]="false" [hidden]="!edit.pengguna.id">
+      <li [ngbNavItem]="3" [destroyOnHide]="false" [hidden]="!edit.pengguna.id" *ngIf="_appSession.isGranted('Halaman.Pengguna.Capaian')">
         <a ngbNavLink>Capaian</a>
         <ng-template ngbNavContent>
           <form class="form theme-form" (ngSubmit)="preSave()" novalidate autocomplete="off">

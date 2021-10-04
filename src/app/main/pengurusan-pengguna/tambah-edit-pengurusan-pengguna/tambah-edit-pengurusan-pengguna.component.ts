@@ -22,6 +22,7 @@ import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { fadeVerticalAnimation } from 'src/app/shared/data/router-animation/fade-vertical-animation';
 import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { PerananTreeComponent } from '@app/shared/components/peranan-tree/peranan-tree.component';
+import { AppSessionService } from '@app/shared/services/app-session.service';
 
 @Component({
 	selector: 'app-tambah-edit-pengurusan-pengguna',
@@ -107,6 +108,7 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
     private _refNegeriServiceProxy: RefNegeriServiceProxy,
     private _refKementerianServiceProxy: RefKementerianServiceProxy,
     private _refPerananServiceProxy: RefPerananServiceProxy,
+    public _appSession: AppSessionService,
     private router: Router
     ) {
 		this.primengTableHelper = new PrimengTableHelper();
