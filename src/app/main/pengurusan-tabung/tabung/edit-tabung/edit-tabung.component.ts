@@ -51,18 +51,6 @@ export class EditTabungComponent implements OnInit {
   today = this.calendar.getToday();
   readonly DELIMITER = '-';
 
-  sejarah = [
-		{
-      bil: '1', tarikh_cipta: '01/01/2021', no_rujukan: 'A09219', aktiviti: 'Kelulusan', jumlah: 'RM 100,000.00', dikemaskini_oleh: 'Mohd Rahimi'
-		},
-    {
-      bil: '2', tarikh_cipta: '01/01/2021', no_rujukan: 'B09281', aktiviti: 'SKB', jumlah: 'RM 100,000.00', dikemaskini_oleh: 'Mohd Rahimi'
-		},
-    {
-      bil: '3', tarikh_cipta: '01/01/2021', no_rujukan: 'C09237', aktiviti: 'Terus', jumlah: 'RM 100,000.00', dikemaskini_oleh: 'Mohd Rahimi'
-		}
-	];
-
 	constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,
@@ -150,15 +138,26 @@ export class EditTabungComponent implements OnInit {
 	}
 
 	getSejarahKemaskini(event?: LazyLoadEvent) {
-		if (this.primengTableHelperSejarah.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
-
+    if (this.primengTableHelperSejarah.shouldResetPaging(event)) {
+      this.paginator.changePage(0);
+      return;
+    }
     this.primengTableHelperSejarah.showLoadingIndicator();
-		this.primengTableHelperSejarah.totalRecordsCount = this.sejarah.length;
-		this.primengTableHelperSejarah.records = this.sejarah;
-		this.primengTableHelperSejarah.hideLoadingIndicator();
+
+    this.tabungServiceProxy.getSejarahTransaksi(
+      this.filterText,
+      this.idTabung,
+      this.primengTableHelperSejarah.getSorting(this.dataTable),
+      this.primengTableHelperSejarah.getSkipCount(this.paginator, event),
+      this.primengTableHelperSejarah.getMaxResultCount(this.paginator, event)
+    )
+    .pipe(finalize(()=>{
+      this.primengTableHelperSejarah.hideLoadingIndicator();
+    }))
+    .subscribe((result) => {
+      this.primengTableHelperSejarah.totalRecordsCount = result.total_count;
+      this.primengTableHelperSejarah.records = result.items;
+    });
 	}
 
   getKelulusan(event?: LazyLoadEvent) {

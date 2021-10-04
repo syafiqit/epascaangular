@@ -459,49 +459,50 @@
                 >
                   <ng-template pTemplate="header">
                     <tr>
-                      <th style="width: 130px" pSortableColumn="tarikh_cipta">
+                      <th style="width: 100px" pSortableColumn="tarikh">
                         Tarikh Cipta
-                        <p-sortIcon field="tarikh_cipta"></p-sortIcon>
+                        <p-sortIcon field="tarikh"></p-sortIcon>
                       </th>
-                      <th style="width: 130px" pSortableColumn="no_rujukan">
+                      <th style="width: 100px" pSortableColumn="no_ruj">
                         No. Rujukan
-                        <p-sortIcon field="no_rujukan"></p-sortIcon>
+                        <p-sortIcon field="no_ruj"></p-sortIcon>
                       </th>
-                      <th style="width: 130px" pSortableColumn="aktiviti">
+                      <th style="width: 100px" pSortableColumn="aktiviti">
                         Aktiviti
                         <p-sortIcon field="aktiviti"></p-sortIcon>
                       </th>
-                      <th style="width: 130px" pSortableColumn="jumlah">
+                      <th style="width: 100px" pSortableColumn="jumlah">
                         Jumlah
                         <p-sortIcon field="jumlah"></p-sortIcon>
                       </th>
-                      <th style="width: 170px" pSortableColumn="dikemaskini_oleh">
+                      <th style="width: 170px" pSortableColumn="nama">
                         Dikemaskini Oleh
-                        <p-sortIcon field="dikemaskini_oleh"></p-sortIcon>
+                        <p-sortIcon field="nama"></p-sortIcon>
                       </th>
                     </tr>
                   </ng-template>
                   <ng-template pTemplate="body" let-records="$implicit">
                     <tr>
-                      <td style="width: 130px">
+                      <td style="width: 100px">
                         <span class="p-column-title">Tarikh Cipta</span>
-                        {{records.tarikh_cipta}}
+                        {{records.tarikh | date:'dd-MM-yyyy'}}
                       </td>
-                      <td style="width: 130px">
+                      <td style="width: 100px">
                         <span class="p-column-title">No. Rujukan</span>
-                        {{records.no_rujukan}}
+                        {{records.no_ruj}}
                       </td>
-                      <td style="width: 130px">
+                      <td style="width: 100px">
                         <span class="p-column-title">Aktiviti</span>
                         {{records.aktiviti}}
                       </td>
-                      <td style="width: 130px">
+                      <td style="width: 100px">
                         <span class="p-column-title">Jumlah</span>
-                        {{records.jumlah}}
+                        <label *ngIf="records.jumlah">RM {{records.jumlah | number: '1.2-2'}}</label>
+                        <label *ngIf="!records.jumlah">RM 0.00</label>
                       </td>
                       <td style="width: 170px">
                         <span class="p-column-title">Dikemaskini Oleh</span>
-                        {{records.dikemaskini_oleh}}
+                        {{records.nama}}
                       </td>
                     </tr>
                   </ng-template>
