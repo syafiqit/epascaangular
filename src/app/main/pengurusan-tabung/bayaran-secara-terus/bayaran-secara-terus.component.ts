@@ -74,7 +74,7 @@ export class BayaranSecaraTerusComponent implements OnInit {
   padamBayaranTerus(id?) {
     swalWarning.fire({
       title: 'Anda Pasti?',
-      text: 'Adakah anda pasti ingin padam pembayaran secara terus ini?',
+      text: 'Adakah anda pasti ingin memadam maklumat Pembayaran Secara Terus ini?',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',

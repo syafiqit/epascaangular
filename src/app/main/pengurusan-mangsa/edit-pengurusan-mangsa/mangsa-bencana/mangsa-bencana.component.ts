@@ -8,10 +8,11 @@ import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import {
   GetMangsaForEditDto,
   MangsaBencanaServiceProxy,
-  MangsaServiceProxy
+  MangsaServiceProxy,
+  OutputCreateMangsaBencanaDto
 } from 'src/app/shared/proxy/service-proxies';
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { swalSuccess, swalWarning } from '@shared/sweet-alert/swal-constant';
 import { Subject } from 'rxjs';
 import { AppSessionService } from '@app/shared/services/app-session.service';
 
@@ -32,6 +33,7 @@ export class MangsaBencanaComponent implements OnInit {
   filter: string;
   terms$ = new Subject<string>();
   getMangsa: GetMangsaForEditDto = new GetMangsaForEditDto();
+  output: OutputCreateMangsaBencanaDto = new OutputCreateMangsaBencanaDto();
 
 	constructor(
     config: NgbModalConfig,
@@ -120,4 +122,27 @@ export class MangsaBencanaComponent implements OnInit {
 			}
 		});
 	}
+
+  deleteBencana(id){
+		swalWarning.fire({
+			title: 'Anda Pasti?',
+			text: 'Adakah anda pasti ingin memadam maklumat bencana ini?',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			cancelButtonText: 'Tidak',
+			confirmButtonText: 'Ya'
+		}).then((result) => {
+			if (result.value) {
+				this._mangsaBencanaServiceProxy.delete(id).subscribe((result)=>{
+          this.output = result;
+          if(this.output.message == "Mangsa Bencana Berjaya Dibuang"){
+            swalSuccess.fire('Berjaya!', 'Maklumat Bencana Dipilih Berjaya Dipadam!').then(()=>{
+              this.getDisaster();
+            });
+          }
+        })
+			}
+		});
+  }
 }

@@ -8,10 +8,11 @@ import { LazyLoadEvent } from 'primeng/api';
 import {
   GetMangsaForEditDto,
   MangsaAirServiceProxy,
-  MangsaServiceProxy
+  MangsaServiceProxy,
+  OutputCreateMangsaAirDto
 } from 'src/app/shared/proxy/service-proxies';
 import { finalize } from 'rxjs/operators';
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { swalError, swalSuccess, swalWarning } from '@shared/sweet-alert/swal-constant';
 import { AppSessionService } from '@app/shared/services/app-session.service';
 
 @Component({
@@ -34,6 +35,7 @@ export class AhliRumahMangsaComponent implements OnInit {
   mangsaId: any;
   victims: any;
   getMangsa: GetMangsaForEditDto = new GetMangsaForEditDto();
+  output: OutputCreateMangsaAirDto = new OutputCreateMangsaAirDto();
 
 	constructor(
     config: NgbModalConfig,
@@ -107,4 +109,27 @@ export class AhliRumahMangsaComponent implements OnInit {
 			}
 		});
 	}
+
+  deleteAir(id){
+		swalWarning.fire({
+			title: 'Anda Pasti?',
+			text: 'Adakah anda pasti ingin memadam maklumat Ahli Isi Rumah ini?',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			cancelButtonText: 'Tidak',
+			confirmButtonText: 'Ya'
+		}).then((result) => {
+			if (result.value) {
+				this._mangsaAirServiceProxy.delete(id).subscribe((result)=>{
+          this.output = result;
+          if(this.output.message == "Isi Rumah Berjaya Dibuang"){
+            swalSuccess.fire('Berjaya!', 'Ahli Isi Rumah Dipilih Berjaya Dipadam!').then(()=>{
+              this.getHousehold();
+            });
+          }
+        })
+			}
+		});
+  }
 }

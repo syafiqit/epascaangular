@@ -3901,6 +3901,67 @@ export class MangsaAirServiceProxy {
         }
         return _observableOf<CreateOrEditMangsaAirDto>(<any>null);
     }
+
+    /**
+     * delete MangsaAir
+     * @param id MangsaAir Id
+     * @return Success
+     */
+    delete(id: number): Observable<OutputCreateMangsaAirDto> {
+        let url_ = this.baseUrl + "/api/mangsaAir/delete?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<OutputCreateMangsaAirDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<OutputCreateMangsaAirDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<OutputCreateMangsaAirDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = OutputCreateMangsaAirDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<OutputCreateMangsaAirDto>(<any>null);
+    }
 }
 
 @Injectable()
@@ -4892,6 +4953,67 @@ export class MangsaBencanaServiceProxy {
     }
 
     protected processMultipleCreateMangsaBencana(response: HttpResponseBase): Observable<OutputCreateMangsaBencanaDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = OutputCreateMangsaBencanaDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<OutputCreateMangsaBencanaDto>(<any>null);
+    }
+
+    /**
+     * delete mangsaBencana
+     * @param id MangsaBencana Id
+     * @return Success
+     */
+    delete(id: number): Observable<OutputCreateMangsaBencanaDto> {
+        let url_ = this.baseUrl + "/api/mangsaBencana/delete?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<OutputCreateMangsaBencanaDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<OutputCreateMangsaBencanaDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<OutputCreateMangsaBencanaDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -6539,7 +6661,7 @@ export class MangsaWangIhsanServiceProxy {
      * @param body Create or edit object
      * @return Success
      */
-    multipleCreateMangsaBwi(body: InputCreateMultipleWangIhsanDto): Observable<InputCreateMultipleWangIhsanDto> {
+    multipleCreateMangsaBwi(body: InputCreateMultipleWangIhsanDto): Observable<OutputCreateMangsaBwiDto> {
         let url_ = this.baseUrl + "/api/mangsaWangIhsan/multipleCreateMangsaBwi";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -6562,14 +6684,14 @@ export class MangsaWangIhsanServiceProxy {
                 try {
                     return this.processMultipleCreateMangsaBwi(<any>response_);
                 } catch (e) {
-                    return <Observable<InputCreateMultipleWangIhsanDto>><any>_observableThrow(e);
+                    return <Observable<OutputCreateMangsaBwiDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<InputCreateMultipleWangIhsanDto>><any>_observableThrow(response_);
+                return <Observable<OutputCreateMangsaBwiDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processMultipleCreateMangsaBwi(response: HttpResponseBase): Observable<InputCreateMultipleWangIhsanDto> {
+    protected processMultipleCreateMangsaBwi(response: HttpResponseBase): Observable<OutputCreateMangsaBwiDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -6580,7 +6702,7 @@ export class MangsaWangIhsanServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = InputCreateMultipleWangIhsanDto.fromJS(resultData200);
+            result200 = OutputCreateMangsaBwiDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status === 500) {
@@ -6592,7 +6714,7 @@ export class MangsaWangIhsanServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<InputCreateMultipleWangIhsanDto>(<any>null);
+        return _observableOf<OutputCreateMangsaBwiDto>(<any>null);
     }
 }
 
@@ -25139,6 +25261,42 @@ export interface IGetMangsaAirForViewDto {
     nama_hubungan: string;
 }
 
+export class OutputCreateMangsaAirDto implements IOutputCreateMangsaAirDto {
+    message!: string;
+
+    constructor(data?: IOutputCreateMangsaAirDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.message = _data["message"];
+        }
+    }
+
+    static fromJS(data: any): OutputCreateMangsaAirDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new OutputCreateMangsaAirDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["message"] = this.message;
+        return data; 
+    }
+}
+
+export interface IOutputCreateMangsaAirDto {
+    message: string;
+}
+
 /** MangsaAir List in Tabular model */
 export class PagedResultDtoOfMangsaAirForViewDto implements IPagedResultDtoOfMangsaAirForViewDto {
     /** Total Count */
@@ -27935,6 +28093,42 @@ export interface IInputTotalWangIhsanDto {
     bil_dibayar: number;
     jumlah_dipulangkan: number;
     bil_dipulangkan: number;
+}
+
+export class OutputCreateMangsaBwiDto implements IOutputCreateMangsaBwiDto {
+    message!: string;
+
+    constructor(data?: IOutputCreateMangsaBwiDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.message = _data["message"];
+        }
+    }
+
+    static fromJS(data: any): OutputCreateMangsaBwiDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new OutputCreateMangsaBwiDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["message"] = this.message;
+        return data; 
+    }
+}
+
+export interface IOutputCreateMangsaBwiDto {
+    message: string;
 }
 
 /** MangsaWangIhsan List in Tabular model */

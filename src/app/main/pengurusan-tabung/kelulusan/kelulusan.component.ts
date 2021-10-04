@@ -128,7 +128,7 @@ export class KelulusanComponent implements OnInit {
   deleteConfirmation(id?) {
 		swalWarning.fire({
 			title: 'Anda Pasti?',
-			text: 'Adakah anda pasti ingin membuang maklumat kelulusan bayaran ini?',
+			text: 'Adakah anda pasti ingin memadam maklumat Kelulusan Bayaran ini?',
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
@@ -141,7 +141,7 @@ export class KelulusanComponent implements OnInit {
             swalWarning.fire('Makluman', 'Kelulusan Sudah Mempunyai Pembayaran');
           }
           else{
-            swalSuccess.fire('Berjaya!', 'Maklumat Kelulusan Bayaran Berjaya Dibuang');
+            swalSuccess.fire('Berjaya!', 'Maklumat Kelulusan Bayaran Berjaya Dipadam');
             this.getTabungKelulusanList();
           }
 
