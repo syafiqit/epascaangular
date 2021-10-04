@@ -3,7 +3,8 @@ import { NgbActiveModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
-import { finalize } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { TabungKelulusanServiceProxy } from 'src/app/shared/proxy/service-proxies';
 
@@ -24,6 +25,7 @@ export class PilihRujukanKelulusanComponent implements OnInit {
   filter: string;
   filterTabung: number;
   filterJenisBencana: number;
+  terms$ = new Subject<string>();
 
 	constructor(
     config: NgbModalConfig,
@@ -35,7 +37,18 @@ export class PilihRujukanKelulusanComponent implements OnInit {
 		this.primengTableHelper = new PrimengTableHelper();
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+    this.terms$.pipe(
+      debounceTime(500), distinctUntilChanged()
+    ).subscribe((filterValue: string) =>{
+      this.filter = filterValue;
+      this.getKelulusan();
+    });
+  }
+
+  applyFilter(filterValue: string){
+    this.terms$.next(filterValue);
+  }
 
 	getKelulusan(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {

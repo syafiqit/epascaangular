@@ -188,19 +188,14 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
           swalError.fire('Tidak Berjaya!', this.output.message, 'error');
         }
 			});
-    } else {
+    } else if(this.idBayaranTerus){
       this.tabungBayaranTerusServiceProxy
 			.createOrEdit(this.bayaranTerus)
 			.pipe()
 			.subscribe((result) => {
-        this.output.message = result.message;
-        if(this.output.message == "Tabung Bayaran Terus Berjaya Ditambah"){
           swalSuccess.fire('Berjaya!', 'Maklumat Bayaran Secara Terus Berjaya Dikemaskini.', 'success').then(() => {
             this.router.navigateByUrl('/app/tabung/bayaran-terus/senarai');
           });
-        }else{
-          swalError.fire('Tidak Berjaya!', this.output.message, 'error');
-        }
 			});
     }
   }

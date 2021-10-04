@@ -86,20 +86,14 @@
 
 		<div class="row">
 			<div class="col-lg-12">
-				<label>Catatan*</label>
+				<label>Catatan</label>
 				<textarea
           class="form-control"
           name="catatan"
           [(ngModel)]="peruntukan.catatan"
-          #catatanPeruntukan="ngModel"
-          [ngClass]="{ 'is-invalid': f.submitted && catatanPeruntukan.invalid }"
           placeholder="Catatan"
-          required
           rows="3"
         ></textarea>
-        <div *ngIf="f.submitted && catatanPeruntukan.invalid" class="invalid-feedback">
-          <div *ngIf="catatanPeruntukan.errors.required">Catatan Wajib Diisi</div>
-        </div>
 			</div>
 		</div>
   </div>
