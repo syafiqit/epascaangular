@@ -8,6 +8,7 @@ import { finalize } from 'rxjs/operators';
 import { MangsaWangIhsanServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import { TambahEditBantuanWangIhsanComponent } from './tambah-edit-bantuan-wang-ihsan/tambah-edit-bantuan-wang-ihsan.component';
 import { AppSessionService } from '@app/shared/services/app-session.service';
+import { swalError, swalSuccess, swalWarning } from '@app/shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-bantuan-wang-ihsan',

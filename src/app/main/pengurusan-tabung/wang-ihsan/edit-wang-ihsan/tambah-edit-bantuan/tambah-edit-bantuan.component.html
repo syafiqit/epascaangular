@@ -116,21 +116,29 @@
     >
       <ng-template pTemplate="header">
         <tr>
-          <th style="width: 100px" pSortableColumn="nama_negeri">
+          <th style="width: 110px" pSortableColumn="nama_negeri">
             Negeri
             <p-sortIcon field="nama_negeri"></p-sortIcon>
           </th>
-          <th style="width: 100px" pSortableColumn="nama_daerah">
+          <th style="width: 120px" pSortableColumn="nama_daerah">
             Daerah
             <p-sortIcon field="nama_daerah"></p-sortIcon>
           </th>
-          <th style="width: 135px" pSortableColumn="jumlah_bwi">
+          <th style="width: 170px" pSortableColumn="jumlah_bwi">
             Jumlah Diberikan
             <p-sortIcon field="jumlah_bwi"></p-sortIcon>
           </th>
-          <th style="width: 150px" pSortableColumn="jumlah_dipulangkan">
+          <th style="width: 190px" pSortableColumn="jumlah_dipulangkan">
             Jumlah Dipulangkan
             <p-sortIcon field="jumlah_dipulangkan"></p-sortIcon>
+          </th>
+          <th style="width: 210px" pSortableColumn="jumlah_belum_dibayar">
+            Jumlah Belum Dibayar
+            <p-sortIcon field="jumlah_belum_dibayar"></p-sortIcon>
+          </th>
+          <th style="width: 155px" pSortableColumn="jumlah_dibayar">
+            Jumlah Dibayar
+            <p-sortIcon field="jumlah_dibayar"></p-sortIcon>
           </th>
           <th style="width: 100px" pSortableColumn="bil_kir">
             Bil. KIR
@@ -141,22 +149,32 @@
       </ng-template>
       <ng-template pTemplate="body" let-record="$implicit">
         <tr>
-          <td style="width: 100px">
+          <td style="width: 110px">
             <span class="p-column-title">Negeri</span>
             {{record.nama_negeri}}
           </td>
-          <td style="width: 100px">
+          <td style="width: 120px">
             <span class="p-column-title">Daerah</span>
             {{record.nama_daerah}}
           </td>
-          <td style="width: 135px">
+          <td style="width: 170px">
             <span class="p-column-title">Jumlah Diberikan</span>
             RM {{record.jumlah_bwi}}
           </td>
-          <td style="width: 150px">
+          <td style="width: 190px">
             <span class="p-column-title">Jumlah Dipulangkan</span>
             <label *ngIf="record.jumlah_dipulangkan">RM {{record.jumlah_dipulangkan}}</label>
             <label *ngIf="!record.jumlah_dipulangkan">RM 0.00</label>
+          </td>
+          <td style="width: 210px">
+            <span class="p-column-title">Jumlah Belum Dibayar</span>
+            <label *ngIf="record.jumlah_belum_dibayar">RM {{record.jumlah_belum_dibayar}}</label>
+            <label *ngIf="!record.jumlah_belum_dibayar">RM 0.00</label>
+          </td>
+          <td style="width: 155px">
+            <span class="p-column-title">Jumlah Dibayar</span>
+            <label *ngIf="record.jumlah_dibayar">RM {{record.jumlah_dibayar}}</label>
+            <label *ngIf="!record.jumlah_dibayar">RM 0.00</label>
           </td>
           <td style="width: 100px">
             <span class="p-column-title">Bil. KIR</span>
