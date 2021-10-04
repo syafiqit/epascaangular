@@ -37,6 +37,7 @@
                     name="jumlahPeruntukan"
                     placeholder="Jumlah Peruntukan"
                     [(ngModel)]="peruntukan.jumlah"
+                    (keyup)="kiraJumlah()"
                 />
             </div>
         </div>
@@ -46,7 +47,7 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label>Jumlah Siling Peruntukan Baru: </label>
-                <a style="font-weight: bold;"> RM {{peruntukan.jumlah ? baki_jumlah_siling - peruntukan.jumlah : 0 | number: '1.2-2'}}</a>
+                <a style="font-weight: bold;"> RM {{jumlahBaru | number: '1.2-2'}}</a>
             </div>
         </div>
     </div>

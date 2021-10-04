@@ -14,6 +14,7 @@ export class PeruntukanDiambilComponent implements OnInit {
 
   saving:any;
   peruntukan: CreateOrEditTabungKelulusanAmbilanDto = new CreateOrEditTabungKelulusanAmbilanDto();
+  jumlahBaru = 0;
 
   constructor(
     config: NgbModalConfig,
@@ -37,6 +38,10 @@ export class PeruntukanDiambilComponent implements OnInit {
 
       });
     }
+  }
+
+  kiraJumlah(){
+    this.jumlahBaru =  this.baki_jumlah_siling - this.peruntukan.jumlah
   }
 
   save(): void {
