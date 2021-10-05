@@ -1,9 +1,8 @@
 <div class="row justify-content-end">
   <div class="col-lg-2 pr-0">
-    <select class="form-control digits">
-      <option value='1'>2021</option>
-      <option value='2'>2020</option>
-      <option value='2'>2019</option>
+    <select class="form-control" [(ngModel)]="filterYear" (change)="getPeruntukanDiambil()">
+      <option selected disabled [value]="undefined">Sila Pilih</option>
+      <option *ngFor="let year of arrayYear">{{year}}</option>
     </select>
   </div>
 
@@ -24,7 +23,7 @@
         #dataTable
         styleClass="p-datatable-striped"
         [resizableColumns]="true"
-        (onLazyLoad)="getSejarahBwi($event)"
+        (onLazyLoad)="getPeruntukanDiambil($event)"
         [value]="primengTableHelper.records"
         rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
         [paginator]="false"
@@ -81,7 +80,7 @@
         <p-paginator
           [rows]="primengTableHelper.defaultRecordsCountPerPage"
           #paginator
-          (onPageChange)="getSejarahBwi($event)"
+          (onPageChange)="getPeruntukanDiambil($event)"
           [totalRecords]="primengTableHelper.totalRecordsCount"
           [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
         ></p-paginator>
