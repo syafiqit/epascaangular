@@ -6,13 +6,11 @@ import { Paginator } from 'primeng/paginator';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { LazyLoadEvent } from 'primeng/api';
 import {
-  GetMangsaForEditDto,
   MangsaAirServiceProxy,
-  MangsaServiceProxy,
   OutputCreateMangsaAirDto
 } from 'src/app/shared/proxy/service-proxies';
 import { finalize } from 'rxjs/operators';
-import { swalError, swalSuccess, swalWarning } from '@shared/sweet-alert/swal-constant';
+import { swalSuccess, swalWarning } from '@shared/sweet-alert/swal-constant';
 import { AppSessionService } from '@app/shared/services/app-session.service';
 
 @Component({
@@ -23,6 +21,8 @@ import { AppSessionService } from '@app/shared/services/app-session.service';
 })
 export class AhliRumahMangsaComponent implements OnInit {
   @Input() public idMangsa: number;
+  @Input() public nama: string;
+  @Input() public no_kp: string;
 
 	@ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
@@ -34,28 +34,18 @@ export class AhliRumahMangsaComponent implements OnInit {
   filter: string;
   mangsaId: any;
   victims: any;
-  getMangsa: GetMangsaForEditDto = new GetMangsaForEditDto();
   output: OutputCreateMangsaAirDto = new OutputCreateMangsaAirDto();
 
 	constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,
     private _mangsaAirServiceProxy: MangsaAirServiceProxy,
-    private _mangsaServiceProxy: MangsaServiceProxy,
     public _appSession: AppSessionService
     ) {
 		this.primengTableHelper = new PrimengTableHelper();
 	}
 
-	ngOnInit(): void {
-    this.show();
-  }
-
-	show(): void {
-		this._mangsaServiceProxy.getMangsaForEdit(this.idMangsa).subscribe((result) => {
-			this.getMangsa = result;
-		});
-	}
+	ngOnInit(): void {}
 
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());

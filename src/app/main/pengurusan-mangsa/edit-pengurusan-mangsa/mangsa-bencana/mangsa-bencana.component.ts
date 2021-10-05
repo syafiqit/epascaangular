@@ -6,9 +6,7 @@ import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import {
-  GetMangsaForEditDto,
   MangsaBencanaServiceProxy,
-  MangsaServiceProxy,
   OutputCreateMangsaBencanaDto
 } from 'src/app/shared/proxy/service-proxies';
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
@@ -24,6 +22,9 @@ import { AppSessionService } from '@app/shared/services/app-session.service';
 })
 export class MangsaBencanaComponent implements OnInit {
   @Input() public idMangsa: number;
+  @Input() public nama: string;
+  @Input() public no_kp: string;
+  @Input() public id_negeri: number;
 
   @ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
@@ -32,22 +33,18 @@ export class MangsaBencanaComponent implements OnInit {
 
   filter: string;
   terms$ = new Subject<string>();
-  getMangsa: GetMangsaForEditDto = new GetMangsaForEditDto();
   output: OutputCreateMangsaBencanaDto = new OutputCreateMangsaBencanaDto();
 
 	constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,
     private _mangsaBencanaServiceProxy: MangsaBencanaServiceProxy,
-    private _mangsaServiceProxy: MangsaServiceProxy,
     public _appSession: AppSessionService
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
 	}
 
 	ngOnInit(): void {
-    this.show();
-
     this.terms$.pipe(
       debounceTime(500), distinctUntilChanged()
     ).subscribe((filterValue: string) =>{
@@ -59,12 +56,6 @@ export class MangsaBencanaComponent implements OnInit {
   applyFilter(filterValue: string){
     this.terms$.next(filterValue);
   }
-
-	show(): void {
-		this._mangsaServiceProxy.getMangsaForEdit(this.idMangsa).subscribe((result) => {
-			this.getMangsa = result;
-		});
-	}
 
 	getDisaster(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
@@ -101,7 +92,7 @@ export class MangsaBencanaComponent implements OnInit {
 	addVictimDisasterModal() {
 		const modalRef = this.modalService.open(TambahEditMangsaBencanaComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
-    modalRef.componentInstance.id_negeri = this.getMangsa.mangsa.id_negeri;
+    modalRef.componentInstance.id_negeri = this.id_negeri;
 
 		modalRef.result.then((response) => {
 			if (response) {
@@ -113,7 +104,7 @@ export class MangsaBencanaComponent implements OnInit {
 	editVictimDisasterModal(id) {
 		const modalRef = this.modalService.open(TambahEditMangsaBencanaComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'edit';
-    modalRef.componentInstance.id_negeri = this.getMangsa.mangsa.id_negeri;
+    modalRef.componentInstance.id_negeri = this.id_negeri;
 
 		modalRef.componentInstance.id = id;
 		modalRef.result.then((response) => {

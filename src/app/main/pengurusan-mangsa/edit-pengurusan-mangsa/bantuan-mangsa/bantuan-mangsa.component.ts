@@ -1,8 +1,7 @@
-import { Component, OnInit, Input, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AppSessionService } from '@app/shared/services/app-session.service';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { GetMangsaForEditDto, MangsaServiceProxy } from 'src/app/shared/proxy/service-proxies';
 
 @Component({
 	selector: 'app-bantuan-mangsa',
@@ -12,15 +11,14 @@ import { GetMangsaForEditDto, MangsaServiceProxy } from 'src/app/shared/proxy/se
 })
 export class BantuanMangsaComponent implements OnInit {
   @Input() public idMangsa: number;
+  @Input() public nama: string;
+  @Input() public no_kp: string;
 
-  getMangsa: GetMangsaForEditDto = new GetMangsaForEditDto();
-
-	active = 1;
+  active = 1;
   id = undefined;
 
 	constructor(
     private _activatedRoute: ActivatedRoute,
-    private _mangsaServiceProxy: MangsaServiceProxy,
     public _appSession: AppSessionService
   ) {
     this._activatedRoute.queryParams.subscribe((p) => {
@@ -28,14 +26,6 @@ export class BantuanMangsaComponent implements OnInit {
 		});
 	}
 
-	ngOnInit(): void {
-    this.show();
-  }
-
-	show(): void {
-		this._mangsaServiceProxy.getMangsaForEdit(this.idMangsa).subscribe((result) => {
-			this.getMangsa = result;
-		});
-	}
+	ngOnInit(): void {}
 
 }
