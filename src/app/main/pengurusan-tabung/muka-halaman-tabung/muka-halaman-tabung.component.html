@@ -4,181 +4,196 @@
 	[active_item]="'Pengurusan Tabung'"
 ></app-breadcrumb>
 <div class="container-fluid">
-  <div class="card">
-    <div class="card-body">
-      <div class="row">
-        <div class="col-lg-4">
-          <div class="form-group">
-            <label>Tahun</label>
-            <select class="form-control" [(ngModel)]="year">
-              <option selected disabled [value]="undefined">Sila Pilih</option>
-              <option *ngFor="let year of arrayYear">{{year}}</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="col-lg-2 pr-1">
-          <div class="form-group custom-datepicker custom-datepicker-dropdown">
-            <label>Tarikh</label>
-            <div class="input-group">
-              <input
-                class="form-control"
-                placeholder="DD/MM/YYYY"
-                name="dp1"
-                [(ngModel)]="tarikhMula"
-                ngbDatepicker
-                #b="ngbDatepicker"
-                style="border: 1px solid #efefef !important;"
-                (ngModelChange)="pilihTarikhMula()"
-              >
-              <div class="input-group-append">
-                <button class="btn btn-light pr-2 pl-2" (click)="b.toggle()" type="button"><i
-                  class="fa fa-calendar"></i></button>
-              </div>
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="card bg-primary shadow-sm shadow-showcase">
+        <div class="card-body" style="cursor: pointer;">
+          <div class="media static-top-widget">
+            <div class="media-body">
+              <i
+                class="icon-bg"
+                data-feather="dollar-sign"
+              ></i>
             </div>
           </div>
-        </div>
-
-        <div class="col-lg-2 pl-1">
-          <div class="form-group custom-datepicker custom-datepicker-dropdown">
-            <div class="input-group pt-4 mt-1">
-              <input
-                class="form-control"
-                placeholder="DD/MM/YYYY"
-                name="dp2"
-                [(ngModel)]="tarikhTamat"
-                ngbDatepicker
-                #c="ngbDatepicker"
-                style="border: 1px solid #efefef !important;"
-                [disabled]="!chooseFromDate"
-              >
-              <div class="input-group-append">
-                <button class="btn btn-light pr-2 pl-2" (click)="c.toggle()" type="button" [disabled]="!chooseFromDate"><i
-                  class="fa fa-calendar"></i></button>
-              </div>
-            </div>
+          <div class="row justify-content-center">
+            <label>Jumlah Keseluruhan Semasa</label>
           </div>
-        </div>
 
-        <div class="col-lg-4">
-          <div class="form-group">
-            <label>Tabung</label>
-            <ng-select
-              [items]="funds"
-              bindLabel="nama_tabung"
-              bindValue="id"
-              placeholder="Sila Pilih"
-              class="js-example-placeholder-multiple"
-              name="namaTabung"
-              [(ngModel)]="filterTabung"
-            ></ng-select>
+          <div class="row justify-content-center">
+            <h4 *ngIf="jumlah_keseluruhan">RM {{jumlah_keseluruhan | number: '1.2-2'}}</h4>
+            <h4 *ngIf="!jumlah_keseluruhan">RM 0.00</h4>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="row no-gutters justify-content-end">
-        <button
-          class="btn btn-light mr-2"
-          type="button"
-          (click)="resetFilter()"
-        >
-        <i class="fa fa-refresh mr-2"></i>
-          <b>Reset</b>
-        </button>
+    <div class="col-lg-4">
+      <div class="card bg-primary shadow-sm shadow-showcase">
+        <div class="card-body" style="cursor: pointer;">
+          <div class="media static-top-widget">
+            <div class="media-body">
+              <i
+                class="icon-bg"
+                data-feather="credit-card"
+              ></i>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <label>Jumlah Bayaran Semasa</label>
+          </div>
 
-        <button
-          class="btn btn-primary pull-right"
-          type="button"
-          (click)="getFilter()"
-        >
-        <i class="fa fa-search mr-2"></i>
-          <b>Cari</b>
-        </button>
+          <div class="row justify-content-center">
+            <h4 *ngIf="jumlah_perbelanjaan_semasa">RM {{jumlah_perbelanjaan_semasa | number: '1.2-2'}}</h4>
+            <h4 *ngIf="!jumlah_perbelanjaan_semasa">RM 0.00</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card bg-primary shadow-sm shadow-showcase">
+        <div class="card-body" style="cursor: pointer;">
+          <div class="media static-top-widget">
+            <div class="media-body">
+              <i
+                class="icon-bg"
+                data-feather="inbox"
+              ></i>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <label>Jumlah Tanggungan Semasa</label>
+          </div>
+          <div class="row justify-content-center">
+            <h4 *ngIf="jumlah_tanggungan">RM {{jumlah_tanggungan | number: '1.2-2'}}</h4>
+            <h4 *ngIf="!jumlah_tanggungan">RM 0.00</h4>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-	<div class="card">
-    <div class="card-body pb-4">
+  <div class="card">
+    <div class="card-body p-4">
       <div class="row">
-        <div class="col-lg-6 col-sm-4 col-xs-6">
-          <div class="card bg-primary">
-            <div class="media static-top-widget">
-              <div class="media-body">
-              </div>
-            </div>
-            <div class="card-body" style="background-color:#7945cb;text-align:end; padding:20px; border-radius:8px; cursor: pointer;">
-              <div class="row">
-                <div class="col-12" style="font-size:30px">
-                  <a style="font-weight:500">RM {{overallTotal | number: '1.2-2'}}</a>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <label style="font-size: 15px; color:#e6d3ff;">Jumlah Baki Keseluruhan</label>
-                </div>
-              </div>
-            </div>
+        <div class="col justify-content-start">
+          <h5 class="mb-0"><span style="line-height: 29pt;">{{nama_tabung | uppercase}}</span></h5>
+        </div>
+        <div class="col justify-content-end pull-right">
+          <div class="card-header-right-icon">
+            <button
+              type="button"
+              class="btn btn-primary pull-right"
+              (click)="isCollapsed = !isCollapsed"
+              [attr.aria-expanded]="!isCollapsed"
+              aria-controls="collapseExample"
+              ngbTooltip="Carian Lanjut"
+              style="font-weight: 500"
+            >
+              <i class="fa fa-filter"></i>
+            </button>
           </div>
         </div>
+      </div>
 
-        <div class="col-lg-6 col-sm-4 col-xs-6">
-          <div class="card bg-primary">
-            <div class="media static-top-widget">
-              <div class="media-body">
-              </div>
-            </div>
-            <div class="card-body" style="background-color:#7945cb;text-align:end; padding:20px; border-radius:8px; cursor: pointer;">
-              <div class="row">
-                <div class="col-12" style="font-size:30px">
-                  <a style="font-weight:500">RM {{expendTotal | number: '1.2-2'}}</a>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <label style="font-size: 15px; color:#e6d3ff;">Jumlah Perbelanjaan</label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row">
+            <div class="col-lg-12">
+              <div id="collapseExample" [ngbCollapse]="!isCollapsed">
+                <div class="row mt-2 pr-3 pl-3">
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label>Tahun</label>
+                      <ng-select
+                        [items]="arrayYear"
+                        bindLabel="years"
+                        bindValue="years"
+                        placeholder="Sila Pilih"
+                        class="js-example-placeholder-multiple"
+                        name="tahunTabung"
+                        [(ngModel)]="filterYear"
+                      ></ng-select>
+                    </div>
+                  </div>
 
-        <div class="col-lg-6 col-sm-4 col-xs-6">
-          <div class="card bg-primary">
-            <div class="media static-top-widget">
-              <div class="media-body">
-              </div>
-            </div>
-            <div class="card-body" style="background-color:#7945cb;text-align:end; padding:20px; border-radius:8px; cursor: pointer;">
-              <div class="row">
-                <div class="col-12" style="font-size:30px">
-                  <a style="font-weight:500">RM {{dependTotal | number: '1.2-2'}}</a>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <label style="font-size: 15px; color:#e6d3ff;">Jumlah Tanggungan</label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+                  <div class="col-lg-2 pr-1">
+                    <div class="form-group custom-datepicker custom-datepicker-dropdown">
+                      <label>Tarikh</label>
+                      <div class="input-group">
+                        <input
+                          class="form-control"
+                          placeholder="DD/MM/YYYY"
+                          name="dp1"
+                          [(ngModel)]="tarikhMula"
+                          ngbDatepicker
+                          #b="ngbDatepicker"
+                          style="border: 1px solid #efefef !important;"
+                        >
+                        <div class="input-group-append">
+                          <button class="btn btn-light pr-2 pl-2" (click)="b.toggle()" type="button"><i
+                            class="fa fa-calendar"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
-        <div class="col-lg-6 col-sm-4 col-xs-6">
-          <div class="card bg-primary">
-            <div class="media static-top-widget">
-              <div class="media-body">
-              </div>
-            </div>
-            <div class="card-body" style="background-color:#7945cb;text-align:end; padding:20px; border-radius:8px; cursor: pointer;">
-              <div class="row">
-                <div class="col-12">
-                  <a style="font-weight:500; font-size: 30px;">RM {{netTotal | number: '1.2-2'}}</a>
+                  <div class="col-lg-2 pl-1">
+                    <div class="form-group custom-datepicker custom-datepicker-dropdown">
+                      <div class="input-group pt-4 mt-1">
+                        <input
+                          class="form-control"
+                          placeholder="DD/MM/YYYY"
+                          name="dp2"
+                          [(ngModel)]="tarikhTamat"
+                          ngbDatepicker
+                          #c="ngbDatepicker"
+                          style="border: 1px solid #efefef !important;"
+                          [disabled]="tarikhMula == undefined"
+                        >
+                        <div class="input-group-append">
+                          <button class="btn btn-light pr-2 pl-2" (click)="c.toggle()" type="button" [disabled]="tarikhMula == undefined"><i
+                            class="fa fa-calendar"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label>Tabung</label>
+                      <ng-select
+                        [items]="funds"
+                        bindLabel="nama_tabung"
+                        bindValue="id"
+                        placeholder="Sila Pilih"
+                        class="js-example-placeholder-multiple"
+                        name="namaTabung"
+                        [(ngModel)]="filterTabung"
+                      ></ng-select>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <label style="font-size: 15px; color:#e6d3ff;">Jumlah Baki Bersih</label>
+
+                <div class="row no-gutters justify-content-end pr-3 mb-2">
+                  <button
+                    class="btn btn-light mr-2"
+                    type="button"
+                    (click)="resetFilter()"
+                  >
+                  <i class="fa fa-refresh mr-2"></i>
+                    <b>Reset</b>
+                  </button>
+
+                  <button
+                    class="btn btn-primary pull-right"
+                    type="button"
+                    (click)="getFilter()"
+                  >
+                  <i class="fa fa-search mr-2"></i>
+                    <b>Cari</b>
+                  </button>
                 </div>
               </div>
             </div>
@@ -186,7 +201,93 @@
         </div>
       </div>
     </div>
-	</div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6 col-sm-4 col-xs-6">
+      <div class="card bg-primary">
+        <div class="media static-top-widget">
+          <div class="media-body">
+          </div>
+        </div>
+        <div class="card-body" style="text-align:end; padding:20px; cursor: pointer;">
+          <div class="row">
+            <div class="col-12" style="font-size:30px">
+              <a style="font-weight:500">RM {{overallTotal | number: '1.2-2'}}</a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <label style="font-size: 15px; color:#e6d3ff;">Jumlah Keseluruhan</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-sm-4 col-xs-6">
+      <div class="card bg-primary">
+        <div class="media static-top-widget">
+          <div class="media-body">
+          </div>
+        </div>
+        <div class="card-body" style="text-align:end; padding:20px; cursor: pointer;">
+          <div class="row">
+            <div class="col-12" style="font-size:30px">
+              <a style="font-weight:500">RM {{expendTotal | number: '1.2-2'}}</a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <label style="font-size: 15px; color:#e6d3ff;">Jumlah Perbelanjaan</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-sm-4 col-xs-6">
+      <div class="card bg-primary">
+        <div class="media static-top-widget">
+          <div class="media-body">
+          </div>
+        </div>
+        <div class="card-body" style="text-align:end; padding:20px; cursor: pointer;">
+          <div class="row">
+            <div class="col-12" style="font-size:30px">
+              <a style="font-weight:500">RM {{dependTotal | number: '1.2-2'}}</a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <label style="font-size: 15px; color:#e6d3ff;">Jumlah Tanggungan</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-sm-4 col-xs-6">
+      <div class="card bg-primary">
+        <div class="media static-top-widget">
+          <div class="media-body">
+          </div>
+        </div>
+        <div class="card-body" style="text-align:end; padding:20px; cursor: pointer;">
+          <div class="row">
+            <div class="col-12">
+              <a style="font-weight:500; font-size: 30px;">RM {{netTotal | number: '1.2-2'}}</a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <label style="font-size: 15px; color:#e6d3ff;">Jumlah Baki Bersih</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 	<div class="row">
 		<div class="col-lg-12">

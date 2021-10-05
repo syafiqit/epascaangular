@@ -207,7 +207,7 @@ export class EditSkbComponent implements OnInit {
 	}
 
   addBulanan(id_tabung_bayaran_skb) {
-		const modalRef = this.modalService.open(TambahBelanjaBulanan, { size: 'md' });
+		const modalRef = this.modalService.open(TambahBelanjaBulanan, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
     modalRef.componentInstance.kategori = 2;
     modalRef.componentInstance.id_tabung_bayaran_skb = id_tabung_bayaran_skb;
@@ -231,7 +231,7 @@ export class EditSkbComponent implements OnInit {
   }
 
   editBulanan(id, id_tabung_bayaran_skb) {
-		const modalRef = this.modalService.open(TambahBelanjaBulanan, { size: 'md' });
+		const modalRef = this.modalService.open(TambahBelanjaBulanan, { size: 'lg' });
 		modalRef.componentInstance.name = 'edit';
 		modalRef.componentInstance.id = id;
 		modalRef.componentInstance.id_tabung_bayaran_skb = id_tabung_bayaran_skb;

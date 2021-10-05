@@ -22,83 +22,44 @@
           </button>
         </div>
       </div>
-      <div class="row mt-2 no-gutters">
+      <div class="row">
         <div class="col-lg-12">
-          <div class="row no-gutters">
+          <div class="row">
             <div class="col-lg-12">
               <div id="collapseExample" [ngbCollapse]="!isCollapsed">
-                <div class="row">
-                  <!-- <div class="col-lg-2">
-                    <div class="form-group">
-                      <label>Tahun</label>
-                      <select class="form-control">
-                        <option selected disabled [value]="undefined">Sila Pilih</option>
-                        <option *ngFor="let year of arrayYear">{{year}}</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-2 pr-1">
-                    <div class="form-group custom-datepicker custom-datepicker-dropdown">
-                      <label>Tarikh</label>
-                      <div class="input-group">
-                        <input
-                          class="form-control"
-                          placeholder="yyyy-mm-dd"
-                          name="dp1"
-                          ngbDatepicker
-                          #d="ngbDatepicker"
-                          style="border: 1px solid #efefef !important;"
-                        >
-                        <div class="input-group-append">
-                          <button class="btn btn-light pr-2 pl-2" (click)="d.toggle()" type="button"><i
-                            class="fa fa-calendar"></i></button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-2 pl-1">
-                    <div class="form-group custom-datepicker custom-datepicker-dropdown">
-                      <div class="input-group pt-4 mt-1">
-                        <input
-                          class="form-control"
-                          placeholder="yyyy-mm-dd"
-                          name="dp2"
-                          ngbDatepicker
-                          #a="ngbDatepicker"
-                          style="border: 1px solid #efefef !important;"
-                        >
-                        <div class="input-group-append">
-                          <button class="btn btn-light pr-2 pl-2" (click)="a.toggle()" type="button"><i
-                            class="fa fa-calendar"></i></button>
-                        </div>
-                      </div>
-                    </div>
-                  </div> -->
-
-                  <div class="col-lg-6">
+                <div class="row mt-2 pr-3 pl-3">
+                  <div class="col-lg-4">
                     <div class="form-group">
                       <label>Bencana</label>
-                      <select class="form-control" [(ngModel)]="filterIdBencana">
-                        <option selected disabled [value]="undefined">Sila Pilih</option>
-                        <option *ngFor="let bencana of bencanaList" [value]="bencana.id">{{bencana.nama_bencana}}</option>
-                      </select>
+                      <ng-select
+                        [items]="bencanaList"
+                        bindLabel="nama_bencana"
+                        bindValue="id"
+                        placeholder="Sila Pilih"
+                        class="js-example-placeholder-multiple"
+                        name="namaBencana"
+                        [(ngModel)]="filterIdBencana"
+                      ></ng-select>
                     </div>
                   </div>
 
-                  <div class="col-lg-6">
+                  <div class="col-lg-4">
                     <div class="form-group">
                       <label>Negeri</label>
-                      <select class="form-control" [(ngModel)]="filterIdNegeri">
-                        <option selected disabled [value]="undefined">Sila Pilih</option>
-                        <option *ngFor="let negeri of states" [value]="negeri.id">{{negeri.nama_negeri}}</option>
-                      </select>
+                      <ng-select
+                        [items]="states"
+                        bindLabel="nama_negeri"
+                        bindValue="id"
+                        placeholder="Sila Pilih"
+                        class="js-example-placeholder-multiple"
+                        name="namaNegeri"
+                        [(ngModel)]="filterIdNegeri"
+                      ></ng-select>
                     </div>
                   </div>
                 </div>
 
-                <div class="row justify-content-end mb-2 pr-2">
+                <div class="row no-gutters justify-content-end mb-2 pr-2">
                   <button
                     class="btn btn-light mr-2"
                     type="button"
@@ -136,10 +97,10 @@
             <i class="icon-bg" data-feather="user"></i>
           </div>
         </div>
-        <div class="card-body" style="background-color:#145DB7;text-align:start; padding:20px; border-radius:8px">
+        <div class="card-body" style="text-align:start; padding:20px; cursor: pointer;">
           <div class="row">
             <div class="col-12">
-              <label style="color:#BBD9FF;">Jumlah Keseluruhan Mangsa</label>
+              <label>Jumlah Keseluruhan Mangsa</label>
             </div>
           </div>
           <div class="row">
@@ -149,7 +110,7 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <label style="color:#BBD9FF;">Kos Bantuan Keseluruhan</label>
+              <label>Kos Bantuan Keseluruhan</label>
             </div>
           </div>
           <div class="row">
@@ -167,10 +128,10 @@
             <i class="icon-bg" data-feather="dollar-sign"></i>
           </div>
         </div>
-        <div class="card-body" style="background-color:#145DB7;text-align:start; padding:20px; border-radius:8px">
+        <div class="card-body" style="text-align:start; padding:20px; cursor: pointer;">
           <div class="row">
             <div class="col-12">
-              <label style="color:#BBD9FF;">Jumlah Penerima Wang Ihsan</label>
+              <label>Jumlah Penerima Wang Ihsan</label>
             </div>
           </div>
           <div class="row">
@@ -180,7 +141,7 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <label style="color:#BBD9FF;">Jumlah Bantuan Wang Ihsan</label>
+              <label>Jumlah Bantuan Wang Ihsan</label>
             </div>
           </div>
           <div class="row">
@@ -198,10 +159,10 @@
             <i class="icon-bg" data-feather="box"></i>
           </div>
         </div>
-        <div class="card-body" style="background-color:#145DB7;text-align:start; padding:20px; border-radius:8px">
+        <div class="card-body" style="text-align:start; padding:20px; cursor: pointer;">
           <div class="row">
             <div class="col-12">
-              <label style="color:#BBD9FF;">Jumlah Pinjaman Khas</label>
+              <label>Jumlah Pinjaman Khas</label>
             </div>
           </div>
           <div class="row">
@@ -211,7 +172,7 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <label style="color:#BBD9FF;">Jumlah Bantuan Pinjaman Khas</label>
+              <label>Jumlah Bantuan Pinjaman Khas</label>
             </div>
           </div>
           <div class="row">
@@ -229,10 +190,10 @@
             <i class="icon-bg" data-feather="send"></i>
           </div>
         </div>
-        <div class="card-body" style="background-color:#145DB7;text-align:start; padding:20px; border-radius:8px">
+        <div class="card-body" style="text-align:start; padding:20px; cursor: pointer;">
           <div class="row">
             <div class="col-12">
-              <label style="color:#BBD9FF;">Jumlah Bantuan Antarabangsa</label>
+              <label>Jumlah Bantuan Antarabangsa</label>
             </div>
           </div>
           <div class="row">
@@ -242,7 +203,7 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <label style="color:#BBD9FF;">Jumlah Bantuan Antarabangsa</label>
+              <label>Jumlah Bantuan Antarabangsa</label>
             </div>
           </div>
           <div class="row">
@@ -260,10 +221,10 @@
             <i class="icon-bg" data-feather="triangle"></i>
           </div>
         </div>
-        <div class="card-body" style="background-color:#145DB7;text-align:start; padding:20px; border-radius:8px">
+        <div class="card-body" style="text-align:start; padding:20px; cursor: pointer;">
           <div class="row">
             <div class="col-12">
-              <label style="color:#BBD9FF;">Jumlah Rumah Dibaik Pulih</label>
+              <label>Jumlah Rumah Dibaik Pulih</label>
             </div>
           </div>
           <div class="row">
@@ -273,7 +234,7 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <label style="color:#BBD9FF;">Kos Baik Pulih Rumah</label>
+              <label>Kos Baik Pulih Rumah</label>
             </div>
           </div>
           <div class="row">
@@ -291,10 +252,10 @@
             <i class="icon-bg" data-feather="home"></i>
           </div>
         </div>
-        <div class="card-body" style="background-color:#145DB7;text-align:start; padding:20px; border-radius:8px">
+        <div class="card-body" style="text-align:start; padding:20px; cursor: pointer;">
           <div class="row">
             <div class="col-12">
-              <label style="color:#BBD9FF;">Jumlah Bina Rumah Kekal</label>
+              <label>Jumlah Bina Rumah Kekal</label>
             </div>
           </div>
           <div class="row">
@@ -304,7 +265,7 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <label style="color:#BBD9FF;">Kos Bina Rumah Kekal</label>
+              <label>Kos Bina Rumah Kekal</label>
             </div>
           </div>
           <div class="row">
@@ -322,10 +283,10 @@
             <i class="icon-bg" data-feather="droplet"></i>
           </div>
         </div>
-        <div class="card-body" style="background-color:#145DB7;text-align:start; padding:20px; border-radius:8px">
+        <div class="card-body" style="text-align:start; padding:20px; cursor: pointer;">
           <div class="row">
             <div class="col-12">
-              <label style="color:#BBD9FF;">Jumlah Bantuan Pertanian</label>
+              <label>Jumlah Bantuan Pertanian</label>
             </div>
           </div>
           <div class="row">
@@ -335,7 +296,7 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <label style="color:#BBD9FF;">Kos Bantuan</label>
+              <label>Kos Bantuan</label>
             </div>
           </div>
           <div class="row">
@@ -353,10 +314,10 @@
             <i class="icon-bg" data-feather="file-text"></i>
           </div>
         </div>
-        <div class="card-body" style="background-color:#145DB7;text-align:start; padding:20px; border-radius:8px">
+        <div class="card-body" style="text-align:start; padding:20px; cursor: pointer;">
           <div class="row">
             <div class="col-12">
-              <label style="color:#BBD9FF;">Jumlah Lain-Lain Bantuan</label>
+              <label>Jumlah Lain-Lain Bantuan</label>
             </div>
           </div>
           <div class="row">
@@ -366,7 +327,7 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <label style="color:#BBD9FF;">Kos Bantuan</label>
+              <label>Kos Bantuan</label>
             </div>
           </div>
           <div class="row">

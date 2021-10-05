@@ -126,7 +126,7 @@ export class TambahSkbComponent implements OnInit {
 	}
 
   addBulanan() {
-		const modalRef = this.modalService.open(TambahBelanjaBulanan, { size: 'md' });
+		const modalRef = this.modalService.open(TambahBelanjaBulanan, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
     modalRef.componentInstance.kategori = 1;
     modalRef.componentInstance.jumlah_baki_peruntukan = this.balance_peruntukan;
@@ -145,7 +145,7 @@ export class TambahSkbComponent implements OnInit {
 	}
 
   editBulanan(idBulan, tahun, bulan, id_bulan, jumlah) {
-		const modalRef = this.modalService.open(TambahBelanjaBulanan, { size: 'md' });
+		const modalRef = this.modalService.open(TambahBelanjaBulanan, { size: 'lg' });
 		modalRef.componentInstance.name = 'edit';
     modalRef.componentInstance.kategori = 1;
 		modalRef.componentInstance.idBulan = idBulan;
