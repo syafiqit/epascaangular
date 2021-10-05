@@ -5,85 +5,130 @@
 ></app-breadcrumb>
 <div class="container-fluid">
 	<div class="card">
-		<div class="card-body pl-2 pr-2 pt-4 pb-4">
-			<form>
-				<div class="row">
-					<div class="col-lg-3 m-auto">
-						<div class="form-group">
-							<label for="exampleFormControlInput1">Tahun</label>
-							<select class="form-control digits" id="exampleFormControlSelect9">
-								<option>Sila Pilih</option>
-								<option>2021</option>
-								<option>2020</option>
-								<option>2019</option>
-							</select>
-						</div>
-					</div>
+    <div class="card-header">
+      <div class="header-top">
+        <h6>Jumlah Mangsa Dan Bencana Mengikut Negeri</h6>
+        <div class="card-header-right-icon">
+          <button
+            type="button"
+            class="btn btn-primary pull-right"
+            (click)="isCollapsed = !isCollapsed"
+            [attr.aria-expanded]="!isCollapsed"
+            aria-controls="collapseExample"
+            ngbTooltip="Carian Lanjut"
+            style="font-weight: 500"
+          >
+            <i class="fa fa-filter"></i>
+          </button>
+        </div>
+      </div>
+      <div class="row mt-2 no-gutters">
+        <div class="col-lg-12">
+          <div class="row no-gutters">
+            <div class="col-lg-12">
+              <div id="collapseExample" [ngbCollapse]="!isCollapsed">
+                <div class="row">
+                  <!-- <div class="col-lg-2">
+                    <div class="form-group">
+                      <label>Tahun</label>
+                      <select class="form-control">
+                        <option selected disabled [value]="undefined">Sila Pilih</option>
+                        <option *ngFor="let year of arrayYear">{{year}}</option>
+                      </select>
+                    </div>
+                  </div>
 
-					<div class="col-lg-3">
-						<form class="form custom-datepicker custom-datepicker-dropdown">
-							<div class="form-group mb-0">
-								<label for="exampleFormControlInput1">Tarikh</label>
-								<div class="input-group">
-									<input
-										class="form-control"
-										placeholder="yyyy-mm-dd"
-										name="dp"
-										[(ngModel)]="modelFooter"
-										ngbDatepicker
-										[footerTemplate]="footerTemplate"
-										#f="ngbDatepicker"
-									/>
-									<div class="input-group-append">
-										<button class="btn calendar" (click)="f.toggle()" type="button">
-											<i class="fa fa-calendar"></i>
-										</button>
-									</div>
-								</div>
-							</div>
-						</form>
-						<ng-template #footerTemplate>
-							<hr class="my-0" />
-							<button class="btn btn-primary btn-sm m-2 float-left" (click)="model = today; f.close()">
-								Today
-							</button>
-							<button class="btn btn-secondary btn-sm m-2 float-right" (click)="f.close()">Close</button>
-						</ng-template>
-					</div>
+                  <div class="col-lg-2 pr-1">
+                    <div class="form-group custom-datepicker custom-datepicker-dropdown">
+                      <label>Tarikh</label>
+                      <div class="input-group">
+                        <input
+                          class="form-control"
+                          placeholder="yyyy-mm-dd"
+                          name="dp1"
+                          ngbDatepicker
+                          #d="ngbDatepicker"
+                          style="border: 1px solid #efefef !important;"
+                        >
+                        <div class="input-group-append">
+                          <button class="btn btn-light pr-2 pl-2" (click)="d.toggle()" type="button"><i
+                            class="fa fa-calendar"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
-					<div class="col-lg-3 m-auto">
-						<div class="form-group">
-							<label for="exampleFormControlInput1">Bencana</label>
-							<select class="form-control digits" id="exampleFormControlSelect9">
-								<option>Sila Pilih</option>
-								<option>Banjir</option>
-								<option>Covid-19</option>
-							</select>
-						</div>
-					</div>
+                  <div class="col-lg-2 pl-1">
+                    <div class="form-group custom-datepicker custom-datepicker-dropdown">
+                      <div class="input-group pt-4 mt-1">
+                        <input
+                          class="form-control"
+                          placeholder="yyyy-mm-dd"
+                          name="dp2"
+                          ngbDatepicker
+                          #a="ngbDatepicker"
+                          style="border: 1px solid #efefef !important;"
+                        >
+                        <div class="input-group-append">
+                          <button class="btn btn-light pr-2 pl-2" (click)="a.toggle()" type="button"><i
+                            class="fa fa-calendar"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div> -->
 
-					<div class="col-lg-1 mt-4 mr-5">
-						<button class="btn btn-primary justify-content-end mr-3" style="margin-top:5px" type="button">Cari</button>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
-	<div class="card">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Bencana</label>
+                      <select class="form-control" [(ngModel)]="filterIdBencana">
+                        <option selected disabled [value]="undefined">Sila Pilih</option>
+                        <option *ngFor="let bencana of bencanaList" [value]="bencana.id">{{bencana.nama_bencana}}</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Negeri</label>
+                      <select class="form-control" [(ngModel)]="filterIdNegeri">
+                        <option selected disabled [value]="undefined">Sila Pilih</option>
+                        <option *ngFor="let negeri of states" [value]="negeri.id">{{negeri.nama_negeri}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row justify-content-end mb-2 pr-2">
+                  <button
+                    class="btn btn-light mr-2"
+                    type="button"
+                    (click)="resetMap()"
+                  >
+                  <i class="fa fa-refresh mr-2"></i>
+                    <b>Reset</b>
+                  </button>
+
+                  <button
+                    class="btn btn-primary pull-right mr-2"
+                    type="button"
+                    (click)="mapDashboard()"
+                  >
+                  <i class="fa fa-search mr-2"></i>
+                    <b>Cari</b>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 		<div class="card-body">
 			<div id="chartdiv" style="width: 100%; height: 500px"></div>
 		</div>
 	</div>
 
-	<div class="card">
-		<div class="card-body">
-			<div id="chartdiv2" style="width: 100%; height: 400px"></div>
-		</div>
-	</div>
-
-<!--  here-->
-
-	<div class="row">
+  <div class="row">
     <div class="col-lg-3 d-flex align-content-stretch flex-wrap row-wide-cards">
       <div class="card bg-primary">
         <div class="media static-top-widget">
@@ -109,7 +154,7 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <h5 style="font-weight:500">RM {{jumlahMangsa?.jumlah}}</h5>
+              <h5 style="font-weight:500">RM {{ (jumlahMangsa?.jumlah? jumlahMangsa?.jumlah: 0) | number:'1.2-2'}}</h5>
             </div>
           </div>
         </div>
@@ -140,7 +185,7 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <h5 style="font-weight:500">RM {{jumlahIhsan?.jumlah}}</h5>
+              <h5 style="font-weight:500">RM {{(jumlahIhsan?.jumlah ? jumlahIhsan?.jumlah : 0) | number:'1.2-2'}}</h5>
             </div>
           </div>
         </div>
@@ -171,7 +216,7 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <h5 style="font-weight:500">RM {{jumlahPinjaman?.jumlah}}</h5>
+              <h5 style="font-weight:500">RM {{(jumlahPinjaman?.jumlah ? jumlahPinjaman?.jumlah: '0') | number:'1.2-2'}}</h5>
             </div>
           </div>
         </div>
@@ -202,7 +247,7 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <h5 style="font-weight:500">RM {{jumlahAntarabangsa?.jumlah}}</h5>
+              <h5 style="font-weight:500">RM {{ (jumlahAntarabangsa?.jumlah ? jumlahAntarabangsa?.jumlah: '0') | number:'1.2-2'}}</h5>
             </div>
           </div>
         </div>
@@ -233,7 +278,7 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <h5 style="font-weight:500">RM {{jumlahRumahBaikPulih?.jumlah}}</h5>
+              <h5 style="font-weight:500">RM {{ (jumlahRumahBaikPulih?.jumlah ? jumlahRumahBaikPulih?.jumlah: '0') | number:'1.2-2'}}</h5>
             </div>
           </div>
         </div>
@@ -264,7 +309,7 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <h5 style="font-weight:500">RM {{jumlahRumahKekal?.jumlah}}</h5>
+              <h5 style="font-weight:500">RM {{ (jumlahRumahKekal?.jumlah ? jumlahRumahKekal?.jumlah: '0') | number:'1.2-2'}}</h5>
             </div>
           </div>
         </div>
@@ -295,7 +340,7 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <h5 style="font-weight:500">RM {{jumlahPertanian?.jumlah}}</h5>
+              <h5 style="font-weight:500">RM {{ (jumlahPertanian?.jumlah ? jumlahPertanian?.jumlah: 0) | number:'1.2-2'}}</h5>
             </div>
           </div>
         </div>
@@ -326,11 +371,76 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <h5 style="font-weight:500">RM {{jumlahLain?.jumlah}}</h5>
+              <h5 style="font-weight:500">RM {{ (jumlahLain?.jumlah ? jumlahLain?.jumlah: '0') | number:'1.2-2'}}</h5>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+	<div class="card">
+    <div class="card-header">
+      <div class="header-top">
+        <h6>Jumlah Bantuan Mengikut Negeri</h6>
+        <div class="card-header-right-icon">
+          <button
+            type="button"
+            class="btn btn-primary pull-right"
+            (click)="isCollapsedChart = !isCollapsedChart"
+            [attr.aria-expanded]="!isCollapsedChart"
+            aria-controls="collapseExample"
+            ngbTooltip="Carian Lanjut"
+            style="font-weight: 500"
+          >
+            <i class="fa fa-filter"></i>
+          </button>
+        </div>
+      </div>
+      <div class="row mt-2 no-gutters">
+        <div class="col-lg-12">
+          <div class="row no-gutters">
+            <div class="col-lg-12">
+              <div id="collapseExample" [ngbCollapse]="!isCollapsedChart">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Tahun</label>
+                      <select class="form-control" [(ngModel)]="year">
+                        <option selected disabled [value]="undefined">Sila Pilih</option>
+                        <option *ngFor="let year of arrayYear">{{year}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row justify-content-end mb-2 pr-2">
+                  <button
+                    class="btn btn-light mr-2"
+                    type="button"
+                    (click)="resetGraph()"
+                  >
+                  <i class="fa fa-refresh mr-2"></i>
+                    <b>Reset</b>
+                  </button>
+
+                  <button
+                    class="btn btn-primary pull-right mr-2"
+                    type="button"
+                    (click)="chartDashboard()"
+                  >
+                  <i class="fa fa-search mr-2"></i>
+                    <b>Cari</b>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+		<div class="card-body">
+			<div id="chartdiv2" style="width: 100%; height: 400px"></div>
+		</div>
+	</div>
 </div>
