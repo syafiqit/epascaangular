@@ -123,6 +123,12 @@ export class KelulusanComponent implements OnInit {
     modalRef.componentInstance.id_tabung = id_tabung;
     modalRef.componentInstance.id_tabung_kelulusan = id;
     modalRef.componentInstance.baki_jumlah_siling = baki_jumlah_siling;
+
+    modalRef.result.then((response) => {
+			if (response) {
+				this.getTabungKelulusanList();
+			}
+		});
 	}
 
   deleteConfirmation(id?) {
