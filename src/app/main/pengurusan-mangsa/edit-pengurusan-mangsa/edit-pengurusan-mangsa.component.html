@@ -18,20 +18,20 @@
 						<li [ngbNavItem]="2" *ngIf="_appSession.isGranted('Halaman.Mangsa.Air')">
 							<a ngbNavLink>Isi Rumah</a>
 							<ng-template ngbNavContent>
-								<app-ahli-rumah-mangsa [idMangsa]="id"></app-ahli-rumah-mangsa>
+								<app-ahli-rumah-mangsa [idMangsa]="id" [nama]="nama" [no_kp]="no_kp"></app-ahli-rumah-mangsa>
 							</ng-template>
 						</li>
 						<li [ngbNavItem]="3" *ngIf="_appSession.isGranted('Halaman.Mangsa.Bencana')">
 							<a ngbNavLink>Maklumat Bencana</a>
 							<ng-template ngbNavContent>
-								<app-mangsa-bencana [idMangsa]="id"></app-mangsa-bencana>
+								<app-mangsa-bencana [idMangsa]="id" [nama]="nama" [no_kp]="no_kp" [id_negeri]="id_negeri"></app-mangsa-bencana>
 							</ng-template>
 						</li>
 						<li [ngbNavItem]="4" *ngIf="_appSession.isGranted('Halaman.Mangsa.BWI') || _appSession.isGranted('Halaman.Mangsa.BantuanRumah') || _appSession.isGranted('Halaman.Mangsa.BantuanPinjaman')
             || _appSession.isGranted('Halaman.Mangsa.BantuanPertanian') || _appSession.isGranted('Halaman.Mangsa.BantuanAntarabangsa') || _appSession.isGranted('Halaman.Mangsa.BantuanLain')">
 							<a ngbNavLink>Bantuan Mangsa</a>
 							<ng-template ngbNavContent>
-								<app-bantuan-mangsa [idMangsa]="id"></app-bantuan-mangsa>
+								<app-bantuan-mangsa [idMangsa]="id" [nama]="nama" [no_kp]="no_kp"></app-bantuan-mangsa>
 							</ng-template>
 						</li>
 					</ul>
