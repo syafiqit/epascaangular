@@ -20,7 +20,6 @@ import { swalSuccess, swalWarning } from '@shared/sweet-alert/swal-constant';
 import { fadeVerticalAnimation } from '@app/shared/data/router-animation/fade-vertical-animation';
 import { finalize } from 'rxjs/operators';
 import { PilihanRujukanKelulusanComponent } from '../../skb/pilihan-rujukan-kelulusan/pilihan-rujukan-kelulusan.component';
-import { PilihanBencanaComponent } from '../../skb/pilihan-bencana/pilihan-bencana.component';
 import { WaranBulananComponent } from '../waran-bulanan/waran-bulanan.component';
 @Component({
 	selector: 'app-edit-waran',
@@ -51,8 +50,6 @@ export class EditWaranComponent implements OnInit {
   rows = [];
   id_jenis_bencana: number;
   id_kategori_waran: number;
-  nama_bencana: string;
-  tarikh_bencana: string;
   status_waran_bulanan: any = 1;
   belanja: number = 0;
   id_status_waran: number;
@@ -60,7 +57,6 @@ export class EditWaranComponent implements OnInit {
 
   date = new Date();
   modelSurat: NgbDateStruct;
-  modelBencana: NgbDateStruct;
   modelMula: NgbDateStruct;
   modelTamat: NgbDateStruct;
   today = this.calendar.getToday();
@@ -130,9 +126,6 @@ export class EditWaranComponent implements OnInit {
       if(result.tabung_bayaran_waran.tarikh_surat_waran){
         this.modelSurat = this.fromModel(result.tabung_bayaran_waran.tarikh_surat_waran.format('YYYY-MM-DD'));
       }
-      if(result.tabung_bayaran_waran.tarikh_bencana){
-        this.modelBencana = this.fromModel(result.tabung_bayaran_waran.tarikh_bencana.format('YYYY-MM-DD'));
-      }
       if(result.tabung_bayaran_waran.tarikh_mula){
         this.modelMula = this.fromModel(result.tabung_bayaran_waran.tarikh_mula.format('YYYY-MM-DD'));
       }
@@ -189,20 +182,6 @@ export class EditWaranComponent implements OnInit {
 				}
 			},
 			() => {}
-		);
-	}
-
-	pilihBencana() {
-		const modalRef = this.modalService.open(PilihanBencanaComponent, { size: 'lg' });
-		modalRef.componentInstance.name = 'add';
-    modalRef.result.then(
-			(response) => {
-				if (response) {
-          this.edit.tabung_bayaran_waran.id_bencana = response.id;
-          this.edit.tabung_bayaran_waran.nama_bencana = response.nama_bencana;
-          this.modelBencana = this.fromModel(response.tarikh_bencana.format('YYYY-MM-DD'));
-				}
-			}
 		);
 	}
 
