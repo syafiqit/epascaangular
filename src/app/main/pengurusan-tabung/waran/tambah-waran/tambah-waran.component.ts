@@ -17,7 +17,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { fadeVerticalAnimation } from '@app/shared/data/router-animation/fade-vertical-animation';
 import { PilihanRujukanKelulusanComponent } from '../../skb/pilihan-rujukan-kelulusan/pilihan-rujukan-kelulusan.component';
-import { PilihanBencanaComponent } from '../../skb/pilihan-bencana/pilihan-bencana.component';
 import { WaranBulananComponent } from '../waran-bulanan/waran-bulanan.component';
 @Component({
 	selector: 'app-tambah-waran',
@@ -41,7 +40,6 @@ export class TambahWaranComponent implements OnInit {
   filter: string;
   saving = false;
   tarikhSurat: string;
-  tarikh_bencana: string;
   tarikhMula: string;
   tarikhTamat: string;
   idBulan: number = 0;
@@ -53,7 +51,6 @@ export class TambahWaranComponent implements OnInit {
 
   date = new Date();
   modelSurat: NgbDateStruct;
-  modelBencana: NgbDateStruct;
   modelMula: NgbDateStruct;
   modelTamat: NgbDateStruct;
   today = this.calendar.getToday();
@@ -191,20 +188,6 @@ export class TambahWaranComponent implements OnInit {
           this.id_tabung_kelulusan = response.id;
 					this.no_rujukan_kelulusan = response.no_rujukan_kelulusan;
           this.waran.id_tabung = response.id_tabung;
-				}
-			}
-		);
-	}
-
-	pilihBencana() {
-		const modalRef = this.modalService.open(PilihanBencanaComponent, { size: 'lg' });
-		modalRef.componentInstance.name = 'add';
-    modalRef.result.then(
-			(response) => {
-				if (response) {
-          this.waran.id_bencana = response.id;
-          this.waran.nama_bencana = response.nama_bencana;
-          this.modelBencana = this.fromModel(response.tarikh_bencana.format('YYYY-MM-DD'));
 				}
 			}
 		);

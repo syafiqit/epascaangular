@@ -41,34 +41,11 @@
 
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Kategori*</label>
-                  <ng-select
-                    [items]="categories"
-                    bindLabel="kategori"
-                    bindValue="id"
-                    placeholder="Sila Pilih"
-                    class="js-example-placeholder-multiple"
-                    name="kategori_waran"
-                    [(ngModel)]="waran.id_kategori_bayaran"
-                    #waranCategory="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && waranCategory.invalid }"
-                    required
-                  ></ng-select>
-                  <div *ngIf="f.submitted && waranCategory.invalid" class="invalid-feedback">
-                    <div *ngIf="waranCategory.errors.required">Kategori Wajib Dipilih</div>
-                  </div>
-								</div>
-							</div>
-            </div>
-
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Rujukan Surat*</label>
+									<label>Rujukan Surat Waran*</label>
 									<input
                     class="form-control"
                     type="text"
-                    placeholder="Rujukan Surat"
+                    placeholder="Rujukan Surat Waran"
                     name="rujukanSurat"
                     [(ngModel)]="waran.rujukan_surat_waran"
                     #refLetter="ngModel"
@@ -76,13 +53,15 @@
                     required
                   />
                   <div *ngIf="f.submitted && refLetter.invalid" class="invalid-feedback">
-                    <div *ngIf="refLetter.errors.required">Rujukan Surat Wajib Diisi</div>
+                    <div *ngIf="refLetter.errors.required">Rujukan Surat Waran Wajib Diisi</div>
                   </div>
 								</div>
 							</div>
+            </div>
 
+						<div class="row">
               <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
-                <label>Tarikh Surat*</label>
+                <label>Tarikh Surat Waran*</label>
                 <div class="input-group">
                   <input
                     class="form-control"
@@ -102,7 +81,7 @@
                       class="fa fa-calendar"></i></button>
                   </div>
                   <div *ngIf="f.submitted && letterDate.invalid" class="invalid-feedback">
-                    <div *ngIf="letterDate.errors.required">Tarikh Surat Wajib Dipilih</div>
+                    <div *ngIf="letterDate.errors.required">Tarikh Surat Waran Wajib Dipilih</div>
                   </div>
                 </div>
               </div>
@@ -112,73 +91,6 @@
                 <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d4.close()">Tutup</button>
               </ng-template>
 						</div>
-
-            <div class="row">
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Jenis Bayaran*</label>
-                  <ng-select
-                    [items]="bayaran"
-                    bindLabel="jenis_bayaran"
-                    bindValue="id"
-                    placeholder="Sila Pilih"
-                    class="js-example-placeholder-multiple"
-                    name="jenisBayaran"
-                    [(ngModel)]="waran.id_jenis_bayaran"
-                    #jenisBayar="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && jenisBayar.invalid }"
-                    required
-                  ></ng-select>
-                  <div *ngIf="f.submitted && jenisBayar.invalid" class="invalid-feedback">
-                    <div *ngIf="jenisBayar.errors.required">Jenis Bayaran Wajib Dipilih</div>
-                  </div>
-							  </div>
-						  </div>
-
-              <div class="col-lg-6" *ngIf="waran.id_jenis_bayaran == 1" [@fadeVerticalAnimation]>
-								<div class="form-group">
-									<label>Jenis Bencana*</label>
-									<div class="input-group">
-										<input
-                      class="form-control"
-                      type="text"
-                      placeholder="Nama Bencana"
-                      name="bencana"
-                      [(ngModel)]="waran.nama_bencana"
-                      #namaBencana="ngModel"
-                      [ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
-                      required
-                      readonly
-										/>
-										<div class="input-group-append">
-											<button class="btn btn-primary" (click)="pilihBencana()" type="button">
-												<i class="fa fa-search text-white"></i>
-											</button>
-										</div>
-                    <div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
-                      <div *ngIf="namaBencana.errors.required">Bencana Wajib Dipilih</div>
-                    </div>
-									</div>
-						    </div>
-              </div>
-
-							<div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown" *ngIf="waran.id_jenis_bayaran == 1" [@fadeVerticalAnimation]>
-                <label>Tarikh Bencana</label>
-                <div class="input-group">
-                  <input
-                    class="form-control"
-                    placeholder="DD/MM/YYYY"
-                    name="dp3"
-                    [(ngModel)]="modelBencana"
-                    ngbDatepicker
-                    [footerTemplate]="footerTemplate"
-                    #d3="ngbDatepicker"
-                    style="border: 1px solid #efefef !important;"
-                    readonly
-                  >
-                </div>
-              </div>
-            </div>
 						<hr />
 
 						<h6>Maklumat Diberi Kuasa</h6>
