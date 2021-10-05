@@ -19,19 +19,32 @@ export class MukaHalamanTabungComponent implements OnInit {
 	tarikhMula: NgbDateStruct;
   tarikhTamat: NgbDateStruct;
 	today = this.calendar.getToday();
+  readonly DELIMITER = '-';
 
   funds: any;
   year: string;
   filterTabung: number;
+  filterYear: number;
+  filterFromDate: string;
+  filterToDate: string;
+  filterFromSkb: number;
+  filterToSkb: number;
+
   overallTotal: number;
   expendTotal: number;
   dependTotal: number;
   netTotal: number;
   arrayYear:any[];
+  nama_tabung: string;
 
   pieTanggunganBelanja: any[];
   graphBayaranSkb: any[];
   graphBayaranTerus: any[];
+
+  filterMonth: string;
+  jumlah_keseluruhan: number;
+  jumlah_perbelanjaan_semasa: number;
+  jumlah_tanggungan: number;
 
 	constructor(
     private calendar: NgbCalendar,
@@ -41,6 +54,7 @@ export class MukaHalamanTabungComponent implements OnInit {
 
 	ngOnInit(): void {
     this.getTabung();
+    this.getTotalCard();
     this.tabungCard();
 	  this.generateArrayOfYears()
   }
@@ -55,8 +69,38 @@ export class MukaHalamanTabungComponent implements OnInit {
     this.terusGraph();
 	}
 
+  toModel(date: NgbDateStruct | null): string | null {
+    return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
+  }
+
+  toModelSKB(date: NgbDateStruct | null): number | null {
+    return date ? date.month : null;
+  }
+
+  getTotalCard(){
+    this._tabungServiceProxy.getTotalTabungCard(this.filterMonth).subscribe((result) => {
+      this.jumlah_keseluruhan = result.jumlah_keseluruhan;
+      this.jumlah_perbelanjaan_semasa = result.jumlah_perbelanjaan_semasa;
+      this.jumlah_tanggungan = result.jumlah_tanggungan;
+    });
+  }
+
   tabungCard() {
-    this._dashboardTabungServiceProxy.getTotalTabungCard(this.filterTabung).subscribe((result)=>{
+    if(this.tarikhMula){
+      this.filterFromDate = this.toModel(this.tarikhMula);
+    }
+
+    if(this.tarikhTamat){
+      this.filterToDate = this.toModel(this.tarikhTamat);
+    }
+
+    this._dashboardTabungServiceProxy.getTotalTabungCard(
+      this.filterTabung ?? undefined,
+      this.filterYear ?? undefined,
+      this.filterFromDate,
+      this.filterToDate
+    ).subscribe((result)=>{
+      this.nama_tabung = result.nama_tabung;
       this.overallTotal = result.jumlah_keseluruhan;
       this.expendTotal = result.jumlah_perbelanjaan_semasa;
       this.dependTotal = result.jumlah_tanggungan;
@@ -65,8 +109,20 @@ export class MukaHalamanTabungComponent implements OnInit {
   }
 
   pieTanggungan() {
-    this._dashboardTabungServiceProxy.getBelanjaTanggunganByTabung(this.filterTabung)
-    .subscribe((result) => {
+    if(this.tarikhMula){
+      this.filterFromDate = this.toModel(this.tarikhMula);
+    }
+
+    if(this.tarikhTamat){
+      this.filterToDate = this.toModel(this.tarikhTamat);
+    }
+
+    this._dashboardTabungServiceProxy.getBelanjaTanggunganByTabung(
+      this.filterTabung ?? undefined,
+      this.filterYear ?? undefined,
+      this.filterFromDate,
+      this.filterToDate
+    ).subscribe((result) => {
       let stringData = JSON.stringify(result.tabung);
       this.pieTanggunganBelanja = JSON.parse(stringData);
 
@@ -89,8 +145,22 @@ export class MukaHalamanTabungComponent implements OnInit {
   }
 
   skbGraph() {
-    this._dashboardTabungServiceProxy.getTotalSkbByMonth(this.filterTabung)
-    .subscribe((result) => {
+    if(this.tarikhMula){
+      this.filterFromSkb = this.toModelSKB(this.tarikhMula);
+      console.log(this.filterFromSkb);
+    }
+
+    if(this.tarikhTamat){
+      this.filterToSkb = this.toModelSKB(this.tarikhTamat);
+      console.log(this.filterToSkb);
+    }
+
+    this._dashboardTabungServiceProxy.getTotalSkbByMonth(
+      this.filterTabung ?? undefined,
+      this.filterYear ?? undefined,
+      this.filterFromSkb ?? undefined,
+      this.filterToSkb ?? undefined
+    ).subscribe((result) => {
       let stringData = JSON.stringify(result.items);
       this.graphBayaranSkb = JSON.parse(stringData);
 
@@ -123,8 +193,18 @@ export class MukaHalamanTabungComponent implements OnInit {
   }
 
   terusGraph() {
-    this._dashboardTabungServiceProxy.getTotalBayaranTerusByMonth(this.filterTabung)
-    .subscribe((result) => {
+    if(this.tarikhMula){
+      this.filterFromDate = this.toModel(this.tarikhMula);
+    }
+
+    if(this.tarikhTamat){
+      this.filterToDate = this.toModel(this.tarikhTamat);
+    }
+
+    this._dashboardTabungServiceProxy.getTotalBayaranTerusByMonth(
+      this.filterTabung ?? undefined,
+      this.filterYear ?? undefined
+    ).subscribe((result) => {
       let stringData = JSON.stringify(result.items);
       this.graphBayaranTerus = JSON.parse(stringData);
 
@@ -156,14 +236,6 @@ export class MukaHalamanTabungComponent implements OnInit {
     })
   }
 
-  pilihTarikhMula(){
-    this.chooseFromDate = true;
-    if(this.tarikhMula == null){
-      this.chooseFromDate = false;
-      this.tarikhTamat = null;
-    }
-  }
-
   getTabung(filter?) {
 		this._tabungServiceProxy.getTabungForDropdown(filter).subscribe((result) => {
 			this.funds = result.items;
@@ -190,6 +262,13 @@ export class MukaHalamanTabungComponent implements OnInit {
 
   resetFilter() {
     this.filterTabung = undefined;
+    this.filterYear = undefined;
+    this.filterFromDate = undefined;
+    this.filterToDate = undefined;
+    this.filterFromSkb = undefined;
+    this.filterToSkb = undefined;
+    this.tarikhMula = undefined;
+    this.tarikhTamat = undefined;
     this.getFilter();
   }
 }

@@ -23,6 +23,7 @@ export class PeruntukanDiambilListComponent implements OnInit {
   kelulusan: CreateOrEditTabungKelulusanDto = new CreateOrEditTabungKelulusanDto();
   id:number;
   filter:any;
+  filterYear: number;
   filterIdKelulusan:any;
 
   constructor(
@@ -62,6 +63,7 @@ export class PeruntukanDiambilListComponent implements OnInit {
 		this._tabungKelulusanAmbilanServiceProxy
 			.getAll(
 				this.filter,
+        this.filterYear,
         this.filterIdKelulusan = this.id ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),

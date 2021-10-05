@@ -393,14 +393,29 @@ export class DashboardTabungServiceProxy {
     /**
      * Get Total by Tabung
      * @param id_tabung (optional) Filter records with a string
+     * @param filterYear (optional) Filter records with a integer
+     * @param filterFromDate (optional) Filter records with string
+     * @param filterToDate (optional) Filter records with string
      * @return Success
      */
-    getTotalTabungCard(id_tabung: number | undefined): Observable<GetTotalByTabungForViewDto> {
+    getTotalTabungCard(id_tabung: number | undefined, filterYear: number | undefined, filterFromDate: string | undefined, filterToDate: string | undefined): Observable<GetTotalByTabungForViewDto> {
         let url_ = this.baseUrl + "/api/dashboardTabung/getTotalTabungCard?";
         if (id_tabung === null)
             throw new Error("The parameter 'id_tabung' cannot be null.");
         else if (id_tabung !== undefined)
             url_ += "id_tabung=" + encodeURIComponent("" + id_tabung) + "&";
+        if (filterYear === null)
+            throw new Error("The parameter 'filterYear' cannot be null.");
+        else if (filterYear !== undefined)
+            url_ += "filterYear=" + encodeURIComponent("" + filterYear) + "&";
+        if (filterFromDate === null)
+            throw new Error("The parameter 'filterFromDate' cannot be null.");
+        else if (filterFromDate !== undefined)
+            url_ += "filterFromDate=" + encodeURIComponent("" + filterFromDate) + "&";
+        if (filterToDate === null)
+            throw new Error("The parameter 'filterToDate' cannot be null.");
+        else if (filterToDate !== undefined)
+            url_ += "filterToDate=" + encodeURIComponent("" + filterToDate) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -454,14 +469,19 @@ export class DashboardTabungServiceProxy {
     /**
      * Get Total Bayaran Terus by Tabung
      * @param filterTabung (optional) Filter records with a string
+     * @param filterYear (optional) Filter records with a integer
      * @return Success
      */
-    getTotalBayaranTerusByMonth(filterTabung: number | undefined): Observable<TotalBayaranTerusByMonth> {
+    getTotalBayaranTerusByMonth(filterTabung: number | undefined, filterYear: number | undefined): Observable<TotalBayaranTerusByMonth> {
         let url_ = this.baseUrl + "/api/dashboardTabung/getTotalBayaranTerusByMonth?";
         if (filterTabung === null)
             throw new Error("The parameter 'filterTabung' cannot be null.");
         else if (filterTabung !== undefined)
             url_ += "filterTabung=" + encodeURIComponent("" + filterTabung) + "&";
+        if (filterYear === null)
+            throw new Error("The parameter 'filterYear' cannot be null.");
+        else if (filterYear !== undefined)
+            url_ += "filterYear=" + encodeURIComponent("" + filterYear) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -515,14 +535,29 @@ export class DashboardTabungServiceProxy {
     /**
      * Get Total SKB Tabung by Month
      * @param filterTabung (optional) Filter records with a string
+     * @param filterYear (optional) Filter records with a integer
+     * @param filterFromDate (optional) Filter records with string
+     * @param filterToDate (optional) Filter records with string
      * @return Success
      */
-    getTotalSkbByMonth(filterTabung: number | undefined): Observable<TotalSkbByMonth> {
+    getTotalSkbByMonth(filterTabung: number | undefined, filterYear: number | undefined, filterFromDate: number | undefined, filterToDate: number | undefined): Observable<TotalSkbByMonth> {
         let url_ = this.baseUrl + "/api/dashboardTabung/getTotalSkbByMonth?";
         if (filterTabung === null)
             throw new Error("The parameter 'filterTabung' cannot be null.");
         else if (filterTabung !== undefined)
             url_ += "filterTabung=" + encodeURIComponent("" + filterTabung) + "&";
+        if (filterYear === null)
+            throw new Error("The parameter 'filterYear' cannot be null.");
+        else if (filterYear !== undefined)
+            url_ += "filterYear=" + encodeURIComponent("" + filterYear) + "&";
+        if (filterFromDate === null)
+            throw new Error("The parameter 'filterFromDate' cannot be null.");
+        else if (filterFromDate !== undefined)
+            url_ += "filterFromDate=" + encodeURIComponent("" + filterFromDate) + "&";
+        if (filterToDate === null)
+            throw new Error("The parameter 'filterToDate' cannot be null.");
+        else if (filterToDate !== undefined)
+            url_ += "filterToDate=" + encodeURIComponent("" + filterToDate) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -576,14 +611,29 @@ export class DashboardTabungServiceProxy {
     /**
      * Get Total Belanja and Tanggungan by Tabung
      * @param id_tabung (optional) Filter records with a string
+     * @param filterYear (optional) Filter records with a integer
+     * @param filterFromDate (optional) Filter records with string
+     * @param filterToDate (optional) Filter records with string
      * @return Success
      */
-    getBelanjaTanggunganByTabung(id_tabung: number | undefined): Observable<GetTabungBelanjaTanggunganForViewDto> {
+    getBelanjaTanggunganByTabung(id_tabung: number | undefined, filterYear: number | undefined, filterFromDate: string | undefined, filterToDate: string | undefined): Observable<GetTabungBelanjaTanggunganForViewDto> {
         let url_ = this.baseUrl + "/api/dashboardTabung/getBelanjaTanggunganByTabung?";
         if (id_tabung === null)
             throw new Error("The parameter 'id_tabung' cannot be null.");
         else if (id_tabung !== undefined)
             url_ += "id_tabung=" + encodeURIComponent("" + id_tabung) + "&";
+        if (filterYear === null)
+            throw new Error("The parameter 'filterYear' cannot be null.");
+        else if (filterYear !== undefined)
+            url_ += "filterYear=" + encodeURIComponent("" + filterYear) + "&";
+        if (filterFromDate === null)
+            throw new Error("The parameter 'filterFromDate' cannot be null.");
+        else if (filterFromDate !== undefined)
+            url_ += "filterFromDate=" + encodeURIComponent("" + filterFromDate) + "&";
+        if (filterToDate === null)
+            throw new Error("The parameter 'filterToDate' cannot be null.");
+        else if (filterToDate !== undefined)
+            url_ += "filterToDate=" + encodeURIComponent("" + filterToDate) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -19774,18 +19824,23 @@ export class TabungKelulusanAmbilanServiceProxy {
     /**
      * Get all TabungKelulusanAmbilan
      * @param filter (optional) Filter records with a string
+     * @param filterYear (optional) Filter records with a integer
      * @param filterIdKelulusan (optional) Filter records with a string
      * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
      * @param skipCount (optional) Skip n-value of a record
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAll(filter: string | undefined, filterIdKelulusan: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungKelulusanAmbilanForViewDto> {
+    getAll(filter: string | undefined, filterYear: number | undefined, filterIdKelulusan: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungKelulusanAmbilanForViewDto> {
         let url_ = this.baseUrl + "/api/tabungKelulusanAmbilan/getAll?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
             url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (filterYear === null)
+            throw new Error("The parameter 'filterYear' cannot be null.");
+        else if (filterYear !== undefined)
+            url_ += "filterYear=" + encodeURIComponent("" + filterYear) + "&";
         if (filterIdKelulusan === null)
             throw new Error("The parameter 'filterIdKelulusan' cannot be null.");
         else if (filterIdKelulusan !== undefined)
@@ -22552,6 +22607,7 @@ export interface IGetTotalBayaranTerusByMonthForViewDto {
 
 /** Total Card by Tabung in Tabular model */
 export class GetTotalByTabungForViewDto implements IGetTotalByTabungForViewDto {
+    nama_tabung!: string;
     jumlah_keseluruhan!: number;
     jumlah_perbelanjaan_semasa!: number;
     jumlah_tanggungan!: number;
@@ -22568,6 +22624,7 @@ export class GetTotalByTabungForViewDto implements IGetTotalByTabungForViewDto {
 
     init(_data?: any) {
         if (_data) {
+            this.nama_tabung = _data["nama_tabung"];
             this.jumlah_keseluruhan = _data["jumlah_keseluruhan"];
             this.jumlah_perbelanjaan_semasa = _data["jumlah_perbelanjaan_semasa"];
             this.jumlah_tanggungan = _data["jumlah_tanggungan"];
@@ -22584,6 +22641,7 @@ export class GetTotalByTabungForViewDto implements IGetTotalByTabungForViewDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["nama_tabung"] = this.nama_tabung;
         data["jumlah_keseluruhan"] = this.jumlah_keseluruhan;
         data["jumlah_perbelanjaan_semasa"] = this.jumlah_perbelanjaan_semasa;
         data["jumlah_tanggungan"] = this.jumlah_tanggungan;
@@ -22594,6 +22652,7 @@ export class GetTotalByTabungForViewDto implements IGetTotalByTabungForViewDto {
 
 /** Total Card by Tabung in Tabular model */
 export interface IGetTotalByTabungForViewDto {
+    nama_tabung: string;
     jumlah_keseluruhan: number;
     jumlah_perbelanjaan_semasa: number;
     jumlah_tanggungan: number;
