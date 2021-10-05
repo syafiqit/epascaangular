@@ -10,24 +10,29 @@ import { BwiSuratKuasaBelanjaComponent } from './bwi-surat-kuasa-belanja/bwi-sur
 	providers: [NgbModalConfig]
 })
 export class PilihPembayaranComponent implements OnInit {
+  @Input() idTabungKelulusan;
 
 	constructor(
     private modalService: NgbModal,
     public activeModal: NgbActiveModal
   ) {}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+  }
 
   pilihSuratKuasaBelanja(){
     const modalRef = this.modalService.open(BwiSuratKuasaBelanjaComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
-    modalRef.componentInstance.kategori = 1;
+    if(this.idTabungKelulusan){
+      modalRef.componentInstance.idTabungKelulusan = this.idTabungKelulusan;
+    }
 
     modalRef.result.then(
 			(response) => {
 				if (response) {
           this.activeModal.close({
-            id: response.id,
+            idSkb: response.id,
+            id_tabung_kelulusan: response.id_tabung_kelulusan,
             no_rujukan_bayaran: response.no_rujukan_bayaran,
             perihal: response.perihal,
             no_rujukan_kelulusan: response.no_rujukan_kelulusan,
@@ -44,13 +49,16 @@ export class PilihPembayaranComponent implements OnInit {
   pilihBayaranTerus(){
     const modalRef = this.modalService.open(BwiBayaranSecaraTerusComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
-    modalRef.componentInstance.kategori = 1;
+    if(this.idTabungKelulusan){
+      modalRef.componentInstance.idTabungKelulusan = this.idTabungKelulusan;
+    }
 
     modalRef.result.then(
 			(response) => {
 				if (response) {
           this.activeModal.close({
-            id: response.id,
+            idTerus: response.id,
+            id_tabung_kelulusan: response.id_tabung_kelulusan,
             no_rujukan_bayaran: response.no_rujukan_bayaran,
             perihal: response.perihal,
             no_rujukan_kelulusan: response.no_rujukan_kelulusan,

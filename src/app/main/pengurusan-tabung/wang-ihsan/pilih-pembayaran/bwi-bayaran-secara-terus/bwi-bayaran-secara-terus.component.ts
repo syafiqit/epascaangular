@@ -20,6 +20,7 @@ export class BwiBayaranSecaraTerusComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
 
 	@Input() name;
+  @Input() idTabungKelulusan;
 
   filter: string;
   filterTabung: number;
@@ -48,6 +49,7 @@ export class BwiBayaranSecaraTerusComponent implements OnInit {
 		this._tabungBayaranTerusServiceProxy
 			.getAllBayaranTerusLookupTable(
 				this.filter,
+        this.idTabungKelulusan ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -61,9 +63,10 @@ export class BwiBayaranSecaraTerusComponent implements OnInit {
 			});
 	}
 
-  select(id, no_rujukan_terus, perihal, no_rujukan_kelulusan, jumlah) {
+  select(id, id_tabung_kelulusan, no_rujukan_terus, perihal, no_rujukan_kelulusan, jumlah) {
 		this.activeModal.close({
       id: id,
+      id_tabung_kelulusan: id_tabung_kelulusan,
       no_rujukan_bayaran: no_rujukan_terus,
       perihal: perihal,
       no_rujukan_kelulusan: no_rujukan_kelulusan,

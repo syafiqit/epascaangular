@@ -15,7 +15,7 @@ import {
   TabungBwiServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { PilihPembayaranComponent } from '../pilih-pembayaran/pilih-pembayaran.component';
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { fadeVerticalAnimation } from '@app/shared/data/router-animation/fade-vertical-animation';
 import { TambahBantuanComponent } from '../tambah-bantuan/tambah-bantuan.component';
 import { PilihBencanaBwiComponent } from '../pilih-bencana/pilih-bencana-bwi.component';
@@ -48,6 +48,8 @@ export class TambahEditWangIhsanComponent implements OnInit {
   bayaran: number = 0;
   totalBayaran: number = 0;
   idJenisBayaran: number;
+  id_tabung_kelulusan: number;
+  existingId: number;
 
   pembayaran = [];
   bantuan = [];
@@ -173,65 +175,54 @@ export class TambahEditWangIhsanComponent implements OnInit {
 	}
 
 	pilihPembayaran() {
-    if(this.idJenisBayaran == 1){
-      const modalRef = this.modalService.open(BwiSuratKuasaBelanjaComponent, { size: 'lg' });
-
-      modalRef.result.then(
-        (response) => {
-          if (response) {
-            this.pembayaran.push({
-              id: response.id,
-              no_rujukan_bayaran: response.no_rujukan_bayaran,
-              perihal: response.perihal,
-              no_rujukan_kelulusan: response.no_rujukan_kelulusan,
-              jumlah: response.jumlah,
-            });
-            this.idJenisBayaran = response.idJenisBayaran;
-            this.getPembayaran();
-          }
-        },
-        () => {}
-      );
-    }
-    else if(this.idJenisBayaran == 2){
-      const modalRef = this.modalService.open(BwiBayaranSecaraTerusComponent, { size: 'lg' });
-
-      modalRef.result.then(
-        (response) => {
-          if (response) {
-            this.pembayaran.push({
-              id: response.id,
-              no_rujukan_bayaran: response.no_rujukan_bayaran,
-              perihal: response.perihal,
-              no_rujukan_kelulusan: response.no_rujukan_kelulusan,
-              jumlah: response.jumlah,
-            });
-            this.idJenisBayaran = response.idJenisBayaran;
-            this.getPembayaran();
-          }
-        },
-        () => {}
-      );
-    }else{
       const modalRef = this.modalService.open(PilihPembayaranComponent, { size: 'md' });
-
+      if(this.id_tabung_kelulusan){
+        modalRef.componentInstance.idTabungKelulusan = this.id_tabung_kelulusan;
+      }
       modalRef.result.then(
         (response) => {
+          this.id_tabung_kelulusan = response.id_tabung_kelulusan;
           if (response) {
-            this.pembayaran.push({
-              id: response.id,
-              no_rujukan_bayaran: response.no_rujukan_bayaran,
-              perihal: response.perihal,
-              no_rujukan_kelulusan: response.no_rujukan_kelulusan,
-              jumlah: response.jumlah,
-            });
+            if(response.idSkb){
+              this.existingId = this.pembayaran.find(e=> e.idSkb == response.idSkb);
+              if(!this.existingId){
+                this.pembayaran.push({
+                  idSkb: response.idSkb,
+                  id_tabung_kelulusan: response.id_tabung_kelulusan,
+                  no_rujukan_bayaran: response.no_rujukan_bayaran,
+                  perihal: response.perihal,
+                  no_rujukan_kelulusan: response.no_rujukan_kelulusan,
+                  jumlah: response.jumlah,
+                });
+                this.existingId = null;
+              }else{
+                swalError.fire('Tidak Berjaya','No. Rujukan SKB Telah Dipilih');
+                this.existingId = null;
+              }
+
+            }else if(response.idTerus){
+              this.existingId = this.pembayaran.find(e=> e.idTerus == response.idTerus);
+              if(!this.existingId){
+                this.pembayaran.push({
+                  idTerus: response.idTerus,
+                  id_tabung_kelulusan: response.id_tabung_kelulusan,
+                  no_rujukan_bayaran: response.no_rujukan_bayaran,
+                  perihal: response.perihal,
+                  no_rujukan_kelulusan: response.no_rujukan_kelulusan,
+                  jumlah: response.jumlah,
+                });
+                this.existingId = null;
+              }else{
+                swalError.fire('Tidak Berjaya','No. Rujukan Terus Telah Dipilih');
+                this.existingId = null;
+              }
+            }
             this.idJenisBayaran = response.idJenisBayaran;
             this.getPembayaran();
           }
         },
         () => {}
       );
-    }
 
 	}
 
