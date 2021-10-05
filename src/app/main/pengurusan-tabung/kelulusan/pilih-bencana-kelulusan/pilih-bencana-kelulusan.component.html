@@ -41,17 +41,20 @@
 				>
 					<ng-template pTemplate="header">
 						<tr>
-							<th style="width: 130px" pSortableColumn="tarikh_bencana">
+							<th style="width: 130px" pSortableColumn="nama_tabung">
 								Nama Tabung
-								<p-sortIcon field="tarikh_bencana"></p-sortIcon>
+								<p-sortIcon field="nama_tabung"></p-sortIcon>
 							</th>
-							<th style="width: 135px" pSortableColumn="nama_jenis_bencana">
+							<th style="width: 135px" pSortableColumn="peruntukan">
 								Peruntukan
-								<p-sortIcon field="nama_jenis_bencana"></p-sortIcon>
+								<p-sortIcon field="peruntukan"></p-sortIcon>
 							</th>
-							<th style="width: 130px" pSortableColumn="nama_bencana">
+							<th style="width: 130px" pSortableColumn="jumlah_keseluruhan">
 								Jumlah Kesuluruhan
-								<p-sortIcon field="nama_bencana"></p-sortIcon>
+								<p-sortIcon field="jumlah_keseluruhan"></p-sortIcon>
+							</th>
+							<th style="width: 130px" >
+								Baki Tabung
 							</th>
               <th style="width: 100px">Tindakan</th>
 						</tr>
@@ -59,16 +62,20 @@
 					<ng-template pTemplate="body" let-record="$implicit">
 						<tr>
 							<td style="width: 130px">
-								<span class="p-column-title">Tarikh Kejadian</span>
+								<span class="p-column-title">Nama Tabung</span>
 								{{record.nama_tabung}}
 							</td>
 							<td style="width: 135px">
-								<span class="p-column-title">Kategori Bencana</span>
-								{{record.peruntukan ? record.peruntukan: '0.00'}}
+								<span class="p-column-title">Peruntukan</span>
+								RM {{record.peruntukan | number:'1.2-2'}}
 							</td>
 							<td style="width: 130px">
-								<span class="p-column-title">Nama Bencana</span>
-								{{record.jumlah_keseluruhan ? record.jumlah_keseluruhan: '0.00'}}
+								<span class="p-column-title">Jumlah Keseluruhan</span>
+								RM {{record.jumlah_keseluruhan | number:'1.2-2'}}
+							</td>
+							<td style="width: 130px">
+								<span class="p-column-title">Baki Tabung</span>
+								RM {{record.jumlah_keseluruhan - record.peruntukan | number:'1.2-2'}}
 							</td>
               <td style="width: 100px">
 								<button
