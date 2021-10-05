@@ -52,15 +52,22 @@
                       <div class="row mt-2">
                         <div class="col-lg-4">
                           <div class="form-group">
-                            <label>Jenis Bencana</label>
-                            <ng-select
-                              [items]="disasters"
-                              bindLabel="nama_jenis_bencana"
-                              bindValue="id"
-                              placeholder="Sila Pilih"
-                              class="js-example-placeholder-multiple"
-                              name="jenisBencana"
-                            ></ng-select>
+                            <label>Bencana</label>
+                            <div class="input-group">
+                              <input
+                                class="form-control"
+                                type="text"
+                                placeholder="Nama Bencana"
+                                name="bencana"
+                                [(ngModel)]="nama_bencana"
+                                readonly
+                              />
+                              <div class="input-group-append">
+                                <button class="btn btn-primary" (click)="pilihBencana()" type="button">
+                                  <i class="fa fa-search text-white"></i>
+                                </button>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>

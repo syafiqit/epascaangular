@@ -1,6 +1,7 @@
 import { OnInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { SelectBencanaComponent } from '@app/main/pengurusan-mangsa/select-bencana/select-bencana.component';
 import { FileDownloadService } from '@app/shared/services/file-download.service';
-import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
@@ -28,9 +29,11 @@ export class LaporanBencanaKirComponent implements OnInit {
   filterBencana: number;
   filterYear: number;
   arrayYear:any[];
+  nama_bencana: string;
 
 	constructor(
     config: NgbModalConfig,
+    private modalService: NgbModal,
     private _laporanServiceProxy: LaporanServiceProxy,
     private _fileDownloadService: FileDownloadService,
     private _refBencanaServiceProxy: RefBencanaServiceProxy
@@ -105,6 +108,7 @@ export class LaporanBencanaKirComponent implements OnInit {
     this.filter = undefined;
     this.filterBencana = undefined;
     this.filterYear = undefined;
+    this.nama_bencana = undefined;
 
     this.getBencanaKirReport();
   }
@@ -119,4 +123,17 @@ export class LaporanBencanaKirComponent implements OnInit {
     }
     this.arrayYear = years;
   }
+
+	pilihBencana() {
+		const modalRef = this.modalService.open(SelectBencanaComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'add';
+    modalRef.result.then(
+			(response) => {
+				if (response) {
+          this.filterBencana = response.id;
+          this.nama_bencana = response.nama_bencana;
+				}
+			}
+		);
+	}
 }

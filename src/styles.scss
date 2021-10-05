@@ -22,6 +22,14 @@
   border-color: #dc3545 !important;
 }
 
+.form-control:disabled {
+  background-color: white;
+}
+
+.form-control[readonly] {
+  background-color: white;
+}
+
 //ng-select custom validation style
 .was-validated .ng-select:invalid, .ng-select.is-invalid > .ng-select-container {
   border-color: #dc3545 !important;

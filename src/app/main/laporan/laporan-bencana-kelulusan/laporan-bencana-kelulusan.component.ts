@@ -1,5 +1,6 @@
 import { OnInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { SelectBencanaComponent } from '@app/main/pengurusan-mangsa/select-bencana/select-bencana.component';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
@@ -18,7 +19,10 @@ export class LaporanBencanaKelulusanComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 	public isCollapsed = false;
+
   disasters: any;
+  filterBencana: number;
+  nama_bencana: string;
 
 	rows = [
 		{
@@ -33,6 +37,7 @@ export class LaporanBencanaKelulusanComponent implements OnInit {
 
 	constructor(
     config: NgbModalConfig,
+    private modalService: NgbModal,
     private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
@@ -64,5 +69,18 @@ export class LaporanBencanaKelulusanComponent implements OnInit {
 
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
+	}
+
+	pilihBencana() {
+		const modalRef = this.modalService.open(SelectBencanaComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'add';
+    modalRef.result.then(
+			(response) => {
+				if (response) {
+          this.filterBencana = response.id;
+          this.nama_bencana = response.nama_bencana;
+				}
+			}
+		);
 	}
 }
