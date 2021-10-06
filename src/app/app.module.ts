@@ -32,6 +32,7 @@ import { AppAuthService } from './shared/services/app-auth-service';
 import { API_BASE_URL } from './shared/proxy/service-proxies';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import * as moment from 'moment';
+import { ConfirmationModule } from '@services/confirmation';
 
 @Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
@@ -105,7 +106,8 @@ export function appInitializerFactory(injector: Injector) {
 		// for Router use:
 		LoadingBarRouterModule,
 		// for Core use:
-		LoadingBarModule
+		LoadingBarModule,
+    ConfirmationModule
 	],
 	providers: [
 		AppSessionService,

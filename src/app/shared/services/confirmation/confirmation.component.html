@@ -1,0 +1,81 @@
+<div class="confirmation">
+
+  <!-- Dismiss button -->
+  <ng-container *ngIf="data.dismissible">
+      <div class="confirmation-dismissible">
+          <button
+              mat-icon-button
+              [matDialogClose]="undefined">
+              <app-feather-icons [icon]="'x'"></app-feather-icons>
+          </button>
+      </div>
+  </ng-container>
+
+  <!-- Content -->
+  <div class="d-flex flex-column flex-sm-row confirmation-container">
+
+      <!-- Icon -->
+      <ng-container *ngIf="data.icon.show">
+          <div
+              class="confirmation-icon mr-sm-2"
+              [ngClass]="{'txt-primary': data.icon.color === 'primary',
+                          'txt-dark': data.icon.color === 'accent',
+                          'txt-warning': data.icon.color === 'warning',
+                          'text-muted': data.icon.color === 'basic',
+                          'txt-info': data.icon.color === 'info',
+                          'txt-success': data.icon.color === 'success',
+                          'txt-danger': data.icon.color === 'error'
+                          }">
+              <app-feather-icons [icon]="data.icon.name"></app-feather-icons>
+          </div>
+      </ng-container>
+
+      <ng-container *ngIf="data.title || data.message">
+          <div class="confirmation-content align-items-center align-items-sm-start text-center text-sm-left mt-2 mt-sm-0 pr-sm-4">
+
+              <!-- Title -->
+              <ng-container *ngIf="data.title">
+                  <div
+                      class="confirmation-title"
+                      [innerHTML]="data.title"></div>
+              </ng-container>
+
+              <!-- Message -->
+              <ng-container *ngIf="data.message">
+                  <div
+                      class="confirmation-message"
+                      [innerHTML]="data.message"></div>
+              </ng-container>
+          </div>
+      </ng-container>
+
+  </div>
+
+  <!-- Actions -->
+  <ng-container *ngIf="data.actions.confirm.show || data.actions.cancel.show">
+      <div class="confirmation-action justify-content-center justify-content-sm-end">
+
+          <!-- Cancel -->
+          <ng-container *ngIf="data.actions.cancel.show">
+              <button
+                  mat-stroked-button
+                  class="mr-2"
+                  [matDialogClose]="'cancelled'">
+                  {{data.actions.cancel.label}}
+              </button>
+          </ng-container>
+
+          <!-- Confirm -->
+          <ng-container *ngIf="data.actions.confirm.show">
+              <button
+                  mat-flat-button
+                  [color]="data.actions.confirm.color"
+                  [matDialogClose]="'confirmed'">
+                  {{data.actions.confirm.label}}
+              </button>
+          </ng-container>
+
+      </div>
+  </ng-container>
+
+</div>

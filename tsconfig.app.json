@@ -9,7 +9,8 @@
       "@app/*": ["./src/app/*"],
       "@shared/*": ["./src/app/shared/*"],
       "@node_modules/*": ["./node_modules/*"],
-      "@angular/*": ["./node_modules/@angular/*"]
+      "@angular/*": ["./node_modules/@angular/*"],
+      "@services/*": ["./src/app/shared/services/*"],
     }
   },
   "files": [
