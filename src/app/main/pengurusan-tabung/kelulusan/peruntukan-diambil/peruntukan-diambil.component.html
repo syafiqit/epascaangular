@@ -38,7 +38,13 @@
                     placeholder="Jumlah Peruntukan"
                     [(ngModel)]="peruntukan.jumlah"
                     (keyup)="kiraJumlah()"
+                    #jumlah="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && jumlah.invalid }"
+                    required
                 />
+                <div *ngIf="f.submitted && jumlah.invalid" class="invalid-feedback">
+                    <div *ngIf="jumlah.errors.required">Jumlah Peruntukan Diambil Wajib Diisi</div>
+                </div>
             </div>
         </div>
     </div>

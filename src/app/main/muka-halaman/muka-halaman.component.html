@@ -28,7 +28,60 @@
             <div class="col-lg-12">
               <div id="collapseExample" [ngbCollapse]="!isCollapsed">
                 <div class="row mt-2 pr-3 pl-3">
-                  <div class="col-lg-4">
+                  <div class="col-lg-2">
+                    <div class="form-group">
+                      <label>Tahun</label>
+                      <select class="form-control" [(ngModel)]="filterYear">
+                        <option selected disabled [value]="undefined">Sila Pilih</option>
+                        <option *ngFor="let year of arrayYear">{{year}}</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-2 pr-1">
+                    <div class="form-group custom-datepicker custom-datepicker-dropdown">
+                      <label>Tarikh</label>
+                      <div class="input-group">
+                        <input
+                          class="form-control"
+                          placeholder="yyyy-mm-dd"
+                          name="dp1"
+                          [(ngModel)]="fromDate"
+                          ngbDatepicker
+                          #b="ngbDatepicker"
+                          style="border: 1px solid #efefef !important;"
+                          (ngModelChange)="pilihTarikhMula()"
+                        >
+                        <div class="input-group-append">
+                          <button class="btn btn-light pr-2 pl-2" (click)="b.toggle()" type="button"><i
+                            class="fa fa-calendar"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-2 pl-1">
+                    <div class="form-group custom-datepicker custom-datepicker-dropdown">
+                      <div class="input-group pt-4 mt-1">
+                        <input
+                          class="form-control"
+                          placeholder="yyyy-mm-dd"
+                          name="dp2"
+                          [(ngModel)]="toDate"
+                          ngbDatepicker
+                          #c="ngbDatepicker"
+                          style="border: 1px solid #efefef !important;"
+                          [disabled]="!chooseFromDate"
+                        >
+                        <div class="input-group-append">
+                          <button class="btn btn-light pr-2 pl-2" (click)="c.toggle()" type="button" [disabled]="!chooseFromDate"><i
+                            class="fa fa-calendar"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-3">
                     <div class="form-group">
                       <label>Bencana</label>
                       <ng-select
@@ -43,7 +96,7 @@
                     </div>
                   </div>
 
-                  <div class="col-lg-4">
+                  <div class="col-lg-3">
                     <div class="form-group">
                       <label>Negeri</label>
                       <ng-select

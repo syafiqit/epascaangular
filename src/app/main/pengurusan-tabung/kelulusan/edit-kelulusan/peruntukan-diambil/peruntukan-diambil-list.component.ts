@@ -25,6 +25,8 @@ export class PeruntukanDiambilListComponent implements OnInit {
   filter:any;
   filterYear: number;
   filterIdKelulusan:any;
+  year:string;
+  arrayYear:any[];
 
   constructor(
     config: NgbModalConfig,
@@ -41,6 +43,7 @@ export class PeruntukanDiambilListComponent implements OnInit {
 
   ngOnInit(): void {
     this.show();
+    this.generateArrayOfYears();
   }
 
   show() {
@@ -53,7 +56,7 @@ export class PeruntukanDiambilListComponent implements OnInit {
     }
   }
 
-  getSejarahBwi(event?: LazyLoadEvent) {
+  getPeruntukanDiambil(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
@@ -87,10 +90,21 @@ export class PeruntukanDiambilListComponent implements OnInit {
     modalRef.result.then(
 			(response) => {
 				if (response) {
-          this.getSejarahBwi();
+          this.getPeruntukanDiambil();
 				}
 			}
 		);
 	}
+
+  generateArrayOfYears() {
+    let max = new Date().getFullYear();
+    let min = max - 9;
+    let years = [];
+
+    for (let i = max; i >= min; i--) {
+      years.push(i)
+    }
+    this.arrayYear = years;
+  }
 
 }
