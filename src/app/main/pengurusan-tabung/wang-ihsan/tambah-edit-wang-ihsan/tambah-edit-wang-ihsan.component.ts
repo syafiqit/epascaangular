@@ -282,12 +282,12 @@ export class TambahEditWangIhsanComponent implements OnInit {
 
     for(let i = 0; i < this.pembayaran.length; i++){
       const bayaranBwi = new InputBwiBayaranDto();
-      if(this.idJenisBayaran == 1){
-        bayaranBwi.id_skb = this.pembayaran[i].id;
+      if(this.pembayaran[i].idSkb){
+        bayaranBwi.id_skb = this.pembayaran[i].idSkb;
         this.bwi_bayaran.push(bayaranBwi);
       }
-      else if(this.idJenisBayaran == 2){
-        bayaranBwi.id_terus = this.pembayaran[i].id;
+      else if(this.pembayaran[i].idTerus){
+        bayaranBwi.id_terus = this.pembayaran[i].idTerus;
         this.bwi_bayaran.push(bayaranBwi);
       }
     }

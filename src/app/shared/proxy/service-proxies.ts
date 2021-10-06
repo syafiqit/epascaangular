@@ -41007,6 +41007,9 @@ export class CreateOrEditTabungBayaranTerusDto implements ICreateOrEditTabungBay
     nama_bencana!: string;
     nama_jenis_bayaran!: string;
     nama_kategori_bayaran!: string;
+    id_negeri!: number;
+    id_agensi!: number;
+    id_kementerian!: number;
 
     constructor(data?: ICreateOrEditTabungBayaranTerusDto) {
         if (data) {
@@ -41042,6 +41045,9 @@ export class CreateOrEditTabungBayaranTerusDto implements ICreateOrEditTabungBay
             this.nama_bencana = _data["nama_bencana"];
             this.nama_jenis_bayaran = _data["nama_jenis_bayaran"];
             this.nama_kategori_bayaran = _data["nama_kategori_bayaran"];
+            this.id_negeri = _data["id_negeri"];
+            this.id_agensi = _data["id_agensi"];
+            this.id_kementerian = _data["id_kementerian"];
         }
     }
 
@@ -41077,6 +41083,9 @@ export class CreateOrEditTabungBayaranTerusDto implements ICreateOrEditTabungBay
         data["nama_bencana"] = this.nama_bencana;
         data["nama_jenis_bayaran"] = this.nama_jenis_bayaran;
         data["nama_kategori_bayaran"] = this.nama_kategori_bayaran;
+        data["id_negeri"] = this.id_negeri;
+        data["id_agensi"] = this.id_agensi;
+        data["id_kementerian"] = this.id_kementerian;
         return data; 
     }
 }
@@ -41106,6 +41115,9 @@ export interface ICreateOrEditTabungBayaranTerusDto {
     nama_bencana: string;
     nama_jenis_bayaran: string;
     nama_kategori_bayaran: string;
+    id_negeri: number;
+    id_agensi: number;
+    id_kementerian: number;
 }
 
 /** Class GetRujukanKelulusanTerusDto */

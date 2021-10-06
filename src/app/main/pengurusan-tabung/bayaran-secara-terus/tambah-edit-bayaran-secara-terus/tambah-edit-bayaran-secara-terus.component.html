@@ -149,7 +149,75 @@
 						</div>
 						<hr />
 						<h6>Maklumat Bayaran</h6>
-						<div class="row mt-3">
+            <div class="row mt-3">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Penerima</label>
+									<ng-select
+                    [items]="kategoriPenerima"
+                    bindLabel="nama_kategori"
+                    bindValue="id"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
+                    name="kategori_penerima"
+                    [(ngModel)]="id_kategori_penerima"
+                    #penerima="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && penerima.invalid }"
+                    required
+                  ></ng-select>
+                  <div *ngIf="f.submitted && penerima.invalid" class="invalid-feedback">
+                    <div *ngIf="penerima.errors.required">Penerima Wajib Dipilih</div>
+                  </div>
+                </div>
+              </div>
+
+							<div class="col-lg-6" *ngIf="id_kategori_penerima == 1">
+                <div class="form-group">
+                  <label>Negeri</label>
+									<ng-select
+                    [items]="negeri"
+                    bindLabel="nama_negeri"
+                    bindValue="id"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
+                    name="negeri"
+                    [(ngModel)]="bayaranTerus.id_negeri"
+                  ></ng-select>
+                </div>
+              </div>
+
+							<div class="col-lg-6" *ngIf="id_kategori_penerima == 2">
+                <div class="form-group">
+                  <label>Agensi</label>
+									<ng-select
+                    [items]="agensi"
+                    bindLabel="nama_agensi"
+                    bindValue="id"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
+                    name="agensi"
+                    [(ngModel)]="bayaranTerus.id_agensi"
+                  ></ng-select>
+                </div>
+              </div>
+
+              <div class="col-lg-6" *ngIf="id_kategori_penerima == 3">
+                <div class="form-group">
+                  <label>Kementerian</label>
+									<ng-select
+                    [items]="kementerian"
+                    bindLabel="nama_kementerian"
+                    bindValue="id"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
+                    name="kementerian"
+                    [(ngModel)]="bayaranTerus.id_kementerian"
+                  ></ng-select>
+                </div>
+              </div>
+						</div>
+
+            <div class="row">
 							<div class="col-lg-6">
                 <div class="form-group">
                   <label>No. Baucar</label>
@@ -165,10 +233,10 @@
 
 							<div class="col-lg-6">
                 <div class="form-group">
-                  <label>Kepada*</label>
+                  <label>Jawatan Penerima*</label>
                   <input
                     class="form-control"
-                    name="penerima"
+                    name="Jawatan Penerima"
                     type="text"
                     [(ngModel)]="bayaranTerus.penerima"
                     placeholder="Penerima"
