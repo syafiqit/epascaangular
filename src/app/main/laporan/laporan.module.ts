@@ -11,7 +11,6 @@ import { LaporanRoutingModule } from './laporan-routing.module';
 import { LaporanSkbComponent } from './laporan-skb/laporan-skb.component';
 import { LaporanRingkasanComponent } from './laporan-ringkasan/laporan-ringkasan.component';
 import { LaporanKelulusanComponent } from './laporan-kelulusan/laporan-kelulusan.component';
-import { LaporanSkbBulanComponent } from './laporan-skb-bulan/laporan-skb-bulan.component';
 import { LaporanBayaranTerusComponent } from './laporan-bayaran-terus/laporan-bayaran-terus.component';
 import { LaporanBwiComponent } from './laporan-bwi/laporan-bwi.component';
 import { LaporanBencanaKirComponent } from './laporan-bencana-kir/laporan-bencana-kir.component';
@@ -45,7 +44,6 @@ import { LaporanWaranComponent } from './laporan-waran/laporan-waran.component';
     LaporanSkbComponent,
     LaporanRingkasanComponent,
     LaporanKelulusanComponent,
-    LaporanSkbBulanComponent,
     LaporanBayaranTerusComponent,
     LaporanBwiComponent,
     LaporanBencanaKirComponent,

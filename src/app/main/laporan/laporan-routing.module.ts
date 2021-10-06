@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LaporanKelulusanComponent } from './laporan-kelulusan/laporan-kelulusan.component';
 import { LaporanRingkasanComponent } from './laporan-ringkasan/laporan-ringkasan.component';
-import { LaporanSkbBulanComponent } from './laporan-skb-bulan/laporan-skb-bulan.component';
 import { LaporanSkbComponent } from './laporan-skb/laporan-skb.component';
 import { LaporanBayaranTerusComponent } from './laporan-bayaran-terus/laporan-bayaran-terus.component';
 import { LaporanBwiComponent } from './laporan-bwi/laporan-bwi.component';
@@ -44,11 +43,6 @@ const routes: Routes = [
 				path: 'kelulusan',
 				component: LaporanKelulusanComponent,
         data: { permission: 'Halaman.Laporan.Tabung.Kelulusan'}
-			},
-			{
-				path: 'bayaran/skb/bulan',
-				component: LaporanSkbBulanComponent,
-        data: { permission: 'Halaman.Laporan.Tabung.SKB'}
 			},
 			{
 				path: 'bayaran/terus',
