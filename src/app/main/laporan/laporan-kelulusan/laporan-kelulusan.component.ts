@@ -27,8 +27,9 @@ export class LaporanKelulusanComponent implements OnInit {
   modelTamat: NgbDateStruct;
   readonly DELIMITER = '-';
   filter: string;
-  filterYear: string;
-  filterPastYear: string;
+  filterTahun: number;
+  filterYear: number;
+  filterPastYear: number;
   pastYear: string;
   arrayYear:any[];
   terms$ = new Subject<string>();
@@ -98,6 +99,20 @@ export class LaporanKelulusanComponent implements OnInit {
     ).subscribe(e=>{
       this._fileDownloadService.downloadTempFile(e);
     })
+  }
+
+  resetFilter() {
+    this.filter = undefined;
+    this.filterYear = undefined;
+    this.filterPastYear = undefined;
+    this.filterTahun = undefined;
+
+    this.getKelulusanReport();
+  }
+
+  getTahun() {
+    this.filterYear = this.filterTahun;
+    this.filterPastYear = this.filterTahun - 1;
   }
 
   generateArrayOfYears() {

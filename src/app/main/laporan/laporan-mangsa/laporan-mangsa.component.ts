@@ -33,6 +33,8 @@ export class LaporanMangsaComponent implements OnInit {
   filter: string;
   filterAgensi: number;
   filterKementerian: number;
+  filterYear: number;
+  arrayYear:any[];
 
 	constructor(
     config: NgbModalConfig,
@@ -49,6 +51,7 @@ export class LaporanMangsaComponent implements OnInit {
 	ngOnInit(): void {
     this.getKementerian();
     this.getAgensi();
+	  this.generateArrayOfYears();
 
     this.terms$.pipe(
       debounceTime(500), distinctUntilChanged()
@@ -74,6 +77,7 @@ export class LaporanMangsaComponent implements OnInit {
 				this.filter,
         this.filterAgensi ?? undefined,
         this.filterKementerian ?? undefined,
+        this.filterYear ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -92,6 +96,7 @@ export class LaporanMangsaComponent implements OnInit {
       this.filter,
       this.filterAgensi  ?? undefined,
       this.filterKementerian ?? undefined,
+      this.filterYear ?? undefined
     ).subscribe(e=>{
       this._fileDownloadService.downloadTempFile(e);
     })
@@ -117,8 +122,20 @@ export class LaporanMangsaComponent implements OnInit {
     this.filter = undefined;
     this.filterAgensi = undefined;
     this.filterKementerian = undefined;
+    this.filterYear = undefined;
 
     this.getMangsaDaftar();
+  }
+
+  generateArrayOfYears() {
+    let max = new Date().getFullYear();
+    let min = max - 9;
+    let years = [];
+
+    for (let i = max; i >= min; i--) {
+      years.push(i)
+    }
+    this.arrayYear = years;
   }
 
 }

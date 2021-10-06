@@ -26,6 +26,8 @@ export class LaporanBwiNegeriComponent implements OnInit {
   states: any;
   filter: string;
   filterNegeri: number;
+  filterYear: number;
+  arrayYear:any[];
 
 	constructor(
     config: NgbModalConfig,
@@ -40,6 +42,7 @@ export class LaporanBwiNegeriComponent implements OnInit {
 
 	ngOnInit(): void {
     this.getNegeri();
+	  this.generateArrayOfYears();
 
     this.terms$.pipe(
       debounceTime(500), distinctUntilChanged()
@@ -64,6 +67,7 @@ export class LaporanBwiNegeriComponent implements OnInit {
 			.getAllLaporanBwiByNegeri(
 				this.filter,
         this.filterNegeri ?? undefined,
+        this.filterYear ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -81,6 +85,7 @@ export class LaporanBwiNegeriComponent implements OnInit {
     this._laporanServiceProxy.exportAllLaporanBwiByNegeriToExcel(
       this.filter,
       this.filterNegeri  ?? undefined,
+      this.filterYear ?? undefined
     ).subscribe(e=>{
       this._fileDownloadService.downloadTempFile(e);
     })
@@ -99,7 +104,19 @@ export class LaporanBwiNegeriComponent implements OnInit {
   resetFilter() {
     this.filter = undefined;
     this.filterNegeri = undefined;
+    this.filterYear = undefined;
 
     this.getBwiNegeriReport();
+  }
+
+  generateArrayOfYears() {
+    let max = new Date().getFullYear();
+    let min = max - 9;
+    let years = [];
+
+    for (let i = max; i >= min; i--) {
+      years.push(i)
+    }
+    this.arrayYear = years;
   }
 }
