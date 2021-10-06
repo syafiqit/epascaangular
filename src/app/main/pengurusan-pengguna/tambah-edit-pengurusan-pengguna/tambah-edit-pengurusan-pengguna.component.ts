@@ -223,9 +223,14 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
 			.createOrEdit(input)
 			.pipe()
 			.subscribe((result) => {
-				swalSuccess.fire('Berjaya!', 'Pengguna Baru Berjaya Didaftarkan.', 'success').then(() => {
-					this.router.navigateByUrl('/app/pengguna/senarai');
-				});
+        this.outputEmailPassword = result;
+        if(this.outputEmailPassword.message == "Pendaftaran Pengguna Berjaya!"){
+          swalSuccess.fire('Berjaya!', 'Pengguna Baru Berjaya Didaftarkan.', 'success').then(() => {
+            this.router.navigateByUrl('/app/pengguna/senarai');
+          });
+        }else{
+          swalError.fire('Tidak Berjaya!', this.outputEmailPassword.message, 'error');
+        }
 			});
     } else {
       input.capaian_dibenarkan = self.permissionTree.getGrantedPermissionNames();
@@ -233,9 +238,12 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
 			.createOrEdit(input)
 			.pipe()
 			.subscribe((result) => {
-				swalSuccess.fire('Berjaya!', 'Maklumat Pengguna Berjaya Dikemaskini.', 'success').then(() => {
-					this.router.navigateByUrl('/app/pengguna/senarai');
-				});
+        this.outputEmailPassword = result;
+        if(this.outputEmailPassword.message == "Data telah dikemaskini"){
+          swalSuccess.fire('Berjaya!', 'Maklumat Pengguna Berjaya Dikemaskini.', 'success').then(() => {
+            this.router.navigateByUrl('/app/pengguna/senarai');
+          });
+        }
 			});
     }
 	}

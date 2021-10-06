@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   AuthServiceProxy,
+  OutputLoginDto,
   RefAgensiServiceProxy,
   RefDaerahServiceProxy,
   RefKementerianServiceProxy,
@@ -9,7 +10,7 @@ import {
   RefPerananServiceProxy,
   RegisterPenggunaDto
 } from 'src/app/shared/proxy/service-proxies';
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-daftar-akaun',
@@ -19,6 +20,7 @@ import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 export class DaftarAkaunComponent implements OnInit {
 
  	register: RegisterPenggunaDto = new RegisterPenggunaDto();
+  output: OutputLoginDto = new OutputLoginDto();
   emailPattern = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}";
   roles: any;
   agency: any;
@@ -98,9 +100,14 @@ export class DaftarAkaunComponent implements OnInit {
 			.registerUser(this.register)
 			.pipe()
 			.subscribe((result) => {
-				swalSuccess.fire('Berjaya!', 'Maklumat Pengguna Berjaya Didaftarkan.', 'success').then(() => {
-					this._router.navigateByUrl('akaun/log-masuk');
-				});
+        this.output = result;
+        if(this.output.message == "Pendaftaran Pengguna Berjaya!"){
+          swalSuccess.fire('Berjaya!', 'Maklumat Pengguna Berjaya Didaftarkan.', 'success').then(() => {
+            this._router.navigateByUrl('akaun/log-masuk');
+          });
+        }else{
+          swalError.fire('Tidak Berjaya!', this.output.message, 'error');
+        }
 			});
 	}
 }
