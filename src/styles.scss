@@ -23,11 +23,11 @@
 }
 
 .form-control:disabled {
-  background-color: white;
+  background-color: #f9f9f9;
 }
 
 .form-control[readonly] {
-  background-color: white;
+  background-color: #f9f9f9;
 }
 
 //ng-select custom validation style
