@@ -11,10 +11,9 @@
 		<div class="row">
       <div class="col-lg-6">
 				<div class="form-group">
-					<label>Nama</label>
+					<label>Nama*</label>
 					<input
 						class="form-control"
-            id="nama_mangsa"
 						type="text"
 						name="nama"
 						[(ngModel)]="addAhli.nama"
@@ -31,10 +30,9 @@
 
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label>No. Kad Pengenalan</label>
+					<label>No. Kad Pengenalan*</label>
           <input
             class="form-control"
-            id="noKP"
             type="text"
             name="no_kp"
             [(ngModel)]="addAhli.no_kp"
@@ -62,7 +60,7 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label>Hubungan</label>
+					<label>Hubungan*</label>
 					<ng-select
 						[items]="relationships"
 						bindLabel="nama_hubungan"
@@ -81,26 +79,54 @@
 				</div>
 			</div>
 
+			<div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
+        <label>Tarikh Lahir*</label>
+        <div class="input-group">
+          <input
+            class="form-control"
+            placeholder="DD/MM/YYYY"
+            name="dp"
+            [(ngModel)]="modelBirthdate"
+            (ngModelChange)="calculateAge()"
+            ngbDatepicker
+            [footerTemplate]="footerTemplate"
+            #d="ngbDatepicker"
+            style="border: 1px solid #efefef !important;"
+						#tarikhLahir="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && tarikhLahir.invalid }"
+						required
+          >
+          <div class="input-group-append">
+            <button class="btn btn-light" (click)="d.toggle()" type="button"><i
+              class="fa fa-calendar"></i></button>
+          </div>
+					<div *ngIf="f.submitted && tarikhLahir.invalid" class="invalid-feedback">
+						<div *ngIf="tarikhLahir.errors.required">Tarikh Lahir Wajib Dipilih</div>
+					</div>
+        </div>
+      </div>
+      <ng-template #footerTemplate>
+        <hr class="my-0">
+        <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelBirthdate = today; d.close()">Hari Ini</button>
+        <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Tutup</button>
+      </ng-template>
+		</div>
+
+    <div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
 					<label>Umur</label>
 					<input
 						class="form-control"
-            id="umur_ahli"
 						type="text"
-						name="umur"
-						[(ngModel)]="addAhli.umur"
+						name="umurAIR"
+						[(ngModel)]="umur"
 						placeholder="Umur"
-						#umurAhli="ngModel"
-						[ngClass]="{ 'is-invalid': f.submitted && umurAhli.invalid }"
-						required
+            disabled
 					/>
-					<div *ngIf="f.submitted && umurAhli.invalid" class="invalid-feedback">
-						<div *ngIf="umurAhli.errors.required">Umur Ahli Isi Rumah Wajib Diisi</div>
-					</div>
 				</div>
 			</div>
-		</div>
+    </div>
 	</div>
 
   <div class="modal-footer">

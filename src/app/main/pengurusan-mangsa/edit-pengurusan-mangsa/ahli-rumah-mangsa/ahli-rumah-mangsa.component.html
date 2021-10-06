@@ -37,18 +37,23 @@
           [scrollable]="true"
           ScrollWidth="100%"
           [responsive]="primengTableHelper.isResponsive"
+          [resizableColumns]="primengTableHelper.resizableColumns"
         >
           <ng-template pTemplate="header">
             <tr>
-              <th style="width: 100px" pSortableColumn="no_kp">
-                No. Kad Pengenalan
+              <th style="width: 120px" pSortableColumn="no_kp">
+                Kad Pengenalan
                 <p-sortIcon field="no_kp"></p-sortIcon>
               </th>
-              <th style="width: 130px" pSortableColumn="nama">
+              <th style="width: 150px" pSortableColumn="nama">
                 Nama Ahli Isi Rumah
                 <p-sortIcon field="nama"></p-sortIcon>
               </th>
-              <th style="width: 100px" pSortableColumn="umur">
+              <th style="width: 100px" pSortableColumn="tarikh_lahir">
+                Tarikh Lahir
+                <p-sortIcon field="tarikh_lahir"></p-sortIcon>
+              </th>
+              <th style="width: 80px" pSortableColumn="umur">
                 Umur
                 <p-sortIcon field="umur"></p-sortIcon>
               </th>
@@ -61,17 +66,23 @@
           </ng-template>
           <ng-template pTemplate="body" let-record="$implicit">
             <tr>
-              <td style="width: 100px">
-                <span class="p-column-title">No. Kad Pengenalan</span>
+              <td style="width: 120px">
+                <span class="p-column-title">Kad Pengenalan</span>
                 {{record.no_kp}}
               </td>
-              <td style="width: 130px">
+              <td style="width: 150px">
                 <span class="p-column-title">Nama Ahli Isi Rumah</span>
                 {{record.nama}}
               </td>
               <td style="width: 100px">
+                <span class="p-column-title">Tarikh Lahir</span>
+                <label *ngIf="record.tarikh_lahir">{{record.tarikh_lahir | date: 'dd/MM/yyyy'}}</label>
+                <label *ngIf="!record.tarikh_lahir">-</label>
+              </td>
+              <td style="width: 80px">
                 <span class="p-column-title">Umur</span>
-                {{record.umur}}
+                <label *ngIf="record.id_umur == 1">{{record.umur}} Tahun</label>
+                <label *ngIf="record.id_umur == 2">{{record.umur}} Bulan</label>
               </td>
               <td style="width: 100px">
                 <span class="p-column-title">Hubungan</span>

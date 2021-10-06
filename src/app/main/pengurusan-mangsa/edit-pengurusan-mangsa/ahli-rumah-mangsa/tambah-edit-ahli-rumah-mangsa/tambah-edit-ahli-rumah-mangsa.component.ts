@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { finalize } from 'rxjs/operators';
 import {
   CreateOrEditMangsaAirDto,
@@ -8,6 +8,7 @@ import {
   RefHubunganServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import * as moment from 'moment';
 
 @Component({
 	selector: 'app-tambah-edit-ahli-rumah-mangsa',
@@ -21,8 +22,20 @@ export class TambahEditAhliRumahMangsaComponent implements OnInit {
 	saving = false;
   idMangsa: number;
   relationships: any;
+  currentYear: number;
+  birthYear: number;
+  currentMonth: number;
+  birthMonth: number;
+  umur: any;
+
+  date = new Date();
+  birthDate: string;
+  modelBirthdate: NgbDateStruct;
+  today = this.calendar.getToday();
+  readonly DELIMITER = '-';
 
 	constructor(
+    private calendar: NgbCalendar,
     public activeModal: NgbActiveModal,
     private _activatedRoute: ActivatedRoute,
     private _mangsaAirServiceProxy: MangsaAirServiceProxy,
@@ -36,12 +49,45 @@ export class TambahEditAhliRumahMangsaComponent implements OnInit {
     this.getHubungan();
   }
 
+  fromModel(value: string | null): NgbDateStruct | null {
+    if (value) {
+      let date = value.split(this.DELIMITER);
+      return {
+        year : parseInt(date[0], 10),
+        month : parseInt(date[1], 10),
+        day : parseInt(date[2], 10)
+      };
+    }
+    return null;
+  }
+
+  toModel(date: NgbDateStruct | null): string | null {
+    return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
+  }
+
+  toModelYear(date: NgbDateStruct | null): number | null {
+    return date ? date.year : null;
+  }
+
+  toModelMonth(date: NgbDateStruct | null): number | null {
+    return date ? date.month : null;
+  }
+
 	show() {
 		if (!this.id) {
 			this.addAhli = new CreateOrEditMangsaAirDto();
 		} else {
 			this._mangsaAirServiceProxy.getMangsaAirForEdit(this.id).subscribe((result) => {
 				this.addAhli = result.mangsa_air;
+        if(result.mangsa_air.tarikh_lahir){
+          this.modelBirthdate = this.fromModel(result.mangsa_air.tarikh_lahir.format('YYYY-MM-DD'));
+        }
+        if(result.mangsa_air.id_umur == 1){
+          this.umur = result.mangsa_air.umur + " Tahun";
+        }
+        if(result.mangsa_air.id_umur == 2){
+          this.umur = result.mangsa_air.umur + " Bulan";
+        }
 			});
 		}
 	}
@@ -52,9 +98,28 @@ export class TambahEditAhliRumahMangsaComponent implements OnInit {
 		});
 	}
 
+  calculateAge() {
+    this.currentYear = this.today.year;
+    this.birthYear = this.toModelYear(this.modelBirthdate);
+    this.addAhli.umur = this.currentYear - this.birthYear;
+    this.addAhli.id_umur = 1;
+    this.umur = this.addAhli.umur + " Tahun";
+    if(this.addAhli.umur == 0) {
+      this.currentMonth = this.today.month;
+      this.birthMonth = this.toModelMonth(this.modelBirthdate);
+      this.addAhli.umur = this.currentMonth - this.birthMonth;
+      this.addAhli.id_umur = 2;
+      this.umur = this.addAhli.umur + " Bulan";
+    }
+  }
+
 	save(): void {
 		this.saving = true;
 
+    if(this.modelBirthdate){
+      this.birthDate = this.toModel(this.modelBirthdate);
+      this.addAhli.tarikh_lahir = moment(this.birthDate, "YYYY-MM-DD");
+    }
     this.addAhli.id_mangsa = this.idMangsa;
 		this._mangsaAirServiceProxy
 			.createOrEdit(this.addAhli)
