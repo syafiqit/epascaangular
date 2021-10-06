@@ -147,12 +147,10 @@ export class MukaHalamanTabungComponent implements OnInit {
   skbGraph() {
     if(this.tarikhMula){
       this.filterFromSkb = this.toModelSKB(this.tarikhMula);
-      console.log(this.filterFromSkb);
     }
 
     if(this.tarikhTamat){
       this.filterToSkb = this.toModelSKB(this.tarikhTamat);
-      console.log(this.filterToSkb);
     }
 
     this._dashboardTabungServiceProxy.getTotalSkbByMonth(
