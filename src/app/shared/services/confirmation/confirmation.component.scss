@@ -1,0 +1,65 @@
+.confirmation {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: -1.5rem
+}
+
+.confirmation-dismissible {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding-top: 1rem;
+  padding-right: 1rem
+}
+
+.confirmation-icon {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+}
+
+.confirmation-content {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0px;
+  --space-x-reverse: 0;
+  margin-right: calc(0.25rem * var(--space-x-reverse));
+  margin-left: calc(0.25rem * calc(1 - var(--space-x-reverse)));
+}
+
+.confirmation-container {
+  align-items: center;
+  padding: 2rem;
+  padding-bottom: 1.5rem;
+}
+
+.confirmation-title {
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+}
+
+.confirmation-message {
+  --text-opacity: 1;
+  font-weight: 300;
+}
+
+.confirmation-action {
+  display: flex;
+  align-items: center;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  --bg-opacity: 1;
+  background-color: rgba(248, 250, 252, var(--bg-opacity));
+}
+
+.mat-dialog-container {
+  border-radius: 12px !important;
+}
