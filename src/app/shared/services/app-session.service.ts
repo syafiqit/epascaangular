@@ -36,8 +36,6 @@ export class AppSessionService {
         return true;
       }
     }
-    console.log();
-
     return false;
   }
 

@@ -135,8 +135,6 @@ export class PengurusanMangsaComponent implements OnInit {
 			let index = this.idMangsa.indexOf(id);
 			this.idMangsa.splice(index, 1);
 			}
-
-			console.log(this.idMangsa);
 		}
 
 	checkMangsaExist(id?){

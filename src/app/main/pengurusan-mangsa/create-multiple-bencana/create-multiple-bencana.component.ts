@@ -107,7 +107,6 @@ export class CreateMultipleBencanaComponent implements OnInit {
     else{
       this.statusPindah = true;
     }
-    console.log(this.statusPindah)
   }
 
 	save(): void {
