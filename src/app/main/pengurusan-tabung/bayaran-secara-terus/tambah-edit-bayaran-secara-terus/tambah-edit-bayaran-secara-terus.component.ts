@@ -3,10 +3,13 @@ import { NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootst
 import {
   CreateOrEditTabungBayaranTerusDto,
   OutputCreateBayaranTerusDto,
+  RefAgensiServiceProxy,
   RefBencanaServiceProxy,
   RefJenisBayaranServiceProxy,
   RefJenisBencanaServiceProxy,
   RefKategoriBayaranServiceProxy,
+  RefKementerianServiceProxy,
+  RefNegeriServiceProxy,
   TabungBayaranTerusServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { PilihBencanaComponent } from '../pilih-bencana/pilih-bencana.component';
@@ -33,6 +36,10 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
   filterBencana: string;
   filterJenisBencana: string;
   bencana: any;
+  negeri: any;
+  agensi: any;
+  id_kategori_penerima: number;
+  kementerian: any;
   jenisBencana: any;
   jenisBayaran: any;
   kategoriBayaran: any;
@@ -50,6 +57,12 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
   tarikhBencana: string;
   idBayaranTerus: any;
 
+  kategoriPenerima=[
+    {id: 1, nama_kategori: "Negeri"},
+    {id: 2, nama_kategori: "Agensi"},
+    {id: 3, nama_kategori: "Kementerian"}
+  ]
+
 	constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,
@@ -60,7 +73,10 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
     private _refBencanaServiceProxy: RefBencanaServiceProxy,
     private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy,
     private _refJenisBayaranServiceProxy: RefJenisBayaranServiceProxy,
-    private _refKategoriBayaranServiceProxy: RefKategoriBayaranServiceProxy
+    private _refKategoriBayaranServiceProxy: RefKategoriBayaranServiceProxy,
+    private _refNegeriServiceProxy: RefNegeriServiceProxy,
+    private _refAgensiServiceProxy: RefAgensiServiceProxy,
+    private _refKementerianServiceProxy: RefKementerianServiceProxy
     ) {
     this.idBayaranTerus = this._activatedRoute.snapshot.queryParams['id'];
     this.id_tabung_kelulusan = this._activatedRoute.snapshot.queryParams['kelulusan'];
@@ -71,6 +87,9 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
 
 	ngOnInit(): void {
     this.show();
+    this.getNegeri();
+    this.getAgensi();
+    this.getKementerian();
     this.getBencana();
     this.getKategoriBencana();
     this.getJenisBayaran();
@@ -91,8 +110,35 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
         if(result.tabung_bayaran_terus.tarikh_bencana){
           this.modelTarikhBencana = this.fromModel(result.tabung_bayaran_terus.tarikh_bencana.format('YYYY-MM-DD'));
         }
+        if(result.tabung_bayaran_terus.id_negeri){
+          this.id_kategori_penerima = 1;
+        }
+        if(result.tabung_bayaran_terus.id_agensi){
+          this.id_kategori_penerima = 2;
+        }
+        if(result.tabung_bayaran_terus.id_kementerian){
+          this.id_kategori_penerima = 3;
+        }
 			});
 		}
+  }
+
+  getNegeri(filter?){
+    this._refNegeriServiceProxy.getRefNegeriForDropdown(filter).subscribe((result) => {
+			this.negeri = result.items;
+		});
+  }
+
+  getAgensi(filter?){
+    this._refAgensiServiceProxy.getRefAgensiForDropdown(filter).subscribe((result) => {
+			this.agensi = result.items;
+		});
+  }
+
+  getKementerian(filter?){
+    this._refKementerianServiceProxy.getRefKementerianForDropdown(filter).subscribe((result) => {
+			this.kementerian = result.items;
+		});
   }
 
   getBencana(){
@@ -163,6 +209,18 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
   }
 
   save() {
+    if(this.id_kategori_penerima == 1){
+      this.bayaranTerus.id_agensi = null;
+      this.bayaranTerus.id_kementerian = null;
+    }
+    if(this.id_kategori_penerima == 2){
+      this.bayaranTerus.id_negeri = null;
+      this.bayaranTerus.id_kementerian = null;
+    }
+    if(this.id_kategori_penerima == 3){
+      this.bayaranTerus.id_negeri = null;
+      this.bayaranTerus.id_agensi = null;
+    }
     if(this.modelTarikh){
       this.tarikhBayaran = this.toModel(this.modelTarikh);
       this.bayaranTerus.tarikh = moment(this.tarikhBayaran, "YYYY-MM-DD");
