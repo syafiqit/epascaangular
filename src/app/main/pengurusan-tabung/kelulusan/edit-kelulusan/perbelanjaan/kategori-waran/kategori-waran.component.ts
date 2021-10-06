@@ -8,31 +8,30 @@ import { Table } from 'primeng/table';
 import { finalize } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-jenis-bayaran-terus',
-  templateUrl: './jenis-bayaran-terus.component.html'
+  selector: 'app-kategori-waran',
+  templateUrl: './kategori-waran.component.html'
 })
-export class JenisBayaranTerusComponent implements OnInit {
+export class KategoriWaranComponent implements OnInit {
 
   @ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
-	primengTableHelper: PrimengTableHelper;
 
-  filterKelulusan:any;
-  filterIdKelulusan:any;
+  primengTableHelper: PrimengTableHelper;
   id:number;
 
   constructor(
-    private _activatedRoute: ActivatedRoute,
-    private _tabungKelulusanServiceProxy: TabungKelulusanServiceProxy
-  ) {
+    private _tabungKelulusanServiceProxy: TabungKelulusanServiceProxy,
+    private _activatedRoute: ActivatedRoute
+  ) { 
     this.id = this._activatedRoute.snapshot.queryParams['id'];
-    this.primengTableHelper = new PrimengTableHelper(); }
+    this.primengTableHelper = new PrimengTableHelper();
+  }
 
   ngOnInit(): void {
   }
 
-  getBelanjaTerus(event?: LazyLoadEvent) {
+  getBelanjaWaran(event?: LazyLoadEvent) {
 
     if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
@@ -40,12 +39,7 @@ export class JenisBayaranTerusComponent implements OnInit {
 		}
 
 		this.primengTableHelper.showLoadingIndicator();
-		this._tabungKelulusanServiceProxy.getBayaranTerusByIdKelulusan(
-      this.filterKelulusan,
-      this.filterIdKelulusan = this.id,
-      this.primengTableHelper.getSorting(this.dataTable),
-      this.primengTableHelper.getSkipCount(this.paginator, event),
-      this.primengTableHelper.getMaxResultCount(this.paginator, event))
+		this._tabungKelulusanServiceProxy.getKategoriTabungWaranByKelulusan(this.id)
       .pipe(finalize(()=> {
         this.primengTableHelper.hideLoadingIndicator();
       }))
@@ -53,10 +47,6 @@ export class JenisBayaranTerusComponent implements OnInit {
 				this.primengTableHelper.totalRecordsCount = result.total_count;
 				this.primengTableHelper.records = result.items;
 			});
-	}
-
-  reloadPage(): void {
-		this.paginator.changePage(this.paginator.getPage());
 	}
 
 }

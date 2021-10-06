@@ -116,6 +116,13 @@
             <app-jenis-bayaran-terus></app-jenis-bayaran-terus>
           </ng-template>
         </li>
+
+        <li [ngbNavItem]="3">
+          <a ngbNavLink>Waran</a>
+          <ng-template ngbNavContent>
+            <app-jenis-bayaran-waran></app-jenis-bayaran-waran>
+          </ng-template>
+        </li>
       </ul>
       <div [ngbNavOutlet]="nav" class="mt-2"></div>
     </div>
@@ -136,6 +143,13 @@
           <a ngbNavLink>Secara Terus</a>
           <ng-template ngbNavContent>
             <app-kategori-terus></app-kategori-terus>
+          </ng-template>
+        </li>
+
+        <li [ngbNavItem]="3">
+          <a ngbNavLink>Waran</a>
+          <ng-template ngbNavContent>
+            <app-kategori-waran></app-kategori-waran>
           </ng-template>
         </li>
       </ul>
