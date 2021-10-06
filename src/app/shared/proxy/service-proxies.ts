@@ -25813,6 +25813,8 @@ export class CreateOrEditMangsaAirDto implements ICreateOrEditMangsaAirDto {
     id_pengguna_kemaskini!: number;
     tarikh_kemaskini!: moment.Moment;
     sebab_hapus!: string;
+    tarikh_lahir!: moment.Moment;
+    id_umur!: number;
 
     constructor(data?: ICreateOrEditMangsaAirDto) {
         if (data) {
@@ -25839,6 +25841,8 @@ export class CreateOrEditMangsaAirDto implements ICreateOrEditMangsaAirDto {
             this.id_pengguna_kemaskini = _data["id_pengguna_kemaskini"];
             this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
             this.sebab_hapus = _data["sebab_hapus"];
+            this.tarikh_lahir = _data["tarikh_lahir"] ? moment(_data["tarikh_lahir"].toString()) : <any>undefined;
+            this.id_umur = _data["id_umur"];
         }
     }
 
@@ -25865,6 +25869,8 @@ export class CreateOrEditMangsaAirDto implements ICreateOrEditMangsaAirDto {
         data["id_pengguna_kemaskini"] = this.id_pengguna_kemaskini;
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
+        data["tarikh_lahir"] = this.tarikh_lahir ? this.tarikh_lahir.toISOString() : <any>undefined;
+        data["id_umur"] = this.id_umur;
         return data; 
     }
 }
@@ -25884,6 +25890,8 @@ export interface ICreateOrEditMangsaAirDto {
     id_pengguna_kemaskini: number;
     tarikh_kemaskini: moment.Moment;
     sebab_hapus: string;
+    tarikh_lahir: moment.Moment;
+    id_umur: number;
 }
 
 export class GetMangsaAirForEditDto implements IGetMangsaAirForEditDto {
@@ -25938,6 +25946,8 @@ export class GetMangsaAirForViewDto implements IGetMangsaAirForViewDto {
     tarikh_kemaskini!: moment.Moment;
     sebab_hapus!: string;
     nama_hubungan!: string;
+    tarikh_lahir!: moment.Moment;
+    id_umur!: number;
 
     constructor(data?: IGetMangsaAirForViewDto) {
         if (data) {
@@ -25965,6 +25975,8 @@ export class GetMangsaAirForViewDto implements IGetMangsaAirForViewDto {
             this.tarikh_kemaskini = _data["tarikh_kemaskini"] ? moment(_data["tarikh_kemaskini"].toString()) : <any>undefined;
             this.sebab_hapus = _data["sebab_hapus"];
             this.nama_hubungan = _data["nama_hubungan"];
+            this.tarikh_lahir = _data["tarikh_lahir"] ? moment(_data["tarikh_lahir"].toString()) : <any>undefined;
+            this.id_umur = _data["id_umur"];
         }
     }
 
@@ -25992,6 +26004,8 @@ export class GetMangsaAirForViewDto implements IGetMangsaAirForViewDto {
         data["tarikh_kemaskini"] = this.tarikh_kemaskini ? this.tarikh_kemaskini.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
         data["nama_hubungan"] = this.nama_hubungan;
+        data["tarikh_lahir"] = this.tarikh_lahir ? this.tarikh_lahir.toISOString() : <any>undefined;
+        data["id_umur"] = this.id_umur;
         return data; 
     }
 }
@@ -26012,6 +26026,8 @@ export interface IGetMangsaAirForViewDto {
     tarikh_kemaskini: moment.Moment;
     sebab_hapus: string;
     nama_hubungan: string;
+    tarikh_lahir: moment.Moment;
+    id_umur: number;
 }
 
 export class OutputCreateMangsaAirDto implements IOutputCreateMangsaAirDto {

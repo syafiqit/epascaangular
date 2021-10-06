@@ -154,10 +154,7 @@
 							>
 								<ng-template pTemplate="header">
 									<tr>
-										<th style="width: 40px">
-											<!-- <input class="checkbox" type="checkbox"
-											(change)="checkedAll($event.target.checked)"> -->
-										</th>
+										<th style="width: 40px"></th>
 										<th style="width: 159px" pSortableColumn="no_kp">
 											Kad Pengenalan
 											<p-sortIcon field="no_kp"></p-sortIcon>
@@ -193,11 +190,12 @@
 									<tr>
 										<td style="width: 40px">
 											<input class="checkbox"
-												   name="{{ record.id }}" type="checkbox"
-												   id="{{record.id}}"
-												   (change)="pilihMangsa(record.id, $event.target.checked)"
-												   [checked]="checked"
-												   [checked]="checkMangsaExist(record.id)">
+                        name="{{ record.id }}" type="checkbox"
+                        id="{{record.id}}"
+                        (change)="pilihMangsa(record.id, $event.target.checked)"
+                        [checked]="checked"
+                        [checked]="checkMangsaExist(record.id)"
+                      >
 										</td>
 										<td style="width: 159px">
 											<span class="p-column-title">Kad Pengenalan</span>
