@@ -8,10 +8,10 @@ import { Table } from 'primeng/table';
 import { finalize } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-jenis-bayaran-terus',
-  templateUrl: './jenis-bayaran-terus.component.html'
+  selector: 'app-jenis-bayaran-waran',
+  templateUrl: './jenis-bayaran-waran.component.html'
 })
-export class JenisBayaranTerusComponent implements OnInit {
+export class JenisBayaranWaranComponent implements OnInit {
 
   @ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
@@ -32,7 +32,7 @@ export class JenisBayaranTerusComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getBelanjaTerus(event?: LazyLoadEvent) {
+  getBelanjaWaran(event?: LazyLoadEvent) {
 
     if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
@@ -40,7 +40,7 @@ export class JenisBayaranTerusComponent implements OnInit {
 		}
 
 		this.primengTableHelper.showLoadingIndicator();
-		this._tabungKelulusanServiceProxy.getBayaranTerusByIdKelulusan(
+		this._tabungKelulusanServiceProxy.getWaranByIdKelulusan(
       this.filterKelulusan,
       this.filterIdKelulusan = this.id,
       this.primengTableHelper.getSorting(this.dataTable),

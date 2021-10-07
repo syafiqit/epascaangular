@@ -174,6 +174,8 @@ export class MukaHalamanComponent implements OnInit, AfterViewInit {
 			// Create hover state and set alternative fill color
 			const hs = polygonTemplate.states.create('hover');
 			hs.properties.fill = chart.colors.getIndex(1).brighten(-0.5);
+
+      polygonSeries.exclude = ["BN"];
 			
 		})
 	}
