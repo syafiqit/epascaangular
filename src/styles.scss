@@ -47,5 +47,9 @@
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 3px #fde6e8;
 }
 
+.cdk-overlay-container {
+  z-index: 5000 !important;
+}
+
 @import "./assets/primeng/datatable/css/primeng.datatable.css";
 @import "./assets/primeng/tree/css/primeng.tree.css";
