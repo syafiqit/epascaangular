@@ -16,9 +16,9 @@ import {
 import { TambahBelanjaBulanan } from '../tambah-belanja-bulanan/tambah-belanja-bulanan.component';
 import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
-import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { PilihanBencanaComponent } from '../pilihan-bencana/pilihan-bencana.component';
 import { fadeVerticalAnimation } from '@app/shared/data/router-animation/fade-vertical-animation';
+import { ConfirmationService } from '@app/shared/services/confirmation';
 @Component({
 	selector: 'app-tambah-skb',
 	templateUrl: './tambah-skb.component.html',
@@ -76,6 +76,7 @@ export class TambahSkbComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private _tabungBayaranSkbServiceProxy: TabungBayaranSkbServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
+    private _confirmationService: ConfirmationService,
     private router: Router,
     private calendar: NgbCalendar
   ) {
@@ -223,7 +224,26 @@ export class TambahSkbComponent implements OnInit {
 
   checkBulanan() {
     if(this.rows.length == 0) {
-      swalError.fire('Tidak Berjaya!', "Maklumat Perbelanjaan Bulanan SKB Wajib Dimasukkan.", 'error');
+      const dialogRef = this._confirmationService.open({
+        title: 'Tidak Berjaya',
+        message: 'Maklumat Perbelanjaan Bulanan SKB Wajib Dimasukkan.',
+        icon: {
+          show: true,
+          name: 'x-circle',
+          color: 'error'
+        },
+        actions: {
+          confirm: {
+            show: true,
+            label: 'Tutup',
+            color: 'primary'
+          },
+          cancel: {
+            show: false
+          }
+        },
+        dismissible: true
+      });
     }
     else {
       this.save();
@@ -264,11 +284,50 @@ export class TambahSkbComponent implements OnInit {
 			.subscribe((result) => {
         this.output = result;
         if(this.output.message == "Maklumat Berjaya Ditambah!"){
-          swalSuccess.fire('Berjaya!', 'Maklumat Surat Kuasa Belanja Berjaya Dihantar.', 'success').then(() => {
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Maklumat Surat Kuasa Belanja Berjaya Dihantar.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
             this.router.navigateByUrl('/app/tabung/skb/senarai');
           });
         }else{
-          swalError.fire('Tidak Berjaya!', this.output.message, 'error');
+          const dialogRef = this._confirmationService.open({
+            title: 'Tidak Berjaya',
+            message: this.output.message,
+            icon: {
+              show: true,
+              name: 'x-circle',
+              color: 'error'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
         }
 			});
 	}

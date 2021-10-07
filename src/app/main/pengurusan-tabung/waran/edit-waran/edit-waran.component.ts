@@ -16,11 +16,11 @@ import {
 } from 'src/app/shared/proxy/service-proxies';
 import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
-import { swalSuccess, swalWarning } from '@shared/sweet-alert/swal-constant';
 import { fadeVerticalAnimation } from '@app/shared/data/router-animation/fade-vertical-animation';
 import { finalize } from 'rxjs/operators';
 import { PilihanRujukanKelulusanComponent } from '../../skb/pilihan-rujukan-kelulusan/pilihan-rujukan-kelulusan.component';
 import { WaranBulananComponent } from '../waran-bulanan/waran-bulanan.component';
+import { ConfirmationService } from '@app/shared/services/confirmation';
 @Component({
 	selector: 'app-edit-waran',
 	templateUrl: './edit-waran.component.html',
@@ -86,6 +86,7 @@ export class EditWaranComponent implements OnInit {
     private _tabungBayaranWaranServiceProxy: TabungBayaranWaranServiceProxy,
     private _tabungBayaranWaranBulananServiceProxy: TabungBayaranWaranBulananServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
+    private _confirmationService: ConfirmationService,
     private calendar: NgbCalendar,
     private router: Router
   ) {
@@ -235,27 +236,60 @@ export class EditWaranComponent implements OnInit {
   }
 
   deleteWaranBulanan(id){
-		swalWarning.fire({
-			title: 'Anda Pasti?',
-			text: 'Adakah anda pasti ingin memadam maklumat Belanja Bulanan Waran ini?',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			cancelButtonText: 'Tidak',
-			confirmButtonText: 'Ya'
-		}).then((result) => {
-			if (result.value) {
+    const dialogRef = this._confirmationService.open({
+      title: 'Anda Pasti?',
+      message: 'Adakah anda pasti ingin memadam maklumat Belanja Bulanan Waran ini?',
+      icon: {
+        show: true,
+        name: 'help-circle',
+        color: 'warning'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Ya',
+          color: 'primary'
+        },
+        cancel: {
+          show: true,
+          label: 'Tidak'
+        }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe((e) => {
+      if(e === 'confirmed') {
 				this._tabungBayaranWaranBulananServiceProxy.delete(id).subscribe((result)=>{
           this.output = result;
           if(this.output.message == "Belanja Bulanan Waran Berjaya Dibuang"){
-            swalSuccess.fire('Berjaya!', 'Maklumat Belanja Bulanan Waran Dipilih Berjaya Dipadam!').then(()=>{
+            const dialogRef = this._confirmationService.open({
+              title: 'Berjaya',
+              message: 'Maklumat Belanja Bulanan Waran Dipilih Berjaya Dipadam!',
+              icon: {
+                show: true,
+                name: 'check-circle',
+                color: 'success'
+              },
+              actions: {
+                confirm: {
+                  show: true,
+                  label: 'Tutup',
+                  color: 'primary'
+                },
+                cancel: {
+                  show: false
+                }
+              },
+              dismissible: true
+            });
+            dialogRef.afterClosed().subscribe(() => {
               this.getBulananWaran();
               this.show();
             });
           }
         })
-			}
-		});
+      }
+    });
   }
 
 	save() {
@@ -285,9 +319,29 @@ export class EditWaranComponent implements OnInit {
 			.createOrEdit(this.bayaranWaran)
 			.pipe()
 			.subscribe((result) => {
-				swalSuccess.fire('Berjaya!', 'Maklumat Bayaran Secara Waran Berjaya Dikemaskini.', 'success').then(() => {
-					this.router.navigateByUrl('/app/tabung/waran/senarai');
-				});
+        const dialogRef = this._confirmationService.open({
+          title: 'Berjaya',
+          message: 'Maklumat Bayaran Secara Waran Berjaya Dikemaskini.',
+          icon: {
+            show: true,
+            name: 'check-circle',
+            color: 'success'
+          },
+          actions: {
+            confirm: {
+              show: true,
+              label: 'Tutup',
+              color: 'primary'
+            },
+            cancel: {
+              show: false
+            }
+          },
+          dismissible: true
+        });
+        dialogRef.afterClosed().subscribe(() => {
+          this.router.navigateByUrl('/app/tabung/waran/senarai');
+        });
 			});
 	}
 }
