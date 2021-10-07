@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { fadeVerticalAnimation } from 'src/app/shared/data/router-animation/fade-vertical-animation';
 import {
   GetProfilDto,
+  OutputProfilDto,
   PenggunaProfilDto,
   RefAgensiServiceProxy,
   RefDaerahServiceProxy,
@@ -24,6 +25,7 @@ export class PenggunaComponent implements OnInit {
 
   getProfile: GetProfilDto = new GetProfilDto();
   updateProfile: UpdateProfilDto = new UpdateProfilDto();
+  output: OutputProfilDto = new OutputProfilDto();
 
   profilImageChangedEvent = '';
   profilImageTempName = '';
@@ -181,29 +183,56 @@ export class PenggunaComponent implements OnInit {
 	save() {
     this.updateProfile.pengguna = this.getProfile.pengguna;
 		this._sessionServiceProxy.updateProfil(this.updateProfile).subscribe((result) => {
-      const dialogRef = this._confirmationService.open({
-        title: 'Berjaya',
-        message: 'Maklumat Profil Berjaya Dikemaskini.',
-        icon: {
-          show: true,
-          name: 'check-circle',
-          color: 'success'
-        },
-        actions: {
-          confirm: {
+      this.output = result;
+      if(this.output.message == "Maklumat profil telah dikemaskini."){
+        const dialogRef = this._confirmationService.open({
+          title: 'Berjaya',
+          message: 'Maklumat Profil Berjaya Dikemaskini.',
+          icon: {
             show: true,
-            label: 'Tutup',
-            color: 'primary'
+            name: 'check-circle',
+            color: 'success'
           },
-          cancel: {
-            show: false
-          }
-        },
-        dismissible: true
-      });
-      dialogRef.afterClosed().subscribe(() => {
-        location.reload();
-      });
+          actions: {
+            confirm: {
+              show: true,
+              label: 'Tutup',
+              color: 'primary'
+            },
+            cancel: {
+              show: false
+            }
+          },
+          dismissible: true
+        });
+        dialogRef.afterClosed().subscribe(() => {
+          location.reload();
+        });
+      }else{
+        const dialogRef = this._confirmationService.open({
+          title: 'Tidak Berjaya',
+          message: this.output.message,
+          icon: {
+            show: true,
+            name: 'x-circle',
+            color: 'error'
+          },
+          actions: {
+            confirm: {
+              show: true,
+              label: 'Tutup',
+              color: 'primary'
+            },
+            cancel: {
+              show: false
+            }
+          },
+          dismissible: true
+        });
+        dialogRef.afterClosed().subscribe(() => {
+          this.show();
+        });
+      }
 		});
 	}
 }
