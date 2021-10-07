@@ -10,7 +10,7 @@ import {
   RefPerananServiceProxy,
   RegisterPenggunaDto
 } from 'src/app/shared/proxy/service-proxies';
-import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { ConfirmationService } from '@app/shared/services/confirmation';
 
 @Component({
 	selector: 'app-daftar-akaun',
@@ -39,6 +39,7 @@ export class DaftarAkaunComponent implements OnInit {
     private _refKementerianServiceProxy: RefKementerianServiceProxy,
     private _refDaerahServiceProxy: RefDaerahServiceProxy,
     private _refNegeriServiceProxy: RefNegeriServiceProxy,
+    private _confirmationService: ConfirmationService,
     private _router: Router
 	) {}
 
@@ -102,11 +103,50 @@ export class DaftarAkaunComponent implements OnInit {
 			.subscribe((result) => {
         this.output = result;
         if(this.output.message == "Pendaftaran Pengguna Berjaya!"){
-          swalSuccess.fire('Berjaya!', 'Maklumat Pengguna Berjaya Didaftarkan.', 'success').then(() => {
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Maklumat Pengguna Berjaya Didaftarkan.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
             this._router.navigateByUrl('akaun/log-masuk');
           });
         }else{
-          swalError.fire('Tidak Berjaya!', this.output.message, 'error');
+          this._confirmationService.open({
+            title: 'Tidak Berjaya',
+            message: this.output.message,
+            icon: {
+              show: true,
+              name: 'x-circle',
+              color: 'error'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
         }
 			});
 	}
