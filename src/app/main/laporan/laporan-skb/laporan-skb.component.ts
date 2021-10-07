@@ -34,6 +34,10 @@ export class LaporanSkbComponent implements OnInit {
   agencies: any;
   categories: any;
 
+  jumlah_siling_peruntukan: number;
+  jumlah_baki_peruntukan: number;
+  total_jumlah_keseluruhan: number;
+
   statuses = [
     { id: 1, status: 'Aktif' },
     { id: 2, status: 'Tamat Tempoh' },
@@ -91,6 +95,9 @@ export class LaporanSkbComponent implements OnInit {
 			.subscribe((result) => {
 				this.primengTableHelper.totalRecordsCount = result.total_count;
 				this.primengTableHelper.records = result.items;
+        this.jumlah_siling_peruntukan = result.jumlah_siling_peruntukan;
+        this.jumlah_baki_peruntukan = result.jumlah_baki_peruntukan;
+        this.total_jumlah_keseluruhan = result.total_jumlah_keseluruhan;
 			});
 	}
 

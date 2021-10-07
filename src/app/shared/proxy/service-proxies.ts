@@ -25639,6 +25639,12 @@ export interface IPagedResultOfLaporanMangsaForViewDto {
 export class PagedResultOfLaporanSkbDto implements IPagedResultOfLaporanSkbDto {
     /** Total Count */
     total_count!: number;
+    /** Total Siling Skb */
+    jumlah_siling_peruntukan!: number;
+    /** Total Baki Skb */
+    jumlah_baki_peruntukan!: number;
+    /** Total Keseluruhan Skb */
+    total_jumlah_keseluruhan!: number;
     /** Items in array of object */
     items!: GetLaporanSkbDto[];
 
@@ -25654,6 +25660,9 @@ export class PagedResultOfLaporanSkbDto implements IPagedResultOfLaporanSkbDto {
     init(_data?: any) {
         if (_data) {
             this.total_count = _data["total_count"];
+            this.jumlah_siling_peruntukan = _data["jumlah_siling_peruntukan"];
+            this.jumlah_baki_peruntukan = _data["jumlah_baki_peruntukan"];
+            this.total_jumlah_keseluruhan = _data["total_jumlah_keseluruhan"];
             if (Array.isArray(_data["items"])) {
                 this.items = [] as any;
                 for (let item of _data["items"])
@@ -25672,6 +25681,9 @@ export class PagedResultOfLaporanSkbDto implements IPagedResultOfLaporanSkbDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["total_count"] = this.total_count;
+        data["jumlah_siling_peruntukan"] = this.jumlah_siling_peruntukan;
+        data["jumlah_baki_peruntukan"] = this.jumlah_baki_peruntukan;
+        data["total_jumlah_keseluruhan"] = this.total_jumlah_keseluruhan;
         if (Array.isArray(this.items)) {
             data["items"] = [];
             for (let item of this.items)
@@ -25685,6 +25697,12 @@ export class PagedResultOfLaporanSkbDto implements IPagedResultOfLaporanSkbDto {
 export interface IPagedResultOfLaporanSkbDto {
     /** Total Count */
     total_count: number;
+    /** Total Siling Skb */
+    jumlah_siling_peruntukan: number;
+    /** Total Baki Skb */
+    jumlah_baki_peruntukan: number;
+    /** Total Keseluruhan Skb */
+    total_jumlah_keseluruhan: number;
     /** Items in array of object */
     items: GetLaporanSkbDto[];
 }
@@ -25693,6 +25711,8 @@ export interface IPagedResultOfLaporanSkbDto {
 export class PagedResultOfLaporanTabungBayaranTerusDto implements IPagedResultOfLaporanTabungBayaranTerusDto {
     /** Total Count */
     total_count!: number;
+    /** Total Bayaran Terus */
+    jumlah_bayaran_terus!: number;
     /** Items in array of object */
     items!: GetLaporanBayaranTerusDto[];
 
@@ -25708,6 +25728,7 @@ export class PagedResultOfLaporanTabungBayaranTerusDto implements IPagedResultOf
     init(_data?: any) {
         if (_data) {
             this.total_count = _data["total_count"];
+            this.jumlah_bayaran_terus = _data["jumlah_bayaran_terus"];
             if (Array.isArray(_data["items"])) {
                 this.items = [] as any;
                 for (let item of _data["items"])
@@ -25726,6 +25747,7 @@ export class PagedResultOfLaporanTabungBayaranTerusDto implements IPagedResultOf
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["total_count"] = this.total_count;
+        data["jumlah_bayaran_terus"] = this.jumlah_bayaran_terus;
         if (Array.isArray(this.items)) {
             data["items"] = [];
             for (let item of this.items)
@@ -25739,6 +25761,8 @@ export class PagedResultOfLaporanTabungBayaranTerusDto implements IPagedResultOf
 export interface IPagedResultOfLaporanTabungBayaranTerusDto {
     /** Total Count */
     total_count: number;
+    /** Total Bayaran Terus */
+    jumlah_bayaran_terus: number;
     /** Items in array of object */
     items: GetLaporanBayaranTerusDto[];
 }
@@ -25747,6 +25771,12 @@ export interface IPagedResultOfLaporanTabungBayaranTerusDto {
 export class PagedResultOfLaporanWaranDto implements IPagedResultOfLaporanWaranDto {
     /** Total Count */
     total_count!: number;
+    /** Total Siling Waran */
+    jumlah_siling_peruntukan!: number;
+    /** Total Baki Waran */
+    jumlah_baki_peruntukan!: number;
+    /** Total Keseluruhan Waran */
+    total_jumlah_keseluruhan!: number;
     /** Items in array of object */
     items!: GetLaporanWaranDto[];
 
@@ -25762,6 +25792,9 @@ export class PagedResultOfLaporanWaranDto implements IPagedResultOfLaporanWaranD
     init(_data?: any) {
         if (_data) {
             this.total_count = _data["total_count"];
+            this.jumlah_siling_peruntukan = _data["jumlah_siling_peruntukan"];
+            this.jumlah_baki_peruntukan = _data["jumlah_baki_peruntukan"];
+            this.total_jumlah_keseluruhan = _data["total_jumlah_keseluruhan"];
             if (Array.isArray(_data["items"])) {
                 this.items = [] as any;
                 for (let item of _data["items"])
@@ -25780,6 +25813,9 @@ export class PagedResultOfLaporanWaranDto implements IPagedResultOfLaporanWaranD
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["total_count"] = this.total_count;
+        data["jumlah_siling_peruntukan"] = this.jumlah_siling_peruntukan;
+        data["jumlah_baki_peruntukan"] = this.jumlah_baki_peruntukan;
+        data["total_jumlah_keseluruhan"] = this.total_jumlah_keseluruhan;
         if (Array.isArray(this.items)) {
             data["items"] = [];
             for (let item of this.items)
@@ -25793,6 +25829,12 @@ export class PagedResultOfLaporanWaranDto implements IPagedResultOfLaporanWaranD
 export interface IPagedResultOfLaporanWaranDto {
     /** Total Count */
     total_count: number;
+    /** Total Siling Waran */
+    jumlah_siling_peruntukan: number;
+    /** Total Baki Waran */
+    jumlah_baki_peruntukan: number;
+    /** Total Keseluruhan Waran */
+    total_jumlah_keseluruhan: number;
     /** Items in array of object */
     items: GetLaporanWaranDto[];
 }
