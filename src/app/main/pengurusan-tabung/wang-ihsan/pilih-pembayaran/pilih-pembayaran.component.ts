@@ -11,6 +11,7 @@ import { BwiSuratKuasaBelanjaComponent } from './bwi-surat-kuasa-belanja/bwi-sur
 })
 export class PilihPembayaranComponent implements OnInit {
   @Input() idTabungKelulusan;
+  @Input() idTabungKelulusanKemaskini;
 
 	constructor(
     private modalService: NgbModal,
@@ -25,6 +26,9 @@ export class PilihPembayaranComponent implements OnInit {
 		modalRef.componentInstance.name = 'add';
     if(this.idTabungKelulusan){
       modalRef.componentInstance.idTabungKelulusan = this.idTabungKelulusan;
+    }
+    if(this.idTabungKelulusanKemaskini){
+      modalRef.componentInstance.idTabungKelulusan = this.idTabungKelulusanKemaskini;
     }
 
     modalRef.result.then(
@@ -51,6 +55,9 @@ export class PilihPembayaranComponent implements OnInit {
 		modalRef.componentInstance.name = 'add';
     if(this.idTabungKelulusan){
       modalRef.componentInstance.idTabungKelulusan = this.idTabungKelulusan;
+    }
+    if(this.idTabungKelulusanKemaskini){
+      modalRef.componentInstance.idTabungKelulusan = this.idTabungKelulusanKemaskini;
     }
 
     modalRef.result.then(

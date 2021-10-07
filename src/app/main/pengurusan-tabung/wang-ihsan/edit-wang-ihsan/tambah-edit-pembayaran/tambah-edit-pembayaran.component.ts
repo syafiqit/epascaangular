@@ -8,6 +8,8 @@ import { TabungBwiBayaranServiceProxy, UpdateBwiBayaranDto } from '@app/shared/p
 import { finalize } from 'rxjs/operators';
 import { BwiSuratKuasaBelanjaComponent } from '../../pilih-pembayaran/bwi-surat-kuasa-belanja/bwi-surat-kuasa-belanja.component';
 import { BwiBayaranSecaraTerusComponent } from '../../pilih-pembayaran/bwi-bayaran-secara-terus/bwi-bayaran-secara-terus.component';
+import { PilihPembayaranComponent } from '../../pilih-pembayaran/pilih-pembayaran.component';
+import { swalError } from '@app/shared/sweet-alert/swal-constant';
 
 @Component({
   selector: 'app-tambah-edit-pembayaran',
@@ -17,10 +19,12 @@ export class TambahEditPembayaranComponent implements OnInit {
   @Input() public idBwi: number;
   @Output() idBayaranTerus = new EventEmitter<number>();
   @Output() idBayaranSkb = new EventEmitter<number>();
+  @Output() idBayaran = new EventEmitter<number>();
 
   @ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
+  primengTableHelper: PrimengTableHelper;
   primengTableHelperTerus: PrimengTableHelper;
   primengTableHelperSkb: PrimengTableHelper;
   bwi_bayaran: UpdateBwiBayaranDto[] = [];
@@ -30,8 +34,11 @@ export class TambahEditPembayaranComponent implements OnInit {
   filter: string;
   idTerus: number;
   idSkb: number;
+  idPembayaran: number;
   idTabungBayaranSkb: number;
   idTabungBayaranTerus: number;
+  existingId: number;
+  idKelulusanKemaskini: number;
 
   constructor(
     config: NgbModalConfig,
@@ -40,6 +47,7 @@ export class TambahEditPembayaranComponent implements OnInit {
     private _tabungBwiBayaranServiceProxy: TabungBwiBayaranServiceProxy
   ) {
     this.primengTableHelperTerus = new PrimengTableHelper();
+    this.primengTableHelper = new PrimengTableHelper();
     this.primengTableHelperSkb = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
@@ -47,96 +55,79 @@ export class TambahEditPembayaranComponent implements OnInit {
 
   ngOnInit(): void {}
 
-	getBayaranTerus(event?: LazyLoadEvent) {
-		if (this.primengTableHelperTerus.shouldResetPaging(event)) {
+  getBayaran(event?: LazyLoadEvent) {
+		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
 		}
 
-		this.primengTableHelperTerus.showLoadingIndicator();
+		this.primengTableHelper.showLoadingIndicator();
 		this._tabungBwiBayaranServiceProxy
-			.getAllBwiBayaranTerus(
+			.getAllBayaranSkbDanTerus(
 				this.filter,
         this.idBwi,
-				this.primengTableHelperTerus.getSorting(this.dataTable),
-				this.primengTableHelperTerus.getSkipCount(this.paginator, event),
-				this.primengTableHelperTerus.getMaxResultCount(this.paginator, event)
+				this.primengTableHelper.getSorting(this.dataTable),
+				this.primengTableHelper.getSkipCount(this.paginator, event),
+				this.primengTableHelper.getMaxResultCount(this.paginator, event)
 			)
       .pipe(finalize(()=>{
-        this.primengTableHelperTerus.hideLoadingIndicator();
+        this.primengTableHelper.hideLoadingIndicator();
       }))
 			.subscribe((result) => {
-				this.primengTableHelperTerus.totalRecordsCount = result.total_count;
-				this.primengTableHelperTerus.records = result.items;
-			});
-	}
-
-  getBayaranSkb(event?: LazyLoadEvent) {
-		if (this.primengTableHelperSkb.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
-
-		this.primengTableHelperSkb.showLoadingIndicator();
-		this._tabungBwiBayaranServiceProxy
-			.getAllBwiBayaranSkb(
-				this.filter,
-        this.idBwi,
-				this.primengTableHelperSkb.getSorting(this.dataTable),
-				this.primengTableHelperSkb.getSkipCount(this.paginator, event),
-				this.primengTableHelperSkb.getMaxResultCount(this.paginator, event)
-			)
-      .pipe(finalize(()=>{
-        this.primengTableHelperSkb.hideLoadingIndicator();
-      }))
-			.subscribe((result) => {
-				this.primengTableHelperSkb.totalRecordsCount = result.total_count;
-				this.primengTableHelperSkb.records = result.items;
+				this.primengTableHelper.totalRecordsCount = result.total_count;
+				this.primengTableHelper.records = result.items;
+        for(let i=0; i <= result.items.length - 1; i++){
+          this.idKelulusanKemaskini = result.items[i].id_tabung_kelulusan;
+        }
 			});
 	}
 
 	pilihPembayaran() {
-    if(this.primengTableHelperSkb.totalRecordsCount){
-      const modalRef = this.modalService.open(BwiSuratKuasaBelanjaComponent, { size: 'lg' });
-      modalRef.result.then(
-        (response) => {
-          this.idSkb = response.id;
-          if (response) {
-            this.primengTableHelperSkb.records.push({
-              id: response.id,
-              no_rujukan_skb: response.no_rujukan_bayaran,
+    const modalRef = this.modalService.open(PilihPembayaranComponent, { size: 'md' });
+    modalRef.componentInstance.idTabungKelulusanKemaskini = this.idKelulusanKemaskini;
+    modalRef.result.then(
+      (response) => {
+        if (response.idSkb) {
+          this.existingId = this.primengTableHelper.records.find(e=> e.id_bayaran_skb == response.idSkb);
+          this.idSkb = response.idSkb;
+          if(!this.existingId){
+            this.primengTableHelper.records.push({
+              id: response.idSkb,
+              no_rujukan_bayaran: response.no_rujukan_bayaran,
               perihal: response.perihal,
               no_rujukan_kelulusan: response.no_rujukan_kelulusan,
               jumlah: response.jumlah,
               idJenisBayaran: response.idJenisBayaran
             });
-            this.tambahPembayaranSkb(this.idSkb)
+            this.existingId = null;
+          }else{
+            swalError.fire('Tidak Berjaya','No. Rujukan SKB Telah Dipilih');
+            this.existingId = null;
           }
-        },
-        () => {}
-      );
-    }
-
-    if(this.primengTableHelperTerus.totalRecordsCount){
-      const modalRef = this.modalService.open(BwiBayaranSecaraTerusComponent, { size: 'lg' });
-      modalRef.result.then(
-        (response) => {
-          this.idTerus = response.id;
-          if (response) {
-            this.primengTableHelperTerus.records.push({
-              id: response.id,
-              no_rujukan_terus: response.no_rujukan_bayaran,
+          this.tambahPembayaranSkb(this.idSkb)
+        }
+        else if (response.idTerus) {
+          this.existingId = this.primengTableHelper.records.find(e=> e.id_bayaran_terus == response.idTerus);
+          this.idTerus = response.idTerus;
+          if(!this.existingId){
+            this.primengTableHelper.records.push({
+              id: response.idTerus,
+              no_rujukan_bayaran: response.no_rujukan_bayaran,
               perihal: response.perihal,
               no_rujukan_kelulusan: response.no_rujukan_kelulusan,
               jumlah: response.jumlah,
               idJenisBayaran: response.idJenisBayaran
             });
-            this.tambahPembayaranTerus(this.idTerus)
+            this.existingId = null;
+          }else{
+            swalError.fire('Tidak Berjaya','No. Rujukan Terus Telah Dipilih');
+            this.existingId = null;
           }
-        },
-        () => {}
-      );
-    }
+          this.tambahPembayaranTerus(this.idTerus)
+        }
+      },
+      () => {}
+    );
 	}
 
   tambahPembayaranTerus(value: number) {
