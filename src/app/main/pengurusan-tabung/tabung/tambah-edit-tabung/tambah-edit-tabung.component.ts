@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { CreateOrEditTabungDto, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { ConfirmationService } from '@services/confirmation';
 import { CurrencyPipe } from '@angular/common';
 
 @Component({
@@ -21,7 +21,8 @@ export class TambahEditTabungComponent implements OnInit {
 	constructor(
     public activeModal: NgbActiveModal,
     private tabungServiceProxy: TabungServiceProxy,
-    private currencyPipe: CurrencyPipe
+    private currencyPipe: CurrencyPipe,
+    private _confirmationService: ConfirmationService
     ) {}
 
 	ngOnInit(): void {}
@@ -35,9 +36,29 @@ export class TambahEditTabungComponent implements OnInit {
 
   save() {
     this.createTabung.dana_awal = this.danaAwal;
-    this.tabungServiceProxy.createOrEdit(this.createTabung).subscribe(()=>{
-      swalSuccess.fire('Berjaya', 'Maklumat Tabung Berjaya Ditambah').then(() => {
-				this.activeModal.close(true);
+    this.tabungServiceProxy.createOrEdit(this.createTabung).subscribe((result)=>{
+      const dialogRef = this._confirmationService.open({
+        title: 'Berjaya',
+        message: 'Maklumat Tabung Berjaya Ditambah.',
+        icon: {
+          show: true,
+          name: 'check-circle',
+          color: 'success'
+        },
+        actions: {
+          confirm: {
+            show: true,
+            label: 'Tutup',
+            color: 'primary'
+          },
+          cancel: {
+            show: false
+          }
+        },
+        dismissible: true
+      });
+      dialogRef.afterClosed().subscribe(() => {
+        this.activeModal.close(true);
       });
     })
   }

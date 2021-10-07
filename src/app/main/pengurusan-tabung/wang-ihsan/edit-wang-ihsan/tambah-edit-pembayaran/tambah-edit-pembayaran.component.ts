@@ -6,10 +6,9 @@ import { Table } from 'primeng/table';
 import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TabungBwiBayaranServiceProxy, UpdateBwiBayaranDto } from '@app/shared/proxy/service-proxies';
 import { finalize } from 'rxjs/operators';
-import { BwiSuratKuasaBelanjaComponent } from '../../pilih-pembayaran/bwi-surat-kuasa-belanja/bwi-surat-kuasa-belanja.component';
-import { BwiBayaranSecaraTerusComponent } from '../../pilih-pembayaran/bwi-bayaran-secara-terus/bwi-bayaran-secara-terus.component';
 import { PilihPembayaranComponent } from '../../pilih-pembayaran/pilih-pembayaran.component';
 import { swalError } from '@app/shared/sweet-alert/swal-constant';
+import { ConfirmationService } from '@services/confirmation';
 
 @Component({
   selector: 'app-tambah-edit-pembayaran',
@@ -44,7 +43,8 @@ export class TambahEditPembayaranComponent implements OnInit {
     config: NgbModalConfig,
     private modalService: NgbModal,
     public activeModal: NgbActiveModal,
-    private _tabungBwiBayaranServiceProxy: TabungBwiBayaranServiceProxy
+    private _tabungBwiBayaranServiceProxy: TabungBwiBayaranServiceProxy,
+    private _confirmationService: ConfirmationService
   ) {
     this.primengTableHelperTerus = new PrimengTableHelper();
     this.primengTableHelper = new PrimengTableHelper();
@@ -101,7 +101,26 @@ export class TambahEditPembayaranComponent implements OnInit {
             });
             this.existingId = null;
           }else{
-            swalError.fire('Tidak Berjaya','No. Rujukan SKB Telah Dipilih');
+            this._confirmationService.open({
+              title: 'Tidak Berjaya',
+              message: 'No. Rujukan SKB Telah Dipilih',
+              icon: {
+                show: true,
+                name: 'x-circle',
+                color: 'error'
+              },
+              actions: {
+                confirm: {
+                  show: true,
+                  label: 'Tutup',
+                  color: 'primary'
+                },
+                cancel: {
+                  show: false
+                }
+              },
+              dismissible: true
+            });
             this.existingId = null;
           }
           this.tambahPembayaranSkb(this.idSkb)
@@ -120,7 +139,26 @@ export class TambahEditPembayaranComponent implements OnInit {
             });
             this.existingId = null;
           }else{
-            swalError.fire('Tidak Berjaya','No. Rujukan Terus Telah Dipilih');
+            this._confirmationService.open({
+              title: 'Tidak Berjaya',
+              message: 'No. Rujukan Terus Telah Dipilih',
+              icon: {
+                show: true,
+                name: 'x-circle',
+                color: 'error'
+              },
+              actions: {
+                confirm: {
+                  show: true,
+                  label: 'Tutup',
+                  color: 'primary'
+                },
+                cancel: {
+                  show: false
+                }
+              },
+              dismissible: true
+            });
             this.existingId = null;
           }
           this.tambahPembayaranTerus(this.idTerus)

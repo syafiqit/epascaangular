@@ -4,6 +4,7 @@ import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { CreateOrEditTabungPeruntukanDto, RefSumberPeruntukanServiceProxy, TabungPeruntukanServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import * as moment from 'moment';
 import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { ConfirmationService } from '@services/confirmation';
 
 @Component({
 	selector: 'app-tambah-peruntukan',
@@ -31,7 +32,8 @@ export class TambahPeruntukanComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private calendar: NgbCalendar,
     private tabungPeruntukanServiceProxy: TabungPeruntukanServiceProxy,
-    private _refSumberPeruntukanServiceProxy: RefSumberPeruntukanServiceProxy
+    private _refSumberPeruntukanServiceProxy: RefSumberPeruntukanServiceProxy,
+    private _confirmationService: ConfirmationService
     ) {}
 
 	ngOnInit(): void {
@@ -96,17 +98,79 @@ export class TambahPeruntukanComponent implements OnInit {
     this.peruntukan.id_tabung = this.id;
     this.tabungPeruntukanServiceProxy.createOrEdit(this.peruntukan).subscribe((result)=>{
       if(this.id && !this.idTabungPeruntukan){
-        swalSuccess.fire('Berjaya', 'Tambahan Dana Berjaya Ditambah').then(() => {
+        const dialogRef = this._confirmationService.open({
+          title: 'Berjaya',
+          message: 'Tambahan Dana Berjaya Ditambah.',
+          icon: {
+            show: true,
+            name: 'check-circle',
+            color: 'success'
+          },
+          actions: {
+            confirm: {
+              show: true,
+              label: 'Tutup',
+              color: 'primary'
+            },
+            cancel: {
+              show: false
+            }
+          },
+          dismissible: true
+        });
+        dialogRef.afterClosed().subscribe(() => {
           this.activeModal.close(true);
         });
       }
       else if(this.id && this.idTabungPeruntukan){
         if(result.message == "Tambahan Dana Berjaya Dikemaskini"){
-          swalSuccess.fire('Berjaya', result.message).then(() => {
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: result.message,
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
             this.activeModal.close(true);
           });
         }else{
-          swalError.fire('Tidak Berjaya', result.message)
+          const dialogRef = this._confirmationService.open({
+            title: 'Tidak Berjaya',
+            message: result.message,
+            icon: {
+              show: true,
+              name: 'x-circle',
+              color: 'error'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
+            this.activeModal.close(true);
+          });
         }
       }
     })

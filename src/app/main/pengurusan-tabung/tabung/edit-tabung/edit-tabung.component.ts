@@ -1,5 +1,6 @@
 import { OnInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
+import { ConfirmationService } from '@services/confirmation';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
@@ -61,7 +62,8 @@ export class EditTabungComponent implements OnInit {
     private _refSumberPeruntukanServiceProxy: RefSumberPeruntukanServiceProxy,
     private calendar: NgbCalendar,
     private router: Router,
-    public _appSession: AppSessionService
+    private _confirmationService: ConfirmationService,
+    public _appSession: AppSessionService,
     ) {
 		this.primengTableHelper = new PrimengTableHelper();
     this.primengTableHelperSejarah = new PrimengTableHelper();
@@ -209,7 +211,7 @@ export class EditTabungComponent implements OnInit {
 		});
 	}
 
-  deleteTabungPeruntukan(id?) {
+  deleteTabungPeruntukans(id?) {
     swalWarning.fire({
       title: 'Anda Pasti?',
       text: 'Adakah anda pasti ingin memadam maklumat terimaan tambahan ini?',
@@ -229,6 +231,83 @@ export class EditTabungComponent implements OnInit {
           }
           this.show();
           this.getTabungPeruntukan();
+        })
+      }
+    });
+  }
+
+  deleteTabungPeruntukan(id){
+    const dialogRef = this._confirmationService.open({
+      title: 'Anda Pasti?',
+      message: 'Adakah anda pasti ingin memadam maklumat terimaan tambahan ini?',
+      icon: {
+        show: true,
+        name: 'help-circle',
+        color: 'warning'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Ya',
+          color: 'primary'
+        },
+        cancel: {
+          show: true,
+          label: 'Tidak'
+        }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe((e) => {
+      if(e === 'confirmed') {
+				this.tabungPeruntukanServiceProxy.delete(id).subscribe((result) => {
+          if(result.message == "Tambahan Dana Berjaya Dibuang"){
+            const dialogRef = this._confirmationService.open({
+              title: 'Berjaya',
+              message: result.message,
+              icon: {
+                show: true,
+                name: 'check-circle',
+                color: 'success'
+              },
+              actions: {
+                confirm: {
+                  show: true,
+                  label: 'Tutup',
+                  color: 'primary'
+                },
+                cancel: {
+                  show: false
+                }
+              },
+              dismissible: true
+            });
+            dialogRef.afterClosed().subscribe(() => {
+              this.show();
+              this.getTabungPeruntukan();
+            });
+          } else{
+            this._confirmationService.open({
+              title: 'Tidak Berjaya',
+              message: result.message,
+              icon: {
+                show: true,
+                name: 'x-circle',
+                color: 'error'
+              },
+              actions: {
+                confirm: {
+                  show: true,
+                  label: 'Tutup',
+                  color: 'primary'
+                },
+                cancel: {
+                  show: false
+                }
+              },
+              dismissible: true
+            });
+          }
         })
       }
     });
@@ -255,7 +334,27 @@ export class EditTabungComponent implements OnInit {
       this.editTabung.tarikh_cipta = moment(this.tarikh_cipta, "YYYY-MM-DD");
     }
     this.tabungServiceProxy.createOrEdit(this.editTabung).subscribe(()=>{
-      swalSuccess.fire('Berjaya', 'Maklumat Tabung Berjaya Dikemaskini').then(() => {
+      const dialogRef = this._confirmationService.open({
+        title: 'Berjaya',
+        message: 'Maklumat Tabung Berjaya Dikemaskini.',
+        icon: {
+          show: true,
+          name: 'check-circle',
+          color: 'success'
+        },
+        actions: {
+          confirm: {
+            show: true,
+            label: 'Tutup',
+            color: 'primary'
+          },
+          cancel: {
+            show: false
+          }
+        },
+        dismissible: true
+      });
+      dialogRef.afterClosed().subscribe(() => {
         this.router.navigateByUrl('/app/tabung/senarai');
       });
     })

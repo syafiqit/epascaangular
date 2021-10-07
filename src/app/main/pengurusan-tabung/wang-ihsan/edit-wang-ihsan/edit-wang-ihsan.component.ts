@@ -4,6 +4,7 @@ import { NgbActiveModal, NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig, N
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
+import { ConfirmationService } from '@services/confirmation';
 import {
   CreateOrEditTabungBwiDto,
   CreateOrEditTabungBwiKawasanDto,
@@ -82,6 +83,7 @@ export class EditWangIhsanComponent implements OnInit {
     private calendar: NgbCalendar,
     public activeModal: NgbActiveModal,
     private _activatedRoute: ActivatedRoute,
+    private _confirmationService: ConfirmationService,
     private _tabungBwiServiceProxy: TabungBwiServiceProxy,
     private _refJenisBwiServiceProxy: RefJenisBwiServiceProxy,
     private _tabungBwiBayaranServiceProxy: TabungBwiBayaranServiceProxy,
@@ -197,9 +199,29 @@ export class EditWangIhsanComponent implements OnInit {
 			.createOrEdit(this.tabungBwi)
 			.pipe()
 			.subscribe((result) => {
-				swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Wang Ihsan Berjaya Dikemaskini.', 'success').then(() => {
+        const dialogRef = this._confirmationService.open({
+          title: 'Berjaya',
+          message: 'Maklumat Bantuan Wang Ihsan Berjaya Dikemaskini.',
+          icon: {
+            show: true,
+            name: 'check-circle',
+            color: 'success'
+          },
+          actions: {
+            confirm: {
+              show: true,
+              label: 'Tutup',
+              color: 'primary'
+            },
+            cancel: {
+              show: false
+            }
+          },
+          dismissible: true
+        });
+        dialogRef.afterClosed().subscribe(() => {
           this.router.navigateByUrl('/app/tabung/senarai-wang-ihsan');
-				});
+        });
 			});
 	}
 }
