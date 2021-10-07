@@ -8,6 +8,7 @@ import { NgbActiveModal, NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } 
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { swalSuccess } from '@app/shared/sweet-alert/swal-constant';
+import { ConfirmationService } from '@services/confirmation';
 import * as moment from 'moment';
 
 @Component({
@@ -77,6 +78,7 @@ export class TambahEditKirComponent implements OnInit {
     private calendar: NgbCalendar,
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
+    private _confirmationService: ConfirmationService,
     private tabungBwiKawasanServiceProxy: TabungBwiKawasanServiceProxy,
     private mangsaWangIhsanServiceProxy: MangsaWangIhsanServiceProxy
   ) {
@@ -223,9 +225,29 @@ export class TambahEditKirComponent implements OnInit {
 			.createOrEdit(this.bantuanKawasan)
 			.pipe()
 			.subscribe((result) => {
-				swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Berjaya Dikemaskini.', 'success').then(() => {
-					this._router.navigateByUrl('app/tabung/senarai-wang-ihsan');
-				});
+        const dialogRef = this._confirmationService.open({
+          title: 'Berjaya',
+          message: 'Maklumat Bantuan Berjaya Dikemaskini.',
+          icon: {
+            show: true,
+            name: 'check-circle',
+            color: 'success'
+          },
+          actions: {
+            confirm: {
+              show: true,
+              label: 'Tutup',
+              color: 'primary'
+            },
+            cancel: {
+              show: false
+            }
+          },
+          dismissible: true
+        });
+        dialogRef.afterClosed().subscribe(() => {
+          this._router.navigateByUrl('app/tabung/senarai-wang-ihsan');
+        });
 			});
   }
 }

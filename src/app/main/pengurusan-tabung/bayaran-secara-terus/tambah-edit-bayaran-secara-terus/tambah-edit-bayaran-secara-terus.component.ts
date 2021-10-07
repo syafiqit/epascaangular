@@ -16,7 +16,7 @@ import { PilihBencanaComponent } from '../pilih-bencana/pilih-bencana.component'
 import { PilihRujukanKelulusanComponent } from '../pilih-rujukan-kelulusan/pilih-rujukan-kelulusan.component';
 import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
-import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { ConfirmationService } from '@services/confirmation';
 @Component({
 	selector: 'app-tambah-edit-bayaran-secara-terus',
 	templateUrl: './tambah-edit-bayaran-secara-terus.component.html',
@@ -76,7 +76,8 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
     private _refKategoriBayaranServiceProxy: RefKategoriBayaranServiceProxy,
     private _refNegeriServiceProxy: RefNegeriServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
-    private _refKementerianServiceProxy: RefKementerianServiceProxy
+    private _refKementerianServiceProxy: RefKementerianServiceProxy,
+    private _confirmationService: ConfirmationService,
     ) {
     this.idBayaranTerus = this._activatedRoute.snapshot.queryParams['id'];
     this.id_tabung_kelulusan = this._activatedRoute.snapshot.queryParams['kelulusan'];
@@ -239,11 +240,50 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
 			.subscribe((result) => {
         this.output.message = result.message;
         if(this.output.message == "Tabung Bayaran Terus Berjaya Ditambah"){
-          swalSuccess.fire('Berjaya!', 'Maklumat Bayaran Secara Terus Berjaya Ditambah.', 'success').then(() => {
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Maklumat Bayaran Secara Terus Berjaya Ditambah.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
             this.router.navigateByUrl('/app/tabung/bayaran-terus/senarai');
           });
         }else{
-          swalError.fire('Tidak Berjaya!', this.output.message, 'error');
+          this._confirmationService.open({
+            title: 'Tidak Berjaya',
+            message: result.message,
+            icon: {
+              show: true,
+              name: 'x-circle',
+              color: 'error'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
         }
 			});
     } else if(this.idBayaranTerus){
@@ -251,7 +291,27 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
 			.createOrEdit(this.bayaranTerus)
 			.pipe()
 			.subscribe((result) => {
-          swalSuccess.fire('Berjaya!', 'Maklumat Bayaran Secara Terus Berjaya Dikemaskini.', 'success').then(() => {
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Maklumat Bayaran Secara Terus Berjaya Dikemaskini.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
             this.router.navigateByUrl('/app/tabung/bayaran-terus/senarai');
           });
 			});

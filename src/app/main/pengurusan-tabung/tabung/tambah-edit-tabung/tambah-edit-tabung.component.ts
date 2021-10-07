@@ -37,7 +37,7 @@ export class TambahEditTabungComponent implements OnInit {
   save() {
     this.createTabung.dana_awal = this.danaAwal;
     this.tabungServiceProxy.createOrEdit(this.createTabung).subscribe((result)=>{
-      this._confirmationService.open({
+      const dialogRef = this._confirmationService.open({
         title: 'Berjaya',
         message: 'Maklumat Tabung Berjaya Ditambah.',
         icon: {
@@ -56,6 +56,9 @@ export class TambahEditTabungComponent implements OnInit {
           }
         },
         dismissible: true
+      });
+      dialogRef.afterClosed().subscribe(() => {
+        this.activeModal.close(true);
       });
     })
   }

@@ -19,8 +19,7 @@ import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { fadeVerticalAnimation } from '@app/shared/data/router-animation/fade-vertical-animation';
 import { TambahBantuanComponent } from '../tambah-bantuan/tambah-bantuan.component';
 import { PilihBencanaBwiComponent } from '../pilih-bencana/pilih-bencana-bwi.component';
-import { BwiBayaranSecaraTerusComponent } from '../pilih-pembayaran/bwi-bayaran-secara-terus/bwi-bayaran-secara-terus.component';
-import { BwiSuratKuasaBelanjaComponent } from '../pilih-pembayaran/bwi-surat-kuasa-belanja/bwi-surat-kuasa-belanja.component';
+import { ConfirmationService } from '@services/confirmation';
 @Component({
 	selector: 'app-tambah-edit-wang-ihsan',
 	templateUrl: './tambah-edit-wang-ihsan.component.html',
@@ -72,7 +71,8 @@ export class TambahEditWangIhsanComponent implements OnInit {
     private modalService: NgbModal,
     public activeModal: NgbActiveModal,
     private _tabungBwiServiceProxy: TabungBwiServiceProxy,
-    private _refJenisBwiServiceProxy: RefJenisBwiServiceProxy
+    private _refJenisBwiServiceProxy: RefJenisBwiServiceProxy,
+    private _confirmationService: ConfirmationService,
   ) {
 		config.backdrop = 'static';
 		config.keyboard = false;
@@ -304,14 +304,36 @@ export class TambahEditWangIhsanComponent implements OnInit {
     this.tabungBwi.bwi = this.bwi;
     this.tabungBwi.bwi_bayaran = this.bwi_bayaran;
     this.tabungBwi.bwi_kawasan = this.bwi_kawasan;
+    this.tabungBwi.id_kelulusan = this.id_tabung_kelulusan;
 
     this._tabungBwiServiceProxy
 			.createOrEdit(this.tabungBwi)
 			.pipe()
 			.subscribe((result) => {
-				swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Wang Ihsan Berjaya Dihantar.', 'success').then(() => {
+        const dialogRef = this._confirmationService.open({
+          title: 'Berjaya',
+          message: 'Maklumat Bantuan Wang Ihsan Berjaya Dihantar.',
+          icon: {
+            show: true,
+            name: 'check-circle',
+            color: 'success'
+          },
+          actions: {
+            confirm: {
+              show: true,
+              label: 'Tutup',
+              color: 'primary'
+            },
+            cancel: {
+              show: false
+            }
+          },
+          dismissible: true
+        });
+        dialogRef.afterClosed().subscribe(() => {
           this.router.navigateByUrl('/app/tabung/senarai-wang-ihsan');
-				});
+        });
+
 			});
 	}
 }
