@@ -18,10 +18,10 @@ import {
 import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PilihanBencanaComponent } from '../pilihan-bencana/pilihan-bencana.component';
-import { swalSuccess, swalWarning } from '@shared/sweet-alert/swal-constant';
 import { fadeVerticalAnimation } from '@app/shared/data/router-animation/fade-vertical-animation';
 import { finalize } from 'rxjs/operators';
 import { TambahBelanjaBulanan } from '../tambah-belanja-bulanan/tambah-belanja-bulanan.component';
+import { ConfirmationService } from '@app/shared/services/confirmation';
 @Component({
 	selector: 'app-edit-skb',
 	templateUrl: './edit-skb.component.html',
@@ -90,6 +90,7 @@ export class EditSkbComponent implements OnInit {
     private _tabungBayaranSkbServiceProxy: TabungBayaranSkbServiceProxy,
     private _tabungBayaranSkbBulananServiceProxy: TabungBayaranSkbBulananServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
+    private _confirmationService: ConfirmationService,
     private calendar: NgbCalendar,
     private router: Router
   ) {
@@ -256,27 +257,60 @@ export class EditSkbComponent implements OnInit {
   }
 
   deleteSkbBulanan(id){
-		swalWarning.fire({
-			title: 'Anda Pasti?',
-			text: 'Adakah anda pasti ingin memadam maklumat Belanja Bulanan SKB ini?',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			cancelButtonText: 'Tidak',
-			confirmButtonText: 'Ya'
-		}).then((result) => {
-			if (result.value) {
+    const dialogRef = this._confirmationService.open({
+      title: 'Anda Pasti?',
+      message: 'Adakah anda pasti ingin memadam maklumat Belanja Bulanan SKB ini?',
+      icon: {
+        show: true,
+        name: 'help-circle',
+        color: 'warning'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Ya',
+          color: 'primary'
+        },
+        cancel: {
+          show: true,
+          label: 'Tidak'
+        }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe((e) => {
+      if(e === 'confirmed') {
 				this._tabungBayaranSkbBulananServiceProxy.delete(id).subscribe((result)=>{
           this.output = result;
           if(this.output.message == "Surat Kuasa Belanja Bulanan Berjaya Dibuang"){
-            swalSuccess.fire('Berjaya!', 'Maklumat Belanja Bulanan SKB Dipilih Berjaya Dipadam!').then(()=>{
+            const dialogRef = this._confirmationService.open({
+              title: 'Berjaya',
+              message: 'Maklumat Belanja Bulanan SKB Dipilih Berjaya Dipadam!',
+              icon: {
+                show: true,
+                name: 'check-circle',
+                color: 'success'
+              },
+              actions: {
+                confirm: {
+                  show: true,
+                  label: 'Tutup',
+                  color: 'primary'
+                },
+                cancel: {
+                  show: false
+                }
+              },
+              dismissible: true
+            });
+            dialogRef.afterClosed().subscribe(() => {
               this.getBulananSKB();
               this.show();
             });
           }
         })
-			}
-		});
+      }
+    });
   }
 
 	save() {
@@ -305,10 +339,30 @@ export class EditSkbComponent implements OnInit {
 		this._tabungBayaranSkbServiceProxy
 			.createOrEdit(this.bayaranSKB)
 			.pipe()
-			.subscribe((result) => {
-				swalSuccess.fire('Berjaya!', 'Maklumat Surat Kuasa Belanja Berjaya Dikemaskini.', 'success').then(() => {
-					this.router.navigateByUrl('/app/tabung/skb/senarai');
-				});
+			.subscribe(() => {
+        const dialogRef = this._confirmationService.open({
+          title: 'Berjaya',
+          message: 'Maklumat Surat Kuasa Belanja Berjaya Dikemaskini.',
+          icon: {
+            show: true,
+            name: 'check-circle',
+            color: 'success'
+          },
+          actions: {
+            confirm: {
+              show: true,
+              label: 'Tutup',
+              color: 'primary'
+            },
+            cancel: {
+              show: false
+            }
+          },
+          dismissible: true
+        });
+        dialogRef.afterClosed().subscribe(() => {
+          this.router.navigateByUrl('/app/tabung/skb/senarai');
+        });
 			});
 	}
 }

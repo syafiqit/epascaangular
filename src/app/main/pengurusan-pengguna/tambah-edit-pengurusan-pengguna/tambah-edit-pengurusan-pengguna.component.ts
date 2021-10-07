@@ -20,8 +20,8 @@ import {
 import { finalize } from 'rxjs/operators';
 import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { fadeVerticalAnimation } from 'src/app/shared/data/router-animation/fade-vertical-animation';
-import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { PerananTreeComponent } from '@app/shared/components/peranan-tree/peranan-tree.component';
+import { ConfirmationService } from '@app/shared/services/confirmation';
 
 @Component({
 	selector: 'app-tambah-edit-pengurusan-pengguna',
@@ -107,6 +107,7 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
     private _refNegeriServiceProxy: RefNegeriServiceProxy,
     private _refKementerianServiceProxy: RefKementerianServiceProxy,
     private _refPerananServiceProxy: RefPerananServiceProxy,
+    private _confirmationService: ConfirmationService,
     private router: Router
     ) {
 		this.primengTableHelper = new PrimengTableHelper();
@@ -200,15 +201,6 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
 		this.showRepeatNew = !this.showRepeatNew;
 	}
 
-  preSave() {
-    if(this.edit.pengguna.status_pengguna === 1) {
-      this.savePermohonan();
-    }
-    if(this.edit.pengguna.status_pengguna !== 1) {
-      this.save();
-    }
-  }
-
   save() {
     const self = this;
 		this.saving = true;
@@ -225,11 +217,50 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
 			.subscribe((result) => {
         this.outputEmailPassword = result;
         if(this.outputEmailPassword.message == "Pendaftaran Pengguna Berjaya!"){
-          swalSuccess.fire('Berjaya!', 'Pengguna Baru Berjaya Didaftarkan.', 'success').then(() => {
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Pengguna Baru Berjaya Didaftarkan.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
             this.router.navigateByUrl('/app/pengguna/senarai');
           });
         }else{
-          swalError.fire('Tidak Berjaya!', this.outputEmailPassword.message, 'error');
+          const dialogRef = this._confirmationService.open({
+            title: 'Tidak Berjaya',
+            message: this.outputEmailPassword.message,
+            icon: {
+              show: true,
+              name: 'x-circle',
+              color: 'error'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
         }
 			});
     } else {
@@ -240,25 +271,36 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
 			.subscribe((result) => {
         this.outputEmailPassword = result;
         if(this.outputEmailPassword.message == "Data telah dikemaskini"){
-          swalSuccess.fire('Berjaya!', 'Maklumat Pengguna Berjaya Dikemaskini.', 'success').then(() => {
-            this.router.navigateByUrl('/app/pengguna/senarai');
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Maklumat Pengguna Berjaya Dikemaskini.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
+            if(input.pengguna.status_pengguna == 1) {
+              this.router.navigateByUrl('/app/pengguna/permohonan');
+            } else {
+              this.router.navigateByUrl('/app/pengguna/senarai');
+            }
           });
         }
 			});
     }
-	}
-
-  savePermohonan() {
-		this.saving = true;
-    this.daftar.pengguna = this.edit.pengguna;
-		this._userServiceProxy
-			.createOrEdit(this.daftar)
-			.pipe()
-			.subscribe((result) => {
-				swalSuccess.fire('Berjaya!', 'Maklumat Pengguna Berjaya Dikemaskini.', 'success').then(() => {
-					this.router.navigateByUrl('/app/pengguna/permohonan');
-				});
-			});
 	}
 
   saveEmelPassword() {
@@ -273,15 +315,73 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
       .pipe(finalize(() => {this.saving = false;})).subscribe((result) => {
         this.outputEmailPassword = result;
         if(this.outputEmailPassword.message === 'Emel atau Kata Laluan Berjaya Ditukar') {
-          swalSuccess.fire('Berjaya!', this.outputEmailPassword.message, 'success').then(() => {
-            this.router.navigateByUrl('/app/pengguna/senarai');
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: this.outputEmailPassword.message,
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
+            location.reload();
           });
         }else{
-          swalError.fire('Tidak Berjaya!', this.outputEmailPassword.message, 'error');
+          const dialogRef = this._confirmationService.open({
+            title: 'Tidak Berjaya',
+            message: this.outputEmailPassword.message,
+            icon: {
+              show: true,
+              name: 'x-circle',
+              color: 'error'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
         }
 			});
     } else {
-			swalError.fire('Tidak Berjaya!', 'Kata Laluan Baru Dan Ulang Kata Laluan Tidak Sepadan ', 'error');
+      const dialogRef = this._confirmationService.open({
+        title: 'Tidak Berjaya',
+        message: 'Kata Laluan Baru Dan Ulang Kata Laluan Tidak Sepadan ',
+        icon: {
+          show: true,
+          name: 'x-circle',
+          color: 'error'
+        },
+        actions: {
+          confirm: {
+            show: true,
+            label: 'Tutup',
+            color: 'primary'
+          },
+          cancel: {
+            show: false
+          }
+        },
+        dismissible: true
+      });
 		}
   }
 

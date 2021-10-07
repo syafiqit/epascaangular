@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
-import { swalError, swalSuccess, swalWarning } from '@app/shared/sweet-alert/swal-constant';
 import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
@@ -14,6 +13,7 @@ import {
   TabungServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { AppSessionService } from '@app/shared/services/app-session.service';
+import { ConfirmationService } from '@app/shared/services/confirmation';
 
 @Component({
 	selector: 'app-waran',
@@ -40,6 +40,7 @@ export class WaranComponent implements OnInit {
     config: NgbModalConfig,
     private _tabungBayaranWaranServiceProxy: TabungBayaranWaranServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
+    private _confirmationService: ConfirmationService,
     private _tabungServiceProxy: TabungServiceProxy,
     public _appSession: AppSessionService
   ) {
@@ -114,27 +115,79 @@ export class WaranComponent implements OnInit {
   }
 
   deleteWaran(id){
-		swalWarning.fire({
-			title: 'Anda Pasti?',
-			text: 'Adakah anda pasti ingin memadam maklumat Bayaran Secara Waran ini?',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			cancelButtonText: 'Tidak',
-			confirmButtonText: 'Ya'
-		}).then((result) => {
-			if (result.value) {
+    const dialogRef = this._confirmationService.open({
+      title: 'Anda Pasti?',
+      message: 'Adakah anda pasti ingin memadam maklumat Bayaran Secara Waran ini?',
+      icon: {
+        show: true,
+        name: 'help-circle',
+        color: 'warning'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Ya',
+          color: 'primary'
+        },
+        cancel: {
+          show: true,
+          label: 'Tidak'
+        }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe((e) => {
+      if(e === 'confirmed') {
 				this._tabungBayaranWaranServiceProxy.delete(id).subscribe((result)=>{
           this.output = result;
           if(this.output.message == "Waran Berjaya Dibuang"){
-            swalSuccess.fire('Berjaya!', 'Maklumat Waran Dipilih Berjaya Dipadam!').then(()=>{
+            const dialogRef = this._confirmationService.open({
+              title: 'Berjaya',
+              message: 'Maklumat Waran Dipilih Berjaya Dipadam!',
+              icon: {
+                show: true,
+                name: 'check-circle',
+                color: 'success'
+              },
+              actions: {
+                confirm: {
+                  show: true,
+                  label: 'Tutup',
+                  color: 'primary'
+                },
+                cancel: {
+                  show: false
+                }
+              },
+              dismissible: true
+            });
+            dialogRef.afterClosed().subscribe(() => {
               this.getWarrant();
             });
-          }else{
-            swalError.fire('Tidak Berjaya!', this.output.message, 'error');
+          } else{
+            const dialogRef = this._confirmationService.open({
+              title: 'Tidak Berjaya',
+              message: this.output.message,
+              icon: {
+                show: true,
+                name: 'x-circle',
+                color: 'error'
+              },
+              actions: {
+                confirm: {
+                  show: true,
+                  label: 'Tutup',
+                  color: 'primary'
+                },
+                cancel: {
+                  show: false
+                }
+              },
+              dismissible: true
+            });
           }
         })
-			}
-		});
+      }
+    });
   }
 }
