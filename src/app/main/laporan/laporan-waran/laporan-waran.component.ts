@@ -30,6 +30,10 @@ export class LaporanWaranComponent implements OnInit {
   agensi: any;
   kategoriBayaran: any;
 
+  jumlah_siling_peruntukan: number;
+  jumlah_baki_peruntukan: number;
+  total_jumlah_keseluruhan: number;
+
   date = new Date();
   modelMula: NgbDateStruct;
   modelTamat: NgbDateStruct;
@@ -97,6 +101,9 @@ export class LaporanWaranComponent implements OnInit {
 			.subscribe((result) => {
 				this.primengTableHelper.totalRecordsCount = result.total_count;
 				this.primengTableHelper.records = result.items;
+        this.jumlah_siling_peruntukan = result.jumlah_siling_peruntukan;
+        this.jumlah_baki_peruntukan = result.jumlah_baki_peruntukan;
+        this.total_jumlah_keseluruhan = result.total_jumlah_keseluruhan;
 			});
 	}
 

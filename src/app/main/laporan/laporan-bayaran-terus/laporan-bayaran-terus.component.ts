@@ -28,6 +28,7 @@ export class LaporanBayaranTerusComponent implements OnInit {
   filterKategori: number;
   filterYear: number;
   arrayYear:any[];
+  jumlah_bayaran_terus: number;
 
 	constructor(
     config: NgbModalConfig,
@@ -78,6 +79,7 @@ export class LaporanBayaranTerusComponent implements OnInit {
 			.subscribe((result) => {
 				this.primengTableHelper.totalRecordsCount = result.total_count;
 				this.primengTableHelper.records = result.items;
+        this.jumlah_bayaran_terus = result.jumlah_bayaran_terus;
 			});
 	}
 
