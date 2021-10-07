@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { swalError, swalSuccess, swalWarning } from '@app/shared/sweet-alert/swal-constant';
 import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
@@ -10,6 +9,7 @@ import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { OutputCreateBayaranSkbDto, RefAgensiServiceProxy, TabungBayaranSkbServiceProxy, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import { AppSessionService } from '@app/shared/services/app-session.service';
+import { ConfirmationService } from '@app/shared/services/confirmation';
 
 @Component({
 	selector: 'app-skb',
@@ -39,6 +39,7 @@ export class SkbComponent implements OnInit {
     private _tabungBayaranSkbServiceProxy: TabungBayaranSkbServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
     private _tabungServiceProxy: TabungServiceProxy,
+    private _confirmationService: ConfirmationService,
     public _appSession: AppSessionService
   ) {
     this.idSkb = this._activatedRoute.snapshot.queryParams['id'];
@@ -113,27 +114,79 @@ export class SkbComponent implements OnInit {
   }
 
   deleteSkb(id){
-		swalWarning.fire({
-			title: 'Anda Pasti?',
-			text: 'Adakah anda pasti ingin memadam maklumat Surat Kuasa Belanja ini?',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			cancelButtonText: 'Tidak',
-			confirmButtonText: 'Ya'
-		}).then((result) => {
-			if (result.value) {
+    const dialogRef = this._confirmationService.open({
+      title: 'Anda Pasti?',
+      message: 'Adakah anda pasti ingin memadam maklumat Surat Kuasa Belanja ini?',
+      icon: {
+        show: true,
+        name: 'help-circle',
+        color: 'warning'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Ya',
+          color: 'primary'
+        },
+        cancel: {
+          show: true,
+          label: 'Tidak'
+        }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe((e) => {
+      if(e === 'confirmed') {
 				this._tabungBayaranSkbServiceProxy.delete(id).subscribe((result)=>{
           this.output = result;
           if(this.output.message == "Surat Kuasa Belanja Berjaya Dibuang"){
-            swalSuccess.fire('Berjaya!', 'Surat Kuasa Belanja Dipilih Berjaya Dipadam!').then(()=>{
+            const dialogRef = this._confirmationService.open({
+              title: 'Berjaya',
+              message: 'Surat Kuasa Belanja Dipilih Berjaya Dipadam!',
+              icon: {
+                show: true,
+                name: 'check-circle',
+                color: 'success'
+              },
+              actions: {
+                confirm: {
+                  show: true,
+                  label: 'Tutup',
+                  color: 'primary'
+                },
+                cancel: {
+                  show: false
+                }
+              },
+              dismissible: true
+            });
+            dialogRef.afterClosed().subscribe(() => {
               this.getSKB();
             });
-          }else{
-            swalError.fire('Tidak Berjaya!', this.output.message, 'error');
+          } else{
+            const dialogRef = this._confirmationService.open({
+              title: 'Tidak Berjaya',
+              message: this.output.message,
+              icon: {
+                show: true,
+                name: 'x-circle',
+                color: 'error'
+              },
+              actions: {
+                confirm: {
+                  show: true,
+                  label: 'Tutup',
+                  color: 'primary'
+                },
+                cancel: {
+                  show: false
+                }
+              },
+              dismissible: true
+            });
           }
         })
-			}
-		});
+      }
+    });
   }
 }

@@ -14,10 +14,10 @@ import {
 } from 'src/app/shared/proxy/service-proxies';
 import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
-import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { fadeVerticalAnimation } from '@app/shared/data/router-animation/fade-vertical-animation';
 import { PilihanRujukanKelulusanComponent } from '../../skb/pilihan-rujukan-kelulusan/pilihan-rujukan-kelulusan.component';
 import { WaranBulananComponent } from '../waran-bulanan/waran-bulanan.component';
+import { ConfirmationService } from '@app/shared/services/confirmation';
 @Component({
 	selector: 'app-tambah-waran',
 	templateUrl: './tambah-waran.component.html',
@@ -73,6 +73,7 @@ export class TambahWaranComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private _tabungBayaranWaranServiceProxy: TabungBayaranWaranServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
+    private _confirmationService: ConfirmationService,
     private router: Router,
     private calendar: NgbCalendar
   ) {
@@ -206,7 +207,26 @@ export class TambahWaranComponent implements OnInit {
 
   checkBulanan() {
     if(this.rows.length == 0) {
-      swalError.fire('Tidak Berjaya!', "Maklumat Perbelanjaan Bulanan Waran Wajib Dimasukkan.", 'error');
+      const dialogRef = this._confirmationService.open({
+        title: 'Tidak Berjaya',
+        message: 'Maklumat Perbelanjaan Bulanan Waran Wajib Dimasukkan.',
+        icon: {
+          show: true,
+          name: 'x-circle',
+          color: 'error'
+        },
+        actions: {
+          confirm: {
+            show: true,
+            label: 'Tutup',
+            color: 'primary'
+          },
+          cancel: {
+            show: false
+          }
+        },
+        dismissible: true
+      });
     }
     else {
       this.save();
@@ -247,11 +267,50 @@ export class TambahWaranComponent implements OnInit {
 			.subscribe((result) => {
         this.output = result;
         if(this.output.message == "Maklumat Berjaya Ditambah!"){
-          swalSuccess.fire('Berjaya!', 'Maklumat Bayaran Secara Waran Berjaya Dihantar.', 'success').then(() => {
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Maklumat Bayaran Secara Waran Berjaya Dihantar.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
             this.router.navigateByUrl('/app/tabung/waran/senarai');
           });
         }else{
-          swalError.fire('Tidak Berjaya!', this.output.message, 'error');
+          const dialogRef = this._confirmationService.open({
+            title: 'Tidak Berjaya',
+            message: this.output.message,
+            icon: {
+              show: true,
+              name: 'x-circle',
+              color: 'error'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
         }
 			});
 	}

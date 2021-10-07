@@ -5,7 +5,7 @@ import {
   TabungBayaranSkbBulananServiceProxy,
   OutputCreateSkbBulananDto
 } from 'src/app/shared/proxy/service-proxies';
-import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { ConfirmationService } from '@app/shared/services/confirmation';
 @Component({
 	selector: 'app-tambah-belanja-bulanan',
 	templateUrl: './tambah-belanja-bulanan.component.html',
@@ -42,6 +42,7 @@ export class TambahBelanjaBulanan implements OnInit {
 
 	constructor(
 		public activeModal: NgbActiveModal,
+    private _confirmationService: ConfirmationService,
     private _tabungBayaranSkbBulananServiceProxy: TabungBayaranSkbBulananServiceProxy
 	) {}
 
@@ -87,7 +88,26 @@ export class TambahBelanjaBulanan implements OnInit {
       if(jumlah <= this.jumlah_baki_peruntukan) {
         this.activeModal.close({tahun: tahun, bulan: bulan, id_bulan: id_bulan, jumlah: jumlah });
       } else{
-        swalError.fire('Tidak Berjaya!', 'Jumlah Belanja Bulanan Melebihi Jumlah Baki Siling SKB', 'error')
+        const dialogRef = this._confirmationService.open({
+          title: 'Tidak Berjaya',
+          message: 'Jumlah Belanja Bulanan Melebihi Jumlah Baki Siling SKB',
+          icon: {
+            show: true,
+            name: 'x-circle',
+            color: 'error'
+          },
+          actions: {
+            confirm: {
+              show: true,
+              label: 'Tutup',
+              color: 'primary'
+            },
+            cancel: {
+              show: false
+            }
+          },
+          dismissible: true
+        });
       }
     }
     else if (this.kategori == 1 && this.idBulan){
@@ -95,7 +115,26 @@ export class TambahBelanjaBulanan implements OnInit {
       if(jumlah <= this.baki_baru) {
         this.activeModal.close({ id: this.idBulan, tahun: tahun, bulan: bulan, id_bulan: id_bulan, jumlah: jumlah });
       } else{
-        swalError.fire('Tidak Berjaya!', 'Jumlah Belanja Bulanan Melebihi Jumlah Baki Siling SKB', 'error')
+        const dialogRef = this._confirmationService.open({
+          title: 'Tidak Berjaya',
+          message: 'Jumlah Belanja Bulanan Melebihi Jumlah Baki Siling SKB',
+          icon: {
+            show: true,
+            name: 'x-circle',
+            color: 'error'
+          },
+          actions: {
+            confirm: {
+              show: true,
+              label: 'Tutup',
+              color: 'primary'
+            },
+            cancel: {
+              show: false
+            }
+          },
+          dismissible: true
+        });
       }
     }
     else {
@@ -110,16 +149,75 @@ export class TambahBelanjaBulanan implements OnInit {
       .subscribe((result) => {
         this.output = result;
         if(this.output.message == "Maklumat SKB Bulanan Berjaya Ditambah!"){
-          swalSuccess.fire('Berjaya!', 'Maklumat Belanja Bulanan SKB Berjaya Dihantar', 'success').then(() => {
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Maklumat Belanja Bulanan SKB Berjaya Dihantar.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
             this.activeModal.close(true);
           });
         }
         else if(this.output.message == "Maklumat SKB Bulanan Berjaya Dikemaskini!"){
-          swalSuccess.fire('Berjaya!', 'Maklumat Belanja Bulanan SKB Berjaya Disimpan', 'success').then(() => {
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Maklumat Belanja Bulanan SKB Berjaya Disimpan.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
             this.activeModal.close(true);
           });
         }else{
-          swalError.fire('Tidak Berjaya!', this.output.message, 'error');
+          const dialogRef = this._confirmationService.open({
+            title: 'Tidak Berjaya',
+            message: this.output.message,
+            icon: {
+              show: true,
+              name: 'x-circle',
+              color: 'error'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
         }
       });
     }
