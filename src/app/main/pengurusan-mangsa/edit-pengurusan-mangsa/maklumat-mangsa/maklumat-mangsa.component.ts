@@ -94,13 +94,15 @@ export class MaklumatMangsaComponent implements OnInit {
 		this.hasImage = 1;
 	}
 
-  getDun(idDun, filter?) {
-		this._refDunServiceProxy.getRefDunForDropdown(filter).subscribe((result) => {
+  getDun(idDun, filter?, filterNegeri?) {
+		this._refDunServiceProxy.getRefDunForDropdown(filter, filterNegeri).subscribe((result) => {
 			this.dun = result.items;
-      this.setDun = this.dun.find((data)=>{
-        return data.id == idDun;
-      })
-      return this.setDun.nama_dun;
+      if(idDun) {
+        this.setDun = this.dun.find((data)=>{
+          return data.id == idDun;
+        })
+        return this.setDun.nama_dun;
+      }
 		});
 	}
 
@@ -146,6 +148,7 @@ export class MaklumatMangsaComponent implements OnInit {
 	setNegeri() {
 		this.getMangsa.mangsa.id_daerah = this.setDaerah.id;
 		this.getMangsa.mangsa.id_negeri = this.setDaerah.id_negeri;
+    this.getDun(undefined, undefined, this.getMangsa.mangsa.id_negeri);
 	}
 
   uploadImage() {

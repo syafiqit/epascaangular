@@ -92,8 +92,8 @@ export class TambahPengurusanMangsaComponent implements OnInit {
     return null;
   }
 
-  getDun(filter?) {
-		this._refDunServiceProxy.getRefDunForDropdown(filter).subscribe((result) => {
+  getDun(filter?, filterNegeri?) {
+		this._refDunServiceProxy.getRefDunForDropdown(filter, filterNegeri).subscribe((result) => {
 			this.dun = result.items;
 		});
 	}
@@ -130,6 +130,7 @@ export class TambahPengurusanMangsaComponent implements OnInit {
 	setNegeri() {
 		this.addMangsa.mangsa.id_daerah = this.setDaerah.id;
 		this.addMangsa.mangsa.id_negeri = this.setDaerah.id_negeri;
+    this.getDun(undefined, this.addMangsa.mangsa.id_negeri);
 	}
 
   perakuan(isChecked) {
