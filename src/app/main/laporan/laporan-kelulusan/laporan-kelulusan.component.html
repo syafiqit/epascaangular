@@ -235,8 +235,7 @@
 										</td>
 										<td style="width: 300px">
 											<span class="p-column-title">Rujukan Surat</span>
-											<label *ngIf="record.kelulusan.rujukan">{{record.kelulusan.rujukan}}</label>
-                      <label *ngIf="!record.kelulusan.rujukan">-</label>
+											{{record.kelulusan.rujukan? record.kelulusan.rujukan: '-'}}
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Tarikh Mula</span>
@@ -258,8 +257,7 @@
 										</td>
 										<td style="width: 300px">
 											<span class="p-column-title">Perihal Surat</span>
-                      <label *ngIf="record.kelulusan.perihal_surat">{{record.kelulusan.perihal_surat}}</label>
-                      <label *ngIf="!record.kelulusan.perihal_surat">-</label>
+                      {{record.kelulusan.perihal_surat? record.kelulusan.perihal_surat: '-'}}
 										</td>
 										<td style="width: 150px">
 											<span class="p-column-title">Belanja (Tahun Sebelum) Covid</span>
@@ -318,8 +316,7 @@
 										</td>
 										<td style="width: 170px">
 											<span class="p-column-title">Rujukan</span>
-                      <label *ngIf="record.kelulusan.rujukan">{{record.kelulusan.rujukan}}</label>
-                      <label *ngIf="!record.kelulusan.rujukan">-</label>
+                      {{record.kelulusan.rujukan? record.kelulusan.rujukan: '-'}}
 										</td>
 									</tr>
 								</ng-template>

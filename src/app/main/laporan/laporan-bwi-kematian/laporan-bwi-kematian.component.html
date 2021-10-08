@@ -185,8 +185,7 @@
 										</td>
 										<td style="width: 215px">
 											<span class="p-column-title">No. Ruj. Memo KPD BKP</span>
-                      <label *ngIf="record.no_rujukan_saluran_kpd_bkp">{{record.no_rujukan_saluran_kpd_bkp}}</label>
-                      <label *ngIf="!record.no_rujukan_saluran_kpd_bkp">-</label>
+                      {{record.no_rujukan_saluran_kpd_bkp? record.no_rujukan_saluran_kpd_bkp: '-'}}
 										</td>
 										<td style="width: 100px">
 											<span class="p-column-title">Bil. KIR</span>
@@ -204,8 +203,7 @@
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Catatan</span>
-                      <label *ngIf="record.catatan">{{record.catatan}}</label>
-                      <label *ngIf="!record.catatan">-</label>
+                      {{record.catatan? record.catatan: '-'}}
 										</td>
 									</tr>
 								</ng-template>

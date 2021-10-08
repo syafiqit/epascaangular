@@ -170,8 +170,7 @@
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Alamat 2</span>
-                      <label *ngIf="record.alamat_2">{{record.alamat_2}}</label>
-                      <label *ngIf="!record.alamat_2">-</label>
+                      {{record.alamat_2? record.alamat_2: '-'}}
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Daerah</span>
