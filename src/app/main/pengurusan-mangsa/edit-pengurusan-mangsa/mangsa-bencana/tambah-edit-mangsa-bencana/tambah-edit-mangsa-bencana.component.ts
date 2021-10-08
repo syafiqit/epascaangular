@@ -11,10 +11,12 @@ import {
 import { SelectBencanaComponent } from '@app/main/pengurusan-mangsa/select-bencana/select-bencana.component';
 import * as moment from 'moment';
 import { ConfirmationService } from '@services/confirmation';
+import { fadeVerticalAnimation } from '@app/shared/data/router-animation/fade-vertical-animation';
 
 @Component({
 	selector: 'app-tambah-edit-mangsa-bencana',
-	templateUrl: './tambah-edit-mangsa-bencana.component.html'
+	templateUrl: './tambah-edit-mangsa-bencana.component.html',
+  animations: [fadeVerticalAnimation]
 })
 
 export class TambahEditMangsaBencanaComponent implements OnInit {
@@ -29,7 +31,6 @@ export class TambahEditMangsaBencanaComponent implements OnInit {
   idMangsa: number;
   evacuates: any;
   tarikhBencana: string;
-  statusPindah:boolean;
   modelBencana: NgbDateStruct;
   readonly DELIMITER = '-';
 
@@ -74,7 +75,6 @@ export class TambahEditMangsaBencanaComponent implements OnInit {
         if(result.mangsa_bencana.tarikh_bencana){
           this.modelBencana = this.fromModel(result.mangsa_bencana.tarikh_bencana.format('YYYY-MM-DD'));
         }
-        this.statusPindahValidate(this.addBencana.id_pindah);
 			});
 		}
 	}
@@ -99,16 +99,6 @@ export class TambahEditMangsaBencanaComponent implements OnInit {
 			}
 		);
 	}
-
-  statusPindahValidate(id){
-    if(id == 1){
-      this.statusPindah = false;
-      this.addBencana.nama_pusat_pemindahan = '';
-    }
-    else{
-      this.statusPindah = true;
-    }
-  }
 
 	save(): void {
 		this.saving = true;

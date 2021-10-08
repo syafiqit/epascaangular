@@ -18,10 +18,12 @@ import { Router } from '@angular/router';
 import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SelectBencanaComponent } from '../select-bencana/select-bencana.component';
+import { fadeVerticalAnimation } from '@app/shared/data/router-animation/fade-vertical-animation';
 
 @Component({
 	selector: 'app-tambah-pengurusan-mangsa',
-	templateUrl: './tambah-pengurusan-mangsa.component.html'
+	templateUrl: './tambah-pengurusan-mangsa.component.html',
+  animations: [fadeVerticalAnimation]
 })
 
 export class TambahPengurusanMangsaComponent implements OnInit {
@@ -41,7 +43,6 @@ export class TambahPengurusanMangsaComponent implements OnInit {
   verify: number;
   filterIdNegeri: number;
   nama_bencana: string;
-  statusPindah:boolean;
   modelBencana: NgbDateStruct;
   readonly DELIMITER = '-';
 
@@ -153,15 +154,6 @@ export class TambahPengurusanMangsaComponent implements OnInit {
 			}
 		);
 	}
-
-  statusPindahValidate(id){
-    if(id == 1){
-      this.statusPindah = false;
-    }
-    else{
-      this.statusPindah = true;
-    }
-  }
 
 	save(): void {
 		this.saving = true;

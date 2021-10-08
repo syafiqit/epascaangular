@@ -120,7 +120,7 @@
 										No. Rujukan
 										<p-sortIcon field="no_rujukan_kelulusan"></p-sortIcon>
 									</th>
-									<th style="width: 160px" pSortableColumn="nama_tabung">
+									<th style="width: 170px" pSortableColumn="nama_tabung">
 										Tabung
 										<p-sortIcon field="nama_tabung"></p-sortIcon>
 									</th>
@@ -148,6 +148,10 @@
 										Jumlah Belanja
 										<p-sortIcon field="tarikh_tamat_kelulusan"></p-sortIcon>
 									</th>
+									<th style="width: 170px" pSortableColumn="jumlah_dipulangkan">
+										BWI Dipulangkan
+										<p-sortIcon field="jumlah_dipulangkan"></p-sortIcon>
+									</th>
 									<th style="width: 165px" pSortableColumn="peruntukan">
 										Baki Peruntukan
 										<p-sortIcon field="peruntukan"></p-sortIcon>
@@ -166,7 +170,7 @@
 										<span class="p-column-title">No. Rujukan</span>
 										{{record.kelulusan.no_rujukan_kelulusan}}
 									</td>
-									<td style="width: 160px">
+									<td style="width: 170px">
 										<span class="p-column-title">Tabung</span>
 										{{record.kelulusan.nama_tabung}}
 									</td>
@@ -194,6 +198,11 @@
 									<td style="width: 165px">
 										<span class="p-column-title">Jumlah Belanja</span>
 										RM {{record.belanja | number: '1.2-2'}}
+									</td>
+									<td style="width: 170px">
+										<span class="p-column-title">BWI Dipulangkan</span>
+										<label *ngIf="record.kelulusan.jumlah_dipulangkan">RM {{record.kelulusan.jumlah_dipulangkan | number: '1.2-2'}}</label>
+										<label *ngIf="!record.kelulusan.jumlah_dipulangkan">RM 0.00</label>
 									</td>
 									<td style="width: 165px">
 										<span class="p-column-title">Baki Peruntukan</span>

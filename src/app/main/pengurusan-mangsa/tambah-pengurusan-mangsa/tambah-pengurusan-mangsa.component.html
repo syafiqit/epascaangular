@@ -298,7 +298,6 @@
                     [(ngModel)]="addMangsa.bencana.id_pindah"
                     #pindah="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && pindah.invalid }"
-                    (change)="statusPindahValidate($event.id)"
                     required
                   ></ng-select>
                   <div *ngIf="f.submitted && pindah.invalid" class="invalid-feedback">
@@ -308,7 +307,7 @@
 							</div>
             </div>
 
-            <div class="row" *ngIf="statusPindah">
+            <div class="row" *ngIf="addMangsa.bencana.id_pindah == 2" [@fadeVerticalAnimation]>
 							<div class="col-lg-12">
 								<div class="form-group">
 									<label>Nama Pusat*</label>
@@ -328,27 +327,8 @@
                   </div>
 								</div>
 							</div>
-            </div>
 
-            <div class="row" *ngIf="!statusPindah">
-							<div class="col-lg-12">
-								<div class="form-group">
-									<label>Nama Pusat*</label>
-									<input
-										class="form-control"
-                    id="pusatPindah"
-										type="text"
-                    name="nama_pusat_pemindahan"
-                    [(ngModel)]="addMangsa.bencana.nama_pusat_pemindahan"
-										placeholder="Nama Pusat Pemindahan"
-                    disabled
-                  />
-								</div>
-							</div>
-            </div>
-
-            <div class="row">
-              <div class="col-lg-12">
+              <div class="col-lg-6">
 								<div class="form-group">
 									<label>Masalah Dihadapi</label>
 									<textarea
