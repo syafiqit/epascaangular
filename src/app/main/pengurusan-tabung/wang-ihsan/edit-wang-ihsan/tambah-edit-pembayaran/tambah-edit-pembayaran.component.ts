@@ -18,7 +18,7 @@ export class TambahEditPembayaranComponent implements OnInit {
   @Input() public idBwi: number;
   @Output() idBayaranTerus = new EventEmitter<number>();
   @Output() idBayaranSkb = new EventEmitter<number>();
-  @Output() idBayaran = new EventEmitter<number>();
+  @Output() id_kelulusan = new EventEmitter<number>();
 
   @ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
@@ -78,6 +78,7 @@ export class TambahEditPembayaranComponent implements OnInit {
 				this.primengTableHelper.records = result.items;
         for(let i=0; i <= result.items.length - 1; i++){
           this.idKelulusanKemaskini = result.items[i].id_tabung_kelulusan;
+          this.idKelulusan(this.idKelulusanKemaskini);
         }
 			});
 	}
@@ -174,6 +175,10 @@ export class TambahEditPembayaranComponent implements OnInit {
 
   tambahPembayaranSkb(value: number) {
     this.idBayaranSkb.emit(value);
+  }
+
+  idKelulusan(value: number) {
+    this.id_kelulusan.emit(value);
   }
 
 }
