@@ -8,7 +8,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "nswag": "cd nswag/ && refresh.bat"
+    "nswag": "cd nswag/ && refresh.bat",
+    "build:prod": "ng build --configuration=production",
+    "build:training": "ng build --configuration=training"
   },
   "private": true,
   "dependencies": {
