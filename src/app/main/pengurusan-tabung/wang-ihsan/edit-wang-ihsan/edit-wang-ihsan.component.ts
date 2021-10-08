@@ -66,6 +66,10 @@ export class EditWangIhsanComponent implements OnInit {
   id_daerah: number;
   id_negeri: number;
   jumlah_diberi: number;
+  id_kelulusan_bwi_bayaran: number;
+  daerahArray = [];
+  negeriArray = [];
+  jumlahArray = [];
 
   saving = false;
   tarikhBencana: string;
@@ -159,38 +163,46 @@ export class EditWangIhsanComponent implements OnInit {
     this.bwi_bayaran.push(bayaranBwi);
   }
 
+  getIdKelulusan(id_kelulusan: number) {
+    this.id_kelulusan_bwi_bayaran = id_kelulusan;
+  }
+
   getIdDaerah(id_daerah: number) {
-    this.id_daerah = id_daerah;
+    this.daerahArray.push(id_daerah);
   }
 
   getIdNegeri(id_negeri: number) {
-    this.id_negeri = id_negeri;
+    this.negeriArray.push(id_negeri);
   }
 
   getJumlahDiberi(jumlah_diberi: number) {
-    this.jumlah_diberi = jumlah_diberi;
+    this.jumlahArray.push(jumlah_diberi);
   }
 
 	save() {
     this.saving = true;
-    const bantuanKawasanBwi = new CreateOrEditTabungBwiKawasanDto();
-    bantuanKawasanBwi.id_daerah = this.id_daerah;
-    bantuanKawasanBwi.id_negeri = this.id_negeri;
-    bantuanKawasanBwi.jumlah_bwi = this.jumlah_diberi;
-    this.bantuanKawasan.push(bantuanKawasanBwi);
 
     this.tabungBwi.bwi = this.edit.tabung_bwi;
     this.bayaran.bwi_bayaran = this.bwi_bayaran;
-    this.kawasan.bwi_kawasan = this.bantuanKawasan;
+    this.bayaran.id_kelulusan = this.id_kelulusan_bwi_bayaran;
     this.bayaran.id_tabung_bwi = this.idBwi;
     this.kawasan.id_tabung_bwi = this.idBwi;
 
-    if(this.bwi_bayaran){
+    for(let i=0; i < this.daerahArray.length; i++){
+      const bantuanKawasanBwi = new CreateOrEditTabungBwiKawasanDto();
+      bantuanKawasanBwi.id_daerah = this.daerahArray[i];
+      bantuanKawasanBwi.id_negeri = this.negeriArray[i];
+      bantuanKawasanBwi.jumlah_bwi = this.jumlahArray[i];
+      this.bantuanKawasan.push(bantuanKawasanBwi);
+    }
+    this.kawasan.bwi_kawasan = this.bantuanKawasan;
+
+    if(this.bayaran.bwi_bayaran.length > 0){
       this._tabungBwiBayaranServiceProxy
 			.createOrEdit(this.bayaran).pipe().subscribe();
     }
 
-    if(this.bantuanKawasan){
+    if(this.kawasan.bwi_kawasan.length > 0){
       this._tabungBwiKawasanServiceProxy
 			.addBwiKawasan(this.kawasan).pipe().subscribe();
     }
