@@ -8,9 +8,9 @@ import {
   MangsaBencanaServiceProxy,
   RefPindahServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
-import { swalSuccess, swalWarning } from '@shared/sweet-alert/swal-constant';
 import { SelectBencanaComponent } from '@app/main/pengurusan-mangsa/select-bencana/select-bencana.component';
 import * as moment from 'moment';
+import { ConfirmationService } from '@services/confirmation';
 
 @Component({
   selector: 'app-create-multiple-bencana',
@@ -37,7 +37,8 @@ export class CreateMultipleBencanaComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private modalService: NgbModal,
     private _mangsaBencanaServiceProxy: MangsaBencanaServiceProxy,
-    private _refPindahServiceProxy: RefPindahServiceProxy
+    private _refPindahServiceProxy: RefPindahServiceProxy,
+    private _confirmationService: ConfirmationService
   ) {
   }
 
@@ -103,6 +104,7 @@ export class CreateMultipleBencanaComponent implements OnInit {
   statusPindahValidate(id){
     if(id == 1){
       this.statusPindah = false;
+      this.bencana.nama_pusat_pemindahan = '';
     }
     else{
       this.statusPindah = true;
@@ -128,12 +130,63 @@ export class CreateMultipleBencanaComponent implements OnInit {
 			)
 			.subscribe((response) => {
 				if (response.message == 'Pendaftaran Mangsa Bencana Berjaya Disimpan!') {
-					swalSuccess.fire('Berjaya!', 'Maklumat Bencana Berjaya Disimpan.', 'success');
+					this.confirmMessage();
 				} else {
-					swalWarning.fire('Makluman!', response.message);
+          this.alertMessage(response);
 				}
-				this.activeModal.close(true);
 			});
 	}
+
+  confirmMessage(){
+    const dialogRef = this._confirmationService.open({
+      title: 'Berjaya',
+      message: 'Maklumat Bencana Berjaya Disimpan.',
+      icon: {
+        show: true,
+        name: 'check-circle',
+        color: 'success'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.activeModal.close(true);
+    });
+  }
+
+  alertMessage(response){
+    const dialogRef = this._confirmationService.open({
+      title: 'Makluman',
+      message: response.message,
+      icon: {
+        show: true,
+        name: 'alert-triangle',
+        color: 'warning'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.activeModal.close(true);
+    });
+  }
 
 }

@@ -8,9 +8,10 @@ import {
   OutputCreateMangsaBencanaDto,
   RefPindahServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
-import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { SelectBencanaComponent } from '@app/main/pengurusan-mangsa/select-bencana/select-bencana.component';
 import * as moment from 'moment';
+import { ConfirmationService } from '@services/confirmation';
+
 @Component({
 	selector: 'app-tambah-edit-mangsa-bencana',
 	templateUrl: './tambah-edit-mangsa-bencana.component.html'
@@ -37,7 +38,8 @@ export class TambahEditMangsaBencanaComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private _activatedRoute: ActivatedRoute,
     private _mangsaBencanaServiceProxy: MangsaBencanaServiceProxy,
-    private _refPindahServiceProxy: RefPindahServiceProxy
+    private _refPindahServiceProxy: RefPindahServiceProxy,
+    private _confirmationService: ConfirmationService
   ) {
     this.idMangsa = this._activatedRoute.snapshot.queryParams['id'];
   }
@@ -72,6 +74,7 @@ export class TambahEditMangsaBencanaComponent implements OnInit {
         if(result.mangsa_bencana.tarikh_bencana){
           this.modelBencana = this.fromModel(result.mangsa_bencana.tarikh_bencana.format('YYYY-MM-DD'));
         }
+        this.statusPindahValidate(this.addBencana.id_pindah);
 			});
 		}
 	}
@@ -100,6 +103,7 @@ export class TambahEditMangsaBencanaComponent implements OnInit {
   statusPindahValidate(id){
     if(id == 1){
       this.statusPindah = false;
+      this.addBencana.nama_pusat_pemindahan = '';
     }
     else{
       this.statusPindah = true;
@@ -123,17 +127,54 @@ export class TambahEditMangsaBencanaComponent implements OnInit {
 			.subscribe((result) => {
         this.output = result;
         if(this.output.message == "Pendaftaran Mangsa Bencana Berjaya Disimpan!"){
-          swalSuccess.fire('Berjaya!', 'Maklumat Bencana Mangsa Berjaya Dihantar.', 'success').then(() => {
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Pendaftaran Mangsa Bencana Berjaya Ditambah.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
             this.activeModal.close(true);
           });
         }
         else if(this.output.message == "Mangsa Bencana Berjaya Di Kemaskini!"){
-          swalSuccess.fire('Berjaya!', 'Maklumat Bencana Mangsa Berjaya Disimpan.', 'success').then(() => {
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Maklumat Mangsa Bencana Berjaya Di Kemaskini.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
             this.activeModal.close(true);
           });
-        }
-        else{
-          swalError.fire('Tidak Berjaya!', this.output.message, 'error');
         }
 			});
 	}
