@@ -42,7 +42,7 @@
 					<ng-template pTemplate="header">
 						<tr>
 							<th style="width: 130px" pSortableColumn="tarikh_bencana">
-								Tarikh Kejadian
+								Tarikh Bencana
 								<p-sortIcon field="tarikh_bencana"></p-sortIcon>
 							</th>
 							<th style="width: 135px" pSortableColumn="nama_jenis_bencana">
@@ -63,7 +63,7 @@
 					<ng-template pTemplate="body" let-record="$implicit">
 						<tr>
 							<td style="width: 130px">
-								<span class="p-column-title">Tarikh Kejadian</span>
+								<span class="p-column-title">Tarikh Bencana</span>
 								{{record.bencana.tarikh_bencana | date:'dd-MM-yyyy'}}
 							</td>
 							<td style="width: 135px">

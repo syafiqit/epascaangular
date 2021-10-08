@@ -90,11 +90,11 @@
               </td>
               <td style="width: 130px">
                 <span class="p-column-title">Status Pindah</span>
-                {{record.pindah? record.pindah: '-'}}
+                {{record.pindah}}
               </td>
               <td style="width: 130px">
                 <span class="p-column-title">Nama Pusat</span>
-                {{record.nama_pusat_pemindahan}}
+                {{record.nama_pusat_pemindahan? record.nama_pusat_pemindahan: '-'}}
               </td>
               <td style="width: 130px" *ngIf="_appSession.isGranted('Halaman.Mangsa.Bencana.Edit') || _appSession.isGranted('Halaman.Mangsa.Bencana.Hapus')">
                 <div ngbDropdown class="btn-group" role="group" container="body">

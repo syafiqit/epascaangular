@@ -29,9 +29,9 @@
                 <i class="fa fa-search text-white"></i>
               </button>
             </div>
-			<div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
-				<div *ngIf="namaBencana.errors.required">Bencana Wajib Dipilih</div>
-			  </div>
+            <div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
+              <div *ngIf="namaBencana.errors.required">Bencana Wajib Dipilih</div>
+            </div>
           </div>
 				</div>
 			</div>
@@ -65,16 +65,22 @@
 						class="js-example-placeholder-multiple"
 						name="id_pindah"
 						[(ngModel)]="addBencana.id_pindah"
-						(change)="statusPindahValidate($event.id)"
+						#statusPindah="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && statusPindah.invalid }"
+						required
 					></ng-select>
+					<div *ngIf="f.submitted && statusPindah.invalid" class="invalid-feedback">
+						<div *ngIf="statusPindah.errors.required">Status Berpindah Wajib Dipilih</div>
+					</div>
 				</div>
 			</div>
-			<div class="col-lg-6" *ngIf="statusPindah">
+
+			<div class="col-lg-6" *ngIf="addBencana.id_pindah == 2" [@fadeVerticalAnimation]>
 				<div class="form-group">
 					<label>Nama Pusat</label>
 					<input
 						class="form-control"
-            			id="pusatPindah"
+            id="pusatPindah"
 						type="text"
 						name="nama_pusat_pemindahan"
 						[(ngModel)]="addBencana.nama_pusat_pemindahan"
@@ -88,23 +94,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-6" *ngIf="!statusPindah">
-				<div class="form-group">
-					<label>Nama Pusat</label>
-					<input
-						class="form-control"
-            			id="pusatPindah"
-						type="text"
-						name="nama_pusat_pemindahan"
-						[(ngModel)]="addBencana.nama_pusat_pemindahan"
-						placeholder="Nama Pusat"
-						disabled
-					/>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-      <div class="col-lg-12">
+
+      <div class="col-lg-6">
 				<div class="form-group">
 					<label>Masalah Dihadapi</label>
 					<textarea

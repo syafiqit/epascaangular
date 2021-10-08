@@ -228,8 +228,7 @@
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Alamat 2</span>
-                      <label *ngIf="record.alamat_2">{{record.alamat_2}}</label>
-                      <label *ngIf="!record.alamat_2">-</label>
+                      {{record.alamat_2? record.alamat_2: '-'}}
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Daerah</span>
@@ -261,8 +260,7 @@
 										</td>
 										<td style="width: 189px">
 											<span class="p-column-title">Peratusan Kemajuan</span>
-                      <label *ngIf="record.peratus_kemajuan">{{record.peratus_kemajuan}} %</label>
-                      <label *ngIf="!record.peratus_kemajuan">0 %</label>
+                      {{record.peratus_kemajuan? record.peratus_kemajuan: '-'}} %
 										</td>
 										<td style="width: 163px">
 											<span class="p-column-title">Status Kemajuan</span>

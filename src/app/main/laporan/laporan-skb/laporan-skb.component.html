@@ -264,8 +264,7 @@
 										</td>
 										<td style="width: 150px">
 											<span class="p-column-title">Perihal</span>
-                      <label *ngIf="record.perihal">{{record.perihal}}</label>
-                      <label *ngIf="!record.perihal">-</label>
+                      {{record.perihal? record.perihal: '-'}}
 										</td>
 										<td style="width: 160px">
 											<span class="p-column-title">Pegawai</span>

@@ -229,8 +229,7 @@
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Alamat 2</span>
-                      <label *ngIf="record.alamat_2">{{record.alamat_2}}</label>
-                      <label *ngIf="!record.alamat_2">-</label>
+                      {{record.alamat_2? record.alamat_2: '-'}}
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Daerah</span>
@@ -250,23 +249,19 @@
 										</td>
 										<td style="width: 140px">
 											<span class="p-column-title">Luas Sebenar</span>
-                      <label *ngIf="record.luas">{{record.luas}} Hektar</label>
-                      <label *ngIf="!record.luas">0 Hektar</label>
+                      {{record.luas? record.luas: '0'}} Hektar
 										</td>
 										<td style="width: 140px">
 											<span class="p-column-title">Luas Musnah</span>
-                      <label *ngIf="record.luas_musnah">{{record.luas_musnah}} Hektar</label>
-                      <label *ngIf="!record.luas_musnah">0 Hektar</label>
+                      {{record.luas_musnah? record.luas_musnah: '-'}} Hektar
 										</td>
 										<td style="width: 110px">
 											<span class="p-column-title">Bil. Asal</span>
-                      <label *ngIf="record.bilangan">{{record.bilangan}}</label>
-                      <label *ngIf="!record.bilangan">-</label>
+                      {{record.bilangan? record.bilangan: '-'}}
 										</td>
 										<td style="width: 152px">
 											<span class="p-column-title">Bil. Rosak/Mati</span>
-                      <label *ngIf="record.bilangan_rosak">{{record.bilangan_rosak}}</label>
-                      <label *ngIf="!record.bilangan_rosak">-</label>
+                      {{record.bilangan_rosak? record.bilangan_rosak: '-'}}
 										</td>
 										<td style="width: 190px">
 											<span class="p-column-title">Anggaran Kerosakan</span>
@@ -290,8 +285,7 @@
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Catatan</span>
-                      <label *ngIf="record.catatan">{{record.catatan}}</label>
-                      <label *ngIf="!record.catatan">-</label>
+                      {{record.catatan? record.catatan: '-'}}
 										</td>
 									</tr>
 								</ng-template>

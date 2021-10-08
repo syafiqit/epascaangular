@@ -205,8 +205,7 @@
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Alamat 2</span>
-                      <label *ngIf="record.alamat_2">{{record.alamat_2}}</label>
-                      <label *ngIf="!record.alamat_2">-</label>
+                      {{record.alamat_2? record.alamat_2: '-'}}
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Daerah</span>
@@ -222,8 +221,7 @@
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Sektor</span>
-                      <label *ngIf="record.sektor">{{record.sektor}}</label>
-                      <label *ngIf="!record.sektor">-</label>
+                      {{record.sektor? record.sektor: '-'}}
 										</td>
 										<td style="width: 158px">
 											<span class="p-column-title">Tarikh Pinjaman</span>

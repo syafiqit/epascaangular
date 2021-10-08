@@ -315,8 +315,7 @@
 										</td>
 										<td style="width: 160px">
 											<span class="p-column-title">No. Saluran BKP</span>
-                      <label *ngIf="record.no_rujukan_saluran_kpd_bkp">{{record.no_rujukan_saluran_kpd_bkp}}</label>
-                      <label *ngIf="!record.no_rujukan_saluran_kpd_bkp">-</label>
+                      {{record.no_rujukan_saluran_kpd_bkp? record.no_rujukan_saluran_kpd_bkp: '-'}}
 										</td>
 										<td style="width: 177px">
 											<span class="p-column-title">Tarikh Saluran BKP</span>
@@ -330,8 +329,7 @@
 										</td>
 										<td style="width: 150px">
 											<span class="p-column-title">No. Makluman</span>
-                      <label *ngIf="record.no_rujukan_makluman_majlis">{{record.no_rujukan_makluman_majlis}}</label>
-                      <label *ngIf="!record.no_rujukan_makluman_majlis">-</label>
+                      {{record.no_rujukan_makluman_majlis? record.no_rujukan_makluman_majlis: '-'}}
 										</td>
 										<td style="width: 170px">
 											<span class="p-column-title">Tarikh Makluman</span>
@@ -355,8 +353,7 @@
 										</td>
 										<td style="width: 170px">
 											<span class="p-column-title">No. Laporan APM</span>
-                      <label *ngIf="record.no_rujukan_majlis_drp_apm">{{record.no_rujukan_majlis_drp_apm}}</label>
-                      <label *ngIf="!record.no_rujukan_majlis_drp_apm">-</label>
+                      {{record.no_rujukan_majlis_drp_apm? record.no_rujukan_majlis_drp_apm: '-'}}
 										</td>
 										<td style="width: 187px">
 											<span class="p-column-title">Tarikh Laporan APM</span>
@@ -365,8 +362,7 @@
 										</td>
 										<td style="width: 164px">
 											<span class="p-column-title">No. Laporan BKP</span>
-                      <label *ngIf="record.no_rujukan_laporan_kpd_bkp">{{record.no_rujukan_laporan_kpd_bkp}}</label>
-                      <label *ngIf="!record.no_rujukan_laporan_kpd_bkp">-</label>
+                      {{record.no_rujukan_laporan_kpd_bkp? record.no_rujukan_laporan_kpd_bkp: '-'}}
 										</td>
 										<td style="width: 181px">
 											<span class="p-column-title">Tarikh Laporan BKP</span>
@@ -375,8 +371,7 @@
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Catatan</span>
-                      <label *ngIf="record.catatan">{{record.catatan}}</label>
-                      <label *ngIf="!record.catatan">-</label>
+                      {{record.catatan? record.catatan: '-'}}
 										</td>
 									</tr>
 								</ng-template>

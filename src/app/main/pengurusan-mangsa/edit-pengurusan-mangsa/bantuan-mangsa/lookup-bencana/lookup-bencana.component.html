@@ -41,12 +41,8 @@
 				>
 					<ng-template pTemplate="header">
 						<tr>
-							<th style="width: 100px" pSortableColumn="tahun_bencana">
-								Tahun
-								<p-sortIcon field="tahun_bencana"></p-sortIcon>
-							</th>
 							<th style="width: 130px" pSortableColumn="tarikh_bencana">
-								Tarikh Kejadian
+								Tarikh Bencana
 								<p-sortIcon field="tarikh_bencana"></p-sortIcon>
 							</th>
 							<th style="width: 130px" pSortableColumn="nama_bencana">
@@ -58,10 +54,6 @@
 					</ng-template>
 					<ng-template pTemplate="body" let-record="$implicit">
 						<tr>
-							<td style="width: 100px">
-								<span class="p-column-title">Tahun Bencana</span>
-								{{record.tahun_bencana}}
-							</td>
 							<td style="width: 130px">
 								<span class="p-column-title">Tarikh Bencana</span>
 								{{record.tarikh_bencana | date:'dd-MM-yyyy'}}
