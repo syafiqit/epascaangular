@@ -9,7 +9,6 @@ import {
   RefKadarBwiServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import * as moment from 'moment';
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { SelectBencanaComponent } from '../select-bencana/select-bencana.component';
 import { ConfirmationService } from '@services/confirmation';
 
