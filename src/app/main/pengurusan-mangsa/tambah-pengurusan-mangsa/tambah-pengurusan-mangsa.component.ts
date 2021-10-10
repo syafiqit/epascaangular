@@ -15,10 +15,10 @@ import {
   GetProfilDto
 } from 'src/app/shared/proxy/service-proxies';
 import { Router } from '@angular/router';
-import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SelectBencanaComponent } from '../select-bencana/select-bencana.component';
 import { fadeVerticalAnimation } from '@app/shared/data/router-animation/fade-vertical-animation';
+import { ConfirmationService } from '@services/confirmation';
 
 @Component({
 	selector: 'app-tambah-pengurusan-mangsa',
@@ -56,7 +56,8 @@ export class TambahPengurusanMangsaComponent implements OnInit {
     private _refNegeriServiceProxy: RefNegeriServiceProxy,
     private _refPindahServiceProxy: RefPindahServiceProxy,
     private _sessionServiceProxy: SessionServiceProxy,
-    private router: Router
+    private router: Router,
+    private _confirmationService: ConfirmationService
   ) {
     this.latest_date = this.datePipe.transform(this.dateNow, 'dd-MM-yyyy');
 		this.addMangsa = new InputCreateMangsaDto();
@@ -168,13 +169,52 @@ export class TambahPengurusanMangsaComponent implements OnInit {
 				})
 			)
 			.subscribe(() => {
-				swalSuccess.fire('Berjaya!', 'Pendaftaran Mangsa Berjaya Disimpan!', 'success').then(() => {
-					this.router.navigateByUrl('/app/mangsa/senarai-pengurusan-mangsa');
-				});
+        const dialogRef = this._confirmationService.open({
+          title: 'Berjaya',
+          message: 'Pendaftaran Mangsa Berjaya Disimpan.',
+          icon: {
+            show: true,
+            name: 'check-circle',
+            color: 'success'
+          },
+          actions: {
+            confirm: {
+              show: true,
+              label: 'Tutup',
+              color: 'primary'
+            },
+            cancel: {
+              show: false
+            }
+          },
+          dismissible: true
+        });
+        dialogRef.afterClosed().subscribe(() => {
+          this.router.navigateByUrl('/app/mangsa/senarai-pengurusan-mangsa');
+        });
 			});
     }
     else {
-      swalError.fire('Tidak Berjaya!', 'Pengesahan Perakuan Diperlukan!', 'error');
+      const dialogRef = this._confirmationService.open({
+        title: 'Tidak Berjaya',
+        message: 'Pengesahan Perakuan Diperlukan',
+        icon: {
+          show: true,
+          name: 'x-circle',
+          color: 'error'
+        },
+        actions: {
+          confirm: {
+            show: true,
+            label: 'Tutup',
+            color: 'primary'
+          },
+          cancel: {
+            show: false
+          }
+        },
+        dismissible: true
+      });
     }
 	}
 }

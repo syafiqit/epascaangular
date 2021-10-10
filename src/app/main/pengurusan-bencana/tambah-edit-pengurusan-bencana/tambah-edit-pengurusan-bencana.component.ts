@@ -9,12 +9,11 @@ import {
   RefJenisBencanaServiceProxy,
   RefNegeriServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { PrimengTableHelper } from '@app/shared/helpers/PrimengTableHelper';
-import { LazyLoadEvent } from 'primeng/api';
+import { ConfirmationService } from '@services/confirmation';
 
 @Component({
   selector: 'app-tambah-edit-pengurusan-bencana',
@@ -67,12 +66,12 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 	constructor(
 		config: NgbModalConfig,
 		private router: Router,
-		private modalService: NgbModal,
 		private _activatedRoute: ActivatedRoute,
 		private _refBencanaServiceProxy: RefBencanaServiceProxy,
 		private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy,
 		private _refNegeriServiceProxy: RefNegeriServiceProxy,
-    private calendar: NgbCalendar
+		private calendar: NgbCalendar,
+		private _confirmationService: ConfirmationService
 	) {
     this.idBencana = this._activatedRoute.snapshot.queryParams['id'];
 		this.primengTableHelper = new PrimengTableHelper();
@@ -199,9 +198,65 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 				})
 			)
 			.subscribe(() => {
-				swalSuccess.fire('Berjaya!', 'Maklumat Bencana Berjaya disimpan.', 'success');
-				this.router.navigate(['/app/bencana/pengurusan-bencana']);
+				if(!this.idBencana){
+					this.confirmMessage();
+				}
+				else{
+					this.updateMessage();
+				}
 			});
     	}
+	}
+
+	confirmMessage(){
+		const dialogRef = this._confirmationService.open({
+		  title: 'Berjaya',
+		  message: 'Maklumat Bencana Berjaya Disimpan.',
+		  icon: {
+			show: true,
+			name: 'check-circle',
+			color: 'success'
+		  },
+		  actions: {
+			confirm: {
+			  show: true,
+			  label: 'Tutup',
+			  color: 'primary'
+			},
+			cancel: {
+			  show: false
+			}
+		  },
+		  dismissible: true
+		});
+		dialogRef.afterClosed().subscribe(() => {
+		  this.router.navigate(['/app/bencana/pengurusan-bencana']);
+		});
+	}
+	
+	updateMessage(){
+		const dialogRef = this._confirmationService.open({
+		  title: 'Berjaya',
+		  message: 'Maklumat Bencana Berjaya Dikemaskini.',
+		  icon: {
+			show: true,
+			name: 'check-circle',
+			color: 'success'
+		  },
+		  actions: {
+			confirm: {
+			  show: true,
+			  label: 'Tutup',
+			  color: 'primary'
+			},
+			cancel: {
+			  show: false
+			}
+		  },
+		  dismissible: true
+		});
+		dialogRef.afterClosed().subscribe(() => {
+		  this.router.navigate(['/app/bencana/pengurusan-bencana']);
+		});
 	}
 }

@@ -7,8 +7,8 @@ import {
   MangsaAirServiceProxy,
   RefHubunganServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 import * as moment from 'moment';
+import { ConfirmationService } from '@services/confirmation';
 
 @Component({
 	selector: 'app-tambah-edit-ahli-rumah-mangsa',
@@ -39,7 +39,8 @@ export class TambahEditAhliRumahMangsaComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private _activatedRoute: ActivatedRoute,
     private _mangsaAirServiceProxy: MangsaAirServiceProxy,
-    private _refHubunganServiceProxy: RefHubunganServiceProxy
+    private _refHubunganServiceProxy: RefHubunganServiceProxy,
+    private _confirmationService: ConfirmationService
   ) {
     this.idMangsa = this._activatedRoute.snapshot.queryParams['id'];
   }
@@ -130,11 +131,54 @@ export class TambahEditAhliRumahMangsaComponent implements OnInit {
 			)
 			.subscribe(() => {
 				if (this.name == 'add') {
-					swalSuccess.fire('Berjaya!', 'Maklumat Ahli Isi Rumah Berjaya Ditambah.', 'success');
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Maklumat Ahli Isi Rumah Berjaya Ditambah.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
+            this.activeModal.close(true);
+          });
 				} else if (this.name == 'edit') {
-					swalSuccess.fire('Berjaya!', 'Maklumat Ahli Isi Rumah Berjaya Dikemaskini.', 'success');
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Maklumat Ahli Isi Rumah Berjaya Dikemaskini.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
+            this.activeModal.close(true);
+          });
 				}
-				this.activeModal.close(true);
 			});
 	}
 }

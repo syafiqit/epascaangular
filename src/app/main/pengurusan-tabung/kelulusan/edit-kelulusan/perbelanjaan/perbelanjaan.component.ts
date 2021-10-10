@@ -12,7 +12,7 @@ import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
-import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { ConfirmationService } from '@services/confirmation';
 
 @Component({
   selector: 'app-perbelanjaan',
@@ -69,7 +69,8 @@ export class PerbelanjaanComponent implements OnInit {
     private router: Router,
     private _activatedRoute: ActivatedRoute,
     private _tabungKelulusanServiceProxy: TabungKelulusanServiceProxy,
-    private calendar: NgbCalendar
+    private calendar: NgbCalendar,
+		private _confirmationService: ConfirmationService
   ) {
     this.id = this._activatedRoute.snapshot.queryParams['id'];
 		config.backdrop = 'static';
@@ -152,13 +153,64 @@ export class PerbelanjaanComponent implements OnInit {
       .pipe()
       .subscribe((response) => {
         if(response.message == 'Jumlah Peruntukan Melebihi Jumlah Keseluruhan Tabung'){
-          swalError.fire('Perhatian!', 'Jumlah Peruntukan Melebihi Jumlah Keseluruhan Tabung.', 'error');
+          this.alertMessage();
         }else{
-          swalSuccess.fire('Berjaya!', 'Maklumat Tabung Kelulusan Berjaya Disimpan.', 'success');
-          this.router.navigate(['/app/tabung/senarai-kelulusan']);
+          this.confirmMessage();
         }
       });
   }
+
+  confirmMessage(){
+		const dialogRef = this._confirmationService.open({
+		  title: 'Berjaya',
+		  message: 'Maklumat Bencana Berjaya Disimpan.',
+		  icon: {
+        show: true,
+        name: 'check-circle',
+        color: 'success'
+		  },
+		  actions: {
+			confirm: {
+			  show: true,
+			  label: 'Tutup',
+			  color: 'primary'
+			},
+			cancel: {
+			  show: false
+			}
+		  },
+		  dismissible: true
+		});
+		dialogRef.afterClosed().subscribe(() => {
+		  this.router.navigate(['/app/tabung/senarai-kelulusan']);
+		});
+	}
+	
+	alertMessage(){
+		const dialogRef = this._confirmationService.open({
+		  title: 'Perhatian',
+		  message: 'Jumlah Peruntukan Melebihi Jumlah Keseluruhan Tabung.',
+		  icon: {
+        show: true,
+        name: 'alert-triangle',
+        color: 'warning'
+		  },
+		  actions: {
+			confirm: {
+			  show: true,
+			  label: 'Tutup',
+			  color: 'primary'
+			},
+			cancel: {
+			  show: false
+			}
+		  },
+		  dismissible: true
+		});
+		dialogRef.afterClosed().subscribe(() => {
+		  
+		});
+	}
 
   getBelanjaTabung(event?: LazyLoadEvent) {
 

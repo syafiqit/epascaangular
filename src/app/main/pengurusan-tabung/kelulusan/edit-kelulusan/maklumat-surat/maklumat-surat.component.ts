@@ -1,19 +1,14 @@
-import { Component, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import {
   CreateOrEditTabungKelulusanDto, RefBantuanServiceProxy, RefBencanaServiceProxy,
   TabungKelulusanServiceProxy, TabungServiceProxy
 } from "../../../../../shared/proxy/service-proxies";
-import {finalize} from "rxjs/operators";
 import * as moment from "moment";
 import {ActivatedRoute, Router} from "@angular/router";
 import { TambahRujukanBencanaComponent } from '../../tambah-kelulusan/tambah-rujukan-bencana/tambah-rujukan-bencana.component';
-import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
-import { LazyLoadEvent } from 'primeng/api';
-import { Table } from 'primeng/table';
-import { Paginator } from 'primeng/paginator';
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { PilihBencanaKelulusanComponent } from '../../pilih-bencana-kelulusan/pilih-bencana-kelulusan.component';
+import { ConfirmationService } from '@services/confirmation';
 
 @Component({
   selector: 'app-maklumat-surat',
@@ -60,7 +55,8 @@ export class MaklumatSuratComponent implements OnInit {
     private _tabungServiceProxy: TabungServiceProxy,
     private _refBencanaServiceProxy: RefBencanaServiceProxy,
     private _refBantuanServiceProxy: RefBantuanServiceProxy,
-    private calendar: NgbCalendar
+    private calendar: NgbCalendar,
+		private _confirmationService: ConfirmationService
   ) {
     this.id = this._activatedRoute.snapshot.queryParams['id'];
 		config.backdrop = 'static';
@@ -153,8 +149,29 @@ export class MaklumatSuratComponent implements OnInit {
       .createOrEdit(this.kelulusan)
       .pipe()
       .subscribe(() => {
-        swalSuccess.fire('Berjaya!', 'Maklumat Tabung Kelulusan Berjaya Disimpan.', 'success');
-        this.router.navigate(['/app/tabung/senarai-kelulusan']);
+        const dialogRef = this._confirmationService.open({
+          title: 'Berjaya',
+          message: 'Maklumat Tabung Kelulusan Berjaya Dikemaskini.',
+          icon: {
+          show: true,
+          name: 'check-circle',
+          color: 'success'
+          },
+          actions: {
+          confirm: {
+            show: true,
+            label: 'Tutup',
+            color: 'primary'
+          },
+          cancel: {
+            show: false
+          }
+          },
+          dismissible: true
+        });
+        dialogRef.afterClosed().subscribe(() => {
+          this.router.navigate(['/app/tabung/senarai-kelulusan']);
+        });
       });
   }
 
