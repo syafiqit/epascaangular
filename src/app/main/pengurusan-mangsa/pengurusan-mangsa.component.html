@@ -66,6 +66,12 @@
             *ngIf="_appSession.isGranted('Halaman.Mangsa.BWI')"
             >Bantuan Wang Ihsan
 					  </button>
+					  <button
+						class="dropdown-item"
+						(click)="multipleVerification()"
+						*ngIf="_appSession.isGranted('Halaman.Mangsa.Edit')"
+            >Verifikasi
+					  </button>
 					</div>
 				  </div>
             </div>
@@ -154,7 +160,10 @@
 							>
 								<ng-template pTemplate="header">
 									<tr>
-										<th style="width: 40px"></th>
+										<th style="width: 40px">
+											<!-- <input class="checkbox" type="checkbox"
+											(change)="checkedAll($event.target.checked)"> -->
+										</th>
 										<th style="width: 159px" pSortableColumn="no_kp">
 											Kad Pengenalan
 											<p-sortIcon field="no_kp"></p-sortIcon>
