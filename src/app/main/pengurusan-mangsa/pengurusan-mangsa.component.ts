@@ -9,7 +9,7 @@ import {
   RefNegeriServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
-import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { EditMultipleBantuanWangIhsanComponent } from './edit-multiple-bantuan-wang-ihsan/edit-multiple-bantuan-wang-ihsan.component';
 import { swalError } from '@app/shared/sweet-alert/swal-constant';
@@ -31,9 +31,14 @@ export class PengurusanMangsaComponent implements OnInit {
 	filter: string;
   filterNegeri: number;
   filterAgensi: number;
+  filterFromDate: string;
+  filterToDate: string;
   terms$ = new Subject<string>();
   checked: boolean;
   idMangsa: any[];
+  tarikhMula: NgbDateStruct;
+  tarikhTamat: NgbDateStruct;
+  readonly DELIMITER = '-';
 
 	public isCollapsed = false;
   states: any;
@@ -71,6 +76,14 @@ export class PengurusanMangsaComponent implements OnInit {
   }
 
 	getVictim(event?: LazyLoadEvent) {
+    if(this.tarikhMula){
+      this.filterFromDate = this.toModel(this.tarikhMula);
+    }
+
+    if(this.tarikhTamat){
+      this.filterToDate = this.toModel(this.tarikhTamat);
+    }
+
     if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
@@ -82,6 +95,8 @@ export class PengurusanMangsaComponent implements OnInit {
 				this.filter,
         this.filterNegeri ?? undefined,
         this.filterAgensi ?? undefined,
+        this.filterFromDate ?? undefined,
+        this.filterToDate ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -99,8 +114,16 @@ export class PengurusanMangsaComponent implements OnInit {
     this.filter = undefined;
     this.filterAgensi = undefined;
     this.filterNegeri = undefined;
+    this.tarikhMula = undefined;
+    this.tarikhTamat = undefined;
+    this.filterFromDate = undefined;
+    this.filterToDate = undefined;
 
     this.getVictim();
+  }
+
+  toModel(date: NgbDateStruct | null): string | null {
+    return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
   }
 
   getNegeri(filter?) {

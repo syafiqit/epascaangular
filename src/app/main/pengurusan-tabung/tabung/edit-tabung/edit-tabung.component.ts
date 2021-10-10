@@ -39,6 +39,8 @@ export class EditTabungComponent implements OnInit {
   filterText: string;
   filterTabung: number;
   filterJenisBencana: number;
+  filterFromDate: string;
+  filterToDate: string;
   statuses: any;
   sumberPeruntukan: any;
   tarikhTerimaanSehingga: Date;
@@ -173,6 +175,8 @@ export class EditTabungComponent implements OnInit {
       this.filterText,
       this.idTabung,
       this.filterJenisBencana,
+      this.filterFromDate ?? undefined,
+      this.filterToDate ?? undefined,
       this.primengTableHelperKelulusan.getSorting(this.dataTable),
       this.primengTableHelperKelulusan.getSkipCount(this.paginator, event),
       this.primengTableHelperKelulusan.getMaxResultCount(this.paginator, event)
