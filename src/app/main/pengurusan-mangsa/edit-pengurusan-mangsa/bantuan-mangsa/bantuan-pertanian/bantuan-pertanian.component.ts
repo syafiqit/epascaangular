@@ -8,7 +8,7 @@ import { finalize } from 'rxjs/operators';
 import { MangsaPertanianServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import { TambahEditBantuanPertanianComponent } from './tambah-edit-bantuan-pertanian/tambah-edit-bantuan-pertanian.component';
 import { AppSessionService } from '@app/shared/services/app-session.service';
-import { swalError, swalSuccess, swalWarning } from '@app/shared/sweet-alert/swal-constant';
+import { ConfirmationService } from '@services/confirmation';
 
 @Component({
 	selector: 'app-bantuan-pertanian',
@@ -34,7 +34,8 @@ export class BantuanPertanianComponent implements OnInit {
     config: NgbModalConfig,
 		private modalService: NgbModal,
     private _refMangsaPertanianServiceProxy: MangsaPertanianServiceProxy,
-    public _appSession: AppSessionService
+    public _appSession: AppSessionService,
+	private _confirmationService: ConfirmationService
   ) {
     this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
@@ -97,29 +98,62 @@ export class BantuanPertanianComponent implements OnInit {
   reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
 	}
-
-  padamBantuanPertanian(id?) {
-    swalWarning.fire({
+	
+  padamBantuanPertanian(id?){
+    const dialogRef = this._confirmationService.open({
       title: 'Anda Pasti?',
-      text: 'Adakah anda pasti ingin padam bantuan pertanian ini?',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      cancelButtonText: 'Tidak',
-      confirmButtonText: 'Ya'
-    }).then((result) => {
-      if (result.value) {
-        this._refMangsaPertanianServiceProxy.delete(id).subscribe((result) => {
-          if(result.message == "Bantuan Pertanian Berjaya Dibuang"){
-            swalSuccess.fire('Berjaya!', result.message);
-          }
-          else{
-            swalError.fire('Tidak Berjaya!', 'Bantuan Pertanian Tidak Berjaya Dibuang');
-          }
-          this.getPertanian();
+      message: 'Adakah anda pasti ingin memadam bantuan pertanian ini?',
+      icon: {
+        show: true,
+        name: 'help-circle',
+        color: 'warning'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Ya',
+          color: 'primary'
+        },
+        cancel: {
+          show: true,
+          label: 'Tidak'
+        }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe((e) => {
+      if(e === 'confirmed') {
+        this._refMangsaPertanianServiceProxy.delete(id).subscribe((response)=>{
+            this. confirmMessage();
         })
       }
     });
   }
+
+  confirmMessage(){
+		const dialogRef = this._confirmationService.open({
+		  title: 'Berjaya',
+		  message: 'Bantuan Pertanian Berjaya Dibuang.',
+		  icon: {
+        show: true,
+        name: 'check-circle',
+        color: 'success'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+		dialogRef.afterClosed().subscribe(() => {
+			this.getPertanian();
+		});
+	}
 
 }

@@ -8,7 +8,7 @@ import { finalize } from 'rxjs/operators';
 import { TambahEditBantuanLainComponent } from './tambah-edit-bantuan-lain/tambah-edit-bantuan-lain.component';
 import { MangsaBantuanServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import { AppSessionService } from '@app/shared/services/app-session.service';
-import { swalError, swalSuccess, swalWarning } from '@app/shared/sweet-alert/swal-constant';
+import { ConfirmationService } from '@services/confirmation';
 
 @Component({
 	selector: 'app-bantuan-lain',
@@ -34,7 +34,8 @@ export class BantuanLainComponent implements OnInit {
     config: NgbModalConfig,
 		private modalService: NgbModal,
     private _refMangsaBantuanServiceProxy: MangsaBantuanServiceProxy,
-    public _appSession: AppSessionService
+    public _appSession: AppSessionService,
+	private _confirmationService: ConfirmationService
   ) {
     this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
@@ -98,28 +99,61 @@ export class BantuanLainComponent implements OnInit {
 		this.paginator.changePage(this.paginator.getPage());
 	}
 
-  padamBantuanLain(id?) {
-    swalWarning.fire({
+  padamBantuanLain(id?){
+    const dialogRef = this._confirmationService.open({
       title: 'Anda Pasti?',
-      text: 'Adakah anda pasti ingin padam bantuan lain ini?',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      cancelButtonText: 'Tidak',
-      confirmButtonText: 'Ya'
-    }).then((result) => {
-      if (result.value) {
-        this._refMangsaBantuanServiceProxy.delete(id).subscribe((result) => {
-          if(result.message == "Bantuan Lain Berjaya Dibuang"){
-            swalSuccess.fire('Berjaya!', result.message);
-          }
-          else{
-            swalError.fire('Tidak Berjaya!', 'Bantuan lain Tidak Berjaya Dibuang');
-          }
-          this.getBantuanLain();
+      message: 'Adakah anda pasti ingin memadam bantuan lain ini?',
+      icon: {
+        show: true,
+        name: 'help-circle',
+        color: 'warning'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Ya',
+          color: 'primary'
+        },
+        cancel: {
+          show: true,
+          label: 'Tidak'
+        }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe((e) => {
+      if(e === 'confirmed') {
+        this._refMangsaBantuanServiceProxy.delete(id).subscribe((response)=>{
+            this. confirmMessage();
         })
       }
     });
   }
+
+  confirmMessage(){
+		const dialogRef = this._confirmationService.open({
+		  title: 'Berjaya',
+		  message: 'Bantuan Lain Berjaya Dibuang.',
+		  icon: {
+        show: true,
+        name: 'check-circle',
+        color: 'success'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+		dialogRef.afterClosed().subscribe(() => {
+			this.getBantuanLain();
+		});
+	}
 
 }
