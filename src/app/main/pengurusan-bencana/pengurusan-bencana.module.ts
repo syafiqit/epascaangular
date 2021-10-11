@@ -8,6 +8,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { PengurusanBencanaRoutingModule } from './pengurusan-bencana-routing.module';
 import { PengurusanBencanaComponent } from '../pengurusan-bencana/pengurusan-bencana.component';
 import { TambahEditPengurusanBencanaComponent } from '../pengurusan-bencana/tambah-edit-pengurusan-bencana/tambah-edit-pengurusan-bencana.component';
+import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateCustomParserFormatter } from '@app/shared/date-parser/NgbDateCustomParserFormatter';
 
 @NgModule({
 	imports: [
@@ -19,6 +21,9 @@ import { TambahEditPengurusanBencanaComponent } from '../pengurusan-bencana/tamb
 		PaginatorModule,
 		NgSelectModule
 	],
-	declarations: [PengurusanBencanaComponent, TambahEditPengurusanBencanaComponent]
+	declarations: [PengurusanBencanaComponent, TambahEditPengurusanBencanaComponent],
+	providers: [
+		{provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter}
+	   ]
 })
 export class PengurusanBencanaModule {}
