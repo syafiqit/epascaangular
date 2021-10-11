@@ -145,4 +145,79 @@ export class TambahEditBantuanComponent implements OnInit {
 			this.states = result.items;
 		});
 	}
+
+  padamBantuan(id?) {
+    const dialogRef = this._confirmationService.open({
+      title: 'Anda Pasti?',
+      message: 'Adakah anda pasti ingin memadam Bantuan Kawasan ini?',
+      icon: {
+        show: true,
+        name: 'help-circle',
+        color: 'warning'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Ya',
+          color: 'primary'
+        },
+        cancel: {
+          show: true,
+          label: 'Tidak'
+        }
+      },
+      dismissible: true
+    });dialogRef.afterClosed().subscribe((e) => {
+      if(e === 'confirmed') {
+				this._refTabungBwiKawasanServiceProxy.delete(id).subscribe((result)=>{
+          if(result.message == "Bantuan Kawasan Wang Ihsan Berjaya Dibuang"){
+            const dialogRef = this._confirmationService.open({
+              title: 'Berjaya',
+              message: result.message,
+              icon: {
+                show: true,
+                name: 'check-circle',
+                color: 'success'
+              },
+              actions: {
+                confirm: {
+                  show: true,
+                  label: 'Tutup',
+                  color: 'primary'
+                },
+                cancel: {
+                  show: false
+                }
+              },
+              dismissible: true
+            });
+            dialogRef.afterClosed().subscribe(() => {
+              this.getBantuan();
+            });
+          }else{
+            this._confirmationService.open({
+              title: 'Tidak Berjaya',
+              message: result.message,
+              icon: {
+                show: true,
+                name: 'x-circle',
+                color: 'error'
+              },
+              actions: {
+                confirm: {
+                  show: true,
+                  label: 'Tutup',
+                  color: 'primary'
+                },
+                cancel: {
+                  show: false
+                }
+              },
+              dismissible: true
+            });
+          }
+        })
+      }
+    });
+  }
 }
