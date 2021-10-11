@@ -107,6 +107,7 @@
                     required>
                     <ng-option [value]='1'>Aktif</ng-option>
                     <ng-option [value]='2'>Tidak Aktif</ng-option>
+                    <ng-option [value]='3'>Tamat Tempoh</ng-option>
                 </ng-select>
                 <div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
                     <div *ngIf="status.errors.required">Status Wajib Dipilih</div>
