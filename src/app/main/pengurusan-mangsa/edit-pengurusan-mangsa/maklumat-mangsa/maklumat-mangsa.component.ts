@@ -7,6 +7,7 @@ import {
   GetMangsaForEditDto,
   InputCreateMangsaDto,
   MangsaServiceProxy,
+  OutputCreateEditMangsaDto,
   RefBencanaServiceProxy,
   RefDaerahServiceProxy,
   RefDunServiceProxy,
@@ -26,6 +27,7 @@ export class MaklumatMangsaComponent implements OnInit {
 
   getMangsa: GetMangsaForEditDto = new GetMangsaForEditDto();
   editMangsa: InputCreateMangsaDto = new InputCreateMangsaDto();
+  output: OutputCreateEditMangsaDto = new OutputCreateEditMangsaDto();
   idMangsa: number;
 
   secondFormGroup: FormGroup;
@@ -171,8 +173,34 @@ export class MaklumatMangsaComponent implements OnInit {
 	save() {
     this.getMangsa.mangsa.gambar = this.url;
     this.editMangsa.mangsa = this.getMangsa.mangsa;
-		this._mangsaServiceProxy.createOrEdit(this.editMangsa).subscribe((result) => {
-			this.confirmMessage();
+		this._mangsaServiceProxy
+    .createOrEdit(this.editMangsa)
+    .subscribe((result) => {
+      this.output = result;
+      if(this.output.message == "Mangsa Berjaya Di Kemaskini!") {
+        this.confirmMessage();
+      }else{
+        this._confirmationService.open({
+          title: 'Tidak Berjaya',
+          message: this.output.message,
+          icon: {
+            show: true,
+            name: 'x-circle',
+            color: 'error'
+          },
+          actions: {
+            confirm: {
+              show: true,
+              label: 'Tutup',
+              color: 'primary'
+            },
+            cancel: {
+              show: false
+            }
+          },
+          dismissible: true
+        });
+      }
 		});
 	}
 
