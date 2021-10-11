@@ -9,7 +9,72 @@
 			<div class="card">
 				<div class="card-body">
 					<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
-            <div class="row no-gutters">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Jenis BWI*</label>
+                  <ng-select
+                    [items]="jenisBwi"
+                    bindLabel="nama_jenis_bwi"
+                    bindValue="id"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
+                    name="jenis_bwi"
+                    [(ngModel)]="bwi.id_jenis_bwi"
+                    #namaJenisBwi="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && namaJenisBwi.invalid }"
+                    required
+                  ></ng-select>
+                  <div *ngIf="f.submitted && namaJenisBwi.invalid" class="invalid-feedback">
+                    <div *ngIf="namaJenisBwi.errors.required">Jenis BWI Wajib Dipilih</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Bencana*</label>
+                  <div class="input-group">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="Nama Bencana"
+                      name="bencana"
+                      [(ngModel)]="nama_bencana"
+                      #namaBencana="ngModel"
+                      [ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
+                      required
+                      readonly
+                    />
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" (click)="pilihJenisBencana()" type="button">
+                        <i class="fa fa-search text-white"></i>
+                      </button>
+                    </div>
+                    <div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
+                      <div *ngIf="namaBencana.errors.required">Bencana Wajib Dipilih</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
+                <label>Tarikh Bencana</label>
+                <div class="input-group">
+                  <input
+                    class="form-control"
+                    placeholder="DD/MM/YYYY"
+                    name="dp"
+                    [(ngModel)]="modelBencana"
+                    readonly
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="row no-gutters mt-4">
               <div class="col-lg-6 justify-content-start">
                 <h6>Maklumat Pembayaran</h6>
               </div>
@@ -19,6 +84,7 @@
                   type="button"
                   class="btn btn-primary pull-right"
                   (click)="pilihPembayaran()"
+                  [disabled]="!id_bencana"
                 >
                   <i class="fa fa-plus mr-2"></i>
                   <b>Pembayaran</b>
@@ -122,72 +188,6 @@
               </div>
             </div>
 
-            <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label>Jenis BWI*</label>
-                    <ng-select
-                      [items]="jenisBwi"
-                      bindLabel="nama_jenis_bwi"
-                      bindValue="id"
-                      placeholder="Sila Pilih"
-                      class="js-example-placeholder-multiple"
-                      name="jenis_bwi"
-                      [(ngModel)]="bwi.id_jenis_bwi"
-                      #namaJenisBwi="ngModel"
-                      [ngClass]="{ 'is-invalid': f.submitted && namaJenisBwi.invalid }"
-                      required
-                    ></ng-select>
-                    <div *ngIf="f.submitted && namaJenisBwi.invalid" class="invalid-feedback">
-                      <div *ngIf="namaJenisBwi.errors.required">Jenis BWI Wajib Dipilih</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label>Bencana*</label>
-                    <div class="input-group">
-                      <input
-                        class="form-control"
-                        type="text"
-                        placeholder="Nama Bencana"
-                        name="bencana"
-                        [(ngModel)]="nama_bencana"
-                        #namaBencana="ngModel"
-                        [ngClass]="{ 'is-invalid': f.submitted && namaBencana.invalid }"
-                        required
-                        readonly
-                      />
-                      <div class="input-group-append">
-                        <button class="btn btn-primary" (click)="pilihJenisBencana()" type="button">
-                          <i class="fa fa-search text-white"></i>
-                        </button>
-                      </div>
-                      <div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
-                        <div *ngIf="namaBencana.errors.required">Bencana Wajib Dipilih</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
-                  <label>Tarikh Bencana</label>
-                  <div class="input-group">
-                    <input
-                      class="form-control"
-                      placeholder="DD/MM/YYYY"
-                      name="dp"
-                      [(ngModel)]="modelBencana"
-                      readonly
-                    >
-                  </div>
-                </div>
-              </div>
-            <hr />
-
             <div class="row no-gutters">
               <div class="col-lg-6 justify-content-start">
                 <h6>Maklumat Bantuan</h6>
@@ -198,6 +198,7 @@
                   type="button"
                   class="btn btn-primary pull-right"
                   (click)="addBantuan()"
+                  [disabled]="!idJenisBayaran"
                 >
                   <i class="fa fa-plus mr-2"></i>
                   <b>Tambah</b>
@@ -268,6 +269,7 @@
                           <div ngbDropdownMenu aria-labelledby="action">
                             <button
                               class="dropdown-item"
+                              (click)="padamBantuan(record.id)"
                             >
                               Padam
                             </button>
@@ -294,13 +296,27 @@
             <div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Jumlah Keseluruhan Bayaran (RM)</label>
+									<label>Jumlah Pembayaran (RM)</label>
 									<input
                     class="form-control"
                     type="text"
                     name="jumlah_bayaran"
                     placeholder="Jumlah Pembayaran"
                     value="{{totalBayaran | number: '1.2-2'}}"
+                    disabled
+                  />
+								</div>
+							</div>
+
+              <div class="col-lg-6">
+								<div class="form-group">
+									<label>Jumlah Bantuan (RM)</label>
+									<input
+                    class="form-control"
+                    type="text"
+                    name="jumlah_bantuan"
+                    placeholder="Jumlah Bantuan"
+                    value="{{totalBantuan | number: '1.2-2'}}"
                     disabled
                   />
 								</div>

@@ -66,6 +66,8 @@ export class EditWangIhsanComponent implements OnInit {
   id_daerah: number;
   id_negeri: number;
   jumlah_diberi: number;
+  jumlah_keseluruhan_bayaran: number;
+  jumlah_bantuan: number;
   id_kelulusan_bwi_bayaran: number;
   daerahArray = [];
   negeriArray = [];
@@ -128,6 +130,7 @@ export class EditWangIhsanComponent implements OnInit {
       this.edit.tabung_bwi = result.tabung_bwi;
       this.tarikh_bencana = this.edit.tabung_bwi.tarikh_bencana.format('YYYY-MM-DD');
       this.idJenisBwi = this.edit.tabung_bwi.id_jenis_bwi;
+      this.jumlah_bantuan = this.edit.jumlah_keseluruhan;
     })
   }
 
@@ -165,6 +168,10 @@ export class EditWangIhsanComponent implements OnInit {
 
   getIdKelulusan(id_kelulusan: number) {
     this.id_kelulusan_bwi_bayaran = id_kelulusan;
+  }
+
+  getJumlahBayaran(jumlah_bayaran: number) {
+    this.jumlah_keseluruhan_bayaran = jumlah_bayaran;
   }
 
   getIdDaerah(id_daerah: number) {
