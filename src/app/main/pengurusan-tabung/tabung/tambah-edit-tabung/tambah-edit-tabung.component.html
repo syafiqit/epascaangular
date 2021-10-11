@@ -36,11 +36,12 @@
             type="text"
             name="danaAwal"
             [(ngModel)]="createTabung.dana_awal"
-            (blur)="changeMonetaryFormat($event)"
             #danaAwal="ngModel"
 				    [ngClass]="{ 'is-invalid': f.submitted && danaAwal.invalid }"
             placeholder="Jumlah Dana Awal"
             required
+            currencyMask
+            [options]="{ prefix: 'RM ', align: 'left' }"
           />
           <div *ngIf="f.submitted && danaAwal.invalid" class="invalid-feedback">
             <div *ngIf="danaAwal.errors.required">Jumlah Dana Awal Wajib Diisi</div>

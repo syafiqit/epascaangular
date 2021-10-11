@@ -90,6 +90,7 @@
     "ngx-ckeditor": "^10.0.0",
     "ngx-cookie-service": "^11.0.2",
     "ngx-crystal-gallery": "^1.1.5",
+    "ngx-currency": "^2.5.3",
     "ngx-datatable": "^1.0.3",
     "ngx-dropzone": "^3.0.0",
     "ngx-dropzone-wrapper": "^10.0.1",

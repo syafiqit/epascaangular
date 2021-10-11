@@ -289,7 +289,8 @@
                     placeholder="Jumlah Belanja"
                     [(ngModel)]="bayaranTerus.jumlah"
                     [disabled]="idBayaranTerus"
-                    onlyNumbers
+                    currencyMask
+                    [options]="{ prefix: 'RM ', align: 'left' }"
                   />
 								</div>
 							</div>

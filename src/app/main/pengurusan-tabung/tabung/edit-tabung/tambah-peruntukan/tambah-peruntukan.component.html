@@ -76,6 +76,8 @@
 				    [ngClass]="{ 'is-invalid': f.submitted && jumlahPeruntukan.invalid }"
             placeholder="Jumlah Peruntukan"
             required
+            currencyMask
+            [options]="{ prefix: 'RM ', align: 'left' }"
           />
           <div *ngIf="f.submitted && jumlahPeruntukan.invalid" class="invalid-feedback">
             <div *ngIf="jumlahPeruntukan.errors.required">Jumlah Peruntukan Wajib Diisi</div>
@@ -83,7 +85,6 @@
 				</div>
 			</div>
 		</div>
-
 		<div class="row">
 			<div class="col-lg-12">
 				<label>Catatan</label>
