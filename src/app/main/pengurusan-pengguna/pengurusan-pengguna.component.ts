@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
-import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
@@ -29,12 +29,17 @@ export class PengurusanPenggunaComponent implements OnInit {
   filterAgensi: number;
   filterPeranan: number;
   filterStatus: number;
+  filterFromDate: string;
+  filterToDate: string;
   saving = false;
   idPengguna: any;
   agencies: any;
   roles: any;
   statuses: any;
   terms$ = new Subject<string>();
+  tarikhMula: NgbDateStruct;
+  tarikhTamat: NgbDateStruct;
+  readonly DELIMITER = '-';
 
   statusPengguna = [
     { id: 2, nama: 'Berdaftar' },
@@ -72,6 +77,14 @@ export class PengurusanPenggunaComponent implements OnInit {
   }
 
 	getUser(event?: LazyLoadEvent) {
+    if(this.tarikhMula){
+      this.filterFromDate = this.toModel(this.tarikhMula);
+    }
+
+    if(this.tarikhTamat){
+      this.filterToDate = this.toModel(this.tarikhTamat);
+    }
+
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
@@ -84,6 +97,8 @@ export class PengurusanPenggunaComponent implements OnInit {
         this.filterAgensi ?? undefined,
         this.filterPeranan ?? undefined,
         this.filterStatus ?? undefined,
+        this.filterFromDate ?? undefined,
+        this.filterToDate ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -99,11 +114,19 @@ export class PengurusanPenggunaComponent implements OnInit {
 			});
 	}
 
+  toModel(date: NgbDateStruct | null): string | null {
+    return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
+  }
+
   resetFilter() {
     this.filter = undefined;
     this.filterAgensi = undefined;
     this.filterPeranan = undefined;
     this.filterStatus = undefined;
+    this.tarikhMula = undefined;
+    this.tarikhTamat = undefined;
+    this.filterFromDate = undefined;
+    this.filterToDate = undefined;
 
     this.getUser();
   }

@@ -95,6 +95,50 @@
                       </div>
                     </div>
 
+                    <div class="row">
+                      <div class="col-lg-2 pr-1">
+                        <div class="form-group custom-datepicker custom-datepicker-dropdown">
+                          <label>Tarikh Daftar</label>
+                          <div class="input-group">
+                            <input
+                              class="form-control"
+                              placeholder="DD/MM/YYYY"
+                              name="dp1"
+                              [(ngModel)]="tarikhMula"
+                              ngbDatepicker
+                              #b="ngbDatepicker"
+                              style="border: 1px solid #efefef !important;"
+                            >
+                            <div class="input-group-append">
+                              <button class="btn btn-light pr-2 pl-2" (click)="b.toggle()" type="button"><i
+                                class="fa fa-calendar"></i></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-2 pl-1">
+                        <div class="form-group custom-datepicker custom-datepicker-dropdown">
+                          <div class="input-group pt-4 mt-1">
+                            <input
+                              class="form-control"
+                              placeholder="DD/MM/YYYY"
+                              name="dp2"
+                              [(ngModel)]="tarikhTamat"
+                              ngbDatepicker
+                              #c="ngbDatepicker"
+                              style="border: 1px solid #efefef !important;"
+                              [disabled]="tarikhMula == undefined"
+                            >
+                            <div class="input-group-append">
+                              <button class="btn btn-light pr-2 pl-2" (click)="c.toggle()" type="button" [disabled]="tarikhMula == undefined"><i
+                                class="fa fa-calendar"></i></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                     <div class="row no-gutters justify-content-end mb-2">
                       <button
                         class="btn btn-light mr-2"
@@ -156,6 +200,10 @@
 										Peranan
 										<p-sortIcon field="peranan"></p-sortIcon>
 									</th>
+                  <th style="width: 120px" pSortableColumn="tarikh_daftar">
+										Tarikh Daftar
+										<p-sortIcon field="tarikh_daftar"></p-sortIcon>
+									</th>
 									<th style="width: 100px" pSortableColumn="status_pengguna">
 										Status
 										<p-sortIcon field="jawatan_pengguna"></p-sortIcon>
@@ -180,6 +228,10 @@
 									<td style="width: 100px">
 										<span class="p-column-title">Peranan</span>
 										{{record.peranan}}
+									</td>
+                  <td style="width: 120px">
+										<span class="p-column-title">Tarikh Daftar</span>
+										{{record.tarikh_daftar | date:'dd-MM-yyyy'}}
 									</td>
 									<td style="width: 100px">
 										<span class="p-column-title">Status</span>
