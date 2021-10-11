@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewEncapsulation, Input, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { CreateOrEditRefPerananDto, RefPerananServiceProxy } from '../../../../shared/proxy/service-proxies';
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { PerananTreeComponent } from '@app/shared/components/peranan-tree/peranan-tree.component';
 import { TreeNode } from 'primeng/api';
+import { ConfirmationService } from '@app/shared/services/confirmation';
 
 @Component({
 	selector: 'app-tambah-edit-peranan',
@@ -25,6 +25,7 @@ export class TambahEditPerananComponent implements OnInit {
 
 	constructor(
 		public activeModal: NgbActiveModal,
+    private _confirmationService: ConfirmationService,
 		private _refPerananServiceProxy: RefPerananServiceProxy
 	) {}
 
@@ -57,11 +58,54 @@ export class TambahEditPerananComponent implements OnInit {
 			.pipe()
 			.subscribe(() => {
 				if (this.name === 'add') {
-					swalSuccess.fire('Berjaya!', 'Maklumat Peranan Berjaya Ditambah.', 'success');
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Maklumat Peranan Berjaya Ditambah.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
+            this.activeModal.close(true);
+          });
 				} else if (this.name === 'edit') {
-					swalSuccess.fire('Berjaya!', 'Maklumat Peranan Berjaya Dikemaskini.', 'success');
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Maklumat Peranan Berjaya Dikemaskini.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
+            this.activeModal.close(true);
+          });
 				}
-				this.activeModal.close(true);
 			});
 	}
 

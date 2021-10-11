@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { CreateOrEditRefKadarBwiDto, RefKadarBwiServiceProxy } from '@app/shared/proxy/service-proxies';
-import { swalSuccess } from '@app/shared/sweet-alert/swal-constant';
-import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmationService } from '@app/shared/services/confirmation';
+import { NgbActiveModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { finalize } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-tambah-edit-kadar-bwi',
 	templateUrl: './tambah-edit-kadar-bwi.component.html',
 	encapsulation: ViewEncapsulation.None,
-	providers: [NgbModalConfig, NgbModal, RefKadarBwiServiceProxy]
+	providers: [NgbModalConfig, RefKadarBwiServiceProxy]
 })
 export class TambahEditKadarBwiComponent implements OnInit {
 	@Input() name;
@@ -18,8 +18,8 @@ export class TambahEditKadarBwiComponent implements OnInit {
 	saving = true;
 
 	constructor(
-		private modalService: NgbModal,
 		public activeModal: NgbActiveModal,
+    private _confirmationService: ConfirmationService,
 		private _refKadarBwiServiceProxy: RefKadarBwiServiceProxy
 	) {}
 
@@ -49,11 +49,54 @@ export class TambahEditKadarBwiComponent implements OnInit {
 			)
 			.subscribe(() => {
 				if (this.name == 'add') {
-					swalSuccess.fire('Berjaya!', 'Maklumat Kadar Bantuan Wang Ihsan Berjaya Ditambah.', 'success');
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Maklumat Kadar Bantuan Wang Ihsan Berjaya Ditambah.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
+            this.activeModal.close(true);
+          });
 				} else if (this.name == 'edit') {
-					swalSuccess.fire('Berjaya!', 'Maklumat Kadar Bantuan Wang Ihsan Berjaya Dikemaskini.', 'success');
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Maklumat Kadar Bantuan Wang Ihsan Berjaya Dikemaskini.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
+            this.activeModal.close(true);
+          });
 				}
-				this.activeModal.close(true);
 			});
 	}
 }
