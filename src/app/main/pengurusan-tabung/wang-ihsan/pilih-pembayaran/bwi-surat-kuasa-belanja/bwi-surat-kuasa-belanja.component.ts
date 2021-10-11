@@ -19,6 +19,7 @@ export class BwiSuratKuasaBelanjaComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 
+  @Input() idBencana;
 	@Input() name;
   @Input() idTabungKelulusan;
 
@@ -51,6 +52,7 @@ export class BwiSuratKuasaBelanjaComponent implements OnInit {
 			.getAllSkbForLookupTable(
 				this.filter,
         this.idTabungKelulusan ?? undefined,
+        this.idBencana ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -72,7 +74,8 @@ export class BwiSuratKuasaBelanjaComponent implements OnInit {
       perihal: perihal,
       no_rujukan_kelulusan: no_rujukan_kelulusan,
       jumlah: jumlah_siling_peruntukan,
-      idJenisBayaran: this.idJenisBayaran
+      idJenisBayaran: this.idJenisBayaran,
+      idBencana: this.idBencana
     });
 	}
 }

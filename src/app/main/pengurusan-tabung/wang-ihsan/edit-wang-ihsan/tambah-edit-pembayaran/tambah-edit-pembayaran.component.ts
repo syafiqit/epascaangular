@@ -19,6 +19,7 @@ export class TambahEditPembayaranComponent implements OnInit {
   @Output() idBayaranTerus = new EventEmitter<number>();
   @Output() idBayaranSkb = new EventEmitter<number>();
   @Output() id_kelulusan = new EventEmitter<number>();
+  @Output() jumlahBayaran = new EventEmitter<number>();
 
   @ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
@@ -38,6 +39,7 @@ export class TambahEditPembayaranComponent implements OnInit {
   idTabungBayaranTerus: number;
   existingId: number;
   idKelulusanKemaskini: number;
+  jumlah_keseluruhan_bayaran: number;
 
   constructor(
     config: NgbModalConfig,
@@ -76,10 +78,12 @@ export class TambahEditPembayaranComponent implements OnInit {
 			.subscribe((result) => {
 				this.primengTableHelper.totalRecordsCount = result.total_count;
 				this.primengTableHelper.records = result.items;
+        this.jumlah_keseluruhan_bayaran = result.jumlah_keseluruhan_bayaran;
         for(let i=0; i <= result.items.length - 1; i++){
           this.idKelulusanKemaskini = result.items[i].id_tabung_kelulusan;
           this.idKelulusan(this.idKelulusanKemaskini);
         }
+        this.jumlahKeseluruhanBayaran(this.jumlah_keseluruhan_bayaran);
 			});
 	}
 
@@ -179,6 +183,10 @@ export class TambahEditPembayaranComponent implements OnInit {
 
   idKelulusan(value: number) {
     this.id_kelulusan.emit(value);
+  }
+
+  jumlahKeseluruhanBayaran(value: number){
+    this.jumlahBayaran.emit(value);
   }
 
 }

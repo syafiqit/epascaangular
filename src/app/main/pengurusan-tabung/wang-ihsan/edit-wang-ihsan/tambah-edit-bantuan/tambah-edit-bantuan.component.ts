@@ -7,6 +7,7 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { CreateOrEditTabungBwiKawasanDto, RefDaerahServiceProxy, RefNegeriServiceProxy, TabungBwiKawasanServiceProxy } from '@app/shared/proxy/service-proxies';
 import { finalize } from 'rxjs/operators';
 import { TambahEditKawasanBantuanComponent } from '../tambah-edit-kawasan-bantuan/tambah-edit-kawasan-bantuan.component';
+import { ConfirmationService } from '@app/shared/services/confirmation';
 
 @Component({
   selector: 'app-tambah-edit-bantuan',
@@ -16,6 +17,7 @@ export class TambahEditBantuanComponent implements OnInit {
   @Input() public idBwi: number;
   @Input() public idBencana: number;
   @Input() public idJenisBwi: number;
+  @Input() public jumlahPembayaran: number;
   @Output() id_daerah = new EventEmitter<number>();
   @Output() id_negeri = new EventEmitter<number>();
   @Output() jumlah_diberi = new EventEmitter<number>();
@@ -36,6 +38,7 @@ export class TambahEditBantuanComponent implements OnInit {
   constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,
+    private _confirmationService: ConfirmationService,
     private _refNegeriServiceProxy: RefNegeriServiceProxy,
     private _refDaerahServiceProxy: RefDaerahServiceProxy,
     private _refTabungBwiKawasanServiceProxy: TabungBwiKawasanServiceProxy,
@@ -79,14 +82,39 @@ export class TambahEditBantuanComponent implements OnInit {
         this.idDaerah = response.id_daerah;
         this.idNegeri = response.id_negeri;
         this.jumlahDiberi = response.jumlah_bayaran;
+
 				if (response) {
-          this.primengTableHelper.records.push({
-            id_negeri: response.id_negeri,
-            id_daerah: response.id_daerah,
-            nama_daerah: response.nama_daerah,
-            nama_negeri: response.nama_negeri,
-            jumlah_bwi: response.jumlah_bayaran
-          });
+          if(response.jumlah_bayaran < this.jumlahPembayaran){
+            this.primengTableHelper.records.push({
+              id_negeri: response.id_negeri,
+              id_daerah: response.id_daerah,
+              nama_daerah: response.nama_daerah,
+              nama_negeri: response.nama_negeri,
+              jumlah_bwi: response.jumlah_bayaran
+            });
+          }else{
+            const dialogRef = this._confirmationService.open({
+              title: 'Tidak Berjaya',
+              message: 'Jumlah Bantuan Melebihi Jumlah Pembayaran.',
+              icon: {
+                show: true,
+                name: 'x-circle',
+                color: 'error'
+              },
+              actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+              },
+              dismissible: true
+            });
+          }
+
           this.getIdDaerah(this.idDaerah);
           this.getIdNegeri(this.idNegeri);
           this.getJumlahDiberi(this.jumlahDiberi);
