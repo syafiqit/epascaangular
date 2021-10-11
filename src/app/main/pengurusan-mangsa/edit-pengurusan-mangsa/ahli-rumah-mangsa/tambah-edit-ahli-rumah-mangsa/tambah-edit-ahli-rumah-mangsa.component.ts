@@ -5,6 +5,7 @@ import { finalize } from 'rxjs/operators';
 import {
   CreateOrEditMangsaAirDto,
   MangsaAirServiceProxy,
+  OutputCreateMangsaAirDto,
   RefHubunganServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import * as moment from 'moment';
@@ -19,6 +20,7 @@ export class TambahEditAhliRumahMangsaComponent implements OnInit {
 	@Input() id;
 
   addAhli: CreateOrEditMangsaAirDto = new CreateOrEditMangsaAirDto();
+  output: OutputCreateMangsaAirDto = new OutputCreateMangsaAirDto();
 	saving = false;
   idMangsa: number;
   relationships: any;
@@ -129,56 +131,91 @@ export class TambahEditAhliRumahMangsaComponent implements OnInit {
 					this.saving = false;
 				})
 			)
-			.subscribe(() => {
-				if (this.name == 'add') {
-          const dialogRef = this._confirmationService.open({
-            title: 'Berjaya',
-            message: 'Maklumat Ahli Isi Rumah Berjaya Ditambah.',
-            icon: {
-              show: true,
-              name: 'check-circle',
-              color: 'success'
-            },
-            actions: {
-              confirm: {
-                show: true,
-                label: 'Tutup',
-                color: 'primary'
-              },
-              cancel: {
-                show: false
-              }
-            },
-            dismissible: true
-          });
-          dialogRef.afterClosed().subscribe(() => {
-            this.activeModal.close(true);
-          });
-				} else if (this.name == 'edit') {
-          const dialogRef = this._confirmationService.open({
-            title: 'Berjaya',
-            message: 'Maklumat Ahli Isi Rumah Berjaya Dikemaskini.',
-            icon: {
-              show: true,
-              name: 'check-circle',
-              color: 'success'
-            },
-            actions: {
-              confirm: {
-                show: true,
-                label: 'Tutup',
-                color: 'primary'
-              },
-              cancel: {
-                show: false
-              }
-            },
-            dismissible: true
-          });
-          dialogRef.afterClosed().subscribe(() => {
-            this.activeModal.close(true);
-          });
-				}
+			.subscribe((result) => {
+        this.output = result;
+        if(this.output.message == "Pendaftaran Ahli Isi Rumah Berjaya Disimpan!") {
+          this.addAir();
+        }
+        else if(this.output.message == "Ahli Isi Rumah Berjaya Di Kemaskini!") {
+          this.editAir();
+        }else{
+          this.errorAir();
+        }
 			});
 	}
+
+  addAir() {
+    const dialogRef = this._confirmationService.open({
+      title: 'Berjaya',
+      message: 'Maklumat Ahli Isi Rumah Berjaya Ditambah.',
+      icon: {
+        show: true,
+        name: 'check-circle',
+        color: 'success'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.activeModal.close(true);
+    });
+  }
+
+  editAir() {
+    const dialogRef = this._confirmationService.open({
+      title: 'Berjaya',
+      message: 'Maklumat Ahli Isi Rumah Berjaya Dikemaskini.',
+      icon: {
+        show: true,
+        name: 'check-circle',
+        color: 'success'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.activeModal.close(true);
+    });
+  }
+
+  errorAir() {
+    this._confirmationService.open({
+      title: 'Tidak Berjaya',
+      message: this.output.message,
+      icon: {
+        show: true,
+        name: 'x-circle',
+        color: 'error'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+  }
 }
