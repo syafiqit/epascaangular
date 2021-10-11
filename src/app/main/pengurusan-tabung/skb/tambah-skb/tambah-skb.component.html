@@ -319,7 +319,8 @@
                     #silingPeruntukan="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && silingPeruntukan.invalid }"
                     required
-                    onlyNumbers
+                    currencyMask
+                    [options]="{ prefix: 'RM ', align: 'left' }"
                   />
                   <div *ngIf="f.submitted && silingPeruntukan.invalid" class="invalid-feedback">
                     <div *ngIf="silingPeruntukan.errors.required">Jumlah Siling Peruntukan Wajib Diisi</div>

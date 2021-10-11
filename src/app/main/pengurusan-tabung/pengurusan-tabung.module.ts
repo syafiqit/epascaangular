@@ -59,6 +59,7 @@ import { EditWaranComponent } from './waran/edit-waran/edit-waran.component';
 import { WaranBulananComponent } from './waran/waran-bulanan/waran-bulanan.component';
 import { JenisBayaranWaranComponent } from './kelulusan/edit-kelulusan/perbelanjaan/jenis-bayaran-waran/jenis-bayaran-waran.component';
 import { KategoriWaranComponent } from './kelulusan/edit-kelulusan/perbelanjaan/kategori-waran/kategori-waran.component';
+import { NgxCurrencyModule } from "ngx-currency";
 
 @NgModule({
 	imports: [
@@ -69,7 +70,8 @@ import { KategoriWaranComponent } from './kelulusan/edit-kelulusan/perbelanjaan/
 		TableModule,
 		PaginatorModule,
     NgSelectModule,
-    ArchwizardModule
+    ArchwizardModule,
+    NgxCurrencyModule
 	],
 	declarations: [
 		TabungComponent,
