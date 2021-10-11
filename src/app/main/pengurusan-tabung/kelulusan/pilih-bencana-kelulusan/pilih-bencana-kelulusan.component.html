@@ -67,11 +67,11 @@
 							</td>
 							<td style="width: 135px">
 								<span class="p-column-title">Peruntukan</span>
-								RM {{record.peruntukan | number:'1.2-2'}}
+								RM {{(record.peruntukan?record.peruntukan:0) | number:'1.2-2'}}
 							</td>
 							<td style="width: 130px">
 								<span class="p-column-title">Jumlah Keseluruhan</span>
-								RM {{record.jumlah_keseluruhan | number:'1.2-2'}}
+								RM {{(record.jumlah_keseluruhan?record.jumlah_keseluruhan:0) | number:'1.2-2'}}
 							</td>
 							<td style="width: 130px">
 								<span class="p-column-title">Baki Tabung</span>
