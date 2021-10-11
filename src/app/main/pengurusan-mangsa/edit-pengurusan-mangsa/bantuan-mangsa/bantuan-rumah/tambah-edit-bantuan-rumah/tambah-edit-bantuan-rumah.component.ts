@@ -13,8 +13,8 @@ import {
   RefSumberDanaServiceProxy,
   RefTapakRumahServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { LookupBencanaComponent } from '../../lookup-bencana/lookup-bencana.component';
+import { ConfirmationService } from '@services/confirmation';
 
 @Component({
   selector: 'app-tambah-edit-bantuan-rumah',
@@ -65,7 +65,8 @@ export class TambahEditBantuanRumahComponent implements OnInit {
     private _refSumberDanaServiceProxy: RefSumberDanaServiceProxy,
     private _refPelaksanaServiceProxy: RefPelaksanaServiceProxy,
     private _refStatusKemajuanServiceProxy: RefStatusKemajuanServiceProxy,
-    private calendar: NgbCalendar
+    private calendar: NgbCalendar,
+    private _confirmationService: ConfirmationService
     ) {
     this.editBantuanRumah.mangsa_rumah = new CreateOrEditMangsaRumahDto();
 	}
@@ -193,11 +194,54 @@ export class TambahEditBantuanRumahComponent implements OnInit {
       .pipe()
       .subscribe((result) => {
         if (this.name == 'add') {
-          swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Rumah Berjaya Ditambah.', 'success');
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Maklumat Bantuan Rumah Berjaya Ditambah.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
+            this.activeModal.close(true);
+          });
         } else if (this.name == 'edit') {
-          swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Rumah Berjaya Dikemaskini.', 'success');
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Maklumat Bantuan Rumah Berjaya Dikemaskini.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
+            this.activeModal.close(true);
+          });
         }
-        this.activeModal.close(true);
       });
   }
 }

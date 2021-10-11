@@ -9,8 +9,8 @@ import {
   RefKadarBwiServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import * as moment from 'moment';
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { LookupBencanaComponent } from '../../lookup-bencana/lookup-bencana.component';
+import { ConfirmationService } from '@services/confirmation';
 
 @Component({
   selector: 'app-tambah-edit-bantuan-wang-ihsan',
@@ -54,7 +54,8 @@ export class TambahEditBantuanWangIhsanComponent implements OnInit {
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
     private _refJenisBwiServiceProxy: RefJenisBwiServiceProxy,
     private _refKadarBwiServiceProxy: RefKadarBwiServiceProxy,
-    private calendar: NgbCalendar
+    private calendar: NgbCalendar,
+    private _confirmationService: ConfirmationService
     ) {
       this.editWangIhsan.mangsa_wang_ihsan = new CreateOrEditMangsaWangIhsanDto();
     }
@@ -151,9 +152,53 @@ export class TambahEditBantuanWangIhsanComponent implements OnInit {
         .pipe()
         .subscribe((result) => {
           if (this.name == 'add') {
-            swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Wang Ihsan Berjaya Ditambah.', 'success');
+            const dialogRef = this._confirmationService.open({
+              title: 'Berjaya',
+              message: 'Maklumat Bantuan Wang Ihsan Berjaya Ditambah.',
+              icon: {
+                show: true,
+                name: 'check-circle',
+                color: 'success'
+              },
+              actions: {
+                confirm: {
+                  show: true,
+                  label: 'Tutup',
+                  color: 'primary'
+                },
+                cancel: {
+                  show: false
+                }
+              },
+              dismissible: true
+            });
+            dialogRef.afterClosed().subscribe(() => {
+              this.activeModal.close(true);
+            });
           } else if (this.name == 'edit') {
-            swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Wang Ihsan Berjaya Dikemaskini.', 'success');
+            const dialogRef = this._confirmationService.open({
+              title: 'Berjaya',
+              message: 'Maklumat Bantuan Wang Ihsan Berjaya Dikemaskini.',
+              icon: {
+                show: true,
+                name: 'check-circle',
+                color: 'success'
+              },
+              actions: {
+                confirm: {
+                  show: true,
+                  label: 'Tutup',
+                  color: 'primary'
+                },
+                cancel: {
+                  show: false
+                }
+              },
+              dismissible: true
+            });
+            dialogRef.afterClosed().subscribe(() => {
+              this.activeModal.close(true);
+            });
           }
           this.activeModal.close(true);
         });

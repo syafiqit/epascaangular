@@ -166,6 +166,31 @@ export class TambahEditMangsaBencanaComponent implements OnInit {
             this.activeModal.close(true);
           });
         }
+        else{
+          const dialogRef = this._confirmationService.open({
+            title: 'Perhatian',
+            message: result.message,
+            icon: {
+              show: true,
+              name: 'x-circle',
+              color: 'error'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
+            this.activeModal.close(true);
+          });
+        }
 			});
 	}
 

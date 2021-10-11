@@ -7,8 +7,8 @@ import {
   MangsaAntarabangsaServiceProxy,
   RefAgensiServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { LookupBencanaComponent } from '../../lookup-bencana/lookup-bencana.component';
+import { ConfirmationService } from '@services/confirmation';
 
 @Component({
   selector: 'app-tambah-edit-bantuan-antarabangsa',
@@ -45,7 +45,8 @@ export class TambahEditBantuanAntarabangsaComponent implements OnInit {
     public activeModal: NgbActiveModal,
 		private _mangsaAntarabangsaServiceProxy: MangsaAntarabangsaServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
-    private calendar: NgbCalendar
+    private calendar: NgbCalendar,
+    private _confirmationService: ConfirmationService
   ) {
     this.editAntarabangsa.mangsa_antarabangsa = new CreateOrEditMangsaAntarabangsaDto();
    }
@@ -124,11 +125,54 @@ export class TambahEditBantuanAntarabangsaComponent implements OnInit {
       .pipe()
       .subscribe((result) => {
         if (this.name == 'add') {
-          swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Antarabangsa Berjaya Ditambah.', 'success');
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Maklumat Bantuan Antarabangsa Berjaya Ditambah.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
+            this.activeModal.close(true);
+          });
         } else if (this.name == 'edit') {
-          swalSuccess.fire('Berjaya!', 'Maklumat Bantuan Antarabangsa Berjaya Dikemaskini.', 'success');
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Maklumat Bantuan Antarabangsa Berjaya Dikemaskini.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
+            this.activeModal.close(true);
+          });
         }
-        this.activeModal.close(true);
       });
   }
 

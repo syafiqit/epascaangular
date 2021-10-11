@@ -10,7 +10,7 @@ import {
   OutputCreateMangsaAirDto
 } from 'src/app/shared/proxy/service-proxies';
 import { finalize } from 'rxjs/operators';
-import { swalSuccess, swalWarning } from '@shared/sweet-alert/swal-constant';
+import { ConfirmationService } from '@services/confirmation';
 import { AppSessionService } from '@app/shared/services/app-session.service';
 
 @Component({
@@ -40,7 +40,8 @@ export class AhliRumahMangsaComponent implements OnInit {
     config: NgbModalConfig,
     private modalService: NgbModal,
     private _mangsaAirServiceProxy: MangsaAirServiceProxy,
-    public _appSession: AppSessionService
+    public _appSession: AppSessionService,
+	private _confirmationService: ConfirmationService
     ) {
 		this.primengTableHelper = new PrimengTableHelper();
 	}
@@ -75,10 +76,6 @@ export class AhliRumahMangsaComponent implements OnInit {
 			});
 	}
 
-	delete() {
-		swalSuccess.fire('Berjaya!', 'Barangan Berjaya Dibuang.', 'success');
-	}
-
 	addAhliRumahModal() {
 		const modalRef = this.modalService.open(TambahEditAhliRumahMangsaComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
@@ -100,26 +97,60 @@ export class AhliRumahMangsaComponent implements OnInit {
 		});
 	}
 
-  deleteAir(id){
-		swalWarning.fire({
-			title: 'Anda Pasti?',
-			text: 'Adakah anda pasti ingin memadam maklumat Ahli Isi Rumah ini?',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			cancelButtonText: 'Tidak',
-			confirmButtonText: 'Ya'
-		}).then((result) => {
-			if (result.value) {
-				this._mangsaAirServiceProxy.delete(id).subscribe((result)=>{
-          this.output = result;
-          if(this.output.message == "Isi Rumah Berjaya Dibuang"){
-            swalSuccess.fire('Berjaya!', 'Ahli Isi Rumah Dipilih Berjaya Dipadam!').then(()=>{
-              this.getHousehold();
-            });
-          }
+  deleteAir(id?){
+    const dialogRef = this._confirmationService.open({
+      title: 'Anda Pasti?',
+      message: 'Adakah anda pasti ingin memadam maklumat Ahli Isi Rumah ini?',
+      icon: {
+        show: true,
+        name: 'help-circle',
+        color: 'warning'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Ya',
+          color: 'primary'
+        },
+        cancel: {
+          show: true,
+          label: 'Tidak'
+        }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe((e) => {
+      if(e === 'confirmed') {
+        this._mangsaAirServiceProxy.delete(id).subscribe((response)=>{
+            this. confirmMessage();
         })
-			}
-		});
+      }
+    });
   }
+
+  confirmMessage(){
+		const dialogRef = this._confirmationService.open({
+		  title: 'Berjaya',
+		  message: 'Ahli Isi Rumah Dipilih Berjaya Dipadam!',
+		  icon: {
+        show: true,
+        name: 'check-circle',
+        color: 'success'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+		dialogRef.afterClosed().subscribe(() => {
+			this.getHousehold();
+		});
+	}
 }

@@ -12,8 +12,8 @@ import {
   TabungServiceProxy
 } from "../../../shared/proxy/service-proxies";
 import { PeruntukanDiambilComponent } from './peruntukan-diambil/peruntukan-diambil.component';
-import { swalError, swalSuccess, swalWarning } from '@shared/sweet-alert/swal-constant';
 import { AppSessionService } from '@app/shared/services/app-session.service';
+import { ConfirmationService } from '@services/confirmation';
 
 @Component({
 	selector: 'app-kelulusan',
@@ -50,7 +50,8 @@ export class KelulusanComponent implements OnInit {
     private _tabungKelulusanServiceProxy: TabungKelulusanServiceProxy,
     private _tabungServiceProxy: TabungServiceProxy,
     private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy,
-    public _appSession: AppSessionService
+    public _appSession: AppSessionService,
+		private _confirmationService: ConfirmationService
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
@@ -155,30 +156,91 @@ export class KelulusanComponent implements OnInit {
 		});
 	}
 
-  deleteConfirmation(id?) {
-		swalWarning.fire({
-			title: 'Anda Pasti?',
-			text: 'Adakah anda pasti ingin memadam maklumat Kelulusan Bayaran ini?',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			cancelButtonText: 'Tidak',
-			confirmButtonText: 'Ya'
-		}).then((result) => {
-			if (result.value) {
+  deleteConfirmation(id?){
+    const dialogRef = this._confirmationService.open({
+      title: 'Anda Pasti?',
+      message: 'Adakah anda pasti ingin memadam maklumat Kelulusan Bayaran ini?',
+      icon: {
+        show: true,
+        name: 'help-circle',
+        color: 'warning'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Ya',
+          color: 'primary'
+        },
+        cancel: {
+          show: true,
+          label: 'Tidak'
+        }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe((e) => {
+      if(e === 'confirmed') {
         this._tabungKelulusanServiceProxy.delete(id).subscribe((response)=>{
           if(response.message == 'Kelulusan Sudah Mempunyai Pembayaran'){
-            swalWarning.fire('Makluman', 'Kelulusan Sudah Mempunyai Pembayaran');
+            this.alertMessage(response);
+          }else{
+            this. confirmMessage();
           }
-          else{
-            swalSuccess.fire('Berjaya!', 'Maklumat Kelulusan Bayaran Berjaya Dipadam');
-            this.getTabungKelulusanList();
-          }
-
         })
-			}
-		},(error)=>{
-      swalError.fire('Amaran!',error.message);
+      }
     });
+  }
+
+  confirmMessage(){
+		const dialogRef = this._confirmationService.open({
+		  title: 'Berjaya',
+		  message: 'Maklumat Kelulusan Bayaran Berjaya Dipadam.',
+		  icon: {
+        show: true,
+        name: 'check-circle',
+        color: 'success'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+		dialogRef.afterClosed().subscribe(() => {
+		  this.getTabungKelulusanList();
+		});
 	}
+	
+	alertMessage(response){
+		const dialogRef = this._confirmationService.open({
+		  title: 'Perhatian',
+		  message: response.message,
+		  icon: {
+        show: true,
+        name: 'x-circle',
+        color: 'error'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+		dialogRef.afterClosed().subscribe(() => {
+		  
+		});
+	}
+  
 }

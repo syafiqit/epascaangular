@@ -15,7 +15,7 @@ import {
   RefPindahServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { environment } from 'src/environments/environment';
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { ConfirmationService } from '@services/confirmation';
 @Component({
 	selector: 'app-maklumat-mangsa',
 	templateUrl: './maklumat-mangsa.component.html',
@@ -55,7 +55,8 @@ export class MaklumatMangsaComponent implements OnInit {
     private _refBencanaServiceProxy: RefBencanaServiceProxy,
     private _refPindahServiceProxy: RefPindahServiceProxy,
     private _formBuilder: FormBuilder,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private _confirmationService: ConfirmationService
   ) {
     this.idMangsa = this._activatedRoute.snapshot.queryParams['id'];
     this.getMangsa = new GetMangsaForEditDto();
@@ -171,9 +172,33 @@ export class MaklumatMangsaComponent implements OnInit {
     this.getMangsa.mangsa.gambar = this.url;
     this.editMangsa.mangsa = this.getMangsa.mangsa;
 		this._mangsaServiceProxy.createOrEdit(this.editMangsa).subscribe((result) => {
-			swalSuccess.fire('Berjaya!', 'Maklumat Mangsa Berjaya Dikemaskini.', 'success').then(() => {
-				location.reload();
-			});
+			this.confirmMessage();
 		});
 	}
+
+  confirmMessage(){
+    const dialogRef = this._confirmationService.open({
+      title: 'Berjaya',
+      message: 'Maklumat Mangsa Berjaya Dikemaskini.',
+      icon: {
+        show: true,
+        name: 'check-circle',
+        color: 'success'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      location.reload();
+    });
+  }
 }
