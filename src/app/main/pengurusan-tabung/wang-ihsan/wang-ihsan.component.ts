@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
-import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
@@ -30,12 +30,18 @@ export class WangIhsanComponent implements OnInit {
   filterNegeri: number;
   filterJenisBencana: number;
   filterBencana: number;
+  filterFromDate: string;
+  filterToDate: string;
   terms$ = new Subject<string>();
   public isCollapsed = false;
   jenisBencana: any;
   filterJenisBwi: number;
   daerah: any;
   negeri: any;
+  tarikhMula: NgbDateStruct;
+  tarikhTamat: NgbDateStruct;
+  readonly DELIMITER = '-';
+
 
 	constructor(
     config: NgbModalConfig,
@@ -69,6 +75,14 @@ export class WangIhsanComponent implements OnInit {
   }
 
 	getBantuanWangIhsan(event?: LazyLoadEvent) {
+    if(this.tarikhMula){
+      this.filterFromDate = this.toModel(this.tarikhMula);
+    }
+
+    if(this.tarikhTamat){
+      this.filterToDate = this.toModel(this.tarikhTamat);
+    }
+
     if (this.primengTableHelper.shouldResetPaging(event)) {
       this.paginator.changePage(0);
       return;
@@ -80,6 +94,8 @@ export class WangIhsanComponent implements OnInit {
       this.filter,
       this.filterJenisBwi ?? undefined,
       this.filterBencana ?? undefined,
+      this.filterFromDate ?? undefined,
+      this.filterToDate ?? undefined,
       this.primengTableHelper.getSorting(this.dataTable),
       this.primengTableHelper.getSkipCount(this.paginator, event),
       this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -91,6 +107,10 @@ export class WangIhsanComponent implements OnInit {
       this.primengTableHelper.totalRecordsCount = result.total_count;
       this.primengTableHelper.records = result.items;
     });
+  }
+
+  toModel(date: NgbDateStruct | null): string | null {
+    return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
   }
 
   getJenisBencana(filter?) {
@@ -116,6 +136,10 @@ export class WangIhsanComponent implements OnInit {
     this.filterDaerah = undefined;
     this.filterNegeri = undefined;
     this.filterJenisBencana = undefined;
+    this.tarikhMula = undefined;
+    this.tarikhTamat = undefined;
+    this.filterFromDate = undefined;
+    this.filterToDate = undefined;
 
     this.getBantuanWangIhsan();
   }

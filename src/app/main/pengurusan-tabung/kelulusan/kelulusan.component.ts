@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
-import { NgbCalendar, NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCalendar, NgbModalConfig, NgbModal, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
@@ -37,6 +37,11 @@ export class KelulusanComponent implements OnInit {
   filter: string;
   filterTabung: number;
   filterJenisBencana: number;
+  filterFromDate: string;
+  filterToDate: string;
+  tarikhMula: NgbDateStruct;
+  tarikhTamat: NgbDateStruct;
+  readonly DELIMITER = '-';
 
 	constructor(
     config: NgbModalConfig,
@@ -66,6 +71,14 @@ export class KelulusanComponent implements OnInit {
   }
 
   getTabungKelulusanList(event?: LazyLoadEvent) {
+    if(this.tarikhMula){
+      this.filterFromDate = this.toModel(this.tarikhMula);
+    }
+
+    if(this.tarikhTamat){
+      this.filterToDate = this.toModel(this.tarikhTamat);
+    }
+
     if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
@@ -77,6 +90,8 @@ export class KelulusanComponent implements OnInit {
 				this.filter,
         this.filterTabung ?? undefined,
         this.filterJenisBencana ?? undefined,
+        this.filterFromDate ?? undefined,
+        this.filterToDate ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -89,6 +104,11 @@ export class KelulusanComponent implements OnInit {
 				this.primengTableHelper.records = result.items;
 			});
 	}
+
+  toModel(date: NgbDateStruct | null): string | null {
+    return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
+  }
+
 
   applyFilter(filterValue: string){
     this.terms$.next(filterValue);
@@ -114,6 +134,10 @@ export class KelulusanComponent implements OnInit {
     this.filter = undefined;
     this.filterTabung = undefined;
     this.filterJenisBencana = undefined;
+    this.filterFromDate = undefined;
+    this.filterToDate = undefined;
+    this.tarikhMula = undefined;
+    this.tarikhTamat = undefined;
 
     this.getTabungKelulusanList();
   }
