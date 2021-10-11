@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { TambahEditTabungComponent } from './tambah-edit-tabung/tambah-edit-tabung.component';
-import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
@@ -23,8 +23,14 @@ export class TabungComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
   filterText: string;
   filterMonth: string;
+  filterFromDate: string;
+  filterToDate: string;
   terms$ = new Subject<string>();
+  tarikhMula: NgbDateStruct;
+  tarikhTamat: NgbDateStruct;
+  readonly DELIMITER = '-';
 
+  public isCollapsed = false;
   jumlah_keseluruhan: number;
   jumlah_perbelanjaan_semasa: number;
   jumlah_tanggungan: number;
@@ -65,6 +71,14 @@ export class TabungComponent implements OnInit {
   }
 
 	getTabung(event?: LazyLoadEvent) {
+    if(this.tarikhMula){
+      this.filterFromDate = this.toModel(this.tarikhMula);
+    }
+
+    if(this.tarikhTamat){
+      this.filterToDate = this.toModel(this.tarikhTamat);
+    }
+
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
@@ -74,6 +88,8 @@ export class TabungComponent implements OnInit {
 		this.tabungServiceProxy
 			.getAll(
 				this.filterText,
+        this.filterFromDate ?? undefined,
+        this.filterToDate ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -92,6 +108,20 @@ export class TabungComponent implements OnInit {
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
 	}
+
+  toModel(date: NgbDateStruct | null): string | null {
+    return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
+  }
+
+  resetFilter() {
+    this.filterText = undefined;
+    this.tarikhMula = undefined;
+    this.tarikhTamat = undefined;
+    this.filterFromDate = undefined;
+    this.filterToDate = undefined;
+
+    this.getTabung();
+  }
 
 	addFundModal() {
 		const modalRef = this.modalService.open(TambahEditTabungComponent, { size: 'lg' });

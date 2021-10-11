@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
-import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
@@ -33,6 +33,11 @@ export class WaranComponent implements OnInit {
 	filter: string;
   filterAgensi: number;
   filterTabung: number;
+  filterFromDate: string;
+  filterToDate: string;
+  tarikhMula: NgbDateStruct;
+  tarikhTamat: NgbDateStruct;
+  readonly DELIMITER = '-';
   agencies: any;
   funds: any;
 
@@ -66,6 +71,14 @@ export class WaranComponent implements OnInit {
   }
 
 	getWarrant(event?: LazyLoadEvent) {
+    if(this.tarikhMula){
+      this.filterFromDate = this.toModel(this.tarikhMula);
+    }
+
+    if(this.tarikhTamat){
+      this.filterToDate = this.toModel(this.tarikhTamat);
+    }
+
     if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
@@ -77,6 +90,8 @@ export class WaranComponent implements OnInit {
 				this.filter,
         this.filterAgensi ?? undefined,
         this.filterTabung ?? undefined,
+        this.filterFromDate ?? undefined,
+        this.filterToDate ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -94,6 +109,10 @@ export class WaranComponent implements OnInit {
 		this.paginator.changePage(this.paginator.getPage());
 	}
 
+  toModel(date: NgbDateStruct | null): string | null {
+    return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
+  }
+
   getAgensi(filter?) {
 		this._refAgensiServiceProxy.getRefAgensiForDropdown(filter).subscribe((result) => {
 			this.agencies = result.items;
@@ -110,6 +129,10 @@ export class WaranComponent implements OnInit {
     this.filter = undefined;
     this.filterAgensi = undefined;
     this.filterTabung = undefined;
+    this.tarikhMula = undefined;
+    this.tarikhTamat = undefined;
+    this.filterFromDate = undefined;
+    this.filterToDate = undefined;
 
     this.getWarrant();
   }

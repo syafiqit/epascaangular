@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
-import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
@@ -23,7 +23,14 @@ export class BayaranSecaraTerusComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
 
   filter: string;
+  filterFromDate: string;
+  filterToDate: string;
   terms$ = new Subject<string>();
+
+  tarikhMula: NgbDateStruct;
+  tarikhTamat: NgbDateStruct;
+  readonly DELIMITER = '-';
+  public isCollapsed = false;
 
 	constructor(
     config: NgbModalConfig,
@@ -49,6 +56,14 @@ export class BayaranSecaraTerusComponent implements OnInit {
   }
 
 	getBayaranTerus(event?: LazyLoadEvent) {
+    if(this.tarikhMula){
+      this.filterFromDate = this.toModel(this.tarikhMula);
+    }
+
+    if(this.tarikhTamat){
+      this.filterToDate = this.toModel(this.tarikhTamat);
+    }
+
     if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
@@ -58,6 +73,8 @@ export class BayaranSecaraTerusComponent implements OnInit {
 		this._tabungBayaranTerusServiceProxy
 			.getAll(
 				this.filter,
+        this.filterFromDate ?? undefined,
+        this.filterToDate ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -70,6 +87,20 @@ export class BayaranSecaraTerusComponent implements OnInit {
 				this.primengTableHelper.records = result.items;
 			});
 	}
+
+  toModel(date: NgbDateStruct | null): string | null {
+    return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
+  }
+
+  resetFilter() {
+    this.filter = undefined;
+    this.tarikhMula = undefined;
+    this.tarikhTamat = undefined;
+    this.filterFromDate = undefined;
+    this.filterToDate = undefined;
+
+    this.getBayaranTerus();
+  }
 
   padamBayaranTerus(id?) {
     swalWarning.fire({

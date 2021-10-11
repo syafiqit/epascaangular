@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
@@ -32,6 +32,11 @@ export class SkbComponent implements OnInit {
   filterTabung: number;
   agencies: any;
   funds: any;
+  filterFromDate: string;
+  filterToDate: string;
+  tarikhMula: NgbDateStruct;
+  tarikhTamat: NgbDateStruct;
+  readonly DELIMITER = '-';
 
 	constructor(
     config: NgbModalConfig,
@@ -65,6 +70,14 @@ export class SkbComponent implements OnInit {
   }
 
 	getSKB(event?: LazyLoadEvent) {
+    if(this.tarikhMula){
+      this.filterFromDate = this.toModel(this.tarikhMula);
+    }
+
+    if(this.tarikhTamat){
+      this.filterToDate = this.toModel(this.tarikhTamat);
+    }
+
     if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
@@ -76,6 +89,8 @@ export class SkbComponent implements OnInit {
 				this.filter,
         this.filterAgensi ?? undefined,
         this.filterTabung ?? undefined,
+        this.filterFromDate ?? undefined,
+        this.filterToDate ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -88,6 +103,10 @@ export class SkbComponent implements OnInit {
 				this.primengTableHelper.records = result.items;
 			});
 	}
+
+  toModel(date: NgbDateStruct | null): string | null {
+    return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
+  }
 
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
@@ -109,6 +128,10 @@ export class SkbComponent implements OnInit {
     this.filter = undefined;
     this.filterAgensi = undefined;
     this.filterTabung = undefined;
+    this.tarikhMula = undefined;
+    this.tarikhTamat = undefined;
+    this.filterFromDate = undefined;
+    this.filterToDate = undefined;
 
     this.getSKB();
   }
