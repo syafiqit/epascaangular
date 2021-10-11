@@ -12,7 +12,8 @@ import {
   RefParlimenServiceProxy,
   RefPindahServiceProxy,
   SessionServiceProxy,
-  GetProfilDto
+  GetProfilDto,
+  OutputCreateEditMangsaDto
 } from 'src/app/shared/proxy/service-proxies';
 import { Router } from '@angular/router';
 import { NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -30,6 +31,8 @@ export class TambahPengurusanMangsaComponent implements OnInit {
 
   addMangsa: InputCreateMangsaDto = new InputCreateMangsaDto();
   getProfile: GetProfilDto = new GetProfilDto();
+  output: OutputCreateEditMangsaDto = new OutputCreateEditMangsaDto();
+
   dateNow = new Date();
   latest_date: string;
 	saving = false;
@@ -168,53 +171,85 @@ export class TambahPengurusanMangsaComponent implements OnInit {
 					this.saving = false;
 				})
 			)
-			.subscribe(() => {
-        const dialogRef = this._confirmationService.open({
-          title: 'Berjaya',
-          message: 'Pendaftaran Mangsa Berjaya Disimpan.',
-          icon: {
-            show: true,
-            name: 'check-circle',
-            color: 'success'
-          },
-          actions: {
-            confirm: {
+			.subscribe((result) => {
+        this.output = result;
+        if(this.output.message == "Pendaftaran Mangsa Berjaya Disimpan!") {
+          this.mangsaSave();
+        }else{
+          this._confirmationService.open({
+            title: 'Tidak Berjaya',
+            message: this.output.message,
+            icon: {
               show: true,
-              label: 'Tutup',
-              color: 'primary'
+              name: 'x-circle',
+              color: 'error'
             },
-            cancel: {
-              show: false
-            }
-          },
-          dismissible: true
-        });
-        dialogRef.afterClosed().subscribe(() => {
-          this.router.navigateByUrl('/app/mangsa/senarai-pengurusan-mangsa');
-        });
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+        }
 			});
     }
     else {
-      const dialogRef = this._confirmationService.open({
-        title: 'Tidak Berjaya',
-        message: 'Pengesahan Perakuan Diperlukan',
-        icon: {
-          show: true,
-          name: 'x-circle',
-          color: 'error'
-        },
-        actions: {
-          confirm: {
-            show: true,
-            label: 'Tutup',
-            color: 'primary'
-          },
-          cancel: {
-            show: false
-          }
-        },
-        dismissible: true
-      });
+      this.perakuanSave();
     }
 	}
+
+  mangsaSave() {
+    const dialogRef = this._confirmationService.open({
+      title: 'Berjaya',
+      message: 'Pendaftaran Mangsa Berjaya Disimpan.',
+      icon: {
+        show: true,
+        name: 'check-circle',
+        color: 'success'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.router.navigateByUrl('/app/mangsa/senarai-pengurusan-mangsa');
+    });
+  }
+
+  perakuanSave() {
+    this._confirmationService.open({
+      title: 'Tidak Berjaya',
+      message: 'Pengesahan Perakuan Diperlukan',
+      icon: {
+        show: true,
+        name: 'x-circle',
+        color: 'error'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+  }
 }
