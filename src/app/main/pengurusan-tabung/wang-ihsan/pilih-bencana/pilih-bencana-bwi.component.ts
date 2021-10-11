@@ -27,6 +27,8 @@ export class PilihBencanaBwiComponent implements OnInit {
   filterBencana: string;
   filterJenis: number;
   filterNegeri: number;
+  filterFromDate: string;
+  filterToDate: string;
   terms$ = new Subject<string>();
 
 	constructor(
@@ -66,6 +68,8 @@ export class PilihBencanaBwiComponent implements OnInit {
         this.filterBencana,
         this.filterJenis,
         this.filterNegeri,
+        this.filterFromDate ?? undefined,
+        this.filterToDate ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)

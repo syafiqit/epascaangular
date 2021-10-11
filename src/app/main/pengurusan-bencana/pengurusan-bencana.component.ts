@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
-import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TambahEditPengurusanBencanaComponent } from './tambah-edit-pengurusan-bencana/tambah-edit-pengurusan-bencana.component';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
@@ -32,6 +32,8 @@ export class PengurusanBencanaComponent implements OnInit {
   filterBencana: string;
   filterJenis: number;
   filterNegeri: number;
+  filterFromDate: string;
+  filterToDate: string;
   terms$ = new Subject<string>();
 
   sorting: string;
@@ -39,6 +41,9 @@ export class PengurusanBencanaComponent implements OnInit {
   maxResultCount: number;
   disasters: any[];
   states: any[];
+  tarikhMula: NgbDateStruct;
+  tarikhTamat: NgbDateStruct;
+  readonly DELIMITER = '-';
 
 	constructor(
     config: NgbModalConfig,
@@ -68,6 +73,14 @@ export class PengurusanBencanaComponent implements OnInit {
   }
 
 	getDisaster(event?: LazyLoadEvent) {
+    if(this.tarikhMula){
+      this.filterFromDate = this.toModel(this.tarikhMula);
+    }
+
+    if(this.tarikhTamat){
+      this.filterToDate = this.toModel(this.tarikhTamat);
+    }
+
     if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
@@ -81,6 +94,8 @@ export class PengurusanBencanaComponent implements OnInit {
         this.filterBencana ?? undefined,
         this.filterJenis ?? undefined,
         this.filterNegeri ?? undefined,
+        this.filterFromDate ?? undefined,
+        this.filterToDate ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -94,6 +109,10 @@ export class PengurusanBencanaComponent implements OnInit {
 			});
 	}
 
+  toModel(date: NgbDateStruct | null): string | null {
+    return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
+  }
+
   getJenisBencana(filter?) {
 		this._refJenisBencanaServiceProxy.getRefJenisBencanaForDropdown(filter).subscribe((result) => {
 			this.disasters = result.items;
@@ -103,6 +122,10 @@ export class PengurusanBencanaComponent implements OnInit {
   resetFilter() {
     this.filter = undefined;
     this.filterJenis = undefined;
+    this.tarikhMula = undefined;
+    this.tarikhTamat = undefined;
+    this.filterFromDate = undefined;
+    this.filterToDate = undefined;
 
     this.getDisaster();
   }

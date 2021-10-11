@@ -8756,12 +8756,14 @@ export class RefBencanaServiceProxy {
      * @param filterBencana (optional) Filter records with a string
      * @param filterJenis (optional) Filter records with a string
      * @param filterNegeri (optional) Filter records with a string
+     * @param filterFromDate (optional) Filter records with string
+     * @param filterToDate (optional) Filter records with string
      * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
      * @param skipCount (optional) Skip n-value of a record
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAll(filter: string | undefined, filterTahun: number | undefined, filterBencana: string | undefined, filterJenis: number | undefined, filterNegeri: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfRefBencanaForViewDto> {
+    getAll(filter: string | undefined, filterTahun: number | undefined, filterBencana: string | undefined, filterJenis: number | undefined, filterNegeri: number | undefined, filterFromDate: string | undefined, filterToDate: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfRefBencanaForViewDto> {
         let url_ = this.baseUrl + "/api/refBencana/getAll?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -8783,6 +8785,14 @@ export class RefBencanaServiceProxy {
             throw new Error("The parameter 'filterNegeri' cannot be null.");
         else if (filterNegeri !== undefined)
             url_ += "filterNegeri=" + encodeURIComponent("" + filterNegeri) + "&";
+        if (filterFromDate === null)
+            throw new Error("The parameter 'filterFromDate' cannot be null.");
+        else if (filterFromDate !== undefined)
+            url_ += "filterFromDate=" + encodeURIComponent("" + filterFromDate) + "&";
+        if (filterToDate === null)
+            throw new Error("The parameter 'filterToDate' cannot be null.");
+        else if (filterToDate !== undefined)
+            url_ += "filterToDate=" + encodeURIComponent("" + filterToDate) + "&";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
@@ -22209,12 +22219,14 @@ export class UserServiceProxy {
      * @param filterAgensi (optional) Filter records with a integer
      * @param filterPeranan (optional) Filter records with a integer
      * @param filterStatus (optional) Filter records with a integer
+     * @param filterFromDate (optional) Filter records with string
+     * @param filterToDate (optional) Filter records with string
      * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
      * @param skipCount (optional) Skip n-value of a record
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAllUser(filter: string | undefined, filterAgensi: number | undefined, filterPeranan: number | undefined, filterStatus: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfUserForViewDto> {
+    getAllUser(filter: string | undefined, filterAgensi: number | undefined, filterPeranan: number | undefined, filterStatus: number | undefined, filterFromDate: string | undefined, filterToDate: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfUserForViewDto> {
         let url_ = this.baseUrl + "/api/user/getAllUser?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -22232,6 +22244,14 @@ export class UserServiceProxy {
             throw new Error("The parameter 'filterStatus' cannot be null.");
         else if (filterStatus !== undefined)
             url_ += "filterStatus=" + encodeURIComponent("" + filterStatus) + "&";
+        if (filterFromDate === null)
+            throw new Error("The parameter 'filterFromDate' cannot be null.");
+        else if (filterFromDate !== undefined)
+            url_ += "filterFromDate=" + encodeURIComponent("" + filterFromDate) + "&";
+        if (filterToDate === null)
+            throw new Error("The parameter 'filterToDate' cannot be null.");
+        else if (filterToDate !== undefined)
+            url_ += "filterToDate=" + encodeURIComponent("" + filterToDate) + "&";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
@@ -22299,12 +22319,14 @@ export class UserServiceProxy {
      * @param filter (optional) Filter records with a string
      * @param filterAgensi (optional) Filter records with a integer
      * @param filterPeranan (optional) Filter records with a integer
+     * @param filterFromDate (optional) Filter records with string
+     * @param filterToDate (optional) Filter records with string
      * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
      * @param skipCount (optional) Skip n-value of a record
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAllPermohonanUser(filter: string | undefined, filterAgensi: number | undefined, filterPeranan: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfUserForViewDto> {
+    getAllPermohonanUser(filter: string | undefined, filterAgensi: number | undefined, filterPeranan: number | undefined, filterFromDate: string | undefined, filterToDate: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfUserForViewDto> {
         let url_ = this.baseUrl + "/api/user/getAllPermohonanUser?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -22318,6 +22340,14 @@ export class UserServiceProxy {
             throw new Error("The parameter 'filterPeranan' cannot be null.");
         else if (filterPeranan !== undefined)
             url_ += "filterPeranan=" + encodeURIComponent("" + filterPeranan) + "&";
+        if (filterFromDate === null)
+            throw new Error("The parameter 'filterFromDate' cannot be null.");
+        else if (filterFromDate !== undefined)
+            url_ += "filterFromDate=" + encodeURIComponent("" + filterFromDate) + "&";
+        if (filterToDate === null)
+            throw new Error("The parameter 'filterToDate' cannot be null.");
+        else if (filterToDate !== undefined)
+            url_ += "filterToDate=" + encodeURIComponent("" + filterToDate) + "&";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
@@ -46739,6 +46769,7 @@ export class GetUserForViewDto implements IGetUserForViewDto {
     peranan!: string;
     no_kp!: string;
     emel!: string;
+    tarikh_daftar!: moment.Moment;
 
     constructor(data?: IGetUserForViewDto) {
         if (data) {
@@ -46763,6 +46794,7 @@ export class GetUserForViewDto implements IGetUserForViewDto {
             this.peranan = _data["peranan"];
             this.no_kp = _data["no_kp"];
             this.emel = _data["emel"];
+            this.tarikh_daftar = _data["tarikh_daftar"] ? moment(_data["tarikh_daftar"].toString()) : <any>undefined;
         }
     }
 
@@ -46787,6 +46819,7 @@ export class GetUserForViewDto implements IGetUserForViewDto {
         data["peranan"] = this.peranan;
         data["no_kp"] = this.no_kp;
         data["emel"] = this.emel;
+        data["tarikh_daftar"] = this.tarikh_daftar ? this.tarikh_daftar.format('YYYY-MM-DD') : <any>undefined;
         return data; 
     }
 }
@@ -46805,6 +46838,7 @@ export interface IGetUserForViewDto {
     peranan: string;
     no_kp: string;
     emel: string;
+    tarikh_daftar: moment.Moment;
 }
 
 /** Class OutputChangeEmelPasswordDto */
