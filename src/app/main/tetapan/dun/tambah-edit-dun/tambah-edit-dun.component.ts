@@ -1,16 +1,19 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import { ConfirmationService } from '@app/shared/services/confirmation';
+import { NgbActiveModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import {
 	CreateOrEditRefDunDto,
 	RefDunServiceProxy,
 	RefNegeriServiceProxy,
 	RefParlimenServiceProxy
 } from '../../../../shared/proxy/service-proxies';
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+
 
 @Component({
 	selector: 'app-tambah-edit-dun',
-	templateUrl: './tambah-edit-dun.component.html'
+	templateUrl: './tambah-edit-dun.component.html',
+	encapsulation: ViewEncapsulation.None,
+	providers: [NgbModalConfig]
 })
 export class TambahEditDunComponent implements OnInit {
 	@Input() name;
@@ -22,9 +25,9 @@ export class TambahEditDunComponent implements OnInit {
 	parliament: any[];
 
 	constructor(
-		private modalService: NgbModal,
 		public activeModal: NgbActiveModal,
 		private _refDunServiceProxy: RefDunServiceProxy,
+    private _confirmationService: ConfirmationService,
 		private _refNegeriServiceProxy: RefNegeriServiceProxy,
 		private _refParlimenServiceProxy: RefParlimenServiceProxy
 	) {}
@@ -65,11 +68,54 @@ export class TambahEditDunComponent implements OnInit {
 			.pipe()
 			.subscribe(() => {
 				if (this.name == 'add') {
-					swalSuccess.fire('Berjaya!', 'Maklumat Dun Berjaya Ditambah.', 'success');
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Maklumat Dun Berjaya Ditambah.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
+            this.activeModal.close(true);
+          });
 				} else if (this.name == 'edit') {
-					swalSuccess.fire('Berjaya!', 'Maklumat Dun Berjaya Dikemaskini.', 'success');
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Maklumat Dun Berjaya Dikemaskini.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
+            this.activeModal.close(true);
+          });
 				}
-				this.activeModal.close(true);
 			});
 	}
 }

@@ -5,7 +5,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { TambahEditKategoriKelulusanComponent } from './tambah-edit-kategori-kelulusan/tambah-edit-kategori-kelulusan.component';
-import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -36,7 +36,7 @@ export class KategoriKelulusanComponent implements OnInit {
   constructor(
     config: NgbModalConfig,
 		private modalService: NgbModal,
-  ) { 
+  ) {
     this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
@@ -54,7 +54,7 @@ export class KategoriKelulusanComponent implements OnInit {
   applyFilter(filterValue: string){
     this.terms$.next(filterValue);
   }
-  
+
   getKategoriKelulusan(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);

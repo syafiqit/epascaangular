@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
-import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import {
   CreateOrEditRefRujukanDto,
@@ -8,13 +8,13 @@ import {
 import { environment } from 'src/environments/environment';
 import {HttpClient} from "@angular/common/http";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { ConfirmationService } from '@app/shared/services/confirmation';
 
 @Component({
 	selector: 'app-tambah-edit-rujukan',
 	templateUrl: './tambah-edit-rujukan.component.html',
   encapsulation: ViewEncapsulation.None,
-  providers: [NgbModalConfig, NgbModal, RefRujukanServiceProxy]
+  providers: [NgbModalConfig, RefRujukanServiceProxy]
 })
 export class TambahEditRujukanComponent implements OnInit {
   @Input() name;
@@ -32,9 +32,9 @@ export class TambahEditRujukanComponent implements OnInit {
 	today = this.calendar.getToday();
 
 	constructor(
-	  private modalService: NgbModal,
     public activeModal: NgbActiveModal,
     private calendar: NgbCalendar,
+    private _confirmationService: ConfirmationService,
     private _refRujukanServiceProxy: RefRujukanServiceProxy,
     private _formBuilder: FormBuilder,
     private httpClient: HttpClient,
@@ -66,6 +66,58 @@ export class TambahEditRujukanComponent implements OnInit {
     this.hasData = 1;
   }
 
+  tambahRujukan() {
+    const dialogRef = this._confirmationService.open({
+      title: 'Berjaya',
+      message: 'Maklumat Rujukan Berjaya Ditambah.',
+      icon: {
+        show: true,
+        name: 'check-circle',
+        color: 'success'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.activeModal.close(true);
+    });
+  }
+
+  editRujukan() {
+    const dialogRef = this._confirmationService.open({
+      title: 'Berjaya',
+      message: 'Maklumat Rujukan Berjaya Dikemaskini.',
+      icon: {
+        show: true,
+        name: 'check-circle',
+        color: 'success'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.activeModal.close(true);
+    });
+  }
+
   save(): void {
     this.saving = true;
 
@@ -87,11 +139,10 @@ export class TambahEditRujukanComponent implements OnInit {
               .pipe()
               .subscribe(() => {
                 if (this.name == 'add') {
-                  swalSuccess.fire('Berjaya!', 'Maklumat Rujukan Berjaya Ditambah.', 'success');
+                  this.tambahRujukan();
                 } else if (this.name == 'edit') {
-                  swalSuccess.fire('Berjaya!', 'Maklumat Rujukan Berjaya Dikemaskini.', 'success');
+                  this.editRujukan();
                 }
-                this.activeModal.close(true);
               });
           }
         }
@@ -103,11 +154,10 @@ export class TambahEditRujukanComponent implements OnInit {
         .pipe()
         .subscribe(() => {
           if (this.name == 'add') {
-            swalSuccess.fire('Berjaya!', 'Maklumat Rujukan Berjaya Ditambah.', 'success');
+            this.tambahRujukan();
           } else if (this.name == 'edit') {
-            swalSuccess.fire('Berjaya!', 'Maklumat Rujukan Berjaya Dikemaskini.', 'success');
+            this.editRujukan();
           }
-          this.activeModal.close(true);
         });
     }
   }

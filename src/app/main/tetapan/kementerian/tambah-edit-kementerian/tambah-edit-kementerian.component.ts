@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
-import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { finalize } from 'rxjs/operators';
 import { CreateOrEditRefKementerianDto, RefKementerianServiceProxy } from 'src/app/shared/proxy/service-proxies';
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { ConfirmationService } from '@app/shared/services/confirmation';
 
 @Component({
 	selector: 'app-tambah-edit-kementerian',
 	templateUrl: './tambah-edit-kementerian.component.html',
 	encapsulation: ViewEncapsulation.None,
-	providers: [NgbModalConfig, NgbModal]
+	providers: [NgbModalConfig]
 })
 export class TambahEditKementerianComponent implements OnInit {
 	@Input() name;
@@ -18,8 +18,8 @@ export class TambahEditKementerianComponent implements OnInit {
 	saving = true;
 
 	constructor(
-		private modalService: NgbModal,
 		public activeModal: NgbActiveModal,
+    private _confirmationService: ConfirmationService,
 		private _refKementerianServiceProxy: RefKementerianServiceProxy
 	) {}
 
@@ -49,11 +49,54 @@ export class TambahEditKementerianComponent implements OnInit {
 			)
 			.subscribe(() => {
 				if (this.name == 'add') {
-					swalSuccess.fire('Berjaya!', 'Maklumat Kementerian Berjaya Ditambah.', 'success');
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Maklumat Kementerian Berjaya Ditambah.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
+            this.activeModal.close(true);
+          });
 				} else if (this.name == 'edit') {
-					swalSuccess.fire('Berjaya!', 'Maklumat Kementerian Berjaya Dikemaskini.', 'success');
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Maklumat Kementerian Berjaya Dikemaskini.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
+            this.activeModal.close(true);
+          });
 				}
-				this.activeModal.close(true);
 			});
 	}
 }

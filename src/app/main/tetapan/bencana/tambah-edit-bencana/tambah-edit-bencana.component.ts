@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
-import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmationService } from '@app/shared/services/confirmation';
+import { NgbActiveModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { finalize } from 'rxjs/operators';
 import { CreateOrEditRefJenisBencanaDto, RefJenisBencanaServiceProxy } from 'src/app/shared/proxy/service-proxies';
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 
 @Component({
 	selector: 'app-tambah-edit-bencana',
 	templateUrl: './tambah-edit-bencana.component.html',
 	encapsulation: ViewEncapsulation.None,
-	providers: [NgbModalConfig, NgbModal]
+	providers: [NgbModalConfig]
 })
 export class TambahEditBencanaComponent implements OnInit {
 	@Input() name;
@@ -18,8 +18,8 @@ export class TambahEditBencanaComponent implements OnInit {
 	saving = true;
 
 	constructor(
-		private modalService: NgbModal,
 		public activeModal: NgbActiveModal,
+    private _confirmationService: ConfirmationService,
 		private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy
 	) {}
 
@@ -49,11 +49,54 @@ export class TambahEditBencanaComponent implements OnInit {
 			)
 			.subscribe(() => {
 				if (this.name == 'add') {
-					swalSuccess.fire('Berjaya!', 'Maklumat Kategori Bencana Berjaya Ditambah.', 'success');
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Maklumat Kategori Bencana Berjaya Ditambah.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
+            this.activeModal.close(true);
+          });
 				} else if (this.name == 'edit') {
-					swalSuccess.fire('Berjaya!', 'Maklumat Kategori Bencana Berjaya Dikemaskini.', 'success');
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Maklumat Kategori Bencana Berjaya Dikemaskini.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
+            this.activeModal.close(true);
+          });
 				}
-				this.activeModal.close(true);
 			});
 	}
 }
