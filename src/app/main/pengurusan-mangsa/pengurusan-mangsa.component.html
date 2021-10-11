@@ -203,8 +203,9 @@
 								<ng-template pTemplate="header">
 									<tr>
 										<th style="width: 40px">
-											<!-- <input class="checkbox" type="checkbox"
-											(change)="checkedAll($event.target.checked)"> -->
+											<input class="checkbox" type="checkbox"
+											(change)="checkedAll($event.target.checked)"
+											[checked]="checkAll">
 										</th>
 										<th style="width: 159px" pSortableColumn="no_kp">
 											Kad Pengenalan
@@ -248,7 +249,7 @@
                         name="{{ record.id }}" type="checkbox"
                         id="{{record.id}}"
                         (change)="pilihMangsa(record.id, $event.target.checked)"
-                        [checked]="checked"
+						[checked]="checked"
                         [checked]="checkMangsaExist(record.id)"
                       >
 										</td>

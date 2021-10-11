@@ -30,12 +30,14 @@ export class PengurusanMangsaComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
 
 	filter: string;
+	filterDropdown: string;
   filterNegeri: number;
   filterAgensi: number;
   filterFromDate: string;
   filterToDate: string;
   terms$ = new Subject<string>();
   checked: boolean;
+  checkAll: boolean;
   idMangsa: any[];
   allMangsa: any[];
   tarikhMula: NgbDateStruct;
@@ -72,6 +74,13 @@ export class PengurusanMangsaComponent implements OnInit {
       this.filter = filterValue;
       this.getVictim();
     });
+
+	this._mangsaServiceProxy
+		.getMangsaForDropdown(this.filterDropdown).subscribe((result)=>{
+			this.allMangsa = result.items.map((data)=>{
+				return data.id;
+			});
+		});
 
   }
 
@@ -112,9 +121,12 @@ export class PengurusanMangsaComponent implements OnInit {
 				this.primengTableHelper.totalRecordsCount = result.total_count;
 				this.primengTableHelper.records = result.items;
 
-				this.allMangsa = result.items.map((data)=>{
-					return data.id;
-				});
+				this._mangsaServiceProxy
+					.getMangsaForDropdown(this.filterDropdown).subscribe((result)=>{
+						this.allMangsa = result.items.map((data)=>{
+							return data.id;
+						});
+					});
 			});
 	}
 
@@ -151,15 +163,22 @@ export class PengurusanMangsaComponent implements OnInit {
 	}
 
 	checkedAll(isChecked: boolean) {
+		this._mangsaServiceProxy
+		.getMangsaForDropdown(this.filterDropdown).subscribe((result)=>{
+			this.allMangsa = result.items.map((data)=>{
+				return data.id;
+			});
+		});
+
 		if (isChecked) {
+			this.checkAll = true;
 			this.checked = true;
-			this.idMangsa.push(this.allMangsa);
-			console.log(this.idMangsa);
+			this.idMangsa = this.allMangsa;
 		}
 		else if (!isChecked) {
+			this.checkAll = true;
 			this.checked = false;
 			this.idMangsa = [];
-			console.log(this.idMangsa);
 		}
 	}
 
@@ -170,6 +189,7 @@ export class PengurusanMangsaComponent implements OnInit {
 			let index = this.idMangsa.indexOf(id);
 			this.idMangsa.splice(index, 1);
 		}
+		this.checkAll = false;
 	}
 
 	checkMangsaExist(id?){
