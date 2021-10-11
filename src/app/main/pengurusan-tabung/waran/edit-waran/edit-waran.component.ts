@@ -187,7 +187,7 @@ export class EditWaranComponent implements OnInit {
 	}
 
   addBulanan(id_tabung_bayaran_waran) {
-		const modalRef = this.modalService.open(WaranBulananComponent, { size: 'md' });
+		const modalRef = this.modalService.open(WaranBulananComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
     modalRef.componentInstance.kategori = 2;
     modalRef.componentInstance.id_tabung_bayaran_waran = id_tabung_bayaran_waran;

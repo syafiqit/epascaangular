@@ -124,7 +124,7 @@ export class TambahWaranComponent implements OnInit {
 	}
 
   addBulanan() {
-		const modalRef = this.modalService.open(WaranBulananComponent, { size: 'md' });
+		const modalRef = this.modalService.open(WaranBulananComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
     modalRef.componentInstance.kategori = 1;
     modalRef.componentInstance.jumlah_baki_peruntukan = this.balance_peruntukan;
