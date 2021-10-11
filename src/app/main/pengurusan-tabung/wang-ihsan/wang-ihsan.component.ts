@@ -13,6 +13,7 @@ import {
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { AppSessionService } from '@app/shared/services/app-session.service';
+import { ConfirmationService } from '@app/shared/services/confirmation';
 @Component({
 	selector: 'app-wang-ihsan',
 	templateUrl: './wang-ihsan.component.html',
@@ -49,7 +50,8 @@ export class WangIhsanComponent implements OnInit {
      private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy,
      private _refDaerahServiceProxy: RefDaerahServiceProxy,
      private _refNegeriServiceProxy: RefNegeriServiceProxy,
-     public _appSession: AppSessionService
+     public _appSession: AppSessionService,
+     private _confirmationService: ConfirmationService
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
@@ -147,4 +149,79 @@ export class WangIhsanComponent implements OnInit {
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
 	}
+
+  padamWangIhsan(id?) {
+    const dialogRef = this._confirmationService.open({
+      title: 'Anda Pasti?',
+      message: 'Adakah anda pasti ingin memadam Bantuan Wang Ihsan ini?',
+      icon: {
+        show: true,
+        name: 'help-circle',
+        color: 'warning'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Ya',
+          color: 'primary'
+        },
+        cancel: {
+          show: true,
+          label: 'Tidak'
+        }
+      },
+      dismissible: true
+    });dialogRef.afterClosed().subscribe((e) => {
+      if(e === 'confirmed') {
+				this.tabungBwiServiceProxy.delete(id).subscribe((result)=>{
+          if(result.message == "Bantuan Wang Ihsan Berjaya Dibuang"){
+            const dialogRef = this._confirmationService.open({
+              title: 'Berjaya',
+              message: result.message,
+              icon: {
+                show: true,
+                name: 'check-circle',
+                color: 'success'
+              },
+              actions: {
+                confirm: {
+                  show: true,
+                  label: 'Tutup',
+                  color: 'primary'
+                },
+                cancel: {
+                  show: false
+                }
+              },
+              dismissible: true
+            });
+            dialogRef.afterClosed().subscribe(() => {
+              this.getBantuanWangIhsan();
+            });
+          }else{
+            this._confirmationService.open({
+              title: 'Tidak Berjaya',
+              message: result.message,
+              icon: {
+                show: true,
+                name: 'x-circle',
+                color: 'error'
+              },
+              actions: {
+                confirm: {
+                  show: true,
+                  label: 'Tutup',
+                  color: 'primary'
+                },
+                cancel: {
+                  show: false
+                }
+              },
+              dismissible: true
+            });
+          }
+        })
+      }
+    });
+  }
 }

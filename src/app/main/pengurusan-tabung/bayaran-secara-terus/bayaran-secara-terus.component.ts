@@ -9,6 +9,7 @@ import { TabungBayaranTerusServiceProxy} from 'src/app/shared/proxy/service-prox
 import { Subject } from 'rxjs';
 import { swalError, swalSuccess, swalWarning } from '@app/shared/sweet-alert/swal-constant';
 import { AppSessionService } from '@app/shared/services/app-session.service';
+import { ConfirmationService } from '@app/shared/services/confirmation';
 
 @Component({
 	selector: 'app-bayaran-secara-terus',
@@ -35,7 +36,8 @@ export class BayaranSecaraTerusComponent implements OnInit {
 	constructor(
     config: NgbModalConfig,
     private _tabungBayaranTerusServiceProxy: TabungBayaranTerusServiceProxy,
-    public _appSession: AppSessionService
+    public _appSession: AppSessionService,
+    private _confirmationService: ConfirmationService
     ) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
@@ -103,27 +105,79 @@ export class BayaranSecaraTerusComponent implements OnInit {
   }
 
   padamBayaranTerus(id?) {
-    swalWarning.fire({
-      title: 'Anda Pasti?',
-      text: 'Adakah anda pasti ingin memadam maklumat Pembayaran Secara Terus ini?',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      cancelButtonText: 'Tidak',
-      confirmButtonText: 'Ya'
-    }).then((result) => {
-      if (result.value) {
-        this._tabungBayaranTerusServiceProxy.delete(id).subscribe((result) => {
-          if(result.message == "Bayaran Terus Berjaya Dibuang"){
-            swalSuccess.fire('Berjaya!', result.message);
+
+      const dialogRef = this._confirmationService.open({
+        title: 'Anda Pasti?',
+        message: 'Adakah anda pasti ingin memadam maklumat Pembayaran Secara Terus ini?',
+        icon: {
+          show: true,
+          name: 'help-circle',
+          color: 'warning'
+        },
+        actions: {
+          confirm: {
+            show: true,
+            label: 'Ya',
+            color: 'primary'
+          },
+          cancel: {
+            show: true,
+            label: 'Tidak'
           }
-          else{
-            swalError.fire('Tidak Berjaya!', result.message);
-          }
-          this.getBayaranTerus();
-        })
-      }
-    });
+        },
+        dismissible: true
+      });dialogRef.afterClosed().subscribe((e) => {
+        if(e === 'confirmed') {
+          this._tabungBayaranTerusServiceProxy.delete(id).subscribe((result)=>{
+            if(result.message == "Bayaran Terus Berjaya Dibuang"){
+              const dialogRef = this._confirmationService.open({
+                title: 'Berjaya',
+                message: result.message,
+                icon: {
+                  show: true,
+                  name: 'check-circle',
+                  color: 'success'
+                },
+                actions: {
+                  confirm: {
+                    show: true,
+                    label: 'Tutup',
+                    color: 'primary'
+                  },
+                  cancel: {
+                    show: false
+                  }
+                },
+                dismissible: true
+              });
+              dialogRef.afterClosed().subscribe(() => {
+                this.getBayaranTerus();
+              });
+            }else{
+              this._confirmationService.open({
+                title: 'Tidak Berjaya',
+                message: result.message,
+                icon: {
+                  show: true,
+                  name: 'x-circle',
+                  color: 'error'
+                },
+                actions: {
+                  confirm: {
+                    show: true,
+                    label: 'Tutup',
+                    color: 'primary'
+                  },
+                  cancel: {
+                    show: false
+                  }
+                },
+                dismissible: true
+              });
+            }
+          })
+        }
+      });
   }
 
 	reloadPage(): void {
