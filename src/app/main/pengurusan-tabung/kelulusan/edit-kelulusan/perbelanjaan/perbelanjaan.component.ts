@@ -6,13 +6,11 @@ import {
   TabungKelulusanServiceProxy
 } from "../../../../../shared/proxy/service-proxies";
 import {finalize} from "rxjs/operators";
-import * as moment from "moment";
 import {ActivatedRoute, Router} from "@angular/router";
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
-import { ConfirmationService } from '@services/confirmation';
 
 @Component({
   selector: 'app-perbelanjaan',
@@ -66,11 +64,9 @@ export class PerbelanjaanComponent implements OnInit {
 
 	constructor(
 	  config: NgbModalConfig,
-    private router: Router,
     private _activatedRoute: ActivatedRoute,
     private _tabungKelulusanServiceProxy: TabungKelulusanServiceProxy,
-    private calendar: NgbCalendar,
-		private _confirmationService: ConfirmationService
+    private calendar: NgbCalendar
   ) {
     this.id = this._activatedRoute.snapshot.queryParams['id'];
 		config.backdrop = 'static';
@@ -132,85 +128,6 @@ export class PerbelanjaanComponent implements OnInit {
     this.filterPastYear = this.filterTahun - 1;
     this.getBelanja();
   }
-
-  save(): void {
-    this.saving = true;
-    if(this.modelSurat){
-      this.tarikhSurat = this.toModel(this.modelSurat);
-      this.kelulusan.tarikh_surat = moment(this.tarikhSurat, "YYYY-MM-DD");
-    }
-    if(this.modelMula){
-      this.tarikhMula = this.toModel(this.modelMula);
-      this.kelulusan.tarikh_mula_kelulusan = moment(this.tarikhMula, "YYYY-MM-DD");
-    }
-    if(this.modelTamat){
-      this.tarikhTamat = this.toModel(this.modelTamat);
-      this.kelulusan.tarikh_tamat_kelulusan = moment(this.tarikhTamat, "YYYY-MM-DD");
-    }
-
-    this._tabungKelulusanServiceProxy
-      .createOrEdit(this.kelulusan)
-      .pipe()
-      .subscribe((response) => {
-        if(response.message == 'Jumlah Peruntukan Melebihi Jumlah Keseluruhan Tabung'){
-          this.alertMessage();
-        }else{
-          this.confirmMessage();
-        }
-      });
-  }
-
-  confirmMessage(){
-		const dialogRef = this._confirmationService.open({
-		  title: 'Berjaya',
-		  message: 'Maklumat Tabung Kelulusan Berjaya Disimpan.',
-		  icon: {
-        show: true,
-        name: 'check-circle',
-        color: 'success'
-		  },
-		  actions: {
-			confirm: {
-			  show: true,
-			  label: 'Tutup',
-			  color: 'primary'
-			},
-			cancel: {
-			  show: false
-			}
-		  },
-		  dismissible: true
-		});
-		dialogRef.afterClosed().subscribe(() => {
-		  this.router.navigate(['/app/tabung/senarai-kelulusan']);
-		});
-	}
-	
-	alertMessage(){
-		const dialogRef = this._confirmationService.open({
-		  title: 'Perhatian',
-		  message: 'Jumlah Peruntukan Melebihi Jumlah Keseluruhan Tabung.',
-		  icon: {
-        show: true,
-        name: 'alert-triangle',
-        color: 'warning'
-		  },
-		  actions: {
-			confirm: {
-			  show: true,
-			  label: 'Tutup',
-			  color: 'primary'
-			},
-			cancel: {
-			  show: false
-			}
-		  },
-		  dismissible: true
-		});
-		dialogRef.afterClosed().subscribe(() => {
-		  
-		});
-	}
 
   getBelanjaTabung(event?: LazyLoadEvent) {
 
