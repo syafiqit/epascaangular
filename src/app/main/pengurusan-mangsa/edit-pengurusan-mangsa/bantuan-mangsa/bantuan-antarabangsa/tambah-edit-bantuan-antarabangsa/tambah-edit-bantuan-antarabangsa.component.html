@@ -110,7 +110,8 @@
             #kosBantuan="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && kosBantuan.invalid }"
             required
-            onlyNumbers
+            currencyMask
+            [options]="{ prefix: 'RM ', align: 'left' }"
           />
           <div *ngIf="f.submitted && kosBantuan.invalid" class="invalid-feedback">
             <div *ngIf="kosBantuan.errors.required">Kos Bantuan Wajib Diisi</div>

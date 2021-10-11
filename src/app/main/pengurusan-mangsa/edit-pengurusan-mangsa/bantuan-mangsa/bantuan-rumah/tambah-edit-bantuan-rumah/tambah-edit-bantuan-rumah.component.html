@@ -317,7 +317,8 @@
             #kosAnggaran="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && kosAnggaran.invalid }"
             required
-            onlyNumbers
+            currencyMask
+            [options]="{ prefix: 'RM ', align: 'left' }"
           />
           <div *ngIf="f.submitted && kosAnggaran.invalid" class="invalid-feedback">
             <div *ngIf="kosAnggaran.errors.required">Kos Anggaran Wajib Diisi</div>
@@ -338,7 +339,8 @@
             #kosSebenar="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && kosSebenar.invalid }"
             required
-            onlyNumbers
+            currencyMask
+            [options]="{ prefix: 'RM ', align: 'left' }"
           />
           <div *ngIf="f.submitted && kosSebenar.invalid" class="invalid-feedback">
             <div *ngIf="kosSebenar.errors.required">Kos Sebenar Wajib Diisi</div>
