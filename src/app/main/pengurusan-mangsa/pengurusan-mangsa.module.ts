@@ -34,6 +34,7 @@ import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateCustomParserFormatter } from '@app/shared/date-parser/NgbDateCustomParserFormatter';
 import { EditMultipleBantuanWangIhsanComponent } from './edit-multiple-bantuan-wang-ihsan/edit-multiple-bantuan-wang-ihsan.component';
 import { CreateMultipleBencanaComponent } from './create-multiple-bencana/create-multiple-bencana.component';
+import { NgxCurrencyModule } from "ngx-currency";
 
 @NgModule({
 	imports: [
@@ -44,7 +45,8 @@ import { CreateMultipleBencanaComponent } from './create-multiple-bencana/create
 		TableModule,
 		PaginatorModule,
     NgSelectModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
+    NgxCurrencyModule
 	],
 	declarations: [
 		PengurusanMangsaComponent,

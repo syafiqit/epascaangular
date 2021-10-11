@@ -179,7 +179,8 @@
             #jumlahPinjaman="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && jumlahPinjaman.invalid }"
             required
-            onlyNumbers
+            currencyMask
+            [options]="{ prefix: 'RM ', align: 'left' }"
           />
           <div *ngIf="f.submitted && jumlahPinjaman.invalid" class="invalid-feedback">
             <div *ngIf="jumlahPinjaman.errors.required">Jumlah Pinjaman Wajib Diisi</div>
