@@ -273,7 +273,7 @@ export class AuthServiceProxy {
      * @param body Create or edit object
      * @return Success
      */
-    resetPassword(body: InputResetPasswordDto): Observable<void> {
+    resetPassword(body: InputResetPasswordDto): Observable<OutputLoginDto> {
         let url_ = this.baseUrl + "/api/auth/resetPassword";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -285,6 +285,7 @@ export class AuthServiceProxy {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
+                "Accept": "application/json"
             })
         };
 
@@ -295,14 +296,14 @@ export class AuthServiceProxy {
                 try {
                     return this.processResetPassword(<any>response_);
                 } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
+                    return <Observable<OutputLoginDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<void>><any>_observableThrow(response_);
+                return <Observable<OutputLoginDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processResetPassword(response: HttpResponseBase): Observable<void> {
+    protected processResetPassword(response: HttpResponseBase): Observable<OutputLoginDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -311,7 +312,10 @@ export class AuthServiceProxy {
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = OutputLoginDto.fromJS(resultData200);
+            return _observableOf(result200);
             }));
         } else if (status === 500) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
@@ -322,7 +326,7 @@ export class AuthServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any>null);
+        return _observableOf<OutputLoginDto>(<any>null);
     }
 
     /**
@@ -16829,7 +16833,7 @@ export class SessionServiceProxy {
      * @param body Change Password Input
      * @return Success
      */
-    changePassword(body: ChangePasswordDto): Observable<void> {
+    changePassword(body: ChangePasswordDto): Observable<OutputProfilDto> {
         let url_ = this.baseUrl + "/api/session/changePassword";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -16841,6 +16845,7 @@ export class SessionServiceProxy {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
+                "Accept": "application/json"
             })
         };
 
@@ -16851,14 +16856,14 @@ export class SessionServiceProxy {
                 try {
                     return this.processChangePassword(<any>response_);
                 } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
+                    return <Observable<OutputProfilDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<void>><any>_observableThrow(response_);
+                return <Observable<OutputProfilDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processChangePassword(response: HttpResponseBase): Observable<void> {
+    protected processChangePassword(response: HttpResponseBase): Observable<OutputProfilDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -16867,7 +16872,10 @@ export class SessionServiceProxy {
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = OutputProfilDto.fromJS(resultData200);
+            return _observableOf(result200);
             }));
         } else if (status === 500) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
@@ -16878,7 +16886,7 @@ export class SessionServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any>null);
+        return _observableOf<OutputProfilDto>(<any>null);
     }
 
     /**
@@ -19908,6 +19916,67 @@ export class TabungBwiKawasanServiceProxy {
         }
         return _observableOf<CreateOrEditTabungBwiKawasanDto>(<any>null);
     }
+
+    /**
+     * delete Bwi Kawasan-TabungBwiKawasan
+     * @param id Bwi Kawasan Id
+     * @return Success
+     */
+    delete(id: number): Observable<OutputTabungBwiKawasanDto> {
+        let url_ = this.baseUrl + "/api/tabungBwiKawasan/delete?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<OutputTabungBwiKawasanDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<OutputTabungBwiKawasanDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<OutputTabungBwiKawasanDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = OutputTabungBwiKawasanDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<OutputTabungBwiKawasanDto>(<any>null);
+    }
 }
 
 @Injectable()
@@ -20137,6 +20206,67 @@ export class TabungBwiServiceProxy {
             }));
         }
         return _observableOf<InputCreateTabungBwiDto>(<any>null);
+    }
+
+    /**
+     * delete Bwi-TabungBwi
+     * @param id Bwi Id
+     * @return Success
+     */
+    delete(id: number): Observable<OutputTabungBwiDto> {
+        let url_ = this.baseUrl + "/api/tabungBwi/delete?";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined and cannot be null.");
+        else
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<OutputTabungBwiDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<OutputTabungBwiDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<OutputTabungBwiDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = OutputTabungBwiDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<OutputTabungBwiDto>(<any>null);
     }
 }
 
@@ -43259,6 +43389,42 @@ export interface IInputCreateBwiTabungKawasanDto {
     id_tabung_bwi: number;
 }
 
+export class OutputTabungBwiKawasanDto implements IOutputTabungBwiKawasanDto {
+    message!: string;
+
+    constructor(data?: IOutputTabungBwiKawasanDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.message = _data["message"];
+        }
+    }
+
+    static fromJS(data: any): OutputTabungBwiKawasanDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new OutputTabungBwiKawasanDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["message"] = this.message;
+        return data; 
+    }
+}
+
+export interface IOutputTabungBwiKawasanDto {
+    message: string;
+}
+
 /** TabungBwiKawasan List in Tabular model */
 export class PagedResultDtoOfTabungBwiKawasanForViewDto implements IPagedResultDtoOfTabungBwiKawasanForViewDto {
     /** Total Count */
@@ -43813,6 +43979,42 @@ export interface IInputResultKirForViewDto {
     total_count: number;
     /** Items in array of object */
     items: GetAllKirForViewDto[];
+}
+
+export class OutputTabungBwiDto implements IOutputTabungBwiDto {
+    message!: string;
+
+    constructor(data?: IOutputTabungBwiDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.message = _data["message"];
+        }
+    }
+
+    static fromJS(data: any): OutputTabungBwiDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new OutputTabungBwiDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["message"] = this.message;
+        return data; 
+    }
+}
+
+export interface IOutputTabungBwiDto {
+    message: string;
 }
 
 /** TabungBwi List in Tabular model */
