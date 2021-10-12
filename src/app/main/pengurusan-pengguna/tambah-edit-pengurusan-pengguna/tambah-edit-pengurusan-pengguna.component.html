@@ -100,9 +100,8 @@
                   <label>Emel*</label>
                   <input
                     class="form-control"
-                    id="emelPemohon"
-                    type="text"
                     name="emel"
+                    placeholder="Emel"
                     [(ngModel)]="edit.pengguna.emel"
                     disabled
                   />
@@ -201,7 +200,6 @@
                   <div *ngIf="agensiNadma == true" [@fadeVerticalAnimation]>
                     <input
                       class="form-control"
-                      type="text"
                       name="agensi"
                       placeholder="Nama Agensi"
                       value="AGENSI PENGURUSAN BENCANA NEGARA"
@@ -234,7 +232,6 @@
                   <div *ngIf="agensiNadma == true" [@fadeVerticalAnimation]>
                     <input
                       class="form-control"
-                      type="text"
                       name="kementerian"
                       placeholder="Nama Kementerian"
                       value="JABATAN PERDANA MENTERI"
@@ -402,39 +399,45 @@
               <div class="col-lg-6" *ngIf="statusId == 1" [@fadeVerticalAnimation]>
                 <div class="form-group">
                   <label>Status Pengguna</label>
-                  <select
-                    class="form-control"
+                  <ng-select
+                    [items]="statusPengesahan"
+                    bindLabel="nama"
+                    bindValue="id"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
                     name="status_pengesahan"
                     [(ngModel)]="edit.pengguna.status_pengguna"
-                  >
-                    <option *ngFor="let item of statusPengesahan" value="{{item.id}}">{{item.nama}}</option>
-                  </select>
+                  ></ng-select>
                 </div>
               </div>
 
               <div class="col-lg-6" *ngIf="statusId == 2 || statusId == 3" [@fadeVerticalAnimation]>
                 <div class="form-group">
                   <label>Status Pengguna</label>
-                  <select
-                    class="form-control"
+                  <ng-select
+                    [items]="statusBerdaftar"
+                    bindLabel="nama"
+                    bindValue="id"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
                     name="status_berdaftar"
                     [(ngModel)]="edit.pengguna.status_pengguna"
-                  >
-                    <option *ngFor="let item of statusBerdaftar" value="{{item.id}}">{{item.nama}}</option>
-                  </select>
+                  ></ng-select>
                 </div>
               </div>
 
               <div class="col-lg-6" *ngIf="statusId == 4" [@fadeVerticalAnimation]>
                 <div class="form-group">
                   <label>Status Pengguna</label>
-                  <select
-                    class="form-control"
+                  <ng-select
+                    [items]="statusDitolak"
+                    bindLabel="nama"
+                    bindValue="id"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
                     name="status_tidak_aktif"
                     [(ngModel)]="edit.pengguna.status_pengguna"
-                  >
-                    <option *ngFor="let item of statusDitolak" value="{{item.id}}">{{item.nama}}</option>
-                  </select>
+                  ></ng-select>
                 </div>
               </div>
 

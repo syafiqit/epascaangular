@@ -63,6 +63,11 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
   skipCount: any;
   resultCount: any;
 
+  statuses = [
+    { id: 0, nama: 'Tidak Aktif' },
+    { id: 1, nama: 'Aktif' }
+  ];
+
 	constructor(
 		config: NgbModalConfig,
 		private router: Router,
@@ -233,7 +238,7 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 		  this.router.navigate(['/app/bencana/pengurusan-bencana']);
 		});
 	}
-	
+
 	updateMessage(){
 		const dialogRef = this._confirmationService.open({
 		  title: 'Berjaya',

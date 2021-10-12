@@ -241,7 +241,7 @@
 											Tarikh EFT
 											<p-sortIcon field="tarikh_eft"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="due_report">
+										<th style="width: 190px" pSortableColumn="due_report">
 											Due Report (21 Hari)
 											<p-sortIcon field="due_report"></p-sortIcon>
 										</th>
@@ -341,8 +341,8 @@
                       <label *ngIf="record.tarikh_eft">{{record.tarikh_eft | date:'dd-MM-yyyy'}}</label>
                       <label *ngIf="!record.tarikh_eft">-</label>
 										</td>
-										<td style="width: 130px">
-											<span class="p-column-title">Due Report</span>
+										<td style="width: 190px">
+											<span class="p-column-title">Due Report (21 Hari)</span>
                       <label *ngIf="record.due_report">{{record.due_report | date:'dd-MM-yyyy'}}</label>
                       <label *ngIf="!record.due_report">-</label>
 										</td>

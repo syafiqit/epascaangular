@@ -279,7 +279,7 @@
                 <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Tutup</button>
               </ng-template>
 
-              <div class="col-lg-6">
+              <div class="col-lg-6" *ngIf="!idBayaranTerus">
 								<div class="form-group">
 									<label>Jumlah Belanja (RM)</label>
 									<input
@@ -288,10 +288,23 @@
                     name="belanja"
                     placeholder="Jumlah Belanja"
                     [(ngModel)]="bayaranTerus.jumlah"
-                    [disabled]="idBayaranTerus"
                     currencyMask
                     [options]="{ prefix: 'RM ', align: 'left' }"
-                    [disabled]="idBayaranTerus"
+                  />
+								</div>
+							</div>
+
+              <div class="col-lg-6" *ngIf="idBayaranTerus">
+								<div class="form-group">
+									<label>Jumlah Belanja (RM)</label>
+									<input
+                    class="form-control"
+                    name="belanja"
+                    placeholder="Jumlah Belanja"
+                    [(ngModel)]="bayaranTerus.jumlah"
+                    currencyMask
+                    [options]="{ prefix: 'RM ', align: 'left' }"
+                    disabled
                   />
 								</div>
 							</div>

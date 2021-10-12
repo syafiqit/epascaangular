@@ -73,20 +73,20 @@
               <div class="col-lg-6" *ngIf="idBencana">
                 <div class="form-group">
                   <label>Status</label>
-                  <select
-                    class="form-control digits"
+                  <ng-select
+                    [items]="statuses"
+                    bindLabel="nama"
+                    bindValue="id"
+                    placeholder="Sila Pilih"
+                    class="js-example-placeholder-multiple"
                     name="status_bencana"
                     [(ngModel)]="bencana.status_bencana"
                     #status="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
                     required
-                  >
-                    <option selected disabled [value]="undefined">Sila Pilih</option>
-                    <option [value]="1">Aktif</option>
-                    <option [value]="0">Tidak Aktif</option>
-                  </select>
+                  ></ng-select>
                   <div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
-                    <div *ngIf="status.errors.required">Status Wajib diIsi</div>
+                    <div *ngIf="status.errors.required">Status Wajib Dipilih</div>
                   </div>
                 </div>
               </div>
