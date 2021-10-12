@@ -206,19 +206,6 @@
 
             <div
               class="col-12 col-sm-6 col-xl-4 mb-2"
-              [routerLink]="'/app/laporan/bwi/bencana-kelulusan'"
-              *ngIf="_appSession.isGranted('Halaman.Laporan.Tabung.BWI')"
-              pTooltip="Laporan Bantuan Wang Ihsan Mengikut Bencana dan Kelulusan" tooltipPosition="bottom"
-            >
-              <div class="media"><i data-feather="tag"></i>
-                <div class="media-body align-self-center">
-                  <h6 class="mt-0">Laporan Bantuan Wang Ihsan Mengikut Bencana dan Kelulusan</h6>
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="col-12 col-sm-6 col-xl-4 mb-2"
               [routerLink]="'/app/laporan/bwi/negeri'"
               *ngIf="_appSession.isGranted('Halaman.Laporan.Tabung.BWI')"
               pTooltip="Laporan Bantuan Wang Ihsan Mengikut Negeri" tooltipPosition="bottom"

@@ -24,10 +24,12 @@
 
 .form-control:disabled {
   background-color: #f9f9f9;
+  font-size: 14px;
 }
 
 .form-control[readonly] {
   background-color: #f9f9f9;
+  font-size: 14px;
 }
 
 //ng-select custom validation style

@@ -1,6 +1,7 @@
 import { OnInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { SelectBencanaComponent } from '@app/main/pengurusan-mangsa/select-bencana/select-bencana.component';
 import { FileDownloadService } from '@app/shared/services/file-download.service';
-import { NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
@@ -9,7 +10,6 @@ import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import {
   LaporanServiceProxy,
-  RefBencanaServiceProxy,
   RefDaerahServiceProxy,
   RefNegeriServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
@@ -36,13 +36,14 @@ export class LaporanBwiPenerimaComponent implements OnInit {
   filterBencana: number;
   filterYear: number;
   arrayYear:any[];
+  nama_bencana: string;
 
 	constructor(
     config: NgbModalConfig,
+    private modalService: NgbModal,
     private _refDaerahServiceProxy: RefDaerahServiceProxy,
     private _refNegeriServiceProxy: RefNegeriServiceProxy,
     private _laporanServiceProxy: LaporanServiceProxy,
-    private _refBencanaServiceProxy: RefBencanaServiceProxy,
     private _fileDownloadService: FileDownloadService
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
@@ -53,7 +54,6 @@ export class LaporanBwiPenerimaComponent implements OnInit {
 	ngOnInit(): void {
     this.getDaerah();
     this.getNegeri();
-    this.getBencana();
 	  this.generateArrayOfYears();
 
     this.terms$.pipe(
@@ -119,10 +119,17 @@ export class LaporanBwiPenerimaComponent implements OnInit {
 		});
 	}
 
-  getBencana(filter?) {
-		this._refBencanaServiceProxy.getRefBencanaForDropdown(filter).subscribe((result) => {
-			this.disasters = result.items;
-		});
+	pilihBencana() {
+		const modalRef = this.modalService.open(SelectBencanaComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'add';
+    modalRef.result.then(
+			(response) => {
+				if (response) {
+          this.filterBencana = response.id;
+          this.nama_bencana = response.nama_bencana;
+				}
+			}
+		);
 	}
 
 	reloadPage(): void {
@@ -135,6 +142,7 @@ export class LaporanBwiPenerimaComponent implements OnInit {
     this.filterDaerah = undefined;
     this.filterBencana = undefined;
     this.filterYear = undefined;
+    this.nama_bencana = undefined;
 
     this.getPenerimaBwi();
     this.getDaerah();
