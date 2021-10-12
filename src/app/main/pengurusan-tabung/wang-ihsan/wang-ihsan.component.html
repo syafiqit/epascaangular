@@ -238,6 +238,7 @@
                         <button
 													class="dropdown-item"
                           *ngIf="_appSession.isGranted('Halaman.Tabung.BWI.Hapus')"
+                          (click)="padamWangIhsan(record.id)"
 												>
 													Padam
 												</button>

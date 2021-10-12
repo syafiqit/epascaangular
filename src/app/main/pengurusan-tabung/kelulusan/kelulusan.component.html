@@ -253,7 +253,9 @@
 									</td>
 									<td style="width: 100px">
 										<span class="p-column-title">Status</span>
-										{{record.kelulusan.status_tabung_kelulusan == 1? "Aktif":"Tidak Aktif"}}
+                    <label *ngIf="record.kelulusan.status_tabung_kelulusan == 1">Aktif</label>
+                    <label *ngIf="record.kelulusan.status_tabung_kelulusan == 2">Tidak Aktif</label>
+                    <label *ngIf="record.kelulusan.status_tabung_kelulusan == 3">Tamat Tempoh</label>
 									</td>
 									<td style="width: 150px" *ngIf="_appSession.isGranted('Halaman.Tabung.Kelulusan.Edit') || _appSession.isGranted('Halaman.Tabung.Kelulusan.Hapus') ||
                   _appSession.isGranted('Halaman.Tabung.Bayaran.SKB.Tambah') || _appSession.isGranted('Halaman.Tabung.Bayaran.Terus.Tambah')">

@@ -10,6 +10,7 @@ import { BwiSuratKuasaBelanjaComponent } from './bwi-surat-kuasa-belanja/bwi-sur
 	providers: [NgbModalConfig]
 })
 export class PilihPembayaranComponent implements OnInit {
+  @Input() idBencana;
   @Input() idTabungKelulusan;
   @Input() idTabungKelulusanKemaskini;
 
@@ -23,7 +24,7 @@ export class PilihPembayaranComponent implements OnInit {
 
   pilihSuratKuasaBelanja(){
     const modalRef = this.modalService.open(BwiSuratKuasaBelanjaComponent, { size: 'lg' });
-		modalRef.componentInstance.name = 'add';
+		modalRef.componentInstance.idBencana = this.idBencana;
     if(this.idTabungKelulusan){
       modalRef.componentInstance.idTabungKelulusan = this.idTabungKelulusan;
     }
@@ -41,7 +42,8 @@ export class PilihPembayaranComponent implements OnInit {
             perihal: response.perihal,
             no_rujukan_kelulusan: response.no_rujukan_kelulusan,
             jumlah: response.jumlah,
-            idJenisBayaran: response.idJenisBayaran
+            idJenisBayaran: response.idJenisBayaran,
+            idBencana: response.idBencana
           });
 				}
 			},
@@ -52,7 +54,7 @@ export class PilihPembayaranComponent implements OnInit {
 
   pilihBayaranTerus(){
     const modalRef = this.modalService.open(BwiBayaranSecaraTerusComponent, { size: 'lg' });
-		modalRef.componentInstance.name = 'add';
+		modalRef.componentInstance.idBencana = this.idBencana;
     if(this.idTabungKelulusan){
       modalRef.componentInstance.idTabungKelulusan = this.idTabungKelulusan;
     }
@@ -70,7 +72,8 @@ export class PilihPembayaranComponent implements OnInit {
             perihal: response.perihal,
             no_rujukan_kelulusan: response.no_rujukan_kelulusan,
             jumlah: response.jumlah,
-            idJenisBayaran: response.idJenisBayaran
+            idJenisBayaran: response.idJenisBayaran,
+            idBencana: response.idBencana
           });
 				}
 			},

@@ -93,6 +93,43 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label>Jumlah Siling Peruntukan (RM)*</label>
+            <input
+              class="form-control"
+              type="number"
+              placeholder="Jumlah Siling Peruntukan"
+              name="jumlah_siling"
+              [(ngModel)]="kelulusan.jumlah_siling"
+              #jumlahSiling="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && jumlahSiling.invalid }"
+              required
+              disabled
+            />
+            <div *ngIf="f.submitted && jumlahSiling.invalid" class="invalid-feedback">
+              <div *ngIf="jumlahSiling.errors.required">Jumlah Siling Wajib Dipilih</div>
+            </div>
+          </div>
+        </div>
+    
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label>Baki Peruntukan (RM)</label>
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Baki Peruntukan"
+              name="baki_siling"
+              value="{{kelulusan.baki_jumlah_siling | number: '1.2-2'}}"
+              disabled
+            />
+          </div>
+        </div>
+      </div>
+
     <div class="row">
         <div class="col-lg-6">
             <div class="form-group">
@@ -107,6 +144,7 @@
                     required>
                     <ng-option [value]='1'>Aktif</ng-option>
                     <ng-option [value]='2'>Tidak Aktif</ng-option>
+                    <ng-option [value]='3'>Tamat Tempoh</ng-option>
                 </ng-select>
                 <div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
                     <div *ngIf="status.errors.required">Status Wajib Dipilih</div>

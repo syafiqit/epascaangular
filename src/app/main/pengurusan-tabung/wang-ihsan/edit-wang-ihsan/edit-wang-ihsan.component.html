@@ -9,7 +9,6 @@
 			<div class="card">
 				<div class="card-body">
           <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="save()" novalidate>
-            <app-tambah-edit-pembayaran [idBwi]="idBwi" (idBayaranSkb)="getIdBayaranSkb($event)" (idBayaranTerus)="getIdBayaranTerus($event)" (id_kelulusan)="getIdKelulusan($event)"></app-tambah-edit-pembayaran>
 
             <div class="row">
               <div class="col-lg-6">
@@ -49,7 +48,8 @@
                   </div>
                 </div>
               </div>
-
+            </div>
+            <div class="row">
               <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
                 <label>Tarikh Bencana</label>
                 <div class="input-group">
@@ -62,25 +62,25 @@
                   >
                 </div>
               </div>
-
             </div>
-            <hr />
+
+            <app-tambah-edit-pembayaran [idBwi]="idBwi" (idBayaranSkb)="getIdBayaranSkb($event)" (idBayaranTerus)="getIdBayaranTerus($event)" (id_kelulusan)="getIdKelulusan($event)" (jumlahBayaran)="getJumlahBayaran($event)"></app-tambah-edit-pembayaran>
 
             <h6>Maklumat Bantuan</h6>
             <app-tambah-edit-bantuan
-              [idBwi]="idBwi" [idBencana]="id_bencana" [idJenisBwi]="idJenisBwi" (id_daerah)="getIdDaerah($event)" (id_negeri)="getIdNegeri($event)" (jumlah_diberi)="getJumlahDiberi($event)">
+              [idBwi]="idBwi" [idBencana]="id_bencana" [idJenisBwi]="idJenisBwi" [jumlahPembayaran]="jumlah_keseluruhan_bayaran" (id_daerah)="getIdDaerah($event)" (id_negeri)="getIdNegeri($event)" (jumlah_diberi)="getJumlahDiberi($event)" >
             </app-tambah-edit-bantuan>
 
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label>Jumlah Keseluruhan Bayaran (RM)</label>
+                  <label>Jumlah Pembayaran (RM)</label>
                   <input
                     class="form-control"
                     type="text"
-                    name="jumlah_bayaran"
+                    name="jumlah_pembayaran"
                     placeholder="Jumlah Pembayaran"
-                    value="{{edit.jumlah_keseluruhan | number: '1.2-2'}}"
+                    value="{{jumlah_keseluruhan_bayaran | number: '1.2-2'}}"
                     disabled
                   />
                 </div>
@@ -88,7 +88,23 @@
 
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label>Jumlah Keseluruhan Pulangan (RM)</label>
+                  <label>Jumlah Bantuan (RM)</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="jumlah_bantuan"
+                    placeholder="Jumlah Bantuan"
+                    value="{{edit.jumlah_keseluruhan | number: '1.2-2'}}"
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Jumlah Pulangan (RM)</label>
                   <input
                     class="form-control"
                     type="text"

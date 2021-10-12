@@ -1,4 +1,4 @@
-<div class="row no-gutters">
+<div class="row no-gutters mt-3">
   <div class="col-lg-6 justify-content-start">
     <h6>Maklumat Pembayaran</h6>
   </div>
@@ -50,7 +50,7 @@
             Jumlah
             <p-sortIcon field="jumlah"></p-sortIcon>
           </th>
-          <th style="width: 150px">Tindakan</th>
+          <th style="width: 150px" hidden>Tindakan</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-record="$implicit">
@@ -72,7 +72,7 @@
             <span class="p-column-title">Jumlah</span>
             RM {{record.jumlah | number: '1.2-2'}}
           </td>
-          <td style="width: 150px">
+          <td style="width: 150px" hidden>
             <div ngbDropdown class="btn-group" role="group" container="body">
               <button
                 type="button"

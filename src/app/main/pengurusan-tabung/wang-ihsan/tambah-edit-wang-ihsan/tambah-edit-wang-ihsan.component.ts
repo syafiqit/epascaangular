@@ -42,10 +42,14 @@ export class TambahEditWangIhsanComponent implements OnInit {
   nama_pembayaran:string;
   bwiType: any;
   id_bencana: number;
+  idBencanaPembayaran: number;
+  totalPembayaran: number;
+  arrayPembayaran = [];
   nama_bencana: string;
   tarikh_bencana: string;
   bayaran: number = 0;
   totalBayaran: number = 0;
+  totalBantuan: number = 0;
   idJenisBayaran: number;
   id_tabung_kelulusan: number;
   existingId: number;
@@ -176,13 +180,20 @@ export class TambahEditWangIhsanComponent implements OnInit {
 
 	pilihPembayaran() {
       const modalRef = this.modalService.open(PilihPembayaranComponent, { size: 'md' });
+      modalRef.componentInstance.idBencana = this.id_bencana;
       if(this.id_tabung_kelulusan){
         modalRef.componentInstance.idTabungKelulusan = this.id_tabung_kelulusan;
       }
       modalRef.result.then(
         (response) => {
           this.id_tabung_kelulusan = response.id_tabung_kelulusan;
+          this.idBencanaPembayaran = response.idBencana;
+
           if (response) {
+            for(let i=0; i < this.pembayaran.length; i++){
+              this.arrayPembayaran.push(response.no_rujukan_bayaran);
+            }
+
             if(response.idSkb){
               this.existingId = this.pembayaran.find(e=> e.idSkb == response.idSkb);
               if(!this.existingId){
@@ -193,7 +204,9 @@ export class TambahEditWangIhsanComponent implements OnInit {
                   perihal: response.perihal,
                   no_rujukan_kelulusan: response.no_rujukan_kelulusan,
                   jumlah: response.jumlah,
+                  idBencana: response.idBencana
                 });
+                this.totalBayaranBwi();
                 this.existingId = null;
               }else{
                 swalError.fire('Tidak Berjaya','No. Rujukan SKB Telah Dipilih');
@@ -210,7 +223,9 @@ export class TambahEditWangIhsanComponent implements OnInit {
                   perihal: response.perihal,
                   no_rujukan_kelulusan: response.no_rujukan_kelulusan,
                   jumlah: response.jumlah,
+                  idBencana: response.idBencana
                 });
+                this.totalBayaranBwi();
                 this.existingId = null;
               }else{
                 swalError.fire('Tidak Berjaya','No. Rujukan Terus Telah Dipilih');
@@ -233,6 +248,14 @@ export class TambahEditWangIhsanComponent implements OnInit {
     if(this.primengTableHelper.totalRecordsCount == 0){
       this.idJenisBayaran = undefined;
     }
+    this.totalBayaranBwi();
+  }
+
+  padamBantuan(id){
+    let index = this.bantuan.indexOf(id);
+    this.bantuan.splice(index, 1);
+    this.primengTableHelperBantuan.totalRecordsCount = this.bantuan.length;
+    this.totalBantuanBwi();
   }
 
 	pilihJenisBencana() {
@@ -245,6 +268,14 @@ export class TambahEditWangIhsanComponent implements OnInit {
           this.nama_bencana = response.nama_bencana;
           this.modelBencana =  response.tarikh_bencana.format('YYYY-MM-DD');
 				}
+        this.totalPembayaran = this.arrayPembayaran.length;
+        if(this.id_bencana != this.idBencanaPembayaran){
+          this.pembayaran.splice(this.totalPembayaran);
+          this.primengTableHelper.totalRecordsCount = this.pembayaran.length;
+          if(this.primengTableHelper.totalRecordsCount == 0){
+            this.idJenisBayaran = undefined;
+          }
+        }
 			}
 		);
 	}
@@ -254,16 +285,41 @@ export class TambahEditWangIhsanComponent implements OnInit {
     modalRef.componentInstance.id = this.id_bencana;
     modalRef.result.then(
 			(response) => {
+
 				if (response) {
-          this.bantuan.push({
-            id_negeri: response.id_negeri,
-            id_daerah: response.id_daerah,
-            nama_daerah: response.nama_daerah,
-            nama_negeri: response.nama_negeri,
-            jumlah_bayaran: response.jumlah_bayaran
-          });
-          this.totalBayaranBwi();
-          this.getBantuan();
+          if((this.totalBantuan <= this.totalBayaran) && (response.jumlah_bayaran <= this.totalBayaran)){
+            this.bantuan.push({
+              id_negeri: response.id_negeri,
+              id_daerah: response.id_daerah,
+              nama_daerah: response.nama_daerah,
+              nama_negeri: response.nama_negeri,
+              jumlah_bayaran: response.jumlah_bayaran
+            });
+            this.primengTableHelperBantuan.totalRecordsCount = this.bantuan.length;
+            this.totalBantuanBwi();
+            this.getBantuan();
+          }else{
+            const dialogRef = this._confirmationService.open({
+              title: 'Tidak Berjaya',
+              message: 'Jumlah Bantuan Melebihi Jumlah Pembayaran.',
+              icon: {
+                show: true,
+                name: 'x-circle',
+                color: 'error'
+              },
+              actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+              },
+              dismissible: true
+            });
+          }
 				}
 			},
 			() => {}
@@ -272,8 +328,15 @@ export class TambahEditWangIhsanComponent implements OnInit {
 
   totalBayaranBwi(){
     this.totalBayaran = 0;
+    this.pembayaran.forEach(e=>{
+      this.totalBayaran += parseFloat(e.jumlah);
+    })
+  }
+
+  totalBantuanBwi(){
+    this.totalBantuan = 0;
     this.bantuan.forEach(e=>{
-      this.totalBayaran += parseFloat(e.jumlah_bayaran);
+      this.totalBantuan += parseFloat(e.jumlah_bayaran);
     })
   }
 
