@@ -52,8 +52,9 @@
                 Nama Rujukan
                 <p-sortIcon field="nama_rujukan"></p-sortIcon>
               </th>
-              <th style="width: 130px">
-                Nama Fail
+              <th style="width: 130px" pSortableColumn="status_rujukan">
+                Status
+                <p-sortIcon field="status_rujukan"></p-sortIcon>
               </th>
               <th style="width: 130px">Tindakan</th>
             </tr>
@@ -65,8 +66,8 @@
                 {{record.nama_rujukan}}
               </td>
               <td style="width: 130px">
-                <span class="p-column-title">Nama Fail</span>
-                {{record.nama_dokumen}}
+                <span class="p-column-title">Status</span>
+                {{record.status_rujukan == 1? "Aktif":"Tidak Aktif"}}
               </td>
               <td style="width: 130px">
                 <div ngbDropdown class="btn-group" role="group" container="body">

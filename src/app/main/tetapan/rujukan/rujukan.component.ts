@@ -22,6 +22,7 @@ export class RujukanComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
 
   filterText: string;
+  filterStatus: number;
   terms$ = new Subject<string>();
 
 	constructor(
@@ -57,6 +58,7 @@ export class RujukanComponent implements OnInit {
     this._refRujukanServiceProxy
       .getAll(
         this.filterText,
+        this.filterStatus ?? undefined,
         this.primengTableHelper.getSorting(this.dataTable),
         this.primengTableHelper.getSkipCount(this.paginator, event),
         this.primengTableHelper.getMaxResultCount(this.paginator, event)
