@@ -60,9 +60,8 @@
           <label>Negara Penyumbang</label>
           <input
             class="form-control"
-            id="negaraPenyumbang"
             type="text"
-            name="antarabangsa.negara"
+            name="negara"
             [(ngModel)]="antarabangsa.negara"
             placeholder="Negara Penyumbang"
             #negaraPenyumbang="ngModel"
@@ -82,7 +81,7 @@
             class="form-control"
             id="nama_bantuan"
             type="text"
-            name="antarabangsa.nama_bantuan"
+            name="nama_bantuan"
             [(ngModel)]="antarabangsa.nama_bantuan"
             placeholder="Nama Bantuan"
             #bantuanAntarabangsa="ngModel"
@@ -102,9 +101,8 @@
           <label>Kos Bantuan (RM)</label>
           <input
             class="form-control"
-            id="kosBantuan"
             type="text"
-            name="antarabangsa.negara"
+            name="kos_bantuan"
             [(ngModel)]="antarabangsa.kos_bantuan"
             placeholder="Kos Bantuan"
             #kosBantuan="ngModel"
@@ -168,9 +166,7 @@
             required
           ></ng-select>
           <div *ngIf="f.submitted && namaStatus.invalid" class="invalid-feedback">
-            <div *ngIf="namaStatus.errors.required">
-              Status Wajib Dipilih
-            </div>
+            <div *ngIf="namaStatus.errors.required">Status Wajib Dipilih</div>
           </div>
         </div>
       </div>
@@ -182,7 +178,7 @@
 					<label>Catatan</label>
 					<textarea
             class="form-control"
-            name="antarabangsa.catatan"
+            name="catatan"
             [(ngModel)]="antarabangsa.catatan"
             rows="3">
           </textarea>
