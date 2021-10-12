@@ -11,19 +11,6 @@
           <div class="row icon-lists feather-icons">
             <div
               class="col-12 col-sm-6 col-xl-4 mb-2"
-              [routerLink]="'/app/laporan/ringkasan'"
-              *ngIf="_appSession.isGranted('Halaman.Laporan.Ringkasan')"
-              pTooltip="Ringkasan Laporan" tooltipPosition="bottom"
-            >
-              <div class="media"><i data-feather="tag"></i>
-                <div class="media-body align-self-center">
-                  <h6 class="mt-0">Ringkasan Laporan</h6>
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="col-12 col-sm-6 col-xl-4 mb-2"
               [routerLink]="'/app/laporan/mangsa/pendaftaran'"
               *ngIf="_appSession.isGranted('Halaman.Laporan.Mangsa')"
               pTooltip="Laporan Mangsa Bencana Yang Didaftarkan" tooltipPosition="bottom"
