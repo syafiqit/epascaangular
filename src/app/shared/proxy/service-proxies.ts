@@ -7406,6 +7406,67 @@ export class MangsaServiceProxy {
     }
 
     /**
+     * Get all Mangsa in dropdown list
+     * @param filter (optional) Filter records with a string
+     * @return Success
+     */
+    getMangsaForDropdown(filter: string | undefined): Observable<GetMangsaForListDto> {
+        let url_ = this.baseUrl + "/api/mangsa/getMangsaForDropdown?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetMangsaForDropdown(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetMangsaForDropdown(<any>response_);
+                } catch (e) {
+                    return <Observable<GetMangsaForListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetMangsaForListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetMangsaForDropdown(response: HttpResponseBase): Observable<GetMangsaForListDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetMangsaForListDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetMangsaForListDto>(<any>null);
+    }
+
+    /**
      * Create or edit Mangsa
      * @param body Create or edit object
      * @return Success
@@ -29739,6 +29800,54 @@ export interface IGetMangsaForEditDto {
     mangsa: CreateOrEditMangsaDto;
 }
 
+/** Mangsa List in Tabular model */
+export class GetMangsaForListDto implements IGetMangsaForListDto {
+    /** Items in array of object */
+    items!: MangsaDto[];
+
+    constructor(data?: IGetMangsaForListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(MangsaDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): GetMangsaForListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetMangsaForListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** Mangsa List in Tabular model */
+export interface IGetMangsaForListDto {
+    /** Items in array of object */
+    items: MangsaDto[];
+}
+
 export class GetMangsaForViewDto implements IGetMangsaForViewDto {
     id!: number;
     nama!: string;
@@ -29929,6 +30038,50 @@ export class InputCreateMangsaDto implements IInputCreateMangsaDto {
 export interface IInputCreateMangsaDto {
     mangsa: CreateOrEditMangsaDto;
     bencana: InputBencanaMangsaDto;
+}
+
+export class MangsaDto implements IMangsaDto {
+    id!: number;
+    nama!: string;
+    no_kp!: number;
+
+    constructor(data?: IMangsaDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.nama = _data["nama"];
+            this.no_kp = _data["no_kp"];
+        }
+    }
+
+    static fromJS(data: any): MangsaDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new MangsaDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["nama"] = this.nama;
+        data["no_kp"] = this.no_kp;
+        return data; 
+    }
+}
+
+export interface IMangsaDto {
+    id: number;
+    nama: string;
+    no_kp: number;
 }
 
 export class MangsaVerifikasiDto implements IMangsaVerifikasiDto {
