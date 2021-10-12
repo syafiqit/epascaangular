@@ -25,6 +25,7 @@ export class TambahEditRujukanComponent implements OnInit {
   rujukan: CreateOrEditRefRujukanDto = new CreateOrEditRefRujukanDto();
   saving = false;
   serverUrl = environment.apiUrl + '/api/refRujukan/uploadFail';
+  defaultImageUrl = '/assets/images/other-images/pdf-symbol.png';
   response: any = {};
   hasData: number;
 
@@ -64,6 +65,10 @@ export class TambahEditRujukanComponent implements OnInit {
     const file = this.files;
     this.formGroup.get('file').setValue(file);
     this.hasData = 1;
+  }
+
+  getFile(location){
+    window.open(location);
   }
 
   tambahRujukan() {
@@ -126,39 +131,39 @@ export class TambahEditRujukanComponent implements OnInit {
     if (this.files) {
       formData.append('fail', this.formGroup.get('file').value);
 
-      this.httpClient.post<any>(this.serverUrl, formData).subscribe(
-        (res) => {
-          this.response = res;
-          if(res.file_location){
-            this.rujukan.lokasi_dokumen = res.file_location;
-            this.rujukan.sambungan_fail = res.file_extension;
-            this.rujukan.nama_dokumen = res.file_name;
+      this.httpClient.post<any>(this.serverUrl, formData).subscribe((res) => {
+        this.response = res;
+        if(res.file_location){
+          this.rujukan.lokasi_dokumen = res.file_location;
+          this.rujukan.sambungan_fail = res.file_extension;
+          this.rujukan.nama_dokumen = res.file_name;
 
-            this._refRujukanServiceProxy
-              .createOrEdit(this.rujukan)
-              .pipe()
-              .subscribe(() => {
-                if (this.name == 'add') {
-                  this.tambahRujukan();
-                } else if (this.name == 'edit') {
-                  this.editRujukan();
-                }
-              });
-          }
+          this._refRujukanServiceProxy
+          .createOrEdit(this.rujukan)
+          .pipe()
+          .subscribe(() => {
+            if (this.name == 'add') {
+              this.tambahRujukan();
+            }
+            else if (this.name == 'edit') {
+              this.editRujukan();
+            }
+          });
         }
-      );
+      });
     }
     else{
       this._refRujukanServiceProxy
-        .createOrEdit(this.rujukan)
-        .pipe()
-        .subscribe(() => {
-          if (this.name == 'add') {
-            this.tambahRujukan();
-          } else if (this.name == 'edit') {
-            this.editRujukan();
-          }
-        });
+      .createOrEdit(this.rujukan)
+      .pipe()
+      .subscribe(() => {
+        if (this.name == 'add') {
+          this.tambahRujukan();
+        }
+        else if (this.name == 'edit') {
+          this.editRujukan();
+        }
+      });
     }
   }
 }
