@@ -126,7 +126,7 @@ export class TambahEditRujukanComponent implements OnInit {
   noFile() {
     this._confirmationService.open({
       title: 'Tidak Berjaya',
-      message: 'Tiada fail dipilih. Sila muatnaik fail rujukan.',
+      message: 'Dokumen Rujukan Wajib Dimuatnaik.',
       icon: {
         show: true,
         name: 'x-circle',
@@ -151,7 +151,7 @@ export class TambahEditRujukanComponent implements OnInit {
 
     const formData = new FormData();
 
-    if (this.files) {
+    if (this.files && this.name == 'add') {
       formData.append('fail', this.formGroup.get('file').value);
 
       this.httpClient.post<any>(this.serverUrl, formData).subscribe((res) => {
@@ -165,18 +165,20 @@ export class TambahEditRujukanComponent implements OnInit {
           .createOrEdit(this.rujukan)
           .pipe()
           .subscribe(() => {
-            if (this.name == 'add') {
-              this.tambahRujukan();
-            }
-            else if (this.name == 'edit') {
-              this.editRujukan();
-            }
+            this.tambahRujukan();
           });
         }
       });
     }
-    else{
+    else if (!this.files && this.name == 'add'){
       this.noFile();
+    }
+    else {
+      this._refRujukanServiceProxy
+      .createOrEdit(this.rujukan)
+      .subscribe(() => {
+        this.editRujukan();
+      })
     }
   }
 }
