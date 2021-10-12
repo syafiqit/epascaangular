@@ -10,7 +10,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="form-group">
-          <label>Nama Rujukan</label>
+          <label>Nama Rujukan*</label>
 					<input
 						class="form-control"
 						type="text"
@@ -29,8 +29,12 @@
 
       <div class="col-lg-6" *ngIf="name === 'add'">
         <div class="form-group">
-          <label>Muat Naik Fail</label>
-          <input (change)="onSelect($event)" class="form-control" type="file" />
+          <label>Muat Naik Fail*</label>
+          <input
+            (change)="onSelect($event)"
+            class="form-control"
+            type="file"
+          />
         </div>
       </div>
 

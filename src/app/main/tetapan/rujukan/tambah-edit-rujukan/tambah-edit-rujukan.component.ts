@@ -123,6 +123,29 @@ export class TambahEditRujukanComponent implements OnInit {
     });
   }
 
+  noFile() {
+    this._confirmationService.open({
+      title: 'Tidak Berjaya',
+      message: 'Tiada fail dipilih. Sila muatnaik fail rujukan.',
+      icon: {
+        show: true,
+        name: 'x-circle',
+        color: 'error'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+  }
+
   save(): void {
     this.saving = true;
 
@@ -153,17 +176,7 @@ export class TambahEditRujukanComponent implements OnInit {
       });
     }
     else{
-      this._refRujukanServiceProxy
-      .createOrEdit(this.rujukan)
-      .pipe()
-      .subscribe(() => {
-        if (this.name == 'add') {
-          this.tambahRujukan();
-        }
-        else if (this.name == 'edit') {
-          this.editRujukan();
-        }
-      });
+      this.noFile();
     }
   }
 }
