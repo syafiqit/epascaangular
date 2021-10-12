@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { swalError, swalSuccess } from '@app/shared/sweet-alert/swal-constant';
 import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { ChangePasswordDto, SessionServiceProxy } from 'src/app/shared/proxy/service-proxies';
-import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { ChangePasswordDto, OutputProfilDto, SessionServiceProxy } from 'src/app/shared/proxy/service-proxies';
 
 @Component({
 	selector: 'app-tukar-kata-laluan',
@@ -18,6 +18,7 @@ export class TukarKataLaluanComponent implements OnInit {
 	public showRepeatNew = false;
 
   newPassword: ChangePasswordDto = new ChangePasswordDto();
+  output: OutputProfilDto = new OutputProfilDto();
   passwordPattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
 
 	constructor(
@@ -50,16 +51,21 @@ export class TukarKataLaluanComponent implements OnInit {
 		this.validate = !this.validate;
 
 		if (this.newPassword.kata_laluan_baru === this.newPassword.ulang_kata_laluan_baru) {
-			this._sessionServiceProxy.changePassword(this.newPassword).subscribe(
-				() => {
-					swalSuccess.fire('Berjaya!', 'Kata Laluan Berjaya Dikemaskini.', 'success');
-				},
-				() => {
-					swalError.fire('', 'Kata Laluan Lama Tidak Sepadan', 'error');
-				}
-			);
-		} else {
-			swalError.fire('', 'Kata Laluan Baru dan Ulang Kata Laluan Tidak Sepadan', 'error');
+			this._sessionServiceProxy
+      .changePassword(this.newPassword)
+      .subscribe((result) => {
+        this.output = result;
+        if(this.output.message == "Kata laluan berjaya ditukar") {
+          swalSuccess.fire('Berjaya!', 'Kata Laluan Berjaya Dikemaskini.', 'success')
+          this.activeModal.close(true);
+        }
+        else {
+          swalError.fire('Tidak Berjaya!', this.output.message, 'error');
+        }
+			});
+		}
+    else {
+      swalError.fire('Tidak Berjaya!', 'Kata Laluan Baru dan Ulang Kata Laluan Tidak Sepadan', 'error');
 		}
 	}
 }
