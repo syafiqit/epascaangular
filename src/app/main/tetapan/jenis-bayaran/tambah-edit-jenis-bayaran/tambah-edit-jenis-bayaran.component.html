@@ -10,7 +10,7 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label>Nama Jenis Bayaran</label>
+					<label>Nama Jenis Bayaran*</label>
 					<input
 						class="form-control"
 						id="nama_jenis_bayaran"
@@ -25,13 +25,12 @@
 					<div *ngIf="f.submitted && namaJenisBayaran.invalid" class="invalid-feedback">
 						<div *ngIf="namaJenisBayaran.errors.required">Nama Jenis Bayaran Wajib Diisi</div>
 					</div>
-					/>
 				</div>
 			</div>
 
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label>Status</label>
+					<label>Status*</label>
 					<select
 						class="form-control digits"
 						name="status_bantuan"

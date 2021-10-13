@@ -11,7 +11,7 @@
 
 			<div class="col-6">
 				<div class="form-group">
-					<label>Kadar</label>
+					<label>Kadar*</label>
 					<input
 						class="form-control"
 						id="kadar"
@@ -21,6 +21,8 @@
 						[(ngModel)]="kadar_bwi.nilai"
 						#kadarBwi="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && kadarBwi.invalid }"
+						currencyMask
+						[options]="{ prefix: 'RM ', align: 'left' }"
 						required
 					/>
 					<div *ngIf="f.submitted && kadarBwi.invalid" class="invalid-feedback">
@@ -28,12 +30,9 @@
 					</div>
 				</div>
 			</div>
-		</div>
-
-		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label>Status</label>
+					<label>Status*</label>
 					<select
 						class="form-control digits"
 						name="status_kadar"
