@@ -88,9 +88,10 @@
             [footerTemplate]="footerTemplate"
             #d="ngbDatepicker"
             style="border: 1px solid #efefef !important;"
-						#tarikhLahir="ngModel"
-						[ngClass]="{ 'is-invalid': f.submitted && tarikhLahir.invalid }"
-						required
+			#tarikhLahir="ngModel"
+			[ngClass]="{ 'is-invalid': f.submitted && tarikhLahir.invalid }"
+			[minDate]="{year: 1900, month:1, day: 1}" [maxDate]="{year: 2038, month:1, day: 19}"
+			required
           >
           <div class="input-group-append">
             <button class="btn btn-light" (click)="d.toggle()" type="button"><i
