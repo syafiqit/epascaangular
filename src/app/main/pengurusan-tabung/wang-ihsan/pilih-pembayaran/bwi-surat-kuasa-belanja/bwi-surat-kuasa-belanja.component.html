@@ -25,7 +25,7 @@
 				>
 					<ng-template pTemplate="header">
 						<tr>
-							<th style="width: 130px" pSortableColumn="no_rujukan_skb">
+							<th style="width: 160px" pSortableColumn="no_rujukan_skb">
 								No. Ruj Bayaran
 								<p-sortIcon field="no_rujukan_skb"></p-sortIcon>
 							</th>
@@ -33,9 +33,13 @@
 								Perihal
 								<p-sortIcon field="perihal"></p-sortIcon>
 							</th>
-              <th style="width: 130px" pSortableColumn="no_rujukan_kelulusan">
+              <th style="width: 170px" pSortableColumn="no_rujukan_kelulusan">
 								No. Ruj Kelulusan
 								<p-sortIcon field="no_rujukan_kelulusan"></p-sortIcon>
+							</th>
+              <th style="width: 150px" pSortableColumn="nama_bencana">
+								Nama Bencana
+								<p-sortIcon field="nama_bencana"></p-sortIcon>
 							</th>
 							<th style="width: 130px" pSortableColumn="jumlah_siling_peruntukan">
 								Jumlah
@@ -46,7 +50,7 @@
 					</ng-template>
 					<ng-template pTemplate="body" let-record="$implicit">
 						<tr>
-							<td style="width: 130px">
+							<td style="width: 160px">
 								<span class="p-column-title">No. Ruj Bayaran</span>
 								{{record.no_rujukan_skb}}
 							</td>
@@ -55,9 +59,13 @@
                 <label *ngIf="record.perihal">{{record.perihal}}</label>
 								<label *ngIf="!record.perihal">-</label>
 							</td>
-              <td style="width: 130px">
+              <td style="width: 170px">
 								<span class="p-column-title">No. Ruj Kelulusan</span>
 								{{record.no_rujukan_kelulusan}}
+							</td>
+              <td style="width: 150px">
+								<span class="p-column-title">Nama Bencana</span>
+								{{record.nama_bencana}}
 							</td>
 							<td style="width: 130px">
 								<span class="p-column-title">Jumlah</span>

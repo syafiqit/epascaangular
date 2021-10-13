@@ -31,7 +31,6 @@ export class BwiSuratKuasaBelanjaComponent implements OnInit {
 	constructor(
     config: NgbModalConfig,
     public activeModal: NgbActiveModal,
-    private _tabungBayaranTerusServiceProxy: TabungBayaranTerusServiceProxy,
     private _tabungBayaranSkbServiceProxy: TabungBayaranSkbServiceProxy
   ) {
 		config.backdrop = 'static';

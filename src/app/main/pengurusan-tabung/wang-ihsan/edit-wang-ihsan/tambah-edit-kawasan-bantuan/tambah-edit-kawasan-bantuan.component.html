@@ -63,6 +63,8 @@
             #jumlahBeri="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && jumlahBeri.invalid }"
             required
+            currencyMask
+            [options]="{ prefix: 'RM ', align: 'left' }"
           />
           <div *ngIf="f.submitted && jumlahBeri.invalid" class="invalid-feedback">
             <div *ngIf="jumlahBeri.errors.required">Jumlah Diberikan Wajib Diisi</div>
