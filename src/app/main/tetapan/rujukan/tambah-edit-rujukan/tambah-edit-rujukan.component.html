@@ -5,33 +5,87 @@
 		<span aria-hidden="true">&times;</span>
 	</button>
 </div>
-<form class="form theme-form" name="form" [formGroup]="formGroup" (ngSubmit)="nama_rujukan.valid && save()">
+<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()">
   <div class="modal-body">
     <div class="row">
       <div class="col-lg-6">
         <div class="form-group">
-          <label>Nama Rujukan</label>
+          <label>Nama Rujukan*</label>
+					<input
+						class="form-control"
+						type="text"
+						placeholder="Nama Rujukan"
+						[(ngModel)]="rujukan.nama_rujukan"
+						#nama_rujukan="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && nama_rujukan.invalid }"
+						name="dana.nama_sumber_dana"
+						required
+					/>
+					<div *ngIf="f.submitted && nama_rujukan.invalid" class="invalid-feedback">
+						<div *ngIf="nama_rujukan.errors.required">Nama Rujukan Wajib Diisi</div>
+					</div>
+        </div>
+      </div>
+
+      <div class="col-lg-6" *ngIf="name === 'add'">
+        <div class="form-group">
+          <label>Dokumen Rujukan*</label>
           <input
+            (change)="onSelect($event)"
             class="form-control"
-            [(ngModel)]="rujukan.nama_rujukan"
-            [ngModelOptions]="{standalone: true}"
-            #nama_rujukan="ngModel"
-            [ngClass]="{ 'is-invalid': nama_rujukan.invalid && (nama_rujukan.dirty || nama_rujukan.touched) }"
-            name="nama_rujukan"
-            required
+            type="file"
           />
-          <div *ngIf="nama_rujukan.invalid && (nama_rujukan.dirty || nama_rujukan.touched)" class="invalid-feedback">
-            <div *ngIf="nama_rujukan.errors.required">Peranan Wajib Diisi</div>
+        </div>
+      </div>
+
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label>Status</label>
+					<select
+						class="form-control digits"
+						name="status_negeri"
+						[(ngModel)]="rujukan.status_rujukan"
+						#status="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
+						required
+					>
+						<option selected disabled [value]="undefined">Sila Pilih</option>
+						<option [value]="1">Aktif</option>
+						<option [value]="2">Tidak Aktif</option>
+					</select>
+					<div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
+						<div *ngIf="status.errors.required">Status Wajib Dipilih</div>
+					</div>
+				</div>
+			</div>
+
+      <div class="col-lg-6" *ngIf="name === 'edit'">
+        <div class="form-group">
+          <label>Dokumen Rujukan</label>
+          <div class="col-lg-12" *ngIf="!rujukan.nama_dokumen">
+            <div class="card" style="text-align: center; background-color: #f9f9f9;">
+              <div class="card-body p-4">
+                <i class="icofont icofont-warning mr-2"></i>
+                <a>Tiada rekod dijumpai!</a>
+              </div>
+            </div>
+          </div>
+          <div class="file-content" *ngIf="rujukan.nama_dokumen">
+            <div class="file-manager">
+              <ul class="files">
+                <li class="file-box" style="width: 100%;">
+                  <a (click)="getFile(rujukan.lokasi_dokumen)" style="cursor: pointer;">
+                    <div class="file-top">
+                      <img style="width: 50px;" [src]="defaultImageUrl"/>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="col-lg-6">
-        <div class="form-group">
-          <label>Muat Naik Fail</label>
-          <input (change)="onSelect($event)" class="form-control" type="file" />
-        </div>
-      </div>
     </div>
   </div>
   <div class="modal-footer">
