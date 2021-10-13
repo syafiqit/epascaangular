@@ -27,6 +27,8 @@
 				#kataLaluan1="ngModel"
 				[ngClass]="{ 'is-invalid': f.submitted && kataLaluan1.invalid }"
         [pattern]="passwordPattern"
+        minlength="8"
+        maxlength="12"
 				required
 			/>
 			<div class="show-hide-2" (click)="showPassword()" *ngIf="!show">
@@ -38,8 +40,10 @@
 			<div *ngIf="f.submitted && kataLaluan1.invalid" class="invalid-feedback">
 				<div *ngIf="kataLaluan1.errors.required">Kata Laluan Wajib Diisi</div>
         <div *ngIf="kataLaluan1.errors.pattern">Format Kata Laluan Tidak Sesuai</div>
+        <div *ngIf="kataLaluan1.errors.minlength">Kata Laluan Mestilah Melebihi 8 Aksara</div>
 			</div>
 		</div>
+
 		<div class="form-group">
 			<label>Ulang Kata Laluan*</label>
 			<input
@@ -50,6 +54,7 @@
 				[(ngModel)]="resetPassword.ulang_kata_laluan"
 				#kataLaluan2="ngModel"
 				[ngClass]="{ 'is-invalid': f.submitted && kataLaluan2.invalid }"
+        maxlength="12"
 				required
 			/>
 			<div class="show-hide-2" (click)="showNewPassword()" *ngIf="!showNew">

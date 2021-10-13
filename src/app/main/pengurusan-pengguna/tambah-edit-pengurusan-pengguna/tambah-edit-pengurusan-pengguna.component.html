@@ -533,6 +533,8 @@
                     #kataLaluanBaru="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && kataLaluanBaru.invalid }"
                     [pattern]="passwordPattern"
+                    minlength="8"
+                    maxlength="12"
                   />
                   <div class="show-hide-3" (click)="showNewPassword()" *ngIf="!showNew">
                     <div style="color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-outline fa-lg"></i></div>
@@ -542,6 +544,7 @@
                   </div>
                   <div *ngIf="f.submitted && kataLaluanBaru.invalid" class="invalid-feedback">
                     <div *ngIf="kataLaluanBaru.errors.pattern">Format Kata Laluan Tidak Sesuai</div>
+                    <div *ngIf="kataLaluanBaru.errors.minlength">Kata Laluan Mestilah Melebihi 8 Aksara</div>
                   </div>
                 </div>
               </div>
@@ -555,6 +558,7 @@
                     [type]="showRepeatNew ? 'text' : 'password'"
                     name="ulang_kata_laluan"
                     [(ngModel)]="repeat_new_password"
+                    maxlength="12"
                   />
                   <div class="show-hide-3" (click)="showRepeatNewPassword()" *ngIf="!showRepeatNew">
                     <div style="color: var(--theme-deafult); cursor: pointer;"><i class="mdi mdi-eye-outline fa-lg"></i></div>

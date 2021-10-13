@@ -258,6 +258,13 @@
 												>
 													Lihat
 												</button>
+                        <button
+                          class="dropdown-item"
+                          (click)="deleteUser(record.id)"
+                          *ngIf="_appSession.isGranted('Halaman.Pengguna.Hapus')"
+                        >
+                          Padam
+                        </button>
 											</div>
 										</div>
 									</td>

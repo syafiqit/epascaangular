@@ -5,6 +5,7 @@ import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import {
+  OutputChangeEmelPasswordDto,
   RefAgensiServiceProxy,
   RefPerananServiceProxy,
   UserServiceProxy
@@ -12,6 +13,7 @@ import {
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { AppSessionService } from '@app/shared/services/app-session.service';
+import { ConfirmationService } from '@app/shared/services/confirmation';
 
 @Component({
 	selector: 'app-pengurusan-pengguna',
@@ -25,6 +27,8 @@ export class PengurusanPenggunaComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 	public isCollapsed = false;
+  output: OutputChangeEmelPasswordDto = new OutputChangeEmelPasswordDto()
+
   filter: string;
   filterAgensi: number;
   filterPeranan: number;
@@ -52,6 +56,7 @@ export class PengurusanPenggunaComponent implements OnInit {
     private _userServiceProxy: UserServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
     private _refPerananServiceProxy: RefPerananServiceProxy,
+    private _confirmationService: ConfirmationService,
     public _appSession: AppSessionService
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
@@ -151,5 +156,90 @@ export class PengurusanPenggunaComponent implements OnInit {
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
 	}
+
+  deleteUser(id){
+    const dialogRef = this._confirmationService.open({
+      title: 'Anda Pasti?',
+      message: 'Adakah anda pasti ingin memadam maklumat pengguna ini?',
+      icon: {
+        show: true,
+        name: 'help-circle',
+        color: 'warning'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Ya',
+          color: 'primary'
+        },
+        cancel: {
+          show: true,
+          label: 'Tidak'
+        }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe((e) => {
+      if(e === 'confirmed') {
+				this._userServiceProxy.delete(id).subscribe((result)=>{
+          this.output = result;
+          if(this.output.message == "Pengguna Berjaya Dibuang"){
+            this.deleteSuccess();
+          } else{
+            this.deleteUnsuccess();
+          }
+        })
+      }
+    });
+  }
+
+  deleteSuccess() {
+    const dialogRef = this._confirmationService.open({
+      title: 'Berjaya',
+      message: 'Maklumat Pengguna Dipilih Berjaya Dipadam!',
+      icon: {
+        show: true,
+        name: 'check-circle',
+        color: 'success'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.getUser();
+    });
+  }
+
+  deleteUnsuccess() {
+    this._confirmationService.open({
+      title: 'Tidak Berjaya',
+      message: this.output.message,
+      icon: {
+        show: true,
+        name: 'x-circle',
+        color: 'error'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+  }
 
 }

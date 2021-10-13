@@ -149,8 +149,14 @@
                                 [disabled]="tarikhMula == undefined"
                               >
                               <div class="input-group-append">
-                                <button class="btn btn-light pr-2 pl-2" (click)="c.toggle()" type="button" [disabled]="tarikhMula == undefined"><i
-                                  class="fa fa-calendar"></i></button>
+                                <button
+                                  class="btn btn-light pr-2 pl-2"
+                                  (click)="c.toggle()"
+                                  type="button"
+                                  [disabled]="tarikhMula == undefined"
+                                >
+                                  <i class="fa fa-calendar"></i>
+                                </button>
                               </div>
                             </div>
                           </div>
@@ -239,7 +245,9 @@
 											Varifikasi
 											<p-sortIcon field="status_verifikasi"></p-sortIcon>
 										</th>
-										<th *ngIf="_appSession.isGranted('Halaman.Mangsa.Edit') || _appSession.isGranted('Halaman.Mangsa.Hapus')" style="width: 130px">Tindakan</th>
+										<th
+                      *ngIf="_appSession.isGranted('Halaman.Mangsa.Edit') || _appSession.isGranted('Halaman.Mangsa.Hapus')"
+                      style="width: 130px">Tindakan</th>
 									</tr>
 								</ng-template>
 								<ng-template pTemplate="body" let-record="$implicit">
@@ -249,7 +257,7 @@
                         name="{{ record.id }}" type="checkbox"
                         id="{{record.id}}"
                         (change)="pilihMangsa(record.id, $event.target.checked)"
-						[checked]="checked"
+                        [checked]="checked"
                         [checked]="checkMangsaExist(record.id)"
                       >
 										</td>
@@ -309,6 +317,7 @@
 													</button>
                           <button
 														class="dropdown-item"
+                            (click)="deleteMangsa(record.id)"
                             *ngIf="_appSession.isGranted('Halaman.Mangsa.Hapus')"
 													>
 														Padam

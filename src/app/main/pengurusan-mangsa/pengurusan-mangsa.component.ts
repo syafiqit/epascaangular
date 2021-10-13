@@ -6,6 +6,7 @@ import { LazyLoadEvent } from 'primeng/api';
 import {
   MangsaServiceProxy,
   MangsaVerifikasiDto,
+  OutputCreateEditMangsaDto,
   RefAgensiServiceProxy,
   RefNegeriServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
@@ -47,7 +48,9 @@ export class PengurusanMangsaComponent implements OnInit {
 	public isCollapsed = false;
   states: any;
   agencies: any;
+
   mangsa: MangsaVerifikasiDto = new MangsaVerifikasiDto();
+  output: OutputCreateEditMangsaDto = new OutputCreateEditMangsaDto();
 
 	constructor(
 		config: NgbModalConfig,
@@ -325,7 +328,7 @@ export class PengurusanMangsaComponent implements OnInit {
 		});
 		}
 	  }
-	
+
 	confirmMessage(){
 		const dialogRef = this._confirmationService.open({
 			title: 'Berjaya',
@@ -351,6 +354,89 @@ export class PengurusanMangsaComponent implements OnInit {
 				this.getVictim();
 			});
 	}
-		
-		
+
+  deleteMangsa(id){
+    const dialogRef = this._confirmationService.open({
+      title: 'Anda Pasti?',
+      message: 'Adakah anda pasti ingin memadam maklumat mangsa ini?',
+      icon: {
+        show: true,
+        name: 'help-circle',
+        color: 'warning'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Ya',
+          color: 'primary'
+        },
+        cancel: {
+          show: true,
+          label: 'Tidak'
+        }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe((e) => {
+      if(e === 'confirmed') {
+				this._mangsaServiceProxy.delete(id).subscribe((result)=>{
+          this.output = result;
+          if(this.output.message == "Maklumat Mangsa Berjaya Dibuang"){
+            this.deleteSuccess();
+          } else{
+            this.deleteUnsuccess();
+          }
+        })
+      }
+    });
+  }
+
+  deleteSuccess() {
+    const dialogRef = this._confirmationService.open({
+      title: 'Berjaya',
+      message: 'Maklumat Mangsa Dipilih Berjaya Dipadam!',
+      icon: {
+        show: true,
+        name: 'check-circle',
+        color: 'success'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.getVictim();
+    });
+  }
+
+  deleteUnsuccess() {
+    this._confirmationService.open({
+      title: 'Tidak Berjaya',
+      message: this.output.message,
+      icon: {
+        show: true,
+        name: 'x-circle',
+        color: 'error'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+  }
 }
