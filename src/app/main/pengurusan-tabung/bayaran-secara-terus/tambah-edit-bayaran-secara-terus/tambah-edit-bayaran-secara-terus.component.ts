@@ -17,11 +17,13 @@ import { PilihRujukanKelulusanComponent } from '../pilih-rujukan-kelulusan/pilih
 import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from '@services/confirmation';
+import { fadeVerticalAnimation } from '@app/shared/data/router-animation/fade-vertical-animation';
 @Component({
 	selector: 'app-tambah-edit-bayaran-secara-terus',
 	templateUrl: './tambah-edit-bayaran-secara-terus.component.html',
 	encapsulation: ViewEncapsulation.None,
-	providers: [NgbModalConfig, NgbModal]
+	providers: [NgbModalConfig, NgbModal],
+  animations: [fadeVerticalAnimation]
 })
 export class TambahEditBayaranSecaraTerusComponent implements OnInit {
 
