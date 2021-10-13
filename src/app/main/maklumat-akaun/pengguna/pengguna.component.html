@@ -58,10 +58,11 @@
 											placeholder="No. Kad Pengenalan"
 											[(ngModel)]="getProfile.pengguna.no_kp"
                       #noKp="ngModel"
-                      [class.is-invalid]="(noKp.touched || noKp.dirty) && noKp.errors?.stateCodeInvalid && noKp.errors?.valueInvalid"
+                      [class.is-invalid]="((noKp.touched || noKp.dirty) && noKp.errors?.stateCodeInvalid && noKp.errors?.valueInvalid) || f.submitted && noKp.invalid"
                       maxlength="12"
                       onlyNumbers
                       kpValidator
+                      required
 										/>
                     <div *ngIf="f.submitted && noKp.invalid" class="invalid-feedback">
                       <div *ngIf="noKp.errors.required">No. Kad Pengenalan Wajib Diisi</div>
@@ -83,7 +84,6 @@
 										<input
 											class="form-control"
 											name="emel"
-											type="text"
 											placeholder="Emel"
 											[(ngModel)]="getProfile.pengguna.emel"
                       disabled
