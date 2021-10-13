@@ -87,6 +87,10 @@ export class KadarBwiComponent {
 		this.paginator.changePage(this.paginator.getPage());
 	}
 
+	applyFilter(filterValue: string){
+		this.terms$.next(filterValue);
+	  }
+
 	addKadarBwiModal() {
 		const modalRef = this.modalService.open(TambahEditKadarBwiComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
