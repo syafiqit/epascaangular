@@ -99,38 +99,38 @@ export class MukaHalamanComponent implements OnInit, AfterViewInit {
 
 			am4core.addLicense('CH265473272');
 			am4core.addLicense('MP265473272');
-		  
+
 			// Default map
 			const defaultMap = 'usaAlbersLow';
-	
+
 			// calculate which map to be used
 			let currentMap = defaultMap;
 			let title = '';
 			if (am4geodata_data_countries2['MY'] !== undefined) {
 				currentMap = am4geodata_data_countries2['MY']['maps'][0];
-	
+
 				// add country title
 				if (am4geodata_data_countries2['MY']['country']) {
 					title = am4geodata_data_countries2['MY']['country'];
 				}
 			}
-	
+
 			// Create map instance
 			const chart = am4core.create('chartdiv', am4maps.MapChart);
-	
+
 			chart.titles.create().text = title;
-	
+
 			// Set map definition
 			chart.geodataSource.url = 'https://www.amcharts.com/lib/4/geodata/json/' + currentMap + '.json';
-	
+
 			// Set projection
 			chart.projection = new am4maps.projections.Mercator();
-	
+
 			// Create map polygon series
 			const polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
 			chart.geodataSource.data = this.mapData;
 			polygonSeries.data = chart.geodataSource.data;
-	
+
 			//Set min/max fill color for each area
 			polygonSeries.heatRules.push({
 				property: 'fill',
@@ -138,10 +138,10 @@ export class MukaHalamanComponent implements OnInit, AfterViewInit {
 				min: chart.colors.getIndex(1).brighten(1),
 				max: chart.colors.getIndex(1).brighten(-0.3)
 			});
-	
+
 			// Make map load polygon data (state shapes and names) from GeoJSON
 			polygonSeries.useGeodata = true;
-	
+
 			// Set up heat legend
 			const heatLegend = chart.createChild(am4maps.HeatLegend);
 			heatLegend.series = polygonSeries;
@@ -151,7 +151,7 @@ export class MukaHalamanComponent implements OnInit, AfterViewInit {
 			heatLegend.minValue = 0;
 			heatLegend.maxValue = 40000000;
 			heatLegend.valign = 'bottom';
-	
+
 			// Set up custom heat map legend labels using axis ranges
 			const minRange = heatLegend.valueAxis.axisRanges.create();
 			minRange.value = heatLegend.minValue;
@@ -159,24 +159,24 @@ export class MukaHalamanComponent implements OnInit, AfterViewInit {
 			const maxRange = heatLegend.valueAxis.axisRanges.create();
 			maxRange.value = heatLegend.maxValue;
 			maxRange.label.text = 'Tinggi';
-	
+
 			// Blank out internal heat legend value axis labels
 			heatLegend.valueAxis.renderer.labels.template.adapter.add('text', function (labelText) {
 				return '';
 			});
-	
+
 			// Configure series tooltip
 			const polygonTemplate = polygonSeries.mapPolygons.template;
 			polygonTemplate.tooltipText = '{nama_negeri}\n Bilangan Mangsa: {value} \n Bilangan Bencana: {bilBencana}';
 			polygonTemplate.nonScalingStroke = true;
 			polygonTemplate.strokeWidth = 0.5;
-	
+
 			// Create hover state and set alternative fill color
 			const hs = polygonTemplate.states.create('hover');
 			hs.properties.fill = chart.colors.getIndex(1).brighten(-0.5);
 
       polygonSeries.exclude = ["BN"];
-			
+
 		})
 	}
 
@@ -202,7 +202,13 @@ export class MukaHalamanComponent implements OnInit, AfterViewInit {
 
       let label = categoryAxis.renderer.labels.template;
       label.truncate = true;
-      label.maxWidth = 120;
+      label.tooltipText = "{nama_negeri}";
+
+      categoryAxis.events.on("sizechanged", function(ev) {
+        let axis = ev.target;
+        let cellWidth = axis.pixelWidth / (axis.endIndex - axis.startIndex);
+        axis.renderer.labels.template.maxWidth = cellWidth;
+      });
 
 // First value axis
       let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
