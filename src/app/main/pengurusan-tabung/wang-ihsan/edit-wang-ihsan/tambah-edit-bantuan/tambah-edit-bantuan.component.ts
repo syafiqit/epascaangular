@@ -18,9 +18,12 @@ export class TambahEditBantuanComponent implements OnInit {
   @Input() public idBencana: number;
   @Input() public idJenisBwi: number;
   @Input() public jumlahPembayaran: number;
+  @Input() public jumlahBantuan: number;
   @Output() id_daerah = new EventEmitter<number>();
   @Output() id_negeri = new EventEmitter<number>();
   @Output() jumlah_diberi = new EventEmitter<number>();
+  @Output() jumlah_bantuan = new EventEmitter<number>();
+  @Output() jumlah_bantuan_tambah = new EventEmitter<number>();
 
   @ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
@@ -30,10 +33,12 @@ export class TambahEditBantuanComponent implements OnInit {
   states: any;
   districts: any;
   filterNegeri: number;
+  filterDaerah: number;
   filter: string;
   idDaerah: number;
   idNegeri: number;
   jumlahDiberi: number;
+  temporaryNumber: number = 0;
 
   constructor(
     config: NgbModalConfig,
@@ -48,7 +53,10 @@ export class TambahEditBantuanComponent implements OnInit {
 		config.keyboard = false;
    }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.getNegeri();
+    this.getDaerah();
+  }
 
 	getBantuan(event?: LazyLoadEvent) {
 		if (this.primengTableHelper.shouldResetPaging(event)) {
@@ -59,8 +67,10 @@ export class TambahEditBantuanComponent implements OnInit {
 		this.primengTableHelper.showLoadingIndicator();
 		this._refTabungBwiKawasanServiceProxy
 			.getAllKawasanByIdBwi(
-				this.filter,
+				this.filter ?? undefined,
         this.idBwi,
+        this.filterNegeri ?? undefined,
+        this.filterDaerah ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -84,16 +94,28 @@ export class TambahEditBantuanComponent implements OnInit {
         this.jumlahDiberi = response.jumlah_bayaran;
 
 				if (response) {
-          if(response.jumlah_bayaran < this.jumlahPembayaran){
+          this.temporaryNumber = Number(response.jumlah_bayaran);
+          this.jumlahBantuan = Number(this.jumlahBantuan) + this.temporaryNumber;
+
+          if(this.jumlahBantuan <= this.jumlahPembayaran){
             this.primengTableHelper.records.push({
+              id: this.primengTableHelper.records.length + 1,
               id_negeri: response.id_negeri,
               id_daerah: response.id_daerah,
               nama_daerah: response.nama_daerah,
               nama_negeri: response.nama_negeri,
-              jumlah_bwi: response.jumlah_bayaran
+              jumlah_bwi: response.jumlah_bayaran,
+              tambahBantuanTemp: 1
             });
+            this.primengTableHelper.totalRecordsCount = this.primengTableHelper.records.length;
+            this.getJumlahBantuanTambah(this.jumlahBantuan);
+            this.getIdDaerah(this.idDaerah);
+            this.getIdNegeri(this.idNegeri);
+            this.getJumlahDiberi(this.jumlahDiberi);
           }else{
-            const dialogRef = this._confirmationService.open({
+            this.jumlahBantuan = this.jumlahBantuan - response.jumlah_bayaran;
+
+            this._confirmationService.open({
               title: 'Tidak Berjaya',
               message: 'Jumlah Bantuan Melebihi Jumlah Pembayaran.',
               icon: {
@@ -114,14 +136,100 @@ export class TambahEditBantuanComponent implements OnInit {
               dismissible: true
             });
           }
-
-          this.getIdDaerah(this.idDaerah);
-          this.getIdNegeri(this.idNegeri);
-          this.getJumlahDiberi(this.jumlahDiberi);
 				}
 			},
 			() => {}
 		);
+  }
+
+  padamBantuan(id?, jumlah?, tambahBantuanTemp?) {
+
+    if(tambahBantuanTemp){
+      this.jumlahBantuan = this.jumlahBantuan - Number(jumlah);
+      this.primengTableHelper.records.splice(this.primengTableHelper.records.findIndex(e=> e.id == id), 1);
+      this.primengTableHelper.totalRecordsCount = this.primengTableHelper.records.length;
+      this.getJumlahBantuan(this.jumlahBantuan);
+    }else{
+      const dialogRef = this._confirmationService.open({
+        title: 'Anda Pasti?',
+        message: 'Adakah anda pasti ingin memadam Bantuan Kawasan ini?',
+        icon: {
+          show: true,
+          name: 'help-circle',
+          color: 'warning'
+        },
+        actions: {
+          confirm: {
+            show: true,
+            label: 'Ya',
+            color: 'primary'
+          },
+          cancel: {
+            show: true,
+            label: 'Tidak'
+          }
+        },
+        dismissible: true
+      });dialogRef.afterClosed().subscribe((e) => {
+        if(e === 'confirmed') {
+
+          this.primengTableHelper.records.splice(this.primengTableHelper.records.findIndex(e=> e.id == id), 1);
+
+          this._refTabungBwiKawasanServiceProxy.delete(id).subscribe((result)=>{
+            if(result.message == "Bantuan Kawasan Wang Ihsan Berjaya Dibuang"){
+              this.jumlahBantuan = this.jumlahBantuan - Number(jumlah);
+              const dialogRef = this._confirmationService.open({
+                title: 'Berjaya',
+                message: result.message,
+                icon: {
+                  show: true,
+                  name: 'check-circle',
+                  color: 'success'
+                },
+                actions: {
+                  confirm: {
+                    show: true,
+                    label: 'Tutup',
+                    color: 'primary'
+                  },
+                  cancel: {
+                    show: false
+                  }
+                },
+                dismissible: true
+              });
+              dialogRef.afterClosed().subscribe(() => {
+                this.getJumlahBantuan(this.jumlahBantuan);
+                this.getBantuan();
+              });
+            }else{
+              this._confirmationService.open({
+                title: 'Tidak Berjaya',
+                message: result.message,
+                icon: {
+                  show: true,
+                  name: 'x-circle',
+                  color: 'error'
+                },
+                actions: {
+                  confirm: {
+                    show: true,
+                    label: 'Tutup',
+                    color: 'primary'
+                  },
+                  cancel: {
+                    show: false
+                  }
+                },
+                dismissible: true
+              });
+            }
+          })
+        }
+      });
+    }
+
+
   }
 
   getIdDaerah(idDaerah: number) {
@@ -132,6 +240,14 @@ export class TambahEditBantuanComponent implements OnInit {
   }
   getJumlahDiberi(jumlahDiberi: number) {
     this.jumlah_diberi.emit(jumlahDiberi);
+  }
+
+  getJumlahBantuan(jumlahBantuan: number) {
+    this.jumlah_bantuan.emit(jumlahBantuan);
+  }
+
+  getJumlahBantuanTambah(jumlahBantuan: number) {
+    this.jumlah_bantuan_tambah.emit(jumlahBantuan);
   }
 
   getDaerah(filter?) {
@@ -146,78 +262,13 @@ export class TambahEditBantuanComponent implements OnInit {
 		});
 	}
 
-  padamBantuan(id?) {
-    const dialogRef = this._confirmationService.open({
-      title: 'Anda Pasti?',
-      message: 'Adakah anda pasti ingin memadam Bantuan Kawasan ini?',
-      icon: {
-        show: true,
-        name: 'help-circle',
-        color: 'warning'
-      },
-      actions: {
-        confirm: {
-          show: true,
-          label: 'Ya',
-          color: 'primary'
-        },
-        cancel: {
-          show: true,
-          label: 'Tidak'
-        }
-      },
-      dismissible: true
-    });dialogRef.afterClosed().subscribe((e) => {
-      if(e === 'confirmed') {
-				this._refTabungBwiKawasanServiceProxy.delete(id).subscribe((result)=>{
-          if(result.message == "Bantuan Kawasan Wang Ihsan Berjaya Dibuang"){
-            const dialogRef = this._confirmationService.open({
-              title: 'Berjaya',
-              message: result.message,
-              icon: {
-                show: true,
-                name: 'check-circle',
-                color: 'success'
-              },
-              actions: {
-                confirm: {
-                  show: true,
-                  label: 'Tutup',
-                  color: 'primary'
-                },
-                cancel: {
-                  show: false
-                }
-              },
-              dismissible: true
-            });
-            dialogRef.afterClosed().subscribe(() => {
-              this.getBantuan();
-            });
-          }else{
-            this._confirmationService.open({
-              title: 'Tidak Berjaya',
-              message: result.message,
-              icon: {
-                show: true,
-                name: 'x-circle',
-                color: 'error'
-              },
-              actions: {
-                confirm: {
-                  show: true,
-                  label: 'Tutup',
-                  color: 'primary'
-                },
-                cancel: {
-                  show: false
-                }
-              },
-              dismissible: true
-            });
-          }
-        })
-      }
-    });
+  resetFilter() {
+    this.filter = undefined;
+    this.filterNegeri = undefined;
+    this.filterDaerah = undefined;
+
+    this.getBantuan();
   }
+
+
 }

@@ -164,7 +164,7 @@
                           <div ngbDropdownMenu aria-labelledby="action">
                             <button
                               class="dropdown-item"
-                              (click)="padamPembayaran(record.id)"
+                              (click)="padamPembayaran(record.id, record.jumlah, record.no_rujukan_bayaran)"
                             >
                               Padam
                             </button>
@@ -269,7 +269,7 @@
                           <div ngbDropdownMenu aria-labelledby="action">
                             <button
                               class="dropdown-item"
-                              (click)="padamBantuan(record.id)"
+                              (click)="padamBantuan(record.id, record.jumlah_bayaran)"
                             >
                               Padam
                             </button>
@@ -302,7 +302,7 @@
                     type="text"
                     name="jumlah_bayaran"
                     placeholder="Jumlah Pembayaran"
-                    value="{{totalBayaran | number: '1.2-2'}}"
+                    value="{{checkingBayaran | number: '1.2-2'}}"
                     disabled
                   />
 								</div>
@@ -316,7 +316,7 @@
                     type="text"
                     name="jumlah_bantuan"
                     placeholder="Jumlah Bantuan"
-                    value="{{totalBantuan | number: '1.2-2'}}"
+                    value="{{checkingBantuan | number: '1.2-2'}}"
                     disabled
                   />
 								</div>

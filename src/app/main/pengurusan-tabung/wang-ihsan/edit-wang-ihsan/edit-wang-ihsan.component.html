@@ -8,7 +8,7 @@
 		<div class="col-sm-12">
 			<div class="card">
 				<div class="card-body">
-          <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="save()" novalidate>
+          <form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="save()" novalidate focusInvalidInput>
 
             <div class="row">
               <div class="col-lg-6">
@@ -67,7 +67,7 @@
 
             <h6>Maklumat Bantuan</h6>
             <app-tambah-edit-bantuan
-              [idBwi]="idBwi" [idBencana]="id_bencana" [idJenisBwi]="idJenisBwi" [jumlahPembayaran]="jumlah_keseluruhan_bayaran" (id_daerah)="getIdDaerah($event)" (id_negeri)="getIdNegeri($event)" (jumlah_diberi)="getJumlahDiberi($event)" >
+              [idBwi]="idBwi" [idBencana]="id_bencana" [idJenisBwi]="idJenisBwi" [jumlahBantuan]="jumlah_bantuan" [jumlahPembayaran]="jumlah_keseluruhan_bayaran" (id_daerah)="getIdDaerah($event)" (id_negeri)="getIdNegeri($event)" (jumlah_diberi)="getJumlahDiberi($event)" (jumlah_bantuan)="getJumlahBantuan($event)" (jumlah_bantuan_tambah)="getJumlahBantuanTambah($event)">
             </app-tambah-edit-bantuan>
 
             <div class="row">
@@ -91,7 +91,7 @@
                     class="form-control"
                     name="jumlah_bantuan"
                     placeholder="Jumlah Bantuan"
-                    value="{{edit.jumlah_keseluruhan | number: '1.2-2'}}"
+                    value="{{jumlah_bantuan | number: '1.2-2'}}"
                     disabled
                   />
                 </div>

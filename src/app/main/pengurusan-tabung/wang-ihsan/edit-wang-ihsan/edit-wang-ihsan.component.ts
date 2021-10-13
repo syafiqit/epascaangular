@@ -128,7 +128,7 @@ export class EditWangIhsanComponent implements OnInit {
     this._tabungBwiServiceProxy.getTabungBwiForEdit(this.idBwi).subscribe((result)=>{
       this.edit = result;
       this.edit.tabung_bwi = result.tabung_bwi;
-      this.tarikh_bencana = this.edit.tabung_bwi.tarikh_bencana.format('YYYY-MM-DD');
+      this.tarikh_bencana = this.edit.tabung_bwi.tarikh_bencana.format('DD-MM-YYYY');
       this.idJenisBwi = this.edit.tabung_bwi.id_jenis_bwi;
       this.jumlah_bantuan = this.edit.jumlah_keseluruhan;
     })
@@ -172,6 +172,16 @@ export class EditWangIhsanComponent implements OnInit {
 
   getJumlahBayaran(jumlah_bayaran: number) {
     this.jumlah_keseluruhan_bayaran = jumlah_bayaran;
+  }
+
+  getJumlahBantuan(jumlah_bantuan: number) {
+    this.jumlah_bantuan = jumlah_bantuan;
+
+    this.getTabungBwi();
+  }
+
+  getJumlahBantuanTambah(jumlah_bantuan: number) {
+    this.jumlah_bantuan = jumlah_bantuan;
   }
 
   getIdDaerah(id_daerah: number) {

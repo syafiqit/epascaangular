@@ -68,7 +68,8 @@
 							</td>
 							<td style="width: 150px">
 								<span class="p-column-title">Catatan</span>
-								{{record.bencana.catatan}}
+                <label *ngIf="record.bencana.catatan">{{record.bencana.catatan}}</label>
+								<label *ngIf="!record.bencana.catatan">-</label>
 							</td>
               <td style="width: 100px">
 								<button

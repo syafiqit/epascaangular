@@ -53,7 +53,9 @@
                     bindValue="id"
                     placeholder="Sila Pilih"
                     class="js-example-placeholder-multiple"
-                    name="negeri"
+                    name="namaNegeri"
+                    [(ngModel)]="filterNegeri"
+                    (ngModelChange)="getDaerah()"
                   ></ng-select>
                 </div>
               </div>
@@ -67,7 +69,8 @@
                     bindValue="id"
                     placeholder="Sila Pilih"
                     class="js-example-placeholder-multiple"
-                    name="daerah"
+                    name="namaDaerah"
+                    [(ngModel)]="filterDaerah"
                   ></ng-select>
                 </div>
               </div>
@@ -77,6 +80,7 @@
               <button
                 class="btn btn-light mr-2"
                 type="reset"
+                (click)="resetFilter()"
               >
               <i class="fa fa-refresh mr-2"></i>
                 <b>Reset</b>
@@ -85,6 +89,7 @@
               <button
                 class="btn btn-primary pull-right"
                 type="button"
+                (click)="getBantuan()"
               >
               <i class="fa fa-search mr-2"></i>
                 <b>Cari</b>
@@ -203,7 +208,7 @@
                 </a>
                 <button
                   class="dropdown-item"
-                  (click)="padamBantuan(record.id)"
+                  (click)="padamBantuan(record.id, record.jumlah_bwi, record.tambahBantuanTemp)"
                 >
                   Padam
                 </button>
