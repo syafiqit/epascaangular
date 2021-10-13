@@ -5,52 +5,130 @@
 		<span aria-hidden="true">&times;</span>
 	</button>
 </div>
-<div class="modal-body">
-	<form class="form theme-form">
-		<div class="row custom-datepicker custom-datepicker-dropdown">
-			<div class="col-lg-6">
+
+<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()">
+  <div class="modal-body">
+		<div class="row">
+			<div class="col-lg-12">
 				<div class="form-group">
-					<label>Nama Pengumum</label>
-					<input class="form-control" type="text" placeholder="Nama Pengumum" />
+					<label>Nama Pengumuman*</label>
+					<input
+						class="form-control"
+						type="text"
+						placeholder="Nama Pengumuman"
+						name="nama_pengumuman"
+						[(ngModel)]="pengumuman.nama_pengumuman"
+						#announcement="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && announcement.invalid }"
+						required
+					/>
+					<div *ngIf="f.submitted && announcement.invalid" class="invalid-feedback">
+						<div *ngIf="announcement.errors.required">Nama Pengumuman Wajib Diisi</div>
+					</div>
 				</div>
 			</div>
+    </div>
 
+    <div class="row">
+      <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
+        <label>Tarikh Mula</label>
+        <div class="input-group">
+          <input
+            class="form-control"
+            placeholder="DD/MM/YYYY"
+            name="dp"
+            [(ngModel)]="modelMula"
+            ngbDatepicker
+            [footerTemplate]="footerTemplate"
+            #d="ngbDatepicker"
+            style="border: 1px solid #efefef !important;"
+          >
+          <div class="input-group-append">
+            <button class="btn btn-light" (click)="d.toggle()" type="button"><i
+              class="fa fa-calendar"></i></button>
+          </div>
+        </div>
+      </div>
+      <ng-template #footerTemplate>
+        <hr class="my-0">
+        <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelMula = today; d.close()">Hari Ini</button>
+        <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Tutup</button>
+      </ng-template>
+
+      <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
+        <label>Tarikh Tamat</label>
+        <div class="input-group">
+          <input
+            class="form-control"
+            placeholder="DD/MM/YYYY"
+            name="dp2"
+            [(ngModel)]="modelTamat"
+            ngbDatepicker
+            [footerTemplate]="footerTemplate"
+            #d2="ngbDatepicker"
+            style="border: 1px solid #efefef !important;"
+          >
+          <div class="input-group-append">
+            <button class="btn btn-light" (click)="d2.toggle()" type="button"><i
+              class="fa fa-calendar"></i></button>
+          </div>
+        </div>
+      </div>
+      <ng-template #footerTemplate>
+        <hr class="my-0">
+        <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelTamat = today; d2.close()">Hari Ini</button>
+        <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d2.close()">Tutup</button>
+      </ng-template>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="form-group">
+          <label>Catatan</label>
+          <textarea
+            class="form-control"
+            placeholder="Catatan..."
+            name="catatan"
+            [(ngModel)]="pengumuman.catatan"
+            rows="3"
+						#notes="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && notes.invalid }"
+						required
+          >
+          </textarea>
+					<div *ngIf="f.submitted && notes.invalid" class="invalid-feedback">
+						<div *ngIf="notes.errors.required">Catatan Wajib Diisi</div>
+					</div>
+        </div>
+      </div>
+    </div>
+
+		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label>Tarikh</label>
-					<div class="input-group">
-						<input
-							class="form-control"
-							placeholder="yyyy-mm-dd"
-							name="dp"
-							[displayMonths]="displayMonths"
-							[navigation]="navigation"
-							[outsideDays]="outsideDays"
-							[showWeekNumbers]="showWeekNumbers"
-							ngbDatepicker
-							#k="ngbDatepicker"
-						/>
-						<div class="input-group-append">
-							<button class="btn calendar" (click)="k.toggle()" type="button">
-								<i class="fa fa-calendar"></i>
-							</button>
-						</div>
+					<label>Status*</label>
+					<select
+						class="form-control digits"
+						name="status_pengumuman"
+						[(ngModel)]="pengumuman.status_pengumuman"
+						#status="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
+						required
+					>
+						<option selected disabled [value]="undefined">Sila Pilih</option>
+						<option [value]="1">Aktif</option>
+						<option [value]="2">Tidak Aktif</option>
+					</select>
+					<div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
+						<div *ngIf="status.errors.required">Status Wajib Dipilih</div>
 					</div>
 				</div>
 			</div>
 		</div>
+  </div>
 
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="form-group">
-					<label>Catatan</label>
-					<textarea class="form-control input-air-primary" rows="3"></textarea>
-				</div>
-			</div>
-		</div>
-	</form>
-</div>
-<div class="modal-footer">
-	<button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
-	<button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Simpan</button>
-</div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="activeModal.close('Close click')">Tutup</button>
+    <button type="submit" class="btn btn-primary">Simpan</button>
+  </div>
+</form>

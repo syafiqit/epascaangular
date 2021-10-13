@@ -49,13 +49,13 @@ import { TambahEditKadarComponent } from './kadar/tambah-edit-kadar/tambah-edit-
 import { JenisBwiComponent } from './jenis-bwi/jenis-bwi.component';
 import { TambahEditJenisBwiComponent } from './jenis-bwi/tambah-edit-jenis-bwi/tambah-edit-jenis-bwi.component';
 import { TetapanComponent } from './tetapan.component';
-import { KategoriKelulusanComponent } from './kategori-kelulusan/kategori-kelulusan.component';
-import { TambahEditKategoriKelulusanComponent } from './kategori-kelulusan/tambah-edit-kategori-kelulusan/tambah-edit-kategori-kelulusan.component';
 import { JenisBayaranComponent } from './jenis-bayaran/jenis-bayaran.component';
 import { TambahEditJenisBayaranComponent } from './jenis-bayaran/tambah-edit-jenis-bayaran/tambah-edit-jenis-bayaran.component';
 import { KadarBwiComponent } from './kadar-bwi/kadar-bwi.component';
 import { TambahEditKadarBwiComponent } from './kadar-bwi/tambah-edit-kadar-bwi/tambah-edit-kadar-bwi.component';
 import { NgxCurrencyModule } from "ngx-currency";
+import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateCustomParserFormatter } from '@app/shared/date-parser/NgbDateCustomParserFormatter';
 
 @NgModule({
 	imports: [
@@ -112,12 +112,13 @@ import { NgxCurrencyModule } from "ngx-currency";
 		JenisBwiComponent,
 		TambahEditJenisBwiComponent,
 		TetapanComponent,
-		KategoriKelulusanComponent,
-		TambahEditKategoriKelulusanComponent,
 		JenisBayaranComponent,
 		TambahEditJenisBayaranComponent,
 		KadarBwiComponent,
 		TambahEditKadarBwiComponent
+	],
+	providers: [
+		{provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter}
 	]
 })
 export class TetapanModule {}
