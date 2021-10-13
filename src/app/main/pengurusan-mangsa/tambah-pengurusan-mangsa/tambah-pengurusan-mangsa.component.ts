@@ -44,6 +44,7 @@ export class TambahPengurusanMangsaComponent implements OnInit {
   setDun: any;
   setDaerah: any;
   verify: number;
+  viewStatus = false;
   filterIdNegeri: number;
   nama_bencana: string;
   modelBencana: NgbDateStruct;
@@ -155,6 +156,7 @@ export class TambahPengurusanMangsaComponent implements OnInit {
           this.addMangsa.bencana.id_bencana = response.id;
           this.nama_bencana = response.nama_bencana;
           this.modelBencana = this.fromModel(response.tarikh_bencana.format('YYYY-MM-DD'));
+          this.viewStatus = true;
 				}
 			}
 		);

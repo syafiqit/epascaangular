@@ -443,8 +443,8 @@
 
               <div class="col-lg-6" *ngIf="edit.pengguna.status_pengguna == 3 || edit.pengguna.status_pengguna == 4" [@fadeVerticalAnimation]>
                 <div class="form-group">
-                  <label *ngIf="edit.pengguna.status_pengguna == 3">Sebab Tidak Aktif</label>
-                  <label *ngIf="edit.pengguna.status_pengguna == 4">Sebab Penolakan</label>
+                  <label *ngIf="edit.pengguna.status_pengguna == 3">Sebab Tidak Aktif*</label>
+                  <label *ngIf="edit.pengguna.status_pengguna == 4">Sebab Penolakan*</label>
                   <textarea
                     class="form-control"
                     placeholder=""
@@ -456,7 +456,8 @@
                   >
                   </textarea>
                   <div *ngIf="(f.submitted || catatan.touched) && catatan.invalid" class="invalid-feedback">
-                    <div *ngIf="catatan.errors.required">Catatan Wajib Diisi</div>
+                    <div *ngIf="catatan.errors.required && edit.pengguna.status_pengguna == 3">Sebab Tidak Aktif Wajib Diisi</div>
+                    <div *ngIf="catatan.errors.required && edit.pengguna.status_pengguna == 4">Sebab Penolakan Wajib Diisi</div>
                   </div>
                 </div>
               </div>
