@@ -63,7 +63,7 @@
 					>
 						<option selected disabled [value]="undefined">Sila Pilih</option>
 						<option [value]="1">Aktif</option>
-						<option [value]="0">Tidak Aktif</option>
+						<option [value]="2">Tidak Aktif</option>
 					</select>
 					<div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
 						<div *ngIf="status.errors.required">Status Wajib Dipilih</div>
