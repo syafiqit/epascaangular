@@ -11,12 +11,12 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label>Nama Pelaksana</label>
+					<label>Nama*</label>
 					<input
 						class="form-control"
 						id="pemilik"
 						type="text"
-						placeholder="Nama Pelaksana"
+						placeholder="Nama"
 						[(ngModel)]="pemilik.nama_pemilik"
 						#namaPemilik="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && namaPemilik.invalid }"
@@ -31,7 +31,7 @@
 
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label>Status</label>
+					<label>Status*</label>
 					<select
 						class="form-control digits"
 						name="status_pemilik"

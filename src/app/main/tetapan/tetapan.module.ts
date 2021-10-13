@@ -55,6 +55,7 @@ import { JenisBayaranComponent } from './jenis-bayaran/jenis-bayaran.component';
 import { TambahEditJenisBayaranComponent } from './jenis-bayaran/tambah-edit-jenis-bayaran/tambah-edit-jenis-bayaran.component';
 import { KadarBwiComponent } from './kadar-bwi/kadar-bwi.component';
 import { TambahEditKadarBwiComponent } from './kadar-bwi/tambah-edit-kadar-bwi/tambah-edit-kadar-bwi.component';
+import { NgxCurrencyModule } from "ngx-currency";
 
 @NgModule({
 	imports: [
@@ -64,7 +65,8 @@ import { TambahEditKadarBwiComponent } from './kadar-bwi/tambah-edit-kadar-bwi/t
 		NgxDatatableModule,
 		TableModule,
 		PaginatorModule,
-		NgSelectModule
+		NgSelectModule,
+		NgxCurrencyModule
 	],
 	declarations: [
 		PengumumanComponent,
