@@ -30,7 +30,7 @@
 
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label>No. Kad Pengenalan*</label>
+					<label>No. Kad Pengenalan</label>
           <input
             class="form-control"
             type="text"
@@ -38,15 +38,11 @@
             [(ngModel)]="addAhli.no_kp"
             placeholder="No. Kad Pengenalan"
             #noKp="ngModel"
-            [class.is-invalid]="((noKp.touched || noKp.dirty) && noKp.errors?.stateCodeInvalid && noKp.errors?.valueInvalid) || f.submitted && noKp.invalid"
+            [class.is-invalid]="(noKp.touched || noKp.dirty) && noKp.errors?.stateCodeInvalid && noKp.errors?.valueInvalid"
             maxlength="12"
             onlyNumbers
             kpValidator
-            required
           />
-          <div *ngIf="f.submitted && noKp.invalid" class="invalid-feedback">
-            <div *ngIf="noKp.errors.required">No. Kad Pengenalan Wajib Diisi</div>
-          </div>
           <div class="mt-1" *ngIf="(noKp.touched || noKp.dirty) && noKp.errors?.valueInvalid" style="color: #dc3545; font-size: 80%; size: 80%;">
             No. Kad Pengenalan Kurang Daripada 12
           </div>
@@ -118,7 +114,6 @@
 					<label>Umur</label>
 					<input
 						class="form-control"
-						type="text"
 						name="umurAIR"
 						[(ngModel)]="umur"
 						placeholder="Umur"
