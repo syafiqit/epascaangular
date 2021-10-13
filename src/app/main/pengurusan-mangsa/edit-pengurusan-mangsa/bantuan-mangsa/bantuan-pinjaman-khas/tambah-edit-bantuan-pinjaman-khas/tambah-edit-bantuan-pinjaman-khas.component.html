@@ -11,11 +11,10 @@
 		<div class="row">
 			<div class="col-lg-6">
         <div class="form-group">
-          <label>Bencana</label>
+          <label>Bencana*</label>
           <div class="input-group">
             <input
               class="form-control"
-              type="text"
               placeholder="Bencana"
               name="bencana"
               [(ngModel)]="pinjamanKhas.nama_bencana"
@@ -29,9 +28,9 @@
                 <i class="fa fa-search text-white"></i>
               </button>
             </div>
-          </div>
-          <div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
-            <div *ngIf="namaBencana.errors.required">Bencana Wajib Dipilih</div>
+            <div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
+              <div *ngIf="namaBencana.errors.required">Bencana Wajib Dipilih</div>
+            </div>
           </div>
         </div>
       </div>
@@ -57,34 +56,27 @@
 		<div class="row">
       <div class="col-lg-6">
         <div class="form-group">
-          <label>Agensi Pemberi Bantuan</label>
-          <div>
-            <ng-select
-              [items]="agensi"
-              bindLabel="nama_agensi"
-              bindValue="id"
-              placeholder="Sila Pilih"
-              class="js-example-placeholder-multiple"
-              name="pinjamanKhas.id_agensi_bantuan"
-              [(ngModel)]="pinjamanKhas.id_agensi_bantuan"
-              #namaAgensi="ngModel"
-              [ngClass]="{ 'is-invalid': f.submitted && namaAgensi.invalid }"
-              required
-            ></ng-select>
-            <div
-              *ngIf="f.submitted && namaAgensi.invalid"
-              class="invalid-feedback"
-            >
-              <div *ngIf="namaAgensi.errors.required">
-                Agensi Pemberi Bantuan Wajib Dipilih
-              </div>
-            </div>
+          <label>Agensi Pemberi Bantuan*</label>
+          <ng-select
+            [items]="agensi"
+            bindLabel="nama_agensi"
+            bindValue="id"
+            placeholder="Sila Pilih"
+            class="js-example-placeholder-multiple"
+            name="pinjamanKhas.id_agensi_bantuan"
+            [(ngModel)]="pinjamanKhas.id_agensi_bantuan"
+            #namaAgensi="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && namaAgensi.invalid }"
+            required
+          ></ng-select>
+          <div *ngIf="f.submitted && namaAgensi.invalid" class="invalid-feedback">
+            <div *ngIf="namaAgensi.errors.required">Agensi Pemberi Bantuan Wajib Dipilih</div>
           </div>
         </div>
       </div>
 
       <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
-        <label>Tarikh Mula Pinjaman</label>
+        <label>Tarikh Mula Pinjaman*</label>
         <div class="input-group">
           <input
             class="form-control"
@@ -118,10 +110,9 @@
     <div class="row">
       <div class="col-lg-6">
         <div class="form-group">
-          <label>Tempoh Pinjaman</label>
+          <label>Tempoh Pinjaman*</label>
           <input
             class="form-control"
-            id="tempohPinjaman"
             type="text"
             name="pinjamanKhas.tempoh_pinjaman"
             [(ngModel)]="pinjamanKhas.tempoh_pinjaman"
@@ -138,28 +129,21 @@
 
       <div class="col-lg-6">
         <div class="form-group">
-          <label>Sektor</label>
-          <div>
-            <ng-select
-              [items]="sektor"
-              bindLabel="nama_sektor"
-              bindValue="id"
-              placeholder="Sila Pilih"
-              class="js-example-placeholder-multiple"
-              name="pinjamanKhas.id_sektor"
-              [(ngModel)]="pinjamanKhas.id_sektor"
-              #namaSektor="ngModel"
-              [ngClass]="{ 'is-invalid': f.submitted && namaSektor.invalid }"
-              required
-            ></ng-select>
-            <div
-              *ngIf="f.submitted && namaSektor.invalid"
-              class="invalid-feedback"
-            >
-              <div *ngIf="namaSektor.errors.required">
-                Nama Sektor Wajib Dipilih
-              </div>
-            </div>
+          <label>Sektor*</label>
+          <ng-select
+            [items]="sektor"
+            bindLabel="nama_sektor"
+            bindValue="id"
+            placeholder="Sila Pilih"
+            class="js-example-placeholder-multiple"
+            name="pinjamanKhas.id_sektor"
+            [(ngModel)]="pinjamanKhas.id_sektor"
+            #namaSektor="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && namaSektor.invalid }"
+            required
+          ></ng-select>
+          <div *ngIf="f.submitted && namaSektor.invalid" class="invalid-feedback">
+            <div *ngIf="namaSektor.errors.required">Nama Sektor Wajib Dipilih</div>
           </div>
         </div>
       </div>
@@ -168,10 +152,9 @@
     <div class="row">
       <div class="col-lg-6">
         <div class="form-group">
-          <label>Jumlah Pinjaman (RM)</label>
+          <label>Jumlah Pinjaman (RM)*</label>
           <input
             class="form-control"
-            id="jumlahPinjaman"
             type="text"
             name="pinjamanKhas.jumlah_pinjaman"
             [(ngModel)]="pinjamanKhas.jumlah_pinjaman"
@@ -190,28 +173,21 @@
 
       <div class="col-lg-6" *ngIf="name === 'edit'">
         <div class="form-group">
-          <label>Status</label>
-          <div>
-            <ng-select
-              [items]="status"
-              bindLabel="nama_status"
-              bindValue="id"
-              placeholder="Sila Pilih"
-              class="js-example-placeholder-multiple"
-              name="id_status"
-              [(ngModel)]="pinjamanKhas.status_mangsa_pinjaman"
-              #namaStatus="ngModel"
-              [ngClass]="{ 'is-invalid': f.submitted && namaStatus.invalid }"
-              required
-            ></ng-select>
-            <div
-              *ngIf="f.submitted && namaStatus.invalid"
-              class="invalid-feedback"
-            >
-              <div *ngIf="namaStatus.errors.required">
-                Status Wajib Dipilih
-              </div>
-            </div>
+          <label>Status*</label>
+          <ng-select
+            [items]="status"
+            bindLabel="nama_status"
+            bindValue="id"
+            placeholder="Sila Pilih"
+            class="js-example-placeholder-multiple"
+            name="id_status"
+            [(ngModel)]="pinjamanKhas.status_mangsa_pinjaman"
+            #namaStatus="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && namaStatus.invalid }"
+            required
+          ></ng-select>
+          <div *ngIf="f.submitted && namaStatus.invalid" class="invalid-feedback">
+            <div *ngIf="namaStatus.errors.required">Status Wajib Dipilih</div>
           </div>
         </div>
       </div>
