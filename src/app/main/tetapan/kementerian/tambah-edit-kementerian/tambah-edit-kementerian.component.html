@@ -40,6 +40,8 @@
 						#kodKementerian="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && kodKementerian.invalid }"
 						name="kod_kementerian"
+						(ngModelChange)="kementerian.kod_kementerian = $event.toUpperCase()"
+						onlyAlphabets
 						required
 					/>
 					<div *ngIf="f.submitted && kodKementerian.invalid" class="invalid-feedback">
