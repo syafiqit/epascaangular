@@ -18,26 +18,23 @@ export class JenisBayaranComponent implements OnInit {
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
 	primengTableHelper: PrimengTableHelper;
-	public isCollapsed = false;
   disasters: any;
 
   filter: string;
+  filterStatus: number;
+  public isCollapsed = false;
   terms$ = new Subject<string>();
 
-	rows = [
-		{
-      id:1, nama_jenis_bayaran: 'Bwi', status: 1
-		},
-		{
-      id:2, nama_jenis_bayaran: 'Pengoperasian', status: 1
-		}
-	];
+  status=[
+    {id: 1, nama_status: 'Aktif'},
+    {id: 2, nama_status: 'Tidak Aktif'}
+  ]
 
   constructor(
     config: NgbModalConfig,
 		private modalService: NgbModal,
 		private _refJenisBayaranServiceProxy: RefJenisBayaranServiceProxy
-  ) { 
+  ) {
     this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
@@ -55,7 +52,7 @@ export class JenisBayaranComponent implements OnInit {
   applyFilter(filterValue: string){
     this.terms$.next(filterValue);
   }
-  
+
   getJenisBayaran(event?: LazyLoadEvent) {
 	if (this.primengTableHelper.shouldResetPaging(event)) {
 		this.paginator.changePage(0);
@@ -66,6 +63,7 @@ export class JenisBayaranComponent implements OnInit {
 	this._refJenisBayaranServiceProxy
 		.getAll(
 			this.filter,
+      this.filterStatus ?? undefined,
 			this.primengTableHelper.getSorting(this.dataTable),
 			this.primengTableHelper.getSkipCount(this.paginator, event),
 			this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -82,6 +80,13 @@ export class JenisBayaranComponent implements OnInit {
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
 	}
+
+  resetFilter() {
+    this.filter = undefined;
+    this.filterStatus = undefined;
+
+    this.getJenisBayaran();
+  }
 
 	addJenisBayaranModal() {
 		const modalRef = this.modalService.open(TambahEditJenisBayaranComponent, { size: 'lg' });

@@ -22,28 +22,17 @@ export class KadarBwiComponent {
 	primengTableHelper: PrimengTableHelper;
 
 	filter: string;
+  filterStatus: number;
+  public isCollapsed = false;
   terms$ = new Subject<string>();
 
-	rows = [
-		{
-			jenis_bantuan: 'BWI',
-			jumlah_kadar: '500',
-			status: 'Aktif'
-		},
-    {
-			jenis_bantuan: 'BWI',
-			jumlah_kadar: '200',
-			status: 'Aktif'
-		},
-		{
-			jenis_bantuan: 'Kematian',
-			jumlah_kadar: '5000',
-			status: 'Aktif'
-		}
-	];
+  status=[
+    {id: 1, nama_status: 'Aktif'},
+    {id: 2, nama_status: 'Tidak Aktif'}
+  ]
 
 	constructor(
-		config: NgbModalConfig, 
+		config: NgbModalConfig,
 		private modalService: NgbModal,
 		private _refKadarBwiServiceProxy: RefKadarBwiServiceProxy) {
 		this.primengTableHelper = new PrimengTableHelper();
@@ -70,6 +59,7 @@ export class KadarBwiComponent {
 		this._refKadarBwiServiceProxy
 			.getAll(
 				this.filter,
+        this.filterStatus ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -86,6 +76,13 @@ export class KadarBwiComponent {
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
 	}
+
+  resetFilter() {
+    this.filter = undefined;
+    this.filterStatus = undefined;
+
+    this.getKadarBwi();
+  }
 
 	applyFilter(filterValue: string){
 		this.terms$.next(filterValue);

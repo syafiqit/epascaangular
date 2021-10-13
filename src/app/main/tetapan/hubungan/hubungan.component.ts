@@ -21,8 +21,15 @@ export class HubunganComponent implements OnInit {
 
 	primengTableHelper: PrimengTableHelper;
 
-	filterText: string;
+	filter: string;
+  filterStatus: number;
+  public isCollapsed = false;
   terms$ = new Subject<string>();
+
+  status=[
+    {id: 1, nama_status: 'Aktif'},
+    {id: 2, nama_status: 'Tidak Aktif'}
+  ]
 
 	constructor(
 		config: NgbModalConfig,
@@ -38,7 +45,7 @@ export class HubunganComponent implements OnInit {
     this.terms$.pipe(
       debounceTime(500), distinctUntilChanged()
     ).subscribe((filterValue: string) =>{
-      this.filterText = filterValue;
+      this.filter = filterValue;
       this.getHubungan();
     });
   }
@@ -56,7 +63,8 @@ export class HubunganComponent implements OnInit {
 		this.primengTableHelper.showLoadingIndicator();
 		this._refHubunganServiceProxy
 			.getAll(
-				this.filterText,
+				this.filter,
+        this.filterStatus ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -73,6 +81,13 @@ export class HubunganComponent implements OnInit {
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
 	}
+
+  resetFilter() {
+    this.filter = undefined;
+    this.filterStatus = undefined;
+
+    this.getHubungan();
+  }
 
 	addRelationshipModal() {
 		const modalRef = this.modalService.open(TambahEditHubunganComponent, { size: 'lg' });

@@ -22,7 +22,14 @@ export class PelaksanaComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
 
 	filter: string;
+  filterStatus: number;
+  public isCollapsed = false;
   terms$ = new Subject<string>();
+
+  status=[
+    {id: 1, nama_status: 'Aktif'},
+    {id: 2, nama_status: 'Tidak Aktif'}
+  ]
 
 	constructor(
 		config: NgbModalConfig,
@@ -57,6 +64,7 @@ export class PelaksanaComponent implements OnInit {
 		this._refPelaksanaServiceProxy
 			.getAll(
 				this.filter,
+        this.filterStatus ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -73,6 +81,13 @@ export class PelaksanaComponent implements OnInit {
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
 	}
+
+  resetFilter() {
+    this.filter = undefined;
+    this.filterStatus = undefined;
+
+    this.getPelaksana();
+  }
 
 	addExecutorModal() {
 		const modalRef = this.modalService.open(TambahEditPelaksanaComponent, { size: 'lg' });

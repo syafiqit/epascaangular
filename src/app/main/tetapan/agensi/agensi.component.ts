@@ -22,7 +22,14 @@ export class AgensiComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
 
 	filter: string;
+  filterStatus: number;
+  public isCollapsed = false;
   terms$ = new Subject<string>();
+
+  status=[
+    {id: 1, nama_status: 'Aktif'},
+    {id: 2, nama_status: 'Tidak Aktif'}
+  ]
 
 	constructor(
 		config: NgbModalConfig,
@@ -58,6 +65,7 @@ export class AgensiComponent implements OnInit {
 		this._refAgensiServiceProxy
 			.getAll(
 				this.filter,
+        this.filterStatus ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -74,6 +82,13 @@ export class AgensiComponent implements OnInit {
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
 	}
+
+  resetFilter() {
+    this.filter = undefined;
+    this.filterStatus = undefined;
+
+    this.getAgensi();
+  }
 
 	addAgencyModal() {
 		const modalRef = this.modalService.open(TambahEditAgensiComponent, { size: 'lg' });
