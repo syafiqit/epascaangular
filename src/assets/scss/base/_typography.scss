@@ -275,11 +275,6 @@ pre {
     }
 }
 
-.ace-editor {
-    height: 400px;
-    width: 100%;
-}
-
 .editor-toolbar {
     width: 100% !important;
 }
@@ -380,12 +375,12 @@ fieldset {
 	box-shadow: 0 0 10px var(--theme-deafult);
 	opacity: 0.5;
 	transition: all 0.3s ease;
-  
+
 	&:hover {
 	  transition: all 0.3s ease;
 	  opacity: 1;
 	}
-  
+
 	svg {
 	  width: 20px;
 	}

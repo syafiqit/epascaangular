@@ -23,7 +23,6 @@
           "skipTests": true
         },
         "@schematics/angular:module": {
-          "skipTests": true
         },
         "@schematics/angular:pipe": {
           "skipTests": true
@@ -48,15 +47,9 @@
               "lodash",
               "rxjs-compat",
               "@ks89/angular-modal-gallery",
-              "mousetrap",
+              "pdfmake/build/pdfmake.js",
               "hammerjs",
-              "firebase/app",
-              "dragula",
-              "knob",
-              "chartist",
               "chartjs-plugin-streaming",
-              "@firebase/app",
-              "chart.js",
               "dom-set",
               "crossvent",
               "contra/emitter",
@@ -65,10 +58,6 @@
               "outlayer/outlayer",
               "rxjs",
               "ngx-masonry",
-              "@firebase/component",
-              "@firebase/firestore",
-              "@firebase/auth",
-              "@firebase/util",
               "rxjs/operators",
               "rxjs/Subject",
               "rxjs/internal/operators",
@@ -85,8 +74,6 @@
               "photoswipe",
               "photoswipe/dist/photoswipe-ui-default",
               "angular-calendar/date-adapters/date-fns",
-              "apexcharts",
-              "apexcharts/dist/apexcharts.min.js",
               "calendar-utils/date-adapters/date-fns"
             ],
             "outputPath": "dist/e-pasca-bencana",
@@ -94,7 +81,6 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": true,
             "assets": [
               "src/web.config",
               "src/assets/images/favicon.png",
@@ -108,7 +94,13 @@
               "node_modules/primeng/resources/primeng.min.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -167,7 +159,8 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -231,10 +224,5 @@
   "defaultProject": "e-pasca-bencana",
   "cli": {
     "analytics": false
-  },
-  "schematics": {
-    "@schematics/angular:component": {
-      "styleext": "scss"
-    }
   }
 }

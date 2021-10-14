@@ -18,26 +18,26 @@
 	</div>
 </div>
 <ul class="profile-dropdown onhover-show-div" style="width: 220px">
-	<li>
-		<a [routerLink]="['/app/maklumat/akaun/pengguna']">
+	<li [routerLink]="['/app/maklumat/akaun/pengguna']">
+		<a>
 			<app-feather-icons [icon]="'user'"></app-feather-icons>
 			<span>Pengguna</span>
 		</a>
 	</li>
-	<li>
-		<a (click)="openChangePasswordModal()">
+	<li (click)="openChangePasswordModal()">
+		<a>
 			<app-feather-icons [icon]="'settings'"></app-feather-icons>
 			<span>Tukar Kata Laluan</span>
 		</a>
 	</li>
-	<li>
-		<a [routerLink]="['/app/maklumat/akaun/rujukan']">
+	<li [routerLink]="['/app/maklumat/akaun/rujukan']">
+		<a>
 			<app-feather-icons [icon]="'file-text'"></app-feather-icons>
 			<span>Rujukan</span>
 		</a>
 	</li>
-	<li>
-		<a (click)="logout()">
+	<li (click)="logout()">
+		<a>
 			<app-feather-icons [icon]="'log-in'"></app-feather-icons>
 			<span>Log Keluar</span>
 		</a>

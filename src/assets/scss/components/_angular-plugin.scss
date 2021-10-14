@@ -95,40 +95,6 @@
 .carousel-caption {
     z-index: 1;
 }
-// range slider page css
-.ng5-slider {
-    .ng5-slider-pointer {
-        background-color: var(--theme-deafult) !important;
-        &:focus {
-            outline: $transparent-color;
-        }
-        &.ng5-slider-active {
-            &:after {
-                background-color: $theme-body-font-color !important;
-            }
-        }
-    }
-    .ng5-slider-selection {
-        background: var(--theme-deafult) !important;
-    }
-    .ng5-slider-tick {
-        &.ng5-slider-selected {
-            background: var(--theme-deafult) !important;
-        }
-    }
-}
-.custom-slider {
-    .ng5-slider {
-        .ng5-slider-bar,
-        .ng5-slider-tick {
-            background: #d8e0f3 !important;
-        }
-        .ng5-slider-selection,
-        .ng5-slider-tick.ng5-slider-selected {
-            background: var(--theme-deafult) !important;
-        }
-    }
-}
 // toastr page css
 .toast-success {
     background-color: $success-color !important;

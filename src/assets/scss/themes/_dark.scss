@@ -438,7 +438,7 @@ body {
 											border-top: 1px solid $dark-card-border;
 										}
 									}
-									
+
 								}
 							}
 						}
@@ -553,42 +553,7 @@ body {
 		}
 		search-icon
 
-		.current-sale-container {
-			svg {
-				.apexcharts-graphical {
-					defs {
-						linearGradient {
-							stop[offset="0.8"],
-							stop[offset="1"] {
-								stop-color: $dark-card-background;
-							}
-						}
-					}
-				}
-			}
-		}
-		
-		.radar-chart,
-		#radarchart {
-			svg {
-				.apexcharts-radar-series {
-					polygon {
-						stroke: $dark-card-border;
-						&:nth-child(odd) {
-							fill: $dark-card-background;
-						}
-						&:nth-child(even) {
-							fill: rgba($primary-color, 0.2);
-						}
-					}
-					line {
-						stroke: $dark-card-border;
-					}
-				}
-			}
-		}
-
-		// index page css end	
+		// index page css end
 		.blockquote {
 			border-left: 4px solid $dark-card-border;
 
@@ -638,17 +603,6 @@ body {
 					}
 				}
 			}
-		}
-
-		.apexcharts-gridline {
-			stroke: $dark-border-color;
-		}
-
-		.apexcharts-tooltip-title,
-		.apexcharts-tooltip-series-group,
-		.apexcharts-tooltip.light,
-		.apexcharts-menu-item {
-			color: $black;
 		}
 
 		// peity chart css
@@ -731,16 +685,6 @@ body {
 			}
 		}
 
-		.chart_data_right {
-			.card-body {
-				.knob-block {
-					input {
-						color: $dark-all-font-color !important;
-					}
-				}
-			}
-		}
-
 		.third-news-update,
 		.news,
 		.appointment-sec {
@@ -750,14 +694,6 @@ body {
 				}
 
 				border-bottom: 1px solid $dark-card-border;
-			}
-
-			.appointment {
-				.radar-chart {
-					.apexcharts-datalabel {
-						fill: $dark-all-font-color;
-					}
-				}
 			}
 		}
 
@@ -1042,27 +978,7 @@ body {
 			border: 1px solid $dark-border-color;
 			.ngx-toolbar-set {
 				background-color: $dark-card-background !important;
-				.ngx-editor-button {
-					border: 1px solid $dark-border-color !important;
-					border-right: transparent !important;
-					color: $dark-all-font-color !important;
-					&:hover {
-						background-color: $dark-body-background !important;
-					}
-				}
 			}
-		}
-		.ngx-editor {
-			.ngx-wrapper {
-				.ngx-editor-textarea {
-					border: 1px solid $dark-border-color !important;
-				}
-			}
-		}
-		.ngx-editor-grippie {
-			background-color: $dark-body-background;
-			border: 1px solid $dark-border-color;
-			border-top: transparent;
 		}
 		// ck editor
 		.ck-editor__editable {
@@ -1146,80 +1062,6 @@ body {
 				color: $light-text;
 				&::placeholder {
 					color: $light-text;
-				}
-			}
-			.ngx-datatable {
-				&.bootstrap {
-					.datatable-header {
-						border: 1px solid $dark-card-border;
-						border-bottom: none;
-						.datatable-header-cell {
-							border-bottom: none;
-						}
-					}
-					.datatable-body {
-						border: 1px solid $dark-card-border;
-						border-top: none;
-						.datatable-selection {
-							.datatable-scroll {
-								.datatable-row-wrapper {
-									&:last-child {
-										border-bottom: none;
-									}
-								}
-							}
-						}
-
-						.datatable-body-row {
-							border-top: 1px solid $dark-card-border;
-							&.active {
-								background-color: $primary-color;
-							}
-							&.datatable-row-even {
-								background-color: $dark-body-background;
-								&:hover {
-									background-color: #16171f;
-								}
-								&.active {
-									background-color: $primary-color;
-								}
-							}
-							&.datatable-row-odd {
-								&:hover {
-									background-color: #16171f;
-								}
-							}
-							input {
-								background-color: $dark-card-background;
-							}
-						}
-					}
-					.datatable-footer {
-						background: $dark-card-background;
-						.datatable-pager {
-							ul {
-								li {
-									&:not(.disabled).active {
-										a {
-											background-color: $primary-color;
-										}
-									}
-									&:not(.disabled):hover {
-										a {
-											border: 1px solid $primary-color;
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-				.datatable-footer {
-					.datatable-pager {
-						.pager {
-							border: 1px solid $dark-card-border;
-						}
-					}
 				}
 			}
 		}
@@ -1328,27 +1170,6 @@ body {
 		.btn-outline-dark {
 			color: $dark-all-font-color;
 		}
-		#column-chart .apexcharts-legend-text b {
-			color: unset;
-		}
-		#chart-widget13,
-		#candlestick {
-			.apexcharts-tooltip.apexcharts-theme-light {
-				border: 1px solid $dark-border-color;
-				background: $dark-body-background;
-			}
-		}
-		.apexcharts-gridline {
-			stroke: $dark-border-color;
-		}
-		.apexcharts-tooltip-title,
-		.apexcharts-tooltip-series-group,
-		.apexcharts-tooltip.light,
-		.apexcharts-menu-item {
-			color: $black;
-		}
-
-
 		$alert-name:primary,
 		secondary,
 		success,
@@ -1503,60 +1324,6 @@ body {
 		.popover {
 			code {
 				background-color: unset;
-			}
-		}
-
-		.apex-chart-container {
-			.apexcharts-legend {
-				.apexcharts-legend-series {
-					span {
-						color: $dark-all-font-color !important;
-					}
-				}
-			}
-		}
-
-		.apexcharts-canvas {
-			svg {
-				.apexcharts-title-text {
-					fill: $white;
-				}
-
-				.apexcharts-subtitle-text {
-					fill: $white;
-				}
-
-				.apexcharts-yaxis {
-					.apexcharts-yaxis-texts-g {
-						.apexcharts-yaxis-label {
-							fill: $white;
-						}
-					}
-				}
-
-				.apexcharts-xaxis {
-					.apexcharts-xaxis-texts-g {
-						.apexcharts-xaxis-label {
-							fill: $white;
-						}
-					}
-				}
-
-				.apexcharts-legend-series {
-					span {
-						color: $dark-all-font-color !important;
-					}
-				}
-
-				.apexcharts-datalabels-group {
-					.apexcharts-datalabel-label {
-						fill: $white;
-					}
-
-					.apexcharts-datalabel-value {
-						fill: $white;
-					}
-				}
 			}
 		}
 

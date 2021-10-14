@@ -4,22 +4,6 @@
 .dash-chart {
   .profit-card {
     margin: -30px 0 -14px;
-
-    #negative-chart {
-      .apexcharts-tooltip {
-        &.light {
-          .apexcharts-tooltip-title {
-            display: none;
-          }
-        }
-      }
-
-      .apexcharts-tooltip-series-group {
-        &.active {
-          padding-bottom: 0;
-        }
-      }
-    }
   }
 
   .media {
@@ -48,16 +32,6 @@
 
 .negative-container {
   margin: -36px -15px -29px;
-
-  .apexcharts-xaxis {
-    .apexcharts-xaxis-texts-g {
-      text {
-        font-size: 13px;
-        fill: rgba($theme-body-font-color, 0.4);
-        font-family: $font-roboto, $font-serif !important;
-      }
-    }
-  }
 }
 
 .ecommerce-widgets {
@@ -268,15 +242,6 @@ $activity-dot-color in (primary, var(--theme-deafult)),
   .goal-chart {
     margin: -35px -15px -30px;
 
-    .apexcharts-datalabels-group {
-      text {
-        font-weight: 700;
-
-        &:last-child {
-          fill: $theme-body-font-color;
-        }
-      }
-    }
   }
 
   .goal-status {
@@ -490,12 +455,6 @@ $activity-dot-color in (primary, var(--theme-deafult)),
   path {
     stroke-width: 10px;
     stroke-dasharray: 10, 20;
-    stroke-linecap: round;
-  }
-
-  #apexcharts-radialbarTrack-0 {
-    stroke: #ecd8d8;
-
     stroke-linecap: round;
   }
 

@@ -4,14 +4,6 @@
 
 export const environment = {
 	production: false,
-	firebase: {
-		apiKey: 'Your Api Key',
-		authDomain: 'Your Auth Domain',
-		databaseURL: 'Your Database Url',
-		projectId: 'Your Project Id',
-		storageBucket: 'Your StorageBucket url',
-		messagingSenderId: 'Your Sender Id'
-	},
 	apiUrl: 'http://localhost:8000',
   appUrl: 'http://localhost:4200'
 };
@@ -22,4 +14,4 @@ export const environment = {
  * This import should be commented out in production mode because it will have a negative impact
  * on performance if an error is thrown.
  */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.

@@ -322,20 +322,6 @@ $badge-light-color in (primary, $primary-color),
             .small-chart3 {
               height: 74px;
               width: 75px;
-              .chartist-tooltip {
-                position: absolute;
-                opacity: 0;
-                .chartist-tooltip-value {
-                  font-size: 10px;
-                  padding: 5px;
-                  color: $white;
-                  background-color: rgba(0, 0, 0, 0.5);
-                  border-radius: 4px;
-                }
-                &.tooltip-show {
-                  opacity: 1;
-                }
-              }
               svg {
                 position: absolute;
                 bottom: 23px;
@@ -363,21 +349,9 @@ $badge-light-color in (primary, $primary-color),
                   }
                 }
               }
-              .chartist-tooltip {
-                .chartist-tooltip-value {
-                  background-color: $primary-color;
-                  box-shadow: 1px 1.732px 8px 0px rgba($primary-color, 0.5);
-                }
-              }
             }
             .small-chart1,
             .small-chart3 {
-              .chartist-tooltip {
-                .chartist-tooltip-value {
-                  background-color: $secondary-color;
-                  box-shadow: 1px 1.732px 8px 0px rgba($secondary-color, 0.5);
-                }
-              }
               svg {
                 .ct-series-a {
                   .ct-point,
@@ -437,27 +411,6 @@ $badge-light-color in (primary, $primary-color),
         span {
           color: $theme-body-sub-title-color;
         }
-      }
-    }
-    .knob-block {
-      margin-bottom: -5px;
-      input {
-        height: 40% !important;
-        width: 40% !important;
-        left: 50% !important;
-        top: 2% !important;
-        transform: translate(-50%) !important;
-        margin-left: 0 !important;
-        margin-top: 17px !important;
-        color: $dark-light !important;
-      }
-      canvas {
-        width: 100%;
-        height: 100%;
-      }
-      .chart-overflow {
-        overflow: hidden;
-        text-align: center;
       }
     }
   }
@@ -522,16 +475,6 @@ $badge-light-color in (primary, $primary-color),
       .card-footer {
         padding-top: 0;
         border-top: none !important;
-      }
-    }
-  }
-
-  .appointment {
-    .radar-chart {
-      .apexcharts-datalabel {
-        font-size: 13px;
-        font-weight: 600;
-        fill: $theme-body-font-color;
       }
     }
   }
@@ -1544,10 +1487,6 @@ $badge-light-color in (primary, $primary-color),
   #chart-widget2,
   #chart-widget3 {
     margin-bottom: -14px;
-
-    .apexcharts-xaxistooltip {
-      display: none;
-    }
   }
 }
 
@@ -2005,23 +1944,6 @@ $badge-light-color in (primary, $primary-color),
   }
 }
 
-.current-sale-container {
-  .apexcharts-xaxistooltip {
-    color: var(--theme-deafult);
-    background: rgba($primary-color, 0.1);
-    border: 1px solid var(--theme-deafult);
-  }
-
-  .apexcharts-xaxistooltip-bottom:before {
-    border-bottom-color: var(--theme-deafult);
-  }
-
-  .apexcharts-tooltip.light .apexcharts-tooltip-title {
-    background: rgba($primary-color, 0.1);
-    color: var(--theme-deafult);
-  }
-}
-
 // bootstrap basic table page
 .card-block {
   .table-responsive {
@@ -2311,14 +2233,6 @@ footer {
   .calendar-sec {
     order: -1;
 
-  }
-
-  .appointment {
-    .radar-chart {
-      .apexcharts-datalabel {
-        font-size: 10px !important;
-      }
-    }
   }
 }
 
