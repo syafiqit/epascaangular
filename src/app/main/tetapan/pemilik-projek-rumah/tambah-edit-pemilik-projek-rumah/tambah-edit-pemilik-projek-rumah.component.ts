@@ -3,6 +3,7 @@ import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-boots
 import { finalize } from 'rxjs/operators';
 import { CreateOrEditRefTapakRumahDto, RefTapakRumahServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { ConfirmationService } from '@app/shared/services/confirmation';
 
 @Component({
 	selector: 'app-tambah-edit-pemilik-projek-rumah',
@@ -18,9 +19,9 @@ export class TambahEditPemilikProjekRumahComponent implements OnInit {
 	saving = true;
 
 	constructor(
-		private modalService: NgbModal,
 		public activeModal: NgbActiveModal,
-		private _refTapakRumahServiceProxy: RefTapakRumahServiceProxy
+		private _refTapakRumahServiceProxy: RefTapakRumahServiceProxy,
+    private _confirmationService: ConfirmationService,
 	) {}
 
 	ngOnInit(): void {
@@ -47,13 +48,78 @@ export class TambahEditPemilikProjekRumahComponent implements OnInit {
 					this.saving = false;
 				})
 			)
-			.subscribe(() => {
-				if (this.name == 'add') {
-					swalSuccess.fire('Berjaya!', 'Maklumat Pemilik Projek Rumah Berjaya Ditambah.', 'success');
+			.subscribe((result) => {
+        if(result.message){
+          this._confirmationService.open({
+            title: 'Tidak Berjaya',
+            message: result.message,
+            icon: {
+              show: true,
+              name: 'x-circle',
+              color: 'error'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+        }
+				else if (this.name == 'add') {
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Maklumat Pemilik Projek Berjaya Ditambah.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
+            this.activeModal.close(true);
+          });
 				} else if (this.name == 'edit') {
-					swalSuccess.fire('Berjaya!', 'Maklumat Pemilik Projek Rumah Berjaya Dikemaskini.', 'success');
+          const dialogRef = this._confirmationService.open({
+            title: 'Berjaya',
+            message: 'Maklumat Pemilik Projek Berjaya Dikemaskini.',
+            icon: {
+              show: true,
+              name: 'check-circle',
+              color: 'success'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
+            this.activeModal.close(true);
+          });
 				}
-				this.activeModal.close(true);
 			});
 	}
 }
