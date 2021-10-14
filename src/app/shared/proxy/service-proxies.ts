@@ -45611,6 +45611,7 @@ export class GetKelulusanLookupTableForViewDto implements IGetKelulusanLookupTab
     nama_tabung!: string;
     jumlah_siling!: string;
     baki_jumlah_siling!: string;
+    perihal_surat!: string;
 
     constructor(data?: IGetKelulusanLookupTableForViewDto) {
         if (data) {
@@ -45628,6 +45629,7 @@ export class GetKelulusanLookupTableForViewDto implements IGetKelulusanLookupTab
             this.nama_tabung = _data["nama_tabung"];
             this.jumlah_siling = _data["jumlah_siling"];
             this.baki_jumlah_siling = _data["baki_jumlah_siling"];
+            this.perihal_surat = _data["perihal_surat"];
         }
     }
 
@@ -45645,6 +45647,7 @@ export class GetKelulusanLookupTableForViewDto implements IGetKelulusanLookupTab
         data["nama_tabung"] = this.nama_tabung;
         data["jumlah_siling"] = this.jumlah_siling;
         data["baki_jumlah_siling"] = this.baki_jumlah_siling;
+        data["perihal_surat"] = this.perihal_surat;
         return data; 
     }
 }
@@ -45655,6 +45658,7 @@ export interface IGetKelulusanLookupTableForViewDto {
     nama_tabung: string;
     jumlah_siling: string;
     baki_jumlah_siling: string;
+    perihal_surat: string;
 }
 
 export class GetSkbByIdKelulusanDto implements IGetSkbByIdKelulusanDto {

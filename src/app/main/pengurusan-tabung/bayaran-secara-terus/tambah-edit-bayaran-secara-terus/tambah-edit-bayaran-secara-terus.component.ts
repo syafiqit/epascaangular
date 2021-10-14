@@ -13,11 +13,11 @@ import {
   TabungBayaranTerusServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { PilihBencanaComponent } from '../pilih-bencana/pilih-bencana.component';
-import { PilihRujukanKelulusanComponent } from '../pilih-rujukan-kelulusan/pilih-rujukan-kelulusan.component';
 import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from '@services/confirmation';
 import { fadeVerticalAnimation } from '@app/shared/data/router-animation/fade-vertical-animation';
+import { PilihanRujukanKelulusanComponent } from '../../skb/pilihan-rujukan-kelulusan/pilihan-rujukan-kelulusan.component';
 @Component({
 	selector: 'app-tambah-edit-bayaran-secara-terus',
 	templateUrl: './tambah-edit-bayaran-secara-terus.component.html',
@@ -169,7 +169,7 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
   }
 
 	addRujukanKelulusan() {
-		const modalRef = this.modalService.open(PilihRujukanKelulusanComponent, { size: 'lg' });
+		const modalRef = this.modalService.open(PilihanRujukanKelulusanComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
     modalRef.result.then(
 			(response) => {
