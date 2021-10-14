@@ -42,6 +42,7 @@
             "allowedCommonJsDependencies": [
               "core-js",
               "raf",
+              "polylabel",
               "xlsx",
               "@babel/runtime",
               "lodash",

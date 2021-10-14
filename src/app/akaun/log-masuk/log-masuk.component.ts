@@ -3,6 +3,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { finalize } from 'rxjs/operators';
 import { AuthServiceProxy, InputLoginDto, OutputLoginDto } from 'src/app/shared/proxy/service-proxies';
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { AuthUtils } from '@app/shared/helpers/auth.utils';
 
 @Component({
 	selector: 'app-log-masuk',
@@ -41,7 +42,7 @@ export class LogMasukComponent implements OnInit {
           if(result.message){
             swalSuccess.fire('Tidak Berjaya!', this.output.message, 'error');
           }else{
-            const validity = new Date(new Date().getTime() + (result.expires_in + 28800) * 1000);
+            const validity = AuthUtils.getTokenExpirationDate(result.access_token);
             this._cookieService.set('token', result.access_token, validity, '/');
             this.redirect(result.tukar_kata_laluan);
           }
