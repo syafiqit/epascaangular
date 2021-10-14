@@ -128,6 +128,6 @@ import { NgxCurrencyModule } from "ngx-currency";
 	],
 	providers: [
 		{provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter}
-	   ]
+	]
 })
 export class PengurusanTabungModule {}
