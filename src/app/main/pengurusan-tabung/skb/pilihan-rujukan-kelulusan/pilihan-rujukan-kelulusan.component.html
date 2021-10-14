@@ -24,61 +24,69 @@
 	<div class="col-lg-12">
 		<div class="row align-items-center">
 			<div class="primeng-datatable-container">
-				<p-table
-					#dataTable
-					styleClass="p-datatable-striped"
-					[resizableColumns]="true"
-					(onLazyLoad)="getKelulusan($event)"
-					[value]="primengTableHelper.records"
-					rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
-					[paginator]="false"
-					[lazy]="true"
+        <p-table
+          #dataTable
+          styleClass="p-datatable-striped"
+          [resizableColumns]="true"
+          (onLazyLoad)="getKelulusan($event)"
+          [value]="primengTableHelper.records"
+          rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
+          [paginator]="false"
+          [lazy]="true"
           [loading]="primengTableHelper.isLoading"
-					[scrollable]="true"
-					ScrollWidth="100%"
-					[responsive]="primengTableHelper.isResponsive"
-					[resizableColumns]="primengTableHelper.resizableColumns"
-				>
+          [scrollable]="true"
+          ScrollWidth="100%"
+          [responsive]="primengTableHelper.isResponsive"
+          [resizableColumns]="primengTableHelper.resizableColumns"
+        >
 					<ng-template pTemplate="header">
 						<tr>
-							<th style="width: 130px" pSortableColumn="no_rujukan_kelulusan">
+							<th style="width: 140px" pSortableColumn="no_rujukan_kelulusan">
 								No. Kelulusan
 								<p-sortIcon field="no_rujukan_kelulusan"></p-sortIcon>
 							</th>
-							<th style="width: 130px" pSortableColumn="nama_tabung">
+							<th style="width: 140px" pSortableColumn="nama_tabung">
 								Tabung
 								<p-sortIcon field="nama_tabung"></p-sortIcon>
 							</th>
-							<th style="width: 130px" pSortableColumn="jumlah_siling">
+							<th style="width: 140px" pSortableColumn="jumlah_siling">
 								Jumlah Siling
 								<p-sortIcon field="jumlah_siling"></p-sortIcon>
 							</th>
-							<th style="width: 135px" pSortableColumn="baki_jumlah_siling">
-								Jumlah Baki Siling
+							<th style="width: 130px" pSortableColumn="baki_jumlah_siling">
+								Baki Siling
 								<p-sortIcon field="baki_jumlah_siling"></p-sortIcon>
 							</th>
-							<th style="width: 100px">Tindakan</th>
+							<th style="width: 140px" pSortableColumn="perihal_surat">
+								Perihal Surat
+								<p-sortIcon field="perihal_surat"></p-sortIcon>
+							</th>
+							<th style="width: 110px">Tindakan</th>
 						</tr>
 					</ng-template>
 					<ng-template pTemplate="body" let-record="$implicit">
 						<tr>
-							<td style="width: 130px">
+							<td style="width: 140px">
 								<span class="p-column-title">No. Kelulusan</span>
 								{{record.no_rujukan_kelulusan}}
 							</td>
-							<td style="width: 130px">
+							<td style="width: 140px">
 								<span class="p-column-title">Tabung</span>
 								{{record.nama_tabung}}
 							</td>
-							<td style="width: 130px">
+							<td style="width: 140px">
 								<span class="p-column-title">Jumlah Siling</span>
 								RM {{record.jumlah_siling | number: '1.2-2'}}
 							</td>
-							<td style="width: 135px">
-								<span class="p-column-title">Jumlah Baki Siling</span>
+							<td style="width: 130px">
+								<span class="p-column-title">Baki Siling</span>
 								RM {{record.baki_jumlah_siling | number: '1.2-2'}}
 							</td>
-							<td style="width: 100px">
+							<td style="width: 140px">
+								<span class="p-column-title">Perihal Surat</span>
+								{{record.perihal_surat? record.perihal_surat: '-'}}
+							</td>
+							<td style="width: 110px">
 								<button
                   class="btn btn-primary"
                   type="button"
