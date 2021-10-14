@@ -33,6 +33,7 @@ export class WaranComponent implements OnInit {
 	filter: string;
   filterAgensi: number;
   filterTabung: number;
+  filterYearTarikhWaran: number;
   filterFromDate: string;
   filterToDate: string;
   tarikhMula: NgbDateStruct;
@@ -40,6 +41,7 @@ export class WaranComponent implements OnInit {
   readonly DELIMITER = '-';
   agencies: any;
   funds: any;
+  arrayYear:any[];
 
 	constructor(
     config: NgbModalConfig,
@@ -57,6 +59,7 @@ export class WaranComponent implements OnInit {
 	ngOnInit(): void {
     this.getAgensi();
     this.getTabung();
+    this.generateArrayOfYears();
 
     this.terms$.pipe(
       debounceTime(500), distinctUntilChanged()
@@ -90,6 +93,7 @@ export class WaranComponent implements OnInit {
 				this.filter,
         this.filterAgensi ?? undefined,
         this.filterTabung ?? undefined,
+        this.filterYearTarikhWaran ?? undefined,
         this.filterFromDate ?? undefined,
         this.filterToDate ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
@@ -129,12 +133,24 @@ export class WaranComponent implements OnInit {
     this.filter = undefined;
     this.filterAgensi = undefined;
     this.filterTabung = undefined;
+    this.filterYearTarikhWaran = undefined;
     this.tarikhMula = undefined;
     this.tarikhTamat = undefined;
     this.filterFromDate = undefined;
     this.filterToDate = undefined;
 
     this.getWarrant();
+  }
+
+  generateArrayOfYears() {
+    let max = new Date().getFullYear();
+    let min = max - 9;
+    let years = [];
+
+    for (let i = max; i >= min; i--) {
+      years.push(i)
+    }
+    this.arrayYear = years;
   }
 
   deleteWaran(id){
