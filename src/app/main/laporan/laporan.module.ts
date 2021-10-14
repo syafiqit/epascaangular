@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { ArchwizardModule } from 'angular-archwizard';
 import { TooltipModule } from 'primeng/tooltip';
 import { LaporanRoutingModule } from './laporan-routing.module';
 import { LaporanSkbComponent } from './laporan-skb/laporan-skb.component';
@@ -33,11 +31,9 @@ import { LaporanWaranComponent } from './laporan-waran/laporan-waran.component';
 		CommonModule,
 		SharedModule,
 		LaporanRoutingModule,
-		NgxDatatableModule,
 		TableModule,
 		PaginatorModule,
     NgSelectModule,
-    ArchwizardModule,
     TooltipModule
 	],
 	declarations: [

@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DragulaModule } from 'ng2-dragula';
 import { TranslateModule } from '@ngx-translate/core';
 // Components
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
@@ -147,7 +146,6 @@ const NSWAG = [
 		FormsModule,
 		ReactiveFormsModule,
 		NgbModule,
-		DragulaModule.forRoot(),
 		TranslateModule,
 		ImageCropperModule,
 		FileUploadModule,

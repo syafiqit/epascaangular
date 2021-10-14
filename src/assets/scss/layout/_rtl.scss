@@ -9,7 +9,7 @@
   .page-wrapper{
     &.compact-wrapper{
       .page-body-wrapper{
-        &.sidebar-icon{          
+        &.sidebar-icon{
             .sidebar-wrapper {
               position: fixed;
               border-bottom: none;
@@ -132,7 +132,7 @@
                   }
                 }
               }
-            }          
+            }
           .page-body{
             margin-left: unset;
             margin-right: 280px;
@@ -213,9 +213,6 @@
       margin-right:unset;
     }
   }
-}
-.apexcharts-canvas {
-  direction: ltr;
 }
   // bookmark app css
   .email-wrap {
@@ -1432,16 +1429,6 @@
       }
     }
   }
-
-  // knob chart css
-  .knob-chart {
-    .chart-clock-main {
-      .clock-small {
-        right: 10px;
-        left: unset;
-      }
-    }
-  }
   // general widgets css
   .weather-widget-two {
     .top-bg-whether {
@@ -1723,24 +1710,6 @@
   // ngx chart
   .ngx-chart-direction {
     direction: ltr;
-  }
-
-  // datatable
-  .ngx-datatable {
-    &.bootstrap {
-      .datatable-body {
-        .datatable-body-row {
-          .datatable-body-cell {
-            text-align: right;
-          }
-        }
-      }
-    }
-    .datatable-footer {
-      .datatable-pager {
-        text-align: left;
-      }
-    }
   }
 
   // state color
@@ -2129,7 +2098,7 @@
         }
       }
     }
-  }  
+  }
 
 
 
@@ -2145,7 +2114,7 @@
                 padding: 7px 32px 7px 0;
                 &:before{
                   right: 10px;
-                  left: 0; 
+                  left: 0;
                 }
               }
             }
@@ -3830,7 +3799,7 @@
     }
   }
   @media only screen and (max-width: 1199px){
-    .link-section>div>h6:before {   
+    .link-section>div>h6:before {
       right: unset;
       left: 10px;
     }
@@ -4087,13 +4056,13 @@
           margin-left : unset !important;
         }
         .page-body-wrapper {
-          &.sidebar-icon {            
+          &.sidebar-icon {
               &.sidebar-wrapper {
 
                 &.close_icon {
                   transform: translate(285px);
                 }
-              }            
+              }
           }
         }
       }

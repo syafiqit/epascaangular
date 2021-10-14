@@ -3,7 +3,6 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
-import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
 import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -44,9 +43,6 @@ export class TambahRujukanBencanaComponent implements AfterViewInit {
 			notes: 'Taufan Kelantan-Kota Bahru'
 		}
 	];
-
-	ColumnMode = ColumnMode;
-	SortType = SortType;
 
 	constructor(config: NgbModalConfig, private modalService: NgbModal, public activeModal: NgbActiveModal) {
 		this.primengTableHelper = new PrimengTableHelper();

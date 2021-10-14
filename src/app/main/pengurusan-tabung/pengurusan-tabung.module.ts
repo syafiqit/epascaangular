@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { ArchwizardModule } from 'angular-archwizard';
 import { PengurusanTabungRoutingModule } from './pengurusan-tabung-routing.module';
 import { TabungComponent } from './tabung/tabung.component';
 import { TambahEditTabungComponent } from './tabung/tambah-edit-tabung/tambah-edit-tabung.component';
@@ -59,18 +57,16 @@ import { EditWaranComponent } from './waran/edit-waran/edit-waran.component';
 import { WaranBulananComponent } from './waran/waran-bulanan/waran-bulanan.component';
 import { JenisBayaranWaranComponent } from './kelulusan/edit-kelulusan/perbelanjaan/jenis-bayaran-waran/jenis-bayaran-waran.component';
 import { KategoriWaranComponent } from './kelulusan/edit-kelulusan/perbelanjaan/kategori-waran/kategori-waran.component';
-import { NgxCurrencyModule } from "ngx-currency";
+import { NgxCurrencyModule } from 'ngx-currency';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		SharedModule,
 		PengurusanTabungRoutingModule,
-		NgxDatatableModule,
 		TableModule,
 		PaginatorModule,
     NgSelectModule,
-    ArchwizardModule,
     NgxCurrencyModule
 	],
 	declarations: [

@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { OnInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
 import { ConfirmationService } from '@services/confirmation';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
-import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
 import { NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TambahPeruntukanComponent } from '../edit-tabung/tambah-peruntukan/tambah-peruntukan.component';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -45,9 +45,6 @@ export class EditTabungComponent implements OnInit {
   sumberPeruntukan: any;
   tarikhTerimaanSehingga: Date;
 
-	ColumnMode = ColumnMode;
-	SortType = SortType;
-
   date = new Date();
   modelBaki: NgbDateStruct;
   modelAkhir: NgbDateStruct;
@@ -70,7 +67,7 @@ export class EditTabungComponent implements OnInit {
 		this.primengTableHelper = new PrimengTableHelper();
     this.primengTableHelperSejarah = new PrimengTableHelper();
     this.primengTableHelperKelulusan = new PrimengTableHelper();
-    this.getTabung.tabung = new CreateOrEditTabungDto;
+    this.getTabung.tabung = new CreateOrEditTabungDto();
     this._activatedRoute.queryParams.subscribe((p) => {
       this.idTabung = p['id'];
     });
@@ -81,12 +78,12 @@ export class EditTabungComponent implements OnInit {
 	ngOnInit(): void {
     this.tarikhTerimaanSehingga = new Date(new Date().getFullYear() -1, 12, 0);
     this.getSumberPeruntukan();
-    this.show()
+    this.show();
   }
 
   fromModel(value: string | null): NgbDateStruct | null {
     if (value) {
-      let date = value.split(this.DELIMITER);
+      const date = value.split(this.DELIMITER);
       return {
         year : parseInt(date[0], 10),
         month : parseInt(date[1], 10),
@@ -109,7 +106,7 @@ export class EditTabungComponent implements OnInit {
       if(result.tabung.tarikh_cipta){
         this.modelAkhir = this.fromModel(result.tabung.tarikh_cipta.format('YYYY-MM-DD'));
       }
-    })
+    });
   }
 
 	getTabungPeruntukan(event?: LazyLoadEvent) {
@@ -226,16 +223,16 @@ export class EditTabungComponent implements OnInit {
       confirmButtonText: 'Ya'
     }).then((result) => {
       if (result.value) {
-        this.tabungPeruntukanServiceProxy.delete(id).subscribe((result) => {
-          if(result.message == "Tambahan Dana Berjaya Dibuang"){
-            swalSuccess.fire('Berjaya!', result.message);
+        this.tabungPeruntukanServiceProxy.delete(id).subscribe((e) => {
+          if(e.message === 'Tambahan Dana Berjaya Dibuang'){
+            swalSuccess.fire('Berjaya!', e.message);
           }
           else{
-            swalError.fire('Tidak Berjaya!', result.message);
+            swalError.fire('Tidak Berjaya!', e.message);
           }
           this.show();
           this.getTabungPeruntukan();
-        })
+        });
       }
     });
   }
@@ -265,8 +262,8 @@ export class EditTabungComponent implements OnInit {
     dialogRef.afterClosed().subscribe((e) => {
       if(e === 'confirmed') {
 				this.tabungPeruntukanServiceProxy.delete(id).subscribe((result) => {
-          if(result.message == "Tambahan Dana Berjaya Dibuang"){
-            const dialogRef = this._confirmationService.open({
+          if(result.message === 'Tambahan Dana Berjaya Dibuang'){
+            const s = this._confirmationService.open({
               title: 'Berjaya',
               message: result.message,
               icon: {
@@ -286,7 +283,7 @@ export class EditTabungComponent implements OnInit {
               },
               dismissible: true
             });
-            dialogRef.afterClosed().subscribe(() => {
+            s.afterClosed().subscribe(() => {
               this.show();
               this.getTabungPeruntukan();
             });
@@ -312,7 +309,7 @@ export class EditTabungComponent implements OnInit {
               dismissible: true
             });
           }
-        })
+        });
       }
     });
   }
@@ -331,11 +328,11 @@ export class EditTabungComponent implements OnInit {
     this.editTabung = this.getTabung.tabung;
     if(this.modelBaki){
       this.tarikhBaki = this.toModel(this.modelBaki);
-      this.editTabung.tarikh_baki = moment(this.tarikhBaki, "YYYY-MM-DD");
+      this.editTabung.tarikh_baki = moment(this.tarikhBaki, 'YYYY-MM-DD');
     }
     if(this.modelAkhir){
       this.tarikh_cipta = this.toModel(this.modelAkhir);
-      this.editTabung.tarikh_cipta = moment(this.tarikh_cipta, "YYYY-MM-DD");
+      this.editTabung.tarikh_cipta = moment(this.tarikh_cipta, 'YYYY-MM-DD');
     }
     this.tabungServiceProxy.createOrEdit(this.editTabung).subscribe(()=>{
       const dialogRef = this._confirmationService.open({
@@ -361,6 +358,6 @@ export class EditTabungComponent implements OnInit {
       dialogRef.afterClosed().subscribe(() => {
         this.router.navigateByUrl('/app/tabung/senarai');
       });
-    })
+    });
   }
 }

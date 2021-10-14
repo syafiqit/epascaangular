@@ -2,7 +2,6 @@
  *** Vendors Scss ***
 -----------------------*/
 
-@import "vendors/chartist";
 @import "vendors/dropzone";
 @import "vendors/scrollable";
 @import "vendors/sticky";
@@ -15,19 +14,8 @@
 /* Toastr */
 @import "~ngx-toastr/toastr.css";
 
-/* Dragula */
-@import "~dragula/dist/dragula.css";
-
-/* Ngx-datatable */
-@import "~@swimlane/ngx-datatable/index.css";
-@import "~@swimlane/ngx-datatable/themes/bootstrap.css";
-@import "~@swimlane/ngx-datatable/assets/icons.css";
-
 /* Dropzone */
 @import "~dropzone/dist/min/dropzone.min.css";
-
-/* Wizard */
-@import "~angular-archwizard/archwizard.scss";
 
 /* Timeline */
 @import "~angular-vertical-timeline/dist/vertical-timeline.scss";
@@ -38,14 +26,8 @@
 /* Ng-select */
 @import "~@ng-select/ng-select/scss/default.theme.scss";
 
-/* Simplemade */
-@import "~ngx-simplemde/src/index.css";
-
 /* Datetime */
 @import "~ng-pick-datetime/assets/style/picker.min.css";
-
-/* Emoji */
-@import "~@ctrl/ngx-emoji-mart/picker";
 
 /* ---------------------
 	*** Theme Scss ***

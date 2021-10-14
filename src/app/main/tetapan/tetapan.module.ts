@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
 import { TetapanRoutingModule } from './tetapan-routing.module';
@@ -53,7 +52,7 @@ import { JenisBayaranComponent } from './jenis-bayaran/jenis-bayaran.component';
 import { TambahEditJenisBayaranComponent } from './jenis-bayaran/tambah-edit-jenis-bayaran/tambah-edit-jenis-bayaran.component';
 import { KadarBwiComponent } from './kadar-bwi/kadar-bwi.component';
 import { TambahEditKadarBwiComponent } from './kadar-bwi/tambah-edit-kadar-bwi/tambah-edit-kadar-bwi.component';
-import { NgxCurrencyModule } from "ngx-currency";
+import { NgxCurrencyModule } from 'ngx-currency';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateCustomParserFormatter } from '@app/shared/date-parser/NgbDateCustomParserFormatter';
 
@@ -62,7 +61,6 @@ import { NgbDateCustomParserFormatter } from '@app/shared/date-parser/NgbDateCus
 		CommonModule,
 		SharedModule,
 		TetapanRoutingModule,
-		NgxDatatableModule,
 		TableModule,
 		PaginatorModule,
 		NgSelectModule,

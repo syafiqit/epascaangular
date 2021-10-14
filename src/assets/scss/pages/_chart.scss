@@ -260,35 +260,6 @@ $url-4: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAQCAYAAADNo/U5AA
   }
 }
 
-// knob chart css
-.knob-chart {
-  min-height: 255px;
-
-  .chart-clock-main {
-    position: relative;
-    width: 200px;
-    margin: 45px auto;
-
-    .clock-large {
-      position: absolute;
-      left: -48px;
-      top: -45px;
-    }
-
-    .clock-medium {
-      position: absolute;
-      left: 2px;
-      top: 5px;
-    }
-
-    .clock-small {
-      position: absolute;
-      left: 15px;
-      top: 55px;
-    }
-  }
-}
-
 // peity chart css
 .peity-charts {
   svg {
@@ -413,75 +384,13 @@ p {
   }
 }
 
-// knob chart
-.knob-block {
-  position: relative;
-
-  input {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    height: 100% !important;
-    width: 100% !important;
-    left: 0 !important;
-    top: 0 !important;
-    margin-left: 0 !important;
-    margin-top: -3px !important;
-  }
-
-  canvas {
-    position: relative !important;
-  }
-}
-
 // apex chart
 .apex-chart {
   margin: 0 auto;
 }
 
-.apexcharts-toolbar {
-  z-index: 1 !important;
-}
-
-.apexcharts-menu-item {
-  width: 110px;
-}
-
 .word-tree {
   height: 400px;
-}
-
-// chartist chat 
-.ct-series-a {
-
-  .ct-slice-pie,
-  .ct-slice-donut-solid,
-  .ct-area {
-    fill: var(--theme-deafult);
-  }
-
-  .ct-point,
-  .ct-line,
-  .ct-bar,
-  .ct-slice-donut {
-    stroke: var(--theme-deafult);
-  }
-}
-
-.ct-series-b {
-
-  .ct-point,
-  .ct-line,
-  .ct-bar,
-  .ct-slice-donut {
-    stroke: var(--theme-secondary);
-  }
-
-  .ct-slice-pie,
-  .ct-slice-donut-solid,
-  .ct-area {
-    fill: var(--theme-secondary);
-  }
 }
 
 /**=====================

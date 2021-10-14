@@ -3103,22 +3103,6 @@
     }
   }
 
-  // datatable
-  .ngx-datatable {
-    .datatable-footer {
-      .datatable-footer-inner {
-        display: block !important;
-        height: unset !important;
-        text-align: center;
-      }
-      .page-count,
-      .datatable-pager {
-        flex: 1 1 100% !important;
-        text-align: center !important;
-      }
-    }
-  }
-
   // date-picker
   .custom-datepicker {
     ngb-datepicker {
@@ -4249,62 +4233,6 @@
   .custom-datatable {
     input {
       width: 100%;
-    }
-  }
-
-
-  // datatable
-  .ngx-datatable {
-    .datatable-footer {
-      .datatable-footer-inner {
-        display: block;
-        height: auto !important;
-        text-align: center;
-      }
-    }
-    &.bootstrap {
-      .datatable-footer {
-        .datatable-pager {
-          a {
-            height: 30px !important;
-            min-width: 27px !important;
-            line-height: 30px !important;
-            margin: 0 !important;
-          }
-        }
-      }
-    }
-  }
-
-  // product list
-  .product-list-custom {
-    .ngx-datatable {
-      &.fixed-header {
-        .datatable-header {
-          overflow: auto;
-          .datatable-header-inner {
-            white-space: unset;
-            .datatable-header-cell {
-              white-space: unset;
-              overflow: auto;
-              text-overflow: unset;
-              width: 100px !important;
-            }
-          }
-        }
-      }
-      .datatable-body-row,
-      .datatable-row-center,
-      .datatable-header-inner {
-        display: flex !important;
-        width: 536px !important;
-        overflow: auto;
-      }
-      .datatable-body-cell,
-      .datatable-header-cell {
-        min-width: 150px;
-        overflow-x: auto;
-      }
     }
   }
 
@@ -5670,10 +5598,6 @@
     }
   }
 
-  .ace-editor {
-    height: 320px;
-  }
-
   .gallery {
     >a {
       margin-bottom: 15px;
@@ -6439,41 +6363,6 @@
     }
   }
 
-  .knob-block {
-    .chart-clock-main {
-      margin: auto;
-      width: auto;
-
-      .clock-medium {
-        position: absolute;
-        left: 33px;
-        top: 33px;
-
-        canvas {
-          width: 180px !important;
-          height: 180px !important;
-        }
-      }
-
-      .clock-small {
-        left: 34px;
-        top: 74px;
-      }
-
-      .clock-large {
-        left: 0;
-        top: 0;
-        margin: 0 auto;
-
-        canvas {
-          width: 245px !important;
-          height: 245px !important;
-        }
-      }
-    }
-
-  }
-
   .wizard-4 {
     .action-bar {
       .btn {
@@ -6711,11 +6600,6 @@
 @media only screen and (max-width: 420px) {
   .and-many-more {
     font-size: 37px;
-  }
-
-  // range slider
-  .ng5-slider-tick-legend {
-    transform: rotate(45deg) !important;
   }
 
   // tab css
