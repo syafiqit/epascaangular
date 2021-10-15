@@ -23227,6 +23227,92 @@ export class UserServiceProxy {
     }
 
     /**
+     * Export excel all User
+     * @param filter (optional) Filter records with a string
+     * @param filterAgensi (optional) Filter records with a integer
+     * @param filterPeranan (optional) Filter records with a integer
+     * @param filterStatus (optional) Filter records with a integer
+     * @param filterFromDate (optional) Filter records with string
+     * @param filterToDate (optional) Filter records with string
+     * @return Success
+     */
+    exportAllUserToExcel(filter: string | undefined, filterAgensi: number | undefined, filterPeranan: number | undefined, filterStatus: number | undefined, filterFromDate: string | undefined, filterToDate: string | undefined): Observable<OutputDownloadTempDto> {
+        let url_ = this.baseUrl + "/api/user/exportAllUserToExcel?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (filterAgensi === null)
+            throw new Error("The parameter 'filterAgensi' cannot be null.");
+        else if (filterAgensi !== undefined)
+            url_ += "filterAgensi=" + encodeURIComponent("" + filterAgensi) + "&";
+        if (filterPeranan === null)
+            throw new Error("The parameter 'filterPeranan' cannot be null.");
+        else if (filterPeranan !== undefined)
+            url_ += "filterPeranan=" + encodeURIComponent("" + filterPeranan) + "&";
+        if (filterStatus === null)
+            throw new Error("The parameter 'filterStatus' cannot be null.");
+        else if (filterStatus !== undefined)
+            url_ += "filterStatus=" + encodeURIComponent("" + filterStatus) + "&";
+        if (filterFromDate === null)
+            throw new Error("The parameter 'filterFromDate' cannot be null.");
+        else if (filterFromDate !== undefined)
+            url_ += "filterFromDate=" + encodeURIComponent("" + filterFromDate) + "&";
+        if (filterToDate === null)
+            throw new Error("The parameter 'filterToDate' cannot be null.");
+        else if (filterToDate !== undefined)
+            url_ += "filterToDate=" + encodeURIComponent("" + filterToDate) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processExportAllUserToExcel(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processExportAllUserToExcel(<any>response_);
+                } catch (e) {
+                    return <Observable<OutputDownloadTempDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<OutputDownloadTempDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processExportAllUserToExcel(response: HttpResponseBase): Observable<OutputDownloadTempDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = OutputDownloadTempDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<OutputDownloadTempDto>(<any>null);
+    }
+
+    /**
      * Get all Permohonan User
      * @param filter (optional) Filter records with a string
      * @param filterAgensi (optional) Filter records with a integer
@@ -44626,15 +44712,9 @@ export class CreateOrEditTabungBayaranWaranDto implements ICreateOrEditTabungBay
     tarikh_hapus!: moment.Moment;
     sebab_hapus!: string;
     id_tabung!: number;
-    id_jenis_bayaran!: number;
-    id_kategori_bayaran!: number;
     id_tabung_bayaran_waran_status!: number;
     no_rujukan_kelulusan!: string;
     nama_tabung!: string;
-    nama_bencana!: string;
-    tarikh_bencana!: moment.Moment;
-    nama_jenis_bayaran!: string;
-    nama_kategori_bayaran!: string;
     nama_waran_status!: string;
     id_status_waran!: number;
     catatan!: string;
@@ -44668,15 +44748,9 @@ export class CreateOrEditTabungBayaranWaranDto implements ICreateOrEditTabungBay
             this.tarikh_hapus = _data["tarikh_hapus"] ? moment(_data["tarikh_hapus"].toString()) : <any>undefined;
             this.sebab_hapus = _data["sebab_hapus"];
             this.id_tabung = _data["id_tabung"];
-            this.id_jenis_bayaran = _data["id_jenis_bayaran"];
-            this.id_kategori_bayaran = _data["id_kategori_bayaran"];
             this.id_tabung_bayaran_waran_status = _data["id_tabung_bayaran_waran_status"];
             this.no_rujukan_kelulusan = _data["no_rujukan_kelulusan"];
             this.nama_tabung = _data["nama_tabung"];
-            this.nama_bencana = _data["nama_bencana"];
-            this.tarikh_bencana = _data["tarikh_bencana"] ? moment(_data["tarikh_bencana"].toString()) : <any>undefined;
-            this.nama_jenis_bayaran = _data["nama_jenis_bayaran"];
-            this.nama_kategori_bayaran = _data["nama_kategori_bayaran"];
             this.nama_waran_status = _data["nama_waran_status"];
             this.id_status_waran = _data["id_status_waran"];
             this.catatan = _data["catatan"];
@@ -44710,15 +44784,9 @@ export class CreateOrEditTabungBayaranWaranDto implements ICreateOrEditTabungBay
         data["tarikh_hapus"] = this.tarikh_hapus ? this.tarikh_hapus.toISOString() : <any>undefined;
         data["sebab_hapus"] = this.sebab_hapus;
         data["id_tabung"] = this.id_tabung;
-        data["id_jenis_bayaran"] = this.id_jenis_bayaran;
-        data["id_kategori_bayaran"] = this.id_kategori_bayaran;
         data["id_tabung_bayaran_waran_status"] = this.id_tabung_bayaran_waran_status;
         data["no_rujukan_kelulusan"] = this.no_rujukan_kelulusan;
         data["nama_tabung"] = this.nama_tabung;
-        data["nama_bencana"] = this.nama_bencana;
-        data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
-        data["nama_jenis_bayaran"] = this.nama_jenis_bayaran;
-        data["nama_kategori_bayaran"] = this.nama_kategori_bayaran;
         data["nama_waran_status"] = this.nama_waran_status;
         data["id_status_waran"] = this.id_status_waran;
         data["catatan"] = this.catatan;
@@ -44746,15 +44814,9 @@ export interface ICreateOrEditTabungBayaranWaranDto {
     tarikh_hapus: moment.Moment;
     sebab_hapus: string;
     id_tabung: number;
-    id_jenis_bayaran: number;
-    id_kategori_bayaran: number;
     id_tabung_bayaran_waran_status: number;
     no_rujukan_kelulusan: string;
     nama_tabung: string;
-    nama_bencana: string;
-    tarikh_bencana: moment.Moment;
-    nama_jenis_bayaran: string;
-    nama_kategori_bayaran: string;
     nama_waran_status: string;
     id_status_waran: number;
     catatan: string;
