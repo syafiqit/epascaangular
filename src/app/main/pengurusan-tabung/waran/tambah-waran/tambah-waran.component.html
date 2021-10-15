@@ -10,7 +10,7 @@
 			<div class="card">
 				<div class="card-body">
 					<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && checkBulanan()" novalidate>
-						<h6>Maklumat Kelulusan</h6>
+						<h6>Maklumat Waran</h6>
 						<div class="row mt-3">
 							<div class="col-lg-6">
 								<div class="form-group">
@@ -41,11 +41,11 @@
 
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Rujukan Surat Waran*</label>
+									<label>Rujukan Waran*</label>
 									<input
                     class="form-control"
                     type="text"
-                    placeholder="Rujukan Surat Waran"
+                    placeholder="Rujukan Waran"
                     name="rujukanSurat"
                     [(ngModel)]="waran.rujukan_surat_waran"
                     #refLetter="ngModel"
@@ -53,7 +53,7 @@
                     required
                   />
                   <div *ngIf="f.submitted && refLetter.invalid" class="invalid-feedback">
-                    <div *ngIf="refLetter.errors.required">Rujukan Surat Waran Wajib Diisi</div>
+                    <div *ngIf="refLetter.errors.required">Rujukan Waran Wajib Diisi</div>
                   </div>
 								</div>
 							</div>
@@ -61,7 +61,7 @@
 
 						<div class="row">
               <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
-                <label>Tarikh Surat Waran*</label>
+                <label>Tarikh Waran*</label>
                 <div class="input-group">
                   <input
                     class="form-control"
@@ -81,7 +81,7 @@
                       class="fa fa-calendar"></i></button>
                   </div>
                   <div *ngIf="f.submitted && letterDate.invalid" class="invalid-feedback">
-                    <div *ngIf="letterDate.errors.required">Tarikh Surat Waran Wajib Dipilih</div>
+                    <div *ngIf="letterDate.errors.required">Tarikh Waran Wajib Dipilih</div>
                   </div>
                 </div>
               </div>
@@ -90,29 +90,6 @@
                 <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelSurat = today; d4.close()">Hari Ini</button>
                 <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d4.close()">Tutup</button>
               </ng-template>
-						</div>
-						<hr />
-
-						<h6>Maklumat Diberi Kuasa</h6>
-						<div class="row mt-3">
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Pegawai Diberi Kuasa*</label>
-									<input
-                    class="form-control"
-                    type="text"
-                    placeholder="Pegawai Diberi Kuasa"
-                    name="officer"
-                    [(ngModel)]="waran.nama_pegawai"
-                    #officerName="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && officerName.invalid }"
-                    required
-                  />
-                  <div *ngIf="f.submitted && officerName.invalid" class="invalid-feedback">
-                    <div *ngIf="officerName.errors.required">Nama Pegawai Wajib Diisi</div>
-                  </div>
-								</div>
-							</div>
 
 							<div class="col-lg-6">
 								<div class="form-group">
@@ -137,87 +114,6 @@
 						</div>
 
 						<div class="row">
-              <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
-                <label>Tarikh Mula*</label>
-                <div class="input-group">
-                  <input
-                    class="form-control"
-                    placeholder="DD/MM/YYYY"
-                    name="dp"
-                    [(ngModel)]="modelMula"
-                    ngbDatepicker
-                    [footerTemplate]="footerTemplate"
-                    #d="ngbDatepicker"
-                    style="border: 1px solid #efefef !important;"
-                    #startDate="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && startDate.invalid }"
-                    required
-                  >
-                  <div class="input-group-append">
-                    <button class="btn btn-light" (click)="d.toggle()" type="button"><i
-                      class="fa fa-calendar"></i></button>
-                  </div>
-                  <div *ngIf="f.submitted && startDate.invalid" class="invalid-feedback">
-                    <div *ngIf="startDate.errors.required">Tarikh Mula Wajib Dipilih</div>
-                  </div>
-                </div>
-              </div>
-              <ng-template #footerTemplate>
-                <hr class="my-0">
-                <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelMula = today; d.close()">Hari Ini</button>
-                <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Tutup</button>
-              </ng-template>
-
-              <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
-                <label>Tarikh Tamat*</label>
-                <div class="input-group">
-                  <input
-                    class="form-control"
-                    placeholder="DD/MM/YYYY"
-                    name="dp2"
-                    [(ngModel)]="modelTamat"
-                    ngbDatepicker
-                    [footerTemplate]="footerTemplate"
-                    #d2="ngbDatepicker"
-                    style="border: 1px solid #efefef !important;"
-                    #startDate="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && startDate.invalid }"
-                    required
-                  >
-                  <div class="input-group-append">
-                    <button class="btn btn-light" (click)="d2.toggle()" type="button"><i
-                      class="fa fa-calendar"></i></button>
-                  </div>
-                  <div *ngIf="f.submitted && startDate.invalid" class="invalid-feedback">
-                    <div *ngIf="startDate.errors.required">Tarikh Tamat Wajib Dipilih</div>
-                  </div>
-                </div>
-              </div>
-              <ng-template #footerTemplate>
-                <hr class="my-0">
-                <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelTamat = today; d2.close()">Hari Ini</button>
-                <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d2.close()">Tutup</button>
-              </ng-template>
-						</div>
-
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label>Perihal</label>
-                  <textarea
-                    class="form-control"
-                    placeholder="Perihal"
-                    name="perihalWaran"
-                    [(ngModel)]="waran.perihal"
-                  >
-                  </textarea>
-                </div>
-              </div>
-            </div>
-						<hr />
-
-						<h6>Maklumat Belanja Bulanan</h6>
-            <div class="row mt-3">
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Siling Peruntukan (RM)*</label>
@@ -240,21 +136,23 @@
 								</div>
 							</div>
 
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Baki Peruntukan (RM)</label>
-									<input
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Perihal</label>
+                  <textarea
                     class="form-control"
-                    name="baki_peruntukan"
-                    placeholder="Jumlah Baki Peruntukan"
-                    value="{{balance_peruntukan | number: '1.2-2'}}"
-                    onlyNumbers
-                    disabled
-                  />
-								</div>
-							</div>
+                    placeholder="Perihal"
+                    name="perihalWaran"
+                    [(ngModel)]="waran.perihal"
+                    rows="3"
+                  >
+                  </textarea>
+                </div>
+              </div>
 						</div>
+						<hr />
 
+						<h6>Maklumat Belanja Bulanan</h6>
             <div class="row no-gutters justify-content-end">
               <button
                 type="button"
@@ -366,6 +264,20 @@
 						</div>
 
             <div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>Baki Peruntukan (RM)</label>
+									<input
+                    class="form-control"
+                    name="baki_peruntukan"
+                    placeholder="Jumlah Baki Peruntukan"
+                    value="{{balance_peruntukan | number: '1.2-2'}}"
+                    onlyNumbers
+                    disabled
+                  />
+								</div>
+							</div>
+
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Jumlah Perbelanjaan (RM)</label>

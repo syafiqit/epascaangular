@@ -56,16 +56,6 @@ export class TambahWaranComponent implements OnInit {
   today = this.calendar.getToday();
   readonly DELIMITER = '-';
 
-  categories = [
-    { id: 1, kategori: "Covid" },
-    { id: 2, kategori: "Bukan Covid" }
-  ]
-
-  bayaran = [
-    { id: 1, jenis_bayaran: "Bantuan Wang Ihsan" },
-    { id: 2, jenis_bayaran: "Pengoperasian" }
-  ]
-
 	constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,
@@ -248,14 +238,6 @@ export class TambahWaranComponent implements OnInit {
     if(this.modelSurat){
       this.tarikhSurat = this.toModel(this.modelSurat);
       this.bayaranWaran.waran.tarikh_surat_waran = moment(this.tarikhSurat, "YYYY-MM-DD");
-    }
-    if(this.modelMula){
-      this.tarikhMula = this.toModel(this.modelMula);
-      this.bayaranWaran.waran.tarikh_mula = moment(this.tarikhMula, "YYYY-MM-DD");
-    }
-    if(this.modelTamat){
-      this.tarikhTamat = this.toModel(this.modelTamat);
-      this.bayaranWaran.waran.tarikh_tamat = moment(this.tarikhTamat, "YYYY-MM-DD");
     }
     this.waran.id_tabung_kelulusan = this.id_tabung_kelulusan;
     this.waran.no_rujukan_kelulusan = this.no_rujukan_kelulusan;

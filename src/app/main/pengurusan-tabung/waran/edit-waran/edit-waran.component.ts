@@ -45,8 +45,6 @@ export class EditWaranComponent implements OnInit {
   filter: string;
   saving = false;
   tarikhSurat: string;
-  tarikhMula: string;
-  tarikhTamat: string;
   rows = [];
   id_jenis_bencana: number;
   id_kategori_waran: number;
@@ -57,25 +55,12 @@ export class EditWaranComponent implements OnInit {
 
   date = new Date();
   modelSurat: NgbDateStruct;
-  modelMula: NgbDateStruct;
-  modelTamat: NgbDateStruct;
   today = this.calendar.getToday();
   readonly DELIMITER = '-';
 
-  categories = [
-    { id: 1, kategori: "Covid" },
-    { id: 2, kategori: "Bukan Covid" }
-  ]
-
-  bayaran = [
-    { id: 1, jenis_bayaran: "Bantuan Wang Ihsan" },
-    { id: 2, jenis_bayaran: "Pengoperasian" }
-  ]
-
   statuses = [
     { id: 1, nama: "Aktif" },
-    { id: 2, nama: "Tamat Tempoh" },
-    { id: 3, nama: "Lanjut" }
+    { id: 2, nama: "Tidak Aktif" }
   ]
 
 	constructor(
@@ -126,12 +111,6 @@ export class EditWaranComponent implements OnInit {
       this.catatan_waran = result.tabung_bayaran_waran.catatan;
       if(result.tabung_bayaran_waran.tarikh_surat_waran){
         this.modelSurat = this.fromModel(result.tabung_bayaran_waran.tarikh_surat_waran.format('YYYY-MM-DD'));
-      }
-      if(result.tabung_bayaran_waran.tarikh_mula){
-        this.modelMula = this.fromModel(result.tabung_bayaran_waran.tarikh_mula.format('YYYY-MM-DD'));
-      }
-      if(result.tabung_bayaran_waran.tarikh_tamat){
-        this.modelTamat = this.fromModel(result.tabung_bayaran_waran.tarikh_tamat.format('YYYY-MM-DD'));
       }
       this.belanja = result.tabung_bayaran_waran.jumlah_siling_peruntukan - result.tabung_bayaran_waran.jumlah_baki_peruntukan;
     })
@@ -261,32 +240,7 @@ export class EditWaranComponent implements OnInit {
       if(e === 'confirmed') {
 				this._tabungBayaranWaranBulananServiceProxy.delete(id).subscribe((result)=>{
           this.output = result;
-          if(this.output.message == "Belanja Bulanan Waran Berjaya Dibuang"){
-            const dialogRef = this._confirmationService.open({
-              title: 'Berjaya',
-              message: 'Maklumat Belanja Bulanan Waran Dipilih Berjaya Dipadam!',
-              icon: {
-                show: true,
-                name: 'check-circle',
-                color: 'success'
-              },
-              actions: {
-                confirm: {
-                  show: true,
-                  label: 'Tutup',
-                  color: 'primary'
-                },
-                cancel: {
-                  show: false
-                }
-              },
-              dismissible: true
-            });
-            dialogRef.afterClosed().subscribe(() => {
-              this.getBulananWaran();
-              this.show();
-            });
-          }
+          this.resultSave();
         })
       }
     });
@@ -298,14 +252,6 @@ export class EditWaranComponent implements OnInit {
     if(this.modelSurat){
       this.tarikhSurat = this.toModel(this.modelSurat);
       this.bayaranWaran.waran.tarikh_surat_waran = moment(this.tarikhSurat, "YYYY-MM-DD");
-    }
-    if(this.modelMula){
-      this.tarikhMula = this.toModel(this.modelMula);
-      this.bayaranWaran.waran.tarikh_mula = moment(this.tarikhMula, "YYYY-MM-DD");
-    }
-    if(this.modelTamat){
-      this.tarikhTamat = this.toModel(this.modelTamat);
-      this.bayaranWaran.waran.tarikh_tamat = moment(this.tarikhTamat, "YYYY-MM-DD");
     }
     if(this.id_status_waran != this.edit.tabung_bayaran_waran.id_status_waran) {
       this.bayaranWaran.changeStatus = this.id_status_waran;
@@ -319,29 +265,84 @@ export class EditWaranComponent implements OnInit {
 			.createOrEdit(this.bayaranWaran)
 			.pipe()
 			.subscribe((result) => {
-        const dialogRef = this._confirmationService.open({
-          title: 'Berjaya',
-          message: 'Maklumat Bayaran Secara Waran Berjaya Dikemaskini.',
-          icon: {
-            show: true,
-            name: 'check-circle',
-            color: 'success'
-          },
-          actions: {
-            confirm: {
-              show: true,
-              label: 'Tutup',
-              color: 'primary'
-            },
-            cancel: {
-              show: false
-            }
-          },
-          dismissible: true
-        });
-        dialogRef.afterClosed().subscribe(() => {
-          this.router.navigateByUrl('/app/tabung/waran/senarai');
-        });
+        this.output = result;
+        this.resultSave();
 			});
 	}
+
+  resultSave() {
+    if(this.output.message == "Belanja Bulanan Waran Berjaya Dibuang") {
+      const dialogRef = this._confirmationService.open({
+        title: 'Berjaya',
+        message: 'Maklumat Belanja Bulanan Waran Dipilih Berjaya Dipadam!',
+        icon: {
+          show: true,
+          name: 'check-circle',
+          color: 'success'
+        },
+        actions: {
+          confirm: {
+            show: true,
+            label: 'Tutup',
+            color: 'primary'
+          },
+          cancel: {
+            show: false
+          }
+        },
+        dismissible: true
+      });
+      dialogRef.afterClosed().subscribe(() => {
+        this.getBulananWaran();
+        this.show();
+      });
+    }
+    else if(this.output.message == "Tabung Bayaran Waran Berjaya Dikemaskini") {
+      const dialogRef = this._confirmationService.open({
+        title: 'Berjaya',
+        message: 'Maklumat Bayaran Secara Waran Berjaya Dikemaskini.',
+        icon: {
+          show: true,
+          name: 'check-circle',
+          color: 'success'
+        },
+        actions: {
+          confirm: {
+            show: true,
+            label: 'Tutup',
+            color: 'primary'
+          },
+          cancel: {
+            show: false
+          }
+        },
+        dismissible: true
+      });
+      dialogRef.afterClosed().subscribe(() => {
+        this.router.navigateByUrl('/app/tabung/waran/senarai');
+      });
+    }
+    else {
+      this._confirmationService.open({
+        title: 'Tidak Berjaya',
+        message: this.output.message,
+        icon: {
+          show: true,
+          name: 'x-circle',
+          color: 'error'
+        },
+        actions: {
+          confirm: {
+            show: true,
+            label: 'Tutup',
+            color: 'primary'
+          },
+          cancel: {
+            show: false
+          }
+        },
+        dismissible: true
+      });
+    }
+  }
 }

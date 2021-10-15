@@ -200,8 +200,8 @@ export class NavService implements OnDestroy {
 				active: false,
         permission: 'Halaman',
 				children: [
-          { path: '/app/muka-halaman', title: 'Muka Halaman Utama', type: 'link', permission: 'Halaman.Dashboard', },
-          { path: '/app/tabung/muka-halaman-tabung', title: 'Muka Halaman Tabung', type: 'link', permission: 'Halaman.Tabung.Dashboard' }
+          { path: '/app/muka-halaman', title: 'Utama', type: 'link', permission: 'Halaman.Dashboard', },
+          { path: '/app/tabung/muka-halaman-tabung', title: 'Tabung', type: 'link', permission: 'Halaman.Tabung.Dashboard' }
 				]
 			},
 			{
