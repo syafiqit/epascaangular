@@ -66,8 +66,30 @@ export class TambahEditDunComponent implements OnInit {
 		this._refDunServiceProxy
 			.createOrEdit(this.dun)
 			.pipe()
-			.subscribe(() => {
-				if (this.name == 'add') {
+			.subscribe((result) => {
+        if(result.message){
+          this._confirmationService.open({
+            title: 'Tidak Berjaya',
+            message: result.message,
+            icon: {
+              show: true,
+              name: 'x-circle',
+              color: 'error'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
+          });
+        }
+				else if (this.name == 'add') {
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
             message: 'Maklumat Dun Berjaya Ditambah.',
