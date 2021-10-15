@@ -29,6 +29,11 @@ export class LaporanBwiNegeriComponent implements OnInit {
   filterYear: number;
   arrayYear:any[];
 
+  total_kir: number;
+  total_jumlah: number;
+  total_dipulangkan: number;
+  total_diagihkan: number;
+
 	constructor(
     config: NgbModalConfig,
     private _laporanServiceProxy: LaporanServiceProxy,
@@ -78,6 +83,10 @@ export class LaporanBwiNegeriComponent implements OnInit {
 			.subscribe((result) => {
 				this.primengTableHelper.totalRecordsCount = result.total_count;
 				this.primengTableHelper.records = result.items;
+        this.total_kir = result.total_kir;
+        this.total_jumlah = result.total_jumlah;
+        this.total_dipulangkan = result.total_dipulangkan;
+        this.total_diagihkan = result.total_diagihkan;
 			});
 	}
 
