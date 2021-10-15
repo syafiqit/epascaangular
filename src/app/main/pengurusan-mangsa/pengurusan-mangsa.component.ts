@@ -79,7 +79,13 @@ export class PengurusanMangsaComponent implements OnInit {
     });
 
 	this._mangsaServiceProxy
-		.getMangsaForDropdown(this.filterDropdown).subscribe((result)=>{
+		.getMangsaForDropdown(
+			this.filter,
+			this.filterNegeri ?? undefined,
+			this.filterAgensi ?? undefined,
+			this.filterFromDate ?? undefined,
+			this.filterToDate ?? undefined,
+			).subscribe((result)=>{
 			this.allMangsa = result.items.map((data)=>{
 				return data.id;
 			});
@@ -125,7 +131,13 @@ export class PengurusanMangsaComponent implements OnInit {
 				this.primengTableHelper.records = result.items;
 
 				this._mangsaServiceProxy
-					.getMangsaForDropdown(this.filterDropdown).subscribe((result)=>{
+					.getMangsaForDropdown(
+						this.filter,
+						this.filterNegeri ?? undefined,
+						this.filterAgensi ?? undefined,
+						this.filterFromDate ?? undefined,
+						this.filterToDate ?? undefined,
+						).subscribe((result)=>{
 						this.allMangsa = result.items.map((data)=>{
 							return data.id;
 						});
@@ -167,7 +179,13 @@ export class PengurusanMangsaComponent implements OnInit {
 
 	checkedAll(isChecked: boolean) {
 		this._mangsaServiceProxy
-		.getMangsaForDropdown(this.filterDropdown).subscribe((result)=>{
+		.getMangsaForDropdown(
+			this.filter,
+			this.filterNegeri ?? undefined,
+			this.filterAgensi ?? undefined,
+			this.filterFromDate ?? undefined,
+			this.filterToDate ?? undefined,
+			).subscribe((result)=>{
 			this.allMangsa = result.items.map((data)=>{
 				return data.id;
 			});
