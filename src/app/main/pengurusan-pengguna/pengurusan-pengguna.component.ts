@@ -14,6 +14,7 @@ import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { AppSessionService } from '@app/shared/services/app-session.service';
 import { ConfirmationService } from '@app/shared/services/confirmation';
+import { FileDownloadService } from '@app/shared/services/file-download.service';
 
 @Component({
 	selector: 'app-pengurusan-pengguna',
@@ -57,6 +58,7 @@ export class PengurusanPenggunaComponent implements OnInit {
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
     private _refPerananServiceProxy: RefPerananServiceProxy,
     private _confirmationService: ConfirmationService,
+    private _fileDownloadService: FileDownloadService,
     public _appSession: AppSessionService
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
@@ -118,6 +120,19 @@ export class PengurusanPenggunaComponent implements OnInit {
 				this.primengTableHelper.records = result.items;
 			});
 	}
+
+  exportToExcel(){
+    this._userServiceProxy.exportAllUserToExcel(
+      this.filter,
+      this.filterAgensi  ?? undefined,
+      this.filterPeranan ?? undefined,
+      this.filterStatus ?? undefined,
+      this.filterFromDate ?? undefined,
+      this.filterToDate ?? undefined
+    ).subscribe(e=>{
+      this._fileDownloadService.downloadTempFile(e);
+    })
+  }
 
   toModel(date: NgbDateStruct | null): string | null {
     return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;

@@ -31,14 +31,23 @@
             </button>
           </div>
 
-          <div *ngIf="_appSession.isGranted('Halaman.Pengguna.Tambah')" class="col-4 justify-content-end pr-0">
+          <div class="col-4 justify-content-end pr-0">
             <button
-                [routerLink]="['/app/pengguna/tambah-edit']"
-                class="btn btn-primary pull-right"
-              >
-                <i class="fa fa-plus mr-2"></i>
-                <b>Tambah</b>
-              </button>
+              *ngIf="_appSession.isGranted('Halaman.Pengguna.Tambah')"
+              [routerLink]="['/app/pengguna/tambah-edit']"
+              class="btn btn-primary pull-right ml-2"
+            >
+              <i class="fa fa-plus mr-2"></i>
+              <b>Tambah</b>
+            </button>
+            <button
+              type="button"
+              (click)="exportToExcel()"
+              class="btn btn-outline-success pull-right"
+            >
+              <i class="fa fa-file-excel-o fa-lg mr-2"></i>
+              <b>Excel</b>
+            </button>
           </div>
         </div>
 
@@ -192,7 +201,7 @@
 										Emel
 										<p-sortIcon field="emel"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="nama_agensi">
+									<th style="width: 160px" pSortableColumn="nama_agensi">
 										Agensi
 										<p-sortIcon field="nama_agensi"></p-sortIcon>
 									</th>
@@ -221,7 +230,7 @@
 										<span class="p-column-title">Emel</span>
 										{{record.emel}}
 									</td>
-									<td style="width: 130px">
+									<td style="width: 160px">
 										<span class="p-column-title">Agensi</span>
 										{{record.nama_agensi}}
 									</td>
