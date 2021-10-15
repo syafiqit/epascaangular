@@ -3763,6 +3763,123 @@ export class LaporanServiceProxy {
         }
         return _observableOf<OutputDownloadTempDto>(<any>null);
     }
+
+    /**
+     * Get all Laporan Mangsa Bantuan Wang Ihsan By Negeri
+     * @param filterYear (optional) Filter records with a integer
+     * @return Success
+     */
+    getAllRingkasanLaporanBwiByNegeri(filterYear: number | undefined): Observable<PagedResultOfRingkasanLaporanBwiByNegeriDto> {
+        let url_ = this.baseUrl + "/api/laporan/getAllRingkasanLaporanBwiByNegeri?";
+        if (filterYear === null)
+            throw new Error("The parameter 'filterYear' cannot be null.");
+        else if (filterYear !== undefined)
+            url_ += "filterYear=" + encodeURIComponent("" + filterYear) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllRingkasanLaporanBwiByNegeri(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllRingkasanLaporanBwiByNegeri(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultOfRingkasanLaporanBwiByNegeriDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultOfRingkasanLaporanBwiByNegeriDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllRingkasanLaporanBwiByNegeri(response: HttpResponseBase): Observable<PagedResultOfRingkasanLaporanBwiByNegeriDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultOfRingkasanLaporanBwiByNegeriDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultOfRingkasanLaporanBwiByNegeriDto>(<any>null);
+    }
+
+    /**
+     * Get all Laporan Mangsa Bantuan Wang Ihsan By Kir
+     * @return Success
+     */
+    getBilBwiKirByJenisBayaran(): Observable<PagedResultOfRingkasanLaporanBwiByNegeriDto> {
+        let url_ = this.baseUrl + "/api/laporan/getBilBwiKirByJenisBayaran";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetBilBwiKirByJenisBayaran(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetBilBwiKirByJenisBayaran(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultOfRingkasanLaporanBwiByNegeriDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultOfRingkasanLaporanBwiByNegeriDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetBilBwiKirByJenisBayaran(response: HttpResponseBase): Observable<PagedResultOfRingkasanLaporanBwiByNegeriDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultOfRingkasanLaporanBwiByNegeriDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("Internal error has occured", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultOfRingkasanLaporanBwiByNegeriDto>(<any>null);
+    }
 }
 
 @Injectable()
@@ -26108,6 +26225,56 @@ export interface IGetMangsaLaporanDto {
     tarikh_cipta: moment.Moment;
 }
 
+/** Class GetRingkasanLaporanBwiByNegeriDto */
+export class GetRingkasanLaporanBwiByNegeriDto implements IGetRingkasanLaporanBwiByNegeriDto {
+    kategori!: string;
+    jumlah_diagihkan!: number;
+    jumlah_dipulangkan!: number;
+    bil!: number;
+
+    constructor(data?: IGetRingkasanLaporanBwiByNegeriDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.kategori = _data["kategori"];
+            this.jumlah_diagihkan = _data["jumlah_diagihkan"];
+            this.jumlah_dipulangkan = _data["jumlah_dipulangkan"];
+            this.bil = _data["bil"];
+        }
+    }
+
+    static fromJS(data: any): GetRingkasanLaporanBwiByNegeriDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetRingkasanLaporanBwiByNegeriDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["kategori"] = this.kategori;
+        data["jumlah_diagihkan"] = this.jumlah_diagihkan;
+        data["jumlah_dipulangkan"] = this.jumlah_dipulangkan;
+        data["bil"] = this.bil;
+        return data; 
+    }
+}
+
+/** Class GetRingkasanLaporanBwiByNegeriDto */
+export interface IGetRingkasanLaporanBwiByNegeriDto {
+    kategori: string;
+    jumlah_diagihkan: number;
+    jumlah_dipulangkan: number;
+    bil: number;
+}
+
 /** Sumber dana list in Tabular model */
 export class GetSumberDanaRumahForViewDto implements IGetSumberDanaRumahForViewDto {
     /** Items in array of object */
@@ -26320,6 +26487,14 @@ export interface IInputLaporanKelulusanDto {
 export class PagedResultOfLaporanBwiBencanaKirDto implements IPagedResultOfLaporanBwiBencanaKirDto {
     /** Total Count */
     total_count!: number;
+    /** Total Kir */
+    total_kir!: number;
+    /** Total Peruntukan */
+    total_peruntukan!: number;
+    /** Total Dipulangkan */
+    total_dipulangkan!: number;
+    /** Total Diagihkan */
+    total_diagihkan!: number;
     /** Items in array of object */
     items!: GetLaporanBwiBencanaKirDto[];
 
@@ -26335,6 +26510,10 @@ export class PagedResultOfLaporanBwiBencanaKirDto implements IPagedResultOfLapor
     init(_data?: any) {
         if (_data) {
             this.total_count = _data["total_count"];
+            this.total_kir = _data["total_kir"];
+            this.total_peruntukan = _data["total_peruntukan"];
+            this.total_dipulangkan = _data["total_dipulangkan"];
+            this.total_diagihkan = _data["total_diagihkan"];
             if (Array.isArray(_data["items"])) {
                 this.items = [] as any;
                 for (let item of _data["items"])
@@ -26353,6 +26532,10 @@ export class PagedResultOfLaporanBwiBencanaKirDto implements IPagedResultOfLapor
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["total_count"] = this.total_count;
+        data["total_kir"] = this.total_kir;
+        data["total_peruntukan"] = this.total_peruntukan;
+        data["total_dipulangkan"] = this.total_dipulangkan;
+        data["total_diagihkan"] = this.total_diagihkan;
         if (Array.isArray(this.items)) {
             data["items"] = [];
             for (let item of this.items)
@@ -26366,6 +26549,14 @@ export class PagedResultOfLaporanBwiBencanaKirDto implements IPagedResultOfLapor
 export interface IPagedResultOfLaporanBwiBencanaKirDto {
     /** Total Count */
     total_count: number;
+    /** Total Kir */
+    total_kir: number;
+    /** Total Peruntukan */
+    total_peruntukan: number;
+    /** Total Dipulangkan */
+    total_dipulangkan: number;
+    /** Total Diagihkan */
+    total_diagihkan: number;
     /** Items in array of object */
     items: GetLaporanBwiBencanaKirDto[];
 }
@@ -26374,6 +26565,12 @@ export interface IPagedResultOfLaporanBwiBencanaKirDto {
 export class PagedResultOfLaporanBwiDto implements IPagedResultOfLaporanBwiDto {
     /** Total Count */
     total_count!: number;
+    /** Total Kir */
+    total_kir!: number;
+    /** Total Jumlah */
+    total_jumlah!: number;
+    /** Total Dipulangkan */
+    total_dipulangkan!: number;
     /** Items in array of object */
     items!: GetLaporanBwiDto[];
 
@@ -26389,6 +26586,9 @@ export class PagedResultOfLaporanBwiDto implements IPagedResultOfLaporanBwiDto {
     init(_data?: any) {
         if (_data) {
             this.total_count = _data["total_count"];
+            this.total_kir = _data["total_kir"];
+            this.total_jumlah = _data["total_jumlah"];
+            this.total_dipulangkan = _data["total_dipulangkan"];
             if (Array.isArray(_data["items"])) {
                 this.items = [] as any;
                 for (let item of _data["items"])
@@ -26407,6 +26607,9 @@ export class PagedResultOfLaporanBwiDto implements IPagedResultOfLaporanBwiDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["total_count"] = this.total_count;
+        data["total_kir"] = this.total_kir;
+        data["total_jumlah"] = this.total_jumlah;
+        data["total_dipulangkan"] = this.total_dipulangkan;
         if (Array.isArray(this.items)) {
             data["items"] = [];
             for (let item of this.items)
@@ -26420,6 +26623,12 @@ export class PagedResultOfLaporanBwiDto implements IPagedResultOfLaporanBwiDto {
 export interface IPagedResultOfLaporanBwiDto {
     /** Total Count */
     total_count: number;
+    /** Total Kir */
+    total_kir: number;
+    /** Total Jumlah */
+    total_jumlah: number;
+    /** Total Dipulangkan */
+    total_dipulangkan: number;
     /** Items in array of object */
     items: GetLaporanBwiDto[];
 }
@@ -26428,6 +26637,10 @@ export interface IPagedResultOfLaporanBwiDto {
 export class PagedResultOfLaporanBwiKematianDto implements IPagedResultOfLaporanBwiKematianDto {
     /** Total Count */
     total_count!: number;
+    /** Total Kir */
+    total_kir!: number;
+    /** Total Peruntukan */
+    total_peruntukan!: number;
     /** Items in array of object */
     items!: GetLaporanBwiKematianDto[];
 
@@ -26443,6 +26656,8 @@ export class PagedResultOfLaporanBwiKematianDto implements IPagedResultOfLaporan
     init(_data?: any) {
         if (_data) {
             this.total_count = _data["total_count"];
+            this.total_kir = _data["total_kir"];
+            this.total_peruntukan = _data["total_peruntukan"];
             if (Array.isArray(_data["items"])) {
                 this.items = [] as any;
                 for (let item of _data["items"])
@@ -26461,6 +26676,8 @@ export class PagedResultOfLaporanBwiKematianDto implements IPagedResultOfLaporan
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["total_count"] = this.total_count;
+        data["total_kir"] = this.total_kir;
+        data["total_peruntukan"] = this.total_peruntukan;
         if (Array.isArray(this.items)) {
             data["items"] = [];
             for (let item of this.items)
@@ -26474,6 +26691,10 @@ export class PagedResultOfLaporanBwiKematianDto implements IPagedResultOfLaporan
 export interface IPagedResultOfLaporanBwiKematianDto {
     /** Total Count */
     total_count: number;
+    /** Total Kir */
+    total_kir: number;
+    /** Total Peruntukan */
+    total_peruntukan: number;
     /** Items in array of object */
     items: GetLaporanBwiKematianDto[];
 }
@@ -26482,6 +26703,19 @@ export interface IPagedResultOfLaporanBwiKematianDto {
 export class PagedResultOfLaporanKelulusanForViewDto implements IPagedResultOfLaporanKelulusanForViewDto {
     /** Total Count */
     total_count!: number;
+    total_siling_peruntukan!: number;
+    total_peruntukan_diambil!: number;
+    total_belanja_covid_sebelum!: number;
+    total_belanja__bukan_covid_sebelum!: number;
+    total_skb_covid!: number;
+    total_skb_bukan_covid!: number;
+    total_terus_covid!: number;
+    total_terus_bukan_covid!: number;
+    total_belanja_covid_semasa!: number;
+    total_belanja__bukan_covid_semasa!: number;
+    total_waran!: number;
+    total_belanja!: number;
+    total_baki_peruntukan!: number;
     /** Items in array of object */
     items!: InputLaporanKelulusanDto[];
 
@@ -26497,6 +26731,19 @@ export class PagedResultOfLaporanKelulusanForViewDto implements IPagedResultOfLa
     init(_data?: any) {
         if (_data) {
             this.total_count = _data["total_count"];
+            this.total_siling_peruntukan = _data["total_siling_peruntukan"];
+            this.total_peruntukan_diambil = _data["total_peruntukan_diambil"];
+            this.total_belanja_covid_sebelum = _data["total_belanja_covid_sebelum"];
+            this.total_belanja__bukan_covid_sebelum = _data["total_belanja__bukan_covid_sebelum"];
+            this.total_skb_covid = _data["total_skb_covid"];
+            this.total_skb_bukan_covid = _data["total_skb_bukan_covid"];
+            this.total_terus_covid = _data["total_terus_covid"];
+            this.total_terus_bukan_covid = _data["total_terus_bukan_covid"];
+            this.total_belanja_covid_semasa = _data["total_belanja_covid_semasa"];
+            this.total_belanja__bukan_covid_semasa = _data["total_belanja__bukan_covid_semasa"];
+            this.total_waran = _data["total_waran"];
+            this.total_belanja = _data["total_belanja"];
+            this.total_baki_peruntukan = _data["total_baki_peruntukan"];
             if (Array.isArray(_data["items"])) {
                 this.items = [] as any;
                 for (let item of _data["items"])
@@ -26515,6 +26762,19 @@ export class PagedResultOfLaporanKelulusanForViewDto implements IPagedResultOfLa
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["total_count"] = this.total_count;
+        data["total_siling_peruntukan"] = this.total_siling_peruntukan;
+        data["total_peruntukan_diambil"] = this.total_peruntukan_diambil;
+        data["total_belanja_covid_sebelum"] = this.total_belanja_covid_sebelum;
+        data["total_belanja__bukan_covid_sebelum"] = this.total_belanja__bukan_covid_sebelum;
+        data["total_skb_covid"] = this.total_skb_covid;
+        data["total_skb_bukan_covid"] = this.total_skb_bukan_covid;
+        data["total_terus_covid"] = this.total_terus_covid;
+        data["total_terus_bukan_covid"] = this.total_terus_bukan_covid;
+        data["total_belanja_covid_semasa"] = this.total_belanja_covid_semasa;
+        data["total_belanja__bukan_covid_semasa"] = this.total_belanja__bukan_covid_semasa;
+        data["total_waran"] = this.total_waran;
+        data["total_belanja"] = this.total_belanja;
+        data["total_baki_peruntukan"] = this.total_baki_peruntukan;
         if (Array.isArray(this.items)) {
             data["items"] = [];
             for (let item of this.items)
@@ -26528,6 +26788,19 @@ export class PagedResultOfLaporanKelulusanForViewDto implements IPagedResultOfLa
 export interface IPagedResultOfLaporanKelulusanForViewDto {
     /** Total Count */
     total_count: number;
+    total_siling_peruntukan: number;
+    total_peruntukan_diambil: number;
+    total_belanja_covid_sebelum: number;
+    total_belanja__bukan_covid_sebelum: number;
+    total_skb_covid: number;
+    total_skb_bukan_covid: number;
+    total_terus_covid: number;
+    total_terus_bukan_covid: number;
+    total_belanja_covid_semasa: number;
+    total_belanja__bukan_covid_semasa: number;
+    total_waran: number;
+    total_belanja: number;
+    total_baki_peruntukan: number;
     /** Items in array of object */
     items: InputLaporanKelulusanDto[];
 }
@@ -27115,9 +27388,65 @@ export interface IPagedResultOfLaporanWaranDto {
 }
 
 /** Mangsa List in Tabular model */
+export class PagedResultOfRingkasanLaporanBwiByNegeriDto implements IPagedResultOfRingkasanLaporanBwiByNegeriDto {
+    /** Items in array of object */
+    items!: GetRingkasanLaporanBwiByNegeriDto[];
+
+    constructor(data?: IPagedResultOfRingkasanLaporanBwiByNegeriDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetRingkasanLaporanBwiByNegeriDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultOfRingkasanLaporanBwiByNegeriDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultOfRingkasanLaporanBwiByNegeriDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** Mangsa List in Tabular model */
+export interface IPagedResultOfRingkasanLaporanBwiByNegeriDto {
+    /** Items in array of object */
+    items: GetRingkasanLaporanBwiByNegeriDto[];
+}
+
+/** Mangsa List in Tabular model */
 export class PegedResultOfLaporanBwiByNegeriDto implements IPegedResultOfLaporanBwiByNegeriDto {
     /** Total Count */
     total_count!: number;
+    /** Total Kir */
+    total_kir!: number;
+    /** Total Jumlah */
+    total_jumlah!: number;
+    /** Total Dipulangkan */
+    total_dipulangkan!: number;
+    /** Total Diagihkan */
+    total_diagihkan!: number;
     /** Items in array of object */
     items!: GetBwiByNegeriDto[];
 
@@ -27133,6 +27462,10 @@ export class PegedResultOfLaporanBwiByNegeriDto implements IPegedResultOfLaporan
     init(_data?: any) {
         if (_data) {
             this.total_count = _data["total_count"];
+            this.total_kir = _data["total_kir"];
+            this.total_jumlah = _data["total_jumlah"];
+            this.total_dipulangkan = _data["total_dipulangkan"];
+            this.total_diagihkan = _data["total_diagihkan"];
             if (Array.isArray(_data["items"])) {
                 this.items = [] as any;
                 for (let item of _data["items"])
@@ -27151,6 +27484,10 @@ export class PegedResultOfLaporanBwiByNegeriDto implements IPegedResultOfLaporan
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["total_count"] = this.total_count;
+        data["total_kir"] = this.total_kir;
+        data["total_jumlah"] = this.total_jumlah;
+        data["total_dipulangkan"] = this.total_dipulangkan;
+        data["total_diagihkan"] = this.total_diagihkan;
         if (Array.isArray(this.items)) {
             data["items"] = [];
             for (let item of this.items)
@@ -27164,6 +27501,14 @@ export class PegedResultOfLaporanBwiByNegeriDto implements IPegedResultOfLaporan
 export interface IPegedResultOfLaporanBwiByNegeriDto {
     /** Total Count */
     total_count: number;
+    /** Total Kir */
+    total_kir: number;
+    /** Total Jumlah */
+    total_jumlah: number;
+    /** Total Dipulangkan */
+    total_dipulangkan: number;
+    /** Total Diagihkan */
+    total_diagihkan: number;
     /** Items in array of object */
     items: GetBwiByNegeriDto[];
 }

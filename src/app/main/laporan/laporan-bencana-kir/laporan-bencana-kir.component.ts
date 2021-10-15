@@ -31,6 +31,11 @@ export class LaporanBencanaKirComponent implements OnInit {
   arrayYear:any[];
   nama_bencana: string;
 
+  total_kir: number;
+  total_peruntukan: number;
+  total_dipulangkan: number;
+  total_diagihkan: number;
+
 	constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,
@@ -81,6 +86,10 @@ export class LaporanBencanaKirComponent implements OnInit {
 			.subscribe((result) => {
 				this.primengTableHelper.totalRecordsCount = result.total_count;
 				this.primengTableHelper.records = result.items;
+        this.total_kir = result.total_kir;
+        this.total_peruntukan = result.total_peruntukan;
+        this.total_dipulangkan = result.total_dipulangkan;
+        this.total_diagihkan = result.total_diagihkan;
 			});
 	}
 

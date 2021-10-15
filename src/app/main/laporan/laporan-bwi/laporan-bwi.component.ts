@@ -41,6 +41,10 @@ export class LaporanBwiComponent implements OnInit {
   districts: any;
   arrayYear:any[];
 
+  total_kir: number;
+  total_jumlah: number;
+  total_dipulangkan: number;
+
 	constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,
@@ -98,6 +102,9 @@ export class LaporanBwiComponent implements OnInit {
 			.subscribe((result) => {
 				this.primengTableHelper.totalRecordsCount = result.total_count;
 				this.primengTableHelper.records = result.items;
+        this.total_kir = result.total_kir;
+        this.total_jumlah = result.total_jumlah;
+        this.total_dipulangkan = result.total_dipulangkan;
 			});
 	}
 

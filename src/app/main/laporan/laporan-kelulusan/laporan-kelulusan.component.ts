@@ -34,6 +34,20 @@ export class LaporanKelulusanComponent implements OnInit {
   arrayYear:any[];
   terms$ = new Subject<string>();
 
+  total_siling_peruntukan: number;
+  total_peruntukan_diambil: number;
+  total_belanja_covid_sebelum: number;
+  total_belanja__bukan_covid_sebelum: number;
+  total_skb_covid: number;
+  total_skb_bukan_covid: number;
+  total_terus_covid: number;
+  total_terus_bukan_covid: number;
+  total_belanja_covid_semasa: number;
+  total_belanja__bukan_covid_semasa: number;
+  total_waran: number;
+  total_belanja: number;
+  total_baki_peruntukan: number;
+
 	constructor(
     config: NgbModalConfig,
     private _laporanServiceProxy: LaporanServiceProxy,
@@ -84,6 +98,19 @@ export class LaporanKelulusanComponent implements OnInit {
 			.subscribe((result) => {
 				this.primengTableHelper.totalRecordsCount = result.total_count;
 				this.primengTableHelper.records = result.items;
+        this.total_siling_peruntukan = result.total_siling_peruntukan;
+        this.total_peruntukan_diambil = result.total_peruntukan_diambil;
+        this.total_belanja_covid_sebelum = result.total_belanja_covid_sebelum;
+        this.total_belanja__bukan_covid_sebelum = result.total_belanja__bukan_covid_sebelum;
+        this.total_skb_covid = result.total_skb_covid;
+        this.total_skb_bukan_covid = result.total_skb_bukan_covid;
+        this.total_terus_covid = result.total_terus_covid;
+        this.total_terus_bukan_covid = result.total_terus_bukan_covid;
+        this.total_belanja_covid_semasa = result.total_belanja_covid_semasa;
+        this.total_belanja__bukan_covid_semasa = result.total_belanja__bukan_covid_semasa;
+        this.total_waran = result.total_waran;
+        this.total_belanja = result.total_belanja;
+        this.total_baki_peruntukan = result.total_baki_peruntukan;
 			});
 	}
 

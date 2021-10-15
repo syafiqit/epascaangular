@@ -31,6 +31,9 @@ export class LaporanBwiKematianComponent implements OnInit {
   filterYear: number;
   arrayYear:any[];
 
+  total_kir: number;
+  total_peruntukan: number;
+
 	constructor(
     config: NgbModalConfig,
     private _laporanServiceProxy: LaporanServiceProxy,
@@ -83,6 +86,8 @@ export class LaporanBwiKematianComponent implements OnInit {
 			.subscribe((result) => {
 				this.primengTableHelper.totalRecordsCount = result.total_count;
 				this.primengTableHelper.records = result.items;
+        this.total_kir = result.total_kir;
+        this.total_peruntukan = result.total_peruntukan;
 			});
 	}
 
