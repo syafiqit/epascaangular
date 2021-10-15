@@ -18,17 +18,17 @@
 									<div class="input-group">
 										<input
                       class="form-control"
-                      type="text"
                       placeholder="No. Rujukan Kelulusan"
                       name="no_kelulusan"
                       [(ngModel)]="edit.tabung_bayaran_waran.no_rujukan_kelulusan"
                       #rujukanKelulusan="ngModel"
                       [ngClass]="{ 'is-invalid': f.submitted && rujukanKelulusan.invalid }"
+                      autocomplete="off"
                       required
                       readonly
 										/>
 										<div class="input-group-append">
-											<button class="btn btn-primary" (click)="addNoReference()" type="button">
+											<button class="btn btn-primary" (click)="addNoReference()" type="button" [disabled]="id_status_waran == 2">
 												<i class="fa fa-search text-white"></i>
 											</button>
 										</div>
@@ -44,13 +44,13 @@
 									<label>Rujukan Waran*</label>
 									<input
                     class="form-control"
-                    type="text"
                     placeholder="Rujukan Waran"
                     name="rujukanSurat"
                     [(ngModel)]="edit.tabung_bayaran_waran.rujukan_surat_waran"
                     #refLetter="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && refLetter.invalid }"
                     required
+                    [disabled]="id_status_waran == 2"
                   />
                   <div *ngIf="f.submitted && refLetter.invalid" class="invalid-feedback">
                     <div *ngIf="refLetter.errors.required">Rujukan Waran Wajib Diisi</div>
@@ -74,10 +74,12 @@
                     style="border: 1px solid #efefef !important;"
                     #letterDate="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && letterDate.invalid }"
+                    autocomplete="off"
+                    [disabled]="id_status_waran == 2"
                     required
                   >
                   <div class="input-group-append">
-                    <button class="btn btn-light" (click)="d4.toggle()" type="button"><i
+                    <button class="btn btn-light" (click)="d4.toggle()" type="button" [disabled]="id_status_waran == 2"><i
                       class="fa fa-calendar"></i></button>
                   </div>
                   <div *ngIf="f.submitted && letterDate.invalid" class="invalid-feedback">
@@ -104,6 +106,7 @@
                     [(ngModel)]="edit.tabung_bayaran_waran.id_agensi"
                     #namaAgensi="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && namaAgensi.invalid }"
+                    [disabled]="id_status_waran == 2"
                     required
                   ></ng-select>
                   <div *ngIf="f.submitted && namaAgensi.invalid" class="invalid-feedback">
@@ -135,6 +138,7 @@
                     placeholder="Perihal"
                     name="perihalWaran"
                     [(ngModel)]="edit.tabung_bayaran_waran.perihal"
+                    [disabled]="id_status_waran == 2"
                     rows="3"
                   >
                   </textarea>
@@ -164,7 +168,7 @@
                 </div>
               </div>
 
-              <div class="col-lg-6" *ngIf="id_status_waran == 3" [@fadeVerticalAnimation]>
+              <div class="col-lg-6" *ngIf="id_status_waran == 2" [@fadeVerticalAnimation]>
                 <div class="form-group">
                   <label>Catatan</label>
                   <textarea
@@ -172,6 +176,7 @@
                     placeholder=""
                     name="note"
                     [(ngModel)]="catatan_waran"
+                    rows="3"
                   >
                   </textarea>
                 </div>
@@ -185,6 +190,7 @@
                 type="button"
                 class="btn btn-primary pull-right"
                 (click)="addBulanan(edit.tabung_bayaran_waran.id)"
+                [disabled]="id_status_waran == 2"
               >
                 <i class="fa fa-plus mr-2"></i>
                 <b>Tambah</b>
@@ -247,6 +253,7 @@
                               class="btn btn-primary btn-primeng dropdown-toggle"
                               id="action"
                               ngbDropdownToggle
+                              [disabled]="id_status_waran == 2"
                             >
                               <i class="fa fa-cog"></i>
                               <span class="caret"></span>

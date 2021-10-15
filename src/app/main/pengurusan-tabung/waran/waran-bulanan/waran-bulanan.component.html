@@ -62,6 +62,7 @@
 						[(ngModel)]="bulanan.jumlah"
 						#jumlahBelanja="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && jumlahBelanja.invalid }"
+            autocomplete="off"
 						required
             currencyMask
             [options]="{ prefix: 'RM ', align: 'left' }"

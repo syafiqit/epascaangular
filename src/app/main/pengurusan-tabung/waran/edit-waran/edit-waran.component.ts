@@ -258,7 +258,7 @@ export class EditWaranComponent implements OnInit {
       this.bayaranWaran.catatan = this.catatan_waran ?? null;
     }
     if(this.id_status_waran == this.edit.tabung_bayaran_waran.id_status_waran) {
-      this.bayaranWaran.changeStatus = null;
+      this.bayaranWaran.changeStatus = this.id_status_waran;
       this.bayaranWaran.catatan = this.catatan_waran ?? null;
     }
 		this._tabungBayaranWaranServiceProxy

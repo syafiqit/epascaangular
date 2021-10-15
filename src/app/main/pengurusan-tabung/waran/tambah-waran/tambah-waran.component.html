@@ -24,6 +24,7 @@
                       [(ngModel)]="no_rujukan_kelulusan"
                       #rujukanKelulusan="ngModel"
                       [ngClass]="{ 'is-invalid': f.submitted && rujukanKelulusan.invalid }"
+                      autocomplete="off"
                       required
                       readonly
 										/>
@@ -74,6 +75,7 @@
                     style="border: 1px solid #efefef !important;"
                     #letterDate="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && letterDate.invalid }"
+                    autocomplete="off"
                     required
                   >
                   <div class="input-group-append">
@@ -126,6 +128,7 @@
                     (ngModelChange)="calculateBalance()"
                     #silingPeruntukan="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && silingPeruntukan.invalid }"
+                    autocomplete="off"
                     required
                     currencyMask
                     [options]="{ prefix: 'RM ', align: 'left' }"
