@@ -13,6 +13,11 @@ export class TambahEditTabungComponent implements OnInit {
 
   createTabung: CreateOrEditTabungDto = new CreateOrEditTabungDto();
 
+  kategori_tabung=[
+    {id: 2, nama_kategori: "Kumpulan Wang Covid"},
+    {id: 1, nama_kategori: "Lain- lain"}
+  ]
+
 	constructor(
     public activeModal: NgbActiveModal,
     private tabungServiceProxy: TabungServiceProxy,

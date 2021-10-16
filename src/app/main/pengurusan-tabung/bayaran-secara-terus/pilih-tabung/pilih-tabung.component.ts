@@ -24,8 +24,7 @@ export class PilihTabungComponent implements OnInit {
 
   filter: string;
   terms$ = new Subject<string>();
-  filterFromDate: string;
-  filterToDate: string;
+  filterYear: string;
 
 	constructor(
     config: NgbModalConfig,
@@ -60,8 +59,7 @@ export class PilihTabungComponent implements OnInit {
 		this._tabungServiceProxy
 			.getAll(
 				this.filter,
-        this.filterFromDate ?? undefined,
-        this.filterToDate ?? undefined,
+        this.filterYear ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)

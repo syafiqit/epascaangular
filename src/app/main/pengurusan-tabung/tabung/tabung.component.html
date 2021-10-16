@@ -55,45 +55,13 @@
                 <div id="collapseExample" [ngbCollapse]="!isCollapsed">
                   <form>
                     <div class="row mt-2">
-                      <div class="col-lg-2 pr-1">
-                        <div class="form-group custom-datepicker custom-datepicker-dropdown">
-                          <label>Tarikh Baki</label>
-                          <div class="input-group">
-                            <input
-                              class="form-control"
-                              placeholder="DD/MM/YYYY"
-                              name="dp1"
-                              [(ngModel)]="tarikhMula"
-                              ngbDatepicker
-                              #b="ngbDatepicker"
-                              style="border: 1px solid #efefef !important;"
-                            >
-                            <div class="input-group-append">
-                              <button class="btn btn-light pr-2 pl-2" (click)="b.toggle()" type="button"><i
-                                class="fa fa-calendar"></i></button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-lg-2 pl-1">
-                        <div class="form-group custom-datepicker custom-datepicker-dropdown">
-                          <div class="input-group pt-4 mt-1">
-                            <input
-                              class="form-control"
-                              placeholder="DD/MM/YYYY"
-                              name="dp2"
-                              [(ngModel)]="tarikhTamat"
-                              ngbDatepicker
-                              #c="ngbDatepicker"
-                              style="border: 1px solid #efefef !important;"
-                              [disabled]="tarikhMula == undefined"
-                            >
-                            <div class="input-group-append">
-                              <button class="btn btn-light pr-2 pl-2" (click)="c.toggle()" type="button" [disabled]="tarikhMula == undefined"><i
-                                class="fa fa-calendar"></i></button>
-                            </div>
-                          </div>
+                      <div class="col-lg-2">
+                        <div class="form-group">
+                          <label>Tahun Cipta</label>
+                          <select class="form-control" [(ngModel)]="filterYear" name="year">
+                            <option selected disabled [value]="undefined">Sila Pilih</option>
+                            <option *ngFor="let year of arrayYear">{{year}}</option>
+                          </select>
                         </div>
                       </div>
                     </div>
@@ -148,9 +116,13 @@
 										Tabung
 										<p-sortIcon field="nama_tabung"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="tarikh_baki">
-										Tarikh Baki
-										<p-sortIcon field="tarikh_baki"></p-sortIcon>
+                  <th style="width: 350px" pSortableColumn="kategori_tabung">
+										Kategori Tabung
+										<p-sortIcon field="kategori_tabung"></p-sortIcon>
+									</th>
+									<th style="width: 130px" pSortableColumn="tarikh_cipta">
+										Tarikh Cipta
+										<p-sortIcon field="tarikh_cipta"></p-sortIcon>
 									</th>
 									<th style="width: 135px" pSortableColumn="baki_bawaan">
 										Baki Bawaan
@@ -189,9 +161,14 @@
 										<span class="p-column-title">Tabung</span>
 										{{record.nama_tabung}}
 									</td>
+                  <td style="width: 350px">
+										<span class="p-column-title">Kategori Tabung</span>
+										<label *ngIf="record.kategori_tabung">{{record.kategori_tabung == 1? "Lain-lain":"Kumpulan Wang Covid"}}</label>
+                    <label *ngIf="!record.kategori_tabung">-</label>
+									</td>
 									<td style="width: 130px">
-										<span class="p-column-title">Tarikh Baki</span>
-                    {{record.tarikh_baki | date:'dd-MM-yyyy'}}
+										<span class="p-column-title">Tarikh Cipta</span>
+                    {{record.tarikh_cipta | date:'dd-MM-yyyy'}}
 									</td>
 									<td style="width: 135px">
 										<span class="p-column-title">Baki Bawaan</span>
@@ -250,6 +227,7 @@
                         <button
 													class="dropdown-item"
                           *ngIf="_appSession.isGranted('Halaman.Tabung.Hapus')"
+                          (click)="padamTabung(record.id)"
 												>
 													Padam
 												</button>

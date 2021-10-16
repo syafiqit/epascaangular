@@ -44,12 +44,19 @@ export class EditTabungComponent implements OnInit {
   statuses: any;
   sumberPeruntukan: any;
   tarikhTerimaanSehingga: Date;
+  kategori_tabung: any;
+  nama_kategori_tabung: string;
 
   date = new Date();
   modelBaki: NgbDateStruct;
   modelAkhir: NgbDateStruct;
   today = this.calendar.getToday();
   readonly DELIMITER = '-';
+
+  kategoriTabung=[
+    {id: 2, nama_kategori: "Kumpulan Wang Covid"},
+    {id: 1, nama_kategori: "Lain- lain"}
+  ]
 
 	constructor(
     config: NgbModalConfig,
@@ -106,6 +113,10 @@ export class EditTabungComponent implements OnInit {
       if(result.tabung.tarikh_cipta){
         this.modelAkhir = this.fromModel(result.tabung.tarikh_cipta.format('YYYY-MM-DD'));
       }
+
+      this.kategori_tabung =  this.kategoriTabung.find(x => x.id === this.getTabung.tabung.kategori_tabung);
+      this.nama_kategori_tabung = this.kategori_tabung.nama_kategori;
+
     });
   }
 

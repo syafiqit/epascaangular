@@ -10,7 +10,7 @@
 				<div class="card-body">
 					<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate focusInvalidInput>
 						<div class="row">
-							<div class="col-lg-12">
+							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Nama Tabung*</label>
 									<input
@@ -26,6 +26,19 @@
                   <div *ngIf="f.submitted && namaTabung.invalid" class="invalid-feedback">
                     <div *ngIf="namaTabung.errors.required">Nama Tabung Wajib Diisi</div>
                   </div>
+								</div>
+							</div>
+
+              <div class="col-lg-6">
+								<div class="form-group">
+									<label>Kategori Tabung</label>
+									<input
+                    class="form-control"
+                    type="text"
+                    name="kategori_tabung"
+                    [(ngModel)]="nama_kategori_tabung"
+                    disabled
+                  />
 								</div>
 							</div>
 						</div>
@@ -415,7 +428,7 @@
                               class="dropdown-item"
                               [routerLink]="['/app/tabung/waran/tambah']"
                               [queryParams]="{kelulusan: records.kelulusan.id, no_ruj: records.kelulusan.no_rujukan_kelulusan}"
-                              *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.Waran.Tambah')"
+                              *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.Waran.Tambah') && (getTabung.tabung.kategori_tabung == 2)"
                             >
                               Pembayaran Secara Waran
                             </a>
