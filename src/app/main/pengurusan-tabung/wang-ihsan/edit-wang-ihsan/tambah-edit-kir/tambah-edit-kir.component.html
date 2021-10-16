@@ -54,7 +54,6 @@
                         Status
                         <p-sortIcon field="status_mangsa_wang_ihsan"></p-sortIcon>
                       </th>
-                      <th style="width: 130px">Tindakan</th>
                     </tr>
                   </ng-template>
                   <ng-template pTemplate="body" let-record="$implicit">
@@ -82,23 +81,6 @@
                       <td style="width: 130px">
                         <span class="p-column-title">Status</span>
                         {{getStatus(record.status_mangsa_wang_ihsan)}}
-                      </td>
-                      <td style="width: 130px">
-                        <div ngbDropdown class="btn-group" role="group" container="body">
-                          <button
-                            type="button"
-                            class="btn btn-primary btn-primeng dropdown-toggle"
-                            id="action"
-                            ngbDropdownToggle
-                          >
-                            <i class="fa fa-cog"></i>
-                            <span class="caret"></span>
-                            Tindakan
-                          </button>
-                          <div ngbDropdownMenu aria-labelledby="action">
-                            <button class="dropdown-item">Padam</button>
-                          </div>
-                        </div>
                       </td>
                     </tr>
                   </ng-template>
