@@ -30,6 +30,29 @@
 
       <div class="col-lg-6">
         <div class="form-group">
+          <label>Kategori Tabung*</label>
+          <ng-select
+            [items]="kategori_tabung"
+            bindLabel="nama_kategori"
+            bindValue="id"
+            placeholder="Sila Pilih"
+            class="js-example-placeholder-multiple"
+            name="id_status"
+            [(ngModel)]="createTabung.kategori_tabung"
+            #kategoriTabung="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && kategoriTabung.invalid }"
+            required
+          ></ng-select>
+          <div *ngIf="f.submitted && kategoriTabung.invalid" class="invalid-feedback">
+            <div *ngIf="kategoriTabung.errors.required">Kategori Tabung Wajib Dipilih</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group">
           <label>Jumlah Dana Awal (RM)*</label>
           <input
             class="form-control"
