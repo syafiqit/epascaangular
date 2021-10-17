@@ -29,6 +29,9 @@ export class LaporanBayaranTerusComponent implements OnInit {
   filterYear: number;
   arrayYear:any[];
   jumlah_bayaran_terus: number;
+  kategori_negeri = "Negeri";
+  kategori_agensi = "Agensi";
+  kategori_kementerian = "Kementerian";
 
 	constructor(
     config: NgbModalConfig,
