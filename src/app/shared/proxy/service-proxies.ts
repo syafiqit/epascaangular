@@ -44188,6 +44188,7 @@ export interface IGetRujukanKelulusanTerusDto {
 
 /** Class GetTabungBayaranTerusForEditDto */
 export class GetTabungBayaranTerusForEditDto implements IGetTabungBayaranTerusForEditDto {
+    bwiCount!: number;
     tabung_bayaran_terus!: CreateOrEditTabungBayaranTerusDto;
 
     constructor(data?: IGetTabungBayaranTerusForEditDto) {
@@ -44201,6 +44202,7 @@ export class GetTabungBayaranTerusForEditDto implements IGetTabungBayaranTerusFo
 
     init(_data?: any) {
         if (_data) {
+            this.bwiCount = _data["bwiCount"];
             this.tabung_bayaran_terus = _data["tabung_bayaran_terus"] ? CreateOrEditTabungBayaranTerusDto.fromJS(_data["tabung_bayaran_terus"]) : <any>undefined;
         }
     }
@@ -44214,6 +44216,7 @@ export class GetTabungBayaranTerusForEditDto implements IGetTabungBayaranTerusFo
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["bwiCount"] = this.bwiCount;
         data["tabung_bayaran_terus"] = this.tabung_bayaran_terus ? this.tabung_bayaran_terus.toJSON() : <any>undefined;
         return data; 
     }
@@ -44221,6 +44224,7 @@ export class GetTabungBayaranTerusForEditDto implements IGetTabungBayaranTerusFo
 
 /** Class GetTabungBayaranTerusForEditDto */
 export interface IGetTabungBayaranTerusForEditDto {
+    bwiCount: number;
     tabung_bayaran_terus: CreateOrEditTabungBayaranTerusDto;
 }
 
