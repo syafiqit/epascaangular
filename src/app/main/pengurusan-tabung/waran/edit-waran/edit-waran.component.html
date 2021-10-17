@@ -41,10 +41,10 @@
 
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Rujukan Waran*</label>
+									<label>No. Rujukan Waran*</label>
 									<input
                     class="form-control"
-                    placeholder="Rujukan Waran"
+                    placeholder="No. Rujukan Waran"
                     name="rujukanSurat"
                     [(ngModel)]="edit.tabung_bayaran_waran.rujukan_surat_waran"
                     #refLetter="ngModel"
@@ -53,7 +53,7 @@
                     [disabled]="id_status_waran == 2"
                   />
                   <div *ngIf="f.submitted && refLetter.invalid" class="invalid-feedback">
-                    <div *ngIf="refLetter.errors.required">Rujukan Waran Wajib Diisi</div>
+                    <div *ngIf="refLetter.errors.required">No. Rujukan Waran Wajib Diisi</div>
                   </div>
 								</div>
 							</div>
