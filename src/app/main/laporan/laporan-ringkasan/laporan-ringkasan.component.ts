@@ -14,7 +14,12 @@ export class LaporanRingkasanComponent implements AfterViewInit {
 
   pieBantuanMangsa: any[];
   pieDanaRumah: any[];
+  pieBwiBayaran: any[];
+  graphNegeriBwi: any[];
   id_jenis_bantuan: number;
+  filterYear: number;
+  arrayYear:any[];
+
   jenisBantuan = [
     { id: 2, nama_bantuan: "BINA RUMAH KEKAL" },
     { id: 3, nama_bantuan: "BAIK PULIH RUMAH" }
@@ -31,9 +36,9 @@ export class LaporanRingkasanComponent implements AfterViewInit {
 
     this.pieBantuan();
     this.pieSumberDana();
-    this.mangsaNegeriGraph();
-    this.statusBinaGraph();
-    this.statusBaikiGraph();
+    this.pieJenisBayaran();
+    this.graphBwiNegeri();
+    this.generateArrayOfYears();
 	}
 
   pieBantuan() {
@@ -84,217 +89,125 @@ export class LaporanRingkasanComponent implements AfterViewInit {
     })
   }
 
-  mangsaNegeriGraph() {
-    let chart = am4core.create("jumlahMangsa", am4charts.XYChart);
-    chart.padding(40, 40, 40, 40);
+  pieJenisBayaran() {
+    this._laporanServiceProxy.getBilBwiKirByJenisBayaran()
+    .subscribe((result) => {
+      let stringData = JSON.stringify(result.items);
+      this.pieBwiBayaran = JSON.parse(stringData);
 
-    let categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
-    categoryAxis.renderer.grid.template.location = 0;
-    categoryAxis.dataFields.category = "nama_negeri";
-    categoryAxis.renderer.minGridDistance = 1;
-    categoryAxis.renderer.inversed = true;
-    categoryAxis.renderer.grid.template.disabled = true;
+      let chart = am4core.create("JenisBayaranBwi", am4charts.PieChart);
 
-    let valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
-    valueAxis.min = 0;
-    valueAxis.numberFormatter = new am4core.NumberFormatter();
-    valueAxis.numberFormatter.numberFormat = "#";
+      chart.data = this.pieBwiBayaran;
 
-    let series = chart.series.push(new am4charts.ColumnSeries());
-    series.dataFields.categoryY = "nama_negeri";
-    series.dataFields.valueX = "jumlah";
-    series.tooltipText = "{valueX}";
-    series.columns.template.strokeOpacity = 0;
-    series.columns.template.column.cornerRadiusBottomRight = 5;
-    series.columns.template.column.cornerRadiusTopRight = 5;
+      let pieSeries = chart.series.push(new am4charts.PieSeries());
+      pieSeries.dataFields.value = "bil";
+      pieSeries.dataFields.category = "kategori";
+      pieSeries.slices.template.stroke = am4core.color("#fff");
+      pieSeries.slices.template.strokeOpacity = 1;
 
-    let labelBullet = series.bullets.push(new am4charts.LabelBullet())
-    labelBullet.label.horizontalCenter = "left";
-    labelBullet.label.dx = 10;
-    labelBullet.label.text = "{values.valueX.workingValue.formatNumber('#')}";
-    labelBullet.locationX = 1;
+      chart.hiddenState.properties.radius = am4core.percent(0);
 
-    // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
-    series.columns.template.adapter.add("fill", function(fill, target){
-      return chart.colors.getIndex(target.dataItem.index);
-    });
-
-    categoryAxis.sortBySeries = series;
-
-    chart.numberFormatter.numberFormat = "#";
-    chart.data = [
-      {
-        "nama_negeri": "Wilayah Persekutuan",
-        "jumlah": 1500
-      },
-      {
-        "nama_negeri": "Johor",
-        "jumlah": 970
-      },
-      {
-        "nama_negeri": "Kedah",
-        "jumlah": 1050
-      },
-      {
-        "nama_negeri": "Kelantan",
-        "jumlah": 3700
-      }
-    ];
+      let hs = pieSeries.slices.template.states.getKey("hover");
+      hs.properties.scale = 1;
+      hs.properties.fillOpacity = 0.5;
+    })
   }
 
-  statusBinaGraph() {
-    let chart = am4core.create("bilBinaRumah", am4charts.XYChart3D);
+  graphBwiNegeri() {
+    this._laporanServiceProxy.getAllRingkasanLaporanBwiByNegeri(this.filterYear)
+    .subscribe((result) => {
+      let stringData = JSON.stringify(result.items);
+      this.graphNegeriBwi = JSON.parse(stringData);
 
-    // Add data
-    chart.data = [
-      {
-        "nama_negeri": "Kelantan",
-        "belum_mula": 150,
-        "pra_bina": 75,
-        "bina": 38,
-        "siap_sepenuhnya": 50
-      },
-      {
-        "nama_negeri": "Kedah",
-        "belum_mula": 76,
-        "pra_bina": 50,
-        "bina": 28,
-        "siap_sepenuhnya": 33
-      },
-      {
-        "nama_negeri": "Selangor",
-        "belum_mula": 42,
-        "pra_bina": 12,
-        "bina": 19,
-        "siap_sepenuhnya": 9
-      },
-      {
-        "nama_negeri": "Wilayah Persekutuan",
-        "belum_mula": 10,
-        "pra_bina": 6,
-        "bina": 1,
-        "siap_sepenuhnya": 0
+      let chart = am4core.create('chartdiv', am4charts.XYChart)
+      chart.colors.step = 2;
+
+      chart.legend = new am4charts.Legend()
+      chart.legend.position = 'top'
+      chart.legend.paddingBottom = 20
+      chart.legend.labels.template.maxWidth = 95
+
+      let xAxis = chart.xAxes.push(new am4charts.ValueAxis())
+      xAxis.min = 0;
+
+      let yAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+      yAxis.dataFields.category = 'kategori'
+      yAxis.renderer.cellStartLocation = 0.1
+      yAxis.renderer.cellEndLocation = 0.9
+      yAxis.renderer.grid.template.location = 0;
+
+      function createSeries(value, name) {
+        let series = chart.series.push(new am4charts.ColumnSeries())
+        series.dataFields.valueX = value
+        series.dataFields.categoryY = 'kategori'
+        series.name = name
+
+        series.events.on("hidden", arrangeColumns);
+        series.events.on("shown", arrangeColumns);
+
+        let bullet = series.bullets.push(new am4charts.LabelBullet())
+        bullet.interactionsEnabled = false
+        bullet.dx = 30;
+        bullet.label.text = '{valueX}'
+        bullet.label.fill = am4core.color('#ffffff')
+
+        return series;
       }
-    ];
 
-    // Create axes
-    let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-    categoryAxis.dataFields.category = "nama_negeri";
-    categoryAxis.renderer.grid.template.location = 0;
-    categoryAxis.renderer.minGridDistance = 30;
+      chart.data = this.graphNegeriBwi;
 
-    let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-    valueAxis.title.text = "Bilangan Rumah";
-    valueAxis.renderer.labels.template.adapter.add("text", function(text) {
-      return text + "";
-    });
+      createSeries('jumlah_diagihkan', 'Jumlah Diagihkan');
+      createSeries('jumlah_dipulangkan', 'Jumlah Dipulangkan');
 
-    // Create series
-    let series = chart.series.push(new am4charts.ColumnSeries3D());
-    series.dataFields.valueY = "siap_sepenuhnya";
-    series.dataFields.categoryX = "nama_negeri";
-    series.name = "Siap Sepenuhnya";
-    series.clustered = false;
-    series.columns.template.tooltipText = "Bilangan Rumah {category} (Siap Sepenuhnya): [bold]{valueY}[/]";
-    series.columns.template.fillOpacity = 0.9;
+      function arrangeColumns() {
 
-    let series2 = chart.series.push(new am4charts.ColumnSeries3D());
-    series2.dataFields.valueY = "bina";
-    series2.dataFields.categoryX = "nama_negeri";
-    series2.name = "Bina";
-    series2.clustered = false;
-    series2.columns.template.tooltipText = "Bilangan Rumah {category} (Bina): [bold]{valueY}[/]";
+        let series = chart.series.getIndex(0);
 
-    let series3 = chart.series.push(new am4charts.ColumnSeries3D());
-    series3.dataFields.valueY = "pra_bina";
-    series3.dataFields.categoryX = "nama_negeri";
-    series3.name = "Pra Bina";
-    series3.clustered = false;
-    series3.columns.template.tooltipText = "Bilangan Rumah {category} (Pra Bina): [bold]{valueY}[/]";
+        let w = 1 - yAxis.renderer.cellStartLocation - (1 - yAxis.renderer.cellEndLocation);
+        if (series.dataItems.length > 1) {
+          let y0 = yAxis.getY(series.dataItems.getIndex(0), "categoryY");
+          let y1 = yAxis.getY(series.dataItems.getIndex(1), "categoryY");
+          let delta = ((y1 - y0) / chart.series.length) * w;
+          if (am4core.isNumber(delta)) {
+            let middle = chart.series.length / 2;
 
-    let series4 = chart.series.push(new am4charts.ColumnSeries3D());
-    series4.dataFields.valueY = "belum_mula";
-    series4.dataFields.categoryX = "nama_negeri";
-    series4.name = "Belum Mula";
-    series4.clustered = false;
-    series4.columns.template.tooltipText = "Bilangan Rumah {category} (Belum Mula) : [bold]{valueY}[/]";
+            let newIndex = 0;
+            chart.series.each(function(series) {
+              if (!series.isHidden && !series.isHiding) {
+                series.dummyData = newIndex;
+                newIndex++;
+              }
+              else {
+                series.dummyData = chart.series.indexOf(series);
+              }
+            })
+
+            let visibleCount = newIndex;
+            let newMiddle = visibleCount / 2;
+
+            chart.series.each(function(series) {
+              let trueIndex = chart.series.indexOf(series);
+              let newIndex = series.dummyData;
+
+              let dy = (newIndex - trueIndex + middle - newMiddle) * delta
+
+              series.animate({ property: "dy", to: dy }, series.interpolationDuration, series.interpolationEasing);
+              series.bulletsContainer.animate({ property: "dy", to: dy }, series.interpolationDuration, series.interpolationEasing);
+            })
+          }
+        }
+      }
+    })
   }
 
-  statusBaikiGraph() {
-    let chart = am4core.create("bilBaikiRumah", am4charts.XYChart3D);
+  generateArrayOfYears() {
+    let max = new Date().getFullYear();
+    let min = max - 9;
+    let years = [];
 
-    // Add data
-    chart.data = [
-      {
-        "nama_negeri": "Kelantan",
-        "belum_mula": 50,
-        "pra_bina": 35,
-        "bina": 18,
-        "siap_sepenuhnya": 10
-      },
-      {
-        "nama_negeri": "Kedah",
-        "belum_mula": 46,
-        "pra_bina": 40,
-        "bina": 28,
-        "siap_sepenuhnya": 13
-      },
-      {
-        "nama_negeri": "Selangor",
-        "belum_mula": 42,
-        "pra_bina": 12,
-        "bina": 19,
-        "siap_sepenuhnya": 9
-      },
-      {
-        "nama_negeri": "Wilayah Persekutuan",
-        "belum_mula": 10,
-        "pra_bina": 6,
-        "bina": 1,
-        "siap_sepenuhnya": 0
-      }
-    ];
-
-    // Create axes
-    let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-    categoryAxis.dataFields.category = "nama_negeri";
-    categoryAxis.renderer.grid.template.location = 0;
-    categoryAxis.renderer.minGridDistance = 30;
-
-    let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-    valueAxis.title.text = "Bilangan Rumah";
-    valueAxis.renderer.labels.template.adapter.add("text", function(text) {
-      return text + "";
-    });
-
-    // Create series
-    let series = chart.series.push(new am4charts.ColumnSeries3D());
-    series.dataFields.valueY = "siap_sepenuhnya";
-    series.dataFields.categoryX = "nama_negeri";
-    series.name = "Siap Sepenuhnya";
-    series.clustered = false;
-    series.columns.template.tooltipText = "Bilangan Rumah {category} (Siap Sepenuhnya): [bold]{valueY}[/]";
-    series.columns.template.fillOpacity = 0.9;
-
-    let series2 = chart.series.push(new am4charts.ColumnSeries3D());
-    series2.dataFields.valueY = "bina";
-    series2.dataFields.categoryX = "nama_negeri";
-    series2.name = "Bina";
-    series2.clustered = false;
-    series2.columns.template.tooltipText = "Bilangan Rumah {category} (Bina): [bold]{valueY}[/]";
-
-    let series3 = chart.series.push(new am4charts.ColumnSeries3D());
-    series3.dataFields.valueY = "pra_bina";
-    series3.dataFields.categoryX = "nama_negeri";
-    series3.name = "Pra Bina";
-    series3.clustered = false;
-    series3.columns.template.tooltipText = "Bilangan Rumah {category} (Pra Bina): [bold]{valueY}[/]";
-
-    let series4 = chart.series.push(new am4charts.ColumnSeries3D());
-    series4.dataFields.valueY = "belum_mula";
-    series4.dataFields.categoryX = "nama_negeri";
-    series4.name = "Belum Mula";
-    series4.clustered = false;
-    series4.columns.template.tooltipText = "Bilangan Rumah {category} (Belum Mula) : [bold]{valueY}[/]";
+    for (let i = max; i >= min; i--) {
+      years.push(i)
+    }
+    this.arrayYear = years;
   }
 }
