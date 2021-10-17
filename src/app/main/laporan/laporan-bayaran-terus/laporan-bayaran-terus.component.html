@@ -139,6 +139,10 @@
 											No. Baucer
 											<p-sortIcon field="no_baucar"></p-sortIcon>
 										</th>
+										<th style="width: 150px" pSortableColumn="nama_tabung">
+											Tabung
+											<p-sortIcon field="nama_tabung"></p-sortIcon>
+										</th>
 										<th style="width: 149px" pSortableColumn="tarikh">
 											Tarikh Bayaran
 											<p-sortIcon field="tarikh"></p-sortIcon>
@@ -147,12 +151,20 @@
 											Perihal
 											<p-sortIcon field="perihal"></p-sortIcon>
 										</th>
+										<th style="width: 175px" pSortableColumn="kategori_penerima">
+											Kategori Penerima
+											<p-sortIcon field="kategori_penerima"></p-sortIcon>
+										</th>
+										<th style="width: 150px" pSortableColumn="nama_negeri">
+											Negeri
+											<p-sortIcon field="nama_negeri"></p-sortIcon>
+										</th>
 										<th style="width: 150px" pSortableColumn="penerima">
-											Kepada
+											Penerima
 											<p-sortIcon field="penerima"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="nama_kategori_bayaran">
-											Kategori
+										<th style="width: 166px" pSortableColumn="nama_kategori_bayaran">
+											Kategori Bayaran
 											<p-sortIcon field="nama_kategori_bayaran"></p-sortIcon>
 										</th>
 										<th style="width: 153px" pSortableColumn="jumlah">
@@ -173,7 +185,11 @@
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">No. Baucer</span>
-											{{record.no_baucar}}
+											{{record.no_baucar? record.no_baucar: '-'}}
+										</td>
+										<td style="width: 150px">
+											<span class="p-column-title">Tabung</span>
+											{{record.nama_tabung}}
 										</td>
 										<td style="width: 149px">
 											<span class="p-column-title">Tarikh Bayaran</span>
@@ -183,12 +199,22 @@
 											<span class="p-column-title">Perihal</span>
                       {{record.perihal? record.perihal: '-'}}
 										</td>
+										<td style="width: 175px">
+											<span class="p-column-title">Kategori Penerima</span>
+											<label *ngIf="record.nama_negeri">{{kategori_negeri}}</label>
+											<label *ngIf="record.nama_agensi">{{kategori_agensi}}</label>
+											<label *ngIf="record.nama_kementerian">{{kategori_kementerian}}</label>
+										</td>
 										<td style="width: 150px">
-											<span class="p-column-title">Kepada</span>
+											<span class="p-column-title">Negeri</span>
+											{{record.nama_negeri? record.nama_negeri: '-'}}
+										</td>
+										<td style="width: 150px">
+											<span class="p-column-title">Penerima</span>
 											{{record.penerima}}
 										</td>
-										<td style="width: 130px">
-											<span class="p-column-title">Kategori</span>
+										<td style="width: 166px">
+											<span class="p-column-title">Kategori Bayaran</span>
 											{{record.nama_kategori_bayaran}}
 										</td>
 										<td style="width: 153px">
@@ -203,10 +229,13 @@
 										<td style="width: 132px; background-color: #f9f9f9;"></td>
 										<td style="width: 143px; background-color: #f9f9f9;"></td>
 										<td style="width: 130px; background-color: #f9f9f9;"></td>
+										<td style="width: 150px; background-color: #f9f9f9;"></td>
 										<td style="width: 149px; background-color: #f9f9f9;"></td>
 										<td style="width: 130px; background-color: #f9f9f9;"></td>
+										<td style="width: 175px; background-color: #f9f9f9;"></td>
 										<td style="width: 150px; background-color: #f9f9f9;"></td>
-										<td style="width: 130px; background-color: #f9f9f9;"></td>
+										<td style="width: 150px; background-color: #f9f9f9;"></td>
+										<td style="width: 166px; background-color: #f9f9f9;"></td>
 										<td style="width: 153px">RM {{jumlah_bayaran_terus | number: '1.2-2'}}</td>
 									</tr>
 								</ng-template>
