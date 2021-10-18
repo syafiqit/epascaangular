@@ -51,6 +51,7 @@
                     placeholder="Jumlah Siling Peruntukan"
                     currencyMask
                     [options]="{ prefix: 'RM ', align: 'left' }"
+                    autocomplete="off"
 									/>
 									<div *ngIf="f.submitted && jumlahSiling.invalid" class="invalid-feedback">
 										<div *ngIf="jumlahSiling.errors.required">Jumlah Siling Wajib Dipilih</div>

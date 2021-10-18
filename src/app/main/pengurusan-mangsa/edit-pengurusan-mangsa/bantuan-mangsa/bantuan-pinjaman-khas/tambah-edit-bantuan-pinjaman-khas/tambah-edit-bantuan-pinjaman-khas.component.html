@@ -163,6 +163,7 @@
             required
             currencyMask
             [options]="{ prefix: 'RM ', align: 'left' }"
+            autocomplete="off"
           />
           <div *ngIf="f.submitted && jumlahPinjaman.invalid" class="invalid-feedback">
             <div *ngIf="jumlahPinjaman.errors.required">Jumlah Pinjaman Wajib Diisi</div>

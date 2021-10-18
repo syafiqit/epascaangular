@@ -108,6 +108,7 @@
             required
             currencyMask
             [options]="{ prefix: 'RM ', align: 'left' }"
+            autocomplete="off"
           />
           <div *ngIf="f.submitted && kosBantuan.invalid" class="invalid-feedback">
             <div *ngIf="kosBantuan.errors.required">Kos Bantuan Wajib Diisi</div>

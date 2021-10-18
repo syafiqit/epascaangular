@@ -266,6 +266,7 @@
             required
             currencyMask
             [options]="{ prefix: 'RM ', align: 'left' }"
+            autocomplete="off"
           />
           <div *ngIf="f.submitted && kosAnggaran.invalid" class="invalid-feedback">
             <div *ngIf="kosAnggaran.errors.required">Kos Anggaran Wajib Diisi</div>
@@ -287,6 +288,7 @@
             required
             currencyMask
             [options]="{ prefix: 'RM ', align: 'left' }"
+            autocomplete="off"
           />
           <div *ngIf="f.submitted && kosSebenar.invalid" class="invalid-feedback">
             <div *ngIf="kosSebenar.errors.required">Kos Sebenar Wajib Diisi</div>
