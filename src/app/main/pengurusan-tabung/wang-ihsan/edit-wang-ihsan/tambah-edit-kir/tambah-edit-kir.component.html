@@ -229,10 +229,10 @@
                   <input
                     class="form-control"
                     placeholder="DD/MM/YYYY"
-                    name="dp"
+                    name="due"
                     [(ngModel)]="modelDueReport"
                     ngbDatepicker
-                    [footerTemplate]="footerTemplate"
+                    [footerTemplate]="footerTemplate1"
                     #e="ngbDatepicker"
                     style="border: 1px solid #efefef !important;"
                     #dueReport="ngModel"
@@ -247,9 +247,9 @@
                   </div>
                 </div>
               </div>
-              <ng-template #footerTemplate>
+              <ng-template #footerTemplate1>
                 <hr class="my-0">
-                <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelEft = today; e.close()">Hari Ini</button>
+                <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelDueReport = today; e.close()">Hari Ini</button>
                 <button class="btn btn-secondary btn-sm m-2 float-right" (click)="e.close()">Tutup</button>
               </ng-template>
             </div>
@@ -294,7 +294,7 @@
                     name="dp1"
                     [(ngModel)]="modelPerakuan"
                     ngbDatepicker
-                    [footerTemplate]="footerTemplate"
+                    [footerTemplate]="footerTemplate2"
                     #d1="ngbDatepicker"
                     style="border: 1px solid #efefef !important;"
                   >
@@ -304,7 +304,7 @@
                   </div>
                 </div>
               </div>
-              <ng-template #footerTemplate>
+              <ng-template #footerTemplate2>
                 <hr class="my-0">
                 <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelPerakuan = today; d1.close()">Hari Ini</button>
                 <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d1.close()">Tutup</button>
@@ -336,7 +336,7 @@
                     name="dp2"
                     [(ngModel)]="modelPenyaluran"
                     ngbDatepicker
-                    [footerTemplate]="footerTemplate"
+                    [footerTemplate]="footerTemplate3"
                     #d2="ngbDatepicker"
                     style="border: 1px solid #efefef !important;"
                   >
@@ -346,7 +346,7 @@
                   </div>
                 </div>
               </div>
-              <ng-template #footerTemplate>
+              <ng-template #footerTemplate3>
                 <hr class="my-0">
                 <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelPenyaluran = today; d2.close()">Hari Ini</button>
                 <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d2.close()">Tutup</button>
@@ -378,7 +378,7 @@
                     name="dp3"
                     [(ngModel)]="modelLaporan"
                     ngbDatepicker
-                    [footerTemplate]="footerTemplate"
+                    [footerTemplate]="footerTemplate4"
                     #d3="ngbDatepicker"
                     style="border: 1px solid #efefef !important;"
                   >
@@ -388,7 +388,7 @@
                   </div>
                 </div>
               </div>
-              <ng-template #footerTemplate>
+              <ng-template #footerTemplate4>
                 <hr class="my-0">
                 <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelLaporan = today; d3.close()">Hari Ini</button>
                 <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d3.close()">Tutup</button>
@@ -420,7 +420,7 @@
                     name="dp4"
                     [(ngModel)]="modelMaklumanMajlis"
                     ngbDatepicker
-                    [footerTemplate]="footerTemplate"
+                    [footerTemplate]="footerTemplate5"
                     #d4="ngbDatepicker"
                     style="border: 1px solid #efefef !important;"
                   >
@@ -430,9 +430,9 @@
                   </div>
                 </div>
               </div>
-              <ng-template #footerTemplate>
+              <ng-template #footerTemplate5>
                 <hr class="my-0">
-                <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelMakluman = today; d4.close()">Hari Ini</button>
+                <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelMaklumanMajlis = today; d4.close()">Hari Ini</button>
                 <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d4.close()">Tutup</button>
               </ng-template>
             </div>
@@ -447,7 +447,7 @@
                     name="dp5"
                     [(ngModel)]="modelMajlis"
                     ngbDatepicker
-                    [footerTemplate]="footerTemplate"
+                    [footerTemplate]="footerTemplate6"
                     #d5="ngbDatepicker"
                     style="border: 1px solid #efefef !important;"
                   >
@@ -457,7 +457,7 @@
                   </div>
                 </div>
               </div>
-              <ng-template #footerTemplate>
+              <ng-template #footerTemplate6>
                 <hr class="my-0">
                 <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelMajlis = today; d5.close()">Hari Ini</button>
                 <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d5.close()">Tutup</button>
@@ -489,7 +489,7 @@
                     name="tarikhSuratLaporan"
                     [(ngModel)]="modelSuratLaporan"
                     ngbDatepicker
-                    [footerTemplate]="footerTemplate"
+                    [footerTemplate]="footerTemplate7"
                     #sl="ngbDatepicker"
                     style="border: 1px solid #efefef !important;"
                   >
@@ -499,7 +499,7 @@
                   </div>
                 </div>
               </div>
-              <ng-template #footerTemplate>
+              <ng-template #footerTemplate7>
                 <hr class="my-0">
                 <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelSuratLaporan = today; sl.close()">Hari Ini</button>
                 <button class="btn btn-secondary btn-sm m-2 float-right" (click)="sl.close()">Tutup</button>

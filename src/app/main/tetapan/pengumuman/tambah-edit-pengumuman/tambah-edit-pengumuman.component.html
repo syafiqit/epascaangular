@@ -64,7 +64,7 @@
             name="dp2"
             [(ngModel)]="modelTamat"
             ngbDatepicker
-            [footerTemplate]="footerTemplate"
+            [footerTemplate]="footerTemplate2"
             #d2="ngbDatepicker"
             style="border: 1px solid #efefef !important;"
           >
@@ -74,7 +74,7 @@
           </div>
         </div>
       </div>
-      <ng-template #footerTemplate>
+      <ng-template #footerTemplate2>
         <hr class="my-0">
         <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelTamat = today; d2.close()">Hari Ini</button>
         <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d2.close()">Tutup</button>
