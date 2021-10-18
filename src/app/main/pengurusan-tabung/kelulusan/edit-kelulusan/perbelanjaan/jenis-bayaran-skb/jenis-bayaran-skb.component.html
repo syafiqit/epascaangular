@@ -29,7 +29,7 @@
             <tr>
                 <td style="width: 150px">
                     <span class="p-column-title">Daerah</span>
-                    {{record.no_rujukan_skb}}
+                    <a [routerLink]="['/app/tabung/skb/edit']" [queryParams]="{id: record.id}">{{record.no_rujukan_skb}}</a>
                 </td>
                 <td style="width: 130px">
                     <span class="p-column-title">Status</span>
