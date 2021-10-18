@@ -8,6 +8,7 @@ import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { finalize } from 'rxjs/operators';
 import { PeruntukanDiambilComponent } from '../../peruntukan-diambil/peruntukan-diambil.component';
+import { AppSessionService } from '@app/shared/services/app-session.service';
 
 @Component({
   selector: 'app-peruntukan-diambil-list',
@@ -33,6 +34,7 @@ export class PeruntukanDiambilListComponent implements OnInit {
     private modalService: NgbModal,
     private _tabungKelulusanServiceProxy: TabungKelulusanServiceProxy,
     private _tabungKelulusanAmbilanServiceProxy: TabungKelulusanAmbilanServiceProxy,
+    public _appSession: AppSessionService,
     private _activatedRoute: ActivatedRoute
   ) {
     this.id = this._activatedRoute.snapshot.queryParams['id'];
@@ -76,16 +78,34 @@ export class PeruntukanDiambilListComponent implements OnInit {
 			});
 	}
 
-  peruntukanDiambilModal(id?, id_tabung?, baki_jumlah_siling?) {
+  peruntukanDiambilModal(id_tabung_kelulusan?, id_tabung?, baki_jumlah_siling?) {
 		const modalRef = this.modalService.open(PeruntukanDiambilComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
     modalRef.componentInstance.id_tabung = id_tabung;
-    modalRef.componentInstance.id_tabung_kelulusan = id;
+    modalRef.componentInstance.id_tabung_kelulusan = id_tabung_kelulusan;
     modalRef.componentInstance.baki_jumlah_siling = baki_jumlah_siling;
     modalRef.result.then(
 			(response) => {
 				if (response) {
           this.getPeruntukanDiambil();
+          this.show();
+				}
+			}
+		);
+	}
+
+  editPeruntukanDiambil(id?, id_tabung_kelulusan?, id_tabung?, baki_jumlah_siling?) {
+		const modalRef = this.modalService.open(PeruntukanDiambilComponent, { size: 'lg' });
+		modalRef.componentInstance.name = 'edit';
+    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.id_tabung = id_tabung;
+    modalRef.componentInstance.id_tabung_kelulusan = id_tabung_kelulusan;
+    modalRef.componentInstance.baki_jumlah_siling = baki_jumlah_siling;
+    modalRef.result.then(
+			(response) => {
+				if (response) {
+          this.getPeruntukanDiambil();
+          this.show();
 				}
 			}
 		);

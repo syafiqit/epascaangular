@@ -9,6 +9,7 @@ import { ConfirmationService } from '@services/confirmation';
 })
 export class PeruntukanDiambilComponent implements OnInit {
   @Input() name;
+  @Input() id;
   @Input() id_tabung;
   @Input() id_tabung_kelulusan;
   @Input() baki_jumlah_siling;
@@ -16,6 +17,8 @@ export class PeruntukanDiambilComponent implements OnInit {
   saving:any;
   peruntukan: CreateOrEditTabungKelulusanAmbilanDto = new CreateOrEditTabungKelulusanAmbilanDto();
   jumlahBaru = 0;
+  jumlah = 0;
+  kosong = 0;
 
   constructor(
     config: NgbModalConfig,
@@ -28,28 +31,43 @@ export class PeruntukanDiambilComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    // this.show()
+    this.show();
   }
 
   show() {
-    if (!this.id_tabung) {
+    if (!this.id) {
       this.peruntukan = new CreateOrEditTabungKelulusanAmbilanDto();
     } else {
-      this._tabungKelulusanAmbilanServiceProxy.getTabungKelulusanAmbilanForEdit(this.id_tabung).subscribe((result) => {
+      this._tabungKelulusanAmbilanServiceProxy.getTabungKelulusanAmbilanForEdit(this.id).subscribe((result) => {
         this.peruntukan = result.tabung_kelulusan_ambilan;
+        this.jumlah = this.peruntukan.jumlah;
 
       });
     }
   }
 
   kiraJumlah(){
-    this.jumlahBaru =  this.baki_jumlah_siling - this.peruntukan.jumlah
+    if(!this.id){
+      this.jumlahBaru =  this.baki_jumlah_siling - this.peruntukan.jumlah;
+    }
+    else{
+      if(this.peruntukan.jumlah < this.jumlah){
+        this.jumlahBaru = Number(this.baki_jumlah_siling) + (this.jumlah - this.peruntukan.jumlah);
+      }
+      else if(this.peruntukan.jumlah > this.jumlah){
+        this.jumlahBaru =  this.baki_jumlah_siling - this.peruntukan.jumlah;
+      }
+      else if(this.peruntukan.jumlah = this.jumlah){
+        this.jumlahBaru =  this.baki_jumlah_siling;
+      }
+    }
   }
 
   save(): void {
     this.saving = true;
     this.peruntukan.id_tabung = this.id_tabung;
     this.peruntukan.id_tabung_kelulusan = this.id_tabung_kelulusan;
+    this.peruntukan.jumlah = this.jumlah;
 
     this._tabungKelulusanAmbilanServiceProxy
       .createOrEdit(this.peruntukan)
