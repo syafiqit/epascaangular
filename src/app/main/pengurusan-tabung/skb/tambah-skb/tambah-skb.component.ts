@@ -328,6 +328,9 @@ export class TambahSkbComponent implements OnInit {
             },
             dismissible: true
           });
+          dialogRef.afterClosed().subscribe(() => {
+            this.bulanan = [];
+          });
         }
 			});
 	}
