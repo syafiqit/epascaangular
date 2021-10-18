@@ -47386,6 +47386,7 @@ export interface ICreateOrEditTabungKelulusanDto {
 
 /** Class GetBayaranTerusByIdKelulusanDto */
 export class GetBayaranTerusByIdKelulusanDto implements IGetBayaranTerusByIdKelulusanDto {
+    id!: number;
     no_rujukan_terus!: string;
     jumlah!: number;
 
@@ -47400,6 +47401,7 @@ export class GetBayaranTerusByIdKelulusanDto implements IGetBayaranTerusByIdKelu
 
     init(_data?: any) {
         if (_data) {
+            this.id = _data["id"];
             this.no_rujukan_terus = _data["no_rujukan_terus"];
             this.jumlah = _data["jumlah"];
         }
@@ -47414,6 +47416,7 @@ export class GetBayaranTerusByIdKelulusanDto implements IGetBayaranTerusByIdKelu
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
         data["no_rujukan_terus"] = this.no_rujukan_terus;
         data["jumlah"] = this.jumlah;
         return data; 
@@ -47422,6 +47425,7 @@ export class GetBayaranTerusByIdKelulusanDto implements IGetBayaranTerusByIdKelu
 
 /** Class GetBayaranTerusByIdKelulusanDto */
 export interface IGetBayaranTerusByIdKelulusanDto {
+    id: number;
     no_rujukan_terus: string;
     jumlah: number;
 }
@@ -47616,6 +47620,7 @@ export interface IGetKelulusanLookupTableForViewDto {
 
 /** Class GetSkbByIdKelulusanDto */
 export class GetSkbByIdKelulusanDto implements IGetSkbByIdKelulusanDto {
+    id!: number;
     no_rujukan_skb!: string;
     jumlah!: number;
 
@@ -47630,6 +47635,7 @@ export class GetSkbByIdKelulusanDto implements IGetSkbByIdKelulusanDto {
 
     init(_data?: any) {
         if (_data) {
+            this.id = _data["id"];
             this.no_rujukan_skb = _data["no_rujukan_skb"];
             this.jumlah = _data["jumlah"];
         }
@@ -47644,6 +47650,7 @@ export class GetSkbByIdKelulusanDto implements IGetSkbByIdKelulusanDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
         data["no_rujukan_skb"] = this.no_rujukan_skb;
         data["jumlah"] = this.jumlah;
         return data; 
@@ -47652,6 +47659,7 @@ export class GetSkbByIdKelulusanDto implements IGetSkbByIdKelulusanDto {
 
 /** Class GetSkbByIdKelulusanDto */
 export interface IGetSkbByIdKelulusanDto {
+    id: number;
     no_rujukan_skb: string;
     jumlah: number;
 }
@@ -47794,6 +47802,7 @@ export interface IGetTabungKelulusanForViewDto {
 
 /** Class GetWaranByIdKelulusanDto */
 export class GetWaranByIdKelulusanDto implements IGetWaranByIdKelulusanDto {
+    id!: number;
     no_rujukan_waran!: string;
     jumlah!: number;
 
@@ -47808,6 +47817,7 @@ export class GetWaranByIdKelulusanDto implements IGetWaranByIdKelulusanDto {
 
     init(_data?: any) {
         if (_data) {
+            this.id = _data["id"];
             this.no_rujukan_waran = _data["no_rujukan_waran"];
             this.jumlah = _data["jumlah"];
         }
@@ -47822,6 +47832,7 @@ export class GetWaranByIdKelulusanDto implements IGetWaranByIdKelulusanDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
         data["no_rujukan_waran"] = this.no_rujukan_waran;
         data["jumlah"] = this.jumlah;
         return data; 
@@ -47830,6 +47841,7 @@ export class GetWaranByIdKelulusanDto implements IGetWaranByIdKelulusanDto {
 
 /** Class GetWaranByIdKelulusanDto */
 export interface IGetWaranByIdKelulusanDto {
+    id: number;
     no_rujukan_waran: string;
     jumlah: number;
 }
