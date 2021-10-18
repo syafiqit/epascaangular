@@ -8,7 +8,7 @@ import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TambahPeruntukanComponent } from '../edit-tabung/tambah-peruntukan/tambah-peruntukan.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CreateOrEditTabungDto, GetTabungForEditDto, RefSumberPeruntukanServiceProxy, TabungKelulusanServiceProxy, TabungPeruntukanServiceProxy, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
+import { CreateOrEditTabungDto, GetTabungByYearDto, GetTabungForEditDto, RefSumberPeruntukanServiceProxy, TabungKelulusanServiceProxy, TabungPeruntukanServiceProxy, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import * as moment from 'moment';
 import { finalize } from 'rxjs/operators';
 import { swalError, swalSuccess, swalWarning } from '@shared/sweet-alert/swal-constant';
@@ -29,8 +29,10 @@ export class EditTabungComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
   primengTableHelperSejarah: PrimengTableHelper;
   primengTableHelperKelulusan: PrimengTableHelper;
+  public isCollapsed = false;
 
   getTabung: GetTabungForEditDto = new GetTabungForEditDto();
+  getTabungYear: GetTabungByYearDto = new GetTabungByYearDto();
   editTabung: CreateOrEditTabungDto = new CreateOrEditTabungDto();
 
   idTabung: any;
@@ -41,11 +43,16 @@ export class EditTabungComponent implements OnInit {
   filterJenisBencana: number;
   filterFromDate: string;
   filterToDate: string;
+  filterYear: string = new Date().getFullYear().toString();;
   statuses: any;
   sumberPeruntukan: any;
   tarikhTerimaanSehingga: Date;
   kategori_tabung: any;
   nama_kategori_tabung: string;
+  tabungTambahKelulusan: number = 1;
+  tabungKemaskiniKelulusan: number = 1;
+  arrayYear:any[];
+  currentYear: string = new Date().getFullYear().toString();
 
   date = new Date();
   modelBaki: NgbDateStruct;
@@ -84,8 +91,10 @@ export class EditTabungComponent implements OnInit {
 
 	ngOnInit(): void {
     this.tarikhTerimaanSehingga = new Date(new Date().getFullYear() -1, 12, 0);
+    this.generateArrayOfYears();
     this.getSumberPeruntukan();
     this.show();
+    this.getTabungByYear(this.currentYear);
   }
 
   fromModel(value: string | null): NgbDateStruct | null {
@@ -141,6 +150,16 @@ export class EditTabungComponent implements OnInit {
       this.primengTableHelper.totalRecordsCount = result.total_count;
       this.primengTableHelper.records = result.items;
     });
+  }
+
+  getTabungByYear(year){
+    this.currentYear = year;
+    if(!year){
+      this.currentYear = new Date().getFullYear().toString();
+    }
+    this.tabungServiceProxy.getTabungByYear(this.idTabung, year ?? this.currentYear).subscribe((result)=>{
+      this.getTabungYear = result;
+    })
   }
 
   getSumberPeruntukan(filter?) {
@@ -222,6 +241,17 @@ export class EditTabungComponent implements OnInit {
 			}
 		});
 	}
+
+  generateArrayOfYears() {
+    let max = new Date().getFullYear();
+    let min = max - 9;
+    let years = [];
+
+    for (let i = max; i >= min; i--) {
+      years.push(i)
+    }
+    this.arrayYear = years;
+  }
 
   deleteTabungPeruntukans(id?) {
     swalWarning.fire({
@@ -325,10 +355,18 @@ export class EditTabungComponent implements OnInit {
     });
   }
 
-  peruntukanDiambilModal(baki_jumlah_siling?) {
+  peruntukanDiambilModal(id_kelulusan, baki_jumlah_siling?) {
 		const modalRef = this.modalService.open(PeruntukanDiambilComponent, { size: 'lg' });
-		modalRef.componentInstance.name = 'add';
+		modalRef.componentInstance.name = 'tabungKelulusan';
+    modalRef.componentInstance.id_tabung_kelulusan = id_kelulusan;
+    modalRef.componentInstance.id_tabung = this.idTabung;
     modalRef.componentInstance.baki_jumlah_siling = baki_jumlah_siling;
+
+    modalRef.result.then((response) => {
+			if (response) {
+				this.getKelulusan();
+			}
+		});
 	}
 
 	reloadPage(): void {

@@ -31,6 +31,7 @@ export class TambahKelulusanComponent implements OnInit {
   bantuan:any;
   id_tabung: number;
   namaTabung: string;
+  tabungTambahKelulusan: number;
 
   date = new Date();
   modelSurat: NgbDateStruct;
@@ -61,6 +62,7 @@ export class TambahKelulusanComponent implements OnInit {
     this.id = this._activatedRoute.snapshot.queryParams['id'];
     this.id_tabung = this._activatedRoute.snapshot.queryParams['idTabung'];
     this.namaTabung = this._activatedRoute.snapshot.queryParams['namaTabung'];
+    this.tabungTambahKelulusan = this._activatedRoute.snapshot.queryParams['tabungTambahKelulusan'];
 		config.backdrop = 'static';
 		config.keyboard = false;
 	}
@@ -191,10 +193,13 @@ export class TambahKelulusanComponent implements OnInit {
 		  dismissible: true
 		});
 		dialogRef.afterClosed().subscribe(() => {
-		  this.router.navigate(['/app/tabung/senarai-kelulusan']);
+      if(this.tabungTambahKelulusan){
+        this.router.navigate(['/app/tabung/edit'], { queryParams: { id: this.id_tabung } });
+      }else{
+        this.router.navigate(['/app/tabung/senarai-kelulusan']);
+      }
 		});
 	}
-	
 	alertMessage(){
 		const dialogRef = this._confirmationService.open({
 		  title: 'Perhatian',
@@ -217,7 +222,7 @@ export class TambahKelulusanComponent implements OnInit {
 		  dismissible: true
 		});
 		dialogRef.afterClosed().subscribe(() => {
-		  
+
 		});
 	}
 }
