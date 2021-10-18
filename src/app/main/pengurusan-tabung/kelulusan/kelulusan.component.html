@@ -306,7 +306,7 @@
 													class="dropdown-item"
 													[routerLink]="['/app/tabung/waran/tambah']"
                           [queryParams]="{kelulusan: record.kelulusan.id, no_ruj: record.kelulusan.no_rujukan_kelulusan}"
-                          *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.Waran.Tambah')"
+                          *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.Waran.Tambah') && record.kelulusan.kategori_tabung === 2"
 												>
                           Pembayaran Secara Waran
 												</button>
