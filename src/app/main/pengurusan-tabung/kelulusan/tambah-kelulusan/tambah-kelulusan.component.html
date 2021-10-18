@@ -87,6 +87,11 @@
 									</div>
 								</div>
 							</div>
+              <ng-template #footerTemplate>
+                <hr class="my-0">
+                <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelMula = today; d2.close()">Hari Ini</button>
+                <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d2.close()">Tutup</button>
+              </ng-template>
 
 							<div class="col-lg-6">
 								<div class="form-group">
@@ -98,7 +103,7 @@
 											name="dp3"
 											[(ngModel)]="modelTamat"
 											ngbDatepicker
-											[footerTemplate]="footerTemplate"
+											[footerTemplate]="footerTemplate2"
 											#d3="ngbDatepicker"
 											style="border: 1px solid #efefef !important;"
 										>
@@ -109,10 +114,15 @@
 									</div>
 								</div>
 							</div>
+              <ng-template #footerTemplate2>
+                <hr class="my-0">
+                <button class="btn btn-primary btn-sm m-2 float-left" (click)="modelTamat = today; d3.close()">Hari Ini</button>
+                <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d3.close()">Tutup</button>
+              </ng-template>
 						</div>
-            			<hr />
+            <hr />
 
-            			<div class="row">
+            <div class="row">
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Rujukan Surat*</label>
@@ -143,7 +153,7 @@
 											#tarikhSurat="ngModel"
 											[ngClass]="{ 'is-invalid': f.submitted && tarikhSurat.invalid }"
 											ngbDatepicker
-											[footerTemplate]="footerTemplate"
+											[footerTemplate]="footerTemplate3"
 											#d="ngbDatepicker"
 											style="border: 1px solid #efefef !important;"
 											required
@@ -157,13 +167,14 @@
 										</div>
 									</div>
 								</div>
-								<ng-template #footerTemplate>
+								<ng-template #footerTemplate3>
 								<hr class="my-0">
-								<button class="btn btn-primary btn-sm m-2 float-left" (click)="modelTamat = today; d3.close()">Hari Ini</button>
-								<button class="btn btn-secondary btn-sm m-2 float-right" (click)="d3.close()">Tutup</button>
+								<button class="btn btn-primary btn-sm m-2 float-left" (click)="modelSurat = today; d.close()">Hari Ini</button>
+								<button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Tutup</button>
 								</ng-template>
 							</div>
 						</div>
+
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="form-group">
@@ -184,7 +195,7 @@
 							</div>
 						</div>
 
-            			<div class="row">
+            <div class="row">
 							<div class="col-lg-12">
 								<div class="form-group">
 									<label>Rujukan</label>
