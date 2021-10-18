@@ -17,6 +17,8 @@ import { ConfirmationService } from '@services/confirmation';
 export class MaklumatSuratComponent implements OnInit {
 
   @Input() public idKelulusan: number;
+  @Input() public idTabung: number;
+  @Input() public tabungKemaskiniKelulusan: number;
 
   filter:any;
   test:any;
@@ -68,7 +70,7 @@ export class MaklumatSuratComponent implements OnInit {
     this.getTabung();
     this.getBencana();
     this.getBantuan();
-    
+
   }
 
   fromModel(value: string | null): NgbDateStruct | null {
@@ -144,7 +146,7 @@ export class MaklumatSuratComponent implements OnInit {
       this.tarikhTamat = this.toModel(this.modelTamat);
       this.kelulusan.tarikh_tamat_kelulusan = moment(this.tarikhTamat, "YYYY-MM-DD");
     }
-    
+
     this._tabungKelulusanServiceProxy
       .createOrEdit(this.kelulusan)
       .pipe()
@@ -170,7 +172,11 @@ export class MaklumatSuratComponent implements OnInit {
           dismissible: true
         });
         dialogRef.afterClosed().subscribe(() => {
-          this.router.navigate(['/app/tabung/senarai-kelulusan']);
+          if(this.tabungKemaskiniKelulusan){
+            this.router.navigate(['/app/tabung/edit'], { queryParams: { id: this.idTabung } });
+          }else{
+            this.router.navigate(['/app/tabung/senarai-kelulusan']);
+          }
         });
       });
   }

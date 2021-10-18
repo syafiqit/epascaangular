@@ -139,7 +139,6 @@
 						<p-table
 							#dataTable
 							styleClass="p-datatable-striped"
-							[resizableColumns]="true"
 							(onLazyLoad)="getDisaster($event)"
 							[value]="primengTableHelper.records"
 							rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
@@ -148,8 +147,8 @@
               [loading]="primengTableHelper.isLoading"
 							[scrollable]="true"
 							ScrollWidth="100%"
-							[responsive]="primengTableHelper.isResponsive"
-							[resizableColumns]="primengTableHelper.resizableColumns"
+              [resizableColumns]="true" 
+              [responsive]="true"
 						>
 							<ng-template pTemplate="header">
 								<tr>
@@ -186,7 +185,7 @@
 										<span class="p-column-title">Jenis Bencana</span>
 										{{record.bencana.nama_jenis_bencana}}
 									</td>
-									<td style="width: 200px">
+									<td style="width: 200px; text-overflow: ellipsis;">
 										<span class="p-column-title">Negeri</span>
 										{{record.bencanaNegeri}}
 									</td>
@@ -214,6 +213,7 @@
                         <button
 													class="dropdown-item"
                           *ngIf="_appSession.isGranted('Halaman.Bencana.Hapus')"
+                          (click)="deleteConfirmation(record.bencana.id)"
 												>
 													Padam
 												</button>

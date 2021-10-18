@@ -42,7 +42,6 @@ export class PeruntukanDiambilComponent implements OnInit {
         this.peruntukan = result.tabung_kelulusan_ambilan;
         this.jumlah = this.peruntukan.jumlah;
 
-        console.log(this.baki_jumlah_siling)
       });
     }
   }

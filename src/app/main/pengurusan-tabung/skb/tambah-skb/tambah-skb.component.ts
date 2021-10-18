@@ -115,11 +115,6 @@ export class TambahSkbComponent implements OnInit {
 	}
 
 	getAddSKB(event?: LazyLoadEvent) {
-		if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
-
 		this.primengTableHelper.showLoadingIndicator();
 		this.primengTableHelper.totalRecordsCount = this.rows.length;
 		this.primengTableHelper.records = this.rows;
@@ -327,6 +322,9 @@ export class TambahSkbComponent implements OnInit {
               }
             },
             dismissible: true
+          });
+          dialogRef.afterClosed().subscribe(() => {
+            this.bulanan = [];
           });
         }
 			});

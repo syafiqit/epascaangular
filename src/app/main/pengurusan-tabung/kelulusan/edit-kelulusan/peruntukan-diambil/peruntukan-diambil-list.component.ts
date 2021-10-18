@@ -59,11 +59,6 @@ export class PeruntukanDiambilListComponent implements OnInit {
   }
 
   getPeruntukanDiambil(event?: LazyLoadEvent) {
-		if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
-
 		this.primengTableHelper.showLoadingIndicator();
 		this._tabungKelulusanAmbilanServiceProxy
 			.getAll(

@@ -12,6 +12,7 @@ import {
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { AppSessionService } from '@app/shared/services/app-session.service';
+import { ConfirmationService } from '@services/confirmation';
 
 @Component({
   selector: 'app-pengurusan-bencana',
@@ -49,7 +50,8 @@ export class PengurusanBencanaComponent implements OnInit {
     config: NgbModalConfig,
     private _refBencanaServiceProxy: RefBencanaServiceProxy,
     private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy,
-    public _appSession: AppSessionService
+    public _appSession: AppSessionService,
+		private _confirmationService: ConfirmationService
   ) {
 		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
@@ -80,11 +82,6 @@ export class PengurusanBencanaComponent implements OnInit {
     if(this.tarikhTamat){
       this.filterToDate = this.toModel(this.tarikhTamat);
     }
-
-    if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
 
 		this.primengTableHelper.showLoadingIndicator();
 		this._refBencanaServiceProxy
@@ -132,6 +129,93 @@ export class PengurusanBencanaComponent implements OnInit {
 
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
+	}
+
+  deleteConfirmation(id?){
+    const dialogRef = this._confirmationService.open({
+      title: 'Anda Pasti?',
+      message: 'Adakah anda pasti ingin memadam maklumat bencana ini?',
+      icon: {
+        show: true,
+        name: 'help-circle',
+        color: 'warning'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Ya',
+          color: 'primary'
+        },
+        cancel: {
+          show: true,
+          label: 'Tidak'
+        }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe((e) => {
+      if(e === 'confirmed') {
+        this._refBencanaServiceProxy.delete(id).subscribe((response)=>{
+          if(response.message == 'Bencana Berjaya Dibuang'){
+            this. confirmMessage();
+          }else{
+            this.alertMessage(response);
+          }
+        })
+      }
+    });
+  }
+
+  confirmMessage(){
+		const dialogRef = this._confirmationService.open({
+		  title: 'Berjaya',
+		  message: 'Maklumat Bencana Bayaran Berjaya Dipadam.',
+		  icon: {
+        show: true,
+        name: 'check-circle',
+        color: 'success'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+		dialogRef.afterClosed().subscribe(() => {
+		  this.getDisaster();
+		});
+	}
+	
+	alertMessage(response){
+		const dialogRef = this._confirmationService.open({
+		  title: 'Perhatian',
+		  message: response.message,
+		  icon: {
+        show: true,
+        name: 'x-circle',
+        color: 'error'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+		dialogRef.afterClosed().subscribe(() => {
+		  
+		});
 	}
 
 }

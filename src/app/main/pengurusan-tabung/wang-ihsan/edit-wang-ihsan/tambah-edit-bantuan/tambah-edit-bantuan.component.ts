@@ -59,11 +59,6 @@ export class TambahEditBantuanComponent implements OnInit {
   }
 
 	getBantuan(event?: LazyLoadEvent) {
-		if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
-
 		this.primengTableHelper.showLoadingIndicator();
 		this._refTabungBwiKawasanServiceProxy
 			.getAllKawasanByIdBwi(

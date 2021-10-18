@@ -114,11 +114,6 @@ export class TambahEditKirComponent implements OnInit {
   }
 
   getKir(event?: LazyLoadEvent) {
-    if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
-
 		this.primengTableHelper.showLoadingIndicator();
 		this.mangsaWangIhsanServiceProxy
 			.getAllMangsaByBencanaAndJenisBwi(
