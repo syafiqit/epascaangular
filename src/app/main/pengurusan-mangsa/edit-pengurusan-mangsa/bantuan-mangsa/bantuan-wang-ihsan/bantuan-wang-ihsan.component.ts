@@ -8,6 +8,7 @@ import { finalize } from 'rxjs/operators';
 import { MangsaWangIhsanServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import { TambahEditBantuanWangIhsanComponent } from './tambah-edit-bantuan-wang-ihsan/tambah-edit-bantuan-wang-ihsan.component';
 import { AppSessionService } from '@app/shared/services/app-session.service';
+import { ConfirmationService } from '@services/confirmation';
 
 @Component({
 	selector: 'app-bantuan-wang-ihsan',
@@ -40,7 +41,8 @@ export class BantuanWangIhsanComponent implements OnInit {
     config: NgbModalConfig,
 		private modalService: NgbModal,
     private _refMangsaWangIhsanServiceProxy: MangsaWangIhsanServiceProxy,
-    public _appSession: AppSessionService
+    public _appSession: AppSessionService,
+    private _confirmationService: ConfirmationService
   ) {
     this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
@@ -104,5 +106,107 @@ export class BantuanWangIhsanComponent implements OnInit {
   reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
 	}
+
+	deleteBwi(id){
+		const dialogRef = this._confirmationService.open({
+		  title: 'Anda Pasti?',
+		  message: 'Adakah anda pasti ingin memadam maklumat bantuan wang ihsan ini?',
+		  icon: {
+			show: true,
+			name: 'help-circle',
+			color: 'warning'
+		  },
+		  actions: {
+			confirm: {
+			  show: true,
+			  label: 'Ya',
+			  color: 'primary'
+			},
+			cancel: {
+			  show: true,
+			  label: 'Tidak'
+			}
+		  },
+		  dismissible: true
+		});
+		dialogRef.afterClosed().subscribe((e) => {
+		  if(e === 'confirmed') {
+			this._refMangsaWangIhsanServiceProxy.delete(id).subscribe((result)=>{
+				const dialogRef = this._confirmationService.open({
+					title: 'Berjaya',
+					message: 'Maklumat Mangsa Dipilih Berjaya Dipadam!',
+					icon: {
+					  show: true,
+					  name: 'check-circle',
+					  color: 'success'
+					},
+					actions: {
+					  confirm: {
+						show: true,
+						label: 'Tutup',
+						color: 'primary'
+					  },
+					  cancel: {
+						show: false
+					  }
+					},
+					dismissible: true
+				  });
+				  dialogRef.afterClosed().subscribe(() => {
+					this.getIhsan();
+				  });
+			})
+		  }
+		});
+	  }
+	
+	  deleteSuccess() {
+		const dialogRef = this._confirmationService.open({
+		  title: 'Berjaya',
+		  message: 'Maklumat Mangsa Dipilih Berjaya Dipadam!',
+		  icon: {
+			show: true,
+			name: 'check-circle',
+			color: 'success'
+		  },
+		  actions: {
+			confirm: {
+			  show: true,
+			  label: 'Tutup',
+			  color: 'primary'
+			},
+			cancel: {
+			  show: false
+			}
+		  },
+		  dismissible: true
+		});
+		dialogRef.afterClosed().subscribe(() => {
+		  this.getIhsan();
+		});
+	  }
+	
+	  deleteUnsuccess() {
+		this._confirmationService.open({
+		  title: 'Tidak Berjaya',
+		  message: 'Maklumat Bantuan Wang Ihsan Tidak Berjaya Dibuang',
+		  icon: {
+			show: true,
+			name: 'x-circle',
+			color: 'error'
+		  },
+		  actions: {
+			confirm: {
+			  show: true,
+			  label: 'Tutup',
+			  color: 'primary'
+			},
+			cancel: {
+			  show: false
+			}
+		  },
+		  dismissible: true
+		});
+	  }
 
 }
