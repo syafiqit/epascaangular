@@ -158,55 +158,6 @@ export class BantuanWangIhsanComponent implements OnInit {
 			})
 		  }
 		});
-	  }
-	
-	  deleteSuccess() {
-		const dialogRef = this._confirmationService.open({
-		  title: 'Berjaya',
-		  message: 'Maklumat Mangsa Dipilih Berjaya Dipadam!',
-		  icon: {
-			show: true,
-			name: 'check-circle',
-			color: 'success'
-		  },
-		  actions: {
-			confirm: {
-			  show: true,
-			  label: 'Tutup',
-			  color: 'primary'
-			},
-			cancel: {
-			  show: false
-			}
-		  },
-		  dismissible: true
-		});
-		dialogRef.afterClosed().subscribe(() => {
-		  this.getIhsan();
-		});
-	  }
-	
-	  deleteUnsuccess() {
-		this._confirmationService.open({
-		  title: 'Tidak Berjaya',
-		  message: 'Maklumat Bantuan Wang Ihsan Tidak Berjaya Dibuang',
-		  icon: {
-			show: true,
-			name: 'x-circle',
-			color: 'error'
-		  },
-		  actions: {
-			confirm: {
-			  show: true,
-			  label: 'Tutup',
-			  color: 'primary'
-			},
-			cancel: {
-			  show: false
-			}
-		  },
-		  dismissible: true
-		});
-	  }
+	}
 
 }
