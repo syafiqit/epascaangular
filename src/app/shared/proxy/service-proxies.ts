@@ -21673,13 +21673,13 @@ export class TabungKelulusanServiceProxy {
      * Get all TabungKelulusan For Lookup Table
      * @param filter (optional) Filter records with a string
      * @param filterTabung (optional) Filter records with a integer
-     * @param filterJenisBencana (optional) Filter records with a integer
+     * @param filterKategori (optional) Filter records with a integer
      * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
      * @param skipCount (optional) Skip n-value of a record
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAllKelulusanForLookupTable(filter: string | undefined, filterTabung: number | undefined, filterJenisBencana: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungKelulusanLookupTableForViewDto> {
+    getAllKelulusanForLookupTable(filter: string | undefined, filterTabung: number | undefined, filterKategori: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTabungKelulusanLookupTableForViewDto> {
         let url_ = this.baseUrl + "/api/tabungKelulusan/getAllKelulusanForLookupTable?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -21689,10 +21689,10 @@ export class TabungKelulusanServiceProxy {
             throw new Error("The parameter 'filterTabung' cannot be null.");
         else if (filterTabung !== undefined)
             url_ += "filterTabung=" + encodeURIComponent("" + filterTabung) + "&";
-        if (filterJenisBencana === null)
-            throw new Error("The parameter 'filterJenisBencana' cannot be null.");
-        else if (filterJenisBencana !== undefined)
-            url_ += "filterJenisBencana=" + encodeURIComponent("" + filterJenisBencana) + "&";
+        if (filterKategori === null)
+            throw new Error("The parameter 'filterKategori' cannot be null.");
+        else if (filterKategori !== undefined)
+            url_ += "filterKategori=" + encodeURIComponent("" + filterKategori) + "&";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
@@ -45345,6 +45345,8 @@ export class GetTabungBayaranWaranForViewDto implements IGetTabungBayaranWaranFo
     nama_kategori_bayaran!: string;
     nama_waran_status!: string;
     jumlah_belanja!: number;
+    rujukan_surat_waran!: string;
+    perihal!: string;
 
     constructor(data?: IGetTabungBayaranWaranForViewDto) {
         if (data) {
@@ -45372,6 +45374,8 @@ export class GetTabungBayaranWaranForViewDto implements IGetTabungBayaranWaranFo
             this.nama_kategori_bayaran = _data["nama_kategori_bayaran"];
             this.nama_waran_status = _data["nama_waran_status"];
             this.jumlah_belanja = _data["jumlah_belanja"];
+            this.rujukan_surat_waran = _data["rujukan_surat_waran"];
+            this.perihal = _data["perihal"];
         }
     }
 
@@ -45399,6 +45403,8 @@ export class GetTabungBayaranWaranForViewDto implements IGetTabungBayaranWaranFo
         data["nama_kategori_bayaran"] = this.nama_kategori_bayaran;
         data["nama_waran_status"] = this.nama_waran_status;
         data["jumlah_belanja"] = this.jumlah_belanja;
+        data["rujukan_surat_waran"] = this.rujukan_surat_waran;
+        data["perihal"] = this.perihal;
         return data; 
     }
 }
@@ -45420,6 +45426,8 @@ export interface IGetTabungBayaranWaranForViewDto {
     nama_kategori_bayaran: string;
     nama_waran_status: string;
     jumlah_belanja: number;
+    rujukan_surat_waran: string;
+    perihal: string;
 }
 
 /** Class InputCreateBayaranWaranDto */

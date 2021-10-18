@@ -9,13 +9,13 @@ import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { TabungKelulusanServiceProxy } from 'src/app/shared/proxy/service-proxies';
 
 @Component({
-  selector: 'app-pilih-rujukan-kelulusan',
-  templateUrl: './pilih-rujukan-kelulusan.component.html',
-  encapsulation: ViewEncapsulation.None,
+	selector: 'app-lookup-kelulusan',
+	templateUrl: './lookup-kelulusan.component.html',
+	encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig]
 })
-export class PilihRujukanKelulusanComponent implements OnInit {
-  @ViewChild('dataTable', { static: true }) dataTable: Table;
+export class LookupKelulusanComponent implements OnInit {
+	@ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
 	primengTableHelper: PrimengTableHelper;
@@ -24,7 +24,7 @@ export class PilihRujukanKelulusanComponent implements OnInit {
 
   filter: string;
   filterTabung: number;
-  filterKategori: number;
+  filterKategori: number = 2;
   terms$ = new Subject<string>();
 
 	constructor(
@@ -32,9 +32,9 @@ export class PilihRujukanKelulusanComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private _tabungKelulusanServiceProxy: TabungKelulusanServiceProxy
   ) {
+		this.primengTableHelper = new PrimengTableHelper();
 		config.backdrop = 'static';
 		config.keyboard = false;
-		this.primengTableHelper = new PrimengTableHelper();
 	}
 
 	ngOnInit(): void {
@@ -62,7 +62,7 @@ export class PilihRujukanKelulusanComponent implements OnInit {
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
 			)
       .pipe(finalize(()=> {
-				this.primengTableHelper.hideLoadingIndicator();
+        this.primengTableHelper.hideLoadingIndicator();
       }))
 			.subscribe((result) => {
 				this.primengTableHelper.totalRecordsCount = result.total_count;
@@ -70,16 +70,11 @@ export class PilihRujukanKelulusanComponent implements OnInit {
 			});
 	}
 
-  select(id, no_rujukan_kelulusan, id_jenis_bencana, id_tabung, nama_jenis_bencana, rujukan_surat, nama_tabung, perihal_surat) {
+  select(id, no_rujukan_kelulusan, id_tabung) {
 		this.activeModal.close({
       id: id,
       no_rujukan_kelulusan: no_rujukan_kelulusan,
-      id_jenis_bencana: id_jenis_bencana,
-      id_tabung: id_tabung,
-      nama_jenis_bencana: nama_jenis_bencana,
-      rujukan_surat: rujukan_surat,
-      nama_tabung: nama_tabung,
-      perihal_surat: perihal_surat
+      id_tabung: id_tabung
     });
 	}
 }

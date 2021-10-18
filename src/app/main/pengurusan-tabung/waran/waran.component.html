@@ -198,6 +198,14 @@
 										No. Waran
 										<p-sortIcon field="no_rujukan_waran"></p-sortIcon>
 									</th>
+									<th style="width: 140px" pSortableColumn="rujukan_surat_waran">
+										Rujukan Waran
+										<p-sortIcon field="rujukan_surat_waran"></p-sortIcon>
+									</th>
+									<th style="width: 140px" pSortableColumn="perihal">
+										Perihal
+										<p-sortIcon field="perihal"></p-sortIcon>
+									</th>
 									<th style="width: 200px" pSortableColumn="nama_agensi">
 										Agensi
 										<p-sortIcon field="nama_agensi"></p-sortIcon>
@@ -238,6 +246,14 @@
 									<td style="width: 140px">
 										<span class="p-column-title">No. Waran</span>
 										{{record.no_rujukan_waran}}
+									</td>
+									<td style="width: 140px">
+										<span class="p-column-title">Rujukan Waran</span>
+										{{record.rujukan_surat_waran}}
+									</td>
+									<td style="width: 140px">
+										<span class="p-column-title">Perihal</span>
+										{{record.perihal? record.perihal: '-'}}
 									</td>
 									<td style="width: 200px">
 										<span class="p-column-title">Agensi</span>

@@ -18,9 +18,9 @@ import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { fadeVerticalAnimation } from '@app/shared/data/router-animation/fade-vertical-animation';
 import { finalize } from 'rxjs/operators';
-import { PilihanRujukanKelulusanComponent } from '../../skb/pilihan-rujukan-kelulusan/pilihan-rujukan-kelulusan.component';
 import { WaranBulananComponent } from '../waran-bulanan/waran-bulanan.component';
 import { ConfirmationService } from '@app/shared/services/confirmation';
+import { LookupKelulusanComponent } from '../lookup-kelulusan/lookup-kelulusan.component';
 @Component({
 	selector: 'app-edit-waran',
 	templateUrl: './edit-waran.component.html',
@@ -146,7 +146,7 @@ export class EditWaranComponent implements OnInit {
 	}
 
 	addNoReference() {
-		const modalRef = this.modalService.open(PilihanRujukanKelulusanComponent, { size: 'lg' });
+		const modalRef = this.modalService.open(LookupKelulusanComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
     modalRef.result.then(
 			(response) => {

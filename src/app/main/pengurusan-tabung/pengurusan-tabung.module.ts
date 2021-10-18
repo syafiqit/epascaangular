@@ -58,6 +58,7 @@ import { WaranBulananComponent } from './waran/waran-bulanan/waran-bulanan.compo
 import { JenisBayaranWaranComponent } from './kelulusan/edit-kelulusan/perbelanjaan/jenis-bayaran-waran/jenis-bayaran-waran.component';
 import { KategoriWaranComponent } from './kelulusan/edit-kelulusan/perbelanjaan/kategori-waran/kategori-waran.component';
 import { NgxCurrencyModule } from 'ngx-currency';
+import { LookupKelulusanComponent } from './waran/lookup-kelulusan/lookup-kelulusan.component';
 
 @NgModule({
 	imports: [
@@ -120,7 +121,8 @@ import { NgxCurrencyModule } from 'ngx-currency';
     EditWaranComponent,
     WaranBulananComponent,
     JenisBayaranWaranComponent,
-    KategoriWaranComponent
+    KategoriWaranComponent,
+    LookupKelulusanComponent
 	],
 	providers: [
 		{provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter}
