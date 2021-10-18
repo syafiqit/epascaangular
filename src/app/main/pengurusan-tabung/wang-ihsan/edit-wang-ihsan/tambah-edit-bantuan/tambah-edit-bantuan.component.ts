@@ -19,11 +19,8 @@ export class TambahEditBantuanComponent implements OnInit {
   @Input() public idJenisBwi: number;
   @Input() public jumlahPembayaran: number;
   @Input() public jumlahBantuan: number;
-  @Output() id_daerah = new EventEmitter<number>();
-  @Output() id_negeri = new EventEmitter<number>();
-  @Output() jumlah_diberi = new EventEmitter<number>();
-  @Output() jumlah_bantuan = new EventEmitter<number>();
-  @Output() jumlah_bantuan_tambah = new EventEmitter<number>();
+  @Output() jumlah_bantuan_padam = new EventEmitter<{}>();
+  @Output() jumlah_bantuan_tambah = new EventEmitter<{}>();
 
   @ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
@@ -39,6 +36,7 @@ export class TambahEditBantuanComponent implements OnInit {
   idNegeri: number;
   jumlahDiberi: number;
   temporaryNumber: number = 0;
+  idTemp: number;
 
   constructor(
     config: NgbModalConfig,
@@ -94,19 +92,15 @@ export class TambahEditBantuanComponent implements OnInit {
 
           if(this.jumlahBantuan <= this.jumlahPembayaran){
             this.primengTableHelper.records.push({
-              id: this.primengTableHelper.records.length + 1,
+              id_temp: this.primengTableHelper.records.length + 1,
               id_negeri: response.id_negeri,
               id_daerah: response.id_daerah,
               nama_daerah: response.nama_daerah,
               nama_negeri: response.nama_negeri,
-              jumlah_bwi: response.jumlah_bayaran,
-              tambahBantuanTemp: 1
+              jumlah_bwi: response.jumlah_bayaran
             });
             this.primengTableHelper.totalRecordsCount = this.primengTableHelper.records.length;
-            this.getJumlahBantuanTambah(this.jumlahBantuan);
-            this.getIdDaerah(this.idDaerah);
-            this.getIdNegeri(this.idNegeri);
-            this.getJumlahDiberi(this.jumlahDiberi);
+            this.getJumlahBantuanTambah(this.primengTableHelper.records.length + 1, this.jumlahDiberi, this.idDaerah, this.idNegeri, this.jumlahBantuan);
           }else{
             this.jumlahBantuan = this.jumlahBantuan - response.jumlah_bayaran;
 
@@ -137,13 +131,14 @@ export class TambahEditBantuanComponent implements OnInit {
 		);
   }
 
-  padamBantuan(id?, jumlah?, tambahBantuanTemp?) {
+  padamBantuan(id?, idTemp?, jumlah?) {
 
-    if(tambahBantuanTemp){
+    if(idTemp){
+      this.idTemp = idTemp;
       this.jumlahBantuan = this.jumlahBantuan - Number(jumlah);
-      this.primengTableHelper.records.splice(this.primengTableHelper.records.findIndex(e=> e.id == id), 1);
+      this.primengTableHelper.records.splice(this.primengTableHelper.records.findIndex(e=> e.id_temp == idTemp), 1);
       this.primengTableHelper.totalRecordsCount = this.primengTableHelper.records.length;
-      this.getJumlahBantuan(this.jumlahBantuan);
+      this.getJumlahBantuanPadam(this.idTemp, this.jumlahDiberi, this.idDaerah, this.idNegeri, this.jumlahBantuan);
     }else{
       const dialogRef = this._confirmationService.open({
         title: 'Anda Pasti?',
@@ -194,7 +189,7 @@ export class TambahEditBantuanComponent implements OnInit {
                 dismissible: true
               });
               dialogRef.afterClosed().subscribe(() => {
-                this.getJumlahBantuan(this.jumlahBantuan);
+                this.getJumlahBantuanPadam(this.idTemp, this.jumlahDiberi, this.idDaerah, this.idNegeri, this.jumlahBantuan);
                 this.getBantuan();
               });
             }else{
@@ -223,26 +218,14 @@ export class TambahEditBantuanComponent implements OnInit {
         }
       });
     }
-
-
   }
 
-  getIdDaerah(idDaerah: number) {
-    this.id_daerah.emit(idDaerah);
-  }
-  getIdNegeri(idNegeri: number) {
-    this.id_negeri.emit(idNegeri);
-  }
-  getJumlahDiberi(jumlahDiberi: number) {
-    this.jumlah_diberi.emit(jumlahDiberi);
+  getJumlahBantuanPadam(idTemp: number, jumlahDiberi: number, idDaerah: number, idNegeri: number, jumlahBantuan: number) {
+    this.jumlah_bantuan_padam.emit({idTemp, jumlahDiberi, idDaerah, idNegeri, jumlahBantuan});
   }
 
-  getJumlahBantuan(jumlahBantuan: number) {
-    this.jumlah_bantuan.emit(jumlahBantuan);
-  }
-
-  getJumlahBantuanTambah(jumlahBantuan: number) {
-    this.jumlah_bantuan_tambah.emit(jumlahBantuan);
+  getJumlahBantuanTambah(idTemp: number, jumlahDiberi: number, idDaerah: number, idNegeri: number, jumlahBantuan: number) {
+    this.jumlah_bantuan_tambah.emit({idTemp, jumlahDiberi, idDaerah, idNegeri, jumlahBantuan});
   }
 
   getDaerah(filter?) {

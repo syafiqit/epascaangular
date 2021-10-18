@@ -69,6 +69,7 @@ export class EditWangIhsanComponent implements OnInit {
   jumlah_keseluruhan_bayaran: number;
   jumlah_bantuan: number;
   id_kelulusan_bwi_bayaran: number;
+  bantuanArray = [];
   daerahArray = [];
   negeriArray = [];
   jumlahArray = [];
@@ -124,13 +125,15 @@ export class EditWangIhsanComponent implements OnInit {
     return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
   }
 
-  getTabungBwi() {
+  getTabungBwi(jumlah_bantuan?) {
     this._tabungBwiServiceProxy.getTabungBwiForEdit(this.idBwi).subscribe((result)=>{
       this.edit = result;
       this.edit.tabung_bwi = result.tabung_bwi;
       this.tarikh_bencana = this.edit.tabung_bwi.tarikh_bencana.format('DD-MM-YYYY');
       this.idJenisBwi = this.edit.tabung_bwi.id_jenis_bwi;
-      this.jumlah_bantuan = this.edit.jumlah_keseluruhan;
+      if(!jumlah_bantuan){
+        this.jumlah_bantuan = this.edit.jumlah_keseluruhan;
+      }
     })
   }
 
@@ -174,26 +177,22 @@ export class EditWangIhsanComponent implements OnInit {
     this.jumlah_keseluruhan_bayaran = jumlah_bayaran;
   }
 
-  getJumlahBantuan(jumlah_bantuan: number) {
-    this.jumlah_bantuan = jumlah_bantuan;
+  getJumlahBantuanPadam(jumlah_bantuan?) {
+    this.jumlah_bantuan = jumlah_bantuan.jumlahBantuan;
+    this.bantuanArray.splice(this.bantuanArray.findIndex(e=> e.id_temp == jumlah_bantuan.idTemp), 1);
 
-    this.getTabungBwi();
+    this.getTabungBwi(jumlah_bantuan);
   }
 
-  getJumlahBantuanTambah(jumlah_bantuan: number) {
-    this.jumlah_bantuan = jumlah_bantuan;
-  }
+  getJumlahBantuanTambah(jumlah_bantuan) {
+    this.jumlah_bantuan = jumlah_bantuan.jumlahBantuan;
 
-  getIdDaerah(id_daerah: number) {
-    this.daerahArray.push(id_daerah);
-  }
-
-  getIdNegeri(id_negeri: number) {
-    this.negeriArray.push(id_negeri);
-  }
-
-  getJumlahDiberi(jumlah_diberi: number) {
-    this.jumlahArray.push(jumlah_diberi);
+    this.bantuanArray.push({
+      id_temp: jumlah_bantuan.idTemp,
+      jumlahDiberi: jumlah_bantuan.jumlahDiberi,
+      idDaerah: jumlah_bantuan.idDaerah,
+      idNegeri: jumlah_bantuan.idNegeri
+    });
   }
 
 	save() {
@@ -205,11 +204,11 @@ export class EditWangIhsanComponent implements OnInit {
     this.bayaran.id_tabung_bwi = this.idBwi;
     this.kawasan.id_tabung_bwi = this.idBwi;
 
-    for(let i=0; i < this.daerahArray.length; i++){
+    for(let i=0; i < this.bantuanArray.length; i++){
       const bantuanKawasanBwi = new CreateOrEditTabungBwiKawasanDto();
-      bantuanKawasanBwi.id_daerah = this.daerahArray[i];
-      bantuanKawasanBwi.id_negeri = this.negeriArray[i];
-      bantuanKawasanBwi.jumlah_bwi = this.jumlahArray[i];
+      bantuanKawasanBwi.id_daerah = this.bantuanArray[i].idDaerah;
+      bantuanKawasanBwi.id_negeri = this.bantuanArray[i].idNegeri;
+      bantuanKawasanBwi.jumlah_bwi = this.bantuanArray[i].jumlahDiberi;
       this.bantuanKawasan.push(bantuanKawasanBwi);
     }
     this.kawasan.bwi_kawasan = this.bantuanKawasan;
