@@ -29,7 +29,6 @@ export class TambahBantuanComponent implements OnInit {
 
 	constructor(
 		public activeModal: NgbActiveModal,
-    private _refNegeriServiceProxy: RefNegeriServiceProxy,
     private _refDaerahServiceProxy: RefDaerahServiceProxy,
     private _refBencanaServiceProxy: RefBencanaNegeriServiceProxy
 	) {}
