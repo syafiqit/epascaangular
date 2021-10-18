@@ -137,7 +137,7 @@ const routes: Routes = [
 				component: KadarBwiComponent
 			},
 			{
-				path: 'jenis-bwi',
+				path: 'kategori-bwi',
         outlet: 'menu',
 				component: JenisBwiComponent
 			},
