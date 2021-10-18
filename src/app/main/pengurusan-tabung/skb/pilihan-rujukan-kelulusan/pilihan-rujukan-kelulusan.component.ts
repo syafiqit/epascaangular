@@ -24,7 +24,7 @@ export class PilihanRujukanKelulusanComponent implements OnInit {
 
   filter: string;
   filterTabung: number;
-  filterJenisBencana: number;
+  filterKategori: number;
   terms$ = new Subject<string>();
 
 	constructor(
@@ -56,7 +56,7 @@ export class PilihanRujukanKelulusanComponent implements OnInit {
 			.getAllKelulusanForLookupTable(
 				this.filter,
         this.filterTabung ?? undefined,
-        this.filterJenisBencana ?? undefined,
+        this.filterKategori ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
