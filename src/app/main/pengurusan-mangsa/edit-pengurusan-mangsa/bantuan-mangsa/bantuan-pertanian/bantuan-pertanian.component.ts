@@ -46,11 +46,6 @@ export class BantuanPertanianComponent implements OnInit {
   }
 
   getPertanian(event?: LazyLoadEvent) {
-		if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
-
 		this.primengTableHelper.showLoadingIndicator();
 		this._refMangsaPertanianServiceProxy
 			.getAllByIdMangsa(
@@ -98,7 +93,7 @@ export class BantuanPertanianComponent implements OnInit {
   reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
 	}
-	
+
   padamBantuanPertanian(id?){
     const dialogRef = this._confirmationService.open({
       title: 'Anda Pasti?',

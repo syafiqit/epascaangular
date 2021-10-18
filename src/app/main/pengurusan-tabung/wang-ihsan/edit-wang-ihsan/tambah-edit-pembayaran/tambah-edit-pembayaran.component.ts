@@ -58,11 +58,6 @@ export class TambahEditPembayaranComponent implements OnInit {
   ngOnInit(): void {}
 
   getBayaran(event?: LazyLoadEvent) {
-		if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
-
 		this.primengTableHelper.showLoadingIndicator();
 		this._tabungBwiBayaranServiceProxy
 			.getAllBayaranSkbDanTerus(

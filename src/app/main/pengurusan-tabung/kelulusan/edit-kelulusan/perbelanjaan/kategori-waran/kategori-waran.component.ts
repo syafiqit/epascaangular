@@ -23,7 +23,7 @@ export class KategoriWaranComponent implements OnInit {
   constructor(
     private _tabungKelulusanServiceProxy: TabungKelulusanServiceProxy,
     private _activatedRoute: ActivatedRoute
-  ) { 
+  ) {
     this.id = this._activatedRoute.snapshot.queryParams['id'];
     this.primengTableHelper = new PrimengTableHelper();
   }
@@ -32,12 +32,6 @@ export class KategoriWaranComponent implements OnInit {
   }
 
   getBelanjaWaran(event?: LazyLoadEvent) {
-
-    if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
-
 		this.primengTableHelper.showLoadingIndicator();
 		this._tabungKelulusanServiceProxy.getKategoriTabungWaranByKelulusan(this.id)
       .pipe(finalize(()=> {

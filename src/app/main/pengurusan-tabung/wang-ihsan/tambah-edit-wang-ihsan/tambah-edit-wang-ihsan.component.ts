@@ -109,11 +109,6 @@ export class TambahEditWangIhsanComponent implements OnInit {
   }
 
 	getPembayaran(event?: LazyLoadEvent) {
-		if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
-
 		this.primengTableHelper.showLoadingIndicator();
 		this.primengTableHelper.totalRecordsCount = this.pembayaran.length;
 		this.primengTableHelper.records = this.pembayaran;
@@ -133,11 +128,6 @@ export class TambahEditWangIhsanComponent implements OnInit {
 	}
 
 	getKir(event?: LazyLoadEvent) {
-		if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
-
 		this.primengTableHelper.showLoadingIndicator();
 		this.primengTableHelper.totalRecordsCount = this.rows.length;
 		this.primengTableHelper.records = this.rows;

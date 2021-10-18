@@ -65,11 +65,6 @@ export class LaporanBencanaKirComponent implements OnInit {
   }
 
 	getBencanaKirReport(event?: LazyLoadEvent) {
-    if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
-
 		this.primengTableHelper.showLoadingIndicator();
 		this._laporanServiceProxy
 			.getAllLaporanBwiBencanaKir(

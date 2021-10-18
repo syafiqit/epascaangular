@@ -33,12 +33,6 @@ export class JenisBayaranWaranComponent implements OnInit {
   }
 
   getBelanjaWaran(event?: LazyLoadEvent) {
-
-    if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
-
 		this.primengTableHelper.showLoadingIndicator();
 		this._tabungKelulusanServiceProxy.getWaranByIdKelulusan(
       this.filterKelulusan,
