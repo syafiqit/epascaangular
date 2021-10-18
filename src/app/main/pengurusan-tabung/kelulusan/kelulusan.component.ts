@@ -79,11 +79,6 @@ export class KelulusanComponent implements OnInit {
       this.filterToDate = this.toModel(this.tarikhTamat);
     }
 
-    if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
-
 		this.primengTableHelper.showLoadingIndicator();
 		this._tabungKelulusanServiceProxy
 			.getAll(
@@ -216,7 +211,7 @@ export class KelulusanComponent implements OnInit {
 		  this.getTabungKelulusanList();
 		});
 	}
-	
+
 	alertMessage(response){
 		const dialogRef = this._confirmationService.open({
 		  title: 'Perhatian',
@@ -239,8 +234,8 @@ export class KelulusanComponent implements OnInit {
       dismissible: true
     });
 		dialogRef.afterClosed().subscribe(() => {
-		  
+
 		});
 	}
-  
+
 }

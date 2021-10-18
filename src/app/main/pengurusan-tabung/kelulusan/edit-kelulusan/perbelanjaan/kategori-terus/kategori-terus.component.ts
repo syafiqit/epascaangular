@@ -31,12 +31,6 @@ export class KategoriTerusComponent implements OnInit {
   }
 
   getBelanjaTabungTerus(event?: LazyLoadEvent) {
-
-    if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
-
 		this.primengTableHelper.showLoadingIndicator();
 		this._tabungKelulusanServiceProxy.getKategoriTabungBayaranTerusByKelulusan(this.id)
       .pipe(finalize(()=> {

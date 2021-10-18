@@ -66,11 +66,6 @@ export class LaporanBantuanLainComponent implements OnInit {
   }
 
 	getBantuanLain(event?: LazyLoadEvent) {
-    if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
-
 		this.primengTableHelper.showLoadingIndicator();
 		this._laporanServiceProxy
 			.getAllMangsaBantuanLain(

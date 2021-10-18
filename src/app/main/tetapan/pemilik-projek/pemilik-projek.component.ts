@@ -55,11 +55,6 @@ export class PemilikProjekComponent implements OnInit {
   }
 
 	getProject(event?: LazyLoadEvent) {
-		if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
-
 		this.primengTableHelper.showLoadingIndicator();
 		this._refPemilikServiceProxy
 			.getAll(

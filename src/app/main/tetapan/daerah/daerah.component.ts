@@ -55,11 +55,6 @@ export class DaerahComponent implements OnInit {
   }
 
 	getDaerah(event?: LazyLoadEvent) {
-		if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
-
 		this.primengTableHelper.showLoadingIndicator();
 		this._refDaerahServiceProxy
 			.getAll(

@@ -82,11 +82,6 @@ export class WaranComponent implements OnInit {
       this.filterToDate = this.toModel(this.tarikhTamat);
     }
 
-    if (this.primengTableHelper.shouldResetPaging(event)) {
-			this.paginator.changePage(0);
-			return;
-		}
-
 		this.primengTableHelper.showLoadingIndicator();
 		this._tabungBayaranWaranServiceProxy
 			.getAll(
