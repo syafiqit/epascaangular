@@ -8,6 +8,7 @@ import { ConfirmationService } from '@services/confirmation';
   templateUrl: './peruntukan-diambil.component.html'
 })
 export class PeruntukanDiambilComponent implements OnInit {
+  @Input() name;
   @Input() id_tabung;
   @Input() id_tabung_kelulusan;
   @Input() baki_jumlah_siling;

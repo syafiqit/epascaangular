@@ -139,7 +139,7 @@ export class KelulusanComponent implements OnInit {
 
   peruntukanDiambilModal(id?, id_tabung?, baki_jumlah_siling?) {
 		const modalRef = this.modalService.open(PeruntukanDiambilComponent, { size: 'lg' });
-		modalRef.componentInstance.name = 'add';
+		modalRef.componentInstance.name = 'kelulusan';
     modalRef.componentInstance.id_tabung = id_tabung;
     modalRef.componentInstance.id_tabung_kelulusan = id;
     modalRef.componentInstance.baki_jumlah_siling = baki_jumlah_siling;

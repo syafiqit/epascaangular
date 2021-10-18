@@ -83,25 +83,25 @@
 						<div class="row">
               <div class="col-lg-4">
 								<div class="form-group">
-									<label>Jumlah Perbelanjaan:</label><br>
-                  <label *ngIf="getTabung.tabung.jumlah_perbelanjaan_semasa">RM {{getTabung.tabung.jumlah_perbelanjaan_semasa | number: '1.2-2'}}</label>
-                  <label *ngIf="!getTabung.tabung.jumlah_perbelanjaan_semasa">RM 0.00</label>
+									<label>Jumlah Keseluruhan:</label><br>
+									<label *ngIf="getTabung.tabung.jumlah_keseluruhan">RM {{getTabung.tabung.jumlah_keseluruhan | number: '1.2-2'}}</label>
+                  <label *ngIf="!getTabung.tabung.jumlah_keseluruhan">RM 0.00</label>
 								</div>
 							</div>
 
               <div class="col-lg-4">
 								<div class="form-group">
-									<label>Jumlah Baki Semasa:</label><br>
-                  <label *ngIf="getTabung.tabung.jumlah_baki_semasa">RM {{getTabung.tabung.jumlah_baki_semasa | number: '1.2-2'}}</label>
-                  <label *ngIf="!getTabung.tabung.jumlah_baki_semasa">RM 0.00</label>
+									<label>Jumlah Kelulusan:</label><br>
+                  <label *ngIf="getTabung.tabung.peruntukan">RM {{getTabung.tabung.peruntukan | number: '1.2-2'}}</label>
+                  <label *ngIf="!getTabung.tabung.peruntukan">RM 0.00</label>
 								</div>
 							</div>
 
-							<div class="col-lg-4">
+              <div class="col-lg-4">
 								<div class="form-group">
-									<label>Jumlah Keseluruhan:</label><br>
-									<label *ngIf="getTabung.tabung.jumlah_keseluruhan">RM {{getTabung.tabung.jumlah_keseluruhan | number: '1.2-2'}}</label>
-                  <label *ngIf="!getTabung.tabung.jumlah_keseluruhan">RM 0.00</label>
+									<label>Jumlah Perbelanjaan:</label><br>
+                  <label *ngIf="getTabung.tabung.jumlah_perbelanjaan_semasa">RM {{getTabung.tabung.jumlah_perbelanjaan_semasa | number: '1.2-2'}}</label>
+                  <label *ngIf="!getTabung.tabung.jumlah_perbelanjaan_semasa">RM 0.00</label>
 								</div>
 							</div>
             </div>
@@ -109,9 +109,9 @@
             <div class="row">
 							<div class="col-lg-4">
 								<div class="form-group">
-									<label>Jumlah Kelulusan:</label><br>
-                  <label *ngIf="getTabung.tabung.peruntukan">RM {{getTabung.tabung.peruntukan | number: '1.2-2'}}</label>
-                  <label *ngIf="!getTabung.tabung.peruntukan">RM 0.00</label>
+									<label>Jumlah Baki Semasa:</label><br>
+                  <label *ngIf="getTabung.tabung.jumlah_baki_semasa">RM {{getTabung.tabung.jumlah_baki_semasa | number: '1.2-2'}}</label>
+                  <label *ngIf="!getTabung.tabung.jumlah_baki_semasa">RM 0.00</label>
 								</div>
 							</div>
 
@@ -128,6 +128,81 @@
 									<label>Jumlah Tanggungan:</label><br>
                   <label *ngIf="getTabung.jumlah_tanggungan">RM {{getTabung.jumlah_tanggungan | number: '1.2-2'}}</label>
                   <label *ngIf="!getTabung.jumlah_tanggungan">RM 0.00</label>
+								</div>
+							</div>
+            </div>
+            <br>
+
+
+            <div class="row">
+              <div class="col">
+                <h6>Maklumat Semasa ({{currentYear}})</h6>
+              </div>
+
+              <div class="col-lg-2 no-gutters justify-content-end mb-2">
+                <div class="form-group">
+                  <ng-select
+                    [items]="arrayYear"
+                    bindLabel="years"
+                    bindValue="years"
+                    placeholder="Tahun"
+                    class="js-example-placeholder-multiple"
+                    name="tahunTabung"
+                    [(ngModel)]="filterYear"
+                    (ngModelChange)= "getTabungByYear(filterYear)"
+                  ></ng-select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+							<div class="col-lg-4">
+								<div class="form-group">
+									<label>Jumlah Baki Bawaan:</label><br>
+									<label *ngIf="getTabungYear.baki_bawaan">RM {{getTabungYear.baki_bawaan | number: '1.2-2'}}</label>
+                  <label *ngIf="!getTabungYear.baki_bawaan">RM 0.00</label>
+								</div>
+							</div>
+
+              <div class="col-lg-4">
+								<div class="form-group">
+                  <label>Jumlah Dana Tambahan:</label><br>
+									<label *ngIf="getTabungYear.dana_tambahan">RM {{getTabungYear.dana_tambahan | number: '1.2-2'}}</label>
+                  <label *ngIf="!getTabungYear.dana_tambahan">RM 0.00</label>
+								</div>
+							</div>
+
+              <div class="col-lg-4">
+								<div class="form-group">
+									<label>Jumlah Kelulusan:</label><br>
+                  <label *ngIf="getTabungYear.jumlah_kelulusan">RM {{getTabungYear.jumlah_kelulusan | number: '1.2-2'}}</label>
+                  <label *ngIf="!getTabungYear.jumlah_kelulusan">RM 0.00</label>
+								</div>
+							</div>
+            </div>
+
+            <div class="row">
+							<div class="col-lg-4">
+								<div class="form-group">
+									<label>Jumlah Peruntukan Diambil:</label><br>
+									<label *ngIf="getTabungYear.peruntukan_diambil">RM {{getTabungYear.peruntukan_diambil | number: '1.2-2'}}</label>
+                  <label *ngIf="!getTabungYear.peruntukan_diambil">RM 0.00</label>
+								</div>
+							</div>
+
+              <div class="col-lg-4">
+								<div class="form-group">
+                  <label>Jumlah Tanggungan:</label><br>
+									<label *ngIf="getTabungYear.jumlah_tanggungan">RM {{getTabungYear.jumlah_tanggungan | number: '1.2-2'}}</label>
+                  <label *ngIf="!getTabungYear.jumlah_tanggungan">RM 0.00</label>
+								</div>
+							</div>
+
+              <div class="col-lg-4">
+								<div class="form-group">
+									<label>Jumlah Perbelanjaan:</label><br>
+                  <label *ngIf="getTabungYear.jumlah_belanja">RM {{getTabungYear.jumlah_belanja | number: '1.2-2'}}</label>
+                  <label *ngIf="!getTabungYear.jumlah_belanja">RM 0.00</label>
 								</div>
 							</div>
             </div>
@@ -263,7 +338,7 @@
 
             <h6 *ngIf="_appSession.isGranted('Halaman.Tabung.Kelulusan')">Kelulusan</h6>
             <div class="row no-gutters justify-content-end mb-2" *ngIf="_appSession.isGranted('Halaman.Tabung.Kelulusan.Tambah')">
-              <button class="btn btn-primary" type="button" [routerLink]="'/app/tabung/tambah-kelulusan'" [queryParams]="{idTabung: idTabung, namaTabung: getTabung.tabung.nama_tabung}">
+              <button class="btn btn-primary" type="button" [routerLink]="'/app/tabung/tambah-kelulusan'" [queryParams]="{idTabung: idTabung, namaTabung: getTabung.tabung.nama_tabung, tabungTambahKelulusan: tabungTambahKelulusan}">
                 <i class="fa fa-plus mr-2"></i>
                 <b>Tambah</b>
               </button>
@@ -395,7 +470,7 @@
                             <a
                               class="dropdown-item"
                               [routerLink]="'/app/tabung/edit-kelulusan'"
-                              [queryParams]="{id: records.kelulusan.id}"
+                              [queryParams]="{id: records.kelulusan.id, idTabung: idTabung, tabungKemaskiniKelulusan: tabungKemaskiniKelulusan}"
                               *ngIf="_appSession.isGranted('Halaman.Tabung.Kelulusan.Edit')"
                             >
                               Lihat
@@ -403,7 +478,7 @@
                             <a
                               class="dropdown-item"
                               style="cursor: pointer;"
-                              (click)="peruntukanDiambilModal(records.kelulusan.baki_jumlah_siling)"
+                              (click)="peruntukanDiambilModal(records.kelulusan.id, records.kelulusan.baki_jumlah_siling)"
                               *ngIf="_appSession.isGranted('Halaman.Tabung.Kelulusan.Edit')"
                             >
                               Peruntukan Diambil
