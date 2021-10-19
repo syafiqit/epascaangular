@@ -49,6 +49,7 @@ export class PerbelanjaanComponent implements OnInit {
   filterTahun: number;
   filterYear: number;
   filterPastYear: number;
+  kategori_tabung: number;
 
   date = new Date();
   modelSurat: NgbDateStruct;
@@ -103,6 +104,7 @@ export class PerbelanjaanComponent implements OnInit {
     } else {
       this._tabungKelulusanServiceProxy.getTabungKelulusanForEdit(this.id).subscribe((result) => {
         this.kelulusan = result.tabung_kelulusan;
+        this.kategori_tabung = result.kategori_tabung;
         if(result.tabung_kelulusan.tarikh_surat){
           this.modelSurat = this.fromModel(result.tabung_kelulusan.tarikh_surat.format('YYYY-MM-DD'));
         }
