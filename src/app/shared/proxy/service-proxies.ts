@@ -47667,6 +47667,7 @@ export interface IGetSkbByIdKelulusanDto {
 /** Class GetTabungKelulusanForEditDto */
 export class GetTabungKelulusanForEditDto implements IGetTabungKelulusanForEditDto {
     tabung_kelulusan!: CreateOrEditTabungKelulusanDto;
+    kategori_tabung!: number;
 
     constructor(data?: IGetTabungKelulusanForEditDto) {
         if (data) {
@@ -47680,6 +47681,7 @@ export class GetTabungKelulusanForEditDto implements IGetTabungKelulusanForEditD
     init(_data?: any) {
         if (_data) {
             this.tabung_kelulusan = _data["tabung_kelulusan"] ? CreateOrEditTabungKelulusanDto.fromJS(_data["tabung_kelulusan"]) : <any>undefined;
+            this.kategori_tabung = _data["kategori_tabung"];
         }
     }
 
@@ -47693,6 +47695,7 @@ export class GetTabungKelulusanForEditDto implements IGetTabungKelulusanForEditD
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["tabung_kelulusan"] = this.tabung_kelulusan ? this.tabung_kelulusan.toJSON() : <any>undefined;
+        data["kategori_tabung"] = this.kategori_tabung;
         return data; 
     }
 }
@@ -47700,6 +47703,7 @@ export class GetTabungKelulusanForEditDto implements IGetTabungKelulusanForEditD
 /** Class GetTabungKelulusanForEditDto */
 export interface IGetTabungKelulusanForEditDto {
     tabung_kelulusan: CreateOrEditTabungKelulusanDto;
+    kategori_tabung: number;
 }
 
 /** Class GetTabungKelulusanForViewDto */

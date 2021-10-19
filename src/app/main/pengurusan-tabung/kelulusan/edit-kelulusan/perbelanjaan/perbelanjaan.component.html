@@ -68,16 +68,6 @@
     <div class="mt-3 col-12">
       <ul ngbNav #nav="ngbNav" [(activeId)]="tabId" class="nav-tabs">
         <li [ngbNavItem]="1">
-          <a ngbNavLink>SKB</a>
-          <ng-template ngbNavContent>
-            <h6 class="mt-3 mb-4">Perbelanjaan Mengikut Jenis Bayaran</h6>
-            <app-jenis-bayaran-skb></app-jenis-bayaran-skb>
-            <h6 class="mt-3 mb-4">Perbelanjaan Mengikut Kategori</h6>
-            <app-kategori-skb></app-kategori-skb>
-          </ng-template>
-        </li>
-
-        <li [ngbNavItem]="2">
           <a ngbNavLink>Secara Terus</a>
           <ng-template ngbNavContent>
             <h6 class="mt-3 mb-4">Perbelanjaan Mengikut Jenis Bayaran</h6>
@@ -87,7 +77,17 @@
           </ng-template>
         </li>
 
-        <li [ngbNavItem]="3">
+        <li [ngbNavItem]="2">
+          <a ngbNavLink>SKB</a>
+          <ng-template ngbNavContent>
+            <h6 class="mt-3 mb-4">Perbelanjaan Mengikut Jenis Bayaran</h6>
+            <app-jenis-bayaran-skb></app-jenis-bayaran-skb>
+            <h6 class="mt-3 mb-4">Perbelanjaan Mengikut Kategori</h6>
+            <app-kategori-skb></app-kategori-skb>
+          </ng-template>
+        </li>
+
+        <li [ngbNavItem]="3" *ngIf="kategori_tabung === 2">
           <a ngbNavLink>Waran</a>
           <ng-template ngbNavContent>
             <h6 class="mt-3 mb-4">Perbelanjaan Mengikut Jenis Bayaran</h6>
