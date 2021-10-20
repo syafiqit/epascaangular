@@ -178,7 +178,7 @@
 										<p-sortIcon field="jumlah_negeri"></p-sortIcon>
 									</th>
 									<th style="width: 165px" pSortableColumn="jumlah_bayaran_bwi">
-										Jumlah Bayaran
+										Jumlah Bantuan
 										<p-sortIcon field="jumlah_bayaran_bwi"></p-sortIcon>
 									</th>
                   <th style="width: 150px" *ngIf="_appSession.isGranted('Halaman.Tabung.BWI.Edit') || _appSession.isGranted('Halaman.Tabung.BWI.Hapus')">Tindakan</th>
@@ -210,7 +210,7 @@
                     {{record.jumlah_negeri}}
 									</td>
 									<td style="width: 165px">
-										<span class="p-column-title">Jumlah Bayaran</span>
+										<span class="p-column-title">Jumlah Bantuan</span>
                     <label *ngIf="record.jumlah_bayaran_bwi">RM {{record.jumlah_bayaran_bwi | number: '1.2-2'}}</label>
                     <label *ngIf="!record.jumlah_bayaran_bwi">RM 0.00</label>
 									</td>

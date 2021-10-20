@@ -69,6 +69,7 @@ export class EditWangIhsanComponent implements OnInit {
   jumlah_keseluruhan_bayaran: number;
   jumlah_bantuan: number;
   id_kelulusan_bwi_bayaran: number;
+  bayaranArray = [];
   bantuanArray = [];
   daerahArray = [];
   negeriArray = [];
@@ -157,16 +158,20 @@ export class EditWangIhsanComponent implements OnInit {
     }
   }
 
-  getIdBayaranTerus(id_bayaran_terus: number) {
+  getIdBayaranTerus(bayaran_terus) {
     const bayaranBwi = new UpdateBwiBayaranDto();
-    bayaranBwi.id_tabung_bayaran_terus = id_bayaran_terus;
+    bayaranBwi.id_temp = bayaran_terus.idTemp;
+    bayaranBwi.id_tabung_bayaran_terus = bayaran_terus.idTerus;
     this.bwi_bayaran.push(bayaranBwi);
+    this.jumlah_keseluruhan_bayaran = this.jumlah_keseluruhan_bayaran + bayaran_terus.jumlah_bayaran;
   }
 
-  getIdBayaranSkb(id_bayaran_skb: number) {
+  getIdBayaranSkb(bayaran_skb) {
     const bayaranBwi = new UpdateBwiBayaranDto();
-    bayaranBwi.id_tabung_bayaran_skb = id_bayaran_skb;
+    bayaranBwi.id_temp = bayaran_skb.idTemp;
+    bayaranBwi.id_tabung_bayaran_skb = bayaran_skb.idSkb;
     this.bwi_bayaran.push(bayaranBwi);
+    this.jumlah_keseluruhan_bayaran = this.jumlah_keseluruhan_bayaran + bayaran_skb.jumlah_bayaran;
   }
 
   getIdKelulusan(id_kelulusan: number) {
@@ -175,6 +180,12 @@ export class EditWangIhsanComponent implements OnInit {
 
   getJumlahBayaran(jumlah_bayaran: number) {
     this.jumlah_keseluruhan_bayaran = jumlah_bayaran;
+  }
+
+  getJumlahBayaranPadam(jumlah_bayaran?) {
+    this.jumlah_keseluruhan_bayaran = this.jumlah_keseluruhan_bayaran - jumlah_bayaran.jumlahBantuan;
+    this.bwi_bayaran.splice(this.bwi_bayaran.findIndex(e=> e.id_temp == jumlah_bayaran.idTemp), 1);
+
   }
 
   getJumlahBantuanPadam(jumlah_bantuan?) {

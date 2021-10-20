@@ -20,6 +20,7 @@ export class PilihPembayaranComponent implements OnInit {
   ) {}
 
 	ngOnInit(): void {
+    console.log(this.idTabungKelulusanKemaskini);
   }
 
   pilihSuratKuasaBelanja(){
