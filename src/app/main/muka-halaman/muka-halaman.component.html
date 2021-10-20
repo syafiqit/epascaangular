@@ -4,24 +4,29 @@
 	[active_item]="''"
 ></app-breadcrumb>
 <div class="container-fluid">
-	<div class="card">
-    <div class="card-header">
-      <div class="header-top">
-        <h6>Jumlah Mangsa Dan Bencana Mengikut Negeri</h6>
-        <div class="card-header-right-icon">
-          <button
-            type="button"
-            class="btn btn-primary pull-right"
-            (click)="isCollapsed = !isCollapsed"
-            [attr.aria-expanded]="!isCollapsed"
-            aria-controls="collapseExample"
-            ngbTooltip="Carian Lanjut"
-            style="font-weight: 500"
-          >
-            <i class="fa fa-filter"></i>
-          </button>
+  <div class="card">
+    <div class="card-body p-4">
+      <div class="row">
+        <div class="col justify-content-start">
+          <h5 class="mb-0"><span style="line-height: 29pt;">{{filterYear}}</span></h5>
+        </div>
+        <div class="col justify-content-end pull-right">
+          <div class="card-header-right-icon">
+            <button
+              type="button"
+              class="btn btn-primary pull-right"
+              (click)="isCollapsed = !isCollapsed"
+              [attr.aria-expanded]="!isCollapsed"
+              aria-controls="collapseExample"
+              ngbTooltip="Carian Lanjut"
+              style="font-weight: 500"
+            >
+              <i class="fa fa-filter"></i>
+            </button>
+          </div>
         </div>
       </div>
+
       <div class="row">
         <div class="col-lg-12">
           <div class="row">
@@ -31,10 +36,16 @@
                   <div class="col-lg-2">
                     <div class="form-group">
                       <label>Tahun</label>
-                      <select class="form-control" [(ngModel)]="filterYear">
-                        <option selected disabled [value]="undefined">Sila Pilih</option>
-                        <option *ngFor="let year of arrayYear">{{year}}</option>
-                      </select>
+                      <ng-select
+                        placeholder="Sila Pilih"
+                        class="js-example-placeholder-multiple disable-clear-all" 
+                        [clearable]="false"
+                        name="tahun"
+                        [(ngModel)]="filterYear">
+                        <ng-option [value]="year" *ngFor="let year of arrayYear">
+                          {{year}}
+                        </ng-option>
+                      </ng-select>
                     </div>
                   </div>
 
@@ -81,33 +92,19 @@
                     </div>
                   </div>
 
-                  <div class="col-lg-3">
+                  <div class="col-lg-6">
                     <div class="form-group">
                       <label>Bencana</label>
                       <ng-select
-                        [items]="bencanaList"
-                        bindLabel="nama_bencana"
-                        bindValue="id"
                         placeholder="Sila Pilih"
-                        class="js-example-placeholder-multiple"
+                        class="js-example-placeholder-multiple disable-clear-all" 
+                        [clearable]="false"
                         name="namaBencana"
-                        [(ngModel)]="filterIdBencana"
-                      ></ng-select>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-3">
-                    <div class="form-group">
-                      <label>Negeri</label>
-                      <ng-select
-                        [items]="states"
-                        bindLabel="nama_negeri"
-                        bindValue="id"
-                        placeholder="Sila Pilih"
-                        class="js-example-placeholder-multiple"
-                        name="namaNegeri"
-                        [(ngModel)]="filterIdNegeri"
-                      ></ng-select>
+                        [(ngModel)]="filterIdBencana">
+                        <ng-option [value]="item.id" *ngFor="let item of bencanaList">
+                          {{item.nama_bencana + ': ' + (item.tarikh_bencana | date:'dd/MM/YYYY')}}
+                        </ng-option>
+                      </ng-select>
                     </div>
                   </div>
                 </div>
@@ -125,7 +122,7 @@
                   <button
                     class="btn btn-primary pull-right mr-2"
                     type="button"
-                    (click)="mapDashboard()"
+                    (click)="findFilter()"
                   >
                   <i class="fa fa-search mr-2"></i>
                     <b>Cari</b>
@@ -135,6 +132,13 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+	<div class="card">
+    <div class="card-header">
+      <div class="header-top">
+        <h6>Jumlah Mangsa Dan Bencana Mengikut Negeri</h6>
       </div>
     </div>
 		<div class="card-body">
@@ -397,60 +401,6 @@
     <div class="card-header">
       <div class="header-top">
         <h6>Jumlah Bantuan Mengikut Negeri</h6>
-        <div class="card-header-right-icon">
-          <button
-            type="button"
-            class="btn btn-primary pull-right"
-            (click)="isCollapsedChart = !isCollapsedChart"
-            [attr.aria-expanded]="!isCollapsedChart"
-            aria-controls="collapseExample"
-            ngbTooltip="Carian Lanjut"
-            style="font-weight: 500"
-          >
-            <i class="fa fa-filter"></i>
-          </button>
-        </div>
-      </div>
-      <div class="row mt-2 no-gutters">
-        <div class="col-lg-12">
-          <div class="row no-gutters">
-            <div class="col-lg-12">
-              <div id="collapseExample" [ngbCollapse]="!isCollapsedChart">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <label>Tahun</label>
-                      <select class="form-control" [(ngModel)]="year">
-                        <option selected disabled [value]="undefined">Sila Pilih</option>
-                        <option *ngFor="let year of arrayYear">{{year}}</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row justify-content-end mb-2 pr-2">
-                  <button
-                    class="btn btn-light mr-2"
-                    type="button"
-                    (click)="resetGraph()"
-                  >
-                  <i class="fa fa-refresh mr-2"></i>
-                    <b>Reset</b>
-                  </button>
-
-                  <button
-                    class="btn btn-primary pull-right mr-2"
-                    type="button"
-                    (click)="chartDashboard()"
-                  >
-                  <i class="fa fa-search mr-2"></i>
-                    <b>Cari</b>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 		<div class="card-body">
