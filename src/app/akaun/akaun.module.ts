@@ -10,7 +10,8 @@ import { SharedModule } from '../shared/shared.module';
 import { AccountRouteGuard } from '../shared/guards/account-route-guard';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ResetKataLaluanComponent } from './reset-kata-laluan/reset-kata-laluan.component';
-
+import { PaparPengumumanComponent } from './papar-pengumuman/papar-pengumuman.component';
+import {CarouselModule} from 'primeng/carousel';
 @NgModule({
 	declarations: [
 		AkaunComponent,
@@ -18,9 +19,10 @@ import { ResetKataLaluanComponent } from './reset-kata-laluan/reset-kata-laluan.
 		LupaKataLaluanComponent,
 		DaftarAkaunComponent,
 		TukarKataLaluanComponent,
-		ResetKataLaluanComponent
+		ResetKataLaluanComponent,
+    PaparPengumumanComponent
 	],
-	imports: [CommonModule, SharedModule, AkaunRoutingModule, NgSelectModule],
+	imports: [CommonModule, SharedModule, AkaunRoutingModule, NgSelectModule, CarouselModule],
 	providers: [AccountRouteGuard]
 })
 export class AkaunModule {}
