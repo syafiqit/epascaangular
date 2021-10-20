@@ -124,9 +124,17 @@
                     class="form-control"
                     name="siling_peruntukan"
                     placeholder="Jumlah Siling Peruntukan"
-                    value="{{edit.tabung_bayaran_waran.jumlah_siling_peruntukan | number: '1.2-2'}}"
-                    disabled
+                    [(ngModel)]="edit.tabung_bayaran_waran.jumlah_siling_peruntukan"
+                    #silingPeruntukan="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && silingPeruntukan.invalid }"
+                    autocomplete="off"
+                    required
+                    currencyMask
+                    [options]="{ prefix: 'RM ', align: 'left' }"
                   />
+                  <div *ngIf="f.submitted && silingPeruntukan.invalid" class="invalid-feedback">
+                    <div *ngIf="silingPeruntukan.errors.required">Jumlah Siling Peruntukan Wajib Diisi</div>
+                  </div>
 								</div>
 							</div>
 
