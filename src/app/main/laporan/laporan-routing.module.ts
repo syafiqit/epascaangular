@@ -97,7 +97,7 @@ const routes: Routes = [
       {
 				path: 'bwi/penerima',
 				component: LaporanBwiPenerimaComponent,
-        data: { permission: 'Halaman.Laporan.Tabung.BWI'}
+        data: { permission: 'Halaman.Laporan.Mangsa.BWI'}
 			},
 			{
 				path: 'mangsa/pendaftaran',
