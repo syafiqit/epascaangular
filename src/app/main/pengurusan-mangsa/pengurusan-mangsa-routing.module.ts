@@ -21,7 +21,6 @@ const routes: Routes = [
 			{
 				path: 'edit-pengurusan-mangsa',
 				component: EditPengurusanMangsaComponent,
-        data: { permission: 'Halaman.Mangsa.Edit' }
 			}
 		]
 	}
