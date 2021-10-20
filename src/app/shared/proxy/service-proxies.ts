@@ -14401,17 +14401,22 @@ export class RefPerananServiceProxy {
     /**
      * Get all RefPeranan
      * @param filter (optional) Filter records with a string
+     * @param filterStatus (optional) Filter records with a integer
      * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
      * @param skipCount (optional) Skip n-value of a record
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfRefPerananForViewDto> {
+    getAll(filter: string | undefined, filterStatus: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfRefPerananForViewDto> {
         let url_ = this.baseUrl + "/api/refPeranan/getAll?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
             url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (filterStatus === null)
+            throw new Error("The parameter 'filterStatus' cannot be null.");
+        else if (filterStatus !== undefined)
+            url_ += "filterStatus=" + encodeURIComponent("" + filterStatus) + "&";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
@@ -14601,7 +14606,7 @@ export class RefPerananServiceProxy {
      * @param body Create or edit object
      * @return Success
      */
-    createOrEdit(body: CreateOrEditRefPerananDto): Observable<CreateOrEditRefPerananDto> {
+    createOrEdit(body: CreateOrEditRefPerananDto): Observable<OutputRefPerananDto> {
         let url_ = this.baseUrl + "/api/refPeranan/createOrEdit";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -14624,14 +14629,14 @@ export class RefPerananServiceProxy {
                 try {
                     return this.processCreateOrEdit(<any>response_);
                 } catch (e) {
-                    return <Observable<CreateOrEditRefPerananDto>><any>_observableThrow(e);
+                    return <Observable<OutputRefPerananDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<CreateOrEditRefPerananDto>><any>_observableThrow(response_);
+                return <Observable<OutputRefPerananDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processCreateOrEdit(response: HttpResponseBase): Observable<CreateOrEditRefPerananDto> {
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<OutputRefPerananDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -14642,7 +14647,7 @@ export class RefPerananServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = CreateOrEditRefPerananDto.fromJS(resultData200);
+            result200 = OutputRefPerananDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status === 500) {
@@ -14654,7 +14659,7 @@ export class RefPerananServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<CreateOrEditRefPerananDto>(<any>null);
+        return _observableOf<OutputRefPerananDto>(<any>null);
     }
 
     /**
@@ -39242,6 +39247,7 @@ export interface IRefPengumumanDto {
 export class CreateOrEditRefPerananDto implements ICreateOrEditRefPerananDto {
     id!: number;
     peranan!: string;
+    status_peranan!: number;
     /** Capaian in array of string */
     capaian_dibenarkan!: string[];
 
@@ -39258,6 +39264,7 @@ export class CreateOrEditRefPerananDto implements ICreateOrEditRefPerananDto {
         if (_data) {
             this.id = _data["id"];
             this.peranan = _data["peranan"];
+            this.status_peranan = _data["status_peranan"];
             if (Array.isArray(_data["capaian_dibenarkan"])) {
                 this.capaian_dibenarkan = [] as any;
                 for (let item of _data["capaian_dibenarkan"])
@@ -39277,6 +39284,7 @@ export class CreateOrEditRefPerananDto implements ICreateOrEditRefPerananDto {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["peranan"] = this.peranan;
+        data["status_peranan"] = this.status_peranan;
         if (Array.isArray(this.capaian_dibenarkan)) {
             data["capaian_dibenarkan"] = [];
             for (let item of this.capaian_dibenarkan)
@@ -39290,6 +39298,7 @@ export class CreateOrEditRefPerananDto implements ICreateOrEditRefPerananDto {
 export interface ICreateOrEditRefPerananDto {
     id: number;
     peranan: string;
+    status_peranan: number;
     /** Capaian in array of string */
     capaian_dibenarkan: string[];
 }
@@ -39479,6 +39488,7 @@ export interface IGetRefPerananForListDto {
 /** Class GetRefPerananForViewDto */
 export class GetRefPerananForViewDto implements IGetRefPerananForViewDto {
     id!: number;
+    status_peranan!: number;
     peranan!: string;
 
     constructor(data?: IGetRefPerananForViewDto) {
@@ -39493,6 +39503,7 @@ export class GetRefPerananForViewDto implements IGetRefPerananForViewDto {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.status_peranan = _data["status_peranan"];
             this.peranan = _data["peranan"];
         }
     }
@@ -39507,6 +39518,7 @@ export class GetRefPerananForViewDto implements IGetRefPerananForViewDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["status_peranan"] = this.status_peranan;
         data["peranan"] = this.peranan;
         return data; 
     }
@@ -39515,7 +39527,46 @@ export class GetRefPerananForViewDto implements IGetRefPerananForViewDto {
 /** Class GetRefPerananForViewDto */
 export interface IGetRefPerananForViewDto {
     id: number;
+    status_peranan: number;
     peranan: string;
+}
+
+/** Class OutputRefPerananDto */
+export class OutputRefPerananDto implements IOutputRefPerananDto {
+    message!: string;
+
+    constructor(data?: IOutputRefPerananDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.message = _data["message"];
+        }
+    }
+
+    static fromJS(data: any): OutputRefPerananDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new OutputRefPerananDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["message"] = this.message;
+        return data; 
+    }
+}
+
+/** Class OutputRefPerananDto */
+export interface IOutputRefPerananDto {
+    message: string;
 }
 
 /** RefPeranan List in Tabular model */

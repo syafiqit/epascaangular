@@ -22,7 +22,14 @@ export class PerananComponent implements OnInit {
 	primengTableHelper: PrimengTableHelper;
 
 	filterText: string;
+  filterStatus: number;
+  public isCollapsed = false;
   terms$ = new Subject<string>();
+
+  status=[
+    {id: 1, nama_status: 'Aktif'},
+    {id: 2, nama_status: 'Tidak Aktif'}
+  ]
 
 	constructor(
 		config: NgbModalConfig,
@@ -52,6 +59,7 @@ export class PerananComponent implements OnInit {
 		this._refPerananServiceProxy
 			.getAll(
 				this.filterText,
+        this.filterStatus ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -68,6 +76,13 @@ export class PerananComponent implements OnInit {
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
 	}
+
+  resetFilter() {
+    this.filterText = undefined;
+    this.filterStatus = undefined;
+
+    this.getPeranan();
+  }
 
 	addRoleModal() {
 		const modalRef = this.modalService.open(TambahEditPerananComponent, { size: 'lg' });

@@ -49,6 +49,7 @@ export class TambahEditPerananComponent implements OnInit {
     const self = this;
 		this.saving = true;
     const input = new CreateOrEditRefPerananDto();
+    input.status_peranan = this.peranan.status_peranan;
     input.id = self.peranan.id;
     input.peranan = self.peranan.peranan;
     input.capaian_dibenarkan = self.permissionTree.getGrantedPermissionNames();
@@ -56,7 +57,7 @@ export class TambahEditPerananComponent implements OnInit {
 		this._refPerananServiceProxy
 			.createOrEdit(input)
 			.pipe()
-			.subscribe(() => {
+			.subscribe((result) => {
 				if (this.name === 'add') {
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
@@ -82,29 +83,53 @@ export class TambahEditPerananComponent implements OnInit {
             this.activeModal.close(true);
           });
 				} else if (this.name === 'edit') {
-          const dialogRef = this._confirmationService.open({
-            title: 'Berjaya',
-            message: 'Maklumat Peranan Berjaya Dikemaskini.',
-            icon: {
-              show: true,
-              name: 'check-circle',
-              color: 'success'
-            },
-            actions: {
-              confirm: {
+          if(result.message == 'Peranan Berjaya Dikemaskini'){
+            const dialogRef = this._confirmationService.open({
+              title: 'Berjaya',
+              message: 'Maklumat Peranan Berjaya Dikemaskini.',
+              icon: {
                 show: true,
-                label: 'Tutup',
-                color: 'primary'
+                name: 'check-circle',
+                color: 'success'
               },
-              cancel: {
-                show: false
-              }
-            },
-            dismissible: true
-          });
-          dialogRef.afterClosed().subscribe(() => {
-            this.activeModal.close(true);
-          });
+              actions: {
+                confirm: {
+                  show: true,
+                  label: 'Tutup',
+                  color: 'primary'
+                },
+                cancel: {
+                  show: false
+                }
+              },
+              dismissible: true
+            });
+            dialogRef.afterClosed().subscribe(() => {
+              this.activeModal.close(true);
+            });
+          }else{
+            this._confirmationService.open({
+              title: 'Tidak Berjaya',
+              message: result.message,
+              icon: {
+                show: true,
+                name: 'x-circle',
+                color: 'error'
+              },
+              actions: {
+                confirm: {
+                  show: true,
+                  label: 'Tutup',
+                  color: 'primary'
+                },
+                cancel: {
+                  show: false
+                }
+              },
+              dismissible: true
+            });
+          }
+
 				}
 			});
 	}
