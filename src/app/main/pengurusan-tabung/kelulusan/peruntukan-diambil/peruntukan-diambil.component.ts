@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CreateOrEditTabungKelulusanAmbilanDto, TabungKelulusanAmbilanServiceProxy } from '@app/shared/proxy/service-proxies';
+import { CreateOrEditTabungKelulusanAmbilanDto, OutputCreateTabungKelulusanDto, TabungKelulusanAmbilanServiceProxy } from '@app/shared/proxy/service-proxies';
 import { NgbActiveModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationService } from '@services/confirmation';
 
@@ -71,31 +71,93 @@ export class PeruntukanDiambilComponent implements OnInit {
     this._tabungKelulusanAmbilanServiceProxy
       .createOrEdit(this.peruntukan)
       .pipe()
-      .subscribe(() => {
-        const dialogRef = this._confirmationService.open({
-          title: 'Berjaya',
-          message: 'Maklumat Peruntukan Diambil Berjaya Disimpan.',
-          icon: {
-          show: true,
-          name: 'check-circle',
-          color: 'success'
-          },
-          actions: {
-          confirm: {
-            show: true,
-            label: 'Tutup',
-            color: 'primary'
-          },
-          cancel: {
-            show: false
-          }
-          },
-          dismissible: true
-        });
-        dialogRef.afterClosed().subscribe(() => {
-          this.activeModal.close(true);
-        });
+      .subscribe((result) => {
+        if(result.message == "Peruntukan Diambil Berjaya"){
+          this.successMessage(result);
+        }else if(result.message == "Peruntukan Diambil Berjaya Dikemaskini"){
+          this.successUpdateMessage(result);
+        }else{
+          this.errorMessage(result);
+        }
       });
+  }
+
+  successMessage(result?){
+    const dialogRef = this._confirmationService.open({
+      title: 'Berjaya',
+      message: 'Peruntukan Diambil Berjaya Disimpan',
+      icon: {
+        show: true,
+        name: 'check-circle',
+        color: 'success'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.activeModal.close(true);
+    });
+  }
+
+  successUpdateMessage(result?){
+    const dialogRef = this._confirmationService.open({
+      title: 'Berjaya',
+      message: result.message,
+      icon: {
+        show: true,
+        name: 'check-circle',
+        color: 'success'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.activeModal.close(true);
+    });
+  }
+
+  errorMessage(result?){
+    const dialogRef = this._confirmationService.open({
+      title: 'Makluman',
+      message: result.message,
+      icon: {
+        show: true,
+        name: 'alert-triangle',
+        color: 'warning'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.activeModal.close(true);
+    });
   }
 
 }
