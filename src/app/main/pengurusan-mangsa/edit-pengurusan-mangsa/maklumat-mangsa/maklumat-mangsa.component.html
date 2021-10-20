@@ -299,7 +299,7 @@
     <button type="button" class="btn btn-light pull-right mr-2" [routerLink]="['/app/mangsa/senarai-pengurusan-mangsa']">
       Kembali
     </button>
-    <button class="btn btn-primary pull-right" type="submit">
+    <button *ngIf="_appSession.isGranted('Halaman.Mangsa.Edit')" class="btn btn-primary pull-right" type="submit">
       Simpan
     </button>
   </div>

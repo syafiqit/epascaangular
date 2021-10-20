@@ -47,7 +47,7 @@
 					  <button class="dropdown-item">Pukal (Excel)</button>
 					</div>
 				  </div>
-				  <div ngbDropdown class="btn-group pull-right mr-1" role="group">
+				  <div ngbDropdown class="btn-group pull-right mr-1" role="group" *ngIf="_appSession.isGranted('Halaman.Mangsa.Edit')">
 					<button type="button" class="btn btn-primary dropdown-toggle" id="dropdownBasic1"
 					  ngbDropdownToggle>
 					  <span class="mr-1 badge badge-pill badge-light">{{idMangsa?.length}} </span>
@@ -246,7 +246,6 @@
 											<p-sortIcon field="status_verifikasi"></p-sortIcon>
 										</th>
 										<th
-                      *ngIf="_appSession.isGranted('Halaman.Mangsa.Edit') || _appSession.isGranted('Halaman.Mangsa.Hapus')"
                       style="width: 130px">Tindakan</th>
 									</tr>
 								</ng-template>
@@ -294,7 +293,7 @@
                       <label *ngIf="record.status_verifikasi == 1" style="color: green;">Sudah</label>
                       <label *ngIf="record.status_verifikasi == 0" style="color: red;">Belum</label>
 										</td>
-										<td style="width: 130px" *ngIf="_appSession.isGranted('Halaman.Mangsa.Edit') || _appSession.isGranted('Halaman.Mangsa.Hapus')">
+										<td style="width: 130px">
 											<div ngbDropdown class="btn-group" role="group" container="body">
 												<button
 													type="button"
@@ -311,7 +310,6 @@
 														class="dropdown-item"
 														[routerLink]="['/app/mangsa/edit-pengurusan-mangsa']"
                             [queryParams]="{id: record.id}"
-                            *ngIf="_appSession.isGranted('Halaman.Mangsa.Edit')"
 													>
 														Lihat
 													</button>

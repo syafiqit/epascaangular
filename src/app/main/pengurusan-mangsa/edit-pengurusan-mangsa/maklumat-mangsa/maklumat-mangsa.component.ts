@@ -17,6 +17,7 @@ import {
 } from 'src/app/shared/proxy/service-proxies';
 import { environment } from 'src/environments/environment';
 import { ConfirmationService } from '@services/confirmation';
+import { AppSessionService } from '@app/shared/services/app-session.service';
 @Component({
 	selector: 'app-maklumat-mangsa',
 	templateUrl: './maklumat-mangsa.component.html',
@@ -58,7 +59,8 @@ export class MaklumatMangsaComponent implements OnInit {
     private _refPindahServiceProxy: RefPindahServiceProxy,
     private _formBuilder: FormBuilder,
     private httpClient: HttpClient,
-    private _confirmationService: ConfirmationService
+    private _confirmationService: ConfirmationService,
+    public _appSession: AppSessionService,
   ) {
     this.idMangsa = this._activatedRoute.snapshot.queryParams['id'];
     this.getMangsa = new GetMangsaForEditDto();
