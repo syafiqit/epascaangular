@@ -18,6 +18,7 @@ export class MukaHalamanComponent implements OnInit, AfterViewInit {
 
   filter:string;
   year:string;
+  cardYear:string;
   arrayYear:any[];
   filterIdNegeri:number;
   filterIdBencana:number;
@@ -55,8 +56,24 @@ export class MukaHalamanComponent implements OnInit, AfterViewInit {
     ) {}
 
 	ngOnInit(): void {
+
+    this.cardDashboard();
+
+    this.generateArrayOfYears();
+	  this.getNegeri();
+	  this.getBencana();
+
+    this.filterYear = 2021;
+  }
+
+	ngAfterViewInit() {
+		this.mapDashboard();
+		this.chartDashboard();
+	}
+
+  cardDashboard(){
     this._dashboardServiceProxy.getJumlahBantuan(
-      this.filter
+      this.cardYear
     ).subscribe((result) => {
       this.jumlahMangsa = result.jumlahMangsa;
 
@@ -74,17 +91,8 @@ export class MukaHalamanComponent implements OnInit, AfterViewInit {
 
       this.jumlahLain = result.bantuanLain;
 
-	  this.generateArrayOfYears();
-	  this.getNegeri();
-	  this.getBencana();
-
     });
   }
-
-	ngAfterViewInit() {
-		this.mapDashboard();
-		this.chartDashboard();
-	}
 
 	mapDashboard(){
 
@@ -287,12 +295,26 @@ export class MukaHalamanComponent implements OnInit, AfterViewInit {
 
   resetMap() {
     this.filterIdBencana = undefined;
-	this.filterIdNegeri = undefined;
-	this.fromDate = undefined;
-	this.toDate = undefined;
-	this.filterYear = undefined;
+    this.filterIdNegeri = undefined;
+    this.fromDate = undefined;
+    this.toDate = undefined;
+    this.filterYear = undefined;
+    this.cardYear = undefined;
+    this.year = undefined;
+
+    this.chartDashboard();
 
     this.mapDashboard();
+  }
+
+  findFilter(){
+    
+    this.cardYear = String(this.filterYear);
+    this.year = String(this.filterYear);
+
+    this.chartDashboard();
+    this.mapDashboard();
+    this.cardDashboard();
   }
 
   resetGraph() {
