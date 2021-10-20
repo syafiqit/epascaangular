@@ -334,30 +334,63 @@ export class EditSkbComponent implements OnInit {
 		this._tabungBayaranSkbServiceProxy
 			.createOrEdit(this.bayaranSKB)
 			.pipe()
-			.subscribe(() => {
-        const dialogRef = this._confirmationService.open({
-          title: 'Berjaya',
-          message: 'Maklumat Surat Kuasa Belanja Berjaya Dikemaskini.',
-          icon: {
-            show: true,
-            name: 'check-circle',
-            color: 'success'
-          },
-          actions: {
-            confirm: {
-              show: true,
-              label: 'Tutup',
-              color: 'primary'
-            },
-            cancel: {
-              show: false
-            }
-          },
-          dismissible: true
-        });
-        dialogRef.afterClosed().subscribe(() => {
-          this.router.navigateByUrl('/app/tabung/skb/senarai');
-        });
+			.subscribe((result) => {
+        this.output = result;
+        if(this.output.message == "Maklumat Berjaya Dikemaskini!") {
+          this.success();
+        }
+        else {
+          this.unsuccess();
+        }
 			});
 	}
+
+  success() {
+    const dialogRef = this._confirmationService.open({
+      title: 'Berjaya',
+      message: 'Maklumat Surat Kuasa Belanja Berjaya Dikemaskini.',
+      icon: {
+        show: true,
+        name: 'check-circle',
+        color: 'success'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.router.navigateByUrl('/app/tabung/skb/senarai');
+    });
+  }
+
+  unsuccess() {
+    this._confirmationService.open({
+      title: 'Tidak Berjaya',
+      message: this.output.message,
+      icon: {
+        show: true,
+        name: 'x-circle',
+        color: 'error'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+  }
 }
