@@ -100,7 +100,7 @@ export class TambahEditBantuanComponent implements OnInit {
               jumlah_bwi: response.jumlah_bayaran
             });
             this.primengTableHelper.totalRecordsCount = this.primengTableHelper.records.length;
-            this.getJumlahBantuanTambah(this.primengTableHelper.records.length + 1, this.jumlahDiberi, this.idDaerah, this.idNegeri, this.jumlahBantuan);
+            this.getJumlahBantuanTambah(this.primengTableHelper.records.length, this.jumlahDiberi, this.idDaerah, this.idNegeri, this.jumlahBantuan);
           }else{
             this.jumlahBantuan = this.jumlahBantuan - response.jumlah_bayaran;
 

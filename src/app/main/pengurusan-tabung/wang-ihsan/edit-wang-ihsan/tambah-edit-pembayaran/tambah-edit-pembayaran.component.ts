@@ -16,10 +16,12 @@ import { ConfirmationService } from '@services/confirmation';
 })
 export class TambahEditPembayaranComponent implements OnInit {
   @Input() public idBwi: number;
-  @Output() idBayaranTerus = new EventEmitter<number>();
-  @Output() idBayaranSkb = new EventEmitter<number>();
+  @Input() public jumlahBayaranBwi: number;
+  @Output() idBayaranTerus = new EventEmitter<{}>();
+  @Output() idBayaranSkb = new EventEmitter<{}>();
   @Output() id_kelulusan = new EventEmitter<number>();
   @Output() jumlahBayaran = new EventEmitter<number>();
+  @Output() jumlah_bayaran_padam = new EventEmitter<{}>();
 
   @ViewChild('dataTable', { static: true }) dataTable: Table;
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
@@ -40,6 +42,14 @@ export class TambahEditPembayaranComponent implements OnInit {
   existingId: number;
   idKelulusanKemaskini: number;
   jumlah_keseluruhan_bayaran: number;
+  no_rujukan_bayaran: number;
+  perihal: string;
+  jumlah_bayaran: number;
+  no_rujukan_kelulusan: string;
+  jumlah: number;
+  temporaryNumber: number = 0;
+  jumlah_bwi_bayaran: number = 0;
+  idTemp: number;
 
   constructor(
     config: NgbModalConfig,
@@ -87,12 +97,19 @@ export class TambahEditPembayaranComponent implements OnInit {
     modalRef.componentInstance.idTabungKelulusanKemaskini = this.idKelulusanKemaskini;
     modalRef.result.then(
       (response) => {
+        this.jumlah_bayaran = Number(response.jumlah);
+        this.no_rujukan_bayaran = response.no_rujukan_bayaran;
+        this.perihal = response.perihal;
+        this.no_rujukan_kelulusan = response.no_rujukan_kelulusan;
+        this.jumlah = response.jumlah;
+
         if (response.idSkb) {
           this.existingId = this.primengTableHelper.records.find(e=> e.id_bayaran_skb == response.idSkb);
           this.idSkb = response.idSkb;
           if(!this.existingId){
             this.primengTableHelper.records.push({
-              id: response.idSkb,
+              id_temp: this.primengTableHelper.records.length + 1,
+              id_bayaran_skb: response.idSkb,
               no_rujukan_bayaran: response.no_rujukan_bayaran,
               perihal: response.perihal,
               no_rujukan_kelulusan: response.no_rujukan_kelulusan,
@@ -100,7 +117,10 @@ export class TambahEditPembayaranComponent implements OnInit {
               idJenisBayaran: response.idJenisBayaran
             });
             this.existingId = null;
+            this.primengTableHelper.totalRecordsCount = this.primengTableHelper.records.length;
+            this.tambahPembayaranSkb(this.primengTableHelper.records.length, this.idSkb, this.no_rujukan_bayaran, this.perihal, this.no_rujukan_kelulusan, this.jumlah_bayaran);
           }else{
+            this.jumlah_bayaran = this.jumlah_bayaran - response.jumlah;
             this._confirmationService.open({
               title: 'Tidak Berjaya',
               message: 'No. Rujukan SKB Telah Dipilih',
@@ -123,14 +143,14 @@ export class TambahEditPembayaranComponent implements OnInit {
             });
             this.existingId = null;
           }
-          this.tambahPembayaranSkb(this.idSkb)
         }
         else if (response.idTerus) {
           this.existingId = this.primengTableHelper.records.find(e=> e.id_bayaran_terus == response.idTerus);
           this.idTerus = response.idTerus;
           if(!this.existingId){
             this.primengTableHelper.records.push({
-              id: response.idTerus,
+              id_temp: this.primengTableHelper.records.length + 1,
+              id_bayaran_terus: response.idTerus,
               no_rujukan_bayaran: response.no_rujukan_bayaran,
               perihal: response.perihal,
               no_rujukan_kelulusan: response.no_rujukan_kelulusan,
@@ -138,7 +158,10 @@ export class TambahEditPembayaranComponent implements OnInit {
               idJenisBayaran: response.idJenisBayaran
             });
             this.existingId = null;
+            this.primengTableHelper.totalRecordsCount = this.primengTableHelper.records.length;
+            this.tambahPembayaranTerus(this.primengTableHelper.records.length, this.idTerus, this.no_rujukan_bayaran, this.perihal, this.no_rujukan_kelulusan, this.jumlah_bayaran);
           }else{
+            this.jumlah_bayaran = this.jumlah_bayaran - response.jumlah;
             this._confirmationService.open({
               title: 'Tidak Berjaya',
               message: 'No. Rujukan Terus Telah Dipilih',
@@ -161,19 +184,102 @@ export class TambahEditPembayaranComponent implements OnInit {
             });
             this.existingId = null;
           }
-          this.tambahPembayaranTerus(this.idTerus)
         }
       },
       () => {}
     );
 	}
 
-  tambahPembayaranTerus(value: number) {
-    this.idBayaranTerus.emit(value);
+  padamPembayaran(id, idTemp?, jumlah?){
+    if(idTemp){
+      this.idTemp = idTemp;
+      this.primengTableHelper.records.splice(this.primengTableHelper.records.findIndex(e=> e.id_temp == idTemp), 1);
+      this.primengTableHelper.totalRecordsCount = this.primengTableHelper.records.length;
+      this.getJumlahBayaranPadam(this.idTemp, this.jumlah_bayaran);
+    }else{
+      const dialogRef = this._confirmationService.open({
+        title: 'Anda Pasti?',
+        message: 'Adakah anda pasti ingin memadam Pembayaran ini?',
+        icon: {
+          show: true,
+          name: 'help-circle',
+          color: 'warning'
+        },
+        actions: {
+          confirm: {
+            show: true,
+            label: 'Ya',
+            color: 'primary'
+          },
+          cancel: {
+            show: true,
+            label: 'Tidak'
+          }
+        },
+        dismissible: true
+      });dialogRef.afterClosed().subscribe((e) => {
+        if(e === 'confirmed') {
+
+          this._tabungBwiBayaranServiceProxy.delete(id).subscribe((result)=>{
+            if(result.message == "Pembayaran Wang Ihsan Berjaya Dibuang"){
+              const dialogRef = this._confirmationService.open({
+                title: 'Berjaya',
+                message: result.message,
+                icon: {
+                  show: true,
+                  name: 'check-circle',
+                  color: 'success'
+                },
+                actions: {
+                  confirm: {
+                    show: true,
+                    label: 'Tutup',
+                    color: 'primary'
+                  },
+                  cancel: {
+                    show: false
+                  }
+                },
+                dismissible: true
+              });
+              dialogRef.afterClosed().subscribe(() => {
+                this.getBayaran();
+              });
+            }else{
+              this._confirmationService.open({
+                title: 'Tidak Berjaya',
+                message: result.message,
+                icon: {
+                  show: true,
+                  name: 'x-circle',
+                  color: 'error'
+                },
+                actions: {
+                  confirm: {
+                    show: true,
+                    label: 'Tutup',
+                    color: 'primary'
+                  },
+                  cancel: {
+                    show: false
+                  }
+                },
+                dismissible: true
+              });
+            }
+          })
+        }
+      });
+    }
+
   }
 
-  tambahPembayaranSkb(value: number) {
-    this.idBayaranSkb.emit(value);
+  tambahPembayaranTerus(idTemp: number, idTerus: number, no_rujukan_bayaran: number, perihal: string, no_rujukan_kelulusan: string, jumlah_bayaran: number) {
+    this.idBayaranTerus.emit({idTemp, idTerus, no_rujukan_bayaran, perihal, no_rujukan_kelulusan, jumlah_bayaran});
+  }
+
+  tambahPembayaranSkb(idTemp: number, idSkb: number, no_rujukan_bayaran: number, perihal: string, no_rujukan_kelulusan: string, jumlah_bayaran: number) {
+    this.idBayaranSkb.emit({idTemp, idSkb, no_rujukan_bayaran, perihal, no_rujukan_kelulusan, jumlah_bayaran});
   }
 
   idKelulusan(value: number) {
@@ -182,6 +288,10 @@ export class TambahEditPembayaranComponent implements OnInit {
 
   jumlahKeseluruhanBayaran(value: number){
     this.jumlahBayaran.emit(value);
+  }
+
+  getJumlahBayaranPadam(idTemp: number, jumlahBantuan: number) {
+    this.jumlah_bayaran_padam.emit({idTemp, jumlahBantuan});
   }
 
 }

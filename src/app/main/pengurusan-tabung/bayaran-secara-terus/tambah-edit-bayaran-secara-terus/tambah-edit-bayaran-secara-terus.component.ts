@@ -321,28 +321,7 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
 			.pipe()
 			.subscribe((result) => {
         this.output.message = result.message;
-        if(this.output.message == "No. Baucer yang Anda Masukkan Telah Wujud."){
-          this._confirmationService.open({
-            title: 'Tidak Berjaya',
-            message: result.message,
-            icon: {
-              show: true,
-              name: 'x-circle',
-              color: 'error'
-            },
-            actions: {
-              confirm: {
-                show: true,
-                label: 'Tutup',
-                color: 'primary'
-              },
-              cancel: {
-                show: false
-              }
-            },
-            dismissible: true
-          });
-        }else{
+        if(this.output.message == 'Tabung Bayaran Terus Berjaya Dikemaskini'){
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
             message: this.output.message,
@@ -365,6 +344,28 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
           });
           dialogRef.afterClosed().subscribe(() => {
             this.router.navigateByUrl('/app/tabung/bayaran-terus/senarai');
+          });
+        }
+        else{
+          this._confirmationService.open({
+            title: 'Tidak Berjaya',
+            message: result.message,
+            icon: {
+              show: true,
+              name: 'x-circle',
+              color: 'error'
+            },
+            actions: {
+              confirm: {
+                show: true,
+                label: 'Tutup',
+                color: 'primary'
+              },
+              cancel: {
+                show: false
+              }
+            },
+            dismissible: true
           });
         }
 			});

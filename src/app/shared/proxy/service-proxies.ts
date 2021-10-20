@@ -45744,6 +45744,7 @@ export interface IGetTabungBwiBayaranForEditDto {
 export class GetTabungBwiBayaranForViewDto implements IGetTabungBwiBayaranForViewDto {
     id!: number;
     id_tabung_bwi!: number;
+    id_tabung_bayaran!: number;
     id_tabung_bayaran_skb!: number;
     id_tabung_bayaran_terus!: number;
     tarikh_cipta!: moment.Moment;
@@ -45774,6 +45775,7 @@ export class GetTabungBwiBayaranForViewDto implements IGetTabungBwiBayaranForVie
         if (_data) {
             this.id = _data["id"];
             this.id_tabung_bwi = _data["id_tabung_bwi"];
+            this.id_tabung_bayaran = _data["id_tabung_bayaran"];
             this.id_tabung_bayaran_skb = _data["id_tabung_bayaran_skb"];
             this.id_tabung_bayaran_terus = _data["id_tabung_bayaran_terus"];
             this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
@@ -45804,6 +45806,7 @@ export class GetTabungBwiBayaranForViewDto implements IGetTabungBwiBayaranForVie
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["id_tabung_bwi"] = this.id_tabung_bwi;
+        data["id_tabung_bayaran"] = this.id_tabung_bayaran;
         data["id_tabung_bayaran_skb"] = this.id_tabung_bayaran_skb;
         data["id_tabung_bayaran_terus"] = this.id_tabung_bayaran_terus;
         data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
@@ -45828,6 +45831,7 @@ export class GetTabungBwiBayaranForViewDto implements IGetTabungBwiBayaranForVie
 export interface IGetTabungBwiBayaranForViewDto {
     id: number;
     id_tabung_bwi: number;
+    id_tabung_bayaran: number;
     id_tabung_bayaran_skb: number;
     id_tabung_bayaran_terus: number;
     tarikh_cipta: moment.Moment;
@@ -45962,6 +45966,7 @@ export interface IPagedResultDtoOfTabungBwiBayaranForViewDto {
 
 /** Class UpdateBwiBayaranDto */
 export class UpdateBwiBayaranDto implements IUpdateBwiBayaranDto {
+    id_temp!: number;
     id_tabung_bayaran_skb!: number;
     id_tabung_bayaran_terus!: number;
 
@@ -45976,6 +45981,7 @@ export class UpdateBwiBayaranDto implements IUpdateBwiBayaranDto {
 
     init(_data?: any) {
         if (_data) {
+            this.id_temp = _data["id_temp"];
             this.id_tabung_bayaran_skb = _data["id_tabung_bayaran_skb"];
             this.id_tabung_bayaran_terus = _data["id_tabung_bayaran_terus"];
         }
@@ -45990,6 +45996,7 @@ export class UpdateBwiBayaranDto implements IUpdateBwiBayaranDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["id_temp"] = this.id_temp;
         data["id_tabung_bayaran_skb"] = this.id_tabung_bayaran_skb;
         data["id_tabung_bayaran_terus"] = this.id_tabung_bayaran_terus;
         return data; 
@@ -45998,6 +46005,7 @@ export class UpdateBwiBayaranDto implements IUpdateBwiBayaranDto {
 
 /** Class UpdateBwiBayaranDto */
 export interface IUpdateBwiBayaranDto {
+    id_temp: number;
     id_tabung_bayaran_skb: number;
     id_tabung_bayaran_terus: number;
 }
