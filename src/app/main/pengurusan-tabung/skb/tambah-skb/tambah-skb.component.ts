@@ -217,34 +217,6 @@ export class TambahSkbComponent implements OnInit {
     })
   }
 
-  checkBulanan() {
-    if(this.rows.length == 0) {
-      const dialogRef = this._confirmationService.open({
-        title: 'Tidak Berjaya',
-        message: 'Maklumat Perbelanjaan Bulanan SKB Wajib Dimasukkan.',
-        icon: {
-          show: true,
-          name: 'x-circle',
-          color: 'error'
-        },
-        actions: {
-          confirm: {
-            show: true,
-            label: 'Tutup',
-            color: 'primary'
-          },
-          cancel: {
-            show: false
-          }
-        },
-        dismissible: true
-      });
-    }
-    else {
-      this.save();
-    }
-  }
-
 	save() {
     this.saving = true;
     for(let i = 0; i < this.rows.length; i++){
