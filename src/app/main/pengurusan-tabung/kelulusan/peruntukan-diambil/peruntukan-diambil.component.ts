@@ -67,7 +67,6 @@ export class PeruntukanDiambilComponent implements OnInit {
     this.saving = true;
     this.peruntukan.id_tabung = this.id_tabung;
     this.peruntukan.id_tabung_kelulusan = this.id_tabung_kelulusan;
-    this.peruntukan.jumlah = this.jumlah;
 
     this._tabungKelulusanAmbilanServiceProxy
       .createOrEdit(this.peruntukan)
