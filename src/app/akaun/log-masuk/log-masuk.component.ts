@@ -4,6 +4,8 @@ import { finalize } from 'rxjs/operators';
 import { AuthServiceProxy, InputLoginDto, OutputLoginDto } from 'src/app/shared/proxy/service-proxies';
 import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { AuthUtils } from '@app/shared/helpers/auth.utils';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { PaparPengumumanComponent } from '../papar-pengumuman/papar-pengumuman.component';
 
 @Component({
 	selector: 'app-log-masuk',
@@ -17,11 +19,17 @@ export class LogMasukComponent implements OnInit {
   saving = false;
 
 	constructor(
+		private modalService: NgbModal,
     private _cookieService: CookieService,
     private _authServiceProxy: AuthServiceProxy
     ) {}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+    setTimeout(() => {
+      this.announcementModal();
+    }, 3500);
+    // this.announcementModal();
+  }
 
 	showPassword() {
 		this.show = !this.show;
@@ -52,5 +60,9 @@ export class LogMasukComponent implements OnInit {
   redirect(changePassword: boolean){
     changePassword == true ? location.href = '/akaun/tukar' : location.href = '/' ;
   }
+
+	announcementModal() {
+		this.modalService.open(PaparPengumumanComponent, { centered: true });
+	}
 
 }

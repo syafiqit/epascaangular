@@ -90,6 +90,7 @@
             placeholder="Catatan..."
             name="catatan"
             [(ngModel)]="pengumuman.catatan"
+            maxlength="150"
             rows="3"
 						#notes="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && notes.invalid }"
