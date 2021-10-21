@@ -11,6 +11,7 @@ import {
 import * as moment from 'moment';
 import { LookupBencanaComponent } from '../../lookup-bencana/lookup-bencana.component';
 import { ConfirmationService } from '@services/confirmation';
+import { AppSessionService } from '@app/shared/services/app-session.service';
 
 @Component({
   selector: 'app-tambah-edit-bantuan-wang-ihsan',
@@ -55,7 +56,8 @@ export class TambahEditBantuanWangIhsanComponent implements OnInit {
     private _refJenisBwiServiceProxy: RefJenisBwiServiceProxy,
     private _refKadarBwiServiceProxy: RefKadarBwiServiceProxy,
     private calendar: NgbCalendar,
-    private _confirmationService: ConfirmationService
+    private _confirmationService: ConfirmationService,
+    public _appSession: AppSessionService,
     ) {
       this.editWangIhsan.mangsa_wang_ihsan = new CreateOrEditMangsaWangIhsanDto();
     }

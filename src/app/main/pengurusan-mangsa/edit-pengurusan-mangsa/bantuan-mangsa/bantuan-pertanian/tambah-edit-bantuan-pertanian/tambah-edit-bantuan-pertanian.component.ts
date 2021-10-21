@@ -10,6 +10,7 @@ import {
 } from 'src/app/shared/proxy/service-proxies';
 import { LookupBencanaComponent } from '../../lookup-bencana/lookup-bencana.component';
 import { ConfirmationService } from '@services/confirmation';
+import { AppSessionService } from '@app/shared/services/app-session.service';
 
 @Component({
   selector: 'app-tambah-edit-bantuan-pertanian',
@@ -50,7 +51,8 @@ export class TambahEditBantuanPertanianComponent implements OnInit {
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
     private _refJenisPertanianServiceProxy: RefJenisPertanianServiceProxy,
     private calendar: NgbCalendar,
-    private _confirmationService: ConfirmationService
+    private _confirmationService: ConfirmationService,
+    public _appSession: AppSessionService,
     ) {
       this.editBantuanPertanian.mangsa_pertanian = new CreateOrEditMangsaPertanianDto();
     }

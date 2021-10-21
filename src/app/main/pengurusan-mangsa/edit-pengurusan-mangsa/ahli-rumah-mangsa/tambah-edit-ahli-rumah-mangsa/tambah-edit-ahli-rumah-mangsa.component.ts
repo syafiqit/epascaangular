@@ -10,6 +10,7 @@ import {
 } from 'src/app/shared/proxy/service-proxies';
 import * as moment from 'moment';
 import { ConfirmationService } from '@services/confirmation';
+import { AppSessionService } from '@app/shared/services/app-session.service';
 
 @Component({
 	selector: 'app-tambah-edit-ahli-rumah-mangsa',
@@ -42,7 +43,8 @@ export class TambahEditAhliRumahMangsaComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private _mangsaAirServiceProxy: MangsaAirServiceProxy,
     private _refHubunganServiceProxy: RefHubunganServiceProxy,
-    private _confirmationService: ConfirmationService
+    private _confirmationService: ConfirmationService,
+    public _appSession: AppSessionService,
   ) {
     this.idMangsa = this._activatedRoute.snapshot.queryParams['id'];
   }

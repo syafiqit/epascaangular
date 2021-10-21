@@ -75,7 +75,7 @@
                 Nama Pusat
                 <p-sortIcon field="nama_pusat_pemindahan"></p-sortIcon>
               </th>
-              <th *ngIf="_appSession.isGranted('Halaman.Mangsa.Bencana.Edit') || _appSession.isGranted('Halaman.Mangsa.Bencana.Hapus')" style="width: 130px">Tindakan</th>
+              <th style="width: 130px">Tindakan</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-record="$implicit">
@@ -96,7 +96,7 @@
                 <span class="p-column-title">Nama Pusat</span>
                 {{record.nama_pusat_pemindahan? record.nama_pusat_pemindahan: '-'}}
               </td>
-              <td style="width: 130px" *ngIf="_appSession.isGranted('Halaman.Mangsa.Bencana.Edit') || _appSession.isGranted('Halaman.Mangsa.Bencana.Hapus')">
+              <td style="width: 130px">
                 <div ngbDropdown class="btn-group" role="group" container="body">
                   <button
                     type="button"
@@ -112,7 +112,6 @@
                     <button
                       class="dropdown-item"
                       (click)="editVictimDisasterModal(record.id)"
-                      *ngIf="_appSession.isGranted('Halaman.Mangsa.Bencana.Edit')"
                     >
                       Lihat
                     </button>
