@@ -260,6 +260,9 @@ export class TambahWaranComponent implements OnInit {
             },
             dismissible: true
           });
+          dialogRef.afterClosed().subscribe(() => {
+            this.bulanan = [];
+          });
         }
 			});
 	}
