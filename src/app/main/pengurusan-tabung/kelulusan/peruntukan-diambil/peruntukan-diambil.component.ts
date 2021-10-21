@@ -55,7 +55,7 @@ export class PeruntukanDiambilComponent implements OnInit {
         this.jumlahBaru = Number(this.baki_jumlah_siling) + (this.jumlah - this.peruntukan.jumlah);
       }
       else if(this.peruntukan.jumlah > this.jumlah){
-        this.jumlahBaru =  this.baki_jumlah_siling - this.peruntukan.jumlah;
+        this.jumlahBaru =  Number(this.baki_jumlah_siling) - (this.peruntukan.jumlah - this.jumlah);
       }
       else if(this.peruntukan.jumlah = this.jumlah){
         this.jumlahBaru =  this.baki_jumlah_siling;

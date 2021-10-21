@@ -116,13 +116,16 @@
             <label>Jumlah Siling Peruntukan (RM)*</label>
             <input
               class="form-control"
-              type="number"
+              type="text"
               placeholder="Jumlah Siling Peruntukan"
               name="jumlah_siling"
               [(ngModel)]="kelulusan.jumlah_siling"
               #jumlahSiling="ngModel"
               [ngClass]="{ 'is-invalid': f.submitted && jumlahSiling.invalid }"
               required
+              currencyMask
+              [options]="{ prefix: 'RM ', align: 'left' }"
+              autocomplete="off"
             />
             <div *ngIf="f.submitted && jumlahSiling.invalid" class="invalid-feedback">
               <div *ngIf="jumlahSiling.errors.required">Jumlah Siling Wajib Dipilih</div>
@@ -138,7 +141,7 @@
               type="text"
               placeholder="Baki Peruntukan"
               name="baki_siling"
-              value="{{kelulusan.baki_jumlah_siling | number: '1.2-2'}}"
+              value="RM {{kelulusan.baki_jumlah_siling | number: '1.2-2'}}"
               disabled
             />
           </div>

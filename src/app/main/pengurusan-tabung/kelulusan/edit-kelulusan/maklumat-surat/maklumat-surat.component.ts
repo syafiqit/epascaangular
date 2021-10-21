@@ -150,35 +150,70 @@ export class MaklumatSuratComponent implements OnInit {
     this._tabungKelulusanServiceProxy
       .createOrEdit(this.kelulusan)
       .pipe()
-      .subscribe(() => {
-        const dialogRef = this._confirmationService.open({
-          title: 'Berjaya',
-          message: 'Maklumat Tabung Kelulusan Berjaya Dikemaskini.',
-          icon: {
-          show: true,
-          name: 'check-circle',
-          color: 'success'
-          },
-          actions: {
-          confirm: {
-            show: true,
-            label: 'Tutup',
-            color: 'primary'
-          },
-          cancel: {
-            show: false
-          }
-          },
-          dismissible: true
-        });
-        dialogRef.afterClosed().subscribe(() => {
-          if(this.tabungKemaskiniKelulusan){
-            this.router.navigate(['/app/tabung/edit'], { queryParams: { id: this.idTabung } });
-          }else{
-            this.router.navigate(['/app/tabung/senarai-kelulusan']);
-          }
-        });
+      .subscribe((response) => {
+        if(response.message == "Maklumat Kelulusan Berjaya Dikemaskini"){
+          this.successMessage();
+        }
+        else{
+          this.errorMessage(response);
+        }
+        
       });
+  }
+
+  successMessage(){
+    const dialogRef = this._confirmationService.open({
+      title: 'Berjaya',
+      message: 'Maklumat Tabung Kelulusan Berjaya Dikemaskini.',
+      icon: {
+      show: true,
+      name: 'check-circle',
+      color: 'success'
+      },
+      actions: {
+      confirm: {
+        show: true,
+        label: 'Tutup',
+        color: 'primary'
+      },
+      cancel: {
+        show: false
+      }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      if(this.tabungKemaskiniKelulusan){
+        this.router.navigate(['/app/tabung/edit'], { queryParams: { id: this.idTabung } });
+      }else{
+        this.router.navigate(['/app/tabung/senarai-kelulusan']);
+      }
+    });
+  }
+
+  errorMessage(response?){
+    const dialogRef = this._confirmationService.open({
+      title: 'Tidak Berjaya',
+      message: response.message,
+      icon: {
+        show: true,
+        name: 'x-circle',
+        color: 'error'
+      },
+      actions: {
+        confirm: {
+          show: true,
+          label: 'Tutup',
+          color: 'primary'
+        },
+        cancel: {
+          show: false
+        }
+      },
+      dismissible: true
+    });
+    dialogRef.afterClosed().subscribe(() => {
+    });
   }
 
   addBencana() {
