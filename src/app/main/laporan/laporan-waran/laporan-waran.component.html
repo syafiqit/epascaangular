@@ -150,25 +150,21 @@
 											No. Kelulusan
 											<p-sortIcon field="no_rujukan_kelulusan"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="tarikh_mula">
-											Tarikh Mula
-											<p-sortIcon field="tarikh_mula"></p-sortIcon>
-										</th>
-										<th style="width: 140px" pSortableColumn="tarikh_tamat">
-											Tarikh Tamat
-											<p-sortIcon field="tarikh_tamat"></p-sortIcon>
-										</th>
-										<th style="width: 100px" pSortableColumn="nama_waran_status">
-											Status
-											<p-sortIcon field="nama_waran_status"></p-sortIcon>
+										<th style="width: 130px" pSortableColumn="rujukan_surat_waran">
+											Rujukan Waran
+											<p-sortIcon field="rujukan_surat_waran"></p-sortIcon>
 										</th>
 										<th style="width: 130px" pSortableColumn="perihal">
 											Perihal
 											<p-sortIcon field="perihal"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="nama_pegawai">
-											Pegawai
-											<p-sortIcon field="nama_pegawai"></p-sortIcon>
+										<th style="width: 130px" pSortableColumn="tarikh_surat_waran">
+											Tarikh Waran
+											<p-sortIcon field="tarikh_surat_waran"></p-sortIcon>
+										</th>
+										<th style="width: 100px" pSortableColumn="nama_waran_status">
+											Status
+											<p-sortIcon field="nama_waran_status"></p-sortIcon>
 										</th>
 										<th style="width: 130px" pSortableColumn="nama_agensi">
 											Agensi
@@ -251,24 +247,20 @@
 											{{record.no_rujukan_kelulusan}}
 										</td>
 										<td style="width: 130px">
-											<span class="p-column-title">Tarikh Mula</span>
-											{{record.tarikh_mula | date:'dd-MM-yyyy'}}
+											<span class="p-column-title">Rujukan Waran</span>
+											{{record.rujukan_surat_waran}}
 										</td>
-										<td style="width: 140px">
-											<span class="p-column-title">Tarikh Tamat</span>
-											{{record.tarikh_tamat  | date:'dd-MM-yyyy'}}
+										<td style="width: 130px">
+											<span class="p-column-title">Perihal</span>
+											{{record.perihal? record.perihal: '-'}}
+										</td>
+										<td style="width: 130px">
+											<span class="p-column-title">Tarikh Waran</span>
+											{{record.tarikh_surat_waran | date:'dd-MM-yyyy'}}
 										</td>
 										<td style="width: 100px">
 											<span class="p-column-title">Status</span>
 											{{record.nama_waran_status}}
-										</td>
-										<td style="width: 130px">
-											<span class="p-column-title">Perihal</span>
-											{{record.perihal}}
-										</td>
-										<td style="width: 130px">
-											<span class="p-column-title">Pegawai</span>
-											{{record.nama_pegawai}}
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Agensi</span>

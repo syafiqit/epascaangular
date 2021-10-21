@@ -42,8 +42,7 @@ export class LaporanWaranComponent implements OnInit {
 
   statusWaran = [
     { id: 1, status: 'Aktif' },
-    { id: 2, status: 'Tamat Tempoh' },
-    { id: 3, status: 'Lanjut' }
+    { id: 2, status: 'Tidak Aktif' }
   ];
 
 	constructor(
