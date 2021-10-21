@@ -127,6 +127,6 @@
 
   <div class="modal-footer">
     <button type="button" class="btn btn-light" (click)="activeModal.close(false)">Tutup</button>
-		<button type="submit" class="btn btn-primary">Simpan</button>
+		<button type="submit" class="btn btn-primary" *ngIf="_appSession.isGranted('Halaman.Mangsa.Air.Edit') || _appSession.isGranted('Halaman.Mangsa.Air.Tambah')">Simpan</button>
   </div>
 </form>

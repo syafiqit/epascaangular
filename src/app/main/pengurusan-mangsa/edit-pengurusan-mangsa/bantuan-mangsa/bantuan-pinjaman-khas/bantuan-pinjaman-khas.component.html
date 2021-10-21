@@ -40,7 +40,7 @@
           Status
           <p-sortIcon field="status_mangsa_pinjaman"></p-sortIcon>
         </th>
-        <th *ngIf="_appSession.isGranted('Halaman.Mangsa.BantuanPinjaman.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanPinjaman.Hapus')" style="width: 130px">Tindakan</th>
+        <th style="width: 130px">Tindakan</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-record="$implicit">
@@ -61,7 +61,7 @@
           <span class="p-column-title">Status</span>
           {{record.status_mangsa_pinjaman == 1? "Tidak Aktif":"Aktif"}}
         </td>
-        <td style="width: 130px" *ngIf="_appSession.isGranted('Halaman.Mangsa.BantuanPinjaman.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanPinjaman.Hapus')">
+        <td style="width: 130px">
           <div ngbDropdown class="btn-group" role="group" container="body">
             <button
               type="button"
@@ -73,7 +73,7 @@
               Tindakan
             </button>
             <div ngbDropdownMenu aria-labelledby="action">
-              <button class="dropdown-item" (click)="editPinjamanModal(record.id, mangsaId)" *ngIf="_appSession.isGranted('Halaman.Mangsa.BantuanPinjaman.Edit')">
+              <button class="dropdown-item" (click)="editPinjamanModal(record.id, mangsaId)">
                 Lihat
               </button>
               <button class="dropdown-item" (click)="padamBantuanPinjaman(record.id)" *ngIf="_appSession.isGranted('Halaman.Mangsa.BantuanPinjaman.Hapus')">

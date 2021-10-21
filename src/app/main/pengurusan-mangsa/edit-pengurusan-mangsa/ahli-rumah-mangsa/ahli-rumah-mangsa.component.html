@@ -61,7 +61,7 @@
                 Hubungan
                 <p-sortIcon field="nama_hubungan"></p-sortIcon>
               </th>
-              <th *ngIf="_appSession.isGranted('Halaman.Mangsa.Air.Edit') || _appSession.isGranted('Halaman.Mangsa.Air.Hapus')" style="width: 130px">Tindakan</th>
+              <th style="width: 130px">Tindakan</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-record="$implicit">
@@ -88,7 +88,7 @@
                 <span class="p-column-title">Hubungan</span>
                 {{record.nama_hubungan}}
               </td>
-              <td style="width: 130px" *ngIf="_appSession.isGranted('Halaman.Mangsa.Air.Edit') || _appSession.isGranted('Halaman.Mangsa.Air.Hapus')">
+              <td style="width: 130px">
                 <div ngbDropdown class="btn-group" role="group" container="body">
                   <button
                     type="button"
@@ -104,7 +104,6 @@
                     <button
                       class="dropdown-item"
                       (click)="editAhliRumahModal(record.id)"
-                      *ngIf="_appSession.isGranted('Halaman.Mangsa.Air.Edit')"
                     >
                       Lihat
                     </button>

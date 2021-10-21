@@ -12,6 +12,7 @@ import { SelectBencanaComponent } from '@app/main/pengurusan-mangsa/select-benca
 import * as moment from 'moment';
 import { ConfirmationService } from '@services/confirmation';
 import { fadeVerticalAnimation } from '@app/shared/data/router-animation/fade-vertical-animation';
+import { AppSessionService } from '@app/shared/services/app-session.service';
 
 @Component({
 	selector: 'app-tambah-edit-mangsa-bencana',
@@ -40,7 +41,8 @@ export class TambahEditMangsaBencanaComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private _mangsaBencanaServiceProxy: MangsaBencanaServiceProxy,
     private _refPindahServiceProxy: RefPindahServiceProxy,
-    private _confirmationService: ConfirmationService
+    private _confirmationService: ConfirmationService,
+    public _appSession: AppSessionService,
   ) {
     this.idMangsa = this._activatedRoute.snapshot.queryParams['id'];
   }

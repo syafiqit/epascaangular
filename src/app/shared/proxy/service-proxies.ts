@@ -47720,6 +47720,7 @@ export class GetSkbByIdKelulusanDto implements IGetSkbByIdKelulusanDto {
     id!: number;
     no_rujukan_skb!: string;
     jumlah!: number;
+    jumlah_siling_peruntukan!: number;
 
     constructor(data?: IGetSkbByIdKelulusanDto) {
         if (data) {
@@ -47735,6 +47736,7 @@ export class GetSkbByIdKelulusanDto implements IGetSkbByIdKelulusanDto {
             this.id = _data["id"];
             this.no_rujukan_skb = _data["no_rujukan_skb"];
             this.jumlah = _data["jumlah"];
+            this.jumlah_siling_peruntukan = _data["jumlah_siling_peruntukan"];
         }
     }
 
@@ -47750,6 +47752,7 @@ export class GetSkbByIdKelulusanDto implements IGetSkbByIdKelulusanDto {
         data["id"] = this.id;
         data["no_rujukan_skb"] = this.no_rujukan_skb;
         data["jumlah"] = this.jumlah;
+        data["jumlah_siling_peruntukan"] = this.jumlah_siling_peruntukan;
         return data; 
     }
 }
@@ -47759,6 +47762,7 @@ export interface IGetSkbByIdKelulusanDto {
     id: number;
     no_rujukan_skb: string;
     jumlah: number;
+    jumlah_siling_peruntukan: number;
 }
 
 /** Class GetTabungKelulusanForEditDto */
@@ -47906,6 +47910,7 @@ export class GetWaranByIdKelulusanDto implements IGetWaranByIdKelulusanDto {
     id!: number;
     no_rujukan_waran!: string;
     jumlah!: number;
+    jumlah_siling_peruntukan!: number;
 
     constructor(data?: IGetWaranByIdKelulusanDto) {
         if (data) {
@@ -47921,6 +47926,7 @@ export class GetWaranByIdKelulusanDto implements IGetWaranByIdKelulusanDto {
             this.id = _data["id"];
             this.no_rujukan_waran = _data["no_rujukan_waran"];
             this.jumlah = _data["jumlah"];
+            this.jumlah_siling_peruntukan = _data["jumlah_siling_peruntukan"];
         }
     }
 
@@ -47936,6 +47942,7 @@ export class GetWaranByIdKelulusanDto implements IGetWaranByIdKelulusanDto {
         data["id"] = this.id;
         data["no_rujukan_waran"] = this.no_rujukan_waran;
         data["jumlah"] = this.jumlah;
+        data["jumlah_siling_peruntukan"] = this.jumlah_siling_peruntukan;
         return data; 
     }
 }
@@ -47945,6 +47952,7 @@ export interface IGetWaranByIdKelulusanDto {
     id: number;
     no_rujukan_waran: string;
     jumlah: number;
+    jumlah_siling_peruntukan: number;
 }
 
 /** Class OutputCreateTabungKelulusanDto */

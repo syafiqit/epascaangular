@@ -16,11 +16,11 @@
         <ng-template pTemplate="header">
             <tr>
                 <th style="width: 150px" pSortableColumn="no_rujukan_terus">
-                    No Rujukan PST
+                    No. Rujukan PST
                     <p-sortIcon field="no_rujukan_terus"></p-sortIcon>
                 </th>
                 <th style="width: 130px" pSortableColumn="jumlah">
-                    Jumlah
+                    Belanja
                     <p-sortIcon field="jumlah"></p-sortIcon>
                 </th>
             </tr>
@@ -28,11 +28,11 @@
         <ng-template pTemplate="body" let-record="$implicit">
             <tr>
                 <td style="width: 150px">
-                    <span class="p-column-title">Daerah</span>
+                    <span class="p-column-title">No. Rujukan PST</span>
                     <a [routerLink]="['/app/tabung/bayaran-terus/edit']" [queryParams]="{id: record.id}">{{record.no_rujukan_terus}}</a>
                 </td>
                 <td style="width: 130px">
-                    <span class="p-column-title">Status</span>
+                    <span class="p-column-title">Belanja</span>
                     RM {{record.jumlah | number: '1.2-2'}}
                 </td>
             </tr>
