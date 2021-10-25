@@ -16,7 +16,7 @@
 					<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
             <div class="row">
               <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
-                <label>Tarikh Kejadian</label>
+                <label>Tarikh Kejadian*</label>
                 <div class="input-group">
                   <input
                     class="form-control"
@@ -48,7 +48,7 @@
 
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label>Jenis Bencana</label>
+                  <label>Jenis Bencana*</label>
                   <ng-select
                     [items]="disasters"
                     bindLabel="nama_jenis_bencana"
@@ -72,7 +72,7 @@
             <div class="row">
               <div class="col-lg-6" *ngIf="idBencana">
                 <div class="form-group">
-                  <label>Status</label>
+                  <label>Status*</label>
                   <ng-select
                     [items]="statuses"
                     bindLabel="nama"
@@ -145,6 +145,9 @@
                   <label for="negeri-{{ i }}">{{state.nama_negeri}}</label>
                   </div>
               </div>
+            </div>
+            <div *ngIf="f.submitted && !checkNegeri" class="invalid-feedback">
+              <div>Negeri Wajib Dipilih</div>
             </div>
             <hr/>
 
