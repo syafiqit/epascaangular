@@ -147,8 +147,8 @@
               [loading]="primengTableHelper.isLoading"
 							[scrollable]="true"
 							ScrollWidth="100%"
-              [resizableColumns]="true" 
-              [responsive]="true"
+              [responsive]="primengTableHelper.isResponsive"
+              [resizableColumns]="primengTableHelper.resizableColumns"
 						>
 							<ng-template pTemplate="header">
 								<tr>
