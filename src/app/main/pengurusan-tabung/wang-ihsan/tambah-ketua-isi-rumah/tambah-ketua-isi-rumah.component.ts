@@ -4,10 +4,9 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
-import { RefDaerahServiceProxy, RefNegeriServiceProxy, TabungBwiServiceProxy } from 'src/app/shared/proxy/service-proxies';
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
+import { RefDaerahServiceProxy, RefNegeriServiceProxy } from 'src/app/shared/proxy/service-proxies';
 @Component({
 	selector: 'app-tambah-ketua-isi-rumah',
 	templateUrl: './tambah-ketua-isi-rumah.component.html',
@@ -38,7 +37,6 @@ export class TambahKetuaIsiRumahComponent implements OnInit {
 	constructor(
     config: NgbModalConfig,
     public activeModal: NgbActiveModal,
-    private _tabungBwiServiceProxy: TabungBwiServiceProxy,
     private _refDaerahServiceProxy: RefDaerahServiceProxy,
     private _refNegeriSeviceProxy: RefNegeriServiceProxy
   ) {
@@ -85,33 +83,4 @@ export class TambahKetuaIsiRumahComponent implements OnInit {
     this.filterDaerah = undefined;
     this.getKirBwi();
   }
-
-  // select(id, nama, nama_daerah, nama_negeri, jumlah_bwi) {
-  //   if (this.kategori == 1) {
-  //     this.activeModal.close({
-  //       id: id,
-  //       nama: nama,
-  //       nama_daerah: nama_daerah,
-  //       nama_negeri: nama_negeri,
-  //       jumlah_bwi: jumlah_bwi
-  //     });
-  //   }
-  //   else {
-  //     this.saving = true;
-
-  //     this.kir.id_tabung_bwi = this.id_tabung_bwi;
-  //     this.kir.id_mangsa = id;
-  //     this._tabungBwiKirServiceProxy
-  //       .createOrEdit(this.kir)
-  //       .pipe()
-  //       .subscribe(() => {
-  //         if (this.name == 'add') {
-  //           swalSuccess.fire('Berjaya!', 'Maklumat Ketua Isi Rumah Berjaya Ditambah.', 'success');
-  //         } else if (this.name == 'edit') {
-  //           swalSuccess.fire('Berjaya!', 'Maklumat Ketua Isi Rumah Berjaya Dikemaskini.', 'success');
-  //         }
-  //         this.activeModal.close(true);
-  //       });
-  //   }
-  // }
 }

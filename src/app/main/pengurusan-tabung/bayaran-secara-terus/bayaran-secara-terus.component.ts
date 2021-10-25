@@ -7,7 +7,6 @@ import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { TabungBayaranTerusServiceProxy} from 'src/app/shared/proxy/service-proxies';
 import { Subject } from 'rxjs';
-import { swalError, swalSuccess, swalWarning } from '@app/shared/sweet-alert/swal-constant';
 import { AppSessionService } from '@app/shared/services/app-session.service';
 import { ConfirmationService } from '@app/shared/services/confirmation';
 
@@ -100,7 +99,6 @@ export class BayaranSecaraTerusComponent implements OnInit {
   }
 
   padamBayaranTerus(id?) {
-
       const dialogRef = this._confirmationService.open({
         title: 'Anda Pasti?',
         message: 'Adakah anda pasti ingin memadam maklumat Pembayaran Secara Terus ini?',

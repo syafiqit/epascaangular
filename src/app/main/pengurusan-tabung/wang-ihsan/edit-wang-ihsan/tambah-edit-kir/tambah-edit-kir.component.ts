@@ -7,7 +7,6 @@ import { Table } from 'primeng/table';
 import { NgbActiveModal, NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
-import { swalSuccess } from '@app/shared/sweet-alert/swal-constant';
 import { ConfirmationService } from '@services/confirmation';
 import * as moment from 'moment';
 

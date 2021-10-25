@@ -11,7 +11,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CreateOrEditTabungDto, GetTabungByYearDto, GetTabungForEditDto, RefSumberPeruntukanServiceProxy, TabungKelulusanServiceProxy, TabungPeruntukanServiceProxy, TabungServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import * as moment from 'moment';
 import { finalize } from 'rxjs/operators';
-import { swalError, swalSuccess, swalWarning } from '@shared/sweet-alert/swal-constant';
 import { PeruntukanDiambilComponent } from '../../kelulusan/peruntukan-diambil/peruntukan-diambil.component';
 import { AppSessionService } from '@app/shared/services/app-session.service';
 
@@ -251,31 +250,6 @@ export class EditTabungComponent implements OnInit {
       years.push(i)
     }
     this.arrayYear = years;
-  }
-
-  deleteTabungPeruntukans(id?) {
-    swalWarning.fire({
-      title: 'Anda Pasti?',
-      text: 'Adakah anda pasti ingin memadam maklumat terimaan tambahan ini?',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      cancelButtonText: 'Tidak',
-      confirmButtonText: 'Ya'
-    }).then((result) => {
-      if (result.value) {
-        this.tabungPeruntukanServiceProxy.delete(id).subscribe((e) => {
-          if(e.message === 'Tambahan Dana Berjaya Dibuang'){
-            swalSuccess.fire('Berjaya!', e.message);
-          }
-          else{
-            swalError.fire('Tidak Berjaya!', e.message);
-          }
-          this.show();
-          this.getTabungPeruntukan();
-        });
-      }
-    });
   }
 
   deleteTabungPeruntukan(id){
