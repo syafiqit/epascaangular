@@ -7,7 +7,6 @@ import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-boots
 import { TabungBwiBayaranServiceProxy, UpdateBwiBayaranDto } from '@app/shared/proxy/service-proxies';
 import { finalize } from 'rxjs/operators';
 import { PilihPembayaranComponent } from '../../pilih-pembayaran/pilih-pembayaran.component';
-import { swalError } from '@app/shared/sweet-alert/swal-constant';
 import { ConfirmationService } from '@services/confirmation';
 
 @Component({

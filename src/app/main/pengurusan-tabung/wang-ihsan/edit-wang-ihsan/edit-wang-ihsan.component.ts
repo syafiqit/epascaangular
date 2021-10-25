@@ -19,7 +19,6 @@ import {
   TabungBwiServiceProxy,
   UpdateBwiBayaranDto
 } from 'src/app/shared/proxy/service-proxies';
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { NgForm } from '@angular/forms';
 
 @Component({

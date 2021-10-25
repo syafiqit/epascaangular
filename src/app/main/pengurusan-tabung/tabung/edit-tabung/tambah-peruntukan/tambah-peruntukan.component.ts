@@ -3,7 +3,6 @@ import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-boots
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { CreateOrEditTabungPeruntukanDto, RefSumberPeruntukanServiceProxy, TabungPeruntukanServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import * as moment from 'moment';
-import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { ConfirmationService } from '@services/confirmation';
 
 @Component({

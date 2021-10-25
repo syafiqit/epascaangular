@@ -2,7 +2,6 @@ import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { finalize } from 'rxjs/operators';
 import { CreateOrEditRefTapakRumahDto, RefTapakRumahServiceProxy } from 'src/app/shared/proxy/service-proxies';
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { ConfirmationService } from '@app/shared/services/confirmation';
 
 @Component({

@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { finalize } from 'rxjs/operators';
 import { AuthServiceProxy, InputLoginDto, OutputLoginDto } from 'src/app/shared/proxy/service-proxies';
-import { swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { AuthUtils } from '@app/shared/helpers/auth.utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PaparPengumumanComponent } from '../papar-pengumuman/papar-pengumuman.component';
+import { ConfirmationService } from '@app/shared/services/confirmation';
 
 @Component({
 	selector: 'app-log-masuk',
@@ -21,14 +21,14 @@ export class LogMasukComponent implements OnInit {
 	constructor(
 		private modalService: NgbModal,
     private _cookieService: CookieService,
-    private _authServiceProxy: AuthServiceProxy
+    private _authServiceProxy: AuthServiceProxy,
+    private _confirmationService: ConfirmationService
     ) {}
 
 	ngOnInit(): void {
     setTimeout(() => {
       this.announcementModal();
     }, 3500);
-    // this.announcementModal();
   }
 
 	showPassword() {
@@ -48,7 +48,26 @@ export class LogMasukComponent implements OnInit {
 				(result) => {
           this.output = result;
           if(result.message){
-            swalSuccess.fire('Tidak Berjaya!', this.output.message, 'error');
+            this._confirmationService.open({
+              title: 'Tidak Berjaya',
+              message: this.output.message,
+              icon: {
+                show: true,
+                name: 'x-circle',
+                color: 'error'
+              },
+              actions: {
+                confirm: {
+                  show: true,
+                  label: 'Tutup',
+                  color: 'primary'
+                },
+                cancel: {
+                  show: false
+                }
+              },
+              dismissible: true
+            });
           }else{
             const validity = AuthUtils.getTokenExpirationDate(result.access_token);
             this._cookieService.set('token', result.access_token, validity, '/');

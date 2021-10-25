@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthServiceProxy, InputResetPasswordDto, OutputLoginDto } from 'src/app/shared/proxy/service-proxies';
-import { swalError, swalSuccess } from '@shared/sweet-alert/swal-constant';
 import { ConfirmationService } from '@app/shared/services/confirmation';
 import { finalize } from 'rxjs/operators';
 

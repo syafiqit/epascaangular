@@ -71,7 +71,7 @@ export class ImageUploaderComponent implements OnInit {
       if (status === 200) {
         this.success.emit(true);
         this.change.emit(resp.gambar);
-        swalError.fire({
+        swalSuccess.fire({
           title: 'Fail telah dimuatnaik!',
           timer: 1500,
           timerProgressBar: true
