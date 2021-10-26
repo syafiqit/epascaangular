@@ -163,6 +163,10 @@
 										No. Rujukan
 										<p-sortIcon field="no_rujukan_kelulusan"></p-sortIcon>
 									</th>
+									<th style="width: 170px" pSortableColumn="perihal_surat">
+										Perihal Surat
+										<p-sortIcon field="perihal_surat"></p-sortIcon>
+									</th>
 									<th style="width: 170px" pSortableColumn="nama_tabung">
 										Tabung
 										<p-sortIcon field="nama_tabung"></p-sortIcon>
@@ -212,6 +216,10 @@
 									<td style="width: 150px">
 										<span class="p-column-title">No. Rujukan</span>
 										{{record.kelulusan.no_rujukan_kelulusan}}
+									</td>
+									<td style="width: 170px">
+										<span class="p-column-title">Perihal Surat</span>
+										{{record.kelulusan.perihal_surat}}
 									</td>
 									<td style="width: 170px">
 										<span class="p-column-title">Tabung</span>

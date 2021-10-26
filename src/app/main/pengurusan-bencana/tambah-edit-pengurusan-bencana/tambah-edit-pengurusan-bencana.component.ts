@@ -14,6 +14,7 @@ import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { PrimengTableHelper } from '@app/shared/helpers/PrimengTableHelper';
 import { ConfirmationService } from '@services/confirmation';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-tambah-edit-pengurusan-bencana',
@@ -28,6 +29,8 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 	@ViewChild('paginator', { static: true }) paginator: Paginator;
 
   primengTableHelper: PrimengTableHelper;
+
+  form: FormGroup;
 
 	negeriArray:any;
 	nama_bencana:any;
@@ -76,10 +79,15 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 		private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy,
 		private _refNegeriServiceProxy: RefNegeriServiceProxy,
 		private calendar: NgbCalendar,
-		private _confirmationService: ConfirmationService
+		private _confirmationService: ConfirmationService,
+		private fb: FormBuilder
 	) {
-    this.idBencana = this._activatedRoute.snapshot.queryParams['id'];
+    	this.idBencana = this._activatedRoute.snapshot.queryParams['id'];
 		this.primengTableHelper = new PrimengTableHelper();
+
+		this.form = this.fb.group({
+		  checkArray: this.fb.array([], [Validators.required])
+		})
 	 }
 
 	ngOnInit(): void {
@@ -209,6 +217,27 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 				else{
 					this.updateMessage();
 				}
+			},(error) =>{
+				const dialogRef = this._confirmationService.open({
+					title: 'Tidak Berjaya!',
+					message: 'Ruangan Negeri Wajib Diisi.',
+					icon: {
+						show: true,
+						name: 'x-circle',
+						color: 'error'
+					  },
+					  actions: {
+						confirm: {
+						  show: true,
+						  label: 'Tutup',
+						  color: 'primary'
+						},
+						cancel: {
+						  show: false
+						}
+					  },
+					  dismissible: true
+				  });
 			});
     	}
 	}
