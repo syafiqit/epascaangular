@@ -63,12 +63,14 @@
               </div>
             </div>
 
-            <app-tambah-edit-pembayaran [idBwi]="idBwi" [jumlahBayaranBwi]="jumlah_keseluruhan_bayaran" (idBayaranSkb)="getIdBayaranSkb($event)" (idBayaranTerus)="getIdBayaranTerus($event)" (id_kelulusan)="getIdKelulusan($event)" (jumlahBayaran)="getJumlahBayaran($event)" (jumlah_bayaran_padam)="getJumlahBayaranPadam($event)"></app-tambah-edit-pembayaran>
-
-            <h6>Maklumat Bantuan</h6>
+            <div class="row no-gutters mt-3">
+              <h6>Maklumat Bantuan</h6>
+            </div>
             <app-tambah-edit-bantuan
               [idBwi]="idBwi" [idBencana]="id_bencana" [idJenisBwi]="idJenisBwi" [jumlahBantuan]="jumlah_bantuan" [jumlahPembayaran]="jumlah_keseluruhan_bayaran" (jumlah_bantuan_padam)="getJumlahBantuanPadam($event)" (jumlah_bantuan_tambah)="getJumlahBantuanTambah($event)">
             </app-tambah-edit-bantuan>
+
+            <app-tambah-edit-pembayaran [idBwi]="idBwi" [jumlahBayaranBwi]="jumlah_keseluruhan_bayaran" (idBayaranSkb)="getIdBayaranSkb($event)" (idBayaranTerus)="getIdBayaranTerus($event)" (id_kelulusan)="getIdKelulusan($event)" (jumlahBayaran)="getJumlahBayaran($event)" (jumlah_bayaran_padam)="getJumlahBayaranPadam($event)"></app-tambah-edit-pembayaran>
 
             <div class="row">
               <div class="col-lg-6">

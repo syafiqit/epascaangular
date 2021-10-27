@@ -244,27 +244,6 @@ export class TambahEditPembayaranComponent implements OnInit {
               dialogRef.afterClosed().subscribe(() => {
                 this.getBayaran();
               });
-            }else{
-              this._confirmationService.open({
-                title: 'Tidak Berjaya',
-                message: result.message,
-                icon: {
-                  show: true,
-                  name: 'x-circle',
-                  color: 'error'
-                },
-                actions: {
-                  confirm: {
-                    show: true,
-                    label: 'Tutup',
-                    color: 'primary'
-                  },
-                  cancel: {
-                    show: false
-                  }
-                },
-                dismissible: true
-              });
             }
           })
         }
