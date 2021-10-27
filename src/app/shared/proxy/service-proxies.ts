@@ -707,14 +707,29 @@ export class DashboardServiceProxy {
     /**
      * Get all getJumlahBantuan
      * @param filterYear (optional) Filter records with a string
+     * @param filterIdBencana (optional) Filter records with a integer
+     * @param filterFromDate (optional) Filter records with string
+     * @param filterToDate (optional) Filter records with string
      * @return Success
      */
-    getJumlahBantuan(filterYear: string | undefined): Observable<TotalJumlahBantuanForViewDto> {
+    getJumlahBantuan(filterYear: string | undefined, filterIdBencana: number | undefined, filterFromDate: string | undefined, filterToDate: string | undefined): Observable<TotalJumlahBantuanForViewDto> {
         let url_ = this.baseUrl + "/api/dashboard/getJumlahBantuan?";
         if (filterYear === null)
             throw new Error("The parameter 'filterYear' cannot be null.");
         else if (filterYear !== undefined)
             url_ += "filterYear=" + encodeURIComponent("" + filterYear) + "&";
+        if (filterIdBencana === null)
+            throw new Error("The parameter 'filterIdBencana' cannot be null.");
+        else if (filterIdBencana !== undefined)
+            url_ += "filterIdBencana=" + encodeURIComponent("" + filterIdBencana) + "&";
+        if (filterFromDate === null)
+            throw new Error("The parameter 'filterFromDate' cannot be null.");
+        else if (filterFromDate !== undefined)
+            url_ += "filterFromDate=" + encodeURIComponent("" + filterFromDate) + "&";
+        if (filterToDate === null)
+            throw new Error("The parameter 'filterToDate' cannot be null.");
+        else if (filterToDate !== undefined)
+            url_ += "filterToDate=" + encodeURIComponent("" + filterToDate) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -768,14 +783,29 @@ export class DashboardServiceProxy {
     /**
      * Get all getJumlahBantuanByNegeri
      * @param filterYear (optional) Filter records with a string
+     * @param filterIdBencana (optional) Filter records with a integer
+     * @param filterFromDate (optional) Filter records with string
+     * @param filterToDate (optional) Filter records with string
      * @return Success
      */
-    getJumlahBantuanByNegeri(filterYear: string | undefined): Observable<TotalBantuanByNegeriForViewDto> {
+    getJumlahBantuanByNegeri(filterYear: string | undefined, filterIdBencana: number | undefined, filterFromDate: string | undefined, filterToDate: string | undefined): Observable<TotalBantuanByNegeriForViewDto> {
         let url_ = this.baseUrl + "/api/dashboard/getJumlahBantuanByNegeri?";
         if (filterYear === null)
             throw new Error("The parameter 'filterYear' cannot be null.");
         else if (filterYear !== undefined)
             url_ += "filterYear=" + encodeURIComponent("" + filterYear) + "&";
+        if (filterIdBencana === null)
+            throw new Error("The parameter 'filterIdBencana' cannot be null.");
+        else if (filterIdBencana !== undefined)
+            url_ += "filterIdBencana=" + encodeURIComponent("" + filterIdBencana) + "&";
+        if (filterFromDate === null)
+            throw new Error("The parameter 'filterFromDate' cannot be null.");
+        else if (filterFromDate !== undefined)
+            url_ += "filterFromDate=" + encodeURIComponent("" + filterFromDate) + "&";
+        if (filterToDate === null)
+            throw new Error("The parameter 'filterToDate' cannot be null.");
+        else if (filterToDate !== undefined)
+            url_ += "filterToDate=" + encodeURIComponent("" + filterToDate) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {

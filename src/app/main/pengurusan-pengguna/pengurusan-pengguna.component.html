@@ -193,27 +193,27 @@
 						>
 							<ng-template pTemplate="header">
 								<tr>
-									<th style="width: 220px; flex: none;" pSortableColumn="nama">
+									<th style="width: 220px;" pSortableColumn="nama">
 										Nama
 										<p-sortIcon field="nama"></p-sortIcon>
 									</th>
-									<th style="width: 220px; flex: none;" pSortableColumn="emel">
+									<th style="width: 220px;" pSortableColumn="emel">
 										Emel
 										<p-sortIcon field="emel"></p-sortIcon>
 									</th>
-									<th style="width: 160px; flex: none;" pSortableColumn="nama_agensi">
+									<th style="width: 160px;" pSortableColumn="nama_agensi">
 										Agensi
 										<p-sortIcon field="nama_agensi"></p-sortIcon>
 									</th>
-									<th style="width: 100px; flex: none;" pSortableColumn="peranan">
+									<th style="width: 100px;" pSortableColumn="peranan">
 										Peranan
 										<p-sortIcon field="peranan"></p-sortIcon>
 									</th>
-                  <th style="width: 130px; flex: none;" pSortableColumn="tarikh_daftar">
+                  <th style="width: 130px;" pSortableColumn="tarikh_daftar">
 										Tarikh Daftar
 										<p-sortIcon field="tarikh_daftar"></p-sortIcon>
 									</th>
-									<th style="width: 100px; flex: none;" pSortableColumn="status_pengguna">
+									<th style="width: 100px;" pSortableColumn="status_pengguna">
 										Status
 										<p-sortIcon field="jawatan_pengguna"></p-sortIcon>
 									</th>
@@ -222,31 +222,31 @@
 							</ng-template>
 							<ng-template pTemplate="body" let-record="$implicit">
 								<tr>
-									<td style="width: 220px; flex: none;">
+									<td style="width: 220px;">
 										<span class="p-column-title">Nama</span>
 										{{record.nama}}
 									</td>
-									<td style="width: 220px; flex: none;">
+									<td style="width: 220px;">
 										<span class="p-column-title">Emel</span>
 										{{record.emel}}
 									</td>
-									<td style="width: 160px; flex: none;">
+									<td style="width: 160px;">
 										<span class="p-column-title">Agensi</span>
 										{{record.nama_agensi}}
 									</td>
-									<td style="width: 100px; flex: none;">
+									<td style="width: 100px;">
 										<span class="p-column-title">Peranan</span>
 										{{record.peranan}}
 									</td>
-                  <td style="width: 130px; flex: none;">
+                  <td style="width: 130px;">
 										<span class="p-column-title">Tarikh Daftar</span>
 										{{record.tarikh_daftar | date:'dd-MM-yyyy'}}
 									</td>
-									<td style="width: 100px; flex: none;">
+									<td style="width: 100px;">
 										<span class="p-column-title">Status</span>
 										{{getStatus(record.status_pengguna)}}
 									</td>
-									<td style="width: 130px; flex: none;" *ngIf="_appSession.isGranted('Halaman.Pengguna.Edit')">
+									<td style="width: 130px;" *ngIf="_appSession.isGranted('Halaman.Pengguna.Edit')">
 										<div ngbDropdown class="btn-group" role="group" container="body">
 											<button
 												type="button"

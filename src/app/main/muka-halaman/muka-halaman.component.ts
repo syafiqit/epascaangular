@@ -73,7 +73,10 @@ export class MukaHalamanComponent implements OnInit, AfterViewInit {
 
   cardDashboard(){
     this._dashboardServiceProxy.getJumlahBantuan(
-      this.cardYear
+      this.cardYear,
+      this.filterIdBencana, 
+      this.filterFromDate, 
+      this.filterToDate
     ).subscribe((result) => {
       this.jumlahMangsa = result.jumlahMangsa;
 
@@ -191,7 +194,10 @@ export class MukaHalamanComponent implements OnInit, AfterViewInit {
 	chartDashboard(){
 
     this._dashboardServiceProxy.getJumlahBantuanByNegeri(
-      this.year
+      this.year,
+      this.filterIdBencana, 
+      this.filterFromDate, 
+      this.filterToDate
     ).subscribe((result) => {
         let stringData = JSON.stringify(result.items);
         this.chartData = JSON.parse(stringData);
