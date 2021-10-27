@@ -359,7 +359,6 @@ export class TambahEditWangIhsanComponent implements OnInit {
 
           this.temporaryNumber = Number(response.jumlah_bayaran);
           this.checkingBantuan = this.checkingBantuan +  this.temporaryNumber ;
-          if(this.checkingBantuan <= this.checkingBayaran){
             this.bantuan.push({
               id: this.bantuan.length + 1,
               id_negeri: response.id_negeri,
@@ -370,29 +369,6 @@ export class TambahEditWangIhsanComponent implements OnInit {
             });
             this.primengTableHelperBantuan.totalRecordsCount = this.bantuan.length;
 
-          }else{
-            this.checkingBantuan = this.checkingBantuan - response.jumlah_bayaran;
-            this._confirmationService.open({
-              title: 'Tidak Berjaya',
-              message: 'Jumlah Bantuan Melebihi Jumlah Pembayaran.',
-              icon: {
-                show: true,
-                name: 'x-circle',
-                color: 'error'
-              },
-              actions: {
-              confirm: {
-                show: true,
-                label: 'Tutup',
-                color: 'primary'
-              },
-              cancel: {
-                show: false
-              }
-              },
-              dismissible: true
-            });
-          }
 				}
 			},
 			() => {}
