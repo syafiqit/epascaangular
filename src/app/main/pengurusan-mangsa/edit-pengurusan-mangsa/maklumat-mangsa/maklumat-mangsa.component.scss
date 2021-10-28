@@ -12,3 +12,12 @@ ngx-dropzone{
 img{
   width: 100%;
 };
+
+.form-control[readonly] {
+  background-color: white;
+  font-size: 14px;
+}
+
+::ng-deep .ng-select.ng-select-disabled > .ng-select-container {
+  background-color: #ffffff;
+}

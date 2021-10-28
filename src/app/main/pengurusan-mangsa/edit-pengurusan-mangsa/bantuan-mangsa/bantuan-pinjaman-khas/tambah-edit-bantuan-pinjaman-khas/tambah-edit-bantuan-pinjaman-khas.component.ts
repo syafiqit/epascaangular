@@ -15,6 +15,7 @@ import { AppSessionService } from '@app/shared/services/app-session.service';
 @Component({
   selector: 'app-tambah-edit-bantuan-pinjaman-khas',
   templateUrl: './tambah-edit-bantuan-pinjaman-khas.component.html',
+  styleUrls: ['./tambah-edit-bantuan-pinjaman-khas.component.scss'],
   encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig, NgbModal]
 })

@@ -52,6 +52,7 @@
               #namaMangsa="ngModel"
               [ngClass]="{ 'is-invalid': f.submitted && namaMangsa.invalid }"
               required
+              [readonly]="!_appSession.isGranted('Halaman.Mangsa.Edit')"
             />
             <div *ngIf="f.submitted && namaMangsa.invalid" class="invalid-feedback">
               <div *ngIf="namaMangsa.errors.required">Nama Mangsa Wajib Diisi</div>
@@ -77,6 +78,7 @@
               onlyNumbers
               kpValidator
               required
+              [readonly]="!_appSession.isGranted('Halaman.Mangsa.Edit')"
             />
             <div *ngIf="f.submitted && noKp.invalid" class="invalid-feedback">
               <div *ngIf="noKp.errors.required">No. Kad Pengenalan Wajib Diisi</div>
@@ -106,6 +108,7 @@
               minlength="9"
               maxlength="15"
               required
+              [readonly]="!_appSession.isGranted('Halaman.Mangsa.Edit')"
             />
             <div *ngIf="f.submitted && noTel.invalid" class="invalid-feedback">
               <div *ngIf="noTel.errors.required">No. Telefon Wajib Diisi</div>
@@ -132,6 +135,7 @@
           #alamat1="ngModel"
           [ngClass]="{ 'is-invalid': f.submitted && alamat1.invalid }"
           required
+          [readonly]="!_appSession.isGranted('Halaman.Mangsa.Edit')"
         />
         <div *ngIf="f.submitted && alamat1.invalid" class="invalid-feedback">
           <div *ngIf="alamat1.errors.required">Alamat 1 Mangsa Wajib Diisi</div>
@@ -149,6 +153,7 @@
           name="alamat_2"
           [(ngModel)]="getMangsa.mangsa.alamat_2"
           placeholder="Alamat 2"
+          [readonly]="!_appSession.isGranted('Halaman.Mangsa.Edit')"
         />
       </div>
     </div>
@@ -171,6 +176,7 @@
           minlength="5"
           maxlength="5"
           required
+          [readonly]="!_appSession.isGranted('Halaman.Mangsa.Edit')"
         />
         <div *ngIf="f.submitted && postcode.invalid" class="invalid-feedback">
           <div *ngIf="postcode.errors.required">Poskod Wajib Diisi</div>
@@ -192,6 +198,7 @@
           #daerah="ngModel"
           [ngClass]="{ 'is-invalid': f.submitted && daerah.invalid }"
           required
+          [disabled]="!_appSession.isGranted('Halaman.Mangsa.Edit')"
         ></ng-select>
         <div *ngIf="f.submitted && daerah.invalid" class="invalid-feedback">
           <div *ngIf="daerah.errors.required">Daerah Wajib Dipilih</div>
@@ -228,6 +235,7 @@
           name="namaDun"
           (change)="setParlimen()"
           [(ngModel)]="setDun"
+          [disabled]="!_appSession.isGranted('Halaman.Mangsa.Edit')"
         ></ng-select>
       </div>
     </div>
@@ -261,6 +269,7 @@
           name="catatan"
           [(ngModel)]="getMangsa.mangsa.catatan"
           placeholder="Catatan..."
+          [readonly]="!_appSession.isGranted('Halaman.Mangsa.Edit')"
         ></textarea>
       </div>
     </div>
@@ -288,6 +297,7 @@
             name="status_verifikasi"
             [value]="0"
             [(ngModel)]="getMangsa.mangsa.status_verifikasi"
+            [disabled]="!_appSession.isGranted('Halaman.Mangsa.Edit')"
           />
           <label for="radio55">Belum</label>
         </div>
