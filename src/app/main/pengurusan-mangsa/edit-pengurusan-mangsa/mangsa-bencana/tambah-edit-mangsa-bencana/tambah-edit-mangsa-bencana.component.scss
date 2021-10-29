@@ -1,0 +1,12 @@
+.form-control[readonly] {
+    background-color: white;
+  }
+
+  .form-control:disabled {
+    background-color: white;
+  }
+  
+  ::ng-deep .ng-select.ng-select-disabled > .ng-select-container {
+    background-color: #ffffff;
+  }
+  

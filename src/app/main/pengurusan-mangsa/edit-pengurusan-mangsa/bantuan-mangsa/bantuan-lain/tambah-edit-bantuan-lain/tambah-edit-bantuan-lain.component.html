@@ -23,7 +23,7 @@
               required
               readonly
             />
-            <div class="input-group-append">
+            <div class="input-group-append" *ngIf="_appSession.isGranted('Halaman.Mangsa.BantuanLain.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanLain.Tambah')">
               <button class="btn btn-primary" (click)="pilihBencana()" type="button">
                 <i class="fa fa-search text-white"></i>
               </button>
@@ -66,6 +66,7 @@
             #namaBantuan="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && namaBantuan.invalid }"
             required
+            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanLain.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanLain.Tambah'))"
           />
           <div *ngIf="f.submitted && namaBantuan.invalid" class="invalid-feedback">
             <div *ngIf="namaBantuan.errors.required">Nama Bantuan Wajib Diisi</div>
@@ -87,6 +88,7 @@
             #namaSumberDana="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && namaSumberDana.invalid }"
             required
+            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanLain.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanLain.Tambah'))"
           ></ng-select>
           <div *ngIf="f.submitted && namaSumberDana.invalid" class="invalid-feedback">
             <div *ngIf="namaSumberDana.errors.required">Sumber Dana Wajib Dipilih</div>
@@ -105,6 +107,7 @@
             name="sumber_dana_lain"
             [(ngModel)]="bantuanLain.sumber_dana_lain"
             placeholder="Sumber Dana Lain-lain"
+            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanLain.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanLain.Tambah'))"
           />
         </div>
       </div>
@@ -123,6 +126,7 @@
             #namaAgensi="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && namaAgensi.invalid }"
             required
+            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanLain.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanLain.Tambah'))"
           ></ng-select>
           <div *ngIf="f.submitted && namaAgensi.invalid" class="invalid-feedback">
             <div *ngIf="namaAgensi.errors.required">Nama Agensi Wajib Dipilih</div>
@@ -148,6 +152,7 @@
             currencyMask
             [options]="{ prefix: 'RM ', align: 'left' }"
             autocomplete="off"
+            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanLain.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanLain.Tambah'))"
           />
           <div *ngIf="f.submitted && kosBantuan.invalid" class="invalid-feedback">
             <div *ngIf="kosBantuan.errors.required">Kos Bantuan Wajib Diisi</div>
@@ -170,8 +175,9 @@
 						#tarikhBantuan="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && tarikhBantuan.invalid }"
 						required
+            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanLain.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanLain.Tambah'))"
           >
-          <div class="input-group-append">
+          <div class="input-group-append" *ngIf="_appSession.isGranted('Halaman.Mangsa.BantuanLain.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanLain.Tambah')">
             <button class="btn btn-light" (click)="d.toggle()" type="button"><i
               class="fa fa-calendar"></i></button>
           </div>
@@ -202,6 +208,7 @@
             #namaStatus="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && namaStatus.invalid }"
             required
+            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanLain.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanLain.Tambah'))"
           ></ng-select>
           <div *ngIf="f.submitted && namaStatus.invalid" class="invalid-feedback">
             <div *ngIf="namaStatus.errors.required">Status Wajib Dipilih</div>
@@ -219,7 +226,8 @@
             id="catatan"
             name="bantuanLain.catatan"
             [(ngModel)]="bantuanLain.catatan"
-            rows="3">
+            rows="3"
+            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanLain.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanLain.Tambah'))">
           </textarea>
 				</div>
 			</div>

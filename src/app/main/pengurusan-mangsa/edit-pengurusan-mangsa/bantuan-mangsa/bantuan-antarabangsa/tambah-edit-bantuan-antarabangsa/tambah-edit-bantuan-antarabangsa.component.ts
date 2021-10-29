@@ -14,6 +14,7 @@ import { AppSessionService } from '@app/shared/services/app-session.service';
 @Component({
   selector: 'app-tambah-edit-bantuan-antarabangsa',
   templateUrl: './tambah-edit-bantuan-antarabangsa.component.html',
+  styleUrls: ['./tambah-edit-bantuan-antarabangsa.component.scss'],
   encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig, NgbModal]
 })

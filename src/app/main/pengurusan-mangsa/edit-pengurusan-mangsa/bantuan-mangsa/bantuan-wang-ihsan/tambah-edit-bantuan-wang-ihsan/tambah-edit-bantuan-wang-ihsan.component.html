@@ -23,6 +23,7 @@
             #jenisBwi="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && jenisBwi.invalid }"
             required
+            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BWI.Edit') || _appSession.isGranted('Halaman.Mangsa.BWI.Tambah'))"
           ></ng-select>
           <div *ngIf="f.submitted && jenisBwi.invalid" class="invalid-feedback">
             <div *ngIf="jenisBwi.errors.required">Jenis BWI Wajib Dipilih</div>
@@ -44,7 +45,7 @@
               required
               readonly
             />
-            <div class="input-group-append">
+            <div class="input-group-append" *ngIf="_appSession.isGranted('Halaman.Mangsa.BWI.Edit') || _appSession.isGranted('Halaman.Mangsa.BWI.Tambah')">
               <button class="btn btn-primary" (click)="pilihBencana()" type="button">
                 <i class="fa fa-search text-white"></i>
               </button>
@@ -88,6 +89,7 @@
             #namaAgensi="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && namaAgensi.invalid }"
             required
+            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BWI.Edit') || _appSession.isGranted('Halaman.Mangsa.BWI.Tambah'))"
           ></ng-select>
           <div *ngIf="f.submitted && namaAgensi.invalid" class="invalid-feedback">
             <div *ngIf="namaAgensi.errors.required">Nama Agensi Wajib Dipilih</div>
@@ -112,8 +114,9 @@
 						#tarikhSerahan="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && tarikhSerahan.invalid }"
 						required
+            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BWI.Edit') || _appSession.isGranted('Halaman.Mangsa.BWI.Tambah'))"
           >
-          <div class="input-group-append">
+          <div class="input-group-append" *ngIf="_appSession.isGranted('Halaman.Mangsa.BWI.Edit') || _appSession.isGranted('Halaman.Mangsa.BWI.Tambah')">
             <button class="btn btn-light" (click)="d.toggle()" type="button"><i
               class="fa fa-calendar"></i></button>
           </div>
@@ -142,6 +145,7 @@
             #jumlah="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && jumlah.invalid }"
             required
+            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BWI.Edit') || _appSession.isGranted('Halaman.Mangsa.BWI.Tambah'))"
           ></ng-select>
           <div *ngIf="f.submitted && jumlah.invalid" class="invalid-feedback">
             <div *ngIf="jumlah.errors.required">Jumlah Wajib Dipilih</div>
@@ -165,6 +169,7 @@
             #namaStatus="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && namaStatus.invalid }"
             required
+            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BWI.Edit') || _appSession.isGranted('Halaman.Mangsa.BWI.Tambah'))"
           ></ng-select>
           <div *ngIf="f.submitted && namaStatus.invalid" class="invalid-feedback">
             <div *ngIf="namaStatus.errors.required">Status Wajib Dipilih</div>

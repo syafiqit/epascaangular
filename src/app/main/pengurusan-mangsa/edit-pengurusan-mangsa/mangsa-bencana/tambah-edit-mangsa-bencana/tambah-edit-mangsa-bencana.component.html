@@ -23,7 +23,7 @@
               required
               readonly
             />
-            <div class="input-group-append">
+            <div class="input-group-append" *ngIf="_appSession.isGranted('Halaman.Mangsa.Bencana.Edit') || _appSession.isGranted('Halaman.Mangsa.Bencana.Tambah')">
               <button class="btn btn-primary" (click)="pilihBencana()" type="button">
                 <i class="fa fa-search text-white"></i>
               </button>
@@ -67,6 +67,7 @@
 						#statusPindah="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && statusPindah.invalid }"
 						required
+						[disabled]="!(_appSession.isGranted('Halaman.Mangsa.Bencana.Edit') || _appSession.isGranted('Halaman.Mangsa.Bencana.Tambah'))"
 					></ng-select>
 					<div *ngIf="f.submitted && statusPindah.invalid" class="invalid-feedback">
 						<div *ngIf="statusPindah.errors.required">Status Berpindah Wajib Dipilih</div>
@@ -87,6 +88,7 @@
 						#namaPusat="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && namaPusat.invalid }"
 						required
+						[readonly]="!(_appSession.isGranted('Halaman.Mangsa.Bencana.Edit') || _appSession.isGranted('Halaman.Mangsa.Bencana.Tambah'))"
 					/>
 					<div *ngIf="f.submitted && namaPusat.invalid" class="invalid-feedback">
 						<div *ngIf="namaPusat.errors.required">Nama Pusat Wajib Diisi</div>
@@ -103,6 +105,7 @@
 						name="masalah"
 						[(ngModel)]="addBencana.masalah"
 						placeholder="Masalah yang dihadapi..."
+						[readonly]="!(_appSession.isGranted('Halaman.Mangsa.Bencana.Edit') || _appSession.isGranted('Halaman.Mangsa.Bencana.Tambah'))"
 					></textarea>
 				</div>
 			</div>
