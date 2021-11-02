@@ -112,11 +112,11 @@
 						>
 							<ng-template pTemplate="header">
 								<tr>
-									<th style="width: 160px" pSortableColumn="nama_tabung">
+									<th style="width: 250px" pSortableColumn="nama_tabung">
 										Tabung
 										<p-sortIcon field="nama_tabung"></p-sortIcon>
 									</th>
-                  <th style="width: 350px" pSortableColumn="kategori_tabung">
+                  					<th style="width: 200px" pSortableColumn="kategori_tabung">
 										Kategori Tabung
 										<p-sortIcon field="kategori_tabung"></p-sortIcon>
 									</th>
@@ -157,11 +157,11 @@
 							</ng-template>
 							<ng-template pTemplate="body" let-record="$implicit">
 								<tr>
-									<td style="width: 160px">
+									<td style="width: 250px">
 										<span class="p-column-title">Tabung</span>
 										{{record.nama_tabung}}
 									</td>
-                  <td style="width: 350px">
+                  <td style="width: 200px">
 										<span class="p-column-title">Kategori Tabung</span>
 										<label *ngIf="record.kategori_tabung">{{record.kategori_tabung == 1? "Lain-lain":"Kumpulan Wang Covid"}}</label>
                     <label *ngIf="!record.kategori_tabung">-</label>

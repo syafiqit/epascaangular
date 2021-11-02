@@ -157,7 +157,7 @@
 						>
 							<ng-template pTemplate="header">
 								<tr>
-									<th style="width: 130px" pSortableColumn="nama">
+									<th style="width: 200px" pSortableColumn="nama">
 										Nama
 										<p-sortIcon field="nama"></p-sortIcon>
 									</th>
@@ -165,7 +165,7 @@
 										Emel
 										<p-sortIcon field="emel"></p-sortIcon>
 									</th>
-									<th style="width: 160px" pSortableColumn="nama_agensi">
+									<th style="width: 200px" pSortableColumn="nama_agensi">
 										Agensi
 										<p-sortIcon field="nama_agensi"></p-sortIcon>
 									</th>
@@ -173,7 +173,7 @@
 										Peranan
 										<p-sortIcon field="peranan"></p-sortIcon>
 									</th>
-                  <th style="width: 135px" pSortableColumn="tarikh_daftar">
+                  <th style="width: 100px" pSortableColumn="tarikh_daftar">
 										Tarikh Mohon
 										<p-sortIcon field="tarikh_daftar"></p-sortIcon>
 									</th>
@@ -186,7 +186,7 @@
 							</ng-template>
 							<ng-template pTemplate="body" let-record="$implicit">
 								<tr>
-									<td style="width: 130px">
+									<td style="width: 200px">
 										<span class="p-column-title">Nama</span>
 										{{record.nama}}
 									</td>
@@ -194,7 +194,7 @@
 										<span class="p-column-title">Emel</span>
 										{{record.emel}}
 									</td>
-									<td style="width: 160px">
+									<td style="width: 200px">
 										<span class="p-column-title">Agensi</span>
 										{{record.nama_agensi}}
 									</td>
@@ -202,7 +202,7 @@
 										<span class="p-column-title">Peranan</span>
 										{{record.peranan}}
 									</td>
-                  <td style="width: 135px">
+                  <td style="width: 100px">
 										<span class="p-column-title">Tarikh Mohon</span>
 										{{record.tarikh_daftar | date:'dd-MM-yyyy'}}
 									</td>

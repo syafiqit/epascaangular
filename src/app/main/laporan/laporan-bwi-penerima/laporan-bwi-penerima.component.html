@@ -198,7 +198,7 @@
 											Tarikh Serahan
 											<p-sortIcon field="tarikh_serahan"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="jumlah">
+										<th style="width: 100px" pSortableColumn="jumlah">
 											Jumlah
 											<p-sortIcon field="jumlah"></p-sortIcon>
 										</th>
@@ -238,7 +238,7 @@
 											<span class="p-column-title">Tarikh Serahan</span>
 											{{record.tarikh_serahan | date:'dd-MM-yyyy'}}
 										</td>
-										<td style="width: 130px">
+										<td style="width: 100px">
 											<span class="p-column-title">Jumlah</span>
                       <label *ngIf="record.jumlah">RM {{record.jumlah | number: '1.2-2'}}</label>
                       <label *ngIf="!record.jumlah">RM 0.00</label>

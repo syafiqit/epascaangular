@@ -113,7 +113,6 @@
 			>
 				<ng-template pTemplate="header">
 					<tr>
-						<th style="width: 130px">Tindakan</th>
 						<th style="width: 150px" pSortableColumn="jenis_bayaran">
 							Nama Jenis Bayaran
 							<p-sortIcon field="jenis_bayaran"></p-sortIcon>
@@ -122,10 +121,19 @@
 							Status
 							<p-sortIcon field="status"></p-sortIcon>
 						</th>
+						<th style="width: 130px">Tindakan</th>
 					</tr>
 				</ng-template>
 				<ng-template pTemplate="body" let-record="$implicit">
 					<tr>
+						<td style="width: 150px">
+							<span class="p-column-title">Nama</span>
+							{{record.nama_jenis_bayaran}}
+						</td>
+						<td style="width: 130px">
+							<span class="p-column-title">Status</span>
+							{{record.status_jenis_bayaran == 1? "Aktif":"Tidak Aktif"}}
+						</td>
 						<td style="width: 130px">
 							<div ngbDropdown class="btn-group" role="group" container="body">
 								<button
@@ -147,14 +155,6 @@
 									</button>
 								</div>
 							</div>
-						</td>
-						<td style="width: 150px">
-							<span class="p-column-title">Nama</span>
-							{{record.nama_jenis_bayaran}}
-						</td>
-						<td style="width: 130px">
-							<span class="p-column-title">Status</span>
-							{{record.status_jenis_bayaran == 1? "Aktif":"Tidak Aktif"}}
 						</td>
 					</tr>
 				</ng-template>
