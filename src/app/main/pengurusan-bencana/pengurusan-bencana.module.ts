@@ -22,6 +22,6 @@ import { NgbDateCustomParserFormatter } from '@app/shared/date-parser/NgbDateCus
 	declarations: [PengurusanBencanaComponent, TambahEditPengurusanBencanaComponent],
 	providers: [
 		{provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter}
-	   ]
+	]
 })
 export class PengurusanBencanaModule {}

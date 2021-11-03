@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewEncapsulation, Input, ViewChild } from '@angular/core';
-import { NgbActiveModal, NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
+import { NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { finalize } from 'rxjs/operators';
 import * as moment from 'moment';
 import {
@@ -15,7 +15,6 @@ import { Paginator } from 'primeng/paginator';
 import { PrimengTableHelper } from '@app/shared/helpers/PrimengTableHelper';
 import { ConfirmationService } from '@services/confirmation';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 @Component({
   selector: 'app-tambah-edit-pengurusan-bencana',
   templateUrl: './tambah-edit-pengurusan-bencana.component.html',

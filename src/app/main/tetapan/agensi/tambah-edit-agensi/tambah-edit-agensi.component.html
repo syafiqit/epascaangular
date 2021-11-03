@@ -5,7 +5,7 @@
 		<span aria-hidden="true">&times;</span>
 	</button>
 </div>
-<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
+<form class="form theme-form" name="form" #f="ngForm" focusInvalidInput (ngSubmit)="f.form.valid && save()" novalidate>
 	<div class="modal-body">
 		<div class="row">
 			<div class="col-6">

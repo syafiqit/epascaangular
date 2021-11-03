@@ -8,7 +8,7 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="card">
-				<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
+				<form class="form theme-form" name="form" #f="ngForm" focusInvalidInput (ngSubmit)="f.form.valid && save()" novalidate>
 					<div class="card-body">
             <h6>Maklumat Diri Mangsa</h6>
 						<div class="row">
@@ -17,7 +17,6 @@
 									<label>Nama*</label>
 									<input
 										class="form-control"
-                    id="namaMangsa"
 										type="text"
                     name="nama"
                     [(ngModel)]="addMangsa.mangsa.nama"
@@ -39,7 +38,6 @@
 									<label>No. Kad Pengenalan*</label>
 									<input
 										class="form-control"
-                    id="noKP"
 										type="text"
                     name="no_kp"
                     [(ngModel)]="addMangsa.mangsa.no_kp"
@@ -68,7 +66,6 @@
 									<label>No. Telefon*</label>
 									<input
 										class="form-control"
-                    id="noTel"
 										type="text"
                     name="telefon"
                     [(ngModel)]="addMangsa.mangsa.telefon"
@@ -110,7 +107,6 @@
 									<label>Alamat 1*</label>
 									<input
 										class="form-control"
-                    id="alamat1"
 										type="text"
                     name="alamat_1"
                     [(ngModel)]="addMangsa.mangsa.alamat_1"
@@ -130,9 +126,8 @@
 									<label>Alamat 2</label>
 									<input
 										class="form-control"
-                    id="alamat2"
 										type="text"
-                    name="nama"
+                    name="alamat_2"
                     [(ngModel)]="addMangsa.mangsa.alamat_2"
 										placeholder="Alamat 2"
                   />
@@ -146,7 +141,6 @@
 									<label>Poskod*</label>
 									<input
 										class="form-control"
-                    id="poskodMangsa"
 										type="text"
                     name="poskod"
                     [(ngModel)]="addMangsa.mangsa.poskod"
@@ -306,7 +300,6 @@
 									<label>Nama Pusat*</label>
 									<input
 										class="form-control"
-                    id="pusatPindah"
 										type="text"
                     name="nama_pusat_pemindahan"
                     [(ngModel)]="addMangsa.bencana.nama_pusat_pemindahan"
@@ -326,7 +319,6 @@
 									<label>Masalah Dihadapi</label>
 									<textarea
 										class="form-control"
-                    id="masalahHadapi"
                     rows="3"
                     name="masalah"
                     [(ngModel)]="addMangsa.bencana.masalah"
