@@ -202,7 +202,7 @@ export class TambahKelulusanComponent implements OnInit {
 	}
 	alertMessage(){
 		const dialogRef = this._confirmationService.open({
-		  title: 'Perhatian',
+		  title: 'Harap Maaf!',
 		  message: 'Jumlah Peruntukan Melebihi Jumlah Keseluruhan Tabung.',
 		  icon: {
         show: true,

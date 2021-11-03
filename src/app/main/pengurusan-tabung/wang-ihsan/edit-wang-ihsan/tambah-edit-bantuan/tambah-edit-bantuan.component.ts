@@ -146,7 +146,7 @@ export class TambahEditBantuanComponent implements OnInit {
               this.jumlahBantuan = this.jumlahBantuan - Number(jumlah);
               const dialogRef = this._confirmationService.open({
                 title: 'Berjaya',
-                message: result.message,
+                message: "Bantuan Kawasan Wang Ihsan Berjaya Dipadam.",
                 icon: {
                   show: true,
                   name: 'check-circle',

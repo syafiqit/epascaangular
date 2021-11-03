@@ -167,7 +167,7 @@ export class TabungComponent implements OnInit {
           if(result.message == "Tabung Berjaya Dibuang"){
             const dialogRef = this._confirmationService.open({
               title: 'Berjaya',
-              message: result.message,
+              message: "Maklumat Tabung Berjaya Dipadam.",
               icon: {
                 show: true,
                 name: 'check-circle',

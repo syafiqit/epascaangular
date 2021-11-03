@@ -249,7 +249,7 @@ export class TambahEditWangIhsanComponent implements OnInit {
                 this.existingId = null;
               }else{
                 this._confirmationService.open({
-                  title: 'Tidak Berjaya!',
+                  title: 'Harap Maaf!',
                   message: 'No. Rujukan Terus Telah Dipilih',
                   icon: {
                     show: true,
@@ -285,7 +285,7 @@ export class TambahEditWangIhsanComponent implements OnInit {
 
     if(this.checkingBayaran < this.checkingBantuan){
       const dialogRef = this._confirmationService.open({
-        title: 'Tidak Berjaya!',
+        title: 'Harap Maaf!!',
         message: 'Jumlah Bantuan Melebihi Jumlah Pembayaran ',
         icon: {
           show: true,

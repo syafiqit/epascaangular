@@ -194,7 +194,7 @@ export class PengurusanBencanaComponent implements OnInit {
 	
 	alertMessage(response){
 		const dialogRef = this._confirmationService.open({
-		  title: 'Perhatian',
+		  title: 'Tidak Berjaya',
 		  message: response.message,
 		  icon: {
         show: true,

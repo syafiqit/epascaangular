@@ -171,7 +171,7 @@ export class TambahEditMangsaBencanaComponent implements OnInit {
         }
         else{
           const dialogRef = this._confirmationService.open({
-            title: 'Perhatian',
+            title: 'Tidak Berjaya',
             message: result.message,
             icon: {
               show: true,
