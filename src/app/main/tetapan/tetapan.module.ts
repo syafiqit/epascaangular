@@ -55,6 +55,8 @@ import { TambahEditKadarBwiComponent } from './kadar-bwi/tambah-edit-kadar-bwi/t
 import { NgxCurrencyModule } from 'ngx-currency';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateCustomParserFormatter } from '@app/shared/date-parser/NgbDateCustomParserFormatter';
+import { JenisPertanianComponent } from './jenis-pertanian/jenis-pertanian.component';
+import { TambahEditJenisPertanianComponent } from './jenis-pertanian/tambah-edit-jenis-pertanian/tambah-edit-jenis-pertanian.component';
 
 @NgModule({
 	imports: [
@@ -113,7 +115,9 @@ import { NgbDateCustomParserFormatter } from '@app/shared/date-parser/NgbDateCus
 		JenisBayaranComponent,
 		TambahEditJenisBayaranComponent,
 		KadarBwiComponent,
-		TambahEditKadarBwiComponent
+		TambahEditKadarBwiComponent,
+		JenisPertanianComponent,
+		TambahEditJenisPertanianComponent
 	],
 	providers: [
 		{provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter}
