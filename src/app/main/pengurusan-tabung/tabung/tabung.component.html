@@ -116,11 +116,11 @@
 										Tabung
 										<p-sortIcon field="nama_tabung"></p-sortIcon>
 									</th>
-                  					<th style="width: 200px" pSortableColumn="kategori_tabung">
+                  <th style="width: 200px" pSortableColumn="kategori_tabung">
 										Kategori Tabung
 										<p-sortIcon field="kategori_tabung"></p-sortIcon>
 									</th>
-									<th style="width: 130px" pSortableColumn="tarikh_cipta">
+									<th style="width: 131px" pSortableColumn="tarikh_cipta">
 										Tarikh Cipta
 										<p-sortIcon field="tarikh_cipta"></p-sortIcon>
 									</th>
@@ -166,7 +166,7 @@
 										<label *ngIf="record.kategori_tabung">{{record.kategori_tabung == 1? "Lain-lain":"Kumpulan Wang Covid"}}</label>
                     <label *ngIf="!record.kategori_tabung">-</label>
 									</td>
-									<td style="width: 130px">
+									<td style="width: 131px">
 										<span class="p-column-title">Tarikh Cipta</span>
                     {{record.tarikh_cipta | date:'dd-MM-yyyy'}}
 									</td>
