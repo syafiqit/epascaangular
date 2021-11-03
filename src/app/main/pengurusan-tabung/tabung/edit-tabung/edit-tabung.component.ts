@@ -280,7 +280,7 @@ export class EditTabungComponent implements OnInit {
           if(result.message === 'Tambahan Dana Berjaya Dibuang'){
             const s = this._confirmationService.open({
               title: 'Berjaya',
-              message: result.message,
+              message: "Tambahan Dana Berjaya Dipadam!",
               icon: {
                 show: true,
                 name: 'check-circle',

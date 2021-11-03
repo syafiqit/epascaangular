@@ -167,7 +167,7 @@ export class EditMultipleBantuanWangIhsanComponent implements OnInit {
 
   alertMessage(response){
     const dialogRef = this._confirmationService.open({
-      title: 'Makluman',
+      title: 'Harap Maaf!',
       message: response.message,
       icon: {
         show: true,

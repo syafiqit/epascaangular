@@ -223,7 +223,7 @@ export class TambahEditPembayaranComponent implements OnInit {
             if(result.message == "Pembayaran Wang Ihsan Berjaya Dibuang"){
               const dialogRef = this._confirmationService.open({
                 title: 'Berjaya',
-                message: result.message,
+                message: "Pembayaran Wang Ihsan Berjaya Dipadam.",
                 icon: {
                   show: true,
                   name: 'check-circle',

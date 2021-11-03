@@ -125,7 +125,7 @@ export class BayaranSecaraTerusComponent implements OnInit {
             if(result.message == "Bayaran Terus Berjaya Dibuang"){
               const dialogRef = this._confirmationService.open({
                 title: 'Berjaya',
-                message: result.message,
+                message: "Bayaran Terus Berjaya Dipadam",
                 icon: {
                   show: true,
                   name: 'check-circle',

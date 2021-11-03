@@ -136,7 +136,7 @@ export class PeruntukanDiambilComponent implements OnInit {
 
   errorMessage(result?){
     const dialogRef = this._confirmationService.open({
-      title: 'Makluman',
+      title: 'Harap Maaf!',
       message: result.message,
       icon: {
         show: true,
