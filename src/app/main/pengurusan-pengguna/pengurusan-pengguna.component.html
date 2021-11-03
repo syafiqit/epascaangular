@@ -205,11 +205,11 @@
 										Agensi
 										<p-sortIcon field="nama_agensi"></p-sortIcon>
 									</th>
-									<th style="width: 100px;" pSortableColumn="peranan">
+									<th style="width: 110px;" pSortableColumn="peranan">
 										Peranan
 										<p-sortIcon field="peranan"></p-sortIcon>
 									</th>
-                  <th style="width: 130px;" pSortableColumn="tarikh_daftar">
+                  <th style="width: 140px;" pSortableColumn="tarikh_daftar">
 										Tarikh Daftar
 										<p-sortIcon field="tarikh_daftar"></p-sortIcon>
 									</th>
@@ -217,7 +217,7 @@
 										Status
 										<p-sortIcon field="jawatan_pengguna"></p-sortIcon>
 									</th>
-									<th *ngIf="_appSession.isGranted('Halaman.Pengguna.Edit')" style="width: 130px">Tindakan</th>
+									<th *ngIf="_appSession.isGranted('Halaman.Pengguna.Edit')" style="width: 140px">Tindakan</th>
 								</tr>
 							</ng-template>
 							<ng-template pTemplate="body" let-record="$implicit">
@@ -234,11 +234,11 @@
 										<span class="p-column-title">Agensi</span>
 										{{record.nama_agensi}}
 									</td>
-									<td style="width: 100px;">
+									<td style="width: 110px;">
 										<span class="p-column-title">Peranan</span>
 										{{record.peranan}}
 									</td>
-                  <td style="width: 130px;">
+                  <td style="width: 140px;">
 										<span class="p-column-title">Tarikh Daftar</span>
 										{{record.tarikh_daftar | date:'dd-MM-yyyy'}}
 									</td>
@@ -246,7 +246,7 @@
 										<span class="p-column-title">Status</span>
 										{{getStatus(record.status_pengguna)}}
 									</td>
-									<td style="width: 130px;" *ngIf="_appSession.isGranted('Halaman.Pengguna.Edit')">
+									<td style="width: 140px;" *ngIf="_appSession.isGranted('Halaman.Pengguna.Edit')">
 										<div ngbDropdown class="btn-group" role="group" container="body">
 											<button
 												type="button"

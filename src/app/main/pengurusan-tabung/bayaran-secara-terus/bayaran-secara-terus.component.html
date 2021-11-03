@@ -144,11 +144,11 @@
 						>
 							<ng-template pTemplate="header">
 								<tr>
-                  <th style="width: 120px" pSortableColumn="no_rujukan_kelulusan">
+                  <th style="width: 145px" pSortableColumn="no_rujukan_kelulusan">
 										No. Kelulusan
 										<p-sortIcon field="no_rujukan_kelulusan"></p-sortIcon>
 									</th>
-									<th style="width: 120px" pSortableColumn="no_rujukan_terus">
+									<th style="width: 135px" pSortableColumn="no_rujukan_terus">
 										No. Bayaran
 										<p-sortIcon field="no_rujukan_terus"></p-sortIcon>
 									</th>
@@ -156,7 +156,7 @@
 										Tarikh
 										<p-sortIcon field="tarikh"></p-sortIcon>
 									</th>
-									<th style="width: 100px" pSortableColumn="no_baucar">
+									<th style="width: 125px" pSortableColumn="no_baucar">
 										No. Baucar
 										<p-sortIcon field="no_baucar"></p-sortIcon>
 									</th>
@@ -172,16 +172,16 @@
 										Jumlah
 										<p-sortIcon field="jumlah"></p-sortIcon>
 									</th>
-                  <th *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.Terus.Edit') || _appSession.isGranted('Halaman.Tabung.Bayaran.Terus.Hapus')" style="width: 130px">Tindakan</th>
+                  <th *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.Terus.Edit') || _appSession.isGranted('Halaman.Tabung.Bayaran.Terus.Hapus')" style="width: 140px">Tindakan</th>
 								</tr>
 							</ng-template>
 							<ng-template pTemplate="body" let-record="$implicit">
 								<tr>
-									<td style="width: 120px">
+									<td style="width: 145px">
 										<span class="p-column-title">No. Rujukan Kelulusan</span>
 										{{record.no_rujukan_kelulusan}}
 									</td>
-									<td style="width: 120px">
+									<td style="width: 135px">
 										<span class="p-column-title">No. Rujukan Bayaran</span>
 										<label *ngIf="record.no_rujukan_terus">{{record.no_rujukan_terus}}</label>
                     <label *ngIf="!record.no_rujukan_terus">-</label>
@@ -191,7 +191,7 @@
 										<label *ngIf="record.tarikh">{{record.tarikh | date:'dd-MM-yyyy'}}</label>
                     <label *ngIf="!record.tarikh">-</label>
 									</td>
-									<td style="width: 100px">
+									<td style="width: 125px">
 										<span class="p-column-title">No. Baucar</span>
 										<label *ngIf="record.no_baucar">{{record.no_baucar}}</label>
                     <label *ngIf="!record.no_baucar">-</label>
@@ -210,7 +210,7 @@
 										<label *ngIf="record.jumlah">RM {{record.jumlah | number: '1.2-2'}}</label>
                     <label *ngIf="!record.jumlah">RM 0.00</label>
 									</td>
-                  <td style="width: 130px" *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.Terus.Edit') || _appSession.isGranted('Halaman.Tabung.Bayaran.Terus.Hapus')">
+                  <td style="width: 140px" *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.Terus.Edit') || _appSession.isGranted('Halaman.Tabung.Bayaran.Terus.Hapus')">
 										<div ngbDropdown class="btn-group" role="group" container="body">
 											<button
 												type="button"
