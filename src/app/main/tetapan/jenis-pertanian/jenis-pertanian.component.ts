@@ -81,7 +81,7 @@ export class JenisPertanianComponent implements OnInit {
 		this.terms$.next(filterValue);
 	  }
 
-	addKadarBwiModal() {
+	addJenisPertanianModal() {
 		const modalRef = this.modalService.open(TambahEditJenisPertanianComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'add';
 		modalRef.result.then((response) => {
@@ -91,7 +91,7 @@ export class JenisPertanianComponent implements OnInit {
 		});
 	}
 
-	editKadarBwiModal(id) {
+	editJenisPertanianModal(id) {
 		const modalRef = this.modalService.open(TambahEditJenisPertanianComponent, { size: 'lg' });
 		modalRef.componentInstance.name = 'edit';
 		modalRef.componentInstance.id = id;
