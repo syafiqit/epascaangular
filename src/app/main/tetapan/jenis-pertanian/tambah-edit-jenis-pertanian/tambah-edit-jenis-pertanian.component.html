@@ -1,0 +1,60 @@
+<div class="modal-header">
+	<h5 class="modal-title" *ngIf="name === 'add'">Tambah Jenis Pertanian</h5>
+	<h5 class="modal-title" *ngIf="name === 'edit'">Kemaskini Jenis Pertanian</h5>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
+	<div class="modal-body">
+		<div class="row">
+
+			<div class="col-6">
+				<div class="form-group">
+					<label>Jenis Pertanian*</label>
+					<input
+						class="form-control"
+						id="kadar"
+						type="text"
+						name="jumlah_kadar"
+						placeholder="Kadar (RM)"
+						[(ngModel)]="jenis_pertanian.nama_jenis_pertanian"
+						#namaPertanian="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && namaPertanian.invalid }"
+						currencyMask
+						[options]="{ prefix: 'RM ', align: 'left' }"
+						required
+					/>
+					<div *ngIf="f.submitted && namaPertanian.invalid" class="invalid-feedback">
+						<div *ngIf="kadarBwi.errors.required">Jenis Pertanian Wajib Diisi</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label>Status*</label>
+					<select
+						class="form-control digits"
+						name="status_kadar"
+						[(ngModel)]="jenis_pertanian.status_jenis_pertanian"
+						#status="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && status.invalid }"
+						required
+					>
+						<option selected disabled [value]="undefined">Sila Pilih</option>
+						<option [value]="1">Aktif</option>
+						<option [value]="2">Tidak Aktif</option>
+					</select>
+					<div *ngIf="f.submitted && status.invalid" class="invalid-feedback">
+						<div *ngIf="status.errors.required">Status Wajib Dipilih</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-light" (click)="activeModal.close(false)">Tutup</button>
+		<button type="submit" class="btn btn-primary">Simpan</button>
+	</div>
+</form>

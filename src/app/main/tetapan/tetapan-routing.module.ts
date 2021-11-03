@@ -24,6 +24,7 @@ import { JenisBwiComponent } from './jenis-bwi/jenis-bwi.component';
 import { TetapanComponent } from './tetapan.component';
 import { JenisBayaranComponent } from './jenis-bayaran/jenis-bayaran.component';
 import { KadarBwiComponent } from './kadar-bwi/kadar-bwi.component';
+import { JenisPertanianComponent } from './jenis-pertanian/jenis-pertanian.component';
 
 const routes: Routes = [
 	{
@@ -145,6 +146,11 @@ const routes: Routes = [
 				path: 'jenis-bayaran',
         		outlet: 'menu',
 				component: JenisBayaranComponent
+			},
+			{
+				path: 'jenis-pertanian',
+        		outlet: 'menu',
+				component: JenisPertanianComponent
 			}
 		]
 	}
