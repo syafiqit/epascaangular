@@ -1,5 +1,5 @@
 
-<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
+<form class="form theme-form" name="form" #f="ngForm" focusInvalidInput (ngSubmit)="f.form.valid && save()" novalidate>
     <div class="row">
         <div class="col-lg-6">
             <div class="form-group">

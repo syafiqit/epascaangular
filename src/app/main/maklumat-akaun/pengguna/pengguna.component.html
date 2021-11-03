@@ -4,7 +4,7 @@
 	<div class="col-lg-12">
 		<div class="card">
 			<div class="card-body">
-				<form class="form theme-form" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate autocomplete="off">
+				<form class="form theme-form" name="form" #f="ngForm" focusInvalidInput (ngSubmit)="f.form.valid && save()" novalidate autocomplete="off">
 					<div class="row">
 						<div class="col-lg-4">
               <label>Gambar Profil<span class="text-danger"> * <i class="flaticon-exclamation-2" placement="right" ngbTooltip="Image size 700 x 234 pixels"></i></span></label>
