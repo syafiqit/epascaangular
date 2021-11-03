@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { finalize } from 'rxjs/operators';
-import { AuthServiceProxy, InputLoginDto, OutputLoginDto } from 'src/app/shared/proxy/service-proxies';
+import { AuthServiceProxy, InputLoginDto, OutputLoginDto, RefPengumumanServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import { AuthUtils } from '@app/shared/helpers/auth.utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PaparPengumumanComponent } from '../papar-pengumuman/papar-pengumuman.component';
 import { ConfirmationService } from '@app/shared/services/confirmation';
-
 @Component({
 	selector: 'app-log-masuk',
 	templateUrl: './log-masuk.component.html'
 })
 export class LogMasukComponent implements OnInit {
+
 	public show = false;
   login: InputLoginDto = new InputLoginDto();
   output: OutputLoginDto = new OutputLoginDto();
@@ -22,13 +22,18 @@ export class LogMasukComponent implements OnInit {
 		private modalService: NgbModal,
     private _cookieService: CookieService,
     private _authServiceProxy: AuthServiceProxy,
-    private _confirmationService: ConfirmationService
+    private _confirmationService: ConfirmationService,
+    private _refPengumumanServiceProxy: RefPengumumanServiceProxy
     ) {}
 
 	ngOnInit(): void {
-    setTimeout(() => {
-      this.announcementModal();
-    }, 3500);
+    this._refPengumumanServiceProxy.getAllPengumumanForView().subscribe((result) => {
+      if(result.items.length > 0) {
+        setTimeout(() => {
+          this.announcementModal();
+        }, 1500);
+      }
+    });
   }
 
 	showPassword() {
