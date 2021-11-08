@@ -228,7 +228,7 @@ export class TambahPengurusanMangsaComponent implements OnInit {
       dismissible: true
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.router.navigateByUrl('/app/mangsa/senarai-pengurusan-mangsa');
+      this.router.navigateByUrl('/app/mangsa/senarai');
     });
   }
 

@@ -1,7 +1,7 @@
 <app-breadcrumb
 	[title]="'Belanja Secara Bayaran Terus'"
-	[items]="['Pengurusan Tabung','Pembayaran']"
-	[active_item]="['Bayaran Secara Terus']"
+	[items]="['Pengurusan Tabung','Terus']"
+	[active_item]="['Senarai']"
 ></app-breadcrumb>
 <div class="content d-flex flex-column flex-column-fluid">
 	<div class="container-fluid">
@@ -41,7 +41,7 @@
               *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.Terus.Tambah')"
               class="btn btn-primary pull-right"
               type="button"
-              [routerLink]="['/app/tabung/bayaran-terus/tambah']"
+              [routerLink]="['/app/tabung/terus/tambah']"
             >
               <i class="fa fa-plus mr-2"></i>
               <b>Tambah</b>
@@ -225,7 +225,7 @@
 											<div ngbDropdownMenu aria-labelledby="action">
 												<button
 													class="dropdown-item"
-													[routerLink]="['/app/tabung/bayaran-terus/edit']"
+													[routerLink]="['/app/tabung/terus/edit']"
                           [queryParams]="{id: record.id}"
                           *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.Terus.Edit')"
 												>

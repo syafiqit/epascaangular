@@ -1,7 +1,7 @@
 <app-breadcrumb
 	[title]="'Tambah Kelulusan'"
-	[items]="['Pengurusan Tabung']"
-	[active_item]="'Kelulusan'"
+	[items]="['Pengurusan Tabung', 'Kelulusan']"
+	[active_item]="'Tambah'"
 ></app-breadcrumb>
 <div class="container-fluid">
 	<div class="row">
@@ -217,7 +217,7 @@
 						</button>
 						<button
 							class="btn btn-light pull-right mr-1"
-							[routerLink]="['/app/tabung/senarai-kelulusan']"
+							[routerLink]="['/app/tabung/kelulusan/senarai']"
 							type="button"
 						>
 							Kembali

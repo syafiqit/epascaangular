@@ -157,7 +157,7 @@ export class MaklumatSuratComponent implements OnInit {
         else{
           this.errorMessage(response);
         }
-        
+
       });
   }
 
@@ -186,7 +186,7 @@ export class MaklumatSuratComponent implements OnInit {
       if(this.tabungKemaskiniKelulusan){
         this.router.navigate(['/app/tabung/edit'], { queryParams: { id: this.idTabung } });
       }else{
-        this.router.navigate(['/app/tabung/senarai-kelulusan']);
+        this.router.navigate(['/app/tabung/kelulusan/senarai']);
       }
     });
   }

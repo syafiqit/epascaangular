@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { TambahEditPengurusanBencanaComponent } from './tambah-edit-pengurusan-bencana/tambah-edit-pengurusan-bencana.component';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
@@ -191,7 +190,7 @@ export class PengurusanBencanaComponent implements OnInit {
 		  this.getDisaster();
 		});
 	}
-	
+
 	alertMessage(response){
 		const dialogRef = this._confirmationService.open({
 		  title: 'Tidak Berjaya',
@@ -214,7 +213,7 @@ export class PengurusanBencanaComponent implements OnInit {
       dismissible: true
     });
 		dialogRef.afterClosed().subscribe(() => {
-		  
+
 		});
 	}
 

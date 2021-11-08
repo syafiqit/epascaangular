@@ -1,12 +1,12 @@
 <app-breadcrumb *ngIf="idBencana"
 	[title]="'Kemaskini Bencana'"
-	[items]="['Kemaskini Maklumat', 'Pengurusan Bencana']"
-	[active_item]="'Kemaskini Bencana'"
+	[items]="['Pengurusan Bencana']"
+	[active_item]="'Kemaskini'"
 ></app-breadcrumb>
 <app-breadcrumb *ngIf="!idBencana"
 	[title]="'Tambah Bencana'"
-	[items]="['Kemaskini Maklumat', 'Pengurusan Bencana']"
-	[active_item]="'Tambah Bencana'"
+	[items]="['Pengurusan Bencana']"
+	[active_item]="'Tambah'"
 ></app-breadcrumb>
 <div class="container-fluid">
 	<div class="row">
@@ -156,7 +156,7 @@
 						<button *ngIf="idBencana" class="btn btn-primary pull-right" type="submit">Simpan</button>
 						<button
 							class="btn btn-light pull-right mr-2"
-							[routerLink]="['/app/bencana/pengurusan-bencana']"
+							[routerLink]="['/app/bencana/senarai']"
 							type="button"
 						>
 							Kembali

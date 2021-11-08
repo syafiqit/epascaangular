@@ -1,4 +1,4 @@
-<app-breadcrumb [title]="'Pengurusan Mangsa'" [active_item]="'Pengurusan Mangsa'"></app-breadcrumb>
+<app-breadcrumb [title]="'Senarai Mangsa'" [items]="['Pengurusan Mangsa']" [active_item]="'Senarai'"></app-breadcrumb>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-12">
@@ -42,7 +42,7 @@
 					<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
 					  <button
 						class="dropdown-item"
-						[routerLink]="['/app/mangsa/tambah-pengurusan-mangsa']">Manual
+						[routerLink]="['/app/mangsa/tambah']">Manual
 					  </button>
 					  <button class="dropdown-item">Pukal (Excel)</button>
 					</div>
@@ -308,7 +308,7 @@
 												<div ngbDropdownMenu aria-labelledby="action">
 													<button
 														class="dropdown-item"
-														[routerLink]="['/app/mangsa/edit-pengurusan-mangsa']"
+														[routerLink]="['/app/mangsa/edit']"
                             [queryParams]="{id: record.id}"
 													>
 														Lihat
