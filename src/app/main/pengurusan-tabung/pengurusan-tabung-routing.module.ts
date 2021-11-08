@@ -29,22 +29,17 @@ const routes: Routes = [
         data: { permission: 'Halaman.Tabung'}
 			},
 			{
-				path: 'senarai-wang-ihsan',
+				path: 'bwi/senarai',
 				component: WangIhsanComponent
 			},
 			{
-				path: 'tambah-wang-ihsan',
+				path: 'bwi/tambah',
 				component: TambahEditWangIhsanComponent
 			},
       {
-        path: 'edit-wang-ihsan',
+        path: 'bwi/edit',
         component: EditWangIhsanComponent
       },
-			{
-				path: 'muka-halaman-tabung',
-				component: MukaHalamanTabungComponent,
-        data: { permission: 'Halaman.Tabung.Dashboard'}
-			},
 			{
 				path: 'skb/senarai',
 				component: SkbComponent,
@@ -61,32 +56,32 @@ const routes: Routes = [
         data: { permission: 'Halaman.Tabung.Bayaran.SKB.Edit' }
 			},
 			{
-				path: 'bayaran-terus/senarai',
+				path: 'terus/senarai',
 				component: BayaranSecaraTerusComponent,
         data: { permission: 'Halaman.Tabung.Bayaran.Terus' }
 			},
 			{
-				path: 'bayaran-terus/tambah',
+				path: 'terus/tambah',
 				component: TambahEditBayaranSecaraTerusComponent,
         data: { permission: 'Halaman.Tabung.Bayaran.Terus.Tambah' }
 			},
 			{
-				path: 'bayaran-terus/edit',
+				path: 'terus/edit',
 				component: TambahEditBayaranSecaraTerusComponent,
         data: { permission: 'Halaman.Tabung.Bayaran.Terus.Edit' }
 			},
 			{
-				path: 'senarai-kelulusan',
+				path: 'kelulusan/senarai',
 				component: KelulusanComponent,
         data: { permission: 'Halaman.Tabung.Kelulusan'}
 			},
 			{
-				path: 'tambah-kelulusan',
+				path: 'kelulusan/tambah',
 				component: TambahKelulusanComponent,
         data: { permission: 'Halaman.Tabung.Kelulusan.Tambah'}
 			},
 			{
-				path: 'edit-kelulusan',
+				path: 'kelulusan/edit',
 				component: EditKelulusanComponent,
         data: { permission: 'Halaman.Tabung.Kelulusan.Edit'}
 			},
@@ -96,7 +91,7 @@ const routes: Routes = [
         data: { permission: 'Halaman.Tabung.Edit'}
 			},
 			{
-				path: 'edit-wang-ihsan/kir',
+				path: 'bwi/edit/kir',
 				component: TambahEditKirComponent
 			},
 			{
@@ -113,7 +108,12 @@ const routes: Routes = [
 				path: 'waran/edit',
 				component: EditWaranComponent,
         data: { permission: 'Halaman.Tabung.Bayaran.Waran.Edit' }
-			}
+			},
+      {
+        path: 'muka-halaman',
+        component: MukaHalamanTabungComponent,
+        data: { permission: 'Halaman.Tabung.Dashboard'}
+      }
 		]
 	}
 ];

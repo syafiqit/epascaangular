@@ -201,7 +201,7 @@ export class NavService implements OnDestroy {
         permission: 'Halaman',
 				children: [
           { path: '/app/muka-halaman', title: 'Utama', type: 'link', permission: 'Halaman.Dashboard', },
-          { path: '/app/tabung/muka-halaman-tabung', title: 'Tabung', type: 'link', permission: 'Halaman.Tabung.Dashboard' }
+          { path: '/app/tabung/muka-halaman', title: 'Tabung', type: 'link', permission: 'Halaman.Tabung.Dashboard' }
 				]
 			},
 			{
@@ -217,14 +217,14 @@ export class NavService implements OnDestroy {
 			},
 			{
 				title: 'Kemaskini Mangsa',
-				path: '/app/mangsa/senarai-pengurusan-mangsa',
+				path: '/app/mangsa/senarai',
 				icon: 'layers',
 				type: 'link',
         permission: 'Halaman.Mangsa'
 			},
 			{
 				title: 'Kemaskini Bencana',
-				path: '/app/bencana/pengurusan-bencana',
+				path: '/app/bencana/senarai',
 				icon: 'cloud-rain',
 				type: 'link',
         permission: 'Halaman.Bencana'
@@ -237,7 +237,7 @@ export class NavService implements OnDestroy {
         permission: 'Halaman.Tabung',
 				children: [
           { path: '/app/tabung/senarai', title: 'Tabung', type: 'link', permission: 'Halaman.Tabung'},
-          { path: '/app/tabung/senarai-kelulusan', title: 'Kelulusan', type: 'link', permission: 'Halaman.Tabung.Kelulusan' },
+          { path: '/app/tabung/kelulusan/senarai', title: 'Kelulusan', type: 'link', permission: 'Halaman.Tabung.Kelulusan' },
 				{
 					title: 'Pembayaran',
 					type: 'sub',
@@ -248,7 +248,7 @@ export class NavService implements OnDestroy {
               permission: 'Halaman.Tabung.Bayaran.SKB'
             },
             {
-              path: '/app/tabung/bayaran-terus/senarai',
+              path: '/app/tabung/terus/senarai',
               title: 'Bayaran Secara Terus',
               type: 'link',
               permission: 'Halaman.Tabung.Bayaran.Terus'
@@ -261,7 +261,7 @@ export class NavService implements OnDestroy {
             }
 					]
 				},
-				  { path: '/app/tabung/senarai-wang-ihsan',
+				  { path: '/app/tabung/bwi/senarai',
             title: 'Bantuan Wang Ihsan',
             type: 'link',
             permission: 'Halaman.Tabung.BWI'

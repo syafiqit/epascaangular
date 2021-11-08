@@ -8,12 +8,12 @@ const routes: Routes = [
 		path: '',
 		children: [
 			{
-				path: 'pengurusan-bencana',
+				path: 'senarai',
 				component: PengurusanBencanaComponent,
         data: { permission: 'Halaman.Bencana' }
 			},
 			{
-				path: 'tambah-edit-pengurusan-bencana',
+				path: 'tambah-edit',
 				component: TambahEditPengurusanBencanaComponent
 			}
 		]

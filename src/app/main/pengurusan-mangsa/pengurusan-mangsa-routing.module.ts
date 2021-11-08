@@ -9,17 +9,17 @@ const routes: Routes = [
 		path: '',
 		children: [
 			{
-				path: 'senarai-pengurusan-mangsa',
+				path: 'senarai',
 				component: PengurusanMangsaComponent,
         data: { permission: 'Halaman.Mangsa' }
 			},
 			{
-				path: 'tambah-pengurusan-mangsa',
+				path: 'tambah',
 				component: TambahPengurusanMangsaComponent,
         data: { permission: 'Halaman.Mangsa.Tambah' }
 			},
 			{
-				path: 'edit-pengurusan-mangsa',
+				path: 'edit',
 				component: EditPengurusanMangsaComponent,
 			}
 		]
