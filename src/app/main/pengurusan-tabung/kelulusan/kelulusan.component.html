@@ -1,7 +1,7 @@
 <app-breadcrumb
 	[title]="'Kelulusan'"
-	[items]="['Pengurusan Tabung']"
-	[active_item]="['Kelulusan']"
+	[items]="['Pengurusan Tabung', 'Kelulusan']"
+	[active_item]="['Senarai']"
 ></app-breadcrumb>
 
 <div class="content d-flex flex-column flex-column-fluid">
@@ -39,7 +39,7 @@
 
           <div class="col-4 justify-content-end pr-0" *ngIf="_appSession.isGranted('Halaman.Tabung.Kelulusan.Tambah')">
             <button
-              [routerLink]="['/app/tabung/tambah-kelulusan']"
+              [routerLink]="['/app/tabung/kelulusan/tambah']"
               class="btn btn-primary pull-right"
             >
               <i class="fa fa-plus mr-2"></i>
@@ -281,7 +281,7 @@
 											<div ngbDropdownMenu aria-labelledby="action">
 												<button
 													class="dropdown-item"
-													[routerLink]="['/app/tabung/edit-kelulusan']"
+													[routerLink]="['/app/tabung/kelulusan/edit']"
                           [queryParams]="{id: record.kelulusan.id}"
                           *ngIf="_appSession.isGranted('Halaman.Tabung.Kelulusan.Edit')"
 												>
@@ -304,7 +304,7 @@
 												</button>
 												<button
 													class="dropdown-item"
-													[routerLink]="['/app/tabung/bayaran-terus/tambah']"
+													[routerLink]="['/app/tabung/terus/tambah']"
                           [queryParams]="{kelulusan: record.kelulusan.id, no_ruj: record.kelulusan.no_rujukan_kelulusan}"
                           *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.Terus.Tambah')"
 												>

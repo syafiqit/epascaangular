@@ -1,4 +1,4 @@
-<app-breadcrumb [title]="'Pengurusan Bencana'" [active_item]="['Pengurusan Bencana']"></app-breadcrumb>
+<app-breadcrumb [title]="'Senarai Bencana'" [items]="['Pengurusan Bencana']" [active_item]="['Senarai']"></app-breadcrumb>
 <div class="content d-flex flex-column flex-column-fluid">
 	<div class="container-fluid">
 		<div class="card card-custom gutter-b">
@@ -35,7 +35,7 @@
           <div class="col-4 justify-content-end pr-0" *ngIf="_appSession.isGranted('Halaman.Bencana.Tambah')">
             <button
                 class="btn btn-primary pull-right"
-                [routerLink]="['/app/bencana/tambah-edit-pengurusan-bencana']"
+                [routerLink]="['/app/bencana/tambah-edit']"
               >
                 <i class="fa fa-plus mr-2"></i>
                 <b>Tambah</b>
@@ -204,7 +204,7 @@
 											<div ngbDropdownMenu aria-labelledby="action">
 												<button
 													class="dropdown-item"
-													[routerLink]="['/app/bencana/tambah-edit-pengurusan-bencana']"
+													[routerLink]="['/app/bencana/tambah-edit']"
                           [queryParams]="{id: record.bencana.id}"
                           *ngIf="_appSession.isGranted('Halaman.Bencana.Edit')"
 												>

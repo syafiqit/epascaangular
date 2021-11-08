@@ -196,7 +196,7 @@ export class TambahKelulusanComponent implements OnInit {
       if(this.tabungTambahKelulusan){
         this.router.navigate(['/app/tabung/edit'], { queryParams: { id: this.id_tabung } });
       }else{
-        this.router.navigate(['/app/tabung/senarai-kelulusan']);
+        this.router.navigate(['/app/tabung/kelulusan/senarai']);
       }
 		});
 	}

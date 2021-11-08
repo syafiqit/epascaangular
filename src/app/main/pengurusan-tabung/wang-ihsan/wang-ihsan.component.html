@@ -1,7 +1,7 @@
 <app-breadcrumb
 	[title]="'Bantuan wang Ihsan'"
-	[items]="['Pengurusan Tabung']"
-	[active_item]="['Bantuan Wang Ihsan']"
+	[items]="['Pengurusan Tabung', 'BWI']"
+	[active_item]="['Senarai']"
 ></app-breadcrumb>
 <div class="content d-flex flex-column flex-column-fluid">
 	<div class="container-fluid">
@@ -38,7 +38,7 @@
 
           <div class="col-4 justify-content-end pr-0">
             <button
-                [routerLink]="['/app/tabung/tambah-wang-ihsan']"
+                [routerLink]="['/app/tabung/bwi/tambah']"
                 class="btn btn-primary pull-right"
                 *ngIf="_appSession.isGranted('Halaman.Tabung.BWI.Tambah')"
               >
@@ -229,7 +229,7 @@
 											<div ngbDropdownMenu aria-labelledby="action">
 												<button
 													class="dropdown-item"
-													[routerLink]="['/app/tabung/edit-wang-ihsan']"
+													[routerLink]="['/app/tabung/bwi/edit']"
                           [queryParams]="{id: record.id, idBencana: record.id_bencana}"
                           *ngIf="_appSession.isGranted('Halaman.Tabung.BWI.Edit')"
 												>

@@ -1,14 +1,14 @@
 <app-breadcrumb
   *ngIf="!idBayaranTerus"
 	[title]="'Tambah Belanja Secara Bayaran Terus'"
-	[items]="['Pengurusan Tabung']"
-	[active_item]="'Kelulusan'"
+	[items]="['Pengurusan Tabung', 'Terus']"
+	[active_item]="'Tambah'"
 ></app-breadcrumb>
 <app-breadcrumb
   *ngIf="idBayaranTerus"
 	[title]="'Kemaskini Belanja Secara Bayaran Terus'"
-	[items]="['Pengurusan Tabung']"
-	[active_item]="'Kelulusan'"
+	[items]="['Pengurusan Tabung', 'Terus']"
+	[active_item]="'Kemaskini'"
 ></app-breadcrumb>
 <div class="container-fluid">
 	<div class="row">
@@ -336,7 +336,7 @@
 						</button>
 						<button
 							class="btn btn-light pull-right mr-2"
-							[routerLink]="['/app/tabung/bayaran-terus/senarai']"
+							[routerLink]="['/app/tabung/terus/senarai']"
 							type="button"
 						>
 							Kembali

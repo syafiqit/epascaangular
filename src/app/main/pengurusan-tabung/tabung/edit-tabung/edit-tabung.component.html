@@ -1,7 +1,7 @@
 <app-breadcrumb
 	[title]="'Kemaskini Tabung'"
-	[items]="['Pengurusan Tabung']"
-	[active_item]="['Kemaskini Tabung']"
+	[items]="['Pengurusan Tabung', 'Tabung']"
+	[active_item]="['Kemaskini']"
 ></app-breadcrumb>
 <div class="container-fluid">
 	<div class="row">
@@ -338,7 +338,7 @@
 
             <h6 *ngIf="_appSession.isGranted('Halaman.Tabung.Kelulusan')">Kelulusan</h6>
             <div class="row no-gutters justify-content-end mb-2" *ngIf="_appSession.isGranted('Halaman.Tabung.Kelulusan.Tambah')">
-              <button class="btn btn-primary" type="button" [routerLink]="'/app/tabung/tambah-kelulusan'" [queryParams]="{idTabung: idTabung, namaTabung: getTabung.tabung.nama_tabung, tabungTambahKelulusan: tabungTambahKelulusan}">
+              <button class="btn btn-primary" type="button" [routerLink]="'/app/tabung/kelulusan/tambah'" [queryParams]="{idTabung: idTabung, namaTabung: getTabung.tabung.nama_tabung, tabungTambahKelulusan: tabungTambahKelulusan}">
                 <i class="fa fa-plus mr-2"></i>
                 <b>Tambah</b>
               </button>
@@ -469,7 +469,7 @@
                           <div ngbDropdownMenu aria-labelledby="action">
                             <a
                               class="dropdown-item"
-                              [routerLink]="'/app/tabung/edit-kelulusan'"
+                              [routerLink]="'/app/tabung/kelulusan/edit'"
                               [queryParams]="{id: records.kelulusan.id, idTabung: idTabung, tabungKemaskiniKelulusan: tabungKemaskiniKelulusan}"
                               *ngIf="_appSession.isGranted('Halaman.Tabung.Kelulusan.Edit')"
                             >
@@ -493,7 +493,7 @@
                             </a>
                             <a
                               class="dropdown-item"
-                              [routerLink]="['/app/tabung/bayaran-terus/tambah']"
+                              [routerLink]="['/app/tabung/terus/tambah']"
                               [queryParams]="{kelulusan: records.kelulusan.id, no_ruj: records.kelulusan.no_rujukan_kelulusan}"
                               *ngIf="_appSession.isGranted('Halaman.Tabung.Bayaran.Terus.Tambah')"
                             >

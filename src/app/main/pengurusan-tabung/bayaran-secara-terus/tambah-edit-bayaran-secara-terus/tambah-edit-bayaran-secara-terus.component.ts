@@ -287,7 +287,7 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
             dismissible: true
           });
           dialogRef.afterClosed().subscribe(() => {
-            this.router.navigateByUrl('/app/tabung/bayaran-terus/senarai');
+            this.router.navigateByUrl('/app/tabung/terus/senarai');
           });
         }else{
           this._confirmationService.open({
@@ -343,7 +343,7 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
             dismissible: true
           });
           dialogRef.afterClosed().subscribe(() => {
-            this.router.navigateByUrl('/app/tabung/bayaran-terus/senarai');
+            this.router.navigateByUrl('/app/tabung/terus/senarai');
           });
         }
         else{

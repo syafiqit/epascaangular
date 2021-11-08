@@ -263,7 +263,7 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 		  dismissible: true
 		});
 		dialogRef.afterClosed().subscribe(() => {
-		  this.router.navigate(['/app/bencana/pengurusan-bencana']);
+		  this.router.navigate(['/app/bencana/senarai']);
 		});
 	}
 
@@ -289,7 +289,7 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 		  dismissible: true
 		});
 		dialogRef.afterClosed().subscribe(() => {
-		  this.router.navigate(['/app/bencana/pengurusan-bencana']);
+		  this.router.navigate(['/app/bencana/senarai']);
 		});
 	}
 }

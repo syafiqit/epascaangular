@@ -451,7 +451,7 @@ export class TambahEditWangIhsanComponent implements OnInit {
           dismissible: true
         });
         dialogRef.afterClosed().subscribe(() => {
-          this.router.navigateByUrl('/app/tabung/senarai-wang-ihsan');
+          this.router.navigateByUrl('/app/tabung/bwi/senarai');
         });
 
 			});

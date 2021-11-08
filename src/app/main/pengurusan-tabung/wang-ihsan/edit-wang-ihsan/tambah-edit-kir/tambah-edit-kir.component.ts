@@ -240,7 +240,7 @@ export class TambahEditKirComponent implements OnInit {
           dismissible: true
         });
         dialogRef.afterClosed().subscribe(() => {
-          this._router.navigateByUrl('app/tabung/senarai-wang-ihsan');
+          this._router.navigateByUrl('app/tabung/bwi/senarai');
         });
 			});
   }
