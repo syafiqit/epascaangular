@@ -133,7 +133,7 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
         if(result.pengguna.id_peranan === 2) {
           this.agensiNadma = false;
         }
-        this.getAgensi(result.pengguna.id_kementerian ?? undefined);
+        this.getAgensi(result.pengguna.id_agensi ?? undefined);
         this.getKementerian();
         this.getDaerah(result.pengguna.id_daerah ?? undefined);
         this.getNegeri();
