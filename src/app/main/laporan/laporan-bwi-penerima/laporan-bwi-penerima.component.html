@@ -178,6 +178,14 @@
 											Nama Bencana
 											<p-sortIcon field="nama_bencana"></p-sortIcon>
 										</th>
+                    <th style="width: 150px" pSortableColumn="tarikh_bencana">
+											Tarikh Bencana
+											<p-sortIcon field="tarikh_bencana"></p-sortIcon>
+										</th>
+                    <th style="width: 130px" pSortableColumn="nama_jenis_bwi">
+											Jenis Bwi
+											<p-sortIcon field="nama_jenis_bwi"></p-sortIcon>
+										</th>
 										<th style="width: 130px" pSortableColumn="alamat_1">
 											Alamat 1
 											<p-sortIcon field="alamat_1"></p-sortIcon>
@@ -217,6 +225,14 @@
 										<td style="width: 160px">
 											<span class="p-column-title">Nama Bencana</span>
 											{{record.nama_bencana}}
+										</td>
+                    <td style="width: 150px">
+											<span class="p-column-title">Tarikh Bencana</span>
+											{{record.tarikh_bencana | date:'dd-MM-yyyy'}}
+										</td>
+                    <td style="width: 130px">
+											<span class="p-column-title">Jenis Bwi</span>
+											{{record.nama_jenis_bwi}}
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Alamat 1</span>
