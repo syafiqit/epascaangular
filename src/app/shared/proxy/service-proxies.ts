@@ -26201,6 +26201,8 @@ export class GetMangsaBantuanWangIhsanLaporanDto implements IGetMangsaBantuanWan
     nama_daerah!: string;
     tarikh_serahan!: moment.Moment;
     jumlah!: string;
+    tarikh_bencana!: moment.Moment;
+    nama_jenis_bwi!: string;
 
     constructor(data?: IGetMangsaBantuanWangIhsanLaporanDto) {
         if (data) {
@@ -26223,6 +26225,8 @@ export class GetMangsaBantuanWangIhsanLaporanDto implements IGetMangsaBantuanWan
             this.nama_daerah = _data["nama_daerah"];
             this.tarikh_serahan = _data["tarikh_serahan"] ? moment(_data["tarikh_serahan"].toString()) : <any>undefined;
             this.jumlah = _data["jumlah"];
+            this.tarikh_bencana = _data["tarikh_bencana"] ? moment(_data["tarikh_bencana"].toString()) : <any>undefined;
+            this.nama_jenis_bwi = _data["nama_jenis_bwi"];
         }
     }
 
@@ -26245,6 +26249,8 @@ export class GetMangsaBantuanWangIhsanLaporanDto implements IGetMangsaBantuanWan
         data["nama_daerah"] = this.nama_daerah;
         data["tarikh_serahan"] = this.tarikh_serahan ? this.tarikh_serahan.toISOString() : <any>undefined;
         data["jumlah"] = this.jumlah;
+        data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
+        data["nama_jenis_bwi"] = this.nama_jenis_bwi;
         return data; 
     }
 }
@@ -26261,6 +26267,8 @@ export interface IGetMangsaBantuanWangIhsanLaporanDto {
     nama_daerah: string;
     tarikh_serahan: moment.Moment;
     jumlah: string;
+    tarikh_bencana: moment.Moment;
+    nama_jenis_bwi: string;
 }
 
 /** Class GetMangsaLaporanDto */
