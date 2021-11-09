@@ -1,12 +1,12 @@
 <app-breadcrumb [title]="'Rujukan'" [items]="['Menu']" [active_item]="'Rujukan'"></app-breadcrumb>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-xl-12 col-md-12 box-col-12">
+		<div class="col-lg-12 col-md-12 box-col-12">
 			<div class="file-content">
 				<div class="card">
 					<div class="card-body file-manager">
-						<ul class="files">
-              <li class="file-box m-2" style="width: 300px; height: 155px;" *ngFor="let record of primengTableHelper.records">
+						<ul class="files row">
+              <li class="file-box m-1" *ngFor="let record of primengTableHelper.records">
                 <a (click)="getFile(record.lokasi_dokumen)" style="cursor: pointer;">
                   <div class="file-top">
                     <img style="width: 50px;" [src]="defaultImageUrl"/>

@@ -7,7 +7,7 @@
 				<form class="form theme-form" name="form" #f="ngForm" focusInvalidInput (ngSubmit)="f.form.valid && save()" novalidate autocomplete="off">
 					<div class="row">
 						<div class="col-lg-4">
-              <label>Gambar Profil<span class="text-danger"> * <i class="flaticon-exclamation-2" placement="right" ngbTooltip="Image size 700 x 234 pixels"></i></span></label>
+              <label>Gambar Profil</label>
               <div></div>
               <img class="mw-100 mb-2" [src]="getProfile.pengguna.gambar ? getProfile.pengguna.gambar : defaultImageUrl" (error)="getProfile.pengguna.gambar = defaultImageUrl"/>
               <div class="custom-file">
@@ -145,16 +145,13 @@
 							<div class="form-group">
 								<label>Agensi*</label>
 								<div *ngIf="showAddress == false" [@fadeVerticalAnimation]>
-                  <ng-select
-                    [items]="agencies"
-                    bindLabel="nama_agensi"
-                    placeholder="Sila Pilih"
-                    class="js-example-placeholder-multiple"
-                    name="nama_agensi"
-                    (change)="setKementerian()"
-                    [(ngModel)]="agensi"
-                    disabled
-                  ></ng-select>
+                  <input
+											class="form-control"
+											name="nama_agensi"
+											placeholder="Nama Agensi"
+											[(ngModel)]="getProfile.agensi.nama_agensi"
+                      disabled
+									/>
                 </div>
                 <div *ngIf="showAddress == true" [@fadeVerticalAnimation]>
                   <ng-select
