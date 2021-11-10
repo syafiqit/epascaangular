@@ -18,7 +18,6 @@
 									<div class="input-group">
 										<input
                       class="form-control"
-                      type="text"
                       placeholder="No. Rujukan Kelulusan"
                       name="no_kelulusan"
                       [(ngModel)]="no_rujukan_kelulusan"
@@ -72,7 +71,7 @@
                     ngbDatepicker
                     [footerTemplate]="footerTemplate"
                     #d4="ngbDatepicker"
-                    style="border: 1px solid #efefef !important;"
+                    style="border-color: #efefef;"
                     #letterDate="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && letterDate.invalid }"
                     autocomplete="off"

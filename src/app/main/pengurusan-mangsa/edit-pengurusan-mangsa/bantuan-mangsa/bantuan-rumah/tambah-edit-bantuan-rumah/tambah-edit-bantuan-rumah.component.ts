@@ -20,7 +20,6 @@ import { AppSessionService } from '@app/shared/services/app-session.service';
 @Component({
   selector: 'app-tambah-edit-bantuan-rumah',
   templateUrl: './tambah-edit-bantuan-rumah.component.html',
-  styleUrls:['./tambah-edit-bantuan-rumah.component.scss'],
   encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig, NgbModal]
 })

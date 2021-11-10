@@ -24,7 +24,6 @@
 									<div class="input-group">
 										<input
                       class="form-control"
-                      type="text"
                       placeholder="No. Rujukan Kelulusan"
                       name="no_kelulusan"
                       [(ngModel)]="no_rujukan_kelulusan"
@@ -97,7 +96,6 @@
 									<div class="input-group">
 										<input
                       class="form-control"
-                      type="text"
                       placeholder="Bencana"
                       name="bencana"
                       [(ngModel)]="namaBencana"
@@ -111,10 +109,10 @@
 												<i class="fa fa-search text-white"></i>
 											</button>
 										</div>
+                    <div *ngIf="f.submitted && bencana.invalid" class="invalid-feedback">
+                      <div *ngIf="bencana.errors.required">Bencana Wajib Dipilih</div>
+                    </div>
 									</div>
-                  <div *ngIf="f.submitted && bencana.invalid" class="invalid-feedback">
-                    <div *ngIf="bencana.errors.required">Bencana Wajib Dipilih</div>
-                  </div>
 								</div>
 							</div>
 						</div>
@@ -131,7 +129,7 @@
                       [(ngModel)]="modelTarikhBencana"
                       ngbDatepicker
                       #d="ngbDatepicker"
-                      style="border: 1px solid #efefef !important;"
+                      style="border-color: #efefef;"
                       disabled
                     >
                   </div>
@@ -256,7 +254,7 @@
                       ngbDatepicker
                       [footerTemplate]="footerTemplate"
                       #d="ngbDatepicker"
-                      style="border: 1px solid #efefef !important;"
+                      style="border-color: #efefef;"
                     >
                     <div class="input-group-append">
                       <button class="btn btn-light" (click)="d.toggle()" type="button"><i
@@ -320,25 +318,13 @@
 							</div>
             </div>
 
-						<button
-              *ngIf="!idBayaranTerus"
-							class="btn btn-primary pull-right"
-							type="submit"
-						>
+						<button *ngIf="!idBayaranTerus" class="btn btn-primary pull-right" type="submit">
 							Hantar
 						</button>
-            <button
-              *ngIf="idBayaranTerus"
-							class="btn btn-primary pull-right"
-							type="submit"
-						>
+            <button *ngIf="idBayaranTerus" class="btn btn-primary pull-right" type="submit">
 							Simpan
 						</button>
-						<button
-							class="btn btn-light pull-right mr-2"
-							[routerLink]="['/app/tabung/terus/senarai']"
-							type="button"
-						>
+						<button class="btn btn-light pull-right mr-2" [routerLink]="['/app/tabung/terus/senarai']" type="button">
 							Kembali
 						</button>
 					</form>

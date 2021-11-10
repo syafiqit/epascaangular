@@ -17,8 +17,7 @@ import { AppSessionService } from '@app/shared/services/app-session.service';
 @Component({
 	selector: 'app-tambah-edit-mangsa-bencana',
 	templateUrl: './tambah-edit-mangsa-bencana.component.html',
-  animations: [fadeVerticalAnimation],
-  styleUrls: ['./tambah-edit-mangsa-bencana.component.scss']
+  animations: [fadeVerticalAnimation]
 })
 
 export class TambahEditMangsaBencanaComponent implements OnInit {

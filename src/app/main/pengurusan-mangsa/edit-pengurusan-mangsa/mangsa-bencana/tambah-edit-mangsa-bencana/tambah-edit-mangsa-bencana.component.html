@@ -45,7 +45,7 @@
             [(ngModel)]="modelBencana"
             ngbDatepicker
             #d3="ngbDatepicker"
-            style="border: 1px solid #efefef !important;"
+            style="border-color: #efefef;"
             readonly
           >
         </div>
@@ -67,7 +67,7 @@
 						#statusPindah="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && statusPindah.invalid }"
 						required
-						[disabled]="!(_appSession.isGranted('Halaman.Mangsa.Bencana.Edit') || _appSession.isGranted('Halaman.Mangsa.Bencana.Tambah'))"
+						[disabled]="!_appSession.isGranted('Halaman.Mangsa.Bencana.Edit') || !_appSession.isGranted('Halaman.Mangsa.Bencana.Tambah')"
 					></ng-select>
 					<div *ngIf="f.submitted && statusPindah.invalid" class="invalid-feedback">
 						<div *ngIf="statusPindah.errors.required">Status Berpindah Wajib Dipilih</div>
@@ -80,15 +80,13 @@
 					<label>Nama Pusat*</label>
 					<input
 						class="form-control"
-            id="pusatPindah"
-						type="text"
 						name="nama_pusat_pemindahan"
 						[(ngModel)]="addBencana.nama_pusat_pemindahan"
 						placeholder="Nama Pusat"
 						#namaPusat="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && namaPusat.invalid }"
 						required
-						[readonly]="!(_appSession.isGranted('Halaman.Mangsa.Bencana.Edit') || _appSession.isGranted('Halaman.Mangsa.Bencana.Tambah'))"
+						[readonly]="!_appSession.isGranted('Halaman.Mangsa.Bencana.Edit') || !_appSession.isGranted('Halaman.Mangsa.Bencana.Tambah')"
 					/>
 					<div *ngIf="f.submitted && namaPusat.invalid" class="invalid-feedback">
 						<div *ngIf="namaPusat.errors.required">Nama Pusat Wajib Diisi</div>
@@ -105,7 +103,7 @@
 						name="masalah"
 						[(ngModel)]="addBencana.masalah"
 						placeholder="Masalah yang dihadapi..."
-						[readonly]="!(_appSession.isGranted('Halaman.Mangsa.Bencana.Edit') || _appSession.isGranted('Halaman.Mangsa.Bencana.Tambah'))"
+						[readonly]="!_appSession.isGranted('Halaman.Mangsa.Bencana.Edit') || !_appSession.isGranted('Halaman.Mangsa.Bencana.Tambah')"
 					></textarea>
 				</div>
 			</div>

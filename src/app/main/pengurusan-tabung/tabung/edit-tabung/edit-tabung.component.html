@@ -34,7 +34,6 @@
 									<label>Kategori Tabung</label>
 									<input
                     class="form-control"
-                    type="text"
                     name="kategori_tabung"
                     [(ngModel)]="nama_kategori_tabung"
                     disabled
@@ -47,7 +46,13 @@
 							<div class="col">
 								<div class="form-group mb-3">
 									<label>Catatan</label>
-									<textarea class="form-control" name="catatan" [(ngModel)]="getTabung.tabung.catatan" rows="3" placeholder="Catatan"></textarea>
+									<textarea
+                    class="form-control"
+                    name="catatan"
+                    [(ngModel)]="getTabung.tabung.catatan"
+                    rows="3"
+                    placeholder="Catatan"
+                  ></textarea>
 								</div>
 							</div>
 						</div>
