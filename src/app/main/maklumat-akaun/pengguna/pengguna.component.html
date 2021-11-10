@@ -146,11 +146,11 @@
 								<label>Agensi*</label>
 								<div *ngIf="showAddress == false" [@fadeVerticalAnimation]>
                   <input
-											class="form-control"
-											name="nama_agensi"
-											placeholder="Nama Agensi"
-											[(ngModel)]="getProfile.agensi.nama_agensi"
-                      disabled
+                    class="form-control"
+                    name="nama_agensi"
+                    placeholder="Nama Agensi"
+                    [(ngModel)]="getProfile.agensi"
+                    disabled
 									/>
                 </div>
                 <div *ngIf="showAddress == true" [@fadeVerticalAnimation]>
@@ -176,7 +176,16 @@
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label>Kementerian*</label>
+                <input
+                   *ngIf="getProfile.pengguna.id_peranan != 2"
+                    class="form-control"
+                    name="nama_kementerian"
+                    placeholder="Nama Kementerian"
+                    [(ngModel)]="getProfile.kementerian"
+                    disabled
+									/>
                 <ng-select
+                  *ngIf="getProfile.pengguna.id_peranan == 2"
                   [items]="ministries"
                   bindLabel="nama_kementerian"
                   bindValue="id"
