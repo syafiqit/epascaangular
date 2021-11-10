@@ -28,6 +28,7 @@ export class TambahEditRujukanComponent implements OnInit {
   defaultImageUrl = '/assets/images/other-images/pdf-symbol.png';
   response: any = {};
   hasData: number;
+  sizeImage: number;
 
 	modelFooter: NgbDateStruct;
 	today = this.calendar.getToday();
@@ -60,11 +61,11 @@ export class TambahEditRujukanComponent implements OnInit {
   }
 
   onSelect(event) {
-    this.files = event.target.files[0];
-
-    const file = this.files;
-    this.formGroup.get('file').setValue(file);
-    this.hasData = 1;
+      this.files = event.target.files[0];
+      this.sizeImage = event.target.files[0].size;
+      const file = this.files;
+      this.formGroup.get('file').setValue(file);
+      this.hasData = 1;
   }
 
   getFile(location){
@@ -74,7 +75,7 @@ export class TambahEditRujukanComponent implements OnInit {
   tambahRujukan() {
     const dialogRef = this._confirmationService.open({
       title: 'Berjaya',
-      message: 'Maklumat Rujukan Berjaya Ditambah.',
+      message: 'Maklumat Rujukan Berjaya Ditambah',
       icon: {
         show: true,
         name: 'check-circle',
@@ -123,27 +124,32 @@ export class TambahEditRujukanComponent implements OnInit {
     });
   }
 
-  noFile() {
-    this._confirmationService.open({
-      title: 'Tidak Berjaya',
-      message: 'Dokumen Rujukan Wajib Dimuatnaik.',
-      icon: {
-        show: true,
-        name: 'x-circle',
-        color: 'error'
-      },
-      actions: {
-        confirm: {
+  saveImage(){
+    if (this.sizeImage > 5242880) { //5MB
+      this._confirmationService.open({
+        title: 'Fail cecah had maksima!',
+        message: 'Fail melebihi saiz 5MB.',
+        icon: {
           show: true,
-          label: 'Tutup',
-          color: 'primary'
+          name: 'alert-triangle',
+          color: 'error'
         },
-        cancel: {
-          show: false
-        }
-      },
-      dismissible: true
-    });
+        actions: {
+          confirm: {
+            show: true,
+            label: 'Tutup',
+            color: 'warn'
+          },
+          cancel: {
+            show: false
+          }
+        },
+        dismissible: true
+      });
+      return
+    }else{
+      this.save();
+    }
   }
 
   save(): void {
@@ -169,9 +175,6 @@ export class TambahEditRujukanComponent implements OnInit {
           });
         }
       });
-    }
-    else if (!this.files && this.name == 'add'){
-      this.noFile();
     }
     else {
       this._refRujukanServiceProxy
