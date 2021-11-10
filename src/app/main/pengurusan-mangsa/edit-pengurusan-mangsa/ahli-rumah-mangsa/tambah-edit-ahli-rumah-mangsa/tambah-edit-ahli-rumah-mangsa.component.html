@@ -14,14 +14,13 @@
 					<label>Nama*</label>
 					<input
 						class="form-control"
-						type="text"
 						name="nama"
 						[(ngModel)]="addAhli.nama"
 						placeholder="Nama Ahli Isi Rumah"
 						#namaMangsa="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && namaMangsa.invalid }"
 						required
-						[readonly]="!(_appSession.isGranted('Halaman.Mangsa.Air.Edit') || _appSession.isGranted('Halaman.Mangsa.Air.Tambah'))"
+						[readonly]="!_appSession.isGranted('Halaman.Mangsa.Air.Edit') || !_appSession.isGranted('Halaman.Mangsa.Air.Tambah')"
 					/>
 					<div *ngIf="f.submitted && namaMangsa.invalid" class="invalid-feedback">
 						<div *ngIf="namaMangsa.errors.required">Nama Ahli Isi Rumah Wajib Diisi</div>
@@ -34,7 +33,6 @@
 					<label>No. Kad Pengenalan</label>
           <input
             class="form-control"
-            type="text"
             name="no_kp"
             [(ngModel)]="addAhli.no_kp"
             placeholder="No. Kad Pengenalan"
@@ -43,7 +41,7 @@
             maxlength="12"
             onlyNumbers
             kpValidator
-			[readonly]="!_appSession.isGranted('Halaman.Mangsa.Air.Edit') || _appSession.isGranted('Halaman.Mangsa.Air.Tambah')"
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.Air.Edit') || !_appSession.isGranted('Halaman.Mangsa.Air.Tambah')"
           />
           <div class="mt-1" *ngIf="(noKp.touched || noKp.dirty) && noKp.errors?.valueInvalid" style="color: #dc3545; font-size: 80%; size: 80%;">
             No. Kad Pengenalan Kurang Daripada 12
@@ -70,7 +68,7 @@
 						#hubungan="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && hubungan.invalid }"
 						required
-						[disabled]="!_appSession.isGranted('Halaman.Mangsa.Air.Edit') || _appSession.isGranted('Halaman.Mangsa.Air.Tambah')"
+						[disabled]="!_appSession.isGranted('Halaman.Mangsa.Air.Edit') || !_appSession.isGranted('Halaman.Mangsa.Air.Tambah')"
 					></ng-select>
 					<div *ngIf="f.submitted && hubungan.invalid" class="invalid-feedback">
 						<div *ngIf="hubungan.errors.required">Kementerian Wajib Dipilih</div>
@@ -89,21 +87,21 @@
             (ngModelChange)="calculateAge()"
             ngbDatepicker
             [footerTemplate]="footerTemplate"
+            style="border-color: #efefef;"
             #d="ngbDatepicker"
-            style="border: 1px solid #efefef !important;"
             #tarikhLahir="ngModel"
-            [ngClass]="{ 'is-invalid': f.submitted && tarikhLahir.invalid }"
+            [ngClass]="{ 'is-invalid': f.submitted && !modelBirthdate }"
             [minDate]="{year: 1900, month:1, day: 1}" [maxDate]="{year: 2038, month:1, day: 19}"
             required
-			[readonly]="!_appSession.isGranted('Halaman.Mangsa.Air.Edit') || _appSession.isGranted('Halaman.Mangsa.Air.Tambah')"
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.Air.Edit') || !_appSession.isGranted('Halaman.Mangsa.Air.Tambah')"
           >
           <div *ngIf="_appSession.isGranted('Halaman.Mangsa.Air.Edit') || _appSession.isGranted('Halaman.Mangsa.Air.Tambah')" class="input-group-append">
             <button class="btn btn-light" (click)="d.toggle()" type="button"><i
               class="fa fa-calendar"></i></button>
           </div>
-					<div *ngIf="f.submitted && tarikhLahir.invalid" class="invalid-feedback">
-						<div *ngIf="tarikhLahir.errors.required">Tarikh Lahir Wajib Dipilih</div>
-					</div>
+        </div>
+        <div *ngIf="f.submitted && !modelBirthdate" >
+          <label style="color: #dc3545; font-size: 80%; size: 80%;">Tarikh Lahir Wajib Dipilih</label>
         </div>
       </div>
       <ng-template #footerTemplate>

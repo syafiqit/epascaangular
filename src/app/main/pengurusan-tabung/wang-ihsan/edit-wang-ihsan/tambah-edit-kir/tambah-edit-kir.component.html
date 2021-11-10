@@ -108,7 +108,6 @@
                   <input
                     class="form-control"
                     name="jumlah_dibayar"
-                    type="text"
                     placeholder="0.00"
                     [(ngModel)]="jumlahDibayar"
                     disabled
@@ -122,7 +121,6 @@
                   <input
                     class="form-control"
                     name="bil_dibayar"
-                    type="text"
                     placeholder="Bil. Dibayar (KIR)"
                     [(ngModel)]="bilDibayar"
                     disabled
@@ -138,7 +136,6 @@
                   <input
                     class="form-control"
                     name="jumlah_belum_dibayar"
-                    type="text"
                     placeholder="0.00"
                     [(ngModel)]="jumlahBelumDibayar"
                     disabled
@@ -152,7 +149,6 @@
                   <input
                     class="form-control"
                     name="bil_belum_dibayar"
-                    type="text"
                     placeholder="Bil. Belum Dibayar (KIR)"
                     [(ngModel)]="bilBelumDibayar"
                     disabled
@@ -168,7 +164,6 @@
                   <input
                     class="form-control"
                     name="jumlah_dipulangkan"
-                    type="text"
                     placeholder="0.00"
                     [(ngModel)]="jumlahDipulangkan"
                     disabled
@@ -182,7 +177,6 @@
                   <input
                     class="form-control"
                     name="bil_dipulangkan"
-                    type="text"
                     placeholder="Bil. Dipulangkan (KIR)"
                     [(ngModel)]="bilDipulangkan"
                     disabled
@@ -194,7 +188,7 @@
 
             <div class="row">
               <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
-                <label>Tarikh EFT/Pengeluaran*</label>
+                <label>Tarikh EFT/Pengeluaran</label>
                 <div class="input-group">
                   <input
                     class="form-control"
@@ -204,16 +198,11 @@
                     ngbDatepicker
                     [footerTemplate]="footerTemplate"
                     #d="ngbDatepicker"
-                    style="border: 1px solid #efefef !important;"
-                    #eftDate="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && eftDate.invalid }"
+                    style="border-color: #efefef;"
                   >
                   <div class="input-group-append">
                     <button class="btn btn-light" (click)="d.toggle()" type="button"><i
                       class="fa fa-calendar"></i></button>
-                  </div>
-                  <div *ngIf="f.submitted && eftDate.invalid" class="invalid-feedback">
-                    <div *ngIf="eftDate.errors.required">Tarikh Eft/Pengeluaran Wajib Dipilih</div>
                   </div>
                 </div>
               </div>
@@ -224,7 +213,7 @@
               </ng-template>
 
               <div class="form-group col-lg-6 custom-datepicker custom-datepicker-dropdown">
-                <label>Due Report (21 Hari)*</label>
+                <label>Due Report (21 Hari)</label>
                 <div class="input-group">
                   <input
                     class="form-control"
@@ -234,16 +223,11 @@
                     ngbDatepicker
                     [footerTemplate]="footerTemplate1"
                     #e="ngbDatepicker"
-                    style="border: 1px solid #efefef !important;"
-                    #dueReport="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && dueReport.invalid }"
+                    style="border-color: #efefef;"
                   >
                   <div class="input-group-append">
                     <button class="btn btn-light" (click)="e.toggle()" type="button"><i
                       class="fa fa-calendar"></i></button>
-                  </div>
-                  <div *ngIf="f.submitted && dueReport.invalid" class="invalid-feedback">
-                    <div *ngIf="dueReport.errors.required">Tarikh Due Report Wajib Dipilih</div>
                   </div>
                 </div>
               </div>
@@ -296,7 +280,7 @@
                     ngbDatepicker
                     [footerTemplate]="footerTemplate2"
                     #d1="ngbDatepicker"
-                    style="border: 1px solid #efefef !important;"
+                    style="border-color: #efefef;"
                   >
                   <div class="input-group-append">
                     <button class="btn btn-light" (click)="d1.toggle()" type="button"><i
@@ -338,7 +322,7 @@
                     ngbDatepicker
                     [footerTemplate]="footerTemplate3"
                     #d2="ngbDatepicker"
-                    style="border: 1px solid #efefef !important;"
+                    style="border-color: #efefef;"
                   >
                   <div class="input-group-append">
                     <button class="btn btn-light" (click)="d2.toggle()" type="button"><i
@@ -380,7 +364,7 @@
                     ngbDatepicker
                     [footerTemplate]="footerTemplate4"
                     #d3="ngbDatepicker"
-                    style="border: 1px solid #efefef !important;"
+                    style="border-color: #efefef;"
                   >
                   <div class="input-group-append">
                     <button class="btn btn-light" (click)="d3.toggle()" type="button"><i
@@ -422,7 +406,7 @@
                     ngbDatepicker
                     [footerTemplate]="footerTemplate5"
                     #d4="ngbDatepicker"
-                    style="border: 1px solid #efefef !important;"
+                    style="border-color: #efefef;"
                   >
                   <div class="input-group-append">
                     <button class="btn btn-light" (click)="d4.toggle()" type="button"><i
@@ -449,7 +433,7 @@
                     ngbDatepicker
                     [footerTemplate]="footerTemplate6"
                     #d5="ngbDatepicker"
-                    style="border: 1px solid #efefef !important;"
+                    style="border-color: #efefef;"
                   >
                   <div class="input-group-append">
                     <button class="btn btn-light" (click)="d5.toggle()" type="button"><i
@@ -491,7 +475,7 @@
                     ngbDatepicker
                     [footerTemplate]="footerTemplate7"
                     #sl="ngbDatepicker"
-                    style="border: 1px solid #efefef !important;"
+                    style="border-color: #efefef;"
                   >
                   <div class="input-group-append">
                     <button class="btn btn-light" (click)="sl.toggle()" type="button"><i

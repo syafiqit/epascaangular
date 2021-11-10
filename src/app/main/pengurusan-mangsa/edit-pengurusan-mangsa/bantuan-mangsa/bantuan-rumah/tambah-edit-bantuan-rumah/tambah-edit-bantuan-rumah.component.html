@@ -45,7 +45,7 @@
             [(ngModel)]="modelBencana"
             ngbDatepicker
             #d3="ngbDatepicker"
-            style="border: 1px solid #efefef !important;"
+            style="border-color: #efefef;"
             readonly
           >
         </div>
@@ -67,7 +67,7 @@
             #namaBantuan="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && namaBantuan.invalid }"
             required
-            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah'))"
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || !_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah')"
           ></ng-select>
           <div *ngIf="f.submitted && namaBantuan.invalid" class="invalid-feedback">
             <div *ngIf="namaBantuan.errors.required">Jenis Bantuan Wajib Dipilih</div>
@@ -89,7 +89,7 @@
             #namaKerosakan="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && namaKerosakan.invalid }"
             required
-            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah'))"
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || !_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah')"
           ></ng-select>
           <div *ngIf="f.submitted && namaKerosakan.invalid" class="invalid-feedback">
             <div *ngIf="namaKerosakan.errors.required">Jenis Kerosakan Wajib Dipilih</div>
@@ -112,7 +112,7 @@
             #statusTapakRumah="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && statusTapakRumah.invalid }"
             required
-            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah'))"
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || !_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah')"
           ></ng-select>
           <div *ngIf="f.submitted && statusTapakRumah.invalid" class="invalid-feedback">
             <div *ngIf="statusTapakRumah.errors.required">Status Tapak Asal Wajib Dipilih</div>
@@ -133,7 +133,7 @@
             #namaPemilik="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && namaPemilik.invalid }"
             required
-            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah'))"
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || !_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah')"
           ></ng-select>
           <div *ngIf="f.submitted && namaPemilik.invalid" class="invalid-feedback">
             <div *ngIf="namaPemilik.errors.required">Nama Agensi Pemilik Wajib Dipilih</div>
@@ -157,7 +157,7 @@
             #namaSumberDana="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && namaSumberDana.invalid }"
             required
-            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah'))"
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || !_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah')"
           ></ng-select>
           <div *ngIf="f.submitted && namaSumberDana.invalid" class="invalid-feedback">
             <div *ngIf="namaSumberDana.errors.required">Sumber Dana Wajib Dipilih</div>
@@ -170,11 +170,10 @@
           <label>Nyatakan Jika Sumber Dana Lain</label>
           <input
             class="form-control"
-            type="text"
             name="bantuanRumah.sumber_dana_lain"
             [(ngModel)]="bantuanRumah.sumber_dana_lain"
             placeholder="Sumber Dana Lain-lain"
-            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah'))"
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || !_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah')"
           />
         </div>
       </div>
@@ -196,7 +195,7 @@
             #namaPelaksana="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && namaPelaksana.invalid }"
             required
-            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah'))"
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || !_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah')"
           ></ng-select>
           <div *ngIf="f.submitted && namaPelaksana.invalid" class="invalid-feedback">
             <div *ngIf="namaPelaksana.errors.required">Nama Pelaksana Wajib Dipilih</div>
@@ -209,11 +208,10 @@
           <label>Nyatakan Jika Pelaksana Lain</label>
           <input
             class="form-control"
-            type="text"
             name="bantuanRumah.pelaksana_lain"
             [(ngModel)]="bantuanRumah.pelaksana_lain"
             placeholder="Pelaksana Lain-lain"
-            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah'))"
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || !_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah')"
           />
         </div>
       </div>
@@ -225,14 +223,13 @@
           <label>Kontraktor*</label>
           <input
             class="form-control"
-            type="text"
             name="bantuanRumah.kontraktor"
             [(ngModel)]="bantuanRumah.kontraktor"
             placeholder="Kontraktor"
             #namaKontraktor="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && namaKontraktor.invalid }"
             required
-            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah'))"
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || !_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah')"
           />
           <div *ngIf="f.submitted && namaKontraktor.invalid" class="invalid-feedback">
             <div *ngIf="namaKontraktor.errors.required">Kontraktor Wajib Diisi</div>
@@ -245,14 +242,13 @@
           <label>No. PKK*</label>
           <input
             class="form-control"
-            type="text"
             name="bantuanRumah.no_pkk"
             [(ngModel)]="bantuanRumah.no_pkk"
             placeholder="No. PKK"
             #noPkk="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && noPkk.invalid }"
             required
-            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah'))"
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || !_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah')"
           />
           <div *ngIf="f.submitted && noPkk.invalid" class="invalid-feedback">
             <div *ngIf="noPkk.errors.required">No. PKK Wajib Diisi</div>
@@ -267,7 +263,6 @@
           <label>Kos Anggaran (RM)*</label>
           <input
             class="form-control"
-            type="text"
             name="bantuanRumah.kos_anggaran"
             [(ngModel)]="bantuanRumah.kos_anggaran"
             placeholder="Kos Anggaran"
@@ -277,7 +272,7 @@
             currencyMask
             [options]="{ prefix: 'RM ', align: 'left' }"
             autocomplete="off"
-            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah'))"
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || !_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah')"
           />
           <div *ngIf="f.submitted && kosAnggaran.invalid" class="invalid-feedback">
             <div *ngIf="kosAnggaran.errors.required">Kos Anggaran Wajib Diisi</div>
@@ -290,7 +285,6 @@
           <label>Kos Sebenar (RM)*</label>
           <input
             class="form-control"
-            type="text"
             name="bantuanRumah.kos_sebenar"
             [(ngModel)]="bantuanRumah.kos_sebenar"
             placeholder="Kos Sebenar"
@@ -300,7 +294,7 @@
             currencyMask
             [options]="{ prefix: 'RM ', align: 'left' }"
             autocomplete="off"
-            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah'))"
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || !_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah')"
           />
           <div *ngIf="f.submitted && kosSebenar.invalid" class="invalid-feedback">
             <div *ngIf="kosSebenar.errors.required">Kos Sebenar Wajib Diisi</div>
@@ -321,11 +315,11 @@
             ngbDatepicker
             [footerTemplate]="footerTemplate"
             #d1="ngbDatepicker"
-            style="border: 1px solid #efefef !important;"
+            style="border-color: #efefef;"
             #tarikhMula="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && tarikhMula.invalid }"
             required
-            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah'))"
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || !_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah')"
           >
           <div class="input-group-append" *ngIf="_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah')">
             <button class="btn btn-light" (click)="d1.toggle()" type="button"><i
@@ -353,11 +347,11 @@
             ngbDatepicker
             [footerTemplate]="footerTemplate2"
             #d2="ngbDatepicker"
-            style="border: 1px solid #efefef !important;"
+            style="border-color: #efefef;"
             #tarikhSiap="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && tarikhSiap.invalid }"
             required
-            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah'))"
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || !_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah')"
           >
           <div class="input-group-append" *ngIf="_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah')">
             <button class="btn btn-light" (click)="d2.toggle()" type="button"><i
@@ -381,7 +375,6 @@
           <label>Peratus Kemajuan (%)*</label>
           <input
             class="form-control"
-            type="text"
             name="bantuanRumah.peratus_kemajuan"
             [(ngModel)]="bantuanRumah.peratus_kemajuan"
             placeholder="Peratus Kemajuan (%)"
@@ -389,7 +382,7 @@
             [ngClass]="{ 'is-invalid': f.submitted && peratusKemajuan.invalid }"
             required
             onlyNumbers
-            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah'))"
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || !_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah')"
           />
           <div *ngIf="f.submitted && peratusKemajuan.invalid" class="invalid-feedback">
             <div *ngIf="peratusKemajuan.errors.required">Peratus Kemajuan Wajib Diisi</div>
@@ -411,7 +404,7 @@
             #namaStatusKemajuan="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && namaStatusKemajuan.invalid }"
             required
-            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah'))"
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || !_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah')"
           ></ng-select>
           <div *ngIf="f.submitted && namaStatusKemajuan.invalid" class="invalid-feedback">
             <div *ngIf="namaStatusKemajuan.errors.required">Status Kemajuan Wajib Dipilih</div>
@@ -435,7 +428,7 @@
             #namaStatus="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && namaStatus.invalid }"
             required
-            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah'))"
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || !_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah')"
           ></ng-select>
           <div *ngIf="f.submitted && namaStatus.invalid" class="invalid-feedback">
             <div *ngIf="namaStatus.errors.required">Status Wajib Dipilih</div>
@@ -453,7 +446,7 @@
             name="catatan"
             rows="3"
             [(ngModel)]="bantuanRumah.catatan"
-            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah'))"
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Edit') || !_appSession.isGranted('Halaman.Mangsa.BantuanRumah.Tambah')"
           ></textarea>
 				</div>
 			</div>

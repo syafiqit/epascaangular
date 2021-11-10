@@ -29,11 +29,20 @@
 
 .form-control {
   font-size: 14px;
+  border-color: #efefef;
 }
 
 .form-control[readonly] {
   background-color: #f9f9f9;
   font-size: 14px;
+}
+
+::ng-deep .ng-select.ng-select-disabled > .ng-select-container {
+  background-color: #f9f9f9;
+}
+
+::ng-deep .ng-select.ng-select-readonly > .ng-select-container {
+  background-color: #f9f9f9;
 }
 
 //ng-select custom validation style

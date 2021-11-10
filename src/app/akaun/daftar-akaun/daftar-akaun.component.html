@@ -171,20 +171,19 @@
                   <div class="col-lg-6">
                     <div class="form-group">
                       <label>Nama Kementerian*</label>
-                      <select
-                        class="form-control"
+                      <ng-select
+                        [items]="ministries"
+                        bindLabel="nama_kementerian"
+                        bindValue="id"
+                        placeholder="Sila Pilih"
+                        class="js-example-placeholder-multiple"
                         name="id_kementerian"
                         [(ngModel)]="register.id_kementerian"
                         #kementerian="ngModel"
                         [ngClass]="{ 'is-invalid': f.submitted && kementerian.invalid }"
                         required
                         disabled
-                      >
-                        <option selected disabled [value]="undefined">Sila Pilih</option>
-                        <option *ngFor="let ministry of ministries" value="{{ministry.id}}">
-                          {{ministry.nama_kementerian}}
-                        </option>
-                      </select>
+                      ></ng-select>
                       <div *ngIf="f.submitted && kementerian.invalid" class="invalid-feedback">
                         <div *ngIf="kementerian.errors.required">Kementerian Wajib Dipilih</div>
                       </div>
@@ -320,20 +319,19 @@
                   <div class="col-lg-6">
                     <div class="form-group">
                       <label>Negeri*</label>
-                      <select
-                        class="form-control"
+                      <ng-select
+                        [items]="states"
+                        bindLabel="nama_negeri"
+                        bindValue="id"
+                        placeholder="Sila Pilih"
+                        class="js-example-placeholder-multiple"
                         name="id_negeri"
                         [(ngModel)]="register.id_negeri"
                         #negeri="ngModel"
                         [ngClass]="{ 'is-invalid': f.submitted && negeri.invalid }"
                         required
                         disabled
-                      >
-                        <option selected disabled [value]="undefined">Sila Pilih</option>
-                        <option *ngFor="let state of states" value="{{state.id}}">
-                          {{state.nama_negeri}}
-                        </option>
-                      </select>
+                      ></ng-select>
                       <div *ngIf="f.submitted && negeri.invalid" class="invalid-feedback">
                         <div *ngIf="negeri.errors.required">Negeri Wajib Diisi</div>
                       </div>
