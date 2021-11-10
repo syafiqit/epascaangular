@@ -14,8 +14,7 @@ import { AppSessionService } from '@app/shared/services/app-session.service';
 
 @Component({
 	selector: 'app-tambah-edit-ahli-rumah-mangsa',
-	templateUrl: './tambah-edit-ahli-rumah-mangsa.component.html',
-  styleUrls: ['./tambah-edit-ahli-rumah-mangsa.component.scss']
+	templateUrl: './tambah-edit-ahli-rumah-mangsa.component.html'
 })
 export class TambahEditAhliRumahMangsaComponent implements OnInit {
 	@Input() name;

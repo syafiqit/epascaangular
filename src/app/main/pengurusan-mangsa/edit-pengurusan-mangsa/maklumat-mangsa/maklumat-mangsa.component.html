@@ -6,7 +6,7 @@
           <div class="product-box">
             <div class="product-img image-center">
               <img class="img-fluid" [src]="getMangsa.mangsa.gambar" alt="profile-image" />
-              <div class="product-hover">
+              <div class="product-hover" *ngIf="_appSession.isGranted('Halaman.Mangsa.Edit')">
                 <ngx-dropzone (change)="onSelect($event)" accept="image/jpeg,image/jpg,image/png">
                   <ngx-dropzone-label>Kemaskini Gambar</ngx-dropzone-label>
                 </ngx-dropzone>
@@ -22,7 +22,7 @@
           <div class="product-box">
             <div class="product-img image-center">
               <img class="img-fluid" src="/assets/images/other-images/default-image.jpg" alt="profile-image" />
-              <div class="product-hover">
+              <div class="product-hover" *ngIf="_appSession.isGranted('Halaman.Mangsa.Edit')">
                 <ngx-dropzone (change)="onSelect($event)" accept="image/jpeg,image/jpg,image/png">
                   <ngx-dropzone-label>Kemaskini Gambar</ngx-dropzone-label>
                 </ngx-dropzone>
@@ -44,8 +44,6 @@
             <label>Nama*</label>
             <input
               class="form-control"
-              id="namaMangsa"
-              type="text"
               name="nama"
               [(ngModel)]="getMangsa.mangsa.nama"
               placeholder="Nama"
@@ -67,8 +65,6 @@
             <label>No. Kad Pengenalan*</label>
             <input
               class="form-control"
-              id="noKP"
-              type="text"
               name="no_kp"
               [(ngModel)]="getMangsa.mangsa.no_kp"
               placeholder="No. Kad Pengenalan"
@@ -97,8 +93,6 @@
             <label>No. Telefon*</label>
             <input
               class="form-control"
-              id="noTel"
-              type="text"
               name="telefon"
               [(ngModel)]="getMangsa.mangsa.telefon"
               placeholder="No. Telefon"
@@ -127,8 +121,6 @@
         <label>Alamat 1*</label>
         <input
           class="form-control"
-          id="alamat1"
-          type="text"
           name="alamat_1"
           [(ngModel)]="getMangsa.mangsa.alamat_1"
           placeholder="Alamat 1"
@@ -148,8 +140,6 @@
         <label>Alamat 2</label>
         <input
           class="form-control"
-          id="alamat2"
-          type="text"
           name="alamat_2"
           [(ngModel)]="getMangsa.mangsa.alamat_2"
           placeholder="Alamat 2"
@@ -165,8 +155,6 @@
         <label>Poskod*</label>
         <input
           class="form-control"
-          id="poskodMangsa"
-          type="text"
           name="poskod"
           [(ngModel)]="getMangsa.mangsa.poskod"
           placeholder="Poskod"

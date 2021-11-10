@@ -45,7 +45,7 @@
             [(ngModel)]="modelBencana"
             ngbDatepicker
             #d3="ngbDatepicker"
-            style="border: 1px solid #efefef !important;"
+            style="border-color: #efefef;"
             readonly
           >
         </div>
@@ -58,15 +58,13 @@
           <label>Nama Bantuan*</label>
           <input
             class="form-control"
-            id="nama_bantuan"
-            type="text"
             name="bantuanLain.nama_bantuan"
             [(ngModel)]="bantuanLain.nama_bantuan"
             placeholder="Nama Bantuan"
             #namaBantuan="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && namaBantuan.invalid }"
             required
-            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanLain.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanLain.Tambah'))"
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.BantuanLain.Edit') || !_appSession.isGranted('Halaman.Mangsa.BantuanLain.Tambah')"
           />
           <div *ngIf="f.submitted && namaBantuan.invalid" class="invalid-feedback">
             <div *ngIf="namaBantuan.errors.required">Nama Bantuan Wajib Diisi</div>
@@ -88,7 +86,7 @@
             #namaSumberDana="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && namaSumberDana.invalid }"
             required
-            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanLain.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanLain.Tambah'))"
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.BantuanLain.Edit') || !_appSession.isGranted('Halaman.Mangsa.BantuanLain.Tambah')"
           ></ng-select>
           <div *ngIf="f.submitted && namaSumberDana.invalid" class="invalid-feedback">
             <div *ngIf="namaSumberDana.errors.required">Sumber Dana Wajib Dipilih</div>
@@ -103,11 +101,10 @@
           <label>Nyatakan Jika Sumber Dana Lain</label>
           <input
             class="form-control"
-            type="text"
             name="sumber_dana_lain"
             [(ngModel)]="bantuanLain.sumber_dana_lain"
             placeholder="Sumber Dana Lain-lain"
-            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanLain.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanLain.Tambah'))"
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.BantuanLain.Edit') || !_appSession.isGranted('Halaman.Mangsa.BantuanLain.Tambah')"
           />
         </div>
       </div>
@@ -126,7 +123,7 @@
             #namaAgensi="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && namaAgensi.invalid }"
             required
-            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanLain.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanLain.Tambah'))"
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.BantuanLain.Edit') || !_appSession.isGranted('Halaman.Mangsa.BantuanLain.Tambah')"
           ></ng-select>
           <div *ngIf="f.submitted && namaAgensi.invalid" class="invalid-feedback">
             <div *ngIf="namaAgensi.errors.required">Nama Agensi Wajib Dipilih</div>
@@ -141,8 +138,6 @@
           <label>Kos Bantuan (RM)*</label>
           <input
             class="form-control"
-            id="kosBantuan"
-            type="text"
             name="bantuanLain.kos_bantuan"
             [(ngModel)]="bantuanLain.kos_bantuan"
             placeholder="Kos Bantuan"
@@ -152,7 +147,7 @@
             currencyMask
             [options]="{ prefix: 'RM ', align: 'left' }"
             autocomplete="off"
-            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanLain.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanLain.Tambah'))"
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.BantuanLain.Edit') || !_appSession.isGranted('Halaman.Mangsa.BantuanLain.Tambah')"
           />
           <div *ngIf="f.submitted && kosBantuan.invalid" class="invalid-feedback">
             <div *ngIf="kosBantuan.errors.required">Kos Bantuan Wajib Diisi</div>
@@ -171,11 +166,11 @@
             ngbDatepicker
             [footerTemplate]="footerTemplate"
             #d="ngbDatepicker"
-            style="border: 1px solid #efefef !important;"
+            style="border-color: #efefef;"
 						#tarikhBantuan="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && tarikhBantuan.invalid }"
 						required
-            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanLain.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanLain.Tambah'))"
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.BantuanLain.Edit') || !_appSession.isGranted('Halaman.Mangsa.BantuanLain.Tambah')"
           >
           <div class="input-group-append" *ngIf="_appSession.isGranted('Halaman.Mangsa.BantuanLain.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanLain.Tambah')">
             <button class="btn btn-light" (click)="d.toggle()" type="button"><i
@@ -208,7 +203,7 @@
             #namaStatus="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && namaStatus.invalid }"
             required
-            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanLain.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanLain.Tambah'))"
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.BantuanLain.Edit') || !_appSession.isGranted('Halaman.Mangsa.BantuanLain.Tambah')"
           ></ng-select>
           <div *ngIf="f.submitted && namaStatus.invalid" class="invalid-feedback">
             <div *ngIf="namaStatus.errors.required">Status Wajib Dipilih</div>
@@ -223,11 +218,11 @@
 					<label>Catatan</label>
 					<textarea
             class="form-control"
-            id="catatan"
             name="bantuanLain.catatan"
             [(ngModel)]="bantuanLain.catatan"
             rows="3"
-            [readonly]="!(_appSession.isGranted('Halaman.Mangsa.BantuanLain.Edit') || _appSession.isGranted('Halaman.Mangsa.BantuanLain.Tambah'))">
+            [readonly]="!_appSession.isGranted('Halaman.Mangsa.BantuanLain.Edit') || !_appSession.isGranted('Halaman.Mangsa.BantuanLain.Tambah')"
+          >
           </textarea>
 				</div>
 			</div>

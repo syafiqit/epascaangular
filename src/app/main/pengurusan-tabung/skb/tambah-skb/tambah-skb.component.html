@@ -18,7 +18,6 @@
 									<div class="input-group">
 										<input
                       class="form-control"
-                      type="text"
                       placeholder="No. Rujukan Kelulusan"
                       name="no_kelulusan"
                       [(ngModel)]="no_rujukan_kelulusan"
@@ -93,7 +92,7 @@
                     ngbDatepicker
                     [footerTemplate]="footerTemplate"
                     #d4="ngbDatepicker"
-                    style="border: 1px solid #efefef !important;"
+                    style="border-color: #efefef;"
                     #letterDate="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && letterDate.invalid }"
                     autocomplete="off"
@@ -143,7 +142,6 @@
 									<div class="input-group">
 										<input
                       class="form-control"
-                      type="text"
                       placeholder="Nama Bencana"
                       name="bencana"
                       [(ngModel)]="skb.nama_bencana"
@@ -157,10 +155,10 @@
 												<i class="fa fa-search text-white"></i>
 											</button>
 										</div>
+                    <div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
+                      <div *ngIf="namaBencana.errors.required">Bencana Wajib Dipilih</div>
+                    </div>
 									</div>
-                  <div *ngIf="f.submitted && namaBencana.invalid" class="invalid-feedback">
-                    <div *ngIf="namaBencana.errors.required">Bencana Wajib Dipilih</div>
-                  </div>
 						    </div>
               </div>
 
@@ -174,7 +172,7 @@
                     [(ngModel)]="modelBencana"
                     ngbDatepicker
                     #d3="ngbDatepicker"
-                    style="border: 1px solid #efefef !important;"
+                    style="border-color: #efefef;"
                     readonly
                   >
                 </div>
@@ -237,7 +235,7 @@
                     ngbDatepicker
                     [footerTemplate]="footerTemplate1"
                     #d="ngbDatepicker"
-                    style="border: 1px solid #efefef !important;"
+                    style="border-color: #efefef;"
                     #startDate="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && startDate.invalid }"
                     autocomplete="off"
@@ -269,7 +267,7 @@
                     ngbDatepicker
                     [footerTemplate]="footerTemplate2"
                     #d2="ngbDatepicker"
-                    style="border: 1px solid #efefef !important;"
+                    style="border-color: #efefef;"
                     #startDate="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && startDate.invalid }"
                     autocomplete="off"

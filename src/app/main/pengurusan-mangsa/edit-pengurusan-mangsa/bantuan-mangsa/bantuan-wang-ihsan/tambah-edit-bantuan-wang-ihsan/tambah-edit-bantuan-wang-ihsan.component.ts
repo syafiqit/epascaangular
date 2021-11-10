@@ -16,7 +16,6 @@ import { AppSessionService } from '@app/shared/services/app-session.service';
 @Component({
   selector: 'app-tambah-edit-bantuan-wang-ihsan',
   templateUrl: './tambah-edit-bantuan-wang-ihsan.component.html',
-  styleUrls: ['./tambah-edit-bantuan-wang-ihsan.component.scss'],
   encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig, NgbModal, RefKadarBwiServiceProxy]
 })
