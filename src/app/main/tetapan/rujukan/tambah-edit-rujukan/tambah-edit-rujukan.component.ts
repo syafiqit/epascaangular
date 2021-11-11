@@ -56,6 +56,7 @@ export class TambahEditRujukanComponent implements OnInit {
     } else {
       this._refRujukanServiceProxy.getRefRujukanForEdit(this.id).subscribe((result) => {
         this.rujukan = result.ref_rujukan;
+        this.sizeImage = 1;
       });
     }
   }

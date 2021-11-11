@@ -5,7 +5,7 @@
 		<span aria-hidden="true">&times;</span>
 	</button>
 </div>
-<form class="form theme-form" name="form" #f="ngForm" focusInvalidInput (ngSubmit)="f.form.valid && files != null && saveImage()">
+<form class="form theme-form" name="form" #f="ngForm" focusInvalidInput (ngSubmit)="f.form.valid && sizeImage != null && saveImage()">
   <div class="modal-body">
     <div class="row">
       <div class="col-lg-6">
@@ -34,10 +34,10 @@
             (change)="onSelect($event)"
             class="form-control"
             type="file"
-            [ngClass]="{ 'is-invalid': f.submitted && files == null }"
+            [ngClass]="{ 'is-invalid': f.submitted && sizeImage == null }"
             required
           />
-          <div *ngIf="f.submitted && files == null" class="invalid-feedback">
+          <div *ngIf="f.submitted && sizeImage == null" class="invalid-feedback">
             Dokumen Rujukan Wajib Dimuatnaik
           </div>
         </div>
