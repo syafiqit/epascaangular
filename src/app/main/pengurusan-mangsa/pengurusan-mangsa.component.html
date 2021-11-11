@@ -208,7 +208,7 @@
 							>
 								<ng-template pTemplate="header">
 									<tr>
-										<th style="width: 40px">
+										<th style="width: 40px" *ngIf="_appSession.isGranted('Halaman.Mangsa.Tambah') || _appSession.isGranted('Halaman.Mangsa.Edit')">
 											<input class="checkbox" type="checkbox"
 											(change)="checkedAll($event.target.checked)"
 											[checked]="checkAll">
@@ -251,7 +251,7 @@
 								</ng-template>
 								<ng-template pTemplate="body" let-record="$implicit">
 									<tr>
-										<td style="width: 40px">
+										<td style="width: 40px" *ngIf="_appSession.isGranted('Halaman.Mangsa.Tambah') || _appSession.isGranted('Halaman.Mangsa.Edit')">
 											<input class="checkbox"
                         name="{{ record.id }}" type="checkbox"
                         id="{{record.id}}"
