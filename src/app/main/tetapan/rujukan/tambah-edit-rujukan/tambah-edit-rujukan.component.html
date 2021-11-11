@@ -81,7 +81,9 @@
                 <li class="file-box" style="width: 100%;">
                   <a (click)="getFile(rujukan.lokasi_dokumen)" style="cursor: pointer;">
                     <div class="file-top">
-                      <img style="width: 50px;" [src]="defaultImageUrl"/>
+                      <i class="fa fa-file-pdf-o text-danger"  *ngIf="rujukan.sambungan_fail == 'pdf'"></i>
+                      <i class="fa fa-file-image-o txt-info"  *ngIf="rujukan.sambungan_fail == 'jpg' || rujukan.sambungan_fail == 'jpeg' || rujukan.sambungan_fail == 'png'"></i>
+                      <i class="fa fa-file-word-o text-primary"  *ngIf="rujukan.sambungan_fail == 'doc' || rujukan.sambungan_fail == 'docx' || rujukan.sambungan_fail == 'txt'"></i>
                     </div>
                   </a>
                 </li>
