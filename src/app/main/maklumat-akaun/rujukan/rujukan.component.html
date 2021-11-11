@@ -9,7 +9,9 @@
               <li class="file-box m-1" *ngFor="let record of primengTableHelper.records">
                 <a (click)="getFile(record.lokasi_dokumen)" style="cursor: pointer;">
                   <div class="file-top">
-                    <img style="width: 50px;" [src]="defaultImageUrl"/>
+                    <i class="fa fa-file-pdf-o text-danger"  *ngIf="record.sambungan_fail == 'pdf'"></i>
+                    <i class="fa fa-file-image-o txt-info"  *ngIf="record.sambungan_fail == 'jpg' || record.sambungan_fail == 'jpeg' || record.sambungan_fail == 'png'"></i>
+                    <i class="fa fa-file-word-o text-primary"  *ngIf="record.sambungan_fail == 'doc' || record.sambungan_fail == 'docx' || record.sambungan_fail == 'txt'"></i>
                   </div>
                   <div class="file-bottom" style="text-align: center;">
                     <h6>{{record.nama_rujukan}}</h6>
