@@ -39,6 +39,7 @@ export class KelulusanComponent implements OnInit {
   filterJenisBencana: number;
   filterFromDate: string;
   filterToDate: string;
+  filterString: string;
   tarikhMula: NgbDateStruct;
   tarikhTamat: NgbDateStruct;
   readonly DELIMITER = '-';
@@ -133,7 +134,8 @@ export class KelulusanComponent implements OnInit {
     this.filterToDate = undefined;
     this.tarikhMula = undefined;
     this.tarikhTamat = undefined;
-
+    this.filterString = undefined;
+    this.applyFilter(this.filterString);
     this.getTabungKelulusanList();
   }
 

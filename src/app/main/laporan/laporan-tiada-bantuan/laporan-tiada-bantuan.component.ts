@@ -33,6 +33,7 @@ export class LaporanTiadaBantuanComponent implements OnInit {
   filter: string;
   filterNegeri: number;
   filterDaerah: number;
+  filterString: string;
 
 	constructor(
     config: NgbModalConfig,
@@ -112,7 +113,8 @@ export class LaporanTiadaBantuanComponent implements OnInit {
     this.filter = undefined;
     this.filterNegeri = undefined;
     this.filterDaerah = undefined;
-
+    this.filterString = undefined;
+    this.applyFilter(this.filterString);
     this.getBelumTerimaBantuan();
     this.getDaerah();
   }

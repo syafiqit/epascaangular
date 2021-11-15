@@ -36,6 +36,7 @@ export class SkbComponent implements OnInit {
   filterToDate: string;
   tarikhMula: NgbDateStruct;
   tarikhTamat: NgbDateStruct;
+  filterString: string;
   readonly DELIMITER = '-';
 
 	constructor(
@@ -127,7 +128,8 @@ export class SkbComponent implements OnInit {
     this.tarikhTamat = undefined;
     this.filterFromDate = undefined;
     this.filterToDate = undefined;
-
+    this.filterString = undefined;
+    this.applyFilter(this.filterString);
     this.getSKB();
   }
 

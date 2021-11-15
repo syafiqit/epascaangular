@@ -36,6 +36,7 @@ export class PengurusanPenggunaComponent implements OnInit {
   filterStatus: number;
   filterFromDate: string;
   filterToDate: string;
+  filterString: string;
   saving = false;
   idPengguna: any;
   agencies: any;
@@ -142,7 +143,8 @@ export class PengurusanPenggunaComponent implements OnInit {
     this.tarikhTamat = undefined;
     this.filterFromDate = undefined;
     this.filterToDate = undefined;
-
+    this.filterString = undefined;
+    this.applyFilter(this.filterString);
     this.getUser();
   }
 

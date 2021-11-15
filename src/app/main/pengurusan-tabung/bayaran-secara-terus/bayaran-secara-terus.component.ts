@@ -25,6 +25,7 @@ export class BayaranSecaraTerusComponent implements OnInit {
   filter: string;
   filterFromDate: string;
   filterToDate: string;
+  filterString: string;
   terms$ = new Subject<string>();
 
   tarikhMula: NgbDateStruct;
@@ -94,7 +95,8 @@ export class BayaranSecaraTerusComponent implements OnInit {
     this.tarikhTamat = undefined;
     this.filterFromDate = undefined;
     this.filterToDate = undefined;
-
+    this.filterString = undefined;
+    this.applyFilter(this.filterString);
     this.getBayaranTerus();
   }
 

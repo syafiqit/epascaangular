@@ -33,6 +33,7 @@ export class WangIhsanComponent implements OnInit {
   filterBencana: number;
   filterFromDate: string;
   filterToDate: string;
+  filterString: string;
   terms$ = new Subject<string>();
   public isCollapsed = false;
   jenisBencana: any;
@@ -142,7 +143,8 @@ export class WangIhsanComponent implements OnInit {
     this.tarikhTamat = undefined;
     this.filterFromDate = undefined;
     this.filterToDate = undefined;
-
+    this.filterString = undefined;
+    this.applyFilter(this.filterString);
     this.getBantuanWangIhsan();
   }
 
