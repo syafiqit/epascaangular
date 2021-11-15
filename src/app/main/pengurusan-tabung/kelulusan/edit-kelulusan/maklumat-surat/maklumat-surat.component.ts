@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import {Location} from '@angular/common';
 import { NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import {
   CreateOrEditTabungKelulusanDto, RefBantuanServiceProxy, RefBencanaServiceProxy,
@@ -51,6 +52,7 @@ export class MaklumatSuratComponent implements OnInit {
 	constructor(
 	  config: NgbModalConfig,
     private modalService: NgbModal,
+    private _location: Location,
     private router: Router,
     private _activatedRoute: ActivatedRoute,
     private _tabungKelulusanServiceProxy: TabungKelulusanServiceProxy,
@@ -233,5 +235,9 @@ export class MaklumatSuratComponent implements OnInit {
     this._tabungServiceProxy.getTabungForEdit(this.kelulusan.id_tabung).subscribe((result) => {
       this.namaBencana = result.tabung.nama_tabung;
     });
+  }
+
+  back(){
+    this._location.back();
   }
 }
