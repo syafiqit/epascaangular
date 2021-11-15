@@ -219,7 +219,7 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 			},(error) =>{
 				const dialogRef = this._confirmationService.open({
 					title: 'Tidak Berjaya!',
-					message: 'Ruangan Negeri Wajib Diisi.',
+					message: 'Ruangan Negeri Wajib Diisi',
 					icon: {
 						show: true,
 						name: 'x-circle',
@@ -244,7 +244,7 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 	confirmMessage(){
 		const dialogRef = this._confirmationService.open({
 		  title: 'Berjaya',
-		  message: 'Maklumat Bencana Berjaya Disimpan.',
+		  message: 'Maklumat Bencana Berjaya Disimpan',
 		  icon: {
 			show: true,
 			name: 'check-circle',
@@ -270,7 +270,7 @@ export class TambahEditPengurusanBencanaComponent implements OnInit {
 	updateMessage(){
 		const dialogRef = this._confirmationService.open({
 		  title: 'Berjaya',
-		  message: 'Maklumat Bencana Berjaya Dikemaskini.',
+		  message: 'Maklumat Bencana Berjaya Dikemaskini',
 		  icon: {
 			show: true,
 			name: 'check-circle',

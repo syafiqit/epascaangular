@@ -140,7 +140,7 @@ export class CreateMultipleBencanaComponent implements OnInit {
   confirmMessage(){
     const dialogRef = this._confirmationService.open({
       title: 'Berjaya',
-      message: 'Pendaftaran Mangsa Bencana Berjaya Disimpan.',
+      message: 'Pendaftaran Mangsa Bencana Berjaya Disimpan',
       icon: {
         show: true,
         name: 'check-circle',

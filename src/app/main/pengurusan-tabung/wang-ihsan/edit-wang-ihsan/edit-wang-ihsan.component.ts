@@ -239,7 +239,7 @@ export class EditWangIhsanComponent implements OnInit {
 			.subscribe((result) => {
         const dialogRef = this._confirmationService.open({
           title: 'Berjaya',
-          message: 'Maklumat Bantuan Wang Ihsan Berjaya Dikemaskini.',
+          message: 'Maklumat Bantuan Wang Ihsan Berjaya Dikemaskini',
           icon: {
             show: true,
             name: 'check-circle',

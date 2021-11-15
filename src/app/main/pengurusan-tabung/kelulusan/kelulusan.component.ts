@@ -189,7 +189,7 @@ export class KelulusanComponent implements OnInit {
   confirmMessage(){
 		const dialogRef = this._confirmationService.open({
 		  title: 'Berjaya',
-		  message: 'Maklumat Kelulusan Bayaran Berjaya Dipadam.',
+		  message: 'Maklumat Kelulusan Bayaran Berjaya Dipadam',
 		  icon: {
         show: true,
         name: 'check-circle',

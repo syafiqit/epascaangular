@@ -209,7 +209,7 @@ export class TambahPengurusanMangsaComponent implements OnInit {
   mangsaSave() {
     const dialogRef = this._confirmationService.open({
       title: 'Berjaya',
-      message: 'Pendaftaran Mangsa Berjaya Disimpan.',
+      message: 'Pendaftaran Mangsa Berjaya Disimpan',
       icon: {
         show: true,
         name: 'check-circle',

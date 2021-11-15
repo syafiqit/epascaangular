@@ -149,7 +149,7 @@ export class TambahEditAhliRumahMangsaComponent implements OnInit {
   addAir() {
     const dialogRef = this._confirmationService.open({
       title: 'Berjaya',
-      message: 'Maklumat Ahli Isi Rumah Berjaya Ditambah.',
+      message: 'Maklumat Ahli Isi Rumah Berjaya Ditambah',
       icon: {
         show: true,
         name: 'check-circle',
@@ -175,7 +175,7 @@ export class TambahEditAhliRumahMangsaComponent implements OnInit {
   editAir() {
     const dialogRef = this._confirmationService.open({
       title: 'Berjaya',
-      message: 'Maklumat Ahli Isi Rumah Berjaya Dikemaskini.',
+      message: 'Maklumat Ahli Isi Rumah Berjaya Dikemaskini',
       icon: {
         show: true,
         name: 'check-circle',

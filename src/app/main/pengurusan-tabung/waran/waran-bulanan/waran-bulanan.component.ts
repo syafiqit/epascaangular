@@ -151,7 +151,7 @@ export class WaranBulananComponent implements OnInit {
         if(this.output.message == "Maklumat Waran Bulanan Berjaya Ditambah!"){
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Belanja Bulanan Waran Berjaya Dihantar.',
+            message: 'Maklumat Belanja Bulanan Waran Berjaya Dihantar',
             icon: {
               show: true,
               name: 'check-circle',
@@ -176,7 +176,7 @@ export class WaranBulananComponent implements OnInit {
         else if(this.output.message == "Maklumat Waran Bulanan Berjaya Dikemaskini!"){
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Belanja Bulanan Waran Berjaya Disimpan.',
+            message: 'Maklumat Belanja Bulanan Waran Berjaya Disimpan',
             icon: {
               show: true,
               name: 'check-circle',

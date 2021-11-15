@@ -218,7 +218,7 @@ export class TambahWaranComponent implements OnInit {
         if(this.output.message == "Maklumat Berjaya Ditambah!"){
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Bayaran Secara Waran Berjaya Dihantar.',
+            message: 'Maklumat Bayaran Secara Waran Berjaya Dihantar',
             icon: {
               show: true,
               name: 'check-circle',

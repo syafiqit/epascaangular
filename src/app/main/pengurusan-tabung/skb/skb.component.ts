@@ -160,7 +160,7 @@ export class SkbComponent implements OnInit {
           if(this.output.message == "Surat Kuasa Belanja Berjaya Dibuang"){
             const dialogRef = this._confirmationService.open({
               title: 'Berjaya',
-              message: 'Surat Kuasa Belanja Dipilih Berjaya Dipadam!',
+              message: 'Surat Kuasa Belanja Dipilih Berjaya Dipadam',
               icon: {
                 show: true,
                 name: 'check-circle',

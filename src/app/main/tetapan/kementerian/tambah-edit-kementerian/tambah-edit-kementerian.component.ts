@@ -73,7 +73,7 @@ export class TambahEditKementerianComponent implements OnInit {
 				else if (this.name == 'add') {
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Kementerian Berjaya Ditambah.',
+            message: 'Maklumat Kementerian Berjaya Ditambah',
             icon: {
               show: true,
               name: 'check-circle',
@@ -97,7 +97,7 @@ export class TambahEditKementerianComponent implements OnInit {
 				} else if (this.name == 'edit') {
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Kementerian Berjaya Dikemaskini.',
+            message: 'Maklumat Kementerian Berjaya Dikemaskini',
             icon: {
               show: true,
               name: 'check-circle',

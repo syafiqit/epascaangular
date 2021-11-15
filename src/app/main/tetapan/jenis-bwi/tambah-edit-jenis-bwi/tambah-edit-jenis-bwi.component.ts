@@ -68,7 +68,7 @@ export class TambahEditJenisBwiComponent implements OnInit {
 				else if (this.name == 'add') {
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Jenis Bantuan Wang Ihsan Berjaya Ditambah.',
+            message: 'Maklumat Jenis Bantuan Wang Ihsan Berjaya Ditambah',
             icon: {
               show: true,
               name: 'check-circle',
@@ -92,7 +92,7 @@ export class TambahEditJenisBwiComponent implements OnInit {
 				} else if (this.name == 'edit') {
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Jenis Bantuan Wang Ihsan Berjaya Dikemaskini.',
+            message: 'Maklumat Jenis Bantuan Wang Ihsan Berjaya Dikemaskini',
             icon: {
               show: true,
               name: 'check-circle',

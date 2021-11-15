@@ -140,7 +140,7 @@ export class TambahEditBantuanPinjamanKhasComponent implements OnInit {
         if (this.name == 'add') {
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Bantuan Pinjaman Khas Berjaya Ditambah.',
+            message: 'Maklumat Bantuan Pinjaman Khas Berjaya Ditambah',
             icon: {
               show: true,
               name: 'check-circle',
@@ -164,7 +164,7 @@ export class TambahEditBantuanPinjamanKhasComponent implements OnInit {
         } else if (this.name == 'edit') {
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Bantuan Pinjaman Khas Berjaya Dikemaskini.',
+            message: 'Maklumat Bantuan Pinjaman Khas Berjaya Dikemaskini',
             icon: {
               show: true,
               name: 'check-circle',

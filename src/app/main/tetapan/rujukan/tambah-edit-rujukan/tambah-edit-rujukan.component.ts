@@ -102,7 +102,7 @@ export class TambahEditRujukanComponent implements OnInit {
   editRujukan() {
     const dialogRef = this._confirmationService.open({
       title: 'Berjaya',
-      message: 'Maklumat Rujukan Berjaya Dikemaskini.',
+      message: 'Maklumat Rujukan Berjaya Dikemaskini',
       icon: {
         show: true,
         name: 'check-circle',
@@ -129,7 +129,7 @@ export class TambahEditRujukanComponent implements OnInit {
     if (this.sizeImage > 5242880) { //5MB
       this._confirmationService.open({
         title: 'Fail cecah had maksima!',
-        message: 'Fail melebihi saiz 5MB.',
+        message: 'Fail melebihi saiz 5MB',
         icon: {
           show: true,
           name: 'alert-triangle',

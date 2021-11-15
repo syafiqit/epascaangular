@@ -128,7 +128,7 @@ export class BantuanRumahComponent implements OnInit {
   confirmMessage(){
 		const dialogRef = this._confirmationService.open({
 		  title: 'Berjaya',
-		  message: 'Bantuan Rumah Berjaya Dipadam.',
+		  message: 'Bantuan Rumah Berjaya Dipadam',
 		  icon: {
         show: true,
         name: 'check-circle',

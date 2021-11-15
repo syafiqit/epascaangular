@@ -151,7 +151,7 @@ export class TambahBelanjaBulanan implements OnInit {
         if(this.output.message == "Maklumat SKB Bulanan Berjaya Ditambah!"){
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Belanja Bulanan SKB Berjaya Dihantar.',
+            message: 'Maklumat Belanja Bulanan SKB Berjaya Dihantar',
             icon: {
               show: true,
               name: 'check-circle',
@@ -176,7 +176,7 @@ export class TambahBelanjaBulanan implements OnInit {
         else if(this.output.message == "Maklumat SKB Bulanan Berjaya Dikemaskini!"){
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Belanja Bulanan SKB Berjaya Disimpan.',
+            message: 'Maklumat Belanja Bulanan SKB Berjaya Disimpan',
             icon: {
               show: true,
               name: 'check-circle',

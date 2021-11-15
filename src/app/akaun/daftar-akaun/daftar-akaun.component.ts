@@ -105,7 +105,7 @@ export class DaftarAkaunComponent implements OnInit {
         if(this.output.message == "Pendaftaran Pengguna Berjaya!"){
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Pengguna Berjaya Didaftarkan.',
+            message: 'Maklumat Pengguna Berjaya Didaftarkan',
             icon: {
               show: true,
               name: 'check-circle',

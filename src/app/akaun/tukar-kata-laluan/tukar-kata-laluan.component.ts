@@ -39,7 +39,7 @@ export class TukarKataLaluanComponent implements OnInit {
       .subscribe(() => {
         const dialogRef = this._confirmationService.open({
           title: 'Berjaya',
-          message: 'Kata Laluan Berjaya Ditukar.',
+          message: 'Kata Laluan Berjaya Ditukarkan',
           icon: {
             show: true,
             name: 'check-circle',
@@ -64,7 +64,7 @@ export class TukarKataLaluanComponent implements OnInit {
     }else {
       const dialogRef = this._confirmationService.open({
         title: 'Tidak Berjaya',
-        message: 'Kata Laluan Baru Dan Ulang Kata Laluan Tidak Sepadan.',
+        message: 'Kata Laluan Baru Dan Ulang Kata Laluan Tidak Sepadan',
         icon: {
           show: true,
           name: 'x-circle',

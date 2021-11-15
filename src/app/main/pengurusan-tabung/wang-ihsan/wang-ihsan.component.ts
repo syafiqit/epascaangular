@@ -177,7 +177,7 @@ export class WangIhsanComponent implements OnInit {
           if(result.message == "Bantuan Wang Ihsan Berjaya Dibuang"){
             const dialogRef = this._confirmationService.open({
               title: 'Berjaya',
-              message: "Bantuan Wang Ihsan Berjaya Dipadam.",
+              message: "Bantuan Wang Ihsan Berjaya Dipadam",
               icon: {
                 show: true,
                 name: 'check-circle',

@@ -70,7 +70,7 @@ export class TambahEditSumberDanaComponent implements OnInit {
 				else if (this.name == 'add') {
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Sumber Dana Berjaya Ditambah.',
+            message: 'Maklumat Sumber Dana Berjaya Ditambah',
             icon: {
               show: true,
               name: 'check-circle',
@@ -94,7 +94,7 @@ export class TambahEditSumberDanaComponent implements OnInit {
 				} else if (this.name == 'edit') {
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Sumber Dana Berjaya Dikemaskini.',
+            message: 'Maklumat Sumber Dana Berjaya Dikemaskini',
             icon: {
               show: true,
               name: 'check-circle',

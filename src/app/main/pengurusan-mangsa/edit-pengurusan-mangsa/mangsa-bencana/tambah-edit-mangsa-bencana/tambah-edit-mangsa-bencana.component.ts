@@ -121,7 +121,7 @@ export class TambahEditMangsaBencanaComponent implements OnInit {
         if(this.output.message == "Pendaftaran Mangsa Bencana Berjaya Disimpan!"){
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Pendaftaran Mangsa Bencana Berjaya Ditambah.',
+            message: 'Pendaftaran Mangsa Bencana Berjaya Ditambah',
             icon: {
               show: true,
               name: 'check-circle',
@@ -146,7 +146,7 @@ export class TambahEditMangsaBencanaComponent implements OnInit {
         else if(this.output.message == "Mangsa Bencana Berjaya Di Kemaskini!"){
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Mangsa Bencana Berjaya Di Kemaskini.',
+            message: 'Maklumat Mangsa Bencana Berjaya Di Kemaskini',
             icon: {
               show: true,
               name: 'check-circle',

@@ -219,7 +219,7 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
         if(this.outputEmailPassword.message == "Pendaftaran Pengguna Berjaya!"){
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Pengguna Baru Berjaya Didaftarkan.',
+            message: 'Pengguna Baru Berjaya Didaftarkan',
             icon: {
               show: true,
               name: 'check-circle',
@@ -273,7 +273,7 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
         if(this.outputEmailPassword.message == "Data telah dikemaskini"){
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Pengguna Berjaya Dikemaskini.',
+            message: 'Maklumat Pengguna Berjaya Dikemaskini',
             icon: {
               show: true,
               name: 'check-circle',
@@ -364,7 +364,7 @@ export class TambahEditPengurusanPenggunaComponent implements OnInit {
     } else {
       const dialogRef = this._confirmationService.open({
         title: 'Tidak Berjaya',
-        message: 'Kata Laluan Baru Dan Ulang Kata Laluan Tidak Sepadan ',
+        message: 'Kata Laluan Baru Dan Ulang Kata Laluan Tidak Sepadan',
         icon: {
           show: true,
           name: 'x-circle',

@@ -164,7 +164,7 @@ export class MaklumatSuratComponent implements OnInit {
   successMessage(){
     const dialogRef = this._confirmationService.open({
       title: 'Berjaya',
-      message: 'Maklumat Tabung Kelulusan Berjaya Dikemaskini.',
+      message: 'Maklumat Tabung Kelulusan Berjaya Dikemaskini',
       icon: {
       show: true,
       name: 'check-circle',
