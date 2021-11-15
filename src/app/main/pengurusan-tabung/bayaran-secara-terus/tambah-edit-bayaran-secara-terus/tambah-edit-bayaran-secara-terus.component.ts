@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {Location} from '@angular/common';
 import { NgbCalendar, NgbDateStruct, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import {
   CreateOrEditTabungBayaranTerusDto,
@@ -71,6 +72,7 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
     private modalService: NgbModal,
     private calendar: NgbCalendar,
     private router: Router,
+    private _location: Location,
     private _activatedRoute: ActivatedRoute,
     private tabungBayaranTerusServiceProxy: TabungBayaranTerusServiceProxy,
     private _refBencanaServiceProxy: RefBencanaServiceProxy,
@@ -211,6 +213,10 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
 
   toModel(date: NgbDateStruct | null): string | null {
     return date ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day : null;
+  }
+
+  back(){
+    this._location.back();
   }
 
   save() {

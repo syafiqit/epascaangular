@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
+import {Location} from '@angular/common';
 import { LazyLoadEvent } from 'primeng/api';
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
@@ -72,6 +73,7 @@ export class TambahSkbComponent implements OnInit {
 	constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,
+    private _location: Location,
     public activeModal: NgbActiveModal,
     private _activatedRoute: ActivatedRoute,
     private _tabungBayaranSkbServiceProxy: TabungBayaranSkbServiceProxy,
@@ -215,6 +217,10 @@ export class TambahSkbComponent implements OnInit {
     this.rows.forEach(e=> {
       this.belanja += parseFloat(e.jumlah);
     })
+  }
+
+  back(){
+    this._location.back();
   }
 
 	save() {

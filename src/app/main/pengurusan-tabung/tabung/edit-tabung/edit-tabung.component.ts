@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { OnInit, Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import {Location} from '@angular/common';
 import { LazyLoadEvent } from 'primeng/api';
 import { ConfirmationService } from '@services/confirmation';
 import { Paginator } from 'primeng/paginator';
@@ -67,6 +68,7 @@ export class EditTabungComponent implements OnInit {
 	constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,
+    private _location: Location,
     private _activatedRoute: ActivatedRoute,
     private tabungServiceProxy: TabungServiceProxy,
     private tabungPeruntukanServiceProxy: TabungPeruntukanServiceProxy,
@@ -250,6 +252,10 @@ export class EditTabungComponent implements OnInit {
       years.push(i)
     }
     this.arrayYear = years;
+  }
+
+  back(){
+    this._location.back();
   }
 
   deleteTabungPeruntukan(id){
