@@ -103,9 +103,6 @@
   border-radius: 0 $radius+px $radius+px 0;
 }
 
-.btn{
-  padding: $btn-padding;
-}
 .btn-lg{
   font-size: $btn-lg-font-size;
 }
@@ -113,7 +110,6 @@
   font-size: $btn-sm-font-size;
 }
 .btn-xs {
-  padding: $btn-xs-padding;
   font-size: $btn-xs-font-size;
 }
 .large-btn{
