@@ -25,6 +25,7 @@ export class TabungComponent implements OnInit {
   filterText: string;
   filterYear: string;
   filterMonth: string;
+  filterString: string;
   arrayYear:any[];
   terms$ = new Subject<string>();
   readonly DELIMITER = '-';
@@ -125,7 +126,8 @@ export class TabungComponent implements OnInit {
   resetFilter() {
     this.filterText = undefined;
     this.filterYear = undefined;
-
+    this.filterString = undefined;
+    this.applyFilter(this.filterString);
     this.getTabung();
   }
 

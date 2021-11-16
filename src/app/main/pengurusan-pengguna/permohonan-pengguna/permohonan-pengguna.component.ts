@@ -28,6 +28,7 @@ export class PermohonanPenggunaComponent implements OnInit {
   filter: string;
   filterAgensi: number;
   filterPeranan: number;
+  filterString: string;
   saving = false;
   agencies: any;
   roles: any;
@@ -119,7 +120,8 @@ export class PermohonanPenggunaComponent implements OnInit {
     this.tarikhTamat = undefined;
     this.filterFromDate = undefined;
     this.filterToDate = undefined;
-
+    this.filterString = undefined;
+    this.applyFilter(this.filterString);
     this.getUser();
   }
 

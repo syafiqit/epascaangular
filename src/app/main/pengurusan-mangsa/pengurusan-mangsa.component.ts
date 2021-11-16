@@ -36,6 +36,7 @@ export class PengurusanMangsaComponent implements OnInit {
   filterAgensi: number;
   filterFromDate: string;
   filterToDate: string;
+  filterString: string;
   terms$ = new Subject<string>();
   checked: boolean;
   checkAll: boolean;
@@ -148,7 +149,8 @@ export class PengurusanMangsaComponent implements OnInit {
     this.tarikhTamat = undefined;
     this.filterFromDate = undefined;
     this.filterToDate = undefined;
-
+    this.filterString = undefined;
+    this.applyFilter(this.filterString);
     this.getVictim();
   }
 

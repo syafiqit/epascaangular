@@ -36,6 +36,7 @@ export class WaranComponent implements OnInit {
   filterYearTarikhWaran: number;
   filterFromDate: string;
   filterToDate: string;
+  filterString: string;
   tarikhMula: NgbDateStruct;
   tarikhTamat: NgbDateStruct;
   readonly DELIMITER = '-';
@@ -133,7 +134,8 @@ export class WaranComponent implements OnInit {
     this.tarikhTamat = undefined;
     this.filterFromDate = undefined;
     this.filterToDate = undefined;
-
+    this.filterString = undefined;
+    this.applyFilter(this.filterString);
     this.getWarrant();
   }
 

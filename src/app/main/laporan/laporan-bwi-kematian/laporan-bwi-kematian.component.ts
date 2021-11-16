@@ -29,6 +29,7 @@ export class LaporanBwiKematianComponent implements OnInit {
   filterNegeri: number;
   filterDaerah: number;
   filterYear: number;
+  filterString: string;
   arrayYear:any[];
 
   total_kir: number;
@@ -118,7 +119,8 @@ export class LaporanBwiKematianComponent implements OnInit {
     this.filterNegeri = undefined;
     this.filterDaerah = undefined;
     this.filterYear = undefined;
-
+    this.filterString = undefined;
+    this.applyFilter(this.filterString);
     this.getBwiKematianReport();
   }
 

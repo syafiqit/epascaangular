@@ -34,6 +34,7 @@ export class PengurusanBencanaComponent implements OnInit {
   filterNegeri: number;
   filterFromDate: string;
   filterToDate: string;
+  filterString: string;
   terms$ = new Subject<string>();
 
   sorting: string;
@@ -122,7 +123,8 @@ export class PengurusanBencanaComponent implements OnInit {
     this.tarikhTamat = undefined;
     this.filterFromDate = undefined;
     this.filterToDate = undefined;
-
+    this.filterString = undefined;
+    this.applyFilter(this.filterString);
     this.getDisaster();
   }
 

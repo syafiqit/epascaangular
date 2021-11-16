@@ -31,6 +31,7 @@ export class LaporanSkbComponent implements OnInit {
   filterAgensi: number;
   filterKategori: number;
   filterStatus: number;
+  filterString: string;
   agencies: any;
   categories: any;
 
@@ -127,7 +128,8 @@ export class LaporanSkbComponent implements OnInit {
     this.filterAgensi = undefined;
     this.filterKategori = undefined;
     this.filterStatus = undefined;
-
+    this.filterString = undefined;
+    this.applyFilter(this.filterString);
     this.getSkbReport();
   }
 }

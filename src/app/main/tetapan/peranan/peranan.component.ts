@@ -23,6 +23,7 @@ export class PerananComponent implements OnInit {
 
 	filterText: string;
   filterStatus: number;
+  filterString: string;
   public isCollapsed = false;
   terms$ = new Subject<string>();
 
@@ -80,7 +81,8 @@ export class PerananComponent implements OnInit {
   resetFilter() {
     this.filterText = undefined;
     this.filterStatus = undefined;
-
+    this.filterString = undefined;
+    this.applyFilter(this.filterString);
     this.getPeranan();
   }
 

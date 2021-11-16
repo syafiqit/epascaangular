@@ -35,6 +35,7 @@ export class LaporanBwiComponent implements OnInit {
   filterDaerah: number;
   filterYearEft: number;
   filterYearBencana: number;
+  filterString: string;
   nama_bencana: string;
   disasters: any;
   states: any;
@@ -146,7 +147,8 @@ export class LaporanBwiComponent implements OnInit {
     this.filterYearEft = undefined;
     this.filterYearBencana = undefined;
     this.nama_bencana = undefined;
-
+    this.filterString = undefined;
+    this.applyFilter(this.filterString);
     this.getBwiReport();
   }
 

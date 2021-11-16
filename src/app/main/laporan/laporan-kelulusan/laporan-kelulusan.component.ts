@@ -30,6 +30,7 @@ export class LaporanKelulusanComponent implements OnInit {
   filterTahun: number;
   filterYear: number;
   filterPastYear: number;
+  filterString: string;
   pastYear: string;
   arrayYear:any[];
   terms$ = new Subject<string>();
@@ -128,7 +129,8 @@ export class LaporanKelulusanComponent implements OnInit {
     this.filterYear = undefined;
     this.filterPastYear = undefined;
     this.filterTahun = undefined;
-
+    this.filterString = undefined;
+    this.applyFilter(this.filterString);
     this.getKelulusanReport();
   }
 

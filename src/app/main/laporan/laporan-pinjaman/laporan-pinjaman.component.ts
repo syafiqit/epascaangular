@@ -33,6 +33,7 @@ export class LaporanPinjamanComponent implements OnInit {
   filterNegeri: number;
   filterDaerah: number;
   filterYear: number;
+  filterString: string;
   arrayYear:any[];
 
 	constructor(
@@ -117,7 +118,8 @@ export class LaporanPinjamanComponent implements OnInit {
     this.filterNegeri = undefined;
     this.filterDaerah = undefined;
     this.filterYear = undefined;
-
+    this.filterString = undefined;
+    this.applyFilter(this.filterString);
     this.getPinjamanReport();
     this.getDaerah();
   }
