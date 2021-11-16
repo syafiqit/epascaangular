@@ -174,7 +174,7 @@ export class TambahKelulusanComponent implements OnInit {
   confirmMessage(){
 		const dialogRef = this._confirmationService.open({
 		  title: 'Berjaya',
-		  message: 'Maklumat Tabung Kelulusan Berjaya Disimpan.',
+		  message: 'Maklumat Tabung Kelulusan Berjaya Disimpan',
 		  icon: {
         show: true,
         name: 'check-circle',
@@ -203,7 +203,7 @@ export class TambahKelulusanComponent implements OnInit {
 	alertMessage(){
 		const dialogRef = this._confirmationService.open({
 		  title: 'Harap Maaf!',
-		  message: 'Jumlah Peruntukan Melebihi Jumlah Keseluruhan Tabung.',
+		  message: 'Jumlah Peruntukan Melebihi Jumlah Keseluruhan Tabung',
 		  icon: {
         show: true,
         name: 'alert-triangle',

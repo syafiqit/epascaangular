@@ -56,7 +56,7 @@ export class TukarKataLaluanComponent implements OnInit {
       .subscribe((result) => {
         this.output = result;
         if(this.output.message == "Kata laluan berjaya ditukar") {
-          swalSuccess.fire('Berjaya!', 'Kata Laluan Berjaya Dikemaskini.', 'success')
+          swalSuccess.fire('Berjaya!', 'Kata Laluan Berjaya Dikemaskini', 'success')
           this.activeModal.close(true);
         }
         else {

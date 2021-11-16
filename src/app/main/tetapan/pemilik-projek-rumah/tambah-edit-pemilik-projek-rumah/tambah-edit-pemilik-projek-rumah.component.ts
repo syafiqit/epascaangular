@@ -73,7 +73,7 @@ export class TambahEditPemilikProjekRumahComponent implements OnInit {
 				else if (this.name == 'add') {
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Pemilik Projek Berjaya Ditambah.',
+            message: 'Maklumat Pemilik Projek Berjaya Ditambah',
             icon: {
               show: true,
               name: 'check-circle',
@@ -97,7 +97,7 @@ export class TambahEditPemilikProjekRumahComponent implements OnInit {
 				} else if (this.name == 'edit') {
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Pemilik Projek Berjaya Dikemaskini.',
+            message: 'Maklumat Pemilik Projek Berjaya Dikemaskini',
             icon: {
               show: true,
               name: 'check-circle',

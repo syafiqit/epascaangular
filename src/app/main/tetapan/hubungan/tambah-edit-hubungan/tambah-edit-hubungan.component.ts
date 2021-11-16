@@ -70,7 +70,7 @@ export class TambahEditHubunganComponent implements OnInit {
 				else if (this.name == 'add') {
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Nama Hubungan Berjaya Ditambah.',
+            message: 'Maklumat Nama Hubungan Berjaya Ditambah',
             icon: {
               show: true,
               name: 'check-circle',
@@ -94,7 +94,7 @@ export class TambahEditHubunganComponent implements OnInit {
 				} else if (this.name == 'edit') {
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Nama Hubungan Berjaya Dikemaskini.',
+            message: 'Maklumat Nama Hubungan Berjaya Dikemaskini',
             icon: {
               show: true,
               name: 'check-circle',

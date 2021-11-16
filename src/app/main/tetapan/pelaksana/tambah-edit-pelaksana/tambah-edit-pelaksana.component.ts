@@ -73,7 +73,7 @@ export class TambahEditPelaksanaComponent implements OnInit {
 				else if (this.name == 'add') {
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Pelaksana Berjaya Ditambah.',
+            message: 'Maklumat Pelaksana Berjaya Ditambah',
             icon: {
               show: true,
               name: 'check-circle',
@@ -97,7 +97,7 @@ export class TambahEditPelaksanaComponent implements OnInit {
 				} else if (this.name == 'edit') {
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Pelaksana Berjaya Dikemaskini.',
+            message: 'Maklumat Pelaksana Berjaya Dikemaskini',
             icon: {
               show: true,
               name: 'check-circle',

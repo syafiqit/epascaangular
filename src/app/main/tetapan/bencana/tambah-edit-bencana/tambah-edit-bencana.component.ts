@@ -73,7 +73,7 @@ export class TambahEditBencanaComponent implements OnInit {
 				else if (this.name == 'add') {
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Kategori Bencana Berjaya Ditambah.',
+            message: 'Maklumat Kategori Bencana Berjaya Ditambah',
             icon: {
               show: true,
               name: 'check-circle',
@@ -97,7 +97,7 @@ export class TambahEditBencanaComponent implements OnInit {
 				} else if (this.name == 'edit') {
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Kategori Bencana Berjaya Dikemaskini.',
+            message: 'Maklumat Kategori Bencana Berjaya Dikemaskini',
             icon: {
               show: true,
               name: 'check-circle',

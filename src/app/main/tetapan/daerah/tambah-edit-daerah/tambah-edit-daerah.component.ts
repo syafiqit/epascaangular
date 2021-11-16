@@ -90,7 +90,7 @@ export class TambahEditDaerahComponent implements OnInit {
 				else if (this.name == 'add') {
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Daerah Berjaya Ditambah.',
+            message: 'Maklumat Daerah Berjaya Ditambah',
             icon: {
               show: true,
               name: 'check-circle',
@@ -114,7 +114,7 @@ export class TambahEditDaerahComponent implements OnInit {
 				} else if (this.name == 'edit') {
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Daerah Berjaya Dikemaskini.',
+            message: 'Maklumat Daerah Berjaya Dikemaskini',
             icon: {
               show: true,
               name: 'check-circle',

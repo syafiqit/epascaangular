@@ -134,7 +134,7 @@ export class BantuanWangIhsanComponent implements OnInit {
 			this._refMangsaWangIhsanServiceProxy.delete(id).subscribe((result)=>{
 				const dialogRef = this._confirmationService.open({
 					title: 'Berjaya',
-					message: 'Maklumat Mangsa Dipilih Berjaya Dipadam!',
+					message: 'Maklumat Mangsa Dipilih Berjaya Dipadam',
 					icon: {
 					  show: true,
 					  name: 'check-circle',

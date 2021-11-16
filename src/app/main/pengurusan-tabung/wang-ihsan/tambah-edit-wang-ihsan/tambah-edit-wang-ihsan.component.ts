@@ -286,7 +286,7 @@ export class TambahEditWangIhsanComponent implements OnInit {
     if(this.checkingBayaran < this.checkingBantuan){
       const dialogRef = this._confirmationService.open({
         title: 'Harap Maaf!!',
-        message: 'Jumlah Bantuan Melebihi Jumlah Pembayaran ',
+        message: 'Jumlah Bantuan Melebihi Jumlah Pembayaran',
         icon: {
           show: true,
           name: 'alert-triangle',
@@ -432,7 +432,7 @@ export class TambahEditWangIhsanComponent implements OnInit {
 			.subscribe((result) => {
         const dialogRef = this._confirmationService.open({
           title: 'Berjaya',
-          message: 'Maklumat Bantuan Wang Ihsan Berjaya Dihantar.',
+          message: 'Maklumat Bantuan Wang Ihsan Berjaya Dihantar',
           icon: {
             show: true,
             name: 'check-circle',

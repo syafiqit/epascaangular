@@ -209,7 +209,7 @@ export class MaklumatMangsaComponent implements OnInit {
   confirmMessage(){
     const dialogRef = this._confirmationService.open({
       title: 'Berjaya',
-      message: 'Maklumat Mangsa Berjaya Dikemaskini.',
+      message: 'Maklumat Mangsa Berjaya Dikemaskini',
       icon: {
         show: true,
         name: 'check-circle',

@@ -99,7 +99,7 @@ export class TambahPeruntukanComponent implements OnInit {
       if(this.id && !this.idTabungPeruntukan){
         const dialogRef = this._confirmationService.open({
           title: 'Berjaya',
-          message: 'Tambahan Dana Berjaya Ditambah.',
+          message: 'Tambahan Dana Berjaya Ditambah',
           icon: {
             show: true,
             name: 'check-circle',

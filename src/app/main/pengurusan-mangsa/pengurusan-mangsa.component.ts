@@ -221,7 +221,7 @@ export class PengurusanMangsaComponent implements OnInit {
 		if(this.idMangsa.length == 0){
 			const dialogRef = this._confirmationService.open({
 			title: 'Harap Maaf!',
-			message: 'Tiada Mangsa Dipilih.',
+			message: 'Tiada Mangsa Dipilih',
 			icon: {
 				show: true,
 				name: 'alert-triangle',
@@ -256,7 +256,7 @@ export class PengurusanMangsaComponent implements OnInit {
 		if(this.idMangsa.length == 0){
 			const dialogRef = this._confirmationService.open({
 			title: 'Harap Maaf!',
-			message: 'Tiada Mangsa Dipilih.',
+			message: 'Tiada Mangsa Dipilih',
 			icon: {
 				show: true,
 				name: 'alert-triangle',
@@ -291,7 +291,7 @@ export class PengurusanMangsaComponent implements OnInit {
 		if(this.idMangsa.length == 0){
 			const dialogRef = this._confirmationService.open({
 				title: 'Harap Maaf!',
-				message: 'Tiada Mangsa Dipilih.',
+				message: 'Tiada Mangsa Dipilih',
 				icon: {
 					show: true,
 					name: 'alert-triangle',

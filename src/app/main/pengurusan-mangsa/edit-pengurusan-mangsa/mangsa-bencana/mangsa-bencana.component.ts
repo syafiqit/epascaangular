@@ -140,7 +140,7 @@ export class MangsaBencanaComponent implements OnInit {
   confirmMessage(){
 		const dialogRef = this._confirmationService.open({
 		  title: 'Berjaya',
-		  message: 'Maklumat Bencana Dipilih Berjaya Dipadam!',
+		  message: 'Maklumat Bencana Dipilih Berjaya Dipadam',
 		  icon: {
         show: true,
         name: 'check-circle',

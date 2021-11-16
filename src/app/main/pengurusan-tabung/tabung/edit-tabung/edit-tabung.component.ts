@@ -286,7 +286,7 @@ export class EditTabungComponent implements OnInit {
           if(result.message === 'Tambahan Dana Berjaya Dibuang'){
             const s = this._confirmationService.open({
               title: 'Berjaya',
-              message: "Tambahan Dana Berjaya Dipadam!",
+              message: "Tambahan Dana Berjaya Dipadam",
               icon: {
                 show: true,
                 name: 'check-circle',
@@ -366,7 +366,7 @@ export class EditTabungComponent implements OnInit {
     this.tabungServiceProxy.createOrEdit(this.editTabung).subscribe(()=>{
       const dialogRef = this._confirmationService.open({
         title: 'Berjaya',
-        message: 'Maklumat Tabung Berjaya Dikemaskini.',
+        message: 'Maklumat Tabung Berjaya Dikemaskini',
         icon: {
           show: true,
           name: 'check-circle',

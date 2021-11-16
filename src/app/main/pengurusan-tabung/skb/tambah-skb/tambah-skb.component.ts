@@ -259,7 +259,7 @@ export class TambahSkbComponent implements OnInit {
         if(this.output.message == "Maklumat Berjaya Ditambah!"){
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Surat Kuasa Belanja Berjaya Dihantar.',
+            message: 'Maklumat Surat Kuasa Belanja Berjaya Dihantar',
             icon: {
               show: true,
               name: 'check-circle',

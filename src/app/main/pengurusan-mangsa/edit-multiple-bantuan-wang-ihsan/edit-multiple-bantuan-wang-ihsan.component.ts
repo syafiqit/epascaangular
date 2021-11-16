@@ -142,7 +142,7 @@ export class EditMultipleBantuanWangIhsanComponent implements OnInit {
   confirmMessage(){
     const dialogRef = this._confirmationService.open({
       title: 'Berjaya',
-      message: 'Pendaftaran Bantuan Wang Ihsan Berjaya Disimpan.',
+      message: 'Pendaftaran Bantuan Wang Ihsan Berjaya Disimpan',
       icon: {
         show: true,
         name: 'check-circle',

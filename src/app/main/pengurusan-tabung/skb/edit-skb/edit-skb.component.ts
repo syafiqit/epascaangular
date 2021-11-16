@@ -282,7 +282,7 @@ export class EditSkbComponent implements OnInit {
           if(this.output.message == "Surat Kuasa Belanja Bulanan Berjaya Dibuang"){
             const dialogRef = this._confirmationService.open({
               title: 'Berjaya',
-              message: 'Maklumat Belanja Bulanan SKB Dipilih Berjaya Dipadam.',
+              message: 'Maklumat Belanja Bulanan SKB Dipilih Berjaya Dipadam',
               icon: {
                 show: true,
                 name: 'check-circle',
@@ -354,7 +354,7 @@ export class EditSkbComponent implements OnInit {
   success() {
     const dialogRef = this._confirmationService.open({
       title: 'Berjaya',
-      message: 'Maklumat Surat Kuasa Belanja Berjaya Dikemaskini.',
+      message: 'Maklumat Surat Kuasa Belanja Berjaya Dikemaskini',
       icon: {
         show: true,
         name: 'check-circle',

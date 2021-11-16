@@ -94,7 +94,7 @@ export class TambahEditPengumumanComponent implements OnInit {
   addSave() {
     const dialogRef = this._confirmationService.open({
       title: 'Berjaya',
-      message: 'Maklumat Pengumuman Berjaya Ditambah.',
+      message: 'Maklumat Pengumuman Berjaya Ditambah',
       icon: {
         show: true,
         name: 'check-circle',
@@ -120,7 +120,7 @@ export class TambahEditPengumumanComponent implements OnInit {
   editSave() {
     const dialogRef = this._confirmationService.open({
       title: 'Berjaya',
-      message: 'Maklumat Pengumuman Berjaya Dikemaskini.',
+      message: 'Maklumat Pengumuman Berjaya Dikemaskini',
       icon: {
         show: true,
         name: 'check-circle',

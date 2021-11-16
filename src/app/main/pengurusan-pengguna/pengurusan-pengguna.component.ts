@@ -206,7 +206,7 @@ export class PengurusanPenggunaComponent implements OnInit {
   deleteSuccess() {
     const dialogRef = this._confirmationService.open({
       title: 'Berjaya',
-      message: 'Maklumat Pengguna Dipilih Berjaya Dipadam!',
+      message: 'Maklumat Pengguna Dipilih Berjaya Dipadam',
       icon: {
         show: true,
         name: 'check-circle',

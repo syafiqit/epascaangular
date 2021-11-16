@@ -140,7 +140,7 @@ export class TambahEditBantuanPertanianComponent implements OnInit {
         if (this.name == 'add') {
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Bantuan Pertanian Berjaya Ditambah.',
+            message: 'Maklumat Bantuan Pertanian Berjaya Ditambah',
             icon: {
               show: true,
               name: 'check-circle',
@@ -164,7 +164,7 @@ export class TambahEditBantuanPertanianComponent implements OnInit {
         } else if (this.name == 'edit') {
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Bantuan Pertanian Berjaya Dikemaskini.',
+            message: 'Maklumat Bantuan Pertanian Berjaya Dikemaskini',
             icon: {
               show: true,
               name: 'check-circle',

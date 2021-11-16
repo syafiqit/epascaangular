@@ -30,7 +30,7 @@ export class TambahEditTabungComponent implements OnInit {
     this.tabungServiceProxy.createOrEdit(this.createTabung).subscribe((result)=>{
       const dialogRef = this._confirmationService.open({
         title: 'Berjaya',
-        message: 'Maklumat Tabung Berjaya Ditambah.',
+        message: 'Maklumat Tabung Berjaya Ditambah',
         icon: {
           show: true,
           name: 'check-circle',

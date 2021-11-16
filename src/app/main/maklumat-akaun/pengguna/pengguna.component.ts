@@ -78,7 +78,7 @@ export class PenggunaComponent implements OnInit {
     if (event.target.files[0].size > 5242880) { //5MB
       this._confirmationService.open({
         title: 'Fail cecah had maksima!',
-        message: 'Fail melebihi saiz 5MB.',
+        message: 'Fail melebihi saiz 5MB',
         icon: {
           show: true,
           name: 'alert-triangle',
@@ -187,7 +187,7 @@ export class PenggunaComponent implements OnInit {
       if(this.output.message == "Maklumat profil telah dikemaskini."){
         const dialogRef = this._confirmationService.open({
           title: 'Berjaya',
-          message: 'Maklumat Profil Berjaya Dikemaskini.',
+          message: 'Maklumat Profil Berjaya Dikemaskini',
           icon: {
             show: true,
             name: 'check-circle',

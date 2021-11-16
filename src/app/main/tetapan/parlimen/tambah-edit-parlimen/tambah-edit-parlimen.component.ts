@@ -86,7 +86,7 @@ export class TambahEditParlimenComponent implements OnInit {
 				else if (this.name == 'add') {
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Parlimen Berjaya Ditambah.',
+            message: 'Maklumat Parlimen Berjaya Ditambah',
             icon: {
               show: true,
               name: 'check-circle',
@@ -110,7 +110,7 @@ export class TambahEditParlimenComponent implements OnInit {
 				} else if (this.name == 'edit') {
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Parlimen Berjaya Dikemaskini.',
+            message: 'Maklumat Parlimen Berjaya Dikemaskini',
             icon: {
               show: true,
               name: 'check-circle',

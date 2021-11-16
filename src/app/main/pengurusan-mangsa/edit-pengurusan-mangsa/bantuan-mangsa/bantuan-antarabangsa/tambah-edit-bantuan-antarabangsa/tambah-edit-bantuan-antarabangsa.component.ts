@@ -129,7 +129,7 @@ export class TambahEditBantuanAntarabangsaComponent implements OnInit {
         if (this.name == 'add') {
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Bantuan Antarabangsa Berjaya Ditambah.',
+            message: 'Maklumat Bantuan Antarabangsa Berjaya Ditambah',
             icon: {
               show: true,
               name: 'check-circle',
@@ -153,7 +153,7 @@ export class TambahEditBantuanAntarabangsaComponent implements OnInit {
         } else if (this.name == 'edit') {
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Bantuan Antarabangsa Berjaya Dikemaskini.',
+            message: 'Maklumat Bantuan Antarabangsa Berjaya Dikemaskini',
             icon: {
               show: true,
               name: 'check-circle',

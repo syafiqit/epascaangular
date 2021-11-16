@@ -168,7 +168,7 @@ export class PengurusanBencanaComponent implements OnInit {
   confirmMessage(){
 		const dialogRef = this._confirmationService.open({
 		  title: 'Berjaya',
-		  message: 'Maklumat Bencana Bayaran Berjaya Dipadam.',
+		  message: 'Maklumat Bencana Bayaran Berjaya Dipadam',
 		  icon: {
         show: true,
         name: 'check-circle',

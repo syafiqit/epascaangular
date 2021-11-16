@@ -221,7 +221,7 @@ export class TambahEditKirComponent implements OnInit {
 			.subscribe((result) => {
         const dialogRef = this._confirmationService.open({
           title: 'Berjaya',
-          message: 'Maklumat Bantuan Berjaya Dikemaskini.',
+          message: 'Maklumat Bantuan Berjaya Dikemaskini',
           icon: {
             show: true,
             name: 'check-circle',

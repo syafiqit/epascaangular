@@ -274,7 +274,7 @@ export class TambahEditBayaranSecaraTerusComponent implements OnInit {
         else if(this.output.message == "Tabung Bayaran Terus Berjaya Ditambah"){
           const dialogRef = this._confirmationService.open({
             title: 'Berjaya',
-            message: 'Maklumat Bayaran Secara Terus Berjaya Ditambah.',
+            message: 'Maklumat Bayaran Secara Terus Berjaya Ditambah',
             icon: {
               show: true,
               name: 'check-circle',

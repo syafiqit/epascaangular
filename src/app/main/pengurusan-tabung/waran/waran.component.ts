@@ -177,7 +177,7 @@ export class WaranComponent implements OnInit {
           if(this.output.message == "Waran Berjaya Dibuang"){
             const dialogRef = this._confirmationService.open({
               title: 'Berjaya',
-              message: 'Maklumat Waran Dipilih Berjaya Dipadam!',
+              message: 'Maklumat Waran Dipilih Berjaya Dipadam',
               icon: {
                 show: true,
                 name: 'check-circle',
