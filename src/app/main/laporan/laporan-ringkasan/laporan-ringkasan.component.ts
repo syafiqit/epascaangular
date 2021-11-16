@@ -137,10 +137,12 @@ export class LaporanRingkasanComponent implements AfterViewInit {
       yAxis.renderer.grid.template.location = 0;
 
       function createSeries(value, name) {
-        let series = chart.series.push(new am4charts.ColumnSeries())
-        series.dataFields.valueX = value
-        series.dataFields.categoryY = 'kategori'
-        series.name = name
+        let series = chart.series.push(new am4charts.ColumnSeries());
+        series.dataFields.valueX = value;
+        series.dataFields.categoryY = 'kategori';
+        series.name = name;
+        series.columns.template.tooltipText = "{name}: [bold]{valueX}[/]";
+        series.columns.template.tooltipY = am4core.percent(50);
 
         series.events.on("hidden", arrangeColumns);
         series.events.on("shown", arrangeColumns);
