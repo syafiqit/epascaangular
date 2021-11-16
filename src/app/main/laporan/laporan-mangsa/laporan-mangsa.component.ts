@@ -34,6 +34,7 @@ export class LaporanMangsaComponent implements OnInit {
   filterAgensi: number;
   filterKementerian: number;
   filterYear: number;
+  filterString: string;
   arrayYear:any[];
 
 	constructor(
@@ -118,7 +119,8 @@ export class LaporanMangsaComponent implements OnInit {
     this.filterAgensi = undefined;
     this.filterKementerian = undefined;
     this.filterYear = undefined;
-
+    this.filterString = undefined;
+    this.applyFilter(this.filterString);
     this.getMangsaDaftar();
   }
 

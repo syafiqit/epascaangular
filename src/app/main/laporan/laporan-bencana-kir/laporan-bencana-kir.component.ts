@@ -28,6 +28,7 @@ export class LaporanBencanaKirComponent implements OnInit {
   filter: string;
   filterBencana: number;
   filterYear: number;
+  filterString: string;
   arrayYear:any[];
   nama_bencana: string;
 
@@ -113,7 +114,8 @@ export class LaporanBencanaKirComponent implements OnInit {
     this.filterBencana = undefined;
     this.filterYear = undefined;
     this.nama_bencana = undefined;
-
+    this.filterString = undefined;
+    this.applyFilter(this.filterString);
     this.getBencanaKirReport();
   }
 

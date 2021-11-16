@@ -27,6 +27,7 @@ export class LaporanWaranComponent implements OnInit {
   filterAgensi: any;
   filterKategori: any;
   filterStatus: any;
+  filterString: string;
   agensi: any;
   kategoriBayaran: any;
 
@@ -132,7 +133,8 @@ export class LaporanWaranComponent implements OnInit {
     this.filterAgensi = undefined;
     this.filterKategori = undefined;
     this.filterStatus = undefined;
-
+    this.filterString = undefined;
+    this.applyFilter(this.filterString);
     this.getWaranReport();
   }
 }

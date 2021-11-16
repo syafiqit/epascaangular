@@ -27,6 +27,7 @@ export class LaporanBwiNegeriComponent implements OnInit {
   filter: string;
   filterNegeri: number;
   filterYear: number;
+  filterString: string;
   arrayYear:any[];
 
   total_kir: number;
@@ -109,7 +110,8 @@ export class LaporanBwiNegeriComponent implements OnInit {
     this.filter = undefined;
     this.filterNegeri = undefined;
     this.filterYear = undefined;
-
+    this.filterString = undefined;
+    this.applyFilter(this.filterString);
     this.getBwiNegeriReport();
   }
 

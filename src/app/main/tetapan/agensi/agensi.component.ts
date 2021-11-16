@@ -23,6 +23,7 @@ export class AgensiComponent implements OnInit {
 
 	filter: string;
   filterStatus: number;
+  filterString: string;
   public isCollapsed = false;
   terms$ = new Subject<string>();
 
@@ -81,7 +82,8 @@ export class AgensiComponent implements OnInit {
   resetFilter() {
     this.filter = undefined;
     this.filterStatus = undefined;
-
+    this.filterString = undefined;
+    this.applyFilter(this.filterString);
     this.getAgensi();
   }
 

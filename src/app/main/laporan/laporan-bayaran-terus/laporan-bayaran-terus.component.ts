@@ -27,6 +27,7 @@ export class LaporanBayaranTerusComponent implements OnInit {
   filter: string;
   filterKategori: number;
   filterYear: number;
+  filterString: string;
   arrayYear:any[];
   jumlah_bayaran_terus: number;
   kategori_negeri = "Negeri";
@@ -105,7 +106,8 @@ export class LaporanBayaranTerusComponent implements OnInit {
     this.filter = undefined;
     this.filterKategori = undefined;
     this.filterYear = undefined;
-
+    this.filterString = undefined;
+    this.applyFilter(this.filterString);
     this.getTerusReport();
   }
 

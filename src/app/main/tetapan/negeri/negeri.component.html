@@ -13,6 +13,7 @@
             type="text"
             name="searchNegeri"
             placeholder="Carian..."
+            [(ngModel)]="filterString"
             (keyup)="applyFilter($event.target.value)"
           />
           <i class="icon-search search-icon" style="font-size: large; font-weight: bold;"></i>

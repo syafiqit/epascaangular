@@ -22,6 +22,7 @@ export class NegeriComponent implements OnInit {
 
 	filter: string;
   filterStatus: number;
+  filterString: string;
   public isCollapsed = false;
   terms$ = new Subject<string>();
 
@@ -79,7 +80,8 @@ export class NegeriComponent implements OnInit {
   resetFilter() {
     this.filter = undefined;
     this.filterStatus = undefined;
-
+    this.filterString = undefined;
+    this.applyFilter(this.filterString);
     this.getNegeri();
   }
 
