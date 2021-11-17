@@ -34,6 +34,16 @@ export class LaporanKelulusanComponent implements OnInit {
   pastYear: string;
   arrayYear:any[];
   terms$ = new Subject<string>();
+  fromDateMula:any;
+  toDateMula:any;
+  fromDateTamat:any;
+  toDateTamat:any;
+  filterFromDateMula:any;
+  filterToDateMula:any;
+  filterFromDateTamat:any;
+  filterToDateTamat:any;
+  chooseFromDateMula = false;
+  chooseFromDateTamat = false;
 
   total_siling_peruntukan: number;
   total_peruntukan_diambil: number;
@@ -79,11 +89,22 @@ export class LaporanKelulusanComponent implements OnInit {
 
 	getKelulusanReport(event?: LazyLoadEvent) {
 		this.primengTableHelper.showLoadingIndicator();
+
+    if(this.fromDateMula){
+      this.changeDateToString();
+    }
+
+    if(this.fromDateTamat){
+      this.changeDateToStringTamat();
+    }
+
 		this._laporanServiceProxy
 			.getAllLaporanKelulusan(
 				this.filter,
-        this.filterYear ?? undefined,
-        this.filterPastYear ?? undefined,
+        this.filterFromDateMula ?? undefined,
+        this.filterToDateMula ?? undefined,
+        this.filterFromDateTamat ?? undefined,
+        this.filterToDateTamat ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
 				this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -117,8 +138,10 @@ export class LaporanKelulusanComponent implements OnInit {
   exportToExcel(){
     this._laporanServiceProxy.exportAllLaporanKelulusanToExcel(
       this.filter ?? undefined,
-      this.filterYear  ?? undefined,
-      this.filterPastYear ?? undefined,
+      this.filterFromDateMula  ?? undefined,
+      this.filterToDateMula ?? undefined,
+      this.filterFromDateTamat  ?? undefined,
+      this.filterToDateTamat ?? undefined,
     ).subscribe(e=>{
       this._fileDownloadService.downloadTempFile(e);
     })
@@ -126,10 +149,17 @@ export class LaporanKelulusanComponent implements OnInit {
 
   resetFilter() {
     this.filter = undefined;
-    this.filterYear = undefined;
-    this.filterPastYear = undefined;
-    this.filterTahun = undefined;
+    this.filterFromDateMula = undefined;
+    this.filterToDateMula = undefined;
+    this.filterFromDateTamat = undefined;
+    this.filterToDateTamat = undefined;
     this.filterString = undefined;
+    this.fromDateMula = undefined;
+    this.toDateMula = undefined;
+    this.fromDateTamat = undefined;
+    this.toDateTamat = undefined;
+    this.chooseFromDateMula = false;
+    this.chooseFromDateTamat = false;
     this.applyFilter(this.filterString);
     this.getKelulusanReport();
   }
@@ -149,4 +179,31 @@ export class LaporanKelulusanComponent implements OnInit {
     }
     this.arrayYear = years;
   }
+
+  pilihTarikhMula(){
+    this.chooseFromDateMula = true;
+    if(this.fromDateMula == null){
+      this.chooseFromDateMula = false;
+      this.toDateMula = null;
+    }
+  }
+
+  pilihTarikhTamat(){
+    this.chooseFromDateTamat = true;
+    if(this.fromDateTamat == null){
+      this.chooseFromDateTamat = false;
+      this.toDateTamat = null;
+    }
+  }
+
+  changeDateToString(){
+    this.filterFromDateMula = this.toModel(this.fromDateMula);
+    this.filterToDateMula = this.toModel(this.toDateMula);
+  }
+
+  changeDateToStringTamat(){
+    this.filterFromDateTamat = this.toModel(this.fromDateTamat);
+    this.filterToDateTamat = this.toModel(this.toDateTamat);
+  }
+
 }
