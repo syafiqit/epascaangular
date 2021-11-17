@@ -8,6 +8,8 @@ import { AppSessionService } from '@app/shared/services/app-session.service';
 })
 export class TetapanComponent implements OnInit {
 
+  tetapanActive: string = "Kementerian";
+
 	constructor(
       private router: Router,
       public _appSession: AppSessionService
@@ -22,4 +24,8 @@ export class TetapanComponent implements OnInit {
   }
 
 	ngOnInit() {}
+
+  nameTetapan(tetapan:string){
+    this.tetapanActive = tetapan;
+  }
 }

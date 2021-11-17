@@ -114,12 +114,12 @@
         >
           <ng-template pTemplate="header">
             <tr>
-              <th style="width: 150px" pSortableColumn="nama_kementerian">
+              <th style="width: 180px" pSortableColumn="nama_kementerian">
                 Nama Kementerian
                 <p-sortIcon field="nama_kementerian"></p-sortIcon>
               </th>
-              <th style="width: 130px" pSortableColumn="kod_kementerian">
-                Kod Kementerian
+              <th style="width: 100px" pSortableColumn="kod_kementerian">
+                Kod
                 <p-sortIcon field="kod_kementerian"></p-sortIcon>
               </th>
               <th style="width: 130px" pSortableColumn="status">
@@ -131,12 +131,12 @@
           </ng-template>
           <ng-template pTemplate="body" let-record="$implicit">
             <tr>
-              <td style="width: 150px">
+              <td style="width: 180px">
                 <span class="p-column-title">Nama Kementerian</span>
                 {{record.nama_kementerian}}
               </td>
-              <td style="width: 130px">
-                <span class="p-column-title">Kod Kementerian</span>
+              <td style="width: 100px">
+                <span class="p-column-title">Kod</span>
                 {{record.kod_kementerian}}
               </td>
               <td style="width: 130px">
