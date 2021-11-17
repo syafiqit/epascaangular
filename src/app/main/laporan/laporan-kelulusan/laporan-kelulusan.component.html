@@ -51,19 +51,89 @@
                 <div class="col-lg-12">
                   <div id="collapseExample" [ngbCollapse]="!isCollapsed">
                     <div class="row mt-2">
-                      <div class="col-lg-4">
-                        <div class="form-group">
-                          <label>Tahun Belanja</label>
-                          <ng-select
-                            [items]="arrayYear"
-                            bindLabel="years"
-                            bindValue="years"
-                            placeholder="Sila Pilih"
-                            class="js-example-placeholder-multiple"
-                            name="tahunBayaran"
-                            [(ngModel)]="filterTahun"
-                            (ngModelChange)="getTahun()"
-                          ></ng-select>
+                      <div class="col-lg-2 pr-1">
+                        <div class="form-group custom-datepicker custom-datepicker-dropdown">
+                          <label>Tarikh Mula</label>
+                          <div class="input-group">
+                            <input
+                              class="form-control"
+                              placeholder="yyyy-mm-dd"
+                              name="dp1"
+                              [(ngModel)]="fromDateMula"
+                              ngbDatepicker
+                              #b="ngbDatepicker"
+                              style="border: 1px solid #efefef !important;"
+                              (ngModelChange)="pilihTarikhMula()"
+                            >
+                            <div class="input-group-append">
+                              <button class="btn btn-light pr-2 pl-2" (click)="b.toggle()" type="button"><i
+                                class="fa fa-calendar"></i></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-2 pl-1">
+                        <div class="form-group custom-datepicker custom-datepicker-dropdown">
+                          <div class="input-group pt-4 mt-1">
+                            <input
+                              class="form-control"
+                              placeholder="yyyy-mm-dd"
+                              name="dp2"
+                              [(ngModel)]="toDateMula"
+                              ngbDatepicker
+                              #c="ngbDatepicker"
+                              style="border: 1px solid #efefef !important;"
+                              [disabled]="!chooseFromDateMula"
+                            >
+                            <div class="input-group-append">
+                              <button class="btn btn-light pr-2 pl-2" (click)="c.toggle()" type="button" [disabled]="!chooseFromDateMula"><i
+                                class="fa fa-calendar"></i></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-2 pr-1">
+                        <div class="form-group custom-datepicker custom-datepicker-dropdown">
+                          <label>Tarikh Tamat</label>
+                          <div class="input-group">
+                            <input
+                              class="form-control"
+                              placeholder="yyyy-mm-dd"
+                              name="dp1"
+                              [(ngModel)]="fromDateTamat"
+                              ngbDatepicker
+                              #d="ngbDatepicker"
+                              style="border: 1px solid #efefef !important;"
+                              (ngModelChange)="pilihTarikhTamat()"
+                            >
+                            <div class="input-group-append">
+                              <button class="btn btn-light pr-2 pl-2" (click)="d.toggle()" type="button"><i
+                                class="fa fa-calendar"></i></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-2 pl-1">
+                        <div class="form-group custom-datepicker custom-datepicker-dropdown">
+                          <div class="input-group pt-4 mt-1">
+                            <input
+                              class="form-control"
+                              placeholder="yyyy-mm-dd"
+                              name="dp2"
+                              [(ngModel)]="toDateTamat"
+                              ngbDatepicker
+                              #e="ngbDatepicker"
+                              style="border: 1px solid #efefef !important;"
+                              [disabled]="!chooseFromDateTamat"
+                            >
+                            <div class="input-group-append">
+                              <button class="btn btn-light pr-2 pl-2" (click)="e.toggle()" type="button" [disabled]="!chooseFromDateTamat"><i
+                                class="fa fa-calendar"></i></button>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>

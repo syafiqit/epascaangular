@@ -3316,27 +3316,37 @@ export class LaporanServiceProxy {
     /**
      * Get all Laporan Kelulusan
      * @param filter (optional) Filter records with a string
-     * @param filterYear (optional) Filter records with integer
-     * @param filterPastYear (optional) Filter records with integer
+     * @param filterFromDateMula (optional) Filter records with string
+     * @param filterToDateMula (optional) Filter records with string
+     * @param filterFromDateTamat (optional) Filter records with string
+     * @param filterToDateTamat (optional) Filter records with string
      * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
      * @param skipCount (optional) Skip n-value of a record
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAllLaporanKelulusan(filter: string | undefined, filterYear: number | undefined, filterPastYear: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultOfLaporanKelulusanForViewDto> {
+    getAllLaporanKelulusan(filter: string | undefined, filterFromDateMula: string | undefined, filterToDateMula: string | undefined, filterFromDateTamat: string | undefined, filterToDateTamat: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultOfLaporanKelulusanForViewDto> {
         let url_ = this.baseUrl + "/api/laporan/getAllLaporanKelulusan?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
             url_ += "filter=" + encodeURIComponent("" + filter) + "&";
-        if (filterYear === null)
-            throw new Error("The parameter 'filterYear' cannot be null.");
-        else if (filterYear !== undefined)
-            url_ += "filterYear=" + encodeURIComponent("" + filterYear) + "&";
-        if (filterPastYear === null)
-            throw new Error("The parameter 'filterPastYear' cannot be null.");
-        else if (filterPastYear !== undefined)
-            url_ += "filterPastYear=" + encodeURIComponent("" + filterPastYear) + "&";
+        if (filterFromDateMula === null)
+            throw new Error("The parameter 'filterFromDateMula' cannot be null.");
+        else if (filterFromDateMula !== undefined)
+            url_ += "filterFromDateMula=" + encodeURIComponent("" + filterFromDateMula) + "&";
+        if (filterToDateMula === null)
+            throw new Error("The parameter 'filterToDateMula' cannot be null.");
+        else if (filterToDateMula !== undefined)
+            url_ += "filterToDateMula=" + encodeURIComponent("" + filterToDateMula) + "&";
+        if (filterFromDateTamat === null)
+            throw new Error("The parameter 'filterFromDateTamat' cannot be null.");
+        else if (filterFromDateTamat !== undefined)
+            url_ += "filterFromDateTamat=" + encodeURIComponent("" + filterFromDateTamat) + "&";
+        if (filterToDateTamat === null)
+            throw new Error("The parameter 'filterToDateTamat' cannot be null.");
+        else if (filterToDateTamat !== undefined)
+            url_ += "filterToDateTamat=" + encodeURIComponent("" + filterToDateTamat) + "&";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
@@ -3402,24 +3412,34 @@ export class LaporanServiceProxy {
     /**
      * Export excel all kelulusan
      * @param filter (optional) Filter records with a string
-     * @param filterYear (optional) Filter records with integer
-     * @param filterPastYear (optional) Filter records with integer
+     * @param filterFromDateMula (optional) Filter records with string
+     * @param filterToDateMula (optional) Filter records with string
+     * @param filterFromDateTamat (optional) Filter records with string
+     * @param filterToDateTamat (optional) Filter records with string
      * @return Success
      */
-    exportAllLaporanKelulusanToExcel(filter: string | undefined, filterYear: number | undefined, filterPastYear: number | undefined): Observable<OutputDownloadTempDto> {
+    exportAllLaporanKelulusanToExcel(filter: string | undefined, filterFromDateMula: string | undefined, filterToDateMula: string | undefined, filterFromDateTamat: string | undefined, filterToDateTamat: string | undefined): Observable<OutputDownloadTempDto> {
         let url_ = this.baseUrl + "/api/laporan/exportAllLaporanKelulusanToExcel?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
             url_ += "filter=" + encodeURIComponent("" + filter) + "&";
-        if (filterYear === null)
-            throw new Error("The parameter 'filterYear' cannot be null.");
-        else if (filterYear !== undefined)
-            url_ += "filterYear=" + encodeURIComponent("" + filterYear) + "&";
-        if (filterPastYear === null)
-            throw new Error("The parameter 'filterPastYear' cannot be null.");
-        else if (filterPastYear !== undefined)
-            url_ += "filterPastYear=" + encodeURIComponent("" + filterPastYear) + "&";
+        if (filterFromDateMula === null)
+            throw new Error("The parameter 'filterFromDateMula' cannot be null.");
+        else if (filterFromDateMula !== undefined)
+            url_ += "filterFromDateMula=" + encodeURIComponent("" + filterFromDateMula) + "&";
+        if (filterToDateMula === null)
+            throw new Error("The parameter 'filterToDateMula' cannot be null.");
+        else if (filterToDateMula !== undefined)
+            url_ += "filterToDateMula=" + encodeURIComponent("" + filterToDateMula) + "&";
+        if (filterFromDateTamat === null)
+            throw new Error("The parameter 'filterFromDateTamat' cannot be null.");
+        else if (filterFromDateTamat !== undefined)
+            url_ += "filterFromDateTamat=" + encodeURIComponent("" + filterFromDateTamat) + "&";
+        if (filterToDateTamat === null)
+            throw new Error("The parameter 'filterToDateTamat' cannot be null.");
+        else if (filterToDateTamat !== undefined)
+            url_ += "filterToDateTamat=" + encodeURIComponent("" + filterToDateTamat) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
