@@ -79,6 +79,11 @@ export class TabungComponent implements OnInit {
   }
 
 	getTabung(event?: LazyLoadEvent) {
+    if (this.primengTableHelper.shouldResetPaging(event)) {
+			this.paginator.changePage(0);
+			return;
+		}
+
 		this.primengTableHelper.showLoadingIndicator();
 		this.tabungServiceProxy
 			.getAll(

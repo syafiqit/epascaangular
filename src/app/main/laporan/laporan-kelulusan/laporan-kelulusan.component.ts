@@ -88,6 +88,11 @@ export class LaporanKelulusanComponent implements OnInit {
   }
 
 	getKelulusanReport(event?: LazyLoadEvent) {
+    if (this.primengTableHelper.shouldResetPaging(event)) {
+			this.paginator.changePage(0);
+			return;
+		}
+
 		this.primengTableHelper.showLoadingIndicator();
 
     if(this.fromDateMula){

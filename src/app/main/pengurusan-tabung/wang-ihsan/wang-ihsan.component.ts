@@ -78,6 +78,11 @@ export class WangIhsanComponent implements OnInit {
   }
 
 	getBantuanWangIhsan(event?: LazyLoadEvent) {
+    if (this.primengTableHelper.shouldResetPaging(event)) {
+			this.paginator.changePage(0);
+			return;
+		}
+
     if(this.tarikhMula){
       this.filterFromDate = this.toModel(this.tarikhMula);
     }
