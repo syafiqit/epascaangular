@@ -106,6 +106,21 @@
                           </div>
                         </div>
                       </div>
+
+                      <div class="col-lg-4">
+                        <div class="form-group">
+                          <label>Negeri</label>
+                          <ng-select
+                            [items]="states"
+                            bindLabel="nama_negeri"
+                            bindValue="id"
+                            placeholder="Sila Pilih"
+                            class="js-example-placeholder-multiple"
+                            name="negeri_filter"
+                            [(ngModel)]="filterNegeri"
+                          ></ng-select>
+                        </div>
+                      </div>
                     </div>
 
                     <div class="row no-gutters justify-content-end mb-2">

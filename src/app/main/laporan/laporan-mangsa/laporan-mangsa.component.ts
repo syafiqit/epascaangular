@@ -9,7 +9,8 @@ import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import {
   LaporanServiceProxy,
   RefAgensiServiceProxy,
-  RefKementerianServiceProxy
+  RefKementerianServiceProxy,
+  RefNegeriServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { FileDownloadService } from '@app/shared/services/file-download.service';
 
@@ -33,14 +34,17 @@ export class LaporanMangsaComponent implements OnInit {
   filter: string;
   filterAgensi: number;
   filterKementerian: number;
+  filterNegeri: number;
   filterYear: number;
   filterString: string;
+  states: any;
   arrayYear:any[];
 
 	constructor(
     config: NgbModalConfig,
     private _refKementerianServiceProxy: RefKementerianServiceProxy,
     private _refAgensiServiceProxy: RefAgensiServiceProxy,
+    private _refNegeriServiceProxy: RefNegeriServiceProxy,
     private _laporanServiceProxy: LaporanServiceProxy,
     private _fileDownloadService: FileDownloadService
   ) {
@@ -52,6 +56,7 @@ export class LaporanMangsaComponent implements OnInit {
 	ngOnInit(): void {
     this.getKementerian();
     this.getAgensi();
+    this.getNegeri();
 	  this.generateArrayOfYears();
 
     this.terms$.pipe(
@@ -70,7 +75,7 @@ export class LaporanMangsaComponent implements OnInit {
     if (this.primengTableHelper.shouldResetPaging(event)) {
 			this.paginator.changePage(0);
 			return;
-		}
+	}
 
 		this.primengTableHelper.showLoadingIndicator();
 		this._laporanServiceProxy
@@ -78,6 +83,7 @@ export class LaporanMangsaComponent implements OnInit {
 				this.filter,
         this.filterAgensi ?? undefined,
         this.filterKementerian ?? undefined,
+        this.filterNegeri ?? undefined,
         this.filterYear ?? undefined,
 				this.primengTableHelper.getSorting(this.dataTable),
 				this.primengTableHelper.getSkipCount(this.paginator, event),
@@ -97,6 +103,7 @@ export class LaporanMangsaComponent implements OnInit {
       this.filter,
       this.filterAgensi  ?? undefined,
       this.filterKementerian ?? undefined,
+      this.filterNegeri ?? undefined,
       this.filterYear ?? undefined
     ).subscribe(e=>{
       this._fileDownloadService.downloadTempFile(e);
@@ -112,6 +119,12 @@ export class LaporanMangsaComponent implements OnInit {
   getAgensi(filter?) {
 		this._refAgensiServiceProxy.getRefAgensiForDropdown(filter).subscribe((result) => {
 			this.agencies = result.items;
+		});
+	}
+
+  getNegeri(filter?) {
+		this._refNegeriServiceProxy.getRefNegeriForDropdown(filter).subscribe((result) => {
+			this.states = result.items;
 		});
 	}
 

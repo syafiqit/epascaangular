@@ -84,6 +84,23 @@
 
                         <div class="col-lg-4">
                           <div class="form-group">
+                            <label>Negeri</label>
+                            <ng-select
+                              [items]="states"
+                              bindLabel="nama_negeri"
+                              bindValue="id"
+                              placeholder="Sila Pilih"
+                              class="js-example-placeholder-multiple"
+                              name="namaNegeri"
+                              [(ngModel)]="filterNegeri"
+                            ></ng-select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-4">
+                          <div class="form-group">
                             <label>Tahun</label>
                             <ng-select
                               [items]="arrayYear"
@@ -143,13 +160,17 @@
 							>
 								<ng-template pTemplate="header">
 									<tr>
-										<th style="width: 160px" pSortableColumn="nama">
+										<th style="width: 170px" pSortableColumn="nama">
 											Nama Mangsa (KIR)
 											<p-sortIcon field="nama"></p-sortIcon>
 										</th>
 										<th style="width: 110px" pSortableColumn="no_kp">
 											Kad Pengenalan
 											<p-sortIcon field="no_kp"></p-sortIcon>
+										</th>
+                    <th style="width: 110px" pSortableColumn="nama_negeri">
+											Negeri
+											<p-sortIcon field="nama_negeri"></p-sortIcon>
 										</th>
 										<th style="width: 130px" pSortableColumn="nama_kementerian">
 											Kementerian
@@ -167,13 +188,17 @@
 								</ng-template>
 								<ng-template pTemplate="body" let-record="$implicit">
 									<tr>
-										<td style="width: 160px">
+										<td style="width: 170px">
 											<span class="p-column-title">Nama Mangsa (KIR)</span>
 											{{record.nama}}
 										</td>
 										<td style="width: 110px">
 											<span class="p-column-title">Kad Pengenalan</span>
 											{{record.no_kp}}
+										</td>
+                    <td style="width: 110px">
+											<span class="p-column-title">Negeri</span>
+											{{record.nama_negeri}}
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Kementerian</span>
