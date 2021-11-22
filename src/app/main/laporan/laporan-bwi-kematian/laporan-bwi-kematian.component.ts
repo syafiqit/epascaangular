@@ -65,6 +65,11 @@ export class LaporanBwiKematianComponent implements OnInit {
   }
 
 	getBwiKematianReport(event?: LazyLoadEvent) {
+    if (this.primengTableHelper.shouldResetPaging(event)) {
+			this.paginator.changePage(0);
+			return;
+		}
+
 		this.primengTableHelper.showLoadingIndicator();
 		this._laporanServiceProxy
 			.getAllLaporanBwiKematian(

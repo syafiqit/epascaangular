@@ -56,6 +56,11 @@ export class ParlimenComponent implements OnInit {
   }
 
 	getParlimen(event?: LazyLoadEvent) {
+    if (this.primengTableHelper.shouldResetPaging(event)) {
+			this.paginator.changePage(0);
+			return;
+		}
+
 		this.primengTableHelper.showLoadingIndicator();
 		this._refParlimenServiceProxy
 			.getAll(
