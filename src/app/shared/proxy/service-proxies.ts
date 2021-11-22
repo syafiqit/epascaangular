@@ -1030,13 +1030,14 @@ export class LaporanServiceProxy {
      * @param filter (optional) Filter records with a string
      * @param filterAgensi (optional) Filter records with a integer
      * @param filterKementerian (optional) Filter records with a integer
+     * @param filterNegeri (optional) Filter records with a integer
      * @param filterYear (optional) Filter records with a integer
      * @param sorting (optional) Specify column name and sorting value i.e: `column_name asc` or `column_name desc`
      * @param skipCount (optional) Skip n-value of a record
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAllMangsa(filter: string | undefined, filterAgensi: number | undefined, filterKementerian: number | undefined, filterYear: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultOfLaporanMangsaForViewDto> {
+    getAllMangsa(filter: string | undefined, filterAgensi: number | undefined, filterKementerian: number | undefined, filterNegeri: number | undefined, filterYear: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultOfLaporanMangsaForViewDto> {
         let url_ = this.baseUrl + "/api/laporan/getAllMangsa?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -1050,6 +1051,10 @@ export class LaporanServiceProxy {
             throw new Error("The parameter 'filterKementerian' cannot be null.");
         else if (filterKementerian !== undefined)
             url_ += "filterKementerian=" + encodeURIComponent("" + filterKementerian) + "&";
+        if (filterNegeri === null)
+            throw new Error("The parameter 'filterNegeri' cannot be null.");
+        else if (filterNegeri !== undefined)
+            url_ += "filterNegeri=" + encodeURIComponent("" + filterNegeri) + "&";
         if (filterYear === null)
             throw new Error("The parameter 'filterYear' cannot be null.");
         else if (filterYear !== undefined)
@@ -1238,10 +1243,11 @@ export class LaporanServiceProxy {
      * @param filter (optional) Filter records with a string
      * @param filterAgensi (optional) Filter records with integer
      * @param filterKementerian (optional) Filter records with integer
+     * @param filterNegeri (optional) Filter records with a integer
      * @param filterYear (optional) Filter records with a integer
      * @return Success
      */
-    exportAllMangsaToExcel(filter: string | undefined, filterAgensi: number | undefined, filterKementerian: number | undefined, filterYear: number | undefined): Observable<OutputDownloadTempDto> {
+    exportAllMangsaToExcel(filter: string | undefined, filterAgensi: number | undefined, filterKementerian: number | undefined, filterNegeri: number | undefined, filterYear: number | undefined): Observable<OutputDownloadTempDto> {
         let url_ = this.baseUrl + "/api/laporan/exportAllMangsaToExcel?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -1255,6 +1261,10 @@ export class LaporanServiceProxy {
             throw new Error("The parameter 'filterKementerian' cannot be null.");
         else if (filterKementerian !== undefined)
             url_ += "filterKementerian=" + encodeURIComponent("" + filterKementerian) + "&";
+        if (filterNegeri === null)
+            throw new Error("The parameter 'filterNegeri' cannot be null.");
+        else if (filterNegeri !== undefined)
+            url_ += "filterNegeri=" + encodeURIComponent("" + filterNegeri) + "&";
         if (filterYear === null)
             throw new Error("The parameter 'filterYear' cannot be null.");
         else if (filterYear !== undefined)

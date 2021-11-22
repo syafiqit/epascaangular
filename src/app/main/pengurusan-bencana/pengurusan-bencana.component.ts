@@ -6,7 +6,8 @@ import { Table } from 'primeng/table';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import {
 	RefBencanaServiceProxy,
-	RefJenisBencanaServiceProxy
+	RefJenisBencanaServiceProxy,
+  RefNegeriServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
 import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -50,6 +51,7 @@ export class PengurusanBencanaComponent implements OnInit {
     config: NgbModalConfig,
     private _refBencanaServiceProxy: RefBencanaServiceProxy,
     private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy,
+    private _refNegeriServiceProxy: RefNegeriServiceProxy,
     public _appSession: AppSessionService,
 		private _confirmationService: ConfirmationService
   ) {
@@ -60,6 +62,7 @@ export class PengurusanBencanaComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.getJenisBencana();
+    this.getNegeri();
 
     this.terms$.pipe(
       debounceTime(500), distinctUntilChanged()
@@ -121,6 +124,12 @@ export class PengurusanBencanaComponent implements OnInit {
 		});
 	}
 
+  getNegeri(filter?) {
+		this._refNegeriServiceProxy.getRefNegeriForDropdown(filter).subscribe((result) => {
+			this.states = result.items;
+		});
+	}
+
   resetFilter() {
     this.filter = undefined;
     this.filterJenis = undefined;
@@ -129,6 +138,7 @@ export class PengurusanBencanaComponent implements OnInit {
     this.filterFromDate = undefined;
     this.filterToDate = undefined;
     this.filterString = undefined;
+    this.filterNegeri = undefined;
     this.applyFilter(this.filterString);
     this.getDisaster();
   }
