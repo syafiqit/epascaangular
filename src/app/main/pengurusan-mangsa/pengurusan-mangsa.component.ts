@@ -156,6 +156,9 @@ export class PengurusanMangsaComponent implements OnInit {
     this.filterToDate = undefined;
     this.filterString = undefined;
     this.applyFilter(this.filterString);
+	this.checkAll = false;
+	this.checked = false;
+	this.idMangsa = [];
     this.getVictim();
   }
 
@@ -199,7 +202,7 @@ export class PengurusanMangsaComponent implements OnInit {
 			this.idMangsa = this.allMangsa;
 		}
 		else if (!isChecked) {
-			this.checkAll = true;
+			this.checkAll = false;
 			this.checked = false;
 			this.idMangsa = [];
 		}
