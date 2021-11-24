@@ -25,6 +25,8 @@ import { LaporanMangsaComponent } from './laporan-mangsa/laporan-mangsa.componen
 import { LaporanBantuanLainComponent } from './laporan-bantuan-lain/laporan-bantuan-lain.component';
 import { LaporanAntarabangsaComponent } from './laporan-antarabangsa/laporan-antarabangsa.component';
 import { LaporanWaranComponent } from './laporan-waran/laporan-waran.component';
+import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateCustomParserFormatter } from '@app/shared/date-parser/NgbDateCustomParserFormatter';
 
 @NgModule({
 	imports: [
@@ -56,6 +58,9 @@ import { LaporanWaranComponent } from './laporan-waran/laporan-waran.component';
     LaporanBantuanLainComponent,
     LaporanAntarabangsaComponent,
     LaporanWaranComponent
+	],
+  providers: [
+		{provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter}
 	]
 })
 export class LaporanModule {}

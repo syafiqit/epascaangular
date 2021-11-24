@@ -8,8 +8,9 @@ import { PengurusanPenggunaComponent } from '../pengurusan-pengguna/pengurusan-p
 import { TambahEditPengurusanPenggunaComponent } from '../pengurusan-pengguna/tambah-edit-pengurusan-pengguna/tambah-edit-pengurusan-pengguna.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { PermohonanPenggunaComponent } from './permohonan-pengguna/permohonan-pengguna.component';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateParserFormatter, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbDateCustomParserFormatter } from '@app/shared/date-parser/NgbDateCustomParserFormatter';
 
 
 @NgModule({
@@ -28,6 +29,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     PengurusanPenggunaComponent,
     TambahEditPengurusanPenggunaComponent,
     PermohonanPenggunaComponent
-  ]
+  ],
+  providers: [
+		{provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter}
+	]
 })
 export class PengurusanPenggunaModule {}

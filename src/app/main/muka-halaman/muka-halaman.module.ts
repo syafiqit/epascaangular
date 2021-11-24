@@ -6,6 +6,8 @@ import { PaginatorModule } from 'primeng/paginator';
 import { MukaHalamanRoutingModule } from './muka-halaman-routing.module';
 import { MukaHalamanComponent } from './muka-halaman.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateCustomParserFormatter } from '@app/shared/date-parser/NgbDateCustomParserFormatter';
 
 @NgModule({
 	imports: [
@@ -16,6 +18,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
     PaginatorModule,
     NgSelectModule
   ],
-	declarations: [MukaHalamanComponent]
+	declarations: [MukaHalamanComponent],
+  providers: [
+		{provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter}
+	]
 })
 export class MukaHalamanModule {}
