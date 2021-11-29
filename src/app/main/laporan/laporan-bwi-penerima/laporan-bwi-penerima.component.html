@@ -108,7 +108,7 @@
                       <div class="row">
                         <div class="col-lg-4">
                           <div class="form-group">
-                            <label>Tahun</label>
+                            <label>Tahun Serahan</label>
                             <ng-select
                               [items]="arrayYear"
                               bindLabel="years"
@@ -179,7 +179,7 @@
 											Nama Bencana
 											<p-sortIcon field="nama_bencana"></p-sortIcon>
 										</th>
-                    <th style="width: 150px" pSortableColumn="tarikh_bencana">
+                    <th style="width: 160px" pSortableColumn="tarikh_bencana">
 											Tarikh Bencana
 											<p-sortIcon field="tarikh_bencana"></p-sortIcon>
 										</th>
@@ -227,9 +227,10 @@
 											<span class="p-column-title">Nama Bencana</span>
 											{{record.nama_bencana}}
 										</td>
-                    <td style="width: 150px">
+                    <td style="width: 160px">
 											<span class="p-column-title">Tarikh Bencana</span>
-											{{record.tarikh_bencana | date:'dd-MM-yyyy'}}
+                      <label *ngIf="record.tarikh_bencana">{{record.tarikh_bencana | date:'dd-MM-yyyy'}}</label>
+											<label *ngIf="!record.tarikh_bencana">-</label>
 										</td>
                     <td style="width: 130px">
 											<span class="p-column-title">Jenis Bwi</span>
@@ -253,7 +254,8 @@
 										</td>
 										<td style="width: 150px">
 											<span class="p-column-title">Tarikh Serahan</span>
-											{{record.tarikh_serahan | date:'dd-MM-yyyy'}}
+                      <label *ngIf="record.tarikh_serahan">{{record.tarikh_serahan | date:'dd-MM-yyyy'}}</label>
+											<label *ngIf="!record.tarikh_serahan">-</label>
 										</td>
 										<td style="width: 100px">
 											<span class="p-column-title">Jumlah</span>

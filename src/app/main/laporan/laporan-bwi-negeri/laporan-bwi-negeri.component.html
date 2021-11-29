@@ -69,7 +69,7 @@
 
                         <div class="col-lg-4">
                           <div class="form-group">
-                            <label>Tahun</label>
+                            <label>Tahun Cipta</label>
                             <ng-select
                               [items]="arrayYear"
                               bindLabel="years"
@@ -140,13 +140,17 @@
 											Jumlah
 											<p-sortIcon field="jumlah"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="jumlah_dipulangkan">
+										<th style="width: 170px" pSortableColumn="jumlah_dipulangkan">
 											Baki Dipulangkan
 											<p-sortIcon field="jumlah_dipulangkan"></p-sortIcon>
 										</th>
-										<th style="width: 130px" pSortableColumn="jumlah_diagihkan">
+										<th style="width: 170px" pSortableColumn="jumlah_diagihkan">
 											Jumlah Diagihkan
 											<p-sortIcon field="jumlah_diagihkan"></p-sortIcon>
+										</th>
+                    <th style="width: 150px" pSortableColumn="tarikh_cipta">
+											Tarikh Cipta
+											<p-sortIcon field="tarikh_cipta"></p-sortIcon>
 										</th>
 									</tr>
 								</ng-template>
@@ -165,15 +169,19 @@
                       <label *ngIf="record.jumlah">RM {{record.jumlah | number: '1.2-2'}}</label>
                       <label *ngIf="!record.jumlah">RM 0.00</label>
 										</td>
-										<td style="width: 130px">
+										<td style="width: 170px">
 											<span class="p-column-title">Baki Dipulangkan</span>
                       <label *ngIf="record.jumlah_dipulangkan">RM {{record.jumlah_dipulangkan | number: '1.2-2'}}</label>
                       <label *ngIf="!record.jumlah_dipulangkan">RM 0.00</label>
 										</td>
-										<td style="width: 130px">
+										<td style="width: 170px">
 											<span class="p-column-title">Jumlah Diagihkan</span>
                       <label *ngIf="record.jumlah_diagihkan">RM {{record.jumlah_diagihkan | number: '1.2-2'}}</label>
                       <label *ngIf="!record.jumlah_diagihkan">RM 0.00</label>
+										</td>
+                    <td style="width: 150px">
+											<span class="p-column-title">Tarikh Cipta</span>
+											{{record.tarikh_cipta | date:'dd-MM-yyyy'}}
 										</td>
 									</tr>
 								</ng-template>

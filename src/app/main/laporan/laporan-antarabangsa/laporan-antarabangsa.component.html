@@ -85,7 +85,7 @@
 
                         <div class="col-lg-4">
                           <div class="form-group">
-                            <label>Tahun</label>
+                            <label>Tahun Cipta</label>
                             <ng-select
                               [items]="arrayYear"
                               bindLabel="years"
@@ -188,6 +188,10 @@
 											Catatan
 											<p-sortIcon field="catatan"></p-sortIcon>
 										</th>
+                    <th style="width: 151px" pSortableColumn="tarikh_cipta">
+											Tarikh Cipta
+											<p-sortIcon field="tarikh_cipta"></p-sortIcon>
+										</th>
 									</tr>
 								</ng-template>
 								<ng-template pTemplate="body" let-record="$implicit">
@@ -236,6 +240,10 @@
                     <td style="width: 130px">
 											<span class="p-column-title">Catatan</span>
                       {{record.catatan? record.catatan: '-'}}
+										</td>
+                    <td style="width: 151px">
+											<span class="p-column-title">Tarikh Cipta</span>
+											{{record.tarikh_cipta | date:'dd-MM-yyyy'}}
 										</td>
 									</tr>
 								</ng-template>

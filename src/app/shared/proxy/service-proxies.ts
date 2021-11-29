@@ -3009,7 +3009,7 @@ export class LaporanServiceProxy {
      * @param maxResultCount (optional) Maximum records per page. Default value is 10
      * @return Success
      */
-    getAllLaporanBwiByNegeri(filter: string | undefined, filterNegeri: number | undefined, filterYear: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PegedResultOfLaporanBwiByNegeriDto> {
+    getAllLaporanBwiByNegeri(filter: string | undefined, filterNegeri: number | undefined, filterYear: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultOfLaporanBwiByNegeriDto> {
         let url_ = this.baseUrl + "/api/laporan/getAllLaporanBwiByNegeri?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -3052,14 +3052,14 @@ export class LaporanServiceProxy {
                 try {
                     return this.processGetAllLaporanBwiByNegeri(<any>response_);
                 } catch (e) {
-                    return <Observable<PegedResultOfLaporanBwiByNegeriDto>><any>_observableThrow(e);
+                    return <Observable<PagedResultOfLaporanBwiByNegeriDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<PegedResultOfLaporanBwiByNegeriDto>><any>_observableThrow(response_);
+                return <Observable<PagedResultOfLaporanBwiByNegeriDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetAllLaporanBwiByNegeri(response: HttpResponseBase): Observable<PegedResultOfLaporanBwiByNegeriDto> {
+    protected processGetAllLaporanBwiByNegeri(response: HttpResponseBase): Observable<PagedResultOfLaporanBwiByNegeriDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -3070,7 +3070,7 @@ export class LaporanServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PegedResultOfLaporanBwiByNegeriDto.fromJS(resultData200);
+            result200 = PagedResultOfLaporanBwiByNegeriDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status === 500) {
@@ -3082,7 +3082,7 @@ export class LaporanServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<PegedResultOfLaporanBwiByNegeriDto>(<any>null);
+        return _observableOf<PagedResultOfLaporanBwiByNegeriDto>(<any>null);
     }
 
     /**
@@ -25020,6 +25020,7 @@ export class GetBwiByNegeriDto implements IGetBwiByNegeriDto {
     jumlah!: number;
     jumlah_dipulangkan!: number;
     jumlah_diagihkan!: number;
+    tarikh_cipta!: moment.Moment;
 
     constructor(data?: IGetBwiByNegeriDto) {
         if (data) {
@@ -25037,6 +25038,7 @@ export class GetBwiByNegeriDto implements IGetBwiByNegeriDto {
             this.jumlah = _data["jumlah"];
             this.jumlah_dipulangkan = _data["jumlah_dipulangkan"];
             this.jumlah_diagihkan = _data["jumlah_diagihkan"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
         }
     }
 
@@ -25054,6 +25056,7 @@ export class GetBwiByNegeriDto implements IGetBwiByNegeriDto {
         data["jumlah"] = this.jumlah;
         data["jumlah_dipulangkan"] = this.jumlah_dipulangkan;
         data["jumlah_diagihkan"] = this.jumlah_diagihkan;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         return data; 
     }
 }
@@ -25065,6 +25068,7 @@ export interface IGetBwiByNegeriDto {
     jumlah: number;
     jumlah_dipulangkan: number;
     jumlah_diagihkan: number;
+    tarikh_cipta: moment.Moment;
 }
 
 /** Class GetLaporanBayaranTerusDto */
@@ -25162,6 +25166,7 @@ export class GetLaporanBwiBencanaKirDto implements IGetLaporanBwiBencanaKirDto {
     jumlah_peruntukan!: number;
     jumlah_dipulangkan!: number;
     jumlah_diagihkan!: number;
+    tarikh_bencana!: moment.Moment;
 
     constructor(data?: IGetLaporanBwiBencanaKirDto) {
         if (data) {
@@ -25181,6 +25186,7 @@ export class GetLaporanBwiBencanaKirDto implements IGetLaporanBwiBencanaKirDto {
             this.jumlah_peruntukan = _data["jumlah_peruntukan"];
             this.jumlah_dipulangkan = _data["jumlah_dipulangkan"];
             this.jumlah_diagihkan = _data["jumlah_diagihkan"];
+            this.tarikh_bencana = _data["tarikh_bencana"] ? moment(_data["tarikh_bencana"].toString()) : <any>undefined;
         }
     }
 
@@ -25200,6 +25206,7 @@ export class GetLaporanBwiBencanaKirDto implements IGetLaporanBwiBencanaKirDto {
         data["jumlah_peruntukan"] = this.jumlah_peruntukan;
         data["jumlah_dipulangkan"] = this.jumlah_dipulangkan;
         data["jumlah_diagihkan"] = this.jumlah_diagihkan;
+        data["tarikh_bencana"] = this.tarikh_bencana ? this.tarikh_bencana.toISOString() : <any>undefined;
         return data; 
     }
 }
@@ -25213,6 +25220,7 @@ export interface IGetLaporanBwiBencanaKirDto {
     jumlah_peruntukan: number;
     jumlah_dipulangkan: number;
     jumlah_diagihkan: number;
+    tarikh_bencana: moment.Moment;
 }
 
 /** Class GetLaporanBwiDto */
@@ -25350,6 +25358,7 @@ export class GetLaporanBwiKematianDto implements IGetLaporanBwiKematianDto {
     catatan!: string;
     bil_kir!: number;
     jumlah!: number;
+    tarikh_cipta!: moment.Moment;
 
     constructor(data?: IGetLaporanBwiKematianDto) {
         if (data) {
@@ -25369,6 +25378,7 @@ export class GetLaporanBwiKematianDto implements IGetLaporanBwiKematianDto {
             this.catatan = _data["catatan"];
             this.bil_kir = _data["bil_kir"];
             this.jumlah = _data["jumlah"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
         }
     }
 
@@ -25388,6 +25398,7 @@ export class GetLaporanBwiKematianDto implements IGetLaporanBwiKematianDto {
         data["catatan"] = this.catatan;
         data["bil_kir"] = this.bil_kir;
         data["jumlah"] = this.jumlah;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         return data; 
     }
 }
@@ -25401,6 +25412,7 @@ export interface IGetLaporanBwiKematianDto {
     catatan: string;
     bil_kir: number;
     jumlah: number;
+    tarikh_cipta: moment.Moment;
 }
 
 /** Class GetLaporanKelulusanDto */
@@ -25775,6 +25787,7 @@ export class GetMangsaBantuanAntarabangsaLaporanDto implements IGetMangsaBantuan
     tarikh_bantuan!: moment.Moment;
     kos_bantuan!: string;
     catatan!: string;
+    tarikh_cipta!: moment.Moment;
 
     constructor(data?: IGetMangsaBantuanAntarabangsaLaporanDto) {
         if (data) {
@@ -25799,6 +25812,7 @@ export class GetMangsaBantuanAntarabangsaLaporanDto implements IGetMangsaBantuan
             this.tarikh_bantuan = _data["tarikh_bantuan"] ? moment(_data["tarikh_bantuan"].toString()) : <any>undefined;
             this.kos_bantuan = _data["kos_bantuan"];
             this.catatan = _data["catatan"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
         }
     }
 
@@ -25823,6 +25837,7 @@ export class GetMangsaBantuanAntarabangsaLaporanDto implements IGetMangsaBantuan
         data["tarikh_bantuan"] = this.tarikh_bantuan ? this.tarikh_bantuan.toISOString() : <any>undefined;
         data["kos_bantuan"] = this.kos_bantuan;
         data["catatan"] = this.catatan;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         return data; 
     }
 }
@@ -25841,6 +25856,7 @@ export interface IGetMangsaBantuanAntarabangsaLaporanDto {
     tarikh_bantuan: moment.Moment;
     kos_bantuan: string;
     catatan: string;
+    tarikh_cipta: moment.Moment;
 }
 
 /** Class GetMangsaBantuanLainLaporanDto */
@@ -25859,6 +25875,7 @@ export class GetMangsaBantuanLainLaporanDto implements IGetMangsaBantuanLainLapo
     tarikh_bantuan!: moment.Moment;
     kos_bantuan!: string;
     catatan!: string;
+    tarikh_cipta!: moment.Moment;
 
     constructor(data?: IGetMangsaBantuanLainLaporanDto) {
         if (data) {
@@ -25885,6 +25902,7 @@ export class GetMangsaBantuanLainLaporanDto implements IGetMangsaBantuanLainLapo
             this.tarikh_bantuan = _data["tarikh_bantuan"] ? moment(_data["tarikh_bantuan"].toString()) : <any>undefined;
             this.kos_bantuan = _data["kos_bantuan"];
             this.catatan = _data["catatan"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
         }
     }
 
@@ -25911,6 +25929,7 @@ export class GetMangsaBantuanLainLaporanDto implements IGetMangsaBantuanLainLapo
         data["tarikh_bantuan"] = this.tarikh_bantuan ? this.tarikh_bantuan.toISOString() : <any>undefined;
         data["kos_bantuan"] = this.kos_bantuan;
         data["catatan"] = this.catatan;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         return data; 
     }
 }
@@ -25931,6 +25950,7 @@ export interface IGetMangsaBantuanLainLaporanDto {
     tarikh_bantuan: moment.Moment;
     kos_bantuan: string;
     catatan: string;
+    tarikh_cipta: moment.Moment;
 }
 
 /** Class GetMangsaBantuanPertanianLaporanDto */
@@ -25953,6 +25973,7 @@ export class GetMangsaBantuanPertanianLaporanDto implements IGetMangsaBantuanPer
     tarikh_bantuan!: moment.Moment;
     kos_bantuan!: number;
     catatan!: string;
+    tarikh_cipta!: moment.Moment;
 
     constructor(data?: IGetMangsaBantuanPertanianLaporanDto) {
         if (data) {
@@ -25983,6 +26004,7 @@ export class GetMangsaBantuanPertanianLaporanDto implements IGetMangsaBantuanPer
             this.tarikh_bantuan = _data["tarikh_bantuan"] ? moment(_data["tarikh_bantuan"].toString()) : <any>undefined;
             this.kos_bantuan = _data["kos_bantuan"];
             this.catatan = _data["catatan"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
         }
     }
 
@@ -26013,6 +26035,7 @@ export class GetMangsaBantuanPertanianLaporanDto implements IGetMangsaBantuanPer
         data["tarikh_bantuan"] = this.tarikh_bantuan ? this.tarikh_bantuan.toISOString() : <any>undefined;
         data["kos_bantuan"] = this.kos_bantuan;
         data["catatan"] = this.catatan;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         return data; 
     }
 }
@@ -26037,6 +26060,7 @@ export interface IGetMangsaBantuanPertanianLaporanDto {
     tarikh_bantuan: moment.Moment;
     kos_bantuan: number;
     catatan: string;
+    tarikh_cipta: moment.Moment;
 }
 
 /** Class GetMangsaBantuanPinjamanLaporanDto */
@@ -26053,6 +26077,7 @@ export class GetMangsaBantuanPinjamanLaporanDto implements IGetMangsaBantuanPinj
     tarikh_mula!: moment.Moment;
     tempoh_pinjaman!: string;
     jumlah_pinjaman!: string;
+    tarikh_cipta!: moment.Moment;
 
     constructor(data?: IGetMangsaBantuanPinjamanLaporanDto) {
         if (data) {
@@ -26077,6 +26102,7 @@ export class GetMangsaBantuanPinjamanLaporanDto implements IGetMangsaBantuanPinj
             this.tarikh_mula = _data["tarikh_mula"] ? moment(_data["tarikh_mula"].toString()) : <any>undefined;
             this.tempoh_pinjaman = _data["tempoh_pinjaman"];
             this.jumlah_pinjaman = _data["jumlah_pinjaman"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
         }
     }
 
@@ -26101,6 +26127,7 @@ export class GetMangsaBantuanPinjamanLaporanDto implements IGetMangsaBantuanPinj
         data["tarikh_mula"] = this.tarikh_mula ? this.tarikh_mula.toISOString() : <any>undefined;
         data["tempoh_pinjaman"] = this.tempoh_pinjaman;
         data["jumlah_pinjaman"] = this.jumlah_pinjaman;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         return data; 
     }
 }
@@ -26119,6 +26146,7 @@ export interface IGetMangsaBantuanPinjamanLaporanDto {
     tarikh_mula: moment.Moment;
     tempoh_pinjaman: string;
     jumlah_pinjaman: string;
+    tarikh_cipta: moment.Moment;
 }
 
 /** Class GetMangsaBantuanRumahLaporanDto */
@@ -26139,6 +26167,7 @@ export class GetMangsaBantuanRumahLaporanDto implements IGetMangsaBantuanRumahLa
     status_kemajuan!: string;
     kos_anggaran!: string;
     kos_sebenar!: string;
+    tarikh_cipta!: moment.Moment;
 
     constructor(data?: IGetMangsaBantuanRumahLaporanDto) {
         if (data) {
@@ -26167,6 +26196,7 @@ export class GetMangsaBantuanRumahLaporanDto implements IGetMangsaBantuanRumahLa
             this.status_kemajuan = _data["status_kemajuan"];
             this.kos_anggaran = _data["kos_anggaran"];
             this.kos_sebenar = _data["kos_sebenar"];
+            this.tarikh_cipta = _data["tarikh_cipta"] ? moment(_data["tarikh_cipta"].toString()) : <any>undefined;
         }
     }
 
@@ -26195,6 +26225,7 @@ export class GetMangsaBantuanRumahLaporanDto implements IGetMangsaBantuanRumahLa
         data["status_kemajuan"] = this.status_kemajuan;
         data["kos_anggaran"] = this.kos_anggaran;
         data["kos_sebenar"] = this.kos_sebenar;
+        data["tarikh_cipta"] = this.tarikh_cipta ? this.tarikh_cipta.toISOString() : <any>undefined;
         return data; 
     }
 }
@@ -26217,6 +26248,7 @@ export interface IGetMangsaBantuanRumahLaporanDto {
     status_kemajuan: string;
     kos_anggaran: string;
     kos_sebenar: string;
+    tarikh_cipta: moment.Moment;
 }
 
 /** Class GetMangsaBantuanWangIhsanLaporanDto */
@@ -26709,6 +26741,84 @@ export interface IPagedResultOfLaporanBwiBencanaKirDto {
     total_diagihkan: number;
     /** Items in array of object */
     items: GetLaporanBwiBencanaKirDto[];
+}
+
+/** Mangsa List in Tabular model */
+export class PagedResultOfLaporanBwiByNegeriDto implements IPagedResultOfLaporanBwiByNegeriDto {
+    /** Total Count */
+    total_count!: number;
+    /** Total Kir */
+    total_kir!: number;
+    /** Total Jumlah */
+    total_jumlah!: number;
+    /** Total Dipulangkan */
+    total_dipulangkan!: number;
+    /** Total Diagihkan */
+    total_diagihkan!: number;
+    /** Items in array of object */
+    items!: GetBwiByNegeriDto[];
+
+    constructor(data?: IPagedResultOfLaporanBwiByNegeriDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.total_count = _data["total_count"];
+            this.total_kir = _data["total_kir"];
+            this.total_jumlah = _data["total_jumlah"];
+            this.total_dipulangkan = _data["total_dipulangkan"];
+            this.total_diagihkan = _data["total_diagihkan"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetBwiByNegeriDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultOfLaporanBwiByNegeriDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultOfLaporanBwiByNegeriDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["total_count"] = this.total_count;
+        data["total_kir"] = this.total_kir;
+        data["total_jumlah"] = this.total_jumlah;
+        data["total_dipulangkan"] = this.total_dipulangkan;
+        data["total_diagihkan"] = this.total_diagihkan;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+/** Mangsa List in Tabular model */
+export interface IPagedResultOfLaporanBwiByNegeriDto {
+    /** Total Count */
+    total_count: number;
+    /** Total Kir */
+    total_kir: number;
+    /** Total Jumlah */
+    total_jumlah: number;
+    /** Total Dipulangkan */
+    total_dipulangkan: number;
+    /** Total Diagihkan */
+    total_diagihkan: number;
+    /** Items in array of object */
+    items: GetBwiByNegeriDto[];
 }
 
 /** Mangsa List in Tabular model */
@@ -27583,84 +27693,6 @@ export class PagedResultOfRingkasanLaporanBwiByNegeriDto implements IPagedResult
 export interface IPagedResultOfRingkasanLaporanBwiByNegeriDto {
     /** Items in array of object */
     items: GetRingkasanLaporanBwiByNegeriDto[];
-}
-
-/** Mangsa List in Tabular model */
-export class PegedResultOfLaporanBwiByNegeriDto implements IPegedResultOfLaporanBwiByNegeriDto {
-    /** Total Count */
-    total_count!: number;
-    /** Total Kir */
-    total_kir!: number;
-    /** Total Jumlah */
-    total_jumlah!: number;
-    /** Total Dipulangkan */
-    total_dipulangkan!: number;
-    /** Total Diagihkan */
-    total_diagihkan!: number;
-    /** Items in array of object */
-    items!: GetBwiByNegeriDto[];
-
-    constructor(data?: IPegedResultOfLaporanBwiByNegeriDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.total_count = _data["total_count"];
-            this.total_kir = _data["total_kir"];
-            this.total_jumlah = _data["total_jumlah"];
-            this.total_dipulangkan = _data["total_dipulangkan"];
-            this.total_diagihkan = _data["total_diagihkan"];
-            if (Array.isArray(_data["items"])) {
-                this.items = [] as any;
-                for (let item of _data["items"])
-                    this.items!.push(GetBwiByNegeriDto.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): PegedResultOfLaporanBwiByNegeriDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new PegedResultOfLaporanBwiByNegeriDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["total_count"] = this.total_count;
-        data["total_kir"] = this.total_kir;
-        data["total_jumlah"] = this.total_jumlah;
-        data["total_dipulangkan"] = this.total_dipulangkan;
-        data["total_diagihkan"] = this.total_diagihkan;
-        if (Array.isArray(this.items)) {
-            data["items"] = [];
-            for (let item of this.items)
-                data["items"].push(item.toJSON());
-        }
-        return data; 
-    }
-}
-
-/** Mangsa List in Tabular model */
-export interface IPegedResultOfLaporanBwiByNegeriDto {
-    /** Total Count */
-    total_count: number;
-    /** Total Kir */
-    total_kir: number;
-    /** Total Jumlah */
-    total_jumlah: number;
-    /** Total Dipulangkan */
-    total_dipulangkan: number;
-    /** Total Diagihkan */
-    total_diagihkan: number;
-    /** Items in array of object */
-    items: GetBwiByNegeriDto[];
 }
 
 /** Class TotalSumberDanaRumahForViewDto */

@@ -75,7 +75,7 @@
 
                         <div class="col-lg-4">
                           <div class="form-group">
-                            <label>Tahun</label>
+                            <label>Tahun Bencana</label>
                             <ng-select
                               [items]="arrayYear"
                               bindLabel="years"
@@ -158,6 +158,10 @@
 											Jumlah Diagihkan
 											<p-sortIcon field="jumlah_diagihkan"></p-sortIcon>
 										</th>
+                    <th style="width: 150px" pSortableColumn="tarikh_bencana">
+											Tarikh Bencana
+											<p-sortIcon field="tarikh_bencana"></p-sortIcon>
+										</th>
 									</tr>
 								</ng-template>
 								<ng-template pTemplate="body" let-record="$implicit">
@@ -189,6 +193,10 @@
 											<span class="p-column-title">Jumlah Diagihkan</span>
                       <label *ngIf="record.jumlah_diagihkan">RM {{record.jumlah_diagihkan | number: '1.2-2'}}</label>
                       <label *ngIf="!record.jumlah_diagihkan">RM 0.00</label>
+										</td>
+                    <td style="width: 150px">
+											<span class="p-column-title">Tarikh Bencana</span>
+											{{record.tarikh_bencana | date:'dd-MM-yyyy'}}
 										</td>
 									</tr>
 								</ng-template>
