@@ -4,7 +4,7 @@
 			<div class="col-lg-6">
 				<div class="form-group">
 					<label>Nama KIR : <span class="pr-1"></span></label>
-          <a>{{nama}}</a>
+          <a>{{nama | titlecase}}</a>
 				</div>
 			</div>
 			<div class="col-lg-6">
@@ -86,7 +86,7 @@
               </td>
               <td style="width: 130px">
                 <span class="p-column-title">Bencana</span>
-                {{record.nama_bencana}}
+                {{record.nama_bencana | titlecase}}
               </td>
               <td style="width: 130px">
                 <span class="p-column-title">Status Pindah</span>

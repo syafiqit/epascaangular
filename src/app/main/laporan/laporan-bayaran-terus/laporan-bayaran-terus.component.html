@@ -202,9 +202,9 @@
 										</td>
 										<td style="width: 175px">
 											<span class="p-column-title">Kategori Penerima</span>
-											<label *ngIf="record.nama_negeri">{{kategori_negeri}}</label>
-											<label *ngIf="record.nama_agensi">{{kategori_agensi}}</label>
-											<label *ngIf="record.nama_kementerian">{{kategori_kementerian}}</label>
+											<label *ngIf="record.nama_negeri">{{kategori_negeri | titlecase}}</label>
+											<label *ngIf="record.nama_agensi">{{kategori_agensi | titlecase}}</label>
+											<label *ngIf="record.nama_kementerian">{{kategori_kementerian | titlecase}}</label>
 										</td>
 										<td style="width: 150px">
 											<span class="p-column-title">Negeri</span>
@@ -212,7 +212,7 @@
 										</td>
 										<td style="width: 150px">
 											<span class="p-column-title">Penerima</span>
-											{{record.penerima}}
+											{{record.penerima | titlecase}}
 										</td>
 										<td style="width: 166px">
 											<span class="p-column-title">Kategori Bayaran</span>
