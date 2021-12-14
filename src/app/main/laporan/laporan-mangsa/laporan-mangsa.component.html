@@ -190,7 +190,7 @@
 									<tr>
 										<td style="width: 170px">
 											<span class="p-column-title">Nama Mangsa (KIR)</span>
-											{{record.nama}}
+											{{record.nama | titlecase}}
 										</td>
 										<td style="width: 110px">
 											<span class="p-column-title">Kad Pengenalan</span>
@@ -198,15 +198,15 @@
 										</td>
                     <td style="width: 110px">
 											<span class="p-column-title">Negeri</span>
-											{{record.nama_negeri}}
+											{{record.nama_negeri | titlecase}}
 										</td>
 										<td style="width: 130px">
 											<span class="p-column-title">Kementerian</span>
-											{{record.nama_kementerian}}
+											{{record.nama_kementerian | titlecase}}
 										</td>
 										<td style="width: 160px">
 											<span class="p-column-title">Agensi</span>
-											{{record.nama_agensi}}
+											{{record.nama_agensi | titlecase}}
 										</td>
 										<td style="width: 100px">
 											<span class="p-column-title">Tarikh Daftar</span>

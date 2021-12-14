@@ -159,7 +159,7 @@
 									<tr>
 										<td style="width: 170px">
 											<span class="p-column-title">Nama Mangsa (KIR)</span>
-											{{record.nama}}
+											{{record.nama | titlecase}}
 										</td>
 										<td style="width: 150px">
 											<span class="p-column-title">Kad Pengenalan</span>
@@ -167,19 +167,19 @@
 										</td>
 										<td style="width: 160px">
 											<span class="p-column-title">Alamat 1</span>
-											{{record.alamat_1}}
+											{{record.alamat_1 | titlecase}}
 										</td>
 										<td style="width: 160px">
 											<span class="p-column-title">Alamat 2</span>
-                      {{record.alamat_2? record.alamat_2: '-'}}
+                      {{record.alamat_2? record.alamat_2: '-' | titlecase}}
 										</td>
 										<td style="width: 120px">
 											<span class="p-column-title">Daerah</span>
-											{{record.nama_daerah}}
+											{{record.nama_daerah | titlecase}}
 										</td>
 										<td style="width: 120px">
 											<span class="p-column-title">Negeri</span>
-											{{record.nama_negeri}}
+											{{record.nama_negeri | titlecase}}
 										</td>
 									</tr>
 								</ng-template>

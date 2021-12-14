@@ -4,7 +4,7 @@
 			<div class="col-lg-6">
 				<div class="form-group">
 					<label>Nama KIR : <span class="pr-1"></span></label>
-          <a>{{nama}}</a>
+          <a>{{nama | titlecase}}</a>
 				</div>
 			</div>
 			<div class="col-lg-6">
@@ -72,7 +72,7 @@
               </td>
               <td style="width: 150px">
                 <span class="p-column-title">Nama Ahli Isi Rumah</span>
-                {{record.nama}}
+                {{record.nama | titlecase}}
               </td>
               <td style="width: 100px">
                 <span class="p-column-title">Tarikh Lahir</span>
@@ -86,7 +86,7 @@
               </td>
               <td style="width: 100px">
                 <span class="p-column-title">Hubungan</span>
-                {{record.nama_hubungan}}
+                {{record.nama_hubungan | titlecase}}
               </td>
               <td style="width: 130px">
                 <div ngbDropdown class="btn-group" role="group" container="body">
