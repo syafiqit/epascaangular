@@ -7,6 +7,7 @@ import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import {
   RefDaerahServiceProxy,
   RefJenisBencanaServiceProxy,
+  RefJenisBwiServiceProxy,
   RefNegeriServiceProxy,
   TabungBwiServiceProxy
 } from 'src/app/shared/proxy/service-proxies';
@@ -48,7 +49,7 @@ export class WangIhsanComponent implements OnInit {
 	constructor(
     config: NgbModalConfig,
      private tabungBwiServiceProxy: TabungBwiServiceProxy,
-     private _refJenisBencanaServiceProxy: RefJenisBencanaServiceProxy,
+     private _refJenisBwiServiceProxy: RefJenisBwiServiceProxy,
      private _refDaerahServiceProxy: RefDaerahServiceProxy,
      private _refNegeriServiceProxy: RefNegeriServiceProxy,
      public _appSession: AppSessionService,
@@ -122,7 +123,7 @@ export class WangIhsanComponent implements OnInit {
   }
 
   getJenisBencana(filter?) {
-		this._refJenisBencanaServiceProxy.getRefJenisBencanaForDropdown(filter).subscribe((result) => {
+		this._refJenisBwiServiceProxy.getRefJenisBwiForDropdown(filter).subscribe((result) => {
 			this.jenisBencana = result.items;
 		});
 	}
@@ -143,7 +144,7 @@ export class WangIhsanComponent implements OnInit {
     this.filter = undefined;
     this.filterDaerah = undefined;
     this.filterNegeri = undefined;
-    this.filterJenisBencana = undefined;
+    this.filterJenisBwi = undefined;
     this.tarikhMula = undefined;
     this.tarikhTamat = undefined;
     this.filterFromDate = undefined;
