@@ -34,6 +34,7 @@ import { NgbDateCustomParserFormatter } from '@app/shared/date-parser/NgbDateCus
 import { EditMultipleBantuanWangIhsanComponent } from './edit-multiple-bantuan-wang-ihsan/edit-multiple-bantuan-wang-ihsan.component';
 import { CreateMultipleBencanaComponent } from './create-multiple-bencana/create-multiple-bencana.component';
 import { NgxCurrencyModule } from 'ngx-currency';
+import { ImportBulkUploadComponent } from './import-bulk-upload/import-bulk-upload.component';
 
 @NgModule({
 	imports: [
@@ -71,7 +72,8 @@ import { NgxCurrencyModule } from 'ngx-currency';
     LookupBencanaComponent,
     SelectBencanaComponent,
     EditMultipleBantuanWangIhsanComponent,
-    CreateMultipleBencanaComponent
+    CreateMultipleBencanaComponent,
+    ImportBulkUploadComponent
 	],
 	providers: [
 		{provide: NgbDateParserFormatter, useClass: NgbDateCustomParserFormatter}

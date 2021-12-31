@@ -1,0 +1,31 @@
+<div class="modal-header">
+	<h5 class="modal-title">Import Pukal Excel</h5>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.close('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+<form class="form theme-form" name="form" #f="ngForm" focusInvalidInput (ngSubmit)="f.form.valid && sizeImage != null && saveFail()">
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="form-group">
+          <label>Import Excel*</label>
+          <input
+            (change)="onSelect($event)"
+            class="form-control"
+            type="file"
+            [ngClass]="{ 'is-invalid': f.submitted && sizeImage == null }"
+            required
+          />
+          <div *ngIf="f.submitted && sizeImage == null" class="invalid-feedback">
+            Excel Wajib Dimuatnaik
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="activeModal.close(false)">Tutup</button>
+    <button type="submit" class="btn btn-primary">Simpan</button>
+  </div>
+</form>
