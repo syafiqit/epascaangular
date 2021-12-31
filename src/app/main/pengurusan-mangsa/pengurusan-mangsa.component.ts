@@ -17,6 +17,8 @@ import { EditMultipleBantuanWangIhsanComponent } from './edit-multiple-bantuan-w
 import { AppSessionService } from '@app/shared/services/app-session.service';
 import { CreateMultipleBencanaComponent } from './create-multiple-bencana/create-multiple-bencana.component';
 import { ConfirmationService } from '@services/confirmation';
+import { environment } from 'src/environments/environment';
+import { ImportBulkUploadComponent } from './import-bulk-upload/import-bulk-upload.component';
 
 @Component({
 	selector: 'app-pengurusan-mangsa',
@@ -49,6 +51,7 @@ export class PengurusanMangsaComponent implements OnInit {
 	public isCollapsed = false;
   states: any;
   agencies: any;
+  templatUrl = environment.apiUrl + '/storage/excel/template/import-mangsa.xlsx';
 
   mangsa: MangsaVerifikasiDto = new MangsaVerifikasiDto();
   output: OutputCreateEditMangsaDto = new OutputCreateEditMangsaDto();
@@ -462,4 +465,17 @@ export class PengurusanMangsaComponent implements OnInit {
       dismissible: true
     });
   }
+
+  exportTemplat(){
+    window.open(this.templatUrl);
+  }
+
+  addExcelModal() {
+		const modalRef = this.modalService.open(ImportBulkUploadComponent, { size: 'md' });
+    modalRef.componentInstance.name = 'add';
+    modalRef.result.then((response) => {
+      if (response) {
+      }
+    });
+	}
 }
