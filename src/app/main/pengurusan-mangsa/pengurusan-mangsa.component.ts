@@ -475,6 +475,7 @@ export class PengurusanMangsaComponent implements OnInit {
     modalRef.componentInstance.name = 'add';
     modalRef.result.then((response) => {
       if (response) {
+        this.ngOnInit();
       }
     });
 	}
