@@ -42,11 +42,11 @@
 					</button>
 					<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
 					  <button
-						class="dropdown-item"
+						class="dropdown-item border-bottom border-1"
 						[routerLink]="['/app/mangsa/tambah']">Manual
 					  </button>
-            <button class="dropdown-item" (click)="exportTemplat()">Export Templat</button>
-					  <button class="dropdown-item" (click)="addExcelModal()">Import Pukal</button>
+					  <button class="dropdown-item" (click)="addExcelModal()">Muat naik Pukal</button>
+            <button class="dropdown-item" (click)="exportTemplat()">Muat turun Templat</button>
 					</div>
 				  </div>
 				  <div ngbDropdown class="btn-group pull-right mr-1" role="group" *ngIf="_appSession.isGranted('Halaman.Mangsa.Edit')">
