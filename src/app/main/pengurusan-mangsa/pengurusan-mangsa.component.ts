@@ -478,7 +478,9 @@ export class PengurusanMangsaComponent implements OnInit {
     modalRef.componentInstance.name = 'add';
     modalRef.result.then((response) => {
       if (response) {
-        this.getVictim();
+        setTimeout(() => {
+          this.getVictim();
+       }, 2000);
       }
     });
 	}
