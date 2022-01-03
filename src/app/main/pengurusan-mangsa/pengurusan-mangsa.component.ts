@@ -73,7 +73,7 @@ export class PengurusanMangsaComponent implements OnInit {
 	ngOnInit(): void {
     this.getNegeri();
     this.getAgensi();
-	this.idMangsa = [];
+	  this.idMangsa = [];
 
     this.terms$.pipe(
       debounceTime(500), distinctUntilChanged()
@@ -82,19 +82,7 @@ export class PengurusanMangsaComponent implements OnInit {
       this.getVictim();
     });
 
-	this._mangsaServiceProxy
-		.getMangsaForDropdown(
-			this.filter,
-			this.filterNegeri ?? undefined,
-			this.filterAgensi ?? undefined,
-			this.filterFromDate ?? undefined,
-			this.filterToDate ?? undefined,
-			).subscribe((result)=>{
-			this.allMangsa = result.items.map((data)=>{
-				return data.id;
-			});
-		});
-
+    this.getAllVictim();
   }
 
   applyFilter(filterValue: string){
@@ -148,6 +136,21 @@ export class PengurusanMangsaComponent implements OnInit {
 					});
 			});
 	}
+
+  getAllVictim(){
+    this._mangsaServiceProxy
+		.getMangsaForDropdown(
+			this.filter,
+			this.filterNegeri ?? undefined,
+			this.filterAgensi ?? undefined,
+			this.filterFromDate ?? undefined,
+			this.filterToDate ?? undefined,
+			).subscribe((result)=>{
+			this.allMangsa = result.items.map((data)=>{
+				return data.id;
+			});
+		});
+  }
 
   resetFilter() {
     this.filter = undefined;
@@ -475,7 +478,7 @@ export class PengurusanMangsaComponent implements OnInit {
     modalRef.componentInstance.name = 'add';
     modalRef.result.then((response) => {
       if (response) {
-        this.ngOnInit();
+        this.getVictim();
       }
     });
 	}
