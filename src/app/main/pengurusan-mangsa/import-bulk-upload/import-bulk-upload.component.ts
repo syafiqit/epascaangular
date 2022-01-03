@@ -87,7 +87,6 @@ export class ImportBulkUploadComponent implements OnInit {
 
     this.httpClient.post<any>(this.serverUrl, formData).subscribe((res) => {
       this.response = res;
-      console.log(this.response);
       this.success();
     });
   }
