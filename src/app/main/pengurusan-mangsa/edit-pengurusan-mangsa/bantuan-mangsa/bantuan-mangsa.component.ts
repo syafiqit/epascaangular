@@ -6,6 +6,7 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 @Component({
 	selector: 'app-bantuan-mangsa',
 	templateUrl: './bantuan-mangsa.component.html',
+  styleUrls: ['./bantuan-mangsa.component.scss'],
 	encapsulation: ViewEncapsulation.None,
 	providers: [NgbModalConfig, NgbModal]
 })
