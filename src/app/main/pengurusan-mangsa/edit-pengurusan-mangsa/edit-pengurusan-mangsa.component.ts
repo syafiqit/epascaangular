@@ -5,7 +5,8 @@ import { AppSessionService } from '@app/shared/services/app-session.service';
 
 @Component({
 	selector: 'app-edit-pengurusan-mangsa',
-	templateUrl: './edit-pengurusan-mangsa.component.html'
+	templateUrl: './edit-pengurusan-mangsa.component.html',
+  styleUrls: ['./edit-pengurusan-mangsa.component.scss']
 })
 export class EditPengurusanMangsaComponent implements OnInit {
   getMangsa: GetMangsaForEditDto = new GetMangsaForEditDto();

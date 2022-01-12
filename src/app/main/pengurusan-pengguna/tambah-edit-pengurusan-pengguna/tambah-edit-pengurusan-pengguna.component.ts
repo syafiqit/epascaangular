@@ -27,6 +27,7 @@ import { ConfirmationService } from '@app/shared/services/confirmation';
 	selector: 'app-tambah-edit-pengurusan-pengguna',
 	templateUrl: './tambah-edit-pengurusan-pengguna.component.html',
 	encapsulation: ViewEncapsulation.None,
+  styleUrls: ['./tambah-edit-pengurusan-pengguna.component.scss'],
 	providers: [NgbModalConfig],
   animations: [fadeVerticalAnimation]
 })
