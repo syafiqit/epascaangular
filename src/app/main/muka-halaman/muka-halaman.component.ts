@@ -63,7 +63,7 @@ export class MukaHalamanComponent implements OnInit, AfterViewInit {
 	  this.getNegeri();
 	  this.getBencana();
 
-    this.filterYear = 2021;
+    this.filterYear = new Date().getFullYear();
   }
 
 	ngAfterViewInit() {
