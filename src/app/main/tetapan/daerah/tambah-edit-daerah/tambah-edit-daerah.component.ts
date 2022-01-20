@@ -55,7 +55,6 @@ export class TambahEditDaerahComponent implements OnInit {
 
 	save(): void {
 		this.saving = true;
-		this.daerah.id = 1;
 
 		this._refDaerahServiceProxy
 			.createOrEdit(this.daerah)
