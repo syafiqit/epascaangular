@@ -145,7 +145,7 @@
             [readonly]="!_appSession.isGranted('Halaman.Mangsa.BantuanPinjaman.Edit') || !_appSession.isGranted('Halaman.Mangsa.BantuanPinjaman.Tambah')"
           ></ng-select>
           <div *ngIf="f.submitted && namaSektor.invalid" class="invalid-feedback">
-            <div *ngIf="namaSektor.errors.required">Nama Sektor Wajib Dipilih</div>
+            <div *ngIf="namaSektor.errors.required">Sektor Wajib Dipilih</div>
           </div>
         </div>
       </div>

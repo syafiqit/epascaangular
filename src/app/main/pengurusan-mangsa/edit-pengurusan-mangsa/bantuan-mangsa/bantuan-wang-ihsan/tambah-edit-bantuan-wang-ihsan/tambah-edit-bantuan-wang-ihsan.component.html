@@ -26,7 +26,7 @@
             [readonly]="!_appSession.isGranted('Halaman.Mangsa.BWI.Edit') || !_appSession.isGranted('Halaman.Mangsa.BWI.Tambah')"
           ></ng-select>
           <div *ngIf="f.submitted && jenisBwi.invalid" class="invalid-feedback">
-            <div *ngIf="jenisBwi.errors.required">Jenis BWI Wajib Dipilih</div>
+            <div *ngIf="jenisBwi.errors.required">Kategori Wajib Dipilih</div>
           </div>
         </div>
       </div>
@@ -92,7 +92,7 @@
             [readonly]="!_appSession.isGranted('Halaman.Mangsa.BWI.Edit') || !_appSession.isGranted('Halaman.Mangsa.BWI.Tambah')"
           ></ng-select>
           <div *ngIf="f.submitted && namaAgensi.invalid" class="invalid-feedback">
-            <div *ngIf="namaAgensi.errors.required">Nama Agensi Wajib Dipilih</div>
+            <div *ngIf="namaAgensi.errors.required">Agensi Pemberi Bantuan Wajib Dipilih</div>
           </div>
         </div>
       </div>
