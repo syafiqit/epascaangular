@@ -76,6 +76,8 @@ export class TambahPengurusanMangsaComponent implements OnInit {
     this.getDaerah();
     this.getNegeri();
     this.getStatusPindah();
+    this.verify = 0;
+    this.addMangsa.mangsa.status_verifikasi = 0;
   }
 
 	show(): void {

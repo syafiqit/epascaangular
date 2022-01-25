@@ -26,7 +26,7 @@
                     required
                   />
                   <div *ngIf="f.submitted && namaMangsa.invalid" class="invalid-feedback">
-                    <div *ngIf="namaMangsa.errors.required">Nama Mangsa Wajib Diisi</div>
+                    <div *ngIf="namaMangsa.errors.required">Nama Wajib Diisi</div>
                   </div>
 								</div>
 							</div>
@@ -116,7 +116,7 @@
                     required
                   />
                   <div *ngIf="f.submitted && alamat1.invalid" class="invalid-feedback">
-                    <div *ngIf="alamat1.errors.required">Alamat 1 Mangsa Wajib Diisi</div>
+                    <div *ngIf="alamat1.errors.required">Alamat 1 Wajib Diisi</div>
                   </div>
 								</div>
 							</div>
@@ -361,13 +361,19 @@
             <h6>Perakuan</h6>
             <div class="row no-gutters">
               <div class="form-group m-checkbox-inline mb-0">
-                <div class="checkbox checkbox-dark mb-2">
-                  <input
-                    id="inline-1"
-                    type="checkbox"
-                    (change)="perakuan($event.target.checked)"
-                  />
-                  <label for="inline-1">Dengan ini saya mengesahkan bahawa maklumat mangsa yang dimasukkan di atas adalah tepat dan benar.</label>
+                <div  [ngClass]="{ 'invalid-border ng-invalid' : f.submitted && this.verify == 0}">
+                  <div class="checkbox checkbox-dark mb-2 ml-2">
+                    <input
+                      id="inline-1"
+                      type="checkbox"
+                      (change)="perakuan($event.target.checked)"
+                      required
+                    />
+                    <label for="inline-1">Dengan ini saya mengesahkan bahawa maklumat mangsa yang dimasukkan di atas adalah tepat dan benar.</label>
+                  </div>
+                </div>
+                <div *ngIf="f.submitted && this.verify == 0" class="invalid-feedback d-block">
+                  Perakuan Wajib Dipilih
                 </div>
 
                 <div class="row no-gutters">

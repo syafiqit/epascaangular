@@ -53,7 +53,7 @@
               [readonly]="!_appSession.isGranted('Halaman.Mangsa.Edit')"
             />
             <div *ngIf="f.submitted && namaMangsa.invalid" class="invalid-feedback">
-              <div *ngIf="namaMangsa.errors.required">Nama Mangsa Wajib Diisi</div>
+              <div *ngIf="namaMangsa.errors.required">Nama Wajib Diisi</div>
             </div>
           </div>
         </div>
@@ -130,7 +130,7 @@
           [readonly]="!_appSession.isGranted('Halaman.Mangsa.Edit')"
         />
         <div *ngIf="f.submitted && alamat1.invalid" class="invalid-feedback">
-          <div *ngIf="alamat1.errors.required">Alamat 1 Mangsa Wajib Diisi</div>
+          <div *ngIf="alamat1.errors.required">Alamat 1 Wajib Diisi</div>
         </div>
       </div>
     </div>
