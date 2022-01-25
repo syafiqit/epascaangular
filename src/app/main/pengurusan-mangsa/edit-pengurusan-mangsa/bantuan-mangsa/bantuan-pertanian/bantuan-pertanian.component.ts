@@ -4,11 +4,12 @@ import { Paginator } from 'primeng/paginator';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
-import { finalize } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { MangsaPertanianServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import { TambahEditBantuanPertanianComponent } from './tambah-edit-bantuan-pertanian/tambah-edit-bantuan-pertanian.component';
 import { AppSessionService } from '@app/shared/services/app-session.service';
 import { ConfirmationService } from '@services/confirmation';
+import { Subject } from 'rxjs';
 
 @Component({
 	selector: 'app-bantuan-pertanian',
@@ -29,6 +30,7 @@ export class BantuanPertanianComponent implements OnInit {
   maxResultCount: number;
   dateDisasters: any;
   totalDisasters: any;
+  terms$ = new Subject<string>();
 
 	constructor(
     config: NgbModalConfig,
@@ -43,6 +45,16 @@ export class BantuanPertanianComponent implements OnInit {
   }
 
 	ngOnInit(): void {
+    this.terms$.pipe(
+      debounceTime(500), distinctUntilChanged()
+    ).subscribe((filterValue: string) =>{
+      this.filter = filterValue;
+      this.getPertanian();
+    });
+  }
+
+  applyFilter(filterValue: string){
+    this.terms$.next(filterValue);
   }
 
   getPertanian(event?: LazyLoadEvent) {

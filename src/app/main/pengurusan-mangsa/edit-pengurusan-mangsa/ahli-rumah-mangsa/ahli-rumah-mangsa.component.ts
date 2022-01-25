@@ -9,9 +9,10 @@ import {
   MangsaAirServiceProxy,
   OutputCreateMangsaAirDto
 } from 'src/app/shared/proxy/service-proxies';
-import { finalize } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { ConfirmationService } from '@services/confirmation';
 import { AppSessionService } from '@app/shared/services/app-session.service';
+import { Subject } from 'rxjs';
 
 @Component({
 	selector: 'app-ahli-rumah-mangsa',
@@ -34,6 +35,7 @@ export class AhliRumahMangsaComponent implements OnInit {
   filter: string;
   mangsaId: any;
   victims: any;
+  terms$ = new Subject<string>();
   output: OutputCreateMangsaAirDto = new OutputCreateMangsaAirDto();
 
 	constructor(
@@ -46,7 +48,18 @@ export class AhliRumahMangsaComponent implements OnInit {
 		this.primengTableHelper = new PrimengTableHelper();
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+    this.terms$.pipe(
+      debounceTime(500), distinctUntilChanged()
+    ).subscribe((filterValue: string) =>{
+      this.filter = filterValue;
+      this.getHousehold();
+    });
+  }
+
+  applyFilter(filterValue: string){
+    this.terms$.next(filterValue);
+  }
 
 	reloadPage(): void {
 		this.paginator.changePage(this.paginator.getPage());
