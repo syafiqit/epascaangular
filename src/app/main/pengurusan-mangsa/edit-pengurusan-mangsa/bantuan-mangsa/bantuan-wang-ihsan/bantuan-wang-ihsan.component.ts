@@ -4,11 +4,12 @@ import { Paginator } from 'primeng/paginator';
 import { PrimengTableHelper } from 'src/app/shared/helpers/PrimengTableHelper';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LazyLoadEvent } from 'primeng/api';
-import { finalize } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, finalize } from 'rxjs/operators';
 import { MangsaWangIhsanServiceProxy } from 'src/app/shared/proxy/service-proxies';
 import { TambahEditBantuanWangIhsanComponent } from './tambah-edit-bantuan-wang-ihsan/tambah-edit-bantuan-wang-ihsan.component';
 import { AppSessionService } from '@app/shared/services/app-session.service';
 import { ConfirmationService } from '@services/confirmation';
+import { Subject } from 'rxjs';
 
 @Component({
 	selector: 'app-bantuan-wang-ihsan',
@@ -30,6 +31,7 @@ export class BantuanWangIhsanComponent implements OnInit {
   dateDisasters: any;
   totalDisasters: any;
   statuses: any;
+  terms$ = new Subject<string>();
 
   status=[
     {id: 1, nama_status: "Belum Dibayar"},
@@ -50,6 +52,16 @@ export class BantuanWangIhsanComponent implements OnInit {
   }
 
 	ngOnInit(): void {
+    this.terms$.pipe(
+      debounceTime(500), distinctUntilChanged()
+    ).subscribe((filterValue: string) =>{
+      this.filter = filterValue;
+      this.getIhsan();
+    });
+  }
+
+  applyFilter(filterValue: string){
+    this.terms$.next(filterValue);
   }
 
   getIhsan(event?: LazyLoadEvent) {
