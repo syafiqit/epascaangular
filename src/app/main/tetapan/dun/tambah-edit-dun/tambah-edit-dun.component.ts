@@ -50,6 +50,15 @@ export class TambahEditDunComponent implements OnInit {
 		});
 	}
 
+  getNegeriParlimen(id?){
+    // if(this.dun.id_negeri){
+    //   this.dun.id_negeri = undefined;
+    // }
+    console.log(this.dun.id_parlimen);
+    console.log(id)
+    this.dun.id_negeri = id.id_negeri;
+  }
+
 	show() {
 		if (!this.id) {
 			this.dun = new CreateOrEditRefDunDto();

@@ -33,12 +33,13 @@
 				<div class="form-group">
 					<label>Parlimen*</label>
 					<ng-select
+            (change)="getNegeriParlimen($event)"
 						[items]="parliament"
 						bindLabel="nama_parlimen"
 						bindValue="id"
 						placeholder="Sila Pilih"
 						class="js-example-placeholder-multiple"
-						name="daerah.id_negeri"
+						name="dun.id_parlimen"
 						[(ngModel)]="dun.id_parlimen"
 						#parlimen="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && parlimen.invalid }"
@@ -61,11 +62,12 @@
 						bindValue="id"
 						placeholder="Sila Pilih"
 						class="js-example-placeholder-multiple"
-						name="daerah.id_negeri"
+						name="dun.id_negeri"
 						[(ngModel)]="dun.id_negeri"
 						#negeri="ngModel"
 						[ngClass]="{ 'is-invalid': f.submitted && negeri.invalid }"
 						required
+            disabled
 					></ng-select>
 					<div *ngIf="f.submitted && negeri.invalid" class="invalid-feedback">
 						<div *ngIf="negeri.errors.required">Negeri Wajib Dipilih</div>
