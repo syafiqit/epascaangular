@@ -75,7 +75,30 @@
 
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label>Status*</label>
+					<label for="dun">Kod</label>
+					<input
+						class="form-control"
+						id="kod"
+						type="text"
+						placeholder="Kod"
+						[(ngModel)]="dun.kod_dun"
+						#kodDun="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && kodDun.invalid }"
+						name="kod_dun"
+						minlength="0"
+						maxlength="250"
+						required
+					/>
+					<div *ngIf="f.submitted && kodDun.invalid" class="invalid-feedback">
+						<div *ngIf="kodDun.errors.required">Kod DUN Wajib Diisi</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    <div class="row">
+      <div class="col-lg-6">
+				<div class="form-group">
+					<label for="status">Status</label>
 					<select
 						class="form-control digits"
 						name="daerah.status_daerah"
@@ -93,7 +116,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+    </div>
 	</div>
 
 	<div class="modal-footer">

@@ -51,9 +51,31 @@
 		</div>
 
 		<div class="row">
+      <div class="col-lg-6">
+				<div class="form-group">
+					<label for="parlimen">Kod Parlimen</label>
+					<input
+						class="form-control"
+						id="kodParlimen"
+						type="text"
+						placeholder="Kod Parlimen"
+						[(ngModel)]="parlimen.kod_parlimen"
+						#kodParlimen="ngModel"
+						[ngClass]="{ 'is-invalid': f.submitted && kodParlimen.invalid }"
+						name="kod_parlimen"
+						minlength="0"
+						maxlength="250"
+						required
+					/>
+					<div *ngIf="f.submitted && kodParlimen.invalid" class="invalid-feedback">
+						<div *ngIf="kodParlimen.errors.required">Kod Parlimen Wajib Diisi</div>
+					</div>
+				</div>
+			</div>
+
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label for="status">Status*</label>
+					<label for="status">Status</label>
 					<select
 						id="status"
 						class="form-control digits"
